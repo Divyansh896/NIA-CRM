@@ -34,5 +34,6 @@ namespace NIA_CRM.Models
         public bool IsVIP { get; set; }
 
         public ICollection<ContactOrganization> ContactOrganizations { get; set; } = new HashSet<ContactOrganization>();
+        public ICollection<Interaction> Interactions { get; set; } = new HashSet<Interaction>();
     }
 }
