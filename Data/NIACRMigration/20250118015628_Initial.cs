@@ -275,7 +275,8 @@ namespace NIA_CRM.Data.NIACRMigration
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_MemberID",
                 table: "Addresses",
-                column: "MemberID");
+                column: "MemberID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cancellations_MemberID",

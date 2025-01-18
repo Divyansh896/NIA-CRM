@@ -20,7 +20,7 @@ namespace NIA_CRM.Models
         public string? OrganizationWeb { get; set; }
 
         public int IndustryID { get; set; }
-        public Industry Industry { get; set; }
+        public Industry? Industry { get; set; }
 
         public ICollection<ContactOrganization> ContactOrganizations { get; set; } = new HashSet<ContactOrganization>();
         public ICollection<Opportunity> Opportunities { get; set; } = new HashSet<Opportunity>();

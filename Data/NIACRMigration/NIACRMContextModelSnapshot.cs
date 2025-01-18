@@ -55,7 +55,8 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MemberID");
+                    b.HasIndex("MemberID")
+                        .IsUnique();
 
                     b.ToTable("Addresses");
                 });
@@ -325,8 +326,8 @@ namespace NIA_CRM.Data.NIACRMigration
             modelBuilder.Entity("NIA_CRM.Models.Address", b =>
                 {
                     b.HasOne("NIA_CRM.Models.Member", "Member")
-                        .WithMany("Addresses")
-                        .HasForeignKey("MemberID")
+                        .WithOne("Address")
+                        .HasForeignKey("NIA_CRM.Models.Address", "MemberID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -467,7 +468,7 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.Member", b =>
                 {
-                    b.Navigation("Addresses");
+                    b.Navigation("Address");
 
                     b.Navigation("Cancellations");
 
@@ -481,8 +482,7 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.Opportunity", b =>
                 {
-                    b.Navigation("Interaction")
-                        .IsRequired();
+                    b.Navigation("Interaction");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Organization", b =>

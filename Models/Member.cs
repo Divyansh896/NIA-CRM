@@ -19,10 +19,13 @@ namespace NIA_CRM.Models
         public StandingStatus StandingStatus { get; set; }
 
         public int OrganizationID { get; set; }
-        public Organization Organization { get; set; }
+        public Organization? Organization { get; set; }
 
         public ICollection<MemberMembershipType> MemberMembershipTypes { get; set; } = new HashSet<MemberMembershipType>();
         public ICollection<Cancellation> Cancellations { get; set; } = new HashSet<Cancellation>();
-        public ICollection<Address> Addresses { get; set; } = new HashSet<Address>();
+        //public ICollection<Address> Addresses { get; set; } = new HashSet<Address>();
+
+        public Address? Address { get; set; }  // Instead of ICollection<Address> Addresses
+
     }
 }

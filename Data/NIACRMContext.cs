@@ -54,9 +54,9 @@ namespace NIA_CRM.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Member>()
-                .HasMany<Address>(d => d.Addresses)
+                .HasOne<Address>(d => d.Address)
                 .WithOne(p => p.Member)
-                .HasForeignKey(p => p.MemberID)
+                .HasForeignKey<Address>(p => p.MemberID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Organization>()

@@ -18,8 +18,8 @@ namespace NIA_CRM.Models
         public OpportunityStatus OpportunityStatus { get; set; }
 
         public int OrganizationID { get; set; }
-        public Organization Organization { get; set; }
+        public Organization? Organization { get; set; }
 
-        public Interaction Interaction { get; set; }
+        public Interaction? Interaction { get; set; }
     }
 }
