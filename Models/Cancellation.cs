@@ -12,6 +12,7 @@ namespace NIA_CRM.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CancellationDate { get; set; }
 
+        public bool Canceled {  get; set; }
         public string? CancellationNote { get; set; }
 
         public int MemberID { get; set; }

@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250118015628_Initial")]
+    [Migration("20250119044153_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -68,6 +68,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Canceled")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CancellationDate")

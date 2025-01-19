@@ -67,6 +67,9 @@ namespace NIA_CRM.Data.NIACRMigration
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("Canceled")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("CancellationDate")
                         .HasColumnType("TEXT");
 

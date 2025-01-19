@@ -199,6 +199,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CancellationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Canceled = table.Column<bool>(type: "INTEGER", nullable: false),
                     CancellationNote = table.Column<string>(type: "TEXT", nullable: true),
                     MemberID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
