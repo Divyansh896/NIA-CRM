@@ -10,23 +10,22 @@ using NIA_CRM.Models;
 
 namespace NIA_CRM.Controllers
 {
-    public class MemberController : Controller
+    public class ContactController : Controller
     {
         private readonly NIACRMContext _context;
 
-        public MemberController(NIACRMContext context)
+        public ContactController(NIACRMContext context)
         {
             _context = context;
         }
 
-        // GET: Member
+        // GET: Contact
         public async Task<IActionResult> Index()
         {
-            var nIACRMContext = _context.Members.Include(m => m.Organization);
-            return View(await nIACRMContext.ToListAsync());
+            return View(await _context.Contacts.ToListAsync());
         }
 
-        // GET: Member/Details/5
+        // GET: Contact/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +33,39 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Members
-                .Include(m => m.Organization)
+            var contact = await _context.Contacts
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (member == null)
+            if (contact == null)
             {
                 return NotFound();
             }
 
-            return View(member);
+            return View(contact);
         }
 
-        // GET: Member/Create
+        // GET: Contact/Create
         public IActionResult Create()
         {
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName");
             return View();
         }
 
-        // POST: Member/Create
+        // POST: Contact/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MemberName,JoinDate,StandingStatus,OrganizationID")] Member member)
+        public async Task<IActionResult> Create([Bind("ID,ContactName,Title,Department,EMail,Phone,LinkedinUrl,IsVIP")] Contact contact)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(member);
+                _context.Add(contact);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName", member.OrganizationID);
-            return View(member);
+            return View(contact);
         }
 
-        // GET: Member/Edit/5
+        // GET: Contact/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,16 +73,15 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Members.FindAsync(id);
-            if (member == null)
+            var contact = await _context.Contacts.FindAsync(id);
+            if (contact == null)
             {
                 return NotFound();
             }
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName", member.OrganizationID);
-            return View(member);
+            return View(contact);
         }
 
-        // POST: Member/Edit/5
+        // POST: Contact/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -94,26 +89,28 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Edit(int id)
         {
 
-            var memberToUpdate = await _context.Members.FirstOrDefaultAsync(m => m.ID == id);
+            var ContactToUpdate = await _context.Contacts.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (memberToUpdate == null)
+
+            if (ContactToUpdate == null)
             {
                 return NotFound();
             }
-            
-            // Try update model approach
 
-            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberName, m => m.JoinDate, m => m.StandingStatus, m => m.OrganizationID))
+            if (await TryUpdateModelAsync<Contact>(ContactToUpdate, "", 
+                c => c.ContactName, c => c.Title, c => c.Department,
+                c => c.EMail, c => c.Phone, c => c.LinkedinUrl, c => c.IsVIP))
             {
                 try
                 {
-                    _context.Update(memberToUpdate);
+                    _context.Update(ContactToUpdate);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MemberExists(memberToUpdate.ID))
+                    if (!ContactExists(ContactToUpdate.ID))
                     {
                         return NotFound();
                     }
@@ -129,14 +126,11 @@ namespace NIA_CRM.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
                     
                 }
-
             }
-
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName", memberToUpdate.OrganizationID);
-            return View(memberToUpdate);
+            return View(ContactToUpdate);
         }
 
-        // GET: Member/Delete/5
+        // GET: Contact/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,35 +138,34 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Members
-                .Include(m => m.Organization)
+            var contact = await _context.Contacts
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (member == null)
+            if (contact == null)
             {
                 return NotFound();
             }
 
-            return View(member);
+            return View(contact);
         }
 
-        // POST: Member/Delete/5
+        // POST: Contact/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var member = await _context.Members.FindAsync(id);
-            if (member != null)
+            var contact = await _context.Contacts.FindAsync(id);
+            if (contact != null)
             {
-                _context.Members.Remove(member);
+                _context.Contacts.Remove(contact);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MemberExists(int id)
+        private bool ContactExists(int id)
         {
-            return _context.Members.Any(e => e.ID == id);
+            return _context.Contacts.Any(e => e.ID == id);
         }
     }
 }

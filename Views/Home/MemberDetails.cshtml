@@ -1,0 +1,62 @@
+﻿@model IEnumerable<dynamic>  
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+<h2>Member Details</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Member Name</th>
+            <th>Organization</th>
+            <th>Industry</th>
+            <th>Address</th>
+            <th>Contact Name</th>
+            <th>Contact Title</th>
+            <th>Contact Department</th>
+            <th>Contact Email</th>
+            <th>Contact Phone</th>
+            <th>LinkedIn</th>
+            <th>VIP Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var member in Model)
+        {
+            <tr>
+                <td>@member.MemberName</td>
+                <td>@member.OrganizationName</td>
+                <td>@member.IndustryName</td>
+                <td>
+                    @member.Address.AddressLineOne
+                    @if (!string.IsNullOrEmpty(member.Address.AddressLineTwo))
+                    {
+                        <br />@member.Address.AddressLineTwo
+                    }
+                    <br />@member.Address.City, @member.Address.StateProvince, @member.Address.PostalCode
+                    <br />@member.Address.Country
+                </td>
+                
+                @if (member.Contacts.Any()) 
+                {
+                    @foreach (var contact in member.Contacts)
+                    {
+                        <td>@contact.ContactName</td>
+                        <td>@contact.Title</td>
+                        <td>@contact.Department</td>
+                        <td>@contact.Email</td>
+                        <td>@contact.Phone</td>
+                        <td>@contact.Linkedin</td>
+                        <td>@(contact.IsVIP ? "Yes" : "No")</td>
+                    }
+                }
+                else
+                {
+                    <td colspan="7">No contacts available</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+

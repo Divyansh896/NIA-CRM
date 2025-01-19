@@ -58,6 +58,21 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
+                name: "productionEmails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    EmailType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Subject = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Body = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_productionEmails", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Organizations",
                 columns: table => new
                 {
@@ -329,6 +344,12 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "IX_Organizations_IndustryID",
                 table: "Organizations",
                 column: "IndustryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_productionEmails_EmailType",
+                table: "productionEmails",
+                column: "EmailType",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -351,6 +372,9 @@ namespace NIA_CRM.Data.NIACRMigration
 
             migrationBuilder.DropTable(
                 name: "OrganizationCodes");
+
+            migrationBuilder.DropTable(
+                name: "productionEmails");
 
             migrationBuilder.DropTable(
                 name: "Contacts");

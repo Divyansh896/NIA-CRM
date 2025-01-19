@@ -25,6 +25,7 @@ namespace NIA_CRM.Data
         public DbSet<OrganizationCode> OrganizationCodes { get; set; }
         public DbSet<MemberMembershipType> MemberMembershipTypes { get; set; }
         public DbSet<ContactOrganization> ContactOrganizations { get; set; }
+        public DbSet<ProductionEmail> productionEmails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -101,6 +102,11 @@ namespace NIA_CRM.Data
               .HasOne<Interaction>(d => d.Interaction)
               .WithOne(p => p.Opportunity)
               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProductionEmail>()
+               .HasIndex(e => e.EmailType)  
+               .IsUnique();
+
         }
     }
 }

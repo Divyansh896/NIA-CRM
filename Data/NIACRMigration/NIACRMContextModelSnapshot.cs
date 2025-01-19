@@ -326,6 +326,34 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.ToTable("OrganizationCodes");
                 });
 
+            modelBuilder.Entity("NIA_CRM.Models.ProductionEmail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EmailType")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmailType")
+                        .IsUnique();
+
+                    b.ToTable("productionEmails");
+                });
+
             modelBuilder.Entity("NIA_CRM.Models.Address", b =>
                 {
                     b.HasOne("NIA_CRM.Models.Member", "Member")
