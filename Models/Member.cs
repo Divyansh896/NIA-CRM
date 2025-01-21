@@ -4,6 +4,20 @@ namespace NIA_CRM.Models
 {
     public class Member
     {
+        [Display(Name = "Time Since Joined")]
+        public string? TimeSinceJoined
+        {
+            get
+            {
+                if (JoinDate == null) { return null; }
+                DateTime today = DateTime.Today;
+                int? years = today.Year - JoinDate?.Year
+                    - ((today.Month < JoinDate?.Month ||
+                        (today.Month == JoinDate?.Month && today.Day < JoinDate?.Day) ? 1 : 0));
+                return years?.ToString() + " year(s) ago";
+            }
+        }
+
         public int ID { get; set; }
 
         [Display(Name = "Member Name")]

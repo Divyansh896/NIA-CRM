@@ -98,7 +98,7 @@ namespace NIA_CRM.Controllers
             }
 
             if (await TryUpdateModelAsync<Contact>(ContactToUpdate, "", 
-                c => c.ContactName, c => c.Title, c => c.Department,
+                c => c.ContactFirstName, c=> c.ContactMiddleName, c=> c.ContactLastName, c => c.Title, c => c.Department,
                 c => c.EMail, c => c.Phone, c => c.LinkedinUrl, c => c.IsVIP))
             {
                 try
