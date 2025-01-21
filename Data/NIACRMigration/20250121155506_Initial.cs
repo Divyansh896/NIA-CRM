@@ -17,7 +17,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ContactName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    ContactFirstName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    ContactMiddleName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    ContactLastName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Title = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     Department = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     EMail = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),

@@ -47,13 +47,16 @@ namespace NIA_CRM.Controllers
                     },
                     Contacts = m.Organization.ContactOrganizations.Select(co => new
                     {
-                        ContactName = co.Contact.ContactName,
+                        ContactFirstName = co.Contact.ContactFirstName,
+                        ContactLastName = co.Contact.ContactLastName,
+                        ContactMiddleName = co.Contact.ContactMiddleName,
                         Title = co.Contact.Title,
                         Department = co.Contact.Department,
                         Email = co.Contact.EMail,
                         Phone = co.Contact.Phone,
                         Linkedin = co.Contact.LinkedinUrl,
-                        IsVIP = co.Contact.IsVIP
+                        IsVIP = co.Contact.IsVIP,
+                        Summary = co.Contact.Summary
                     }).ToList()
                 });
 
@@ -98,8 +101,8 @@ namespace NIA_CRM.Controllers
                     m.IndustryName.Contains(SearchString));
             }
 
-            return View("MemberDetails", memberDetails.ToList());
-            //return View();
+            //return View("MemberDetails", memberDetails.ToList());
+            return View();
         }
 
         public IActionResult Privacy()
