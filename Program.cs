@@ -46,8 +46,8 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    NIAEmailInitializerClass.Initialize(serviceProvider: services, DeleteDatabase: false,
-        UseMigrations: true, SeedSampleData: true);
+    //NIAEmailInitializerClass.Initialize(serviceProvider: services, DeleteDatabase: false,
+    //    UseMigrations: true, SeedSampleData: true);
     NIACRMInitializer.Initialize(serviceProvider: services, DeleteDatabase: true,
         UseMigrations: true, SeedSampleData: true);
 }

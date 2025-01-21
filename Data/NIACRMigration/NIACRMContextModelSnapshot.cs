@@ -351,7 +351,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasIndex("EmailType")
                         .IsUnique();
 
-                    b.ToTable("productionEmails");
+                    b.ToTable("ProductionEmails");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Address", b =>

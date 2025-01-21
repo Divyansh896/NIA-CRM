@@ -98,8 +98,8 @@ namespace NIA_CRM.Controllers
                     m.IndustryName.Contains(SearchString));
             }
 
-            return View("MemberDetails", memberDetails.ToList());
-            //return View();
+            //return View("MemberDetails", memberDetails.ToList());
+            return View();
         }
 
         public IActionResult Privacy()

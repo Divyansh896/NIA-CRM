@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NIA_CRM.Models;
+using System;
 using System.Diagnostics;
 using System.Reflection.Emit;
 
@@ -49,7 +50,7 @@ namespace NIA_CRM.Data
                 #region Seed Required Data
                 try
                 {
-                    if (!context.productionEmails.Any())
+                    if (!context.ProductionEmails.Any())
                     {
                         // Random member names to be used in the email content
                         var randomNames = new List<string>
@@ -58,7 +59,7 @@ namespace NIA_CRM.Data
         };
 
                         // Seeding predefined production email templates with random member names
-                        context.productionEmails.AddRange(
+                        context.ProductionEmails.AddRange(
                              new ProductionEmail
                              {
                                  Id = 1,
@@ -107,7 +108,8 @@ namespace NIA_CRM.Data
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.GetBaseException().Message);
+                    Console.WriteLine("Error: " + ex.Message);
+
                 }
                 #endregion
 

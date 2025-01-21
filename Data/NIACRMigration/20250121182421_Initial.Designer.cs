@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250121003014_Initial")]
+    [Migration("20250121182421_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -354,7 +354,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasIndex("EmailType")
                         .IsUnique();
 
-                    b.ToTable("productionEmails");
+                    b.ToTable("ProductionEmails");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Address", b =>
