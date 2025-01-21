@@ -351,7 +351,9 @@ namespace NIA_CRM.Data
                         context.Contacts.AddRange(
                             new Contact
                             {
-                                ContactName = "John Doe",
+                                ContactFirstName = "John",
+                                ContactMiddleName = "Thomas",
+                                ContactLastName = "Doe",
                                 Title = "Manager",
                                 Department = "Sales",
                                 EMail = "john.doe@example.com",
@@ -361,7 +363,8 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Jane Smith",
+                                ContactFirstName = "Jane",
+                                ContactLastName = "Smith",
                                 Title = "Director",
                                 Department = "Marketing",
                                 EMail = "jane.smith@example.com",
@@ -371,7 +374,8 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Alice Johnson",
+                                ContactFirstName = "Alice",
+                                ContactLastName = "Johnson",
                                 Title = "VP",
                                 Department = "Human Resources",
                                 EMail = "alice.johnson@example.com",
@@ -381,7 +385,9 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Bob Brown",
+                                ContactFirstName = "Bob",
+                                ContactMiddleName = "Joe",
+                                ContactLastName = "Brown",
                                 Title = "Chief Financial Officer",
                                 Department = "Finance",
                                 EMail = "bob.brown@example.com",
@@ -391,7 +397,8 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Charlie Davis",
+                                ContactFirstName = "Charlie",
+                                ContactLastName = "Davis",
                                 Title = "Chief Operating Officer",
                                 Department = "Operations",
                                 EMail = "charlie.davis@example.com",
@@ -401,7 +408,8 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Deborah Williams",
+                                ContactFirstName = "Deborah",
+                                ContactLastName = "Williams",
                                 Title = "Director of Technology",
                                 Department = "Technology",
                                 EMail = "deborah.williams@example.com",
@@ -411,7 +419,9 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Eve Taylor",
+                                ContactFirstName = "Eve",
+                                ContactMiddleName = "Marie",
+                                ContactLastName = "Taylor",
                                 Title = "Marketing Specialist",
                                 Department = "Marketing",
                                 EMail = "eve.taylor@example.com",
@@ -421,7 +431,8 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Frank Harris",
+                                ContactFirstName = "Frank",
+                                ContactLastName = "Harris",
                                 Title = "Senior Engineer",
                                 Department = "Engineering",
                                 EMail = "frank.harris@example.com",
@@ -431,7 +442,8 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Grace King",
+                                ContactFirstName = "Grace",
+                                ContactLastName = "King",
                                 Title = "Business Development Manager",
                                 Department = "Sales",
                                 EMail = "grace.king@example.com",
@@ -441,7 +453,8 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Hank Lee",
+                                ContactFirstName = "Hank",
+                                ContactLastName = "Lee",
                                 Title = "Head of Research",
                                 Department = "Research and Development",
                                 EMail = "hank.lee@example.com",
@@ -451,7 +464,8 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Ivy Adams",
+                                ContactFirstName = "Ivy",
+                                ContactLastName = "Adams",
                                 Title = "Project Manager",
                                 Department = "Operations",
                                 EMail = "ivy.adams@example.com",
@@ -461,7 +475,8 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Jack Scott",
+                                ContactFirstName = "Jack",
+                                ContactLastName = "Scott",
                                 Title = "CEO",
                                 Department = "Executive",
                                 EMail = "jack.scott@example.com",
@@ -471,7 +486,9 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Kathy Morris",
+                                ContactFirstName = "Kathy",
+                                ContactMiddleName = "Elizabeth",
+                                ContactLastName = "Morris",
                                 Title = "HR Specialist",
                                 Department = "Human Resources",
                                 EMail = "kathy.morris@example.com",
@@ -481,7 +498,9 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Louis Walker",
+                                ContactFirstName = "Louis",
+                                ContactMiddleName = "Alexandr",
+                                ContactLastName = "Walker",
                                 Title = "Customer Service Lead",
                                 Department = "Customer Service",
                                 EMail = "louis.walker@example.com",
@@ -491,7 +510,9 @@ namespace NIA_CRM.Data
                             },
                             new Contact
                             {
-                                ContactName = "Mona White",
+                                ContactFirstName = "Mona",
+                                ContactMiddleName = "Grace",
+                                ContactLastName = "White",
                                 Title = "Legal Advisor",
                                 Department = "Legal",
                                 EMail = "mona.white@example.com",

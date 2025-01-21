@@ -10,14 +10,9 @@ using NIA_CRM.Models;
 
 namespace NIA_CRM.Controllers
 {
-    public class ProductionEmailController : Controller
+    public class ProductionEmailController(NIACRMContext context) : Controller
     {
-        private readonly NIACRMContext _context;
-
-        public ProductionEmailController(NIACRMContext context)
-        {
-            _context = context;
-        }
+        private readonly NIACRMContext _context = context;
 
         // GET: ProductionEmail
         public async Task<IActionResult> Index(int? EmailTypeID, string? actionButton,

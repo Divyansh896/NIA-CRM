@@ -77,7 +77,7 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactName", interaction.ContactID);
+            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName", interaction.ContactID);
             ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", interaction.MemberID);
             ViewData["OpportunityID"] = new SelectList(_context.Opportunities, "ID", "OpportunityName", interaction.OpportunityID);
             return View(interaction);
@@ -96,7 +96,7 @@ namespace NIA_CRM.Controllers
             {
                 return NotFound();
             }
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactName", interaction.ContactID);
+            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName", interaction.ContactID);
             ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", interaction.MemberID);
             ViewData["OpportunityID"] = new SelectList(_context.Opportunities, "ID", "OpportunityName", interaction.OpportunityID);
             return View(interaction);
@@ -134,7 +134,7 @@ namespace NIA_CRM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactName", interaction.ContactID);
+            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName", interaction.ContactID);
             ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", interaction.MemberID);
             ViewData["OpportunityID"] = new SelectList(_context.Opportunities, "ID", "OpportunityName", interaction.OpportunityID);
             return View(interaction);
@@ -191,7 +191,7 @@ namespace NIA_CRM.Controllers
                 {
                     i.ID,  // Add the ID
                     i.InteractionNote,
-                    i.Contact.ContactName,
+                    i.Contact.Summary,
                     i.Member.MemberName
                 })
                 .ToListAsync();
