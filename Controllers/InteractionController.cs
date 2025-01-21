@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -23,15 +22,8 @@ namespace NIA_CRM.Controllers
         // GET: Interaction
         public async Task<IActionResult> Index()
         {
-            // Retrieve all interactions with their related entities (Contact, Member, and Opportunity)
-            var interactions = await _context.Interactions
-                .Include(i => i.Contact)
-                .Include(i => i.Member)
-                .Include(i => i.Opportunity)
-                .ToListAsync();
-
-            // Pass the interactions list to the view
-            return View(interactions);
+            var nIACRMContext = _context.Interactions.Include(i => i.Contact).Include(i => i.Member).Include(i => i.Opportunity);
+            return View(await nIACRMContext.ToListAsync());
         }
 
         // GET: Interaction/Details/5
@@ -58,7 +50,7 @@ namespace NIA_CRM.Controllers
         // GET: Interaction/Create
         public IActionResult Create()
         {
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactName");
+            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName");
             ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName");
             ViewData["OpportunityID"] = new SelectList(_context.Opportunities, "ID", "OpportunityName");
             return View();
@@ -180,27 +172,5 @@ namespace NIA_CRM.Controllers
         {
             return _context.Interactions.Any(e => e.ID == id);
         }
-
-
-        public async Task<IActionResult> Notes()
-        {
-            var notes = await _context.Interactions
-                .Include(i => i.Contact)  // Include related Contact
-                .Include(i => i.Member)    // Include related Member
-                .Select(i => new
-                {
-                    i.ID,  // Add the ID
-                    i.InteractionNote,
-                    i.Contact.Summary,
-                    i.Member.MemberName
-                })
-                .ToListAsync();
-
-            return View(notes);  // Passing the anonymous type
-        }
-
-
-
-
     }
 }
