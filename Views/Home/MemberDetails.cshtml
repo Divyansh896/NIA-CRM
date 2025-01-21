@@ -1,4 +1,5 @@
-﻿@model IEnumerable<dynamic>  
+﻿@model IEnumerable<dynamic>
+
 @{
     ViewData["Title"] = "Member Details";
 }
@@ -37,26 +38,35 @@
                     <br />@member.Address.City, @member.Address.StateProvince, @member.Address.PostalCode
                     <br />@member.Address.Country
                 </td>
-                
-                @if (member.Contacts.Any()) 
+                @if (member.Contacts != null && member.Contacts.Count > 0)
                 {
-                    @foreach (var contact in member.Contacts)
-                    {
-                        <td>@contact.ContactName</td>
-                        <td>@contact.Title</td>
-                        <td>@contact.Department</td>
-                        <td>@contact.Email</td>
-                        <td>@contact.Phone</td>
-                        <td>@contact.Linkedin</td>
-                        <td>@(contact.IsVIP ? "Yes" : "No")</td>
-                    }
+                    <td colspan="7">
+                        <table class="table">
+                            @foreach (var contact in member.Contacts)
+                            {
+                                <tr>
+                                    <td>@contact.ContactName</td>
+                                    <td>@contact.Title</td>
+                                    <td>@contact.Department</td>
+                                    <td>@contact.Email</td>
+                                    <td>@contact.Phone</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(contact.Linkedin))
+                                        {
+                                            <a href="@contact.Linkedin" target="_blank">LinkedIn</a>
+                                        }
+                                    </td>
+                                    <td>@(contact.IsVIP ? "Yes" : "No")</td>
+                                </tr>
+                            }
+                        </table>
+                    </td>
                 }
                 else
                 {
-                    <td colspan="7">No contacts available</td>
+                    <td colspan="7">No Contacts Available</td>
                 }
             </tr>
         }
     </tbody>
 </table>
-

@@ -18,26 +18,22 @@ namespace NIA_CRM.Controllers
         }
 
         public IActionResult Index(string? SearchString, int? page, int? pageSizeID,
-    string? actionButton, string sortDirection = "asc", string sortField = "Member Name")
+      string? actionButton, string sortDirection = "asc", string sortField = "Member Name")
         {
-            // List of sort options (make sure they match the column names in the view)
             string[] sortOptions = new[] { "Member Name", "Organization", "Industry" };
-
-            // Default page size if not provided
             int defaultPageSize = 10;
-            int pageSize = pageSizeID ?? defaultPageSize; // Use the page size ID or the default size
-            int pageNumber = page ?? 1; // Default to first page if no page is specified
+            int pageSize = pageSizeID ?? defaultPageSize;
+            int pageNumber = page ?? 1;
 
-            // Query for members with related data (industries, organizations, contacts, addresses)
             var memberDetails = _context.Members
-                .Include(m => m.Organization) // Include organization for each member
-                    .ThenInclude(o => o.Industry) // Include industry related to the organization
-                .Include(m => m.Address) // Include address for each member
-                .Include(m => m.Organization.ContactOrganizations) // Include contact organizations related to the organization
-                    .ThenInclude(co => co.Contact) // Include the contact details for each contact organization
+                .Include(m => m.Organization)
+                    .ThenInclude(o => o.Industry)
+                .Include(m => m.Address)
+                .Include(m => m.Organization.ContactOrganizations)
+                    .ThenInclude(co => co.Contact)
                 .Select(m => new
                 {
-                    MemberName = m.MemberName, // Assuming 'MemberName' is the name property for members
+                    MemberName = m.MemberName,
                     OrganizationName = m.Organization.OrganizationName,
                     IndustryName = m.Organization.Industry.IndustryName,
                     Address = new
@@ -61,22 +57,20 @@ namespace NIA_CRM.Controllers
                     }).ToList()
                 });
 
-            // Before sorting, see if we have called for a change of filtering or sorting
-            if (!String.IsNullOrEmpty(actionButton)) // Form Submitted!
+            if (!String.IsNullOrEmpty(actionButton))
             {
-                pageNumber = 1; // Reset page to start
+                pageNumber = 1;
 
-                if (sortOptions.Contains(actionButton)) // Change of sort is requested
+                if (sortOptions.Contains(actionButton))
                 {
-                    if (actionButton == sortField) // Reverse order on the same field
+                    if (actionButton == sortField)
                     {
                         sortDirection = sortDirection == "asc" ? "desc" : "asc";
                     }
-                    sortField = actionButton; // Sort by the button clicked
+                    sortField = actionButton;
                 }
             }
 
-            // Apply sorting based on the selected field and direction
             if (sortField == "Member Name")
             {
                 memberDetails = sortDirection == "asc"
@@ -96,7 +90,6 @@ namespace NIA_CRM.Controllers
                     : memberDetails.OrderByDescending(m => m.IndustryName);
             }
 
-            // If a search string is provided, filter the results
             if (!string.IsNullOrEmpty(SearchString))
             {
                 memberDetails = memberDetails.Where(m =>
@@ -105,11 +98,8 @@ namespace NIA_CRM.Controllers
                     m.IndustryName.Contains(SearchString));
             }
 
-           
-
-            // Pass the model to the view
-            //return View("MemberDetails", memberDetails);
-            return View();
+            return View("MemberDetails", memberDetails.ToList());
+            //return View();
         }
 
         public IActionResult Privacy()

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<dynamic>  // Using dynamic to handle anonymous type
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Interaction Note</th>
+            <th>Contact Name</th>
+            <th>Member Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.InteractionNote</td>
+                <td>@item.ContactName</td>
+                <td>@item.MemberName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

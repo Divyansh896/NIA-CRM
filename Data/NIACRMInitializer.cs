@@ -524,6 +524,192 @@ namespace NIA_CRM.Data
                         );
                         context.SaveChanges();
                     }
+                    if (!context.Opportunities.Any())
+                    {
+                        context.Opportunities.AddRange(
+                            new Opportunity
+                            {
+                                OpportunityName = "New Partnership with TechCo",
+                                OpportunityDescr = "Potential collaboration with TechCo to offer joint solutions.",
+                                OpportunityStatus = OpportunityStatus.Open,
+                                OrganizationID = 1,  // Assuming Organization with ID 1 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 1, 5),
+                                //    InteractionNote = "Initial discussion on potential partnership."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "Software Development for HealthCorp",
+                                OpportunityDescr = "Software development project for HealthCorp to enhance their internal systems.",
+                                OpportunityStatus = OpportunityStatus.InProgress,
+                                OrganizationID = 2,  // Assuming Organization with ID 2 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 1, 10),
+                                //    InteractionNote = "Meeting to finalize project requirements."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "Website Overhaul for FinServe",
+                                OpportunityDescr = "Website redesign project for FinServe to improve their online presence.",
+                                OpportunityStatus = OpportunityStatus.Closed,
+                                OrganizationID = 3,  // Assuming Organization with ID 3 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 1, 15),
+                                //    InteractionNote = "Final meeting to close project details."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "Mobile App Development for EduTech",
+                                OpportunityDescr = "Development of a mobile app for EduTech to expand their reach in the education sector.",
+                                OpportunityStatus = OpportunityStatus.Open,
+                                OrganizationID = 4,  // Assuming Organization with ID 4 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 1, 18),
+                                //    InteractionNote = "Kickoff meeting for mobile app project."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "CRM System for SalesForce",
+                                OpportunityDescr = "Implementation of a CRM system for SalesForce to improve their customer relationship management.",
+                                OpportunityStatus = OpportunityStatus.InProgress,
+                                OrganizationID = 5,  // Assuming Organization with ID 5 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 1, 20),
+                                //    InteractionNote = "Meeting to discuss CRM system features."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "E-commerce Platform for ShopMart",
+                                OpportunityDescr = "Development of a full-fledged e-commerce platform for ShopMart.",
+                                OpportunityStatus = OpportunityStatus.Closed,
+                                OrganizationID = 6,  // Assuming Organization with ID 6 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 1, 22),
+                                //    InteractionNote = "Final review meeting before project closure."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "AI Integration for SmartTech",
+                                OpportunityDescr = "Integration of AI-based solutions for SmartTech's systems.",
+                                OpportunityStatus = OpportunityStatus.Open,
+                                OrganizationID = 7,  // Assuming Organization with ID 7 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 1, 25),
+                                //    InteractionNote = "Discussion about AI integration and scope."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "Cloud Migration for DataCloud",
+                                OpportunityDescr = "Cloud migration for DataCloud to streamline their operations and storage.",
+                                OpportunityStatus = OpportunityStatus.InProgress,
+                                OrganizationID = 8,  // Assuming Organization with ID 8 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 1, 28),
+                                //    InteractionNote = "Discussing cloud architecture for migration."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "Cybersecurity for SecureNet",
+                                OpportunityDescr = "Cybersecurity services for SecureNet to enhance their data protection.",
+                                OpportunityStatus = OpportunityStatus.Closed,
+                                OrganizationID = 9,  // Assuming Organization with ID 9 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 1, 30),
+                                //    InteractionNote = "Final agreement on cybersecurity solutions."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "Data Analytics for AnalyticsPro",
+                                OpportunityDescr = "Implementing a data analytics platform for AnalyticsPro to improve decision-making.",
+                                OpportunityStatus = OpportunityStatus.Open,
+                                OrganizationID = 10,  // Assuming Organization with ID 10 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 2, 2),
+                                //    InteractionNote = "Initial discussion on data analytics requirements."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "Business Intelligence for BizIntel",
+                                OpportunityDescr = "Providing business intelligence solutions for BizIntel to enhance reporting capabilities.",
+                                OpportunityStatus = OpportunityStatus.InProgress,
+                                OrganizationID = 11,  // Assuming Organization with ID 11 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 2, 5),
+                                //    InteractionNote = "Meeting to review BI system features."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "ERP System for GlobalCorp",
+                                OpportunityDescr = "ERP system implementation for GlobalCorp to streamline operations.",
+                                OpportunityStatus = OpportunityStatus.Closed,
+                                OrganizationID = 12,  // Assuming Organization with ID 12 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 2, 7),
+                                //    InteractionNote = "Reviewing implementation plan and timeline."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "Virtual Events Platform for EventPro",
+                                OpportunityDescr = "Development of a platform for virtual events for EventPro.",
+                                OpportunityStatus = OpportunityStatus.Open,
+                                OrganizationID = 13,  // Assuming Organization with ID 13 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 2, 10),
+                                //    InteractionNote = "Kickoff meeting to discuss platform features."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "Logistics Management System for MoveIt",
+                                OpportunityDescr = "Logistics management software for MoveIt to optimize their operations.",
+                                OpportunityStatus = OpportunityStatus.InProgress,
+                                OrganizationID = 14,  // Assuming Organization with ID 14 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 2, 12),
+                                //    InteractionNote = "Discussing project scope and logistics software needs."
+                                //}
+                            },
+                            new Opportunity
+                            {
+                                OpportunityName = "Blockchain Solutions for ChainTech",
+                                OpportunityDescr = "Developing blockchain-based solutions for ChainTech's supply chain management.",
+                                OpportunityStatus = OpportunityStatus.Closed,
+                                OrganizationID = 15,  // Assuming Organization with ID 15 exists
+                                //Interaction = new Interaction
+                                //{
+                                //    InteractionDate = new DateTime(2025, 2, 14),
+                                //    InteractionNote = "Final meeting on blockchain integration."
+                                //}
+                            }
+                        );
+                        context.SaveChanges();
+                    }
 
                     if (!context.Interactions.Any())
                     {
@@ -559,281 +745,95 @@ namespace NIA_CRM.Data
                                 ContactID = 4,
                                 MemberID = 4,
                                 OpportunityID = 4
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 1, 12),
-                                InteractionNote = "Client inquiry on pricing models.",
-                                ContactID = 5,
-                                MemberID = 5,
-                                OpportunityID = 5
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 1, 15),
-                                InteractionNote = "Discussed solution packages for enterprise clients.",
-                                ContactID = 6,
-                                MemberID = 6,
-                                OpportunityID = 6
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 1, 18),
-                                InteractionNote = "Following up on service proposal.",
-                                ContactID = 7,
-                                MemberID = 7,
-                                OpportunityID = 7
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 1, 20),
-                                InteractionNote = "Finalizing service agreement terms.",
-                                ContactID = 8,
-                                MemberID = 8,
-                                OpportunityID = 8
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 1, 22),
-                                InteractionNote = "Agreement on next steps and deliverables.",
-                                ContactID = 9,
-                                MemberID = 9,
-                                OpportunityID = 9
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 1, 25),
-                                InteractionNote = "Reviewing deliverables for upcoming project.",
-                                ContactID = 10,
-                                MemberID = 10,
-                                OpportunityID = 10
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 1, 28),
-                                InteractionNote = "Update on progress and timeline.",
-                                ContactID = 11,
-                                MemberID = 11,
-                                OpportunityID = 11
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 1, 30),
-                                InteractionNote = "Follow-up on final proposal details.",
-                                ContactID = 12,
-                                MemberID = 12,
-                                OpportunityID = 12
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 2, 2),
-                                InteractionNote = "Final meeting before project launch.",
-                                ContactID = 13,
-                                MemberID = 13,
-                                OpportunityID = 13
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 2, 5),
-                                InteractionNote = "Confirming details of service agreement.",
-                                ContactID = 14,
-                                MemberID = 14,
-                                OpportunityID = 14
-                            },
-                            new Interaction
-                            {
-                                InteractionDate = new DateTime(2025, 2, 7),
-                                InteractionNote = "Meeting to finalize documentation.",
-                                ContactID = 15,
-                                MemberID = 15,
-                                OpportunityID = 15
                             }
-                        );
-                        context.SaveChanges();
-                    }
-                    if (!context.Opportunities.Any())
-                    {
-                        context.Opportunities.AddRange(
-                            new Opportunity
-                            {
-                                OpportunityName = "New Partnership with TechCo",
-                                OpportunityDescr = "Potential collaboration with TechCo to offer joint solutions.",
-                                OpportunityStatus = OpportunityStatus.Open,
-                                OrganizationID = 1,  // Assuming Organization with ID 1 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 1, 5),
-                                    InteractionNote = "Initial discussion on potential partnership."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "Software Development for HealthCorp",
-                                OpportunityDescr = "Software development project for HealthCorp to enhance their internal systems.",
-                                OpportunityStatus = OpportunityStatus.InProgress,
-                                OrganizationID = 2,  // Assuming Organization with ID 2 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 1, 10),
-                                    InteractionNote = "Meeting to finalize project requirements."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "Website Overhaul for FinServe",
-                                OpportunityDescr = "Website redesign project for FinServe to improve their online presence.",
-                                OpportunityStatus = OpportunityStatus.Closed,
-                                OrganizationID = 3,  // Assuming Organization with ID 3 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 1, 15),
-                                    InteractionNote = "Final meeting to close project details."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "Mobile App Development for EduTech",
-                                OpportunityDescr = "Development of a mobile app for EduTech to expand their reach in the education sector.",
-                                OpportunityStatus = OpportunityStatus.Open,
-                                OrganizationID = 4,  // Assuming Organization with ID 4 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 1, 18),
-                                    InteractionNote = "Kickoff meeting for mobile app project."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "CRM System for SalesForce",
-                                OpportunityDescr = "Implementation of a CRM system for SalesForce to improve their customer relationship management.",
-                                OpportunityStatus = OpportunityStatus.InProgress,
-                                OrganizationID = 5,  // Assuming Organization with ID 5 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 1, 20),
-                                    InteractionNote = "Meeting to discuss CRM system features."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "E-commerce Platform for ShopMart",
-                                OpportunityDescr = "Development of a full-fledged e-commerce platform for ShopMart.",
-                                OpportunityStatus = OpportunityStatus.Closed,
-                                OrganizationID = 6,  // Assuming Organization with ID 6 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 1, 22),
-                                    InteractionNote = "Final review meeting before project closure."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "AI Integration for SmartTech",
-                                OpportunityDescr = "Integration of AI-based solutions for SmartTech's systems.",
-                                OpportunityStatus = OpportunityStatus.Open,
-                                OrganizationID = 7,  // Assuming Organization with ID 7 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 1, 25),
-                                    InteractionNote = "Discussion about AI integration and scope."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "Cloud Migration for DataCloud",
-                                OpportunityDescr = "Cloud migration for DataCloud to streamline their operations and storage.",
-                                OpportunityStatus = OpportunityStatus.InProgress,
-                                OrganizationID = 8,  // Assuming Organization with ID 8 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 1, 28),
-                                    InteractionNote = "Discussing cloud architecture for migration."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "Cybersecurity for SecureNet",
-                                OpportunityDescr = "Cybersecurity services for SecureNet to enhance their data protection.",
-                                OpportunityStatus = OpportunityStatus.Closed,
-                                OrganizationID = 9,  // Assuming Organization with ID 9 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 1, 30),
-                                    InteractionNote = "Final agreement on cybersecurity solutions."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "Data Analytics for AnalyticsPro",
-                                OpportunityDescr = "Implementing a data analytics platform for AnalyticsPro to improve decision-making.",
-                                OpportunityStatus = OpportunityStatus.Open,
-                                OrganizationID = 10,  // Assuming Organization with ID 10 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 2, 2),
-                                    InteractionNote = "Initial discussion on data analytics requirements."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "Business Intelligence for BizIntel",
-                                OpportunityDescr = "Providing business intelligence solutions for BizIntel to enhance reporting capabilities.",
-                                OpportunityStatus = OpportunityStatus.InProgress,
-                                OrganizationID = 11,  // Assuming Organization with ID 11 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 2, 5),
-                                    InteractionNote = "Meeting to review BI system features."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "ERP System for GlobalCorp",
-                                OpportunityDescr = "ERP system implementation for GlobalCorp to streamline operations.",
-                                OpportunityStatus = OpportunityStatus.Closed,
-                                OrganizationID = 12,  // Assuming Organization with ID 12 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 2, 7),
-                                    InteractionNote = "Reviewing implementation plan and timeline."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "Virtual Events Platform for EventPro",
-                                OpportunityDescr = "Development of a platform for virtual events for EventPro.",
-                                OpportunityStatus = OpportunityStatus.Open,
-                                OrganizationID = 13,  // Assuming Organization with ID 13 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 2, 10),
-                                    InteractionNote = "Kickoff meeting to discuss platform features."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "Logistics Management System for MoveIt",
-                                OpportunityDescr = "Logistics management software for MoveIt to optimize their operations.",
-                                OpportunityStatus = OpportunityStatus.InProgress,
-                                OrganizationID = 14,  // Assuming Organization with ID 14 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 2, 12),
-                                    InteractionNote = "Discussing project scope and logistics software needs."
-                                }
-                            },
-                            new Opportunity
-                            {
-                                OpportunityName = "Blockchain Solutions for ChainTech",
-                                OpportunityDescr = "Developing blockchain-based solutions for ChainTech's supply chain management.",
-                                OpportunityStatus = OpportunityStatus.Closed,
-                                OrganizationID = 15,  // Assuming Organization with ID 15 exists
-                                Interaction = new Interaction
-                                {
-                                    InteractionDate = new DateTime(2025, 2, 14),
-                                    InteractionNote = "Final meeting on blockchain integration."
-                                }
-                            }
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 1, 12),
+                        //        InteractionNote = "Client inquiry on pricing models.",
+                        //        ContactID = 5,
+                        //        MemberID = 1,
+                        //        OpportunityID = 5
+                        //    },
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 1, 15),
+                        //        InteractionNote = "Discussed solution packages for enterprise clients.",
+                        //        ContactID = 6,
+                        //        MemberID = 2,
+                        //        OpportunityID = 6
+                        //    },
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 1, 18),
+                        //        InteractionNote = "Following up on service proposal.",
+                        //        ContactID = 7,
+                        //        MemberID = 3,
+                        //        OpportunityID = 7
+                        //    },
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 1, 20),
+                        //        InteractionNote = "Finalizing service agreement terms.",
+                        //        ContactID = 8,
+                        //        MemberID = 4,
+                        //        OpportunityID = 8
+                        //    },
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 1, 22),
+                        //        InteractionNote = "Agreement on next steps and deliverables.",
+                        //        ContactID = 9,
+                        //        MemberID = 1,
+                        //        OpportunityID = 9
+                        //    },
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 1, 25),
+                        //        InteractionNote = "Reviewing deliverables for upcoming project.",
+                        //        ContactID = 10,
+                        //        MemberID = 2,
+                        //        OpportunityID = 10
+                        //    },
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 1, 28),
+                        //        InteractionNote = "Update on progress and timeline.",
+                        //        ContactID = 11,
+                        //        MemberID = 3,
+                        //        OpportunityID = 11
+                        //    },
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 1, 30),
+                        //        InteractionNote = "Follow-up on final proposal details.",
+                        //        ContactID = 12,
+                        //        MemberID = 4,
+                        //        OpportunityID = 12
+                        //    },
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 2, 2),
+                        //        InteractionNote = "Final meeting before project launch.",
+                        //        ContactID = 13,
+                        //        MemberID = 1,
+                        //        OpportunityID = 13
+                        //    },
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 2, 5),
+                        //        InteractionNote = "Confirming details of service agreement.",
+                        //        ContactID = 14,
+                        //        MemberID = 2,
+                        //        OpportunityID = 14
+                        //    },
+                        //    new Interaction
+                        //    {
+                        //        InteractionDate = new DateTime(2025, 2, 7),
+                        //        InteractionNote = "Meeting to finalize documentation.",
+                        //        ContactID = 3,
+                        //        MemberID = 3,
+                        //        OpportunityID = 15
+                        //    }
                         );
                         context.SaveChanges();
                     }
@@ -954,8 +954,9 @@ namespace NIA_CRM.Data
                 }
 
                 catch { }
+                #endregion
             }
+
         }
     }
 }
-#endregion
