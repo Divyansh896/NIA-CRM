@@ -870,84 +870,84 @@ namespace NIA_CRM.Data
                                 Canceled = false,
                                 CancellationNote = "Active member, no cancellation.",
                                 MemberID = 4
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 1, 18),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 5
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 1, 20),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 6
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 1, 22),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 7
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 1, 25),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 8
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 1, 27),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 9
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 1, 30),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 10
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 2, 1),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 11
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 2, 5),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 12
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 2, 10),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 13
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 2, 15),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 14
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 2, 18),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 15
                             }
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 1, 18),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 5
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 1, 20),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 6
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 1, 22),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 7
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 1, 25),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 8
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 1, 27),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 9
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 1, 30),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 10
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 2, 1),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 11
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 2, 5),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 12
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 2, 10),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 13
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 2, 15),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 14
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 2, 18),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 15
+                            //}
                         );
                         context.SaveChanges();
                     }
