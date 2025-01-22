@@ -9,63 +9,107 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Summary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EMail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LinkedinUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsVIP)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EMail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LinkedinUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsVIP)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<form asp-action="Index" method="get">
+    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
+    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+    <div class="form-horizontal">
+        <button class="btn @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
+                data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            Filter/Search @ViewData["numberFilters"]
+        </button><br />
+        <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
+            <div class="card card-body bg-light">
+                <div class="row">
+                    @* <div class="form-group col-md-3"> *@
+                    @*     <label class="control-label">Search Instructor Name:</label> *@
+                    @*     @Html.TextBox("SearchString", null, new { @class = "form-control" }) *@
+                    @* </div> *@
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Filter by Title:</label>
+                        @Html.DropDownList("Titles", null, "All Titles", htmlAttributes: new { @class = "form-control" })
+
+                    </div>
+                    <div class=" form-group col-md-3">
+                        <label class="control-label">Filter by Department:</label>
+                        @Html.DropDownList("Departments", null, "All Departments", htmlAttributes: new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label" for="OnlyVIP">Only VIPs </label>
+                        @Html.CheckBox("IsVIP", htmlAttributes: new { @class = "form-check-input" })
+                    </div>
+
+
+                    <div class="form-group col-md-2 align-self-end">
+                        <input type="submit" name="actionButton" value="Filter"
+                               class="btn btn-outline-primary" />
+                        <a asp-action="Index" class="btn btn-outline-dark">Clear</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Department)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EMail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LinkedinUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsVIP)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Summary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EMail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        <a href="@item.LinkedinUrl" target="_blank">
+                            View LinkedIn
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsVIP)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
