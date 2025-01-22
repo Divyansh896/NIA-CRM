@@ -20,9 +20,77 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Contact
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? Departments, string? Titles, bool IsVIP, string? actionButton,
+                                               string sortDirection = "asc", string sortField = "Contact Name")
         {
-            return View(await _context.Contacts.ToListAsync());
+            PopulateDropdownLists();
+            string[] sortOptions = new[] { "Contact Name" };  // You can add more sort options if needed
+
+            ViewData["Filtering"] = "btn-outline-secondary";
+            int numberFilters = 0;
+            var contacts = _context.Contacts.AsQueryable();
+
+            if (Departments != null)
+            {
+                contacts = contacts.Where(c => c.Department == Departments);
+                numberFilters++;
+            }
+            if (Titles != null)
+            {
+                contacts = contacts.Where(c => c.Title == Titles);
+                numberFilters++;
+            }
+            if (IsVIP)
+            {
+                contacts = contacts.Where(c => c.IsVIP);
+                numberFilters++;
+            }
+
+            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
+            {
+                //page = 1;//Reset page to start
+
+                if (sortOptions.Contains(actionButton))//Change of sort is requested
+                {
+                    if (actionButton == sortField) //Reverse order on same field
+                    {
+                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    sortField = actionButton;//Sort by the button clicked
+                }
+            }
+
+            if (sortField == "Contact Name")
+            {
+                if (sortDirection == "desc")
+                {
+                    contacts = contacts
+                        .OrderByDescending(p => p.ContactFirstName);
+                }
+                else
+                {
+                    contacts = contacts
+                        .OrderBy(p => p.ContactFirstName);
+
+                }
+            }
+
+            //Give feedback about the state of the filters
+            if (numberFilters != 0)
+            {
+                //Toggle the Open/Closed state of the collapse depending on if we are filtering
+                ViewData["Filtering"] = " btn-danger";
+                //Show how many filters have been applied
+                ViewData["numberFilters"] = "(" + numberFilters.ToString()
+                    + " Filter" + (numberFilters > 1 ? "s" : "") + " Applied)";
+                //Keep the Bootstrap collapse open
+                @ViewData["ShowFilter"] = " show";
+            }
+
+            ViewData["SortDirection"] = sortDirection;
+            ViewData["SortField"] = sortField;
+            ViewData["numberFilters"] = numberFilters;
+            return View(await contacts.ToListAsync());
         }
 
         // GET: Contact/Details/5
@@ -167,5 +235,24 @@ namespace NIA_CRM.Controllers
         {
             return _context.Contacts.Any(e => e.ID == id);
         }
+
+        private void PopulateDropdownLists()
+        {
+            var departments = _context.Contacts
+                                      .Select(c => c.Department)
+                                      .Distinct()
+                                      .OrderBy(d => d)
+                                      .ToList();
+            var titles = _context.Contacts
+                .Select(c => c.Title)
+                .Distinct()
+                .OrderBy(d => d)
+                .ToList();
+            ViewData["Departments"] = new SelectList(departments);
+            ViewData["Titles"] = new SelectList(titles);
+
+             
+        }
+
     }
 }
