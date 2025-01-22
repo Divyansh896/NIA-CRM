@@ -25,7 +25,7 @@ namespace NIA_CRM.Data
         public DbSet<OrganizationCode> OrganizationCodes { get; set; }
         public DbSet<MemberMembershipType> MemberMembershipTypes { get; set; }
         public DbSet<ContactOrganization> ContactOrganizations { get; set; }
-        public DbSet<ProductionEmail> productionEmails { get; set; }
+        public DbSet<ProductionEmail> ProductionEmails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

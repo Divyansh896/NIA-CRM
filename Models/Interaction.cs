@@ -16,10 +16,10 @@ namespace NIA_CRM.Models
         public string? InteractionNote { get; set; }
 
         public int ContactID { get; set; }
-        public Contact Contact { get; set; }
+        public Contact? Contact { get; set; }
         public int MemberID { get; set; }
-        public Member Member { get; set; }
+        public Member? Member { get; set; }
         public int OpportunityID { get; set; }
-        public Opportunity Opportunity { get; set; }
+        public Opportunity? Opportunity { get; set; }
     }
 }

@@ -17,7 +17,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ContactName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    ContactFirstName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    ContactMiddleName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    ContactLastName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Title = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     Department = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     EMail = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
@@ -58,7 +60,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "productionEmails",
+                name: "ProductionEmails",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -69,7 +71,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_productionEmails", x => x.Id);
+                    table.PrimaryKey("PK_ProductionEmails", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -346,8 +348,8 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "IndustryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_productionEmails_EmailType",
-                table: "productionEmails",
+                name: "IX_ProductionEmails_EmailType",
+                table: "ProductionEmails",
                 column: "EmailType",
                 unique: true);
         }
@@ -374,7 +376,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "OrganizationCodes");
 
             migrationBuilder.DropTable(
-                name: "productionEmails");
+                name: "ProductionEmails");
 
             migrationBuilder.DropTable(
                 name: "Contacts");

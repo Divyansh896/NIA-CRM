@@ -10,26 +10,21 @@ using NIA_CRM.Models;
 
 namespace NIA_CRM.Controllers
 {
-    public class ProductionEmailController : Controller
+    public class ProductionEmailController(NIACRMContext context) : Controller
     {
-        private readonly NIACRMContext _context;
-
-        public ProductionEmailController(NIACRMContext context)
-        {
-            _context = context;
-        }
+        private readonly NIACRMContext _context = context;
 
         // GET: ProductionEmail
         public async Task<IActionResult> Index(int? EmailTypeID, string? actionButton,
-      string sortDirection = "asc", string sortField = "EmailType")
+      string sortDirection = "asc", string sortField = "Email Type")
         {
             // Populate the dropdown list (assuming ProductionEmailTypeSelectList is a method that returns a SelectList)
             ViewData["EmailTypeID"] = ProductionEmailTypeSelectList(null);
 
-            string[] sortOptions = new[] { "EmailType" };  // You can add more sort options if needed
+            string[] sortOptions = new[] { "Email Type" };  // You can add more sort options if needed
 
             // Declare the email list to be used in the view
-            var emailsQuery = _context.productionEmails.AsQueryable();  // Use IQueryable for chaining queries
+            var emailsQuery = _context.ProductionEmails.AsQueryable();  // Use IQueryable for chaining queries
 
             // Filter by EmailTypeID if it's provided
             if (EmailTypeID.HasValue)
@@ -52,7 +47,7 @@ namespace NIA_CRM.Controllers
 
             // Now we know which field and direction to sort by
             //Now we know which field and direction to sort by
-            if (sortField == "EmailType")
+            if (sortField == "Email Type")
             {
                 if (sortDirection == "asc")
                 {
@@ -63,10 +58,10 @@ namespace NIA_CRM.Controllers
                 {
                     emailsQuery = emailsQuery
                         .OrderBy(p => p.EmailType);
-                        
+
                 }
             }
-            
+
 
             // Execute the query and get the sorted result
             var emails = await emailsQuery.ToListAsync();
@@ -85,7 +80,7 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var productionEmail = await _context.productionEmails
+            var productionEmail = await _context.ProductionEmails
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (productionEmail == null)
             {
@@ -120,7 +115,7 @@ namespace NIA_CRM.Controllers
             catch (DbUpdateException dex)
             {
                 string message = dex.GetBaseException().Message;
-                if (message.Contains("UNIQUE") && message.Contains("productionEmails.EmailType"))
+                if (message.Contains("UNIQUE") && message.Contains("ProductionEmails.EmailType"))
                 {
                     ModelState.AddModelError("EmailType", "Unable to save changes. Remember, " +
                         "you cannot have duplicate EmailType.");
@@ -142,7 +137,7 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var productionEmail = await _context.productionEmails.FindAsync(id);
+            var productionEmail = await _context.ProductionEmails.FindAsync(id);
             if (productionEmail == null)
             {
                 return NotFound();
@@ -157,14 +152,14 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id)
         {
-            var EmailToUpdate = await _context.productionEmails.FirstOrDefaultAsync(e => e.Id == id);
+            var EmailToUpdate = await _context.ProductionEmails.FirstOrDefaultAsync(e => e.Id == id);
             if (EmailToUpdate == null)
             {
                 return NotFound();
             }
-            
 
-            if (await TryUpdateModelAsync<ProductionEmail>(EmailToUpdate, "", e => e.EmailType, e => e.Subject, e => e.Body ))
+
+            if (await TryUpdateModelAsync<ProductionEmail>(EmailToUpdate, "", e => e.EmailType, e => e.Subject, e => e.Body))
             {
                 try
                 {
@@ -187,7 +182,7 @@ namespace NIA_CRM.Controllers
                 catch (DbUpdateException dex)
                 {
                     string message = dex.GetBaseException().Message;
-                    if (message.Contains("UNIQUE") && message.Contains("productionEmails.EmailType"))
+                    if (message.Contains("UNIQUE") && message.Contains("ProductionEmails.EmailType"))
                     {
                         ModelState.AddModelError("EmailType", "Unable to save changes. Remember, " +
                             "you cannot have duplicate EmailType.");
@@ -210,7 +205,7 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var productionEmail = await _context.productionEmails
+            var productionEmail = await _context.ProductionEmails
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (productionEmail == null)
             {
@@ -225,10 +220,10 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var productionEmail = await _context.productionEmails.FindAsync(id);
+            var productionEmail = await _context.ProductionEmails.FindAsync(id);
             if (productionEmail != null)
             {
-                _context.productionEmails.Remove(productionEmail);
+                _context.ProductionEmails.Remove(productionEmail);
             }
 
             await _context.SaveChangesAsync();
@@ -237,13 +232,13 @@ namespace NIA_CRM.Controllers
 
         private bool ProductionEmailExists(int id)
         {
-            return _context.productionEmails.Any(e => e.Id == id);
+            return _context.ProductionEmails.Any(e => e.Id == id);
         }
 
         private SelectList ProductionEmailTypeSelectList(int? selectedId)
         {
             // Query to fetch the email types ordered alphabetically
-            var qry = _context.productionEmails
+            var qry = _context.ProductionEmails
                                .OrderBy(e => e.EmailType)
                                .Select(e => new { e.Id, e.EmailType })
                                .AsNoTracking();

@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250119204908_Initial")]
+    [Migration("20250121185120_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -95,9 +95,19 @@ namespace NIA_CRM.Data.NIACRMigration
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ContactName")
+                    b.Property<string>("ContactFirstName")
                         .IsRequired()
-                        .HasMaxLength(255)
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContactLastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContactMiddleName")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Department")
@@ -354,7 +364,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasIndex("EmailType")
                         .IsUnique();
 
-                    b.ToTable("productionEmails");
+                    b.ToTable("ProductionEmails");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Address", b =>
