@@ -150,13 +150,15 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
             var EmailToUpdate = await _context.ProductionEmails.FirstOrDefaultAsync(e => e.Id == id);
             if (EmailToUpdate == null)
             {
                 return NotFound();
             }
+            //Put the original RowVersion value in the OriginalValues collection for the entity
+            _context.Entry(EmailToUpdate).Property("RowVersion").OriginalValue = RowVersion;
 
 
             if (await TryUpdateModelAsync<ProductionEmail>(EmailToUpdate, "", e => e.EmailType, e => e.Subject, e => e.Body))
@@ -166,34 +168,65 @@ namespace NIA_CRM.Controllers
                     _context.Update(EmailToUpdate);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
+                   
+                    
 
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException ex) // Adddeed For Concurency
                 {
-                    if (!ProductionEmailExists(EmailToUpdate.Id))
+                    var exceptionEntry = ex.Entries.Single();
+                    var clientValues = (ProductionEmail)exceptionEntry.Entity;
+                    var databaseEntry = await exceptionEntry.GetDatabaseValuesAsync();
+                    if (databaseEntry == null)
                     {
-                        return NotFound();
+                        ModelState.AddModelError("",
+                            "Unable to save changes. The email record was deleted by another user.");
                     }
                     else
                     {
-                        throw;
+                        var databaseValues = (ProductionEmail)databaseEntry.ToObject();
+
+                        // Compare client and database values
+                        if (databaseValues.EmailType != clientValues.EmailType)
+                            ModelState.AddModelError("EmailType", $"Current value: {databaseValues.EmailType}");
+                        if (databaseValues.Subject != clientValues.Subject)
+                            ModelState.AddModelError("Subject", $"Current value: {databaseValues.Subject}");
+                        if (databaseValues.Body != clientValues.Body)
+                            ModelState.AddModelError("Body", $"Current value: {databaseValues.Body}");
+
+                        ModelState.AddModelError(string.Empty,
+                            "The record you attempted to edit was modified by another user after you received your values. "
+                            + "The edit operation was canceled, and the current values in the database have been displayed. "
+                            + "If you still want to save your version of this record, click the Save button again.");
+
+                        // Update RowVersion for the current instance
+                        EmailToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+                        ModelState.Remove("RowVersion");
                     }
+                  
+
                 }
+
                 catch (DbUpdateException dex)
                 {
-                    string message = dex.GetBaseException().Message;
-                    if (message.Contains("UNIQUE") && message.Contains("ProductionEmails.EmailType"))
-                    {
-                        ModelState.AddModelError("EmailType", "Unable to save changes. Remember, " +
-                            "you cannot have duplicate EmailType.");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-                    }
+                     string message = dex.GetBaseException().Message;
+                     if (message.Contains("UNIQUE") && message.Contains("ProductionEmails.EmailType"))
+                     {
+                         ModelState.AddModelError("EmailType", "Unable to save changes. Remember, " +
+                             "you cannot have duplicate EmailType.");
+                     }
+                     else
+                     {
+                         ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+                     }
 
                 }
             }
+            /*else
+            {
+                // Log model validation errors
+                ModelState.AddModelError("", "Failed to update the email record. Please check the input values.");
+            }*/
             return View(EmailToUpdate);
         }
 

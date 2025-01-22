@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace NIA_CRM.Models
 {
-    public class ProductionEmail
+    public class ProductionEmail:Auditable
     {
         [Key] // Marks the Id property as the primary key
         public int Id { get; set; }
@@ -21,6 +21,10 @@ namespace NIA_CRM.Models
         [Required(ErrorMessage = "Body content is required")]
         [DisplayName("Body Content")]
         public string? Body { get; set; } // Body content of the email
+        
+        [ScaffoldColumn(false)]
+        [Timestamp]
+        public Byte[]? RowVersion { get; set; }//Added for concurrency
 
         //[Required]
         //[DisplayName("Is Active")]
