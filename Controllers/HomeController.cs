@@ -58,7 +58,7 @@ namespace NIA_CRM.Controllers
                         Phone = co.Contact.Phone,
                         Linkedin = co.Contact.LinkedinUrl,
                         IsVIP = co.Contact.IsVIP
-                    }).ToList()
+                    })
                 });
 
             // Before sorting, see if we have called for a change of filtering or sorting
@@ -108,8 +108,8 @@ namespace NIA_CRM.Controllers
            
 
             // Pass the model to the view
-            //return View("MemberDetails", memberDetails);
-            return View();
+            return View("MemberDetails", memberDetails);
+            //return View();
         }
 
         public IActionResult Privacy()

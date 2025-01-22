@@ -38,7 +38,7 @@
                     <br />@member.Address.Country
                 </td>
                 
-                @if (member.Contacts.Any()) 
+                @if (member.Contacts) 
                 {
                     @foreach (var contact in member.Contacts)
                     {
