@@ -20,7 +20,7 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Contact
-        public async Task<IActionResult> Index(string? Departments, string? Titles, bool IsVIP, string? actionButton,
+        public async Task<IActionResult> Index(string? Departments, string? Titles, bool IsVIP, string? SearchString, string? actionButton,
                                                string sortDirection = "asc", string sortField = "Contact Name")
         {
             PopulateDropdownLists();
@@ -75,6 +75,12 @@ namespace NIA_CRM.Controllers
                 }
             }
 
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                contacts = contacts.Where(p => p.ContactLastName.ToUpper().Contains(SearchString.ToUpper())
+                                       || p.ContactFirstName.ToUpper().Contains(SearchString.ToUpper()));
+                numberFilters++;
+            }
             //Give feedback about the state of the filters
             if (numberFilters != 0)
             {
@@ -253,6 +259,20 @@ namespace NIA_CRM.Controllers
 
              
         }
+
+        public IActionResult GetContactPreview(int id)
+        {
+            var contact = _context.Contacts.Include(c => c.ContactOrganizations)
+            .ThenInclude(co => co.Organization).FirstOrDefault(c => c.ID == id);
+            if (contact == null)
+            {
+                return NotFound();
+            }
+            return PartialView("_ContactPreview", contact);  // Ensure the partial view name is correct
+        }
+
+        
+
 
     }
 }
