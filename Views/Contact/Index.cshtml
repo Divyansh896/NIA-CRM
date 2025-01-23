@@ -4,68 +4,170 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="d-flex flex-row align-items-center justify-content-between mb-4">
+    <h1 class="mb-0">Contacts</h1>
+    <a asp-action="Create" class="btn btn-primary">+ Add Contact</a>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Summary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EMail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LinkedinUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsVIP)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EMail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LinkedinUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsVIP)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+<form asp-action="Index" method="get">
+    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
+    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+    <div class="d-flex flex-row position-relative overflow-hidden">
+
+        <div class="m-auto flex-grow-1">
+            <div class="form-horizontal">
+                <button class="btn @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
+                        data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                    Filter/Search @ViewData["numberFilters"]
+                </button><br />
+                <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
+                    <div class="card card-body bg-light">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+
+                                <label class="control-label">Search By Name:</label>
+                                @Html.TextBox("SearchString", null, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Filter by Title:</label>
+                                @Html.DropDownList("Titles", null, "All Titles", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Filter by Department:</label>
+                                @Html.DropDownList("Departments", null, "All Departments", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="control-label" for="OnlyVIP">Only VIPs </label>
+                                @Html.CheckBox("IsVIP", htmlAttributes: new { @class = "form-check-input" })
+                            </div>
+                            <div class="form-group col-md-2 align-self-end mt-2">
+                                <input type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary" />
+                                <a asp-action="Index" class="btn btn-outline-dark">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th><input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" /></th>
+                        <th>@Html.DisplayNameFor(model => model.Title)</th>
+                        <th>@Html.DisplayNameFor(model => model.Department)</th>
+                        <th>@Html.DisplayNameFor(model => model.EMail)</th>
+                        <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                        <th>@Html.DisplayNameFor(model => model.LinkedinUrl)</th>
+                        <th>@Html.DisplayNameFor(model => model.IsVIP)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="clickable-row" data-id="@item.ID">
+                            <td>@Html.DisplayFor(modelItem => item.Summary)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Department)</td>
+                            <td>@Html.DisplayFor(modelItem => item.EMail)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                            <td><a href="@item.LinkedinUrl" target="_blank">View LinkedIn</a></td>
+                            <td>@Html.DisplayFor(modelItem => item.IsVIP)</td>
+                            @* <td> *@
+                            @*     <input type="button" class="btn btn-primary preview-btn" value="Show Preview" data-id="@item.ID" /> *@
+                            @* </td> *@
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- Preview container -->
+        <div id="previewContainer" class="preview-content hidden"></div>
+
+    </div>
+</form>
+
+@section Scripts {
+    <style>
+        /* Highlight row on hover */
+        .clickable-row:hover {
+            background-color: #f5f5f5; /* Light grey background */
+            cursor: pointer; /* Hand cursor */
+        }
+
+        .hidden {
+            visibility: hidden; /* Prevent visibility on page load */
+            transform: translateX(100%);
+            transition: transform 0.5s ease-in-out, visibility 0s 0.5s; /* Delay visibility change */
+        }
+
+        .visible {
+            visibility: visible; /* Ensure it's visible when sliding in */
+            transform: translateX(0);
+            transition: transform 0.5s ease-in-out, visibility 0s 0s; /* Remove the delay for visibility */
+        }
+
+        .preview-content {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 25%;
+            height: 100vh;
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+        }
+
+        .d-flex.flex-row {
+            overflow: hidden;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+              $(document).ready(function () {
+            // Initially hide the preview content
+            $('#previewContainer').addClass('hidden');
+
+            // Handle click event on rows with the "clickable-row" class
+            $(document).on('click', '.clickable-row', function () {
+                var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+
+                if (!contactId) {
+                    console.error('No contact ID found for this row.');
+                    return;
+                }
+
+                // Make an AJAX request to get the partial view for the selected contact
+                $.ajax({
+                    url: '/Contact/GetContactPreview', // Adjust the URL to match your routing
+                    type: 'GET',
+                    data: { id: contactId },
+                    success: function (result) {
+                        // Insert the result (partial view) into the preview container
+                        $('#previewContainer').html(result);
+                        $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+                    },
+                    error: function () {
+                        alert('An error occurred while loading the preview.');
+                    }
+                });
+            });
+
+            // Window click listener to collapse preview when clicked outside
+            $(window).click(function (event) {
+                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                    $('#previewContainer').removeClass('visible').addClass('hidden');
+                }
+            });
+
+            // Prevent the preview container from closing when clicked inside
+            $('#previewContainer').click(function (event) {
+                event.stopPropagation(); // Stop the event from propagating to the window
+            });
+        });
+
+    </script>
 }
-    </tbody>
-</table>

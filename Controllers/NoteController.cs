@@ -10,23 +10,23 @@ using NIA_CRM.Models;
 
 namespace NIA_CRM.Controllers
 {
-    public class MemberController : Controller
+    public class NoteController : Controller
     {
         private readonly NIACRMContext _context;
 
-        public MemberController(NIACRMContext context)
+        public NoteController(NIACRMContext context)
         {
             _context = context;
         }
 
-        // GET: Member
+        // GET: Note
         public async Task<IActionResult> Index()
         {
-            var nIACRMContext = _context.Members.Include(m => m.Organization);
+            var nIACRMContext = _context.Notes.Include(n => n.Contact);
             return View(await nIACRMContext.ToListAsync());
         }
 
-        // GET: Member/Details/5
+        // GET: Note/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +34,42 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Members
-                .Include(m => m.Organization)
+            var notes = await _context.Notes
+                .Include(n => n.Contact)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (member == null)
+            if (notes == null)
             {
                 return NotFound();
             }
 
-            return View(member);
+            return View(notes);
         }
 
-        // GET: Member/Create
+        // GET: Note/Create
         public IActionResult Create()
         {
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName");
+            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName");
             return View();
         }
 
-        // POST: Member/Create
+        // POST: Note/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MemberName,JoinDate,StandingStatus,OrganizationID")] Member member)
+        public async Task<IActionResult> Create([Bind("ID,NoteContent,ContactID,CreatedDate")] Notes notes)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(member);
+                _context.Add(notes);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName", member.OrganizationID);
-            return View(member);
+            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName", notes.ContactID);
+            return View(notes);
         }
 
-        // GET: Member/Edit/5
+        // GET: Note/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,44 +77,37 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Members.FindAsync(id);
-            if (member == null)
+            var notes = await _context.Notes.FindAsync(id);
+            if (notes == null)
             {
                 return NotFound();
             }
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName", member.OrganizationID);
-            return View(member);
+            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName", notes.ContactID);
+            return View(notes);
         }
 
-        // POST: Member/Edit/5
+        // POST: Note/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,NoteContent,ContactID,CreatedDate")] Notes notes)
         {
-
-            var memberToUpdate = await _context.Members.FirstOrDefaultAsync(m => m.ID == id);
-
-            if (memberToUpdate == null)
+            if (id != notes.ID)
             {
                 return NotFound();
             }
-            
-            // Try update model approach
 
-
-            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberFirstName, m => m.JoinDate, m => m.StandingStatus, m => m.OrganizationID))
-         {
+            if (ModelState.IsValid)
+            {
                 try
                 {
-                    _context.Update(memberToUpdate);
+                    _context.Update(notes);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MemberExists(memberToUpdate.ID))
+                    if (!NotesExists(notes.ID))
                     {
                         return NotFound();
                     }
@@ -123,21 +116,13 @@ namespace NIA_CRM.Controllers
                         throw;
                     }
                 }
-                catch (DbUpdateException dex)
-                {
-                    string message = dex.GetBaseException().Message;
-                    
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-                    
-                }
-
+                return RedirectToAction(nameof(Index));
             }
-
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName", memberToUpdate.OrganizationID);
-            return View(memberToUpdate);
+            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName", notes.ContactID);
+            return View(notes);
         }
 
-        // GET: Member/Delete/5
+        // GET: Note/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -145,35 +130,51 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Members
-                .Include(m => m.Organization)
+            var notes = await _context.Notes
+                .Include(n => n.Contact)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (member == null)
+            if (notes == null)
             {
                 return NotFound();
             }
 
-            return View(member);
+            return View(notes);
         }
 
-        // POST: Member/Delete/5
+        // POST: Note/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var member = await _context.Members.FindAsync(id);
-            if (member != null)
+            var notes = await _context.Notes.FindAsync(id);
+            if (notes != null)
             {
-                _context.Members.Remove(member);
+                _context.Notes.Remove(notes);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MemberExists(int id)
+        private bool NotesExists(int id)
         {
-            return _context.Members.Any(e => e.ID == id);
+            return _context.Notes.Any(e => e.ID == id);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddNotes([Bind("NoteContent,ContactID")] Notes notes)
+        {
+            if (ModelState.IsValid)
+            {
+                notes.CreatedDate = DateTime.Now; // Set the creation date explicitly
+                _context.Add(notes);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Note saved successfully." });
+            }
+
+            return Json(new { success = false, message = "Invalid data. Unable to save note." });
+        }
+
     }
 }
