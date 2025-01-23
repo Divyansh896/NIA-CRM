@@ -7,70 +7,76 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
-    public class ProductionEmailController(NIACRMContext context) : Controller
+    public class ProductionEmailController : Controller
     {
-        private readonly NIACRMContext _context = context;
+        private readonly NIACRMContext _context;
+
+        public ProductionEmailController(NIACRMContext context)
+        {
+            _context = context;
+        }
+
 
         // GET: ProductionEmail
-        public async Task<IActionResult> Index(int? EmailTypeID, string? actionButton,
-      string sortDirection = "asc", string sortField = "Email Type")
+        public async Task<IActionResult> Index(int? page, int? EmailTypeID, string? actionButton,
+   string sortDirection = "asc", string sortField = "Email Type")
         {
-            // Populate the dropdown list (assuming ProductionEmailTypeSelectList is a method that returns a SelectList)
-            ViewData["EmailTypeID"] = ProductionEmailTypeSelectList(null);
+            // Populate the dropdown list
+            ViewData["EmailTypeID"] = ProductionEmailTypeSelectList(EmailTypeID);
 
-            string[] sortOptions = new[] { "Email Type" };  // You can add more sort options if needed
+            string[] sortOptions = new[] { "Email Type", "Subject" };
 
             // Declare the email list to be used in the view
-            var emailsQuery = _context.ProductionEmails.AsQueryable();  // Use IQueryable for chaining queries
+            var emailsQuery = _context.ProductionEmails.AsQueryable();
 
-            // Filter by EmailTypeID if it's provided
+            // Filter by EmailTypeID if provided
             if (EmailTypeID.HasValue)
             {
                 emailsQuery = emailsQuery.Where(e => e.Id == EmailTypeID.Value);
             }
 
-            // Check if the form was submitted with a sorting request
-            if (!string.IsNullOrEmpty(actionButton)) // Form Submitted!
+            // Handle sorting
+            if (!string.IsNullOrEmpty(actionButton)) // Form submitted!
             {
-                if (sortOptions.Contains(actionButton)) // Change of sort is requested
+                page = 1; // Reset to the first page
+                if (sortOptions.Contains(actionButton)) // Sort requested
                 {
-                    if (actionButton == sortField) // Reverse order on same field
+                    if (actionButton == sortField) // Reverse sort direction for the same field
                     {
                         sortDirection = sortDirection == "asc" ? "desc" : "asc";
                     }
-                    sortField = actionButton; // Sort by the button clicked
+                    sortField = actionButton; // Update the sort field
                 }
             }
 
-            // Now we know which field and direction to sort by
-            //Now we know which field and direction to sort by
-            if (sortField == "Email Type")
+            // Apply sorting
+            emailsQuery = sortField switch
             {
-                if (sortDirection == "asc")
-                {
-                    emailsQuery = emailsQuery
-                        .OrderByDescending(p => p.EmailType);
-                }
-                else
-                {
-                    emailsQuery = emailsQuery
-                        .OrderBy(p => p.EmailType);
+                "Email Type" => sortDirection == "asc"
+                    ? emailsQuery.OrderBy(e => e.EmailType)
+                    : emailsQuery.OrderByDescending(e => e.EmailType),
+                "Subject" => sortDirection == "asc"
+                    ? emailsQuery.OrderBy(e => e.Subject)
+                    : emailsQuery.OrderByDescending(e => e.Subject),
+                _ => emailsQuery
+            };
 
-                }
-            }
+            // Handle paging
+            int pageSize = 5; // Change as needed
+            var pagedData = await PaginatedList<ProductionEmail>.CreateAsync(emailsQuery.AsNoTracking(), page ?? 1, pageSize);
 
-
-            // Execute the query and get the sorted result
-            var emails = await emailsQuery.ToListAsync();
-            // Pass sorting information to the view
+            // Pass sorting info to the view
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
-            // Pass the emails to the view
-            return View(emails);
+
+            // Return the paginated result
+            return View(pagedData);
         }
+
 
         // GET: ProductionEmail/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -3,71 +3,244 @@
 @{
     ViewData["Title"] = "Member Details";
 }
+<!--WIDGETS-->
+<div class="content" id="content">
+    <h1>Dashboard</h1>
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Clients</h5>
+                    <p class="card-text">350</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Clients in Thorold</h5>
+                    <p class="card-text">32</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">VIP Clients</h5>
+                    <p class="card-text">15</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Member Table-->
 
 <h2>Member Details</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Member Name</th>
-            <th>Organization</th>
-            <th>Industry</th>
-            <th>Address</th>
-            <th>Contact Name</th>
-            <th>Contact Title</th>
-            <th>Contact Department</th>
-            <th>Contact Email</th>
-            <th>Contact Phone</th>
-            <th>LinkedIn</th>
-            <th>VIP Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var member in Model)
-        {
-            <tr>
-                <td>@member.MemberName</td>
-                <td>@member.OrganizationName</td>
-                <td>@member.IndustryName</td>
-                <td>
-                    @member.Address.AddressLineOne
-                    @if (!string.IsNullOrEmpty(member.Address.AddressLineTwo))
+<div class="table-container">
+    <!-- Filter/Search Button -->
+    <button class="btn btn-secondary mb-3" data-bs-toggle="collapse" data-bs-target="#filterSection">
+        Filter/Search
+    </button>
+    <div id="filterSection" class="collapse">
+        <form>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="searchName" class="form-label">Search by Member Name</label>
+                    <input type="text" id="searchName" class="form-control" placeholder="Enter Name">
+                </div>
+                <div class="col-md-4">
+                    <label for="searchOrganization" class="form-label">Search by Organization</label>
+                    <input type="text" id="searchOrganization" class="form-control" placeholder="Enter Organization">
+                </div>
+                <div class="col-md-4">
+                    <label for="filterIndustry" class="form-label">Filter by Industry</label>
+                    <select id="filterIndustry" class="form-select">
+                        <option value="Forge & Foundry Inc.">Forge & Foundry Inc.</option>
+                        <option value="TISCO CO.">TISCO CO..</option>
+                        <option value="Alpha Steel">Alpha Steel</option>
+                        <option value="M Time Irons">M Time Irons.</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Apply</button>
+            <button type="reset" class="btn btn-secondary mt-3">Clear</button>
+        </form>
+        <div id="previewContainer" class="preview-content hidden"></div>
+    </div>
+    </div>
+<!--Table Data-->
+    <div class="table-container mt-4" style="position: relative; overflow: auto; max-height: 500px; border: 1px solid #ddd;">
+        <table class="table table-bordered table-striped" style="table-layout: fixed; width: 100%;" id="myTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="position: sticky; top: 0; left: 0; z-index: 1030; background: #434343; color: #fff; width: 200px;">Member Name</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 150px;">Organization</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 150px;">Industry</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 300px;">Address</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 200px;">Contact Name</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 200px;">Contact Title</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 200px;">Contact Department</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 250px;">Contact Email</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 200px;">Contact Phone</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 150px;">LinkedIn</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 100px;">VIP Status</th>
+                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 100px;">Pin Column</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var member in Model)
+                {
+                    @if (member.Contacts != null && member.Contacts.Count > 0)
                     {
-                        <br />@member.Address.AddressLineTwo
-                    }
-                    <br />@member.Address.City, @member.Address.StateProvince, @member.Address.PostalCode
-                    <br />@member.Address.Country
-                </td>
-
-                @if (member.Contacts != null && member.Contacts.Count > 0)
-                {
-                    <td colspan="7">
-                        <table class="table">
-                            @foreach (var contact in member.Contacts)
-                            {
-                                <tr>
-                                    <td>@contact.Summary</td>
-                                    <td>@contact.Title</td>
-                                    <td>@contact.Department</td>
-                                    <td>@contact.Email</td>
-                                    <td>@contact.Phone</td>
-                                    <td>
-                                        @if (!string.IsNullOrEmpty(contact.Linkedin))
+                        @foreach (var contact in member.Contacts)
+                        {
+                            <tr>
+                                <td style="position: sticky; left: 0; z-index: 1020; background: #f8f9fa;">@member.MemberName</td>
+                                <td>@member.OrganizationName</td>
+                                <td>@member.IndustryName</td>
+                                <td>
+                                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        @member.Address.AddressLineOne
+                                        @if (!string.IsNullOrEmpty(member.Address.AddressLineTwo))
                                         {
-                                            <a href="@contact.Linkedin" target="_blank">LinkedIn</a>
-                                        }
-                                    </td>
-                                    <td>@(contact.IsVIP ? "Yes" : "No")</td>
-                                </tr>
-                            }
-                        </table>
-                    </td>
+                                             @member.Address.AddressLineTwo
+                                            }
+                                        <br />@member.Address.City, @member.Address.StateProvince, @member.Address.PostalCode
+                                        <br />@member.Address.Country
+                                    </div>
+                                </td>
+                                <td>@contact.Summary</td>
+                                <td>@contact.Title</td>
+                                <td>@contact.Department</td>
+                                <td style="word-wrap: break-word; overflow-wrap: break-word;">@contact.Email</td>
+                                <td style="white-space: nowrap;">@contact.Phone</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(contact.Linkedin))
+                                    {
+                                        <a href="@contact.Linkedin" target="_blank">LinkedIn</a>
+                                    }
+                                </td>
+                                <td>@(contact.IsVIP ? "Yes" : "No")</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm pin-column" onclick="pinColumn(this)">Pin</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr class="clickable-row" data-id="@member.ID">
+                            <td style="position: sticky; left: 0; z-index: 1020; background: #f8f9fa;">@member.MemberName</td>
+                            <td>@member.OrganizationName</td>
+                            <td>@member.IndustryName</td>
+                            <td>
+                                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    @member.Address.AddressLineOne
+                                    @if (!string.IsNullOrEmpty(member.Address.AddressLineTwo))
+                                    {
+                                            @member.Address.AddressLineTwo
+                                            }
+                                    <br />@member.Address.City, @member.Address.StateProvince, @member.Address.PostalCode
+                                    <br />@member.Address.Country
+                                </div>
+                            </td>
+                            <td colspan="7">No Contacts Available</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm pin-column" onclick="pinColumn(this)">Pin</button>
+                            </td>
+                        </tr>
+                    }
                 }
-                else
-                {
-                    <td colspan="7">No Contacts Available</td>
-                }
-            </tr>
+            </tbody>
+        </table>
+       
+    </div>
+
+   
+@section Scripts {
+        <style>
+            /* Highlight row on hover */
+            .clickable-row:hover {
+                background-color: #f5f5f5; /* Light grey background */
+                cursor: pointer; /* Hand cursor */
+            }
+
+            .hidden {
+                visibility: hidden; /* Prevent visibility on page load */
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out, visibility 0s 0.5s; /* Delay visibility change */
+            }
+
+            .visible {
+                visibility: visible; /* Ensure it's visible when sliding in */
+                transform: translateX(0);
+                transition: transform 0.5s ease-in-out, visibility 0s 0s; /* Remove the delay for visibility */
+            }
+
+            .preview-content {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 25%;
+                height: 100vh;
+                background-color: #f8f9fa;
+                padding: 20px;
+                box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+                overflow-y: auto;
+            }
+
+            .d-flex.flex-row {
+                overflow: hidden;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                // Initially hide the preview container
+                $('#previewContainer').addClass('hidden');
+
+                // Handle row clicks
+                $(document).on('click', '.clickable-row', function () {
+                    var memberId = $(this).data('id'); // Get the Member ID
+                    if (!memberId) {
+                    console.error('No member ID found.');
+                        return;
+                    }
+
+                    // AJAX request to fetch member details
+                    $.ajax({
+                        url: '/Home/GetMemberPreview', // Adjust the route as necessary
+                        type: 'GET',
+                        data: { id: memberId },
+                        success: function (result) {
+                            $('#previewContainer').html(result).removeClass('hidden').addClass('visible');
+                        },
+                        error: function () {
+                            alert('Error fetching member details.');
+                        }
+                    });
+                });
+
+                // Hide the preview container when clicking outside
+                $(window).click(function (event) {
+                    if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                        $('#previewContainer').removeClass('visible').addClass('hidden');
+                    }
+                });
+
+                // Prevent clicks inside the preview container from propagating
+                $('#previewContainer').click( function (event) {
+                    event.stopPropagation();
+                });
+            });
+        </script>
+
+
         }
-    </tbody>
-</table>

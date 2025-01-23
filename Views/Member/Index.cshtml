@@ -9,45 +9,72 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
+<form asp-action="Index" method="get">
+<!-- Filter/Search Toggle Button -->
+<button class="btn btn-outline-secondary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filterForm" aria-expanded="false" aria-controls="filterForm">
+    Filter/Search
+</button>
+
+<!-- Filter/Search Form -->
+<div class="collapse" id="filterForm">
+    <form asp-action="Index" method="get">
+        <div class="form-horizontal">
+            <div class="row">
+                <!-- Filter by Member Name -->
+                <div class="form-group col-md-4">
+                    <label class="control-label">Search by Member Name:</label>
+                    @Html.TextBox("SearchString", ViewData["SearchString"] as string, new { @class = "form-control", placeholder = "Enter Member Name" })
+                </div>
+                <!-- Filter by Join Date -->
+                <div class="form-group col-md-4">
+                    <label class="control-label">Filter by Join Date:</label>
+                    @Html.TextBox("JoinDate", ViewData["JoinDate"] as string, new { @class = "form-control", placeholder = "YYYY-MM-DD", type = "date" })
+                </div>
+                <!-- Filter by Organization Name -->
+                <div class="form-group col-md-4">
+                    <label class="control-label">Search by Organization Name:</label>
+                    @Html.TextBox("Organization", ViewData["Organization"] as string, new { @class = "form-control", placeholder = "Enter Organization Name" })
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-outline-primary">Apply Filters</button>
+                    <a asp-action="Index" class="btn btn-outline-dark">Clear</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Table -->
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Summary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JoinDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StandingStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Organization)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Summary)</th>
+            <th>@Html.DisplayNameFor(model => model.JoinDate)</th>
+            <th>@Html.DisplayNameFor(model => model.StandingStatus)</th>
+            <th>@Html.DisplayNameFor(model => model.Organization.OrganizationName)</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JoinDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StandingStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Organization.OrganizationName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Summary)</td>
+                <td>@Html.DisplayFor(modelItem => item.JoinDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.StandingStatus)</td>
+                <td>@Html.DisplayFor(modelItem => item.Organization.OrganizationName)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<partial name="_PagingNavBar" />
+</form>

@@ -1,53 +1,89 @@
-﻿@model IEnumerable<NIA_CRM.Models.Cancellation>
+﻿@model NIA_CRM.Utilities.PaginatedList<NIA_CRM.Models.Cancellation>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cancellations";
 }
 
-<h1>Index</h1>
+<h1>Cancellations</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CancellationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Canceled)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CancellationNote)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Member)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CancellationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Canceled)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CancellationNote)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Member.Summary)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<form asp-action="Index" method="get">
+    <input type="hidden" name="sortDirection" value="@ViewData["SortDirection"]" />
+    <input type="hidden" name="sortField" value="@ViewData["SortField"]" />
+
+    <!-- Filter/Search Section -->
+    <div class="form-horizontal mb-3">
+        <button class="btn btn-secondary @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
+                data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            Filter/Search
+        </button>
+        <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
+            <div class="card card-body bg-light">
+                <div class="row">
+                    <!-- Cancellation Date Filter -->
+                    <div class="form-group col-md-3">
+                        <label for="CancellationDateFilter" class="control-label">Cancellation Date:</label>
+                        <input type="date" name="CancellationDateFilter" class="form-control"
+                               value="@ViewData["CancellationDateFilter"]" />
+                    </div>
+
+                    <!-- Cancellation Note Filter -->
+                    <div class="form-group col-md-3">
+                        <label for="CancellationNoteFilter" class="control-label">Cancellation Note:</label>
+                        <input type="text" name="CancellationNoteFilter" class="form-control"
+                               value="@ViewData["CancellationNoteFilter"]" placeholder="Enter keyword" />
+                    </div>
+
+                    <!-- Filter and Clear Buttons -->
+                    <div class="form-group col-md-2 align-self-end mt-2">
+                        <input type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary" />
+                        <a asp-action="Index" class="btn btn-outline-dark">Clear</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancellation Data Table -->
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    <button type="submit" name="actionButton" value="Cancellation Date" class="btn btn-link">Cancellation Date</button>
+                </th>
+                <th>
+                    <button type="submit" name="actionButton" value="Canceled" class="btn btn-link">Canceled</button>
+                </th>
+                <th>
+                    <button type="submit" name="actionButton" value="Cancellation Note" class="btn btn-link">Cancellation Note</button>
+                </th>
+                <th>
+                    <button type="submit" name="actionButton" value="Member" class="btn btn-link">Member</button>
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CancellationDate.ToString("dd-MMM-yyyy")</td>
+                    <td>@(item.Canceled ? "Yes" : "No")</td>
+                    <td>@item.CancellationNote</td>
+                    <td>@item.Member.Summary</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ID" >Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <partial name="_PagingNavBar"/>
+</form>

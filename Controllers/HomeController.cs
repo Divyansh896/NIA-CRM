@@ -63,7 +63,7 @@ namespace NIA_CRM.Controllers
 
             if (!String.IsNullOrEmpty(actionButton))
             {
-                pageNumber = 1;
+                page = 1;
 
                 if (sortOptions.Contains(actionButton))
                 {
@@ -102,8 +102,8 @@ namespace NIA_CRM.Controllers
                     m.IndustryName.Contains(SearchString));
             }
 
-           // return View("MemberDetails", memberDetails.ToList());
-            return View();
+            return View("MemberDetails", memberDetails.ToList());
+            //return View();
         }
 
         public IActionResult Privacy()

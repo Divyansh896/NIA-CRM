@@ -14,6 +14,7 @@
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
     <div class="d-flex flex-row position-relative overflow-hidden">
 
+        <!-- Filter/Search Section -->
         <div class="m-auto flex-grow-1">
             <div class="form-horizontal">
                 <button class="btn @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
@@ -24,7 +25,6 @@
                     <div class="card card-body bg-light">
                         <div class="row">
                             <div class="form-group col-md-3">
-
                                 <label class="control-label">Search By Name:</label>
                                 @Html.TextBox("SearchString", null, new { @class = "form-control" })
                             </div>
@@ -38,7 +38,7 @@
                                 @Html.DropDownList("Departments", null, "All Departments", htmlAttributes: new { @class = "form-control" })
                             </div>
                             <div class="form-group col-md-2">
-                                <label class="control-label" for="OnlyVIP">Only VIPs </label>
+                                <label class="control-label" for="OnlyVIP">Only VIPs</label>
                                 @Html.CheckBox("IsVIP", htmlAttributes: new { @class = "form-check-input" })
                             </div>
                             <div class="form-group col-md-2 align-self-end mt-2">
@@ -49,44 +49,61 @@
                     </div>
                 </div>
             </div>
-            <table class="table" id="myTable">
-                <thead>
+
+            <!-- Contacts Table -->
+            <table class="table table-bordered table-striped" id="myTable">
+                <thead class="thead-dark">
                     <tr>
-                        <th><input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" /></th>
+                        <th>
+                            <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" />
+                        </th>
                         <th>@Html.DisplayNameFor(model => model.Title)</th>
                         <th>@Html.DisplayNameFor(model => model.Department)</th>
                         <th>@Html.DisplayNameFor(model => model.EMail)</th>
                         <th>@Html.DisplayNameFor(model => model.Phone)</th>
                         <th>@Html.DisplayNameFor(model => model.LinkedinUrl)</th>
                         <th>@Html.DisplayNameFor(model => model.IsVIP)</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @if (Model != null && Model.Any())
                     {
-                        <tr class="clickable-row" data-id="@item.ID">
-                            <td>@Html.DisplayFor(modelItem => item.Summary)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Department)</td>
-                            <td>@Html.DisplayFor(modelItem => item.EMail)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
-                            <td><a href="@item.LinkedinUrl" target="_blank">View LinkedIn</a></td>
-                            <td>@Html.DisplayFor(modelItem => item.IsVIP)</td>
-                            @* <td> *@
-                            @*     <input type="button" class="btn btn-primary preview-btn" value="Show Preview" data-id="@item.ID" /> *@
-                            @* </td> *@
-
+                        foreach (var item in Model)
+                        {
+                            <tr class="clickable-row" data-id="@item.ID">
+                                <td>@Html.DisplayFor(modelItem => item.Summary)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Department)</td>
+                                <td>@Html.DisplayFor(modelItem => item.EMail)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                                <td>
+                                    <a href="@item.LinkedinUrl" target="_blank">View LinkedIn</a>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.IsVIP)</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>|
+                                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center">No contacts available.</td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
-        <!-- Preview container -->
-        <div id="previewContainer" class="preview-content hidden"></div>
 
+        <!-- Preview Container -->
+        <div id="previewContainer" class="preview-content hidden"></div>
     </div>
+    <partial name="_PagingNavBar" />
 </form>
+
 
 @section Scripts {
     <style>

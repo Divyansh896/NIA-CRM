@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
@@ -20,7 +21,7 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Contact
-        public async Task<IActionResult> Index(string? Departments, string? Titles, bool IsVIP, string? SearchString, string? actionButton,
+        public async Task<IActionResult> Index(int?page,string? Departments, string? Titles, bool IsVIP, string? SearchString, string? actionButton,
                                                string sortDirection = "asc", string sortField = "Contact Name")
         {
             PopulateDropdownLists();
@@ -48,7 +49,7 @@ namespace NIA_CRM.Controllers
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
             {
-                //page = 1;//Reset page to start
+                page = 1;//Reset page to start
 
                 if (sortOptions.Contains(actionButton))//Change of sort is requested
                 {
@@ -96,7 +97,12 @@ namespace NIA_CRM.Controllers
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
-            return View(await contacts.ToListAsync());
+
+            // Handle paging
+            int pageSize = 5; // Change as needed
+            var pagedData = await PaginatedList<Contact>.CreateAsync(contacts, page ?? 1, pageSize);
+
+            return View(pagedData);
         }
 
         // GET: Contact/Details/5
