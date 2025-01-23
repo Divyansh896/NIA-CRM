@@ -147,7 +147,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    MemberName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    MemberFirstName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    MemberMiddleName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    MemberLastName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     JoinDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     StandingStatus = table.Column<int>(type: "INTEGER", nullable: false),
                     OrganizationID = table.Column<int>(type: "INTEGER", nullable: false)

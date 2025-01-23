@@ -103,7 +103,7 @@ namespace NIA_CRM.Controllers
             
             // Try update model approach
 
-            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberName, m => m.JoinDate, m => m.StandingStatus, m => m.OrganizationID))
+            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberFirstName, m => m.JoinDate, m => m.StandingStatus, m => m.OrganizationID))
             {
                 try
                 {

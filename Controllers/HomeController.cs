@@ -33,7 +33,7 @@ namespace NIA_CRM.Controllers
                     .ThenInclude(co => co.Contact)
                 .Select(m => new
                 {
-                    MemberName = m.MemberName,
+                    MemberName = m.MemberFirstName + m.MemberLastName,
                     OrganizationName = m.Organization.OrganizationName,
                     IndustryName = m.Organization.Industry.IndustryName,
                     Address = new
@@ -55,6 +55,7 @@ namespace NIA_CRM.Controllers
                         Email = co.Contact.EMail,
                         Phone = co.Contact.Phone,
                         Linkedin = co.Contact.LinkedinUrl,
+
                         IsVIP = co.Contact.IsVIP,
                         Summary = co.Contact.Summary
                     }).ToList()
