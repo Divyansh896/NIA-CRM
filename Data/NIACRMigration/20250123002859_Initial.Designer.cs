@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250121185120_Initial")]
+    [Migration("20250123002859_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -211,9 +211,18 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<DateTime?>("JoinDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MemberName")
+                    b.Property<string>("MemberFirstName")
                         .IsRequired()
-                        .HasMaxLength(255)
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MemberLastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MemberMiddleName")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OrganizationID")

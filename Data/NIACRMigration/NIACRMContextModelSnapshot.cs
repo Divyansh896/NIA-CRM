@@ -208,9 +208,18 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<DateTime?>("JoinDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MemberName")
+                    b.Property<string>("MemberFirstName")
                         .IsRequired()
-                        .HasMaxLength(255)
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MemberLastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MemberMiddleName")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OrganizationID")
