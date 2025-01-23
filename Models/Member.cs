@@ -17,13 +17,32 @@ namespace NIA_CRM.Models
                 return years?.ToString() + " year(s) ago";
             }
         }
-
+        [Display(Name = "Member Name")]
+        public string Summary
+        {
+            get
+            {
+                return MemberFirstName
+                    + (string.IsNullOrEmpty(MemberMiddleName) ? " " :
+                        (" " + (char?)MemberMiddleName[0] + ". ").ToUpper())
+                    + MemberLastName;
+            }
+        }
         public int ID { get; set; }
 
-        [Display(Name = "Member Name")]
-        [Required(ErrorMessage = "You cannot leave the member name blank.")]
-        [StringLength(255, ErrorMessage = "Member name cannot be more than 255 characters long.")]
-        public string MemberName { get; set; } = "";
+        [Display(Name = "Member First Name")]
+        [Required(ErrorMessage = "You cannot leave the member first name blank.")]
+        [StringLength(100, ErrorMessage = "Member first name cannot be more than 255 characters long.")]
+        public string MemberFirstName { get; set; } = "";
+
+        [Display(Name = "Member Middle Name")]
+        [StringLength(100, ErrorMessage = "Member middle name cannot be more than 255 characters long.")]
+        public string? MemberMiddleName { get; set; }
+
+        [Display(Name = "Member Last Name")]
+        [Required(ErrorMessage = "You cannot leave the member last name blank.")]
+        [StringLength(100, ErrorMessage = "Member last name cannot be more than 255 characters long.")]
+        public string MemberLastName { get; set; } = "";
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

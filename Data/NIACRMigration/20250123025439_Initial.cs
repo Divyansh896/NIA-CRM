@@ -75,6 +75,27 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notes",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NoteContent = table.Column<string>(type: "TEXT", nullable: false),
+                    ContactID = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notes", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Notes_Contacts_ContactID",
+                        column: x => x.ContactID,
+                        principalTable: "Contacts",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Organizations",
                 columns: table => new
                 {
@@ -126,7 +147,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    MemberName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    MemberFirstName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    MemberMiddleName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    MemberLastName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     JoinDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     StandingStatus = table.Column<int>(type: "INTEGER", nullable: false),
                     OrganizationID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -333,6 +356,11 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "OrganizationID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Notes_ContactID",
+                table: "Notes",
+                column: "ContactID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Opportunities_OrganizationID",
                 table: "Opportunities",
                 column: "OrganizationID");
@@ -373,13 +401,13 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "MemberMembershipTypes");
 
             migrationBuilder.DropTable(
+                name: "Notes");
+
+            migrationBuilder.DropTable(
                 name: "OrganizationCodes");
 
             migrationBuilder.DropTable(
                 name: "ProductionEmails");
-
-            migrationBuilder.DropTable(
-                name: "Contacts");
 
             migrationBuilder.DropTable(
                 name: "Opportunities");
@@ -389,6 +417,9 @@ namespace NIA_CRM.Data.NIACRMigration
 
             migrationBuilder.DropTable(
                 name: "MembershipTypes");
+
+            migrationBuilder.DropTable(
+                name: "Contacts");
 
             migrationBuilder.DropTable(
                 name: "Organizations");

@@ -6,61 +6,162 @@
     <title>@ViewData["Title"] - NIA_CRM</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/NIA_CRM.styles.css" asp-append-version="true" />
+    <style>
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px; 
+            height: 100vh;
+            width: 250px;
+            background-color: #f8f9fa;
+            transition: left 0.3s ease;
+            z-index: 1050; 
+            padding-top: 60px; 
+        }
+
+            .sidebar.show {
+                left: 0; 
+            }
+
+            .sidebar ul {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+            }
+
+                .sidebar ul li {
+                    padding: 10px 20px; 
+                }
+
+                    .sidebar ul li a {
+                        text-decoration: none;
+                        color: #333;
+                        font-size: 16px;
+                        display: block;
+                    }
+
+                        .sidebar ul li a:hover {
+                            background-color: #e9ecef;
+                            border-radius: 5px;
+                        }
+
+        /* Main content */
+        .main-content {
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+            padding: 20px; 
+        }
+
+            .main-content.sidebar-collapsed {
+                margin-left: 60px; 
+            }
+
+        /* Hamburger Button */
+        #toggleSidebar {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1100;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+            #toggleSidebar:focus {
+                outline: none;
+            }
+    </style>
+
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NIA CRM</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+        <div class="container-fluid">
+            <!-- Sidebar -->
+            <nav id="sidebarMenu" class="sidebar">
+                <div class="position-sticky p-3">
+                    <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Home")">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="Index">Add Member</a>
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Member")">Add Member</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ProductionEmail" asp-action="Index">Production Email</a>
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")">Production Email</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contacts</a>
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")">Contacts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Interaction" asp-action="Index">Notes</a>
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Interaction")">Notes</a>
                         </li>
-                        @* <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Interaction" asp-action="Index"></a>
-                        </li> *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cancellations" asp-action="Index">Cancellations</a>
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellations")">Cancellations</a>
                         </li>
-                        
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+            </nav>
 
+            <!-- Main Content -->
+            <div id="mainContent" class="main-content">
+                <button id="toggleSidebar" class="btn btn-primary">☰</button>
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </header>
+
+    <!-- Footer -->
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - NIA_CRM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - NIA_CRM - <a href="@Url.Action("Privacy", "Home")">Privacy</a>
         </div>
     </footer>
+
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const toggleButton = document.querySelector('#toggleSidebar');
+
+            // Check the saved sidebar state from localStorage
+            const sidebarState = localStorage.getItem('sidebarState');
+
+            if (sidebarState === 'open') {
+                sidebar.classList.add('show');
+                mainContent.classList.remove('sidebar-collapsed');
+            } else {
+                mainContent.classList.add('sidebar-collapsed');
+            }
+
+            // Add event listener to toggle the sidebar
+            toggleButton.addEventListener('click', function () {
+                sidebar.classList.toggle('show');
+                mainContent.classList.toggle('sidebar-collapsed');
+
+                // Save the new state to localStorage
+                if (sidebar.classList.contains('show')) {
+                    localStorage.setItem('sidebarState', 'open');
+                } else {
+                    localStorage.setItem('sidebarState', 'closed');
+                }
+            });
+        });
+
+
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

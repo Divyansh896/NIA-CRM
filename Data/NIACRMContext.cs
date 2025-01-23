@@ -54,6 +54,7 @@ namespace NIA_CRM.Data
         public DbSet<MemberMembershipType> MemberMembershipTypes { get; set; }
         public DbSet<ContactOrganization> ContactOrganizations { get; set; }
         public DbSet<ProductionEmail> ProductionEmails { get; set; }
+        public DbSet<Notes> Notes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -93,7 +94,10 @@ namespace NIA_CRM.Data
                .WithOne(p => p.Organization)
                .HasForeignKey(p => p.OrganizationID)
                .OnDelete(DeleteBehavior.Restrict);
-
+            modelBuilder.Entity<Contact>()
+        .HasMany(c => c.Notes)
+        .WithOne(n => n.Contact)
+        .HasForeignKey(n => n.ContactID);
             //m:m
             modelBuilder.Entity<Organization>()
               .HasMany<ContactOrganization>(d => d.ContactOrganizations)

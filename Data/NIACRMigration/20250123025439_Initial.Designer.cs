@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250121185120_Initial")]
+    [Migration("20250123025439_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -211,9 +211,18 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<DateTime?>("JoinDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MemberName")
+                    b.Property<string>("MemberFirstName")
                         .IsRequired()
-                        .HasMaxLength(255)
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MemberLastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MemberMiddleName")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OrganizationID")
@@ -261,6 +270,29 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasKey("ID");
 
                     b.ToTable("MembershipTypes");
+                });
+
+            modelBuilder.Entity("NIA_CRM.Models.Notes", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ContactID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NoteContent")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ContactID");
+
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Opportunity", b =>
@@ -465,6 +497,17 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Navigation("MembershipType");
                 });
 
+            modelBuilder.Entity("NIA_CRM.Models.Notes", b =>
+                {
+                    b.HasOne("NIA_CRM.Models.Contact", "Contact")
+                        .WithMany("Notes")
+                        .HasForeignKey("ContactID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Contact");
+                });
+
             modelBuilder.Entity("NIA_CRM.Models.Opportunity", b =>
                 {
                     b.HasOne("NIA_CRM.Models.Organization", "Organization")
@@ -503,6 +546,8 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Navigation("ContactOrganizations");
 
                     b.Navigation("Interactions");
+
+                    b.Navigation("Notes");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Industry", b =>

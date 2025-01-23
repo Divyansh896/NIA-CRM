@@ -1,11 +1,17 @@
-﻿@model IEnumerable<NIA_CRM.Models.Cancellation>
+﻿@model IEnumerable<NIA_CRM.Models.Notes>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -13,16 +19,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CancellationDate)
+                @Html.DisplayNameFor(model => model.NoteContent)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Canceled)
+                @Html.DisplayNameFor(model => model.Contact)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CancellationNote)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Member)
+                @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th></th>
         </tr>
@@ -31,16 +34,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CancellationDate)
+                @Html.DisplayFor(modelItem => item.NoteContent)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Canceled)
+                @Html.DisplayFor(modelItem => item.Contact.ContactFirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CancellationNote)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Member.Summary)
+                @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
@@ -51,3 +51,5 @@
 }
     </tbody>
 </table>
+</body>
+</html>
