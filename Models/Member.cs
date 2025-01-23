@@ -17,7 +17,17 @@ namespace NIA_CRM.Models
                 return years?.ToString() + " year(s) ago";
             }
         }
-
+        [Display(Name = "Member Name")]
+        public string Summary
+        {
+            get
+            {
+                return MemberFirstName
+                    + (string.IsNullOrEmpty(MemberMiddleName) ? " " :
+                        (" " + (char?)MemberMiddleName[0] + ". ").ToUpper())
+                    + MemberLastName;
+            }
+        }
         public int ID { get; set; }
 
         [Display(Name = "Member First Name")]
