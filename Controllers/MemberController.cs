@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
+using NIA_CRM.ViewModels;
 
 namespace NIA_CRM.Controllers
 {
-    public class MemberController : Controller
+    public class MemberController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -20,11 +23,44 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Member
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int?page, int? pageSizeID, string? SearchString, string? JoinDate, string? Organization)
         {
-            var nIACRMContext = _context.Members.Include(m => m.Organization);
-            return View(await nIACRMContext.ToListAsync());
+            var members = _context.Members
+                .Include(m => m.Organization)
+                .AsQueryable();
+
+            // Filter by Member Name
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                page = 1;//Reset page to start
+                members = members.Where(m => m.Summary.Contains(SearchString));
+            }
+
+            // Filter by Join Date
+            if (!string.IsNullOrEmpty(JoinDate) && DateTime.TryParse(JoinDate, out var parsedDate))
+            {
+                
+                members = members.Where(m => m.JoinDate.HasValue && m.JoinDate.Value.Date == parsedDate.Date);
+            }
+
+            // Filter by Organization Name
+            if (!string.IsNullOrEmpty(Organization))
+            {
+                members = members.Where(m => m.Organization.OrganizationName.Contains(Organization));
+            }
+
+            // Save filter values to ViewData for persistence
+            ViewData["SearchString"] = SearchString;
+            ViewData["JoinDate"] = JoinDate;
+            ViewData["Organization"] = Organization;
+
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
+            var pagedData = await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), page ?? 1, pageSize);
+
+            return View(pagedData);
         }
+
 
         // GET: Member/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -175,5 +211,24 @@ namespace NIA_CRM.Controllers
         {
             return _context.Members.Any(e => e.ID == id);
         }
+
+        public async Task<IActionResult> GetMemberPreview(int id)
+        {
+            var member = await _context.Members
+                .Include(m => m.Organization)
+                .Include(m => m.Address)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_MemberContactPreview", member);
+        }
+
+
+        
+
     }
 }

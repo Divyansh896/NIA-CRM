@@ -12,6 +12,24 @@ namespace NIA_CRM.Data.NIACRMigration
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AddressViewModel",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AddressLineOne = table.Column<string>(type: "TEXT", nullable: false),
+                    AddressLineTwo = table.Column<string>(type: "TEXT", nullable: false),
+                    City = table.Column<string>(type: "TEXT", nullable: false),
+                    StateProvince = table.Column<string>(type: "TEXT", nullable: false),
+                    PostalCode = table.Column<string>(type: "TEXT", nullable: false),
+                    Country = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AddressViewModel", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Contacts",
                 columns: table => new
                 {
@@ -67,11 +85,42 @@ namespace NIA_CRM.Data.NIACRMigration
                         .Annotation("Sqlite:Autoincrement", true),
                     EmailType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Subject = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    Body = table.Column<string>(type: "TEXT", nullable: false)
+                    Body = table.Column<string>(type: "TEXT", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductionEmails", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DashboardDetailsViewModel",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    MemberFirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    MemberMiddleName = table.Column<string>(type: "TEXT", nullable: true),
+                    MemberLastName = table.Column<string>(type: "TEXT", nullable: false),
+                    OrganizationID = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrganizationName = table.Column<string>(type: "TEXT", nullable: false),
+                    IndustryName = table.Column<string>(type: "TEXT", nullable: false),
+                    IndustryID = table.Column<int>(type: "INTEGER", nullable: false),
+                    AddressID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DashboardDetailsViewModel", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_DashboardDetailsViewModel_AddressViewModel_AddressID",
+                        column: x => x.AddressID,
+                        principalTable: "AddressViewModel",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,27 +167,31 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContactOrganizations",
+                name: "ContactViewModel",
                 columns: table => new
                 {
-                    ContactID = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrganizationID = table.Column<int>(type: "INTEGER", nullable: false)
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ContactFirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    ContactLastName = table.Column<string>(type: "TEXT", nullable: false),
+                    ContactMiddleName = table.Column<string>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Department = table.Column<string>(type: "TEXT", nullable: false),
+                    EMail = table.Column<string>(type: "TEXT", nullable: false),
+                    Phone = table.Column<string>(type: "TEXT", nullable: false),
+                    LinkedinUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    IsVIP = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Summary = table.Column<string>(type: "TEXT", nullable: false),
+                    DashboardDetailsViewModelID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ContactOrganizations", x => new { x.ContactID, x.OrganizationID });
+                    table.PrimaryKey("PK_ContactViewModel", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ContactOrganizations_Contacts_ContactID",
-                        column: x => x.ContactID,
-                        principalTable: "Contacts",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ContactOrganizations_Organizations_OrganizationID",
-                        column: x => x.OrganizationID,
-                        principalTable: "Organizations",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_ContactViewModel_DashboardDetailsViewModel_DashboardDetailsViewModelID",
+                        column: x => x.DashboardDetailsViewModelID,
+                        principalTable: "DashboardDetailsViewModel",
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -255,6 +308,36 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
+                name: "ContactOrganizations",
+                columns: table => new
+                {
+                    ContactID = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrganizationID = table.Column<int>(type: "INTEGER", nullable: false),
+                    MemberID = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContactOrganizations", x => new { x.ContactID, x.OrganizationID });
+                    table.ForeignKey(
+                        name: "FK_ContactOrganizations_Contacts_ContactID",
+                        column: x => x.ContactID,
+                        principalTable: "Contacts",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ContactOrganizations_Members_MemberID",
+                        column: x => x.MemberID,
+                        principalTable: "Members",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_ContactOrganizations_Organizations_OrganizationID",
+                        column: x => x.OrganizationID,
+                        principalTable: "Organizations",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MemberMembershipTypes",
                 columns: table => new
                 {
@@ -325,9 +408,24 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "MemberID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ContactOrganizations_MemberID",
+                table: "ContactOrganizations",
+                column: "MemberID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ContactOrganizations_OrganizationID",
                 table: "ContactOrganizations",
                 column: "OrganizationID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContactViewModel_DashboardDetailsViewModelID",
+                table: "ContactViewModel",
+                column: "DashboardDetailsViewModelID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DashboardDetailsViewModel_AddressID",
+                table: "DashboardDetailsViewModel",
+                column: "AddressID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Interactions_ContactID",
@@ -395,6 +493,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "ContactOrganizations");
 
             migrationBuilder.DropTable(
+                name: "ContactViewModel");
+
+            migrationBuilder.DropTable(
                 name: "Interactions");
 
             migrationBuilder.DropTable(
@@ -410,6 +511,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "ProductionEmails");
 
             migrationBuilder.DropTable(
+                name: "DashboardDetailsViewModel");
+
+            migrationBuilder.DropTable(
                 name: "Opportunities");
 
             migrationBuilder.DropTable(
@@ -420,6 +524,9 @@ namespace NIA_CRM.Data.NIACRMigration
 
             migrationBuilder.DropTable(
                 name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "AddressViewModel");
 
             migrationBuilder.DropTable(
                 name: "Organizations");

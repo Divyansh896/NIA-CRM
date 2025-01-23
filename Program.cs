@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using NIA_CRM.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+//To give access to IHttpContextAccessor for Audit Data with IAuditable
+builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
@@ -47,7 +51,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
    
-    NIACRMInitializer.Initialize(serviceProvider: services, DeleteDatabase: true,
+    NIACRMInitializer.Initialize(serviceProvider: services, DeleteDatabase: false,
         UseMigrations: true, SeedSampleData: true);
 }
 app.Run();

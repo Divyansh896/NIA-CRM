@@ -1,9 +1,8 @@
-@model IEnumerable<NIA_CRM.ViewModels.DashboardDetailsViewModel>
+﻿@model IEnumerable<NIA_CRM.Models.Member>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Member Details";
 }
-
 <!--WIDGETS-->
 <div class="content" id="content">
     <h1>Dashboard</h1>
@@ -13,7 +12,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <p class="card-title">Total Members</p>
-                    <p class="card-text">@ViewData["MemberCount"]</p>
+                    <p class="card-text">@Model.Count()</p>
                 </div>
             </div>
         </div>
@@ -22,7 +21,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <p class="card-title">Members in Copperport</p>
-                    <p class="card-text">@ViewData["CopperportCount"]</p>
+                    <p class="card-text">@Model.Count(m => m.Address.City == "Copperport")</p>
                 </div>
             </div>
         </div>
@@ -70,7 +69,7 @@
                             <label for="EmailTypeID" class="control-label">Filter by Industry:</label>
                             @Html.DropDownList("IndustryID", null, "All Industry", htmlAttributes: new { @class = "form-control" })
                         </div>
-
+                        
                         <div class="form-group col-md-4 d-flex align-items-end mt-2">
                             <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
                             <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
@@ -113,9 +112,9 @@
                 {
 
                     <tr class="clickable-row" data-id="@member.ID">
-                        <td style="position: sticky; left: 0; z-index: 1020; background: #f8f9fa;">@member.MemberFirstName</td>
-                        <td>@member.OrganizationName</td>
-                        <td>@member.IndustryName</td>
+                        <td style="position: sticky; left: 0; z-index: 1020; background: #f8f9fa;">@member.Summary</td>
+                        <td>@member.Organization.OrganizationName</td>
+                        <td>@member.Organization.Industry.IndustryName</td>
                         <td>
                             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 @member.Address.AddressLineOne
@@ -127,14 +126,15 @@
                                 <br />@member.Address.Country
                             </div>
                         </td>
-                        @if (member.Contacts != null && member.Contacts.Count > 0)
+                        @if (member.ContactOrganizations != null && member.ContactOrganizations.Count > 0)
                         {
                             <td colspan="7">
                                 <table class="table">
-                                    @foreach (var contact in member.Contacts) // Corrected the loop variable name
+                                    @foreach (var contactOrg in member.ContactOrganizations)
                                     {
+                                        var contact = contactOrg.Contact; // Assuming Contact is the property in ContactOrganization
                                         <tr>
-                                            <td style="width: 200px;">@contact.ContactFirstName</td> <!-- Corrected property name -->
+                                            <td style="width: 200px;">@contact.Summary</td>
                                             <td style="width: 200px;">@contact.Title</td>
                                             <td style="width: 200px;">@contact.Department</td>
                                             <td style="word-wrap: break-word; overflow-wrap: break-word; width: 250px;">@contact.EMail</td>

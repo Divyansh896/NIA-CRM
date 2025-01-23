@@ -59,6 +59,8 @@ namespace NIA_CRM.Models
         //public ICollection<Address> Addresses { get; set; } = new HashSet<Address>();
 
         public Address? Address { get; set; }  // Instead of ICollection<Address> Addresses
+        public ICollection<ContactOrganization> ContactOrganizations { get; set; } = new HashSet<ContactOrganization>();
+
 
     }
 }

@@ -143,7 +143,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<int>("OrganizationID")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("MemberID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("ContactID", "OrganizationID");
+
+                    b.HasIndex("MemberID");
 
                     b.HasIndex("OrganizationID");
 
@@ -378,14 +383,33 @@ namespace NIA_CRM.Data.NIACRMigration
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("EmailType")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
+
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -394,6 +418,137 @@ namespace NIA_CRM.Data.NIACRMigration
                         .IsUnique();
 
                     b.ToTable("ProductionEmails");
+                });
+
+            modelBuilder.Entity("NIA_CRM.ViewModels.AddressViewModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AddressLineOne")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AddressLineTwo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StateProvince")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("AddressViewModel");
+                });
+
+            modelBuilder.Entity("NIA_CRM.ViewModels.ContactViewModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ContactFirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContactLastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContactMiddleName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("DashboardDetailsViewModelID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EMail")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsVIP")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LinkedinUrl")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DashboardDetailsViewModelID");
+
+                    b.ToTable("ContactViewModel");
+                });
+
+            modelBuilder.Entity("NIA_CRM.ViewModels.DashboardDetailsViewModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AddressID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IndustryID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("IndustryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MemberFirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MemberLastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MemberMiddleName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OrganizationID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("OrganizationName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AddressID");
+
+                    b.ToTable("DashboardDetailsViewModel");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Address", b =>
@@ -425,6 +580,10 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasForeignKey("ContactID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("NIA_CRM.Models.Member", null)
+                        .WithMany("ContactOrganizations")
+                        .HasForeignKey("MemberID");
 
                     b.HasOne("NIA_CRM.Models.Organization", "Organization")
                         .WithMany("ContactOrganizations")
@@ -538,6 +697,24 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Navigation("Organization");
                 });
 
+            modelBuilder.Entity("NIA_CRM.ViewModels.ContactViewModel", b =>
+                {
+                    b.HasOne("NIA_CRM.ViewModels.DashboardDetailsViewModel", null)
+                        .WithMany("Contacts")
+                        .HasForeignKey("DashboardDetailsViewModelID");
+                });
+
+            modelBuilder.Entity("NIA_CRM.ViewModels.DashboardDetailsViewModel", b =>
+                {
+                    b.HasOne("NIA_CRM.ViewModels.AddressViewModel", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("NIA_CRM.Models.Contact", b =>
                 {
                     b.Navigation("ContactOrganizations");
@@ -557,6 +734,8 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Navigation("Address");
 
                     b.Navigation("Cancellations");
+
+                    b.Navigation("ContactOrganizations");
 
                     b.Navigation("MemberMembershipTypes");
                 });
@@ -580,6 +759,11 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Navigation("Opportunities");
 
                     b.Navigation("OrganizationCodes");
+                });
+
+            modelBuilder.Entity("NIA_CRM.ViewModels.DashboardDetailsViewModel", b =>
+                {
+                    b.Navigation("Contacts");
                 });
 #pragma warning restore 612, 618
         }

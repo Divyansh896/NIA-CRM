@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NIA_CRM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.CustomControllers;
 
 namespace NIA_CRM.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -20,7 +22,7 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Contact
-        public async Task<IActionResult> Index(string? Departments, string? Titles, bool IsVIP, string? SearchString, string? actionButton,
+        public async Task<IActionResult> Index(int?page, int? pageSizeID, string? Departments, string? Titles, bool IsVIP, string? SearchString, string? actionButton,
                                                string sortDirection = "asc", string sortField = "Contact Name")
         {
             PopulateDropdownLists();
@@ -28,6 +30,7 @@ namespace NIA_CRM.Controllers
 
             ViewData["Filtering"] = "btn-outline-secondary";
             int numberFilters = 0;
+            
             var contacts = _context.Contacts.AsQueryable();
 
             if (Departments != null)
@@ -48,7 +51,7 @@ namespace NIA_CRM.Controllers
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
             {
-                //page = 1;//Reset page to start
+                page = 1;//Reset page to start
 
                 if (sortOptions.Contains(actionButton))//Change of sort is requested
                 {
@@ -96,7 +99,14 @@ namespace NIA_CRM.Controllers
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
-            return View(await contacts.ToListAsync());
+            ViewData["records"] = $"Records Found: {contacts.Count()}";
+
+            // Handle paging
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
+            var pagedData = await PaginatedList<Contact>.CreateAsync(contacts.AsNoTracking(), page ?? 1, pageSize);
+
+            return View(pagedData);
         }
 
         // GET: Contact/Details/5

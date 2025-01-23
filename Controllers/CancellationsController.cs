@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
@@ -20,10 +21,70 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Cancellations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, string? CancellationDateFilter, string? CancellationNoteFilter, string? actionButton,
+                                        string sortDirection = "asc", string sortField = "Cancellation Date")
         {
-            var nIACRMContext = _context.Cancellations.Include(c => c.Member);
-            return View(await nIACRMContext.ToListAsync());
+            string[] sortOptions = new[] { "Cancellation Date", "Cancellation Note", "Canceled", "Member" };
+
+            // Query for cancellations
+            var cancellations = _context.Cancellations
+                .Include(c => c.Member)
+                .AsQueryable();
+
+            int pageSize = 5; // Number of records per page
+
+            // Filtering
+            if (!string.IsNullOrEmpty(CancellationDateFilter) && DateTime.TryParse(CancellationDateFilter, out var date))
+            {
+                cancellations = cancellations.Where(c => c.CancellationDate.Date == date);
+            }
+            if (!string.IsNullOrEmpty(CancellationNoteFilter))
+            {
+                cancellations = cancellations.Where(c => c.CancellationNote.Contains(CancellationNoteFilter));
+            }
+
+            // Sorting
+            if (!string.IsNullOrEmpty(actionButton))
+            {
+                if (sortOptions.Contains(actionButton))
+                {
+                    page = 1; // Reset page to start
+                    if (actionButton == sortField) // Reverse order on the same field
+                    {
+                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    sortField = actionButton; // Update sort field
+                }
+            }
+
+            // Apply sorting
+            cancellations = sortField switch
+            {
+                "Cancellation Date" => sortDirection == "asc"
+                    ? cancellations.OrderBy(c => c.CancellationDate)
+                    : cancellations.OrderByDescending(c => c.CancellationDate),
+                "Cancellation Note" => sortDirection == "asc"
+                    ? cancellations.OrderBy(c => c.CancellationNote)
+                    : cancellations.OrderByDescending(c => c.CancellationNote),
+                "Canceled" => sortDirection == "asc"
+                    ? cancellations.OrderBy(c => c.Canceled)
+                    : cancellations.OrderByDescending(c => c.Canceled),
+                "Member" => sortDirection == "asc"
+                    ? cancellations.OrderBy(c => c.Member.Summary)
+                    : cancellations.OrderByDescending(c => c.Member.Summary),
+                _ => cancellations
+            };
+
+            // Handle paging
+            var pagedData = await PaginatedList<Cancellation>.CreateAsync(cancellations.AsNoTracking(), page ?? 1, pageSize);
+
+            // Pass data to the view
+            ViewData["SortDirection"] = sortDirection;
+            ViewData["SortField"] = sortField;
+            ViewData["CancellationDateFilter"] = CancellationDateFilter;
+            ViewData["CancellationNoteFilter"] = CancellationNoteFilter;
+
+            return View(pagedData);
         }
 
         // GET: Cancellations/Details/5
