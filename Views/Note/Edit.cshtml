@@ -1,0 +1,50 @@
+﻿@model NIA_CRM.Models.Notes
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>Notes</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="NoteContent" class="control-label"></label>
+                <input asp-for="NoteContent" class="form-control" />
+                <span asp-validation-for="NoteContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactID" class="control-label"></label>
+                <select asp-for="ContactID" class="form-control" asp-items="ViewBag.ContactID"></select>
+                <span asp-validation-for="ContactID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

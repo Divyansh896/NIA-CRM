@@ -56,5 +56,6 @@ namespace NIA_CRM.Models
         }
         public ICollection<ContactOrganization> ContactOrganizations { get; set; } = new HashSet<ContactOrganization>();
         public ICollection<Interaction> Interactions { get; set; } = new HashSet<Interaction>();
+        public ICollection<Notes> Notes { get; set; } = new HashSet<Notes>();
     }
 }
