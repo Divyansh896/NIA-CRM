@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
 using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
-    public class CancellationsController : Controller
+    public class CancellationsController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -21,7 +22,7 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Cancellations
-        public async Task<IActionResult> Index(int? page, string? CancellationDateFilter, string? CancellationNoteFilter, string? actionButton,
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? CancellationDateFilter, string? CancellationNoteFilter, string? actionButton,
                                         string sortDirection = "asc", string sortField = "Cancellation Date")
         {
             string[] sortOptions = new[] { "Cancellation Date", "Cancellation Note", "Canceled", "Member" };
@@ -31,7 +32,6 @@ namespace NIA_CRM.Controllers
                 .Include(c => c.Member)
                 .AsQueryable();
 
-            int pageSize = 5; // Number of records per page
 
             // Filtering
             if (!string.IsNullOrEmpty(CancellationDateFilter) && DateTime.TryParse(CancellationDateFilter, out var date))
@@ -76,6 +76,8 @@ namespace NIA_CRM.Controllers
             };
 
             // Handle paging
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
             var pagedData = await PaginatedList<Cancellation>.CreateAsync(cancellations.AsNoTracking(), page ?? 1, pageSize);
 
             // Pass data to the view

@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<div class="d-flex flex-row align-items-center justify-content-end mb-4">
+    <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Member</a>
+</div>
 <!--WIDGETS-->
 <div class="content" id="content">
     <h1>Dashboard</h1>
@@ -41,7 +43,6 @@
 
 <!--Member Table-->
 
-<h2>Member Details</h2>
 <form asp-action="Index" method="get">
 
     <div class="table-container">
@@ -50,7 +51,7 @@
         <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
         <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
 
-        <div class="form-horizontal mb-3">
+        <div class="form-horizontal mb-3 mt-3">
             <button class="btn btn-secondary @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
                     data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                 Filter/Search @ViewData["numberFilters"]
@@ -80,6 +81,8 @@
             </div>
         </div>
     </div>
+    <h2 class="mb-0">Member Details</h2>
+
     <!--Table Data-->
     <div class="table-container mt-4" style="position: relative; overflow: auto; border: 1px solid #ddd;">
         <table class="table table-bordered table-striped" style="table-layout: fixed; width: 100%;" id="myTable">

@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
 using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
-    public class ProductionEmailController : Controller
+    public class ProductionEmailController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -22,13 +23,14 @@ namespace NIA_CRM.Controllers
 
 
         // GET: ProductionEmail
-        public async Task<IActionResult> Index(int? page, int? EmailTypeID, string? actionButton,
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, int? EmailTypeID, string? actionButton,
    string sortDirection = "asc", string sortField = "Email Type")
         {
             // Populate the dropdown list
             ViewData["EmailTypeID"] = ProductionEmailTypeSelectList(EmailTypeID);
 
             string[] sortOptions = new[] { "Email Type", "Subject" };
+            ViewData["Filtering"] = "btn-outline-secondary";
 
             // Declare the email list to be used in the view
             var emailsQuery = _context.ProductionEmails.AsQueryable();
@@ -66,7 +68,8 @@ namespace NIA_CRM.Controllers
             };
 
             // Handle paging
-            int pageSize = 5; // Change as needed
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
             var pagedData = await PaginatedList<ProductionEmail>.CreateAsync(emailsQuery.AsNoTracking(), page ?? 1, pageSize);
 
             // Pass sorting info to the view
