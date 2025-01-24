@@ -1,5 +1,75 @@
 ﻿
-    /* responsive.css */
+/* responsive.css */
+
+/*root css*/
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100vh;
+    width: 250px;
+    background-color: #f8f9fa;
+    transition: left 0.3s ease;
+    z-index: 1050;
+    padding-top: 60px;
+}
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    .sidebar ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+        .sidebar ul li {
+            padding: 10px 20px;
+        }
+
+            .sidebar ul li a {
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                display: block;
+            }
+
+                .sidebar ul li a:hover {
+                    background-color: #e9ecef;
+                    border-radius: 5px;
+                }
+
+/* Main content */
+.main-content {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+    padding: 20px;
+}
+
+    .main-content.sidebar-collapsed {
+        margin-left: 60px;
+    }
+
+/* Hamburger Button */
+#toggleSidebar {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+    #toggleSidebar:focus {
+        outline: none;
+    }
 /* Highlight row on hover */
 .clickable-row:hover {
     background-color: #f5f5f5; /* Light grey background */
@@ -33,56 +103,54 @@
 .d-flex.flex-row {
     overflow: hidden;
 }
-
-
-    /* Mobile Devices (Phones) */
-    @media (max-width: 768px) {
-        body {
-            font-size: 14px;
-        }
-
-        /* Adjust navigation bar */
-        .navbar {
-            font-size: 14px;
-        }
-
-        .main-content {
-            margin-left: 0 !important; /* Remove margin when collapsed */
-        }
-
-        /* Example of adjusting layout for smaller screens */
-        .container {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-
-        /* Adjust grid layout */
-        .row {
-            flex-direction: column;
-        }
+/* Mobile Devices (Phones) */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
     }
-    /* Tablets */
-    @media (min-width: 769px) and (max-width: 1024px) {
-        .navbar {
-            font-size: 16px;
-        }
 
-        .container {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-        .row {
-            flex-direction: row;
-        }
+    /* Adjust navigation bar */
+    .navbar {
+        font-size: 14px;
     }
-    /* Desktops (larger screens) */
-    @media (min-width: 1025px) {
-        .navbar {
-            font-size: 18px;
-        }
 
-        .main-content {
-            margin-left: 250px; /* Adjust the margin for larger screens */
-        }
+    .main-content {
+        margin-left: 0 !important; /* Remove margin when collapsed */
     }
+
+    /* Example of adjusting layout for smaller screens */
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Adjust grid layout */
+    .row {
+        flex-direction: column;
+    }
+}
+/* Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .navbar {
+        font-size: 16px;
+    }
+
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .row {
+        flex-direction: row;
+    }
+}
+/* Desktops (larger screens) */
+@media (min-width: 1025px) {
+    .navbar {
+        font-size: 18px;
+    }
+
+    .main-content {
+        margin-left: 250px; /* Adjust the margin for larger screens */
+    }
+}
