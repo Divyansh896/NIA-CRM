@@ -14,6 +14,6 @@ namespace NIA_CRM.Models
         [Display(Name = "Membership Type Description")]
         public string? TypeDescr { get; set; }
 
-        public ICollection<MemberMembershipType> MemberMembershipTypes { get; set; } = new HashSet<MemberMembershipType>();
+        public ICollection<MemberMembershipType> MemberMembershipTypes { get; set; } = new List<MemberMembershipType>();
     }
 }

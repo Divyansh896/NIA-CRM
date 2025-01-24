@@ -54,51 +54,29 @@ namespace NIA_CRM.Controllers
 
             // Fetch data from the database
             var memberDetailsQuery = _context.Members
-                .Include(m => m.Organization)
-                    .ThenInclude(o => o.Industry)
-                .Include(m => m.Address)
-                .Include(m => m.Organization.ContactOrganizations)
-                    .ThenInclude(co => co.Contact)
-                .Select(m => new DashboardDetailsViewModel
-                {
-                    ID = m.ID,
-                    MemberFirstName = m.MemberFirstName,
-                    MemberLastName = m.MemberLastName,
-                    OrganizationID = m.OrganizationID,
-                    OrganizationName = m.Organization.OrganizationName,
-                    IndustryName = m.Organization.Industry.IndustryName,
-                    IndustryID = m.Organization.IndustryID,
-                    Address = new AddressViewModel
-                    {
-                        AddressLineOne = m.Address.AddressLineOne,
-                        AddressLineTwo = m.Address.AddressLineTwo,
-                        City = m.Address.City,
-                        StateProvince = m.Address.StateProvince,
-                        PostalCode = m.Address.PostalCode,
-                        Country = m.Address.Country
-                    },
-                    Contacts = m.Organization.ContactOrganizations.Select(co => new ContactViewModel
-                    {
-                        ContactFirstName = co.Contact.ContactFirstName,
-                        ContactLastName = co.Contact.ContactLastName,
-                        ContactMiddleName = co.Contact.ContactMiddleName,
-                        Title = co.Contact.Title,
-                        Department = co.Contact.Department,
-                        EMail = co.Contact.EMail,
-                        Phone = co.Contact.Phone,
-                        LinkedinUrl = co.Contact.LinkedinUrl,
-                        IsVIP = co.Contact.IsVIP,
-                        Summary = co.Contact.Summary
-                    }).ToList()
-                }).AsQueryable();
+    .Include(m => m.MemberIndustries) // Include related MemberIndustries
+            .ThenInclude(mi => mi.Industry) // Include the related Industry
+
+    .Include(m => m.Contacts)
+    .ThenInclude(i => i.ContactIndustries) // Include ContactIndustries within Industry
+    .Include(m => m.Addresses) // Include Addresses related to the Member
+    .Include(m => m.MemberMembershipTypes) // Include MembershipTypes related to the Member
+    .Include(m => m.Cancellations) // Include Cancellations related to the Member
+    .Include(m => m.MemberNotes) // Include Member Notes
+    .Include(m => m.Interactions) // Include Interactions related to the Member
+    .AsNoTracking();
+
+
 
             // Count VIPs
             var memberCount = await _context.Members.CountAsync();
-            var vipCount = await _context.Contacts.CountAsync(c => c.IsVIP);
-                
+            var vipCount = await _context.Contacts.CountAsync(c => c.IsVip);
+
             var copperportCount = await _context.Members
-                .Include(m => m.Address)
-                .CountAsync(m => m.Address.City == "Copperport");
+    .Include(m => m.Addresses) // Ensure Addresses is included
+    .CountAsync(m => m.Addresses.Any(a => a.City == "Copperport")); // Check if any address has the city "Copperport"
+
+
 
             ViewData["MemberCount"] = memberCount;
             ViewData["VipCount"] = vipCount;
@@ -119,17 +97,14 @@ namespace NIA_CRM.Controllers
             }
 
             // Apply filters
-            if (OrganizationID.HasValue)
-            {
-                memberDetailsQuery = memberDetailsQuery.Where(m => m.OrganizationID == OrganizationID.Value);
-                numberFilters++;
-            }
 
             if (IndustryID.HasValue)
             {
-                memberDetailsQuery = memberDetailsQuery.Where(m => m.IndustryID == IndustryID.Value);
-                numberFilters++;
+                memberDetailsQuery = memberDetailsQuery.Where(m => m.MemberIndustries
+                    .Any(mi => mi.IndustryId == IndustryID.Value)); // Assuming MemberIndustries holds IndustryId
+                numberFilters++; // Incrementing filter count if applied
             }
+
 
             if (!string.IsNullOrEmpty(SearchString))
             {
@@ -143,14 +118,17 @@ namespace NIA_CRM.Controllers
             memberDetailsQuery = sortField switch
             {
                 "Member Name" => sortDirection == "asc"
-                    ? memberDetailsQuery.OrderBy(m => m.MemberFirstName)
-                    : memberDetailsQuery.OrderByDescending(m => m.MemberLastName),
-                "Organization" => sortDirection == "asc"
-                    ? memberDetailsQuery.OrderBy(m => m.OrganizationName)
-                    : memberDetailsQuery.OrderByDescending(m => m.OrganizationName),
+                    ? memberDetailsQuery.OrderBy(m => m.MemberFirstName).ThenBy(m => m.MemberLastName)
+                    : memberDetailsQuery.OrderByDescending(m => m.MemberFirstName).ThenByDescending(m => m.MemberLastName),
+
                 "Industry" => sortDirection == "asc"
-                    ? memberDetailsQuery.OrderBy(m => m.IndustryName)
-                    : memberDetailsQuery.OrderByDescending(m => m.IndustryName),
+                    ? memberDetailsQuery.OrderBy(m => m.MemberIndustries.FirstOrDefault() != null
+                        ? m.MemberIndustries.FirstOrDefault().Industry.IndustryName
+                        : "") // Handle null case with empty string
+                    : memberDetailsQuery.OrderByDescending(m => m.MemberIndustries.FirstOrDefault() != null
+                        ? m.MemberIndustries.FirstOrDefault().Industry.IndustryName
+                        : ""), // Handle null case with empty string
+
                 _ => memberDetailsQuery
             };
 
@@ -172,39 +150,40 @@ namespace NIA_CRM.Controllers
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
             ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
-            var pagedData = await PaginatedList<DashboardDetailsViewModel>.CreateAsync(memberDetailsQuery.AsNoTracking(), page ?? 1, pageSize);
+            var pagedData = await PaginatedList<Member>.CreateAsync(memberDetailsQuery, page ?? 1, pageSize);
 
             return View(pagedData);
         }
 
         private void PopulateDropdowns()
         {
-            var organizations = _context.Members
-     .Select(m => new { m.Organization.ID, m.Organization.OrganizationName })
-     .Distinct()
-     .OrderBy(o => o.OrganizationName)
-     .AsNoTracking();
+
 
             var industries = _context.Members
-                .Select(m => new { m.Organization.Industry.ID, m.Organization.Industry.IndustryName })
-                .Distinct()
-                .OrderBy(i => i.IndustryName)
-                .AsNoTracking();
+     .SelectMany(m => m.MemberIndustries)  // Flatten the collection of MemberIndustries
+     .Select(mi => new { mi.Industry.ID, mi.Industry.IndustryName }) // Select the ID and IndustryName from the related Industry
+     .Distinct() // Ensures distinct results based on both ID and IndustryName
+     .OrderBy(i => i.IndustryName) // Orders by IndustryName
+     .AsNoTracking() // Disables tracking for better performance
+     .ToList(); // Executes the query and returns the result
 
-            ViewData["OrganizationID"] = new MultiSelectList(organizations, "ID", "OrganizationName");
             ViewData["IndustryID"] = new MultiSelectList(industries, "ID", "IndustryName");
 
         }
 
-        public IActionResult GetMemberPreview(int id)
+        public async Task<IActionResult> GetMemberPreview(int id)
         {
-            var member = _context.Members.Include(c => c.Address)
-            .Include(co => co.Organization).FirstOrDefault(c => c.ID == id);
+            var member = await _context.Members
+                .Include(m => m.Addresses) // Include the related Address
+                .FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
+
             if (member == null)
             {
-                return NotFound();
+                return NotFound(); // Return 404 if the member doesn't exist
             }
-            return PartialView("_MemberContactPreview", member);  // Ensure the partial view name is correct
+
+            return PartialView("_MemberContactPreview", member); // Ensure the partial view name matches
         }
+
     }
 }

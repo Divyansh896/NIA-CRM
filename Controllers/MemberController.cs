@@ -5,15 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
-using NIA_CRM.Utilities;
-using NIA_CRM.ViewModels;
 
 namespace NIA_CRM.Controllers
 {
-    public class MemberController : ElephantController
+    public class MemberController : Controller
     {
         private readonly NIACRMContext _context;
 
@@ -23,44 +20,10 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Member
-        public async Task<IActionResult> Index(int?page, int? pageSizeID, string? SearchString, string? JoinDate, string? Organization)
+        public async Task<IActionResult> Index()
         {
-            var members = _context.Members
-                .Include(m => m.Organization)
-                .AsQueryable();
-
-            // Filter by Member Name
-            if (!string.IsNullOrEmpty(SearchString))
-            {
-                page = 1;//Reset page to start
-                members = members.Where(m => m.Summary.Contains(SearchString));
-            }
-
-            // Filter by Join Date
-            if (!string.IsNullOrEmpty(JoinDate) && DateTime.TryParse(JoinDate, out var parsedDate))
-            {
-                
-                members = members.Where(m => m.JoinDate.HasValue && m.JoinDate.Value.Date == parsedDate.Date);
-            }
-
-            // Filter by Organization Name
-            if (!string.IsNullOrEmpty(Organization))
-            {
-                members = members.Where(m => m.Organization.OrganizationName.Contains(Organization));
-            }
-
-            // Save filter values to ViewData for persistence
-            ViewData["SearchString"] = SearchString;
-            ViewData["JoinDate"] = JoinDate;
-            ViewData["Organization"] = Organization;
-
-            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
-            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
-            var pagedData = await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), page ?? 1, pageSize);
-
-            return View(pagedData);
+            return View(await _context.Members.ToListAsync());
         }
-
 
         // GET: Member/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -71,7 +34,6 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
-                .Include(m => m.Organization)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -84,7 +46,6 @@ namespace NIA_CRM.Controllers
         // GET: Member/Create
         public IActionResult Create()
         {
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName");
             return View();
         }
 
@@ -93,7 +54,7 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MemberName,JoinDate,StandingStatus,OrganizationID")] Member member)
+        public async Task<IActionResult> Create([Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")] Member member)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +62,6 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName", member.OrganizationID);
             return View(member);
         }
 
@@ -118,7 +78,6 @@ namespace NIA_CRM.Controllers
             {
                 return NotFound();
             }
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName", member.OrganizationID);
             return View(member);
         }
 
@@ -127,30 +86,23 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")] Member member)
         {
-
-            var memberToUpdate = await _context.Members.FirstOrDefaultAsync(m => m.ID == id);
-
-            if (memberToUpdate == null)
+            if (id != member.ID)
             {
                 return NotFound();
             }
-            
-            // Try update model approach
 
-
-            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberFirstName, m => m.JoinDate, m => m.StandingStatus, m => m.OrganizationID))
-         {
+            if (ModelState.IsValid)
+            {
                 try
                 {
-                    _context.Update(memberToUpdate);
+                    _context.Update(member);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MemberExists(memberToUpdate.ID))
+                    if (!MemberExists(member.ID))
                     {
                         return NotFound();
                     }
@@ -159,18 +111,9 @@ namespace NIA_CRM.Controllers
                         throw;
                     }
                 }
-                catch (DbUpdateException dex)
-                {
-                    string message = dex.GetBaseException().Message;
-                    
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-                    
-                }
-
+                return RedirectToAction(nameof(Index));
             }
-
-            ViewData["OrganizationID"] = new SelectList(_context.Organizations, "ID", "OrganizationName", memberToUpdate.OrganizationID);
-            return View(memberToUpdate);
+            return View(member);
         }
 
         // GET: Member/Delete/5
@@ -182,7 +125,6 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
-                .Include(m => m.Organization)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -211,24 +153,5 @@ namespace NIA_CRM.Controllers
         {
             return _context.Members.Any(e => e.ID == id);
         }
-
-        public async Task<IActionResult> GetMemberPreview(int id)
-        {
-            var member = await _context.Members
-                .Include(m => m.Organization)
-                .Include(m => m.Address)
-                .FirstOrDefaultAsync(m => m.ID == id);
-
-            if (member == null)
-            {
-                return NotFound();
-            }
-
-            return PartialView("_MemberContactPreview", member);
-        }
-
-
-        
-
     }
 }

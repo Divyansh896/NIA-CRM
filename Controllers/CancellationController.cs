@@ -10,23 +10,23 @@ using NIA_CRM.Models;
 
 namespace NIA_CRM.Controllers
 {
-    public class NoteController : Controller
+    public class CancellationController : Controller
     {
         private readonly NIACRMContext _context;
 
-        public NoteController(NIACRMContext context)
+        public CancellationController(NIACRMContext context)
         {
             _context = context;
         }
 
-        // GET: Note
+        // GET: Cancellation
         public async Task<IActionResult> Index()
         {
-            var nIACRMContext = _context.Notes.Include(n => n.Contact);
+            var nIACRMContext = _context.Cancellations.Include(c => c.Member);
             return View(await nIACRMContext.ToListAsync());
         }
 
-        // GET: Note/Details/5
+        // GET: Cancellation/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +34,42 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var notes = await _context.Notes
-                .Include(n => n.Contact)
+            var cancellation = await _context.Cancellations
+                .Include(c => c.Member)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (notes == null)
+            if (cancellation == null)
             {
                 return NotFound();
             }
 
-            return View(notes);
+            return View(cancellation);
         }
 
-        // GET: Note/Create
+        // GET: Cancellation/Create
         public IActionResult Create()
         {
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName");
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName");
             return View();
         }
 
-        // POST: Note/Create
+        // POST: Cancellation/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,NoteContent,ContactID,CreatedDate")] Notes notes)
+        public async Task<IActionResult> Create([Bind("ID,CancellationDate,Canceled,CancellationNote,MemberID")] Cancellation cancellation)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(notes);
+                _context.Add(cancellation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName", notes.ContactID);
-            return View(notes);
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName", cancellation.MemberID);
+            return View(cancellation);
         }
 
-        // GET: Note/Edit/5
+        // GET: Cancellation/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +77,23 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var notes = await _context.Notes.FindAsync(id);
-            if (notes == null)
+            var cancellation = await _context.Cancellations.FindAsync(id);
+            if (cancellation == null)
             {
                 return NotFound();
             }
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName", notes.ContactID);
-            return View(notes);
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName", cancellation.MemberID);
+            return View(cancellation);
         }
 
-        // POST: Note/Edit/5
+        // POST: Cancellation/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,NoteContent,ContactID,CreatedDate")] Notes notes)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,CancellationDate,Canceled,CancellationNote,MemberID")] Cancellation cancellation)
         {
-            if (id != notes.ID)
+            if (id != cancellation.ID)
             {
                 return NotFound();
             }
@@ -102,12 +102,12 @@ namespace NIA_CRM.Controllers
             {
                 try
                 {
-                    _context.Update(notes);
+                    _context.Update(cancellation);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NotesExists(notes.ID))
+                    if (!CancellationExists(cancellation.ID))
                     {
                         return NotFound();
                     }
@@ -118,11 +118,11 @@ namespace NIA_CRM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "ID", "ContactFirstName", notes.ContactID);
-            return View(notes);
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName", cancellation.MemberID);
+            return View(cancellation);
         }
 
-        // GET: Note/Delete/5
+        // GET: Cancellation/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,51 +130,35 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var notes = await _context.Notes
-                .Include(n => n.Contact)
+            var cancellation = await _context.Cancellations
+                .Include(c => c.Member)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (notes == null)
+            if (cancellation == null)
             {
                 return NotFound();
             }
 
-            return View(notes);
+            return View(cancellation);
         }
 
-        // POST: Note/Delete/5
+        // POST: Cancellation/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var notes = await _context.Notes.FindAsync(id);
-            if (notes != null)
+            var cancellation = await _context.Cancellations.FindAsync(id);
+            if (cancellation != null)
             {
-                _context.Notes.Remove(notes);
+                _context.Cancellations.Remove(cancellation);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool NotesExists(int id)
+        private bool CancellationExists(int id)
         {
-            return _context.Notes.Any(e => e.ID == id);
+            return _context.Cancellations.Any(e => e.ID == id);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> AddNotes([Bind("NoteContent,ContactID")] Notes notes)
-        {
-            if (ModelState.IsValid)
-            {
-                notes.CreatedDate = DateTime.Now; // Set the creation date explicitly
-                _context.Add(notes);
-                await _context.SaveChangesAsync();
-
-                return Json(new { success = true, message = "Note saved successfully." });
-            }
-
-            return Json(new { success = false, message = "Invalid data. Unable to save note." });
-        }
-
     }
 }

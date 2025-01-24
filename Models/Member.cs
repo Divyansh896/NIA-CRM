@@ -51,16 +51,14 @@ namespace NIA_CRM.Models
         [Required(ErrorMessage = "You must select the standing status.")]
         public StandingStatus StandingStatus { get; set; }
 
-        public int OrganizationID { get; set; }
-        public Organization? Organization { get; set; }
 
-        public ICollection<MemberMembershipType> MemberMembershipTypes { get; set; } = new HashSet<MemberMembershipType>();
-        public ICollection<Cancellation> Cancellations { get; set; } = new HashSet<Cancellation>();
-        //public ICollection<Address> Addresses { get; set; } = new HashSet<Address>();
-
-        public Address? Address { get; set; }  // Instead of ICollection<Address> Addresses
-        public ICollection<ContactOrganization> ContactOrganizations { get; set; } = new HashSet<ContactOrganization>();
-
+        public ICollection<MemberIndustry> MemberIndustries { get; set; } = new List<MemberIndustry>();
+        public ICollection<MemberMembershipType> MemberMembershipTypes { get; set; } = new List<MemberMembershipType>();
+        public ICollection<Address> Addresses { get; set; } = new List<Address>();
+        public ICollection<Cancellation> Cancellations { get; set; } = new List<Cancellation>();
+        public ICollection<MemberNote> MemberNotes { get; set; } = new List<MemberNote>();
+        public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
+        public ICollection<Contact> Contacts { get; set; } = new HashSet<Contact>();
 
     }
 }

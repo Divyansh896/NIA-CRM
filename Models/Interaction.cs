@@ -1,25 +1,33 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-
 namespace NIA_CRM.Models
 {
     public class Interaction
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        [Display(Name = "Interaction Date")]
-        [Required(ErrorMessage = "Interaction date is required.")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Member ID is required.")]
+        public int MemberId { get; set; }
+
+        [Required(ErrorMessage = "Contact ID is required.")]
+        public int ContactId { get; set; }
+
+        [Required(ErrorMessage = "Interaction Date is required.")]
         public DateTime InteractionDate { get; set; }
 
-        public string? InteractionNote { get; set; }
+        public int? OpportunityId { get; set; }
 
-        public int ContactID { get; set; }
-        public Contact? Contact { get; set; }
-        public int MemberID { get; set; }
-        public Member? Member { get; set; }
-        public int OpportunityID { get; set; }
-        public Opportunity? Opportunity { get; set; }
+        [StringLength(500, ErrorMessage = "Notes cannot be longer than 500 characters.")]
+        public string? Notes { get; set; }
+
+        [Required(ErrorMessage = "Creation date is required.")]
+        public DateTime? CreatedAt { get; set; }
+
+        [Required(ErrorMessage = "Update date is required.")]
+        public DateTime? UpdatedAt { get; set; }
+
+        public Member Member { get; set; }
+        public Contact Contact { get; set; }
+        public Opportunity Opportunity { get; set; }
     }
 }

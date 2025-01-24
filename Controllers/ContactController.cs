@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NIA_CRM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
-using NIA_CRM.CustomControllers;
+using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
@@ -22,15 +22,15 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Contact
-        public async Task<IActionResult> Index(int?page, int? pageSizeID, string? Departments, string? Titles, bool IsVIP, string? SearchString, string? actionButton,
-                                               string sortDirection = "asc", string sortField = "Contact Name")
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? Departments, string? Titles, bool IsVIP, string? SearchString, string? actionButton,
+                                              string sortDirection = "asc", string sortField = "Contact Name")
         {
             PopulateDropdownLists();
             string[] sortOptions = new[] { "Contact Name" };  // You can add more sort options if needed
 
             ViewData["Filtering"] = "btn-outline-secondary";
             int numberFilters = 0;
-            
+
             var contacts = _context.Contacts.AsQueryable();
 
             if (Departments != null)
@@ -45,7 +45,7 @@ namespace NIA_CRM.Controllers
             }
             if (IsVIP)
             {
-                contacts = contacts.Where(c => c.IsVIP);
+                contacts = contacts.Where(c => c.IsVip);
                 numberFilters++;
             }
 
@@ -68,20 +68,20 @@ namespace NIA_CRM.Controllers
                 if (sortDirection == "desc")
                 {
                     contacts = contacts
-                        .OrderByDescending(p => p.ContactFirstName);
+                        .OrderByDescending(p => p.FirstName);
                 }
                 else
                 {
                     contacts = contacts
-                        .OrderBy(p => p.ContactFirstName);
+                        .OrderBy(p => p.FirstName);
 
                 }
             }
 
             if (!String.IsNullOrEmpty(SearchString))
             {
-                contacts = contacts.Where(p => p.ContactLastName.ToUpper().Contains(SearchString.ToUpper())
-                                       || p.ContactFirstName.ToUpper().Contains(SearchString.ToUpper()));
+                contacts = contacts.Where(p => p.LastName.ToUpper().Contains(SearchString.ToUpper())
+                                       || p.LastName.ToUpper().Contains(SearchString.ToUpper()));
                 numberFilters++;
             }
             //Give feedback about the state of the filters
@@ -118,7 +118,8 @@ namespace NIA_CRM.Controllers
             }
 
             var contact = await _context.Contacts
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .Include(c => c.Member)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (contact == null)
             {
                 return NotFound();
@@ -130,6 +131,7 @@ namespace NIA_CRM.Controllers
         // GET: Contact/Create
         public IActionResult Create()
         {
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName");
             return View();
         }
 
@@ -138,7 +140,7 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ContactName,Title,Department,EMail,Phone,LinkedinUrl,IsVIP")] Contact contact)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,MiddleName,LastName,Title,Department,Email,Phone,LinkedInUrl,IsVip,MemberId")] Contact contact)
         {
             if (ModelState.IsValid)
             {
@@ -146,6 +148,7 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
             return View(contact);
         }
 
@@ -162,6 +165,7 @@ namespace NIA_CRM.Controllers
             {
                 return NotFound();
             }
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
             return View(contact);
         }
 
@@ -170,31 +174,23 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,MiddleName,LastName,Title,Department,Email,Phone,LinkedInUrl,IsVip,MemberId")] Contact contact)
         {
-
-            var ContactToUpdate = await _context.Contacts.FirstOrDefaultAsync(m => m.ID == id);
-
-
-            if (ContactToUpdate == null)
+            if (id != contact.Id)
             {
                 return NotFound();
             }
 
-            if (await TryUpdateModelAsync<Contact>(ContactToUpdate, "", 
-                c => c.ContactFirstName, c=> c.ContactMiddleName, c=> c.ContactLastName, c => c.Title, c => c.Department,
-                c => c.EMail, c => c.Phone, c => c.LinkedinUrl, c => c.IsVIP))
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(ContactToUpdate);
+                    _context.Update(contact);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContactExists(ContactToUpdate.ID))
+                    if (!ContactExists(contact.Id))
                     {
                         return NotFound();
                     }
@@ -203,15 +199,10 @@ namespace NIA_CRM.Controllers
                         throw;
                     }
                 }
-                catch (DbUpdateException dex)
-                {
-                    string message = dex.GetBaseException().Message;
-                    
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-                    
-                }
+                return RedirectToAction(nameof(Index));
             }
-            return View(ContactToUpdate);
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
+            return View(contact);
         }
 
         // GET: Contact/Delete/5
@@ -223,7 +214,8 @@ namespace NIA_CRM.Controllers
             }
 
             var contact = await _context.Contacts
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .Include(c => c.Member)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (contact == null)
             {
                 return NotFound();
@@ -249,7 +241,7 @@ namespace NIA_CRM.Controllers
 
         private bool ContactExists(int id)
         {
-            return _context.Contacts.Any(e => e.ID == id);
+            return _context.Contacts.Any(e => e.Id == id);
         }
 
         private void PopulateDropdownLists()
@@ -267,22 +259,16 @@ namespace NIA_CRM.Controllers
             ViewData["Departments"] = new SelectList(departments);
             ViewData["Titles"] = new SelectList(titles);
 
-             
-        }
 
+        }
         public IActionResult GetContactPreview(int id)
         {
-            var contact = _context.Contacts.Include(c => c.ContactOrganizations)
-            .ThenInclude(co => co.Organization).FirstOrDefault(c => c.ID == id);
+            var contact = _context.Contacts.Where(i => i.Id == id).FirstOrDefault();
             if (contact == null)
             {
                 return NotFound();
             }
             return PartialView("_ContactPreview", contact);  // Ensure the partial view name is correct
         }
-
-        
-
-
     }
 }

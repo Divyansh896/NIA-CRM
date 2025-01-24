@@ -1,153 +1,115 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NIA_CRM.Models;
-using NIA_CRM.ViewModels;
-
 
 namespace NIA_CRM.Data
 {
     public class NIACRMContext : DbContext
     {
-
-        //To give access to IHttpContextAccessor for Audit Data with IAuditable
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        //Property to hold the UserName value
-        public string UserName
-        {
-            get; private set;
-        }
-
-
+        public string UserName { get; private set; }
 
         public NIACRMContext(DbContextOptions<NIACRMContext> options, IHttpContextAccessor httpContextAccessor)
             : base(options)
         {
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
-            if (_httpContextAccessor.HttpContext != null)
-            {
-                //We have a HttpContext, but there might not be anyone Authenticated
-                UserName = _httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "Unknown";
-            }
-            else
-            {
-                //No HttpContext so seeding data
-                UserName = "Seed Data";
-            }
+            UserName = _httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "Unknown";
         }
+
         public NIACRMContext(DbContextOptions<NIACRMContext> options)
-         : base(options)
+            : base(options)
         {
-            _httpContextAccessor = null!;
             UserName = "Seed Data";
         }
 
-        public DbSet<Cancellation> Cancellations { get; set; }
-        public DbSet<Address> Addresses { get; set; }
+        // DbSets for entities
+        public DbSet<Member> Members { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Industry> Industries { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Interaction> Interactions { get; set; }
-        public DbSet<Member> Members { get; set; }
-        public DbSet<MembershipType> MembershipTypes { get; set; }
         public DbSet<Opportunity> Opportunities { get; set; }
-        public DbSet<Organization> Organizations { get; set; }
-        public DbSet<OrganizationCode> OrganizationCodes { get; set; }
+        public DbSet<Cancellation> Cancellations { get; set; }
+        public DbSet<MembershipType> MembershipTypes { get; set; }
         public DbSet<MemberMembershipType> MemberMembershipTypes { get; set; }
-        public DbSet<ContactOrganization> ContactOrganizations { get; set; }
+        public DbSet<ContactIndustry> ContactIndustries { get; set; }
         public DbSet<ProductionEmail> ProductionEmails { get; set; }
-        public DbSet<Notes> Notes { get; set; }
+        public DbSet<MemberIndustry> MemberIndustries { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //1:m relationships
-            modelBuilder.Entity<Contact>()
-                .HasMany<Interaction>(c => c.Interactions)
-                .WithOne(c =>c.Contact)
-                .HasForeignKey(c => c.ContactID)
-                .OnDelete(DeleteBehavior.Restrict);
+            // Relationships and constraints
 
-            modelBuilder.Entity<Contact>()
-               .HasMany<ContactOrganization>(c => c.ContactOrganizations)
-               .WithOne(c => c.Contact)
-               .HasForeignKey(c => c.ContactID)
-               .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Industry>()
-                .HasMany<Organization>(c => c.Organizations)
-                .WithOne(c => c.Industry)
-                .HasForeignKey(c => c.IndustryID)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Member>()
-                .HasMany<Cancellation>(d => d.Cancellations)
-                .WithOne(p => p.Member)
-                .HasForeignKey(p => p.MemberID)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Member>()
-                .HasOne<Address>(d => d.Address)
-                .WithOne(p => p.Member)
-                .HasForeignKey<Address>(p => p.MemberID)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Organization>()
-               .HasMany<OrganizationCode>(d => d.OrganizationCodes)
-               .WithOne(p => p.Organization)
-               .HasForeignKey(p => p.OrganizationID)
-               .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Contact>()
-        .HasMany(c => c.Notes)
-        .WithOne(n => n.Contact)
-        .HasForeignKey(n => n.ContactID);
-            //m:m
-            modelBuilder.Entity<Organization>()
-              .HasMany<ContactOrganization>(d => d.ContactOrganizations)
-              .WithOne(p => p.Organization)
-              .HasForeignKey(p => p.OrganizationID)
-              .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Contact>()
-              .HasMany<ContactOrganization>(d => d.ContactOrganizations)
-              .WithOne(p => p.Contact)
-              .HasForeignKey(p => p.ContactID)
-              .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Member>()
-              .HasMany<MemberMembershipType>(d => d.MemberMembershipTypes)
-              .WithOne(p => p.Member)
-              .HasForeignKey(p => p.MemberID)
-              .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<MembershipType>()
-              .HasMany<MemberMembershipType>(d => d.MemberMembershipTypes)
-              .WithOne(p => p.MembershipType)
-              .HasForeignKey(p => p.MembershipTypeID)
-              .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<ContactOrganization>()
-            .HasKey(t => new { t.ContactID, t.OrganizationID });
+            // Member -> MembershipType (Many-to-Many)
+            modelBuilder.Entity<MemberMembershipType>()
+                .HasKey(mmt => new { mmt.MemberId, mmt.MembershipTypeId });
 
             modelBuilder.Entity<MemberMembershipType>()
-            .HasKey(t => new { t.MemberID, t.MembershipTypeID });
+                .HasOne(mmt => mmt.Member)
+                .WithMany(m => m.MemberMembershipTypes)
+                .HasForeignKey(mmt => mmt.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            //1:1
+            modelBuilder.Entity<MemberMembershipType>()
+                .HasOne(mmt => mmt.MembershipType)
+                .WithMany(mt => mt.MemberMembershipTypes)
+                .HasForeignKey(mmt => mmt.MembershipTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Contact -> Industry (Many-to-Many)
+            modelBuilder.Entity<ContactIndustry>()
+                .HasKey(ci => new { ci.ContactId, ci.IndustryId });
+
+            modelBuilder.Entity<ContactIndustry>()
+                .HasOne(ci => ci.Contact)
+                .WithMany(c => c.ContactIndustries)
+                .HasForeignKey(ci => ci.ContactId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ContactIndustry>()
+                .HasOne(ci => ci.Industry)
+                .WithMany(i => i.ContactIndustries)
+                .HasForeignKey(ci => ci.IndustryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Address -> Member (One-to-Many)
+            modelBuilder.Entity<Address>()
+                .HasOne(a => a.Member)
+                .WithMany(m => m.Addresses)
+                .HasForeignKey(a => a.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Industry -> Opportunity (One-to-Many)
             modelBuilder.Entity<Opportunity>()
-              .HasOne<Interaction>(d => d.Interaction)
-              .WithOne(p => p.Opportunity)
-              .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(o => o.Industry)
+                .WithMany(i => i.Opportunities)
+                .HasForeignKey(o => o.IndustryId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<ProductionEmail>()
-               .HasIndex(e => e.EmailType)  
-               .IsUnique();
+            // Member -> Cancellation (One-to-Many)
+            modelBuilder.Entity<Cancellation>()
+                .HasOne(c => c.Member)
+                .WithMany(m => m.Cancellations)
+                .HasForeignKey(c => c.MemberID)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            // Interaction -> Opportunity (Optional One-to-One)
+            modelBuilder.Entity<Interaction>()
+                .HasOne(i => i.Opportunity)
+                .WithMany(i => i.Interactions)
+                .OnDelete(DeleteBehavior.Restrict);
         }
+
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
             OnBeforeSaving();
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             OnBeforeSaving();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
@@ -178,6 +140,5 @@ namespace NIA_CRM.Data
                 }
             }
         }
-        public DbSet<NIA_CRM.ViewModels.DashboardDetailsViewModel> DashboardDetailsViewModel { get; set; } = default!;
     }
 }

@@ -1,30 +1,38 @@
 ﻿@model NIA_CRM.Models.Member
 
-
 <div>
     <h3>Preview Member Details</h3>
     <div class="d-flex">
-        <img src="~/images/preview.jpg" alt="Profile Picture of Summary"
-             title="Profile Picture of Summary" class="img-fluid rounded" style="max-width: 150px; margin-right: 15px;" />
-    <p><strong>Member Name:</strong> @Model.Summary</p>
-    <p><strong>Organization:</strong> @Model.Organization?.OrganizationName</p>
-    <p><strong>Address:</strong> @Model.Address</p>
-    <p>
-        @Model.Address?.AddressLineOne
-        @if (!string.IsNullOrEmpty(Model.Address?.AddressLineTwo))
-        {
-            <br />@Model.Address.AddressLineTwo
-        }
-        <br />@Model.Address?.City, @Model.Address?.StateProvince, @Model.Address?.PostalCode
-        <br />@Model.Address?.Country
-    </p>
-    @if (!string.IsNullOrEmpty(Model.Organization?.OrganizationWeb))
-    {
-        <p><strong>Website:</strong> <a href="@Model.Organization.OrganizationWeb" target="_blank">@Model.Organization.OrganizationWeb</a></p>
-    }
-   
-</div>
+        <img src="~/images/preview.jpg" alt="Profile Picture of @Model.MemberFirstName @Model.MemberLastName"
+             title="Profile Picture of @Model.MemberFirstName @Model.MemberLastName"
+             class="img-fluid rounded" style="max-width: 150px; margin-right: 15px;" />
+        <div>
+            <p><strong>Member Name:</strong> @Model.MemberFirstName @Model.MemberLastName</p>
 
+            <p><strong>Address:</strong></p>
+            @if (Model.Addresses != null && Model.Addresses.Any())
+            {
+                foreach (var address in Model.Addresses)
+                {
+                    <p>
+                        @address.AddressLine1'<br />
+                        @if (!string.IsNullOrEmpty(address.AddressLine2))
+                        {
+                            @address.AddressLine2
+
+                            <br />
+                        }
+                        @address.City, @address.StateProvince, @address.PostalCode<br />
+                        @address.Country
+                    </p>
+                }
+            }
+            else
+            {
+                <p>No addresses available.</p>
+            }
+        </div>
+    </div>
 
     <div class="mt-3">
         <label for="memberNote"><strong>Additional Notes:</strong></label><br />

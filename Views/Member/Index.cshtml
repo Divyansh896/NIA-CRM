@@ -45,34 +45,52 @@
             </div>
         </div>
 </div>
-
-<!-- Table -->
-<table class="table table-bordered table-hover">
-    <thead class="thead-dark">
+<table class="table">
+    <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Summary)</th>
-            <th>@Html.DisplayNameFor(model => model.JoinDate)</th>
-            <th>@Html.DisplayNameFor(model => model.StandingStatus)</th>
-            <th>@Html.DisplayNameFor(model => model.Organization.OrganizationName)</th>
-            <th>Actions</th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberMiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JoinDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StandingStatus)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Summary)</td>
-                <td>@Html.DisplayFor(modelItem => item.JoinDate)</td>
-                <td>@Html.DisplayFor(modelItem => item.StandingStatus)</td>
-                <td>@Html.DisplayFor(modelItem => item.Organization.OrganizationName)</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberMiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JoinDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StandingStatus)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
-<partial name="_PagingNavBar" />
 </form>

@@ -7,32 +7,32 @@
              title="Profile Picture of Summary" class="img-fluid rounded" style="max-width: 150px; margin-right: 15px;" />
         <div>
             <p><strong>Contact Name:</strong> <br />@Model.Summary</p>
-            <p><strong>Contact Email:</strong> <br /> @Model.EMail</p>
+            <p><strong>Contact Email:</strong> <br /> @Model.Email</p>
             <p><strong>Phone:</strong> <br /> @Model.Phone</p>
-            <p><a href="@Model.LinkedinUrl" target="_blank">View LinkedIn</a></p>
+            <p><a href="@Model.LinkedInUrl" target="_blank">View LinkedIn</a></p>
         </div>
     </div>
 
     <div>
-        <h5>Organization Details:</h5>
-        @if (Model.ContactOrganizations.Any())
+        <h5>Contact Details:</h5>
+        @if (Model.ContactIndustries.Any())
         {
             <ul>
-                @foreach (var contactOrg in Model.ContactOrganizations)
+                @foreach (var contactOrg in Model.ContactIndustries)
                 {
                     <li>
-                        <strong>Organization Name:</strong> @contactOrg.Organization.OrganizationName
+                        <strong>Industry Name:</strong> @contactOrg.Industry.IndustryName
                         <br />
-                        <strong>Organization Size:</strong> @contactOrg.Organization.OrganizationSize
+                        <strong>Industry Size:</strong> @contactOrg.Industry.IndustrySize
                         <br />
-                        <strong>Website:</strong> <a href="@contactOrg.Organization.OrganizationWeb" target="_blank">@contactOrg.Organization.OrganizationWeb</a>
+                        <strong>Website:</strong> <a href="@contactOrg.Contact.LinkedInUrl" target="_blank">@contactOrg.Contact.LinkedInUrl</a>
                     </li>
                 }
             </ul>
         }
         else
         {
-            <p>No organizations associated with this contact.</p>
+            <p>No data associated with this contact.</p>
         }
     </div>
 
@@ -40,12 +40,12 @@
         <label for="contactNote"><strong>Additional Notes:</strong></label><br />
         <label id="test"></label>
 
-        <textarea id="contactNote" name="contactNote" class="form-control" rows="4" placeholder="Add notes here..." data-id="@Model.ID"></textarea>
+        <textarea id="contactNote" name="contactNote" class="form-control" rows="4" placeholder="Add notes here..." data-id="@Model.Id"></textarea>
     </div>
 
     <div>
-        <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-        <a asp-action="Details" asp-route-id="@Model.ID">Details</a> |
-        <a asp-action="Delete" asp-route-id="@Model.ID">Delete</a>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
+        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
     </div>
 </div>

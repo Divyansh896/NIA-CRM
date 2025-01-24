@@ -4,9 +4,12 @@ namespace NIA_CRM.Models
 {
     public class MemberMembershipType
     {
-        public int MemberID { get; set; }
-        public Member? Member { get; set; }
-        public int MembershipTypeID { get; set; }
-        public MembershipType? MembershipType { get; set; }
+        public int Id { get; set; }
+        public int MemberId { get; set; }
+        public Member Member { get; set; }
+
+        public int MembershipTypeId { get; set; }
+
+        public MembershipType MembershipType { get; set; }
     }
 }

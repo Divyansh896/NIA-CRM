@@ -4,58 +4,55 @@ namespace NIA_CRM.Models
 {
     public class Contact
     {
-        
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        [Display(Name = "Contact First Name")]
-        [Required(ErrorMessage = "You cannot leave the contact first name blank.")]
-        [StringLength(100, ErrorMessage = "Contact first name cannot be more than 100 characters long.")]
-        public string ContactFirstName { get; set; } = "";
+        [Required(ErrorMessage = "First Name is required.")]
+        [StringLength(50, ErrorMessage = "First Name cannot be longer than 50 characters.")]
+        public string FirstName { get; set; }
 
-        [Display(Name = "Contact Middle Name")]
-        [StringLength(100, ErrorMessage = "Contact middle name cannot be more than 100 characters long.")]
-        public string ContactMiddleName { get; set; } = "";
+        [StringLength(50, ErrorMessage = "Middle Name cannot be longer than 50 characters.")]
+        public string? MiddleName { get; set; }
 
-        [Display(Name = "Contact Last Name")]
-        [Required(ErrorMessage = "You cannot leave the contact last name blank.")]
-        [StringLength(100, ErrorMessage = "Contact last name cannot be more than 100 characters long.")]
-        public string ContactLastName { get; set; } = "";
+        [Required(ErrorMessage = "Last Name is required.")]
+        [StringLength(50, ErrorMessage = "Last Name cannot be longer than 50 characters.")]
+        public string LastName { get; set; }
 
-        [StringLength(255, ErrorMessage = "Title cannot be more than 255 characters long.")]
+        [StringLength(10, ErrorMessage = "Title cannot be longer than 10 characters.")]
         public string? Title { get; set; }
 
-        [StringLength(255, ErrorMessage = "Department cannot be more than 255 characters long.")]
+        [StringLength(100, ErrorMessage = "Department cannot be longer than 100 characters.")]
         public string? Department { get; set; }
 
-        [StringLength(255, ErrorMessage = "Email cannot be more than 255 characters long.")]
-        [DataType(DataType.EmailAddress)]
-        public string? EMail { get; set; }
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        [StringLength(100, ErrorMessage = "Email cannot be longer than 100 characters.")]
+        public string? Email { get; set; }
 
-        [RegularExpression("^\\d{10,20}$", ErrorMessage = "Please enter a valid phone number with 10 to 20 digits (digits only, no spaces).")] //left it from 10 to 20, in casse they will have some international phones, but no less than 10, so they won't leave an invalid one
-        [DataType(DataType.PhoneNumber)]
-        [StringLength(20, MinimumLength = 10, ErrorMessage = "The phone number must be between 10 and 20 digits long.")]
+        [Phone(ErrorMessage = "Invalid phone number.")]
+        [StringLength(20, ErrorMessage = "Phone number cannot be longer than 20 characters.")]
         public string? Phone { get; set; }
 
-        [Display(Name = "Linked In")]
-        [StringLength(255, ErrorMessage = "Linked In cannot be more than 255 characters long.")]
-        public string? LinkedinUrl { get; set; }
+        [Url(ErrorMessage = "Invalid LinkedIn URL.")]
+        [StringLength(200, ErrorMessage = "LinkedIn URL cannot be longer than 200 characters.")]
+        public string? LinkedInUrl { get; set; }
 
-        [Display(Name = "VIP")]
-        public bool IsVIP { get; set; }
+        public bool IsVip { get; set; } = false;
+
+        public ICollection<ContactIndustry> ContactIndustries { get; set; } = new List<ContactIndustry>();
+        public ICollection<ContactNote> ContactNotes { get; set; } = new List<ContactNote>();
+        public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
+        public int MemberId { get; set; }  // Foreign key to Member
+        public Member Member { get; set; } // Navigation property to Member
 
         [Display(Name = "Contact Name")]
         public string Summary
         {
             get
             {
-                return ContactFirstName
-                    + (string.IsNullOrEmpty(ContactMiddleName) ? " " :
-                        (" " + (char?)ContactMiddleName[0] + ". ").ToUpper())
-                    + ContactLastName;
+                return FirstName
+                    + (string.IsNullOrEmpty(MiddleName) ? " " :
+                        (" " + (char?)MiddleName[0] + ". ").ToUpper())
+                    + LastName;
             }
         }
-        public ICollection<ContactOrganization> ContactOrganizations { get; set; } = new HashSet<ContactOrganization>();
-        public ICollection<Interaction> Interactions { get; set; } = new HashSet<Interaction>();
-        public ICollection<Notes> Notes { get; set; } = new HashSet<Notes>();
     }
 }

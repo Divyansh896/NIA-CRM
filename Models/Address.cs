@@ -1,38 +1,45 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NIA_CRM.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NIA_CRM.Models
+public class Address
 {
-    public class Address
-    {
-        public int ID { get; set; }
+    [Key]
+    public int Id { get; set; } // Primary Key
 
-        [Display(Name = "Address Line 1")]
-        [Required(ErrorMessage = "You cannot leave the address line 1 blank.")]
-        [StringLength(255, ErrorMessage = "Address line 1 cannot be more than 255 characters long.")]
-        public string AddressLineOne { get; set; } = "";
+    [ForeignKey(nameof(Member))]
+    [Required(ErrorMessage = "Member is required.")]
+    [Display(Name = "Member")]
+    public int MemberId { get; set; }
 
-        [Display(Name = "Address Line 2")]
-        [StringLength(255, ErrorMessage = "Address line 2 cannot be more than 255 characters long.")]
-        public string? AddressLineTwo { get; set; }
+    [Required(ErrorMessage = "Address Line 1 is required.")]
+    [MaxLength(255, ErrorMessage = "Address Line 1 cannot exceed 255 characters.")]
+    [Display(Name = "Address Line 1")]
+    public string AddressLine1 { get; set; }
 
-        [Required(ErrorMessage = "You cannot leave the city blank.")]
-        [StringLength(100, ErrorMessage = "City cannot be more than 100 characters long.")]
-        public string City { get; set; } = "";
+    [MaxLength(255, ErrorMessage = "Address Line 2 cannot exceed 255 characters.")]
+    [Display(Name = "Address Line 2")]
+    public string? AddressLine2 { get; set; }
 
-        [Display(Name = "State/Province")]
-        [StringLength(100, ErrorMessage = "State/Province cannot be more than 100 characters long.")]
-        public string? StateProvince { get; set; }
+    [Required(ErrorMessage = "City is required.")]
+    [MaxLength(100, ErrorMessage = "City cannot exceed 100 characters.")]
+    [Display(Name = "City")]
+    public string City { get; set; }
 
-        [Display(Name = "Postal Code")]
-        [RegularExpression(@"^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$", ErrorMessage = "Please enter a valid postal code in the format L1A1A9 (no spaces).")]
-        [StringLength(6, MinimumLength = 6, ErrorMessage = "Postal code must be exactly 6 characters long.")]
-        public string? PostalCode { get; set; }
+    [MaxLength(100, ErrorMessage = "State/Province cannot exceed 100 characters.")]
+    [Display(Name = "State/Province")]
+    public string? StateProvince { get; set; }
 
-        [Required(ErrorMessage = "You cannot leave the country blank.")]
-        [StringLength(100, ErrorMessage = "Country cannot be more than 100 characters long.")]
-        public string? Country { get; set; }
+    [MaxLength(20, ErrorMessage = "Postal Code cannot exceed 20 characters.")]
+    [Display(Name = "Postal Code")]
+    public string? PostalCode { get; set; }
 
-        public int MemberID { get; set; }
-        public Member Member { get; set; }
-    }
+    [Required(ErrorMessage = "Country is required.")]
+    [MaxLength(100, ErrorMessage = "Country cannot exceed 100 characters.")]
+    [Display(Name = "Country")]
+    public string Country { get; set; }
+
+    // Navigation Property
+    [Display(Name = "Member")]
+    public Member Member { get; set; }
 }

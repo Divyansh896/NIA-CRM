@@ -1,11 +1,8 @@
-@model IEnumerable<NIA_CRM.ViewModels.DashboardDetailsViewModel>
+@model IEnumerable<NIA_CRM.Models.Member>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Member Details";
 }
-<div class="d-flex flex-row align-items-center justify-content-end mb-4">
-    <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Member</a>
-</div>
 <!--WIDGETS-->
 <div class="content" id="content">
     <h1>Dashboard</h1>
@@ -15,7 +12,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <p class="card-title">Total Members</p>
-                    <p class="card-text">@ViewData["MemberCount"]</p>
+                    <p class="card-text">@Model.Count()</p>
                 </div>
             </div>
         </div>
@@ -24,7 +21,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <p class="card-title">Members in Copperport</p>
-                    <p class="card-text">@ViewData["CopperportCount"]</p>
+                    <p class="card-text">@Model.Count(m => m.Addresses.Any(a => a.City == "Copperport"))</p>
                 </div>
             </div>
         </div>
@@ -43,6 +40,7 @@
 
 <!--Member Table-->
 
+<h2>Member Details</h2>
 <form asp-action="Index" method="get">
 
     <div class="table-container">
@@ -51,7 +49,7 @@
         <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
         <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
 
-        <div class="form-horizontal mb-3 mt-3">
+        <div class="form-horizontal mb-3">
             <button class="btn btn-secondary @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
                     data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                 Filter/Search @ViewData["numberFilters"]
@@ -63,10 +61,10 @@
                             <label for="SearchString" class="control-label">Search By Member Name:</label>
                             @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Enter subject..." })
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="EmailTypeID" class="control-label">Filter by Organization:</label>
-                            @Html.DropDownList("OrganizationID", null, "All Organizations", htmlAttributes: new { @class = "form-control" })
-                        </div>
+                        @* <div class="form-group col-md-4"> *@
+                        @*     <label for="EmailTypeID" class="control-label">Filter by Organization:</label> *@
+                        @*     @Html.DropDownList("OrganizationID", null, "All Organizations", htmlAttributes: new { @class = "form-control" }) *@
+                        @* </div> *@
                         <div class="form-group col-md-4">
                             <label for="EmailTypeID" class="control-label">Filter by Industry:</label>
                             @Html.DropDownList("IndustryID", null, "All Industry", htmlAttributes: new { @class = "form-control" })
@@ -81,8 +79,6 @@
             </div>
         </div>
     </div>
-    <h2 class="mb-0">Member Details</h2>
-
     <!--Table Data-->
     <div class="table-container mt-4" style="position: relative; overflow: auto; border: 1px solid #ddd;">
         <table class="table table-bordered table-striped" style="table-layout: fixed; width: 100%;" id="myTable">
@@ -92,10 +88,7 @@
                         <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" />
 
                     </th>
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 150px;">
-                        <input type="submit" name="actionButton" value="Organization" class="btn btn-link" />
-
-                    </th>
+                    
                     <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 150px;">
                         <input type="submit" name="actionButton" value="Industry" class="btn btn-link" />
 
@@ -116,39 +109,54 @@
                 {
 
                     <tr class="clickable-row" data-id="@member.ID">
-                        <td style="position: sticky; left: 0; z-index: 1020; background: #f8f9fa;">@member.MemberFirstName</td>
-                        <td>@member.OrganizationName</td>
-                        <td>@member.IndustryName</td>
+                        <td style="position: sticky; left: 0; z-index: 1020; background: #f8f9fa;">@member.Summary</td>
+                        <td>
+                            @if (member.MemberIndustries != null)
+                            {
+                                foreach (var industry in member.MemberIndustries)
+                                {
+                                    @industry.Industry.IndustryName
+                                    <br />
+                                }
+                            }
+                        </td>
                         <td>
                             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                @member.Address.AddressLineOne
-                                @if (!string.IsNullOrEmpty(member.Address.AddressLineTwo))
+                                @foreach (var address in member.Addresses)
                                 {
-                                    @member.Address.AddressLineTwo
+                                    @address.AddressLine1
+                                    @if (!string.IsNullOrEmpty(address.AddressLine2))
+                                    {
+                                        @address.AddressLine2
+                                    }
+                                    <br />
+
+                                    @address.City @address.StateProvince @address.PostalCode @address.Country
+                                            
                                 }
-                                <br />@member.Address.City, @member.Address.StateProvince, @member.Address.PostalCode
-                                <br />@member.Address.Country
+
+                                
                             </div>
                         </td>
                         @if (member.Contacts != null && member.Contacts.Count > 0)
                         {
                             <td colspan="7">
                                 <table class="table">
-                                    @foreach (var contact in member.Contacts) // Corrected the loop variable name
+                                    @foreach (var contact in member.Contacts)
                                     {
                                         <tr>
-                                            <td style="width: 200px;">@contact.ContactFirstName</td> <!-- Corrected property name -->
+                                            <td style="width: 200px;">@contact.Summary</td>
                                             <td style="width: 200px;">@contact.Title</td>
                                             <td style="width: 200px;">@contact.Department</td>
-                                            <td style="word-wrap: break-word; overflow-wrap: break-word; width: 250px;">@contact.EMail</td>
+                                            <td style="word-wrap: break-word; overflow-wrap: break-word; width: 250px;">@contact.Email</td>
                                             <td style="white-space: nowrap; width: 200px;">@contact.Phone</td>
                                             <td style="width: 150px;">
-                                                @if (!string.IsNullOrEmpty(contact.LinkedinUrl))
+                                                @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
                                                 {
-                                                    <a href="@contact.LinkedinUrl" target="_blank">LinkedIn</a>
+                                                    <a href="@contact.LinkedInUrl" target="_blank">LinkedIn</a>
                                                 }
                                             </td>
-                                            <td style="width: 100px;">@(contact.IsVIP ? "Yes" : "No")</td>
+                                            <td style="width: 100px;">@(contact.IsVip ? "Yes" : "No")</td>
                                         </tr>
                                     }
                                 </table>
@@ -176,39 +184,7 @@
 
 @section Scripts {
     <style>
-        /* Highlight row on hover */
-        .clickable-row:hover {
-            background-color: #f5f5f5; /* Light grey background */
-            cursor: pointer; /* Hand cursor */
-        }
-
-        .hidden {
-            visibility: hidden; /* Prevent visibility on page load */
-            transform: translateX(100%);
-            transition: transform 0.5s ease-in-out, visibility 0s 0.5s; /* Delay visibility change */
-        }
-
-        .visible {
-            visibility: visible; /* Ensure it's visible when sliding in */
-            transform: translateX(0);
-            transition: transform 0.5s ease-in-out, visibility 0s 0s; /* Remove the delay for visibility */
-        }
-
-        .preview-content {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 25%;
-            height: 100vh;
-            background-color: #f8f9fa;
-            padding: 20px;
-            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
-            overflow-y: auto;
-        }
-
-        .d-flex.flex-row {
-            overflow: hidden;
-        }
+       
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -221,7 +197,7 @@
             $(document).on('click', '.clickable-row', function () {
                 var memberId = $(this).data('id'); // Get the Member ID
                 if (!memberId) {
-                console.error('No member ID found.');
+                    console.error('No member ID found.');
                     return;
                 }
 
@@ -247,7 +223,7 @@
             });
 
             // Prevent clicks inside the preview container from propagating
-            $('#previewContainer').click( function (event) {
+            $('#previewContainer').click(function (event) {
                 event.stopPropagation();
             });
         });
