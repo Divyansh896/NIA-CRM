@@ -23,37 +23,37 @@
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Home page" title="Home">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-home"></i></span>
-                                <span class="text-black ms-2">Home</span>
+                                <span class="text-white ms-2">Home</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
-                                <span class="text-black ms-2">Add Member</span>
+                                <span class="text-white ms-2">Members</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email" title="Email">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
-                                <span class="text-black ms-2">Production Email</span>
+                                <span class="text-white ms-2">Production Email</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
-                                <span class="text-black ms-2">Contacts</span>
+                                <span class="text-white ms-2">Contacts</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Interaction")" aria-label="View Notes and Interactions" title="Notes">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-sticky-note"></i></span>
-                                <span class="text-black ms-2">Notes</span>
+                                <span class="text-white ms-2">Notes</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")" aria-label="Manage Cancellations" title="Cancellations">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
-                                <span class="text-black ms-2">Cancellations</span>
+                                <span class="text-white ms-2">Cancellations</span>
                             </a>
                         </li>
                         @* <li class="nav-item" role="menuitem"> *@
@@ -63,7 +63,7 @@
                         @*     </a> *@
                         @* </li> *@
                     </ul>
-                    @* <partial name="_LoginPartial" /> *@
+                    <partial name="_LoginPartial" />
                 </div>
             </nav>
 
@@ -95,14 +95,34 @@
             const toggleButton = document.querySelector('#toggleSidebar');
 
             // Check the saved sidebar state from localStorage
-            const sidebarState = localStorage.getItem('sidebarState');
+            let sidebarState = localStorage.getItem('sidebarState');
 
+            // If no sidebar state is saved (first visit), default to "open"
+            if (!sidebarState) {
+                sidebarState = 'open';
+                localStorage.setItem('sidebarState', 'open'); // Save the initial state
+            }
+
+            // Apply the saved state immediately without triggering transitions
             if (sidebarState === 'open') {
                 sidebar.classList.add('show');
                 mainContent.classList.remove('sidebar-collapsed');
+                toggleButton.innerHTML = '<i class="fas fa-arrow-left"></i>'; // For left arrow
             } else {
+                sidebar.classList.remove('show');
                 mainContent.classList.add('sidebar-collapsed');
+                toggleButton.innerHTML = '<i class="fas fa-bars"></i>'; // For hamburger menu
             }
+
+            // Prevent transition effects during page load
+            sidebar.style.transition = 'none';
+            mainContent.style.transition = 'none';
+
+            // Re-enable transitions after a short delay
+            setTimeout(() => {
+                sidebar.style.transition = '';
+                mainContent.style.transition = '';
+            }, 0);
 
             // Add event listener to toggle the sidebar
             toggleButton.addEventListener('click', function () {
@@ -112,8 +132,10 @@
                 // Save the new state to localStorage
                 if (sidebar.classList.contains('show')) {
                     localStorage.setItem('sidebarState', 'open');
+                    toggleButton.innerHTML = '<i class="fas fa-arrow-left"></i>'; // For left arrow
                 } else {
                     localStorage.setItem('sidebarState', 'closed');
+                    toggleButton.innerHTML = '<i class="fas fa-bars"></i>'; // For hamburger menu
                 }
             });
         });
