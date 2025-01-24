@@ -384,6 +384,10 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("NAICSCode");

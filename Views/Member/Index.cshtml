@@ -4,28 +4,30 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Members</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">+ Add Member</a>
 </p>
 <form asp-action="Index" method="get" aria-labelledby="form-title">
     <h2 id="form-title" class="sr-only">Filter and Search Form</h2>
-
+    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
+    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
     <!-- Filter/Search Toggle Button -->
-    <button class="btn btn-outline-secondary mb-3"
+    <button class="btn btn-secondary @ViewData["Filtering"]"
             type="button"
+            id="filterToggle"
             data-bs-toggle="collapse"
-            data-bs-target="#filterForm"
+            data-bs-target="#collapseFilter"
             aria-expanded="false"
-            aria-controls="filterForm">
-        Filter/Search
+            aria-controls="collapseFilter">
+        Filter/Search @ViewData["numberFilters"]
     </button>
 
     <!-- Filter/Search Form -->
-    <div class="collapse" id="filterForm" aria-labelledby="filter-section-title">
-        <div class="form-horizontal">
-            <h3 id="filter-section-title" class="sr-only">Filter Options</h3>
+    <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
+        <div class="card card-body bg-light" role="region" aria-labelledby="filter-section-title">
+            <h2 id="filter-section-title" class="sr-only">Filter and Search Options</h2>
             <div class="row">
                 <!-- Filter by Member Name -->
                 <div class="form-group col-md-4">
@@ -53,17 +55,17 @@
                     <span id="join-date-help" class="sr-only">Enter the date in YYYY-MM-DD format.</span>
                 </div>
                 <!-- Filter by Organization Name -->
-                <div class="form-group col-md-4">
-                    <label for="Organization" class="control-label">Search by Organization Name:</label>
-                    @Html.TextBox("Organization", ViewData["Organization"] as string, new
-                        {
-                            @class = "form-control",
-                            id = "Organization",
-                            placeholder = "Enter Organization Name"
+                @* <div class="form-group col-md-4"> *@
+                @*     <label for="Organization" class="control-label">Search by Organization Name:</label> *@
+                @*     @Html.TextBox("Organization", ViewData["Organization"] as string, new *@
+                @*         { *@
+                @*             @class = "form-control", *@
+                @*             id = "Organization", *@
+                @*             placeholder = "Enter Organization Name" *@
                             
-                        })
-                    <span id="organization-name-help" class="sr-only">Type the organization name to filter.</span>
-                </div>
+                @*         }) *@
+                @*     <span id="organization-name-help" class="sr-only">Type the organization name to filter.</span> *@
+                @* </div> *@
             </div>
 
             <!-- Buttons -->
@@ -116,4 +118,6 @@
             }
         </tbody>
     </table>
+    <partial name="_PagingNavBar" />
+
 </form>

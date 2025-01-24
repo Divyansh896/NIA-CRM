@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="StandingStatus" class="control-label"></label>
-                <select asp-for="StandingStatus" class="form-control"></select>
+                <select asp-for="StandingStatus" asp-items="Html.GetEnumSelectList<StandingStatus>()" class="form-control"></select>
                 <span asp-validation-for="StandingStatus" class="text-danger"></span>
             </div>
             <div class="form-group">

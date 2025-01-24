@@ -140,5 +140,6 @@ namespace NIA_CRM.Data
                 }
             }
         }
+        public DbSet<NIA_CRM.Models.NAICSCode> NAICSCode { get; set; } = default!;
     }
 }

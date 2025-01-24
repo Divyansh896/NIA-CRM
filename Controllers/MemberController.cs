@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
-    public class MemberController : Controller
+    public class MemberController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -20,9 +22,67 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Member
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? SearchString, string? JoinDate, int? page, int? pageSizeID, string? actionButton, string sortDirection = "asc", string sortField = "Member Name")
+
         {
-            return View(await _context.Members.ToListAsync());
+            string[] sortOptions = { "Member Name", "Industry" };
+            int numberFilters = 0;
+
+            var members = _context.Members.AsNoTracking();
+
+            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
+            {
+                page = 1;//Reset page to start
+
+                if (sortOptions.Contains(actionButton))//Change of sort is requested
+                {
+                    if (actionButton == sortField) //Reverse order on same field
+                    {
+                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    sortField = actionButton;//Sort by the button clicked
+                }
+            }
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                members = members.Where(m =>
+                    m.MemberFirstName.ToUpper().Contains(SearchString.ToUpper()) ||
+                    m.MemberLastName.ToUpper().Contains(SearchString.ToUpper()));
+                numberFilters++;
+            }
+
+            if (!string.IsNullOrEmpty(JoinDate))
+            {
+                if (DateTime.TryParse(JoinDate, out var parsedDate))
+                {
+                    members = members.Where(m => m.JoinDate == parsedDate);
+                }
+                else
+                {
+                    ModelState.AddModelError("JoinDate", "Invalid date format. Please use YYYY-MM-DD.");
+                }
+            }
+            if (numberFilters != 0)
+            {
+                //Toggle the Open/Closed state of the collapse depending on if we are filtering
+                ViewData["Filtering"] = " btn-danger";
+                //Show how many filters have been applied
+                ViewData["numberFilters"] = "(" + numberFilters.ToString()
+                    + " Filter" + (numberFilters > 1 ? "s" : "") + " Applied)";
+                //Keep the Bootstrap collapse open
+                @ViewData["ShowFilter"] = " show";
+            }
+
+            ViewData["SortDirection"] = sortDirection;
+            ViewData["SortField"] = sortField;
+            ViewData["numberFilters"] = numberFilters;
+
+            // Handle paging
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
+            var pagedData = await PaginatedList<Member>.CreateAsync(members, page ?? 1, pageSize);
+
+            return View(pagedData);
         }
 
         // GET: Member/Details/5
