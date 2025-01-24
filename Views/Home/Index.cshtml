@@ -5,7 +5,11 @@
 }
 <!--WIDGETS-->
 <div class="content" id="content" role="main" aria-labelledby="dashboard-title">
-    <h1 id="dashboard-title">Dashboard</h1>
+    <div class="d-flex flex-row align-items-center justify-content-between mb-4">
+        <h1 id="dashboard-title">Dashboard</h1>
+        <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Member</a>
+    </div>
+
     <div class="row" role="region" aria-labelledby="dashboard-stats">
         <h2 id="dashboard-stats" class="sr-only">Dashboard Statistics</h2>
 
@@ -44,6 +48,7 @@
 <!--Member Table-->
 
 <h2>Member Details</h2>
+
 <form asp-action="Index" method="get" aria-labelledby="form-title">
     <div id="form-title" class="sr-only">Filter and Search Form</div>
     <div class="table-container">
