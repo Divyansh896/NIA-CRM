@@ -6,76 +6,8 @@
     <title>@ViewData["Title"] - NIA_CRM</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <style>
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -250px; 
-            height: 100vh;
-            width: 250px;
-            background-color: #f8f9fa;
-            transition: left 0.3s ease;
-            z-index: 1050; 
-            padding-top: 60px; 
-        }
-
-            .sidebar.show {
-                left: 0; 
-            }
-
-            .sidebar ul {
-                padding: 0;
-                margin: 0;
-                list-style: none;
-            }
-
-                .sidebar ul li {
-                    padding: 10px 20px; 
-                }
-
-                    .sidebar ul li a {
-                        text-decoration: none;
-                        color: #333;
-                        font-size: 16px;
-                        display: block;
-                    }
-
-                        .sidebar ul li a:hover {
-                            background-color: #e9ecef;
-                            border-radius: 5px;
-                        }
-
-        /* Main content */
-        .main-content {
-            margin-left: 250px;
-            transition: margin-left 0.3s ease;
-            padding: 20px; 
-        }
-
-            .main-content.sidebar-collapsed {
-                margin-left: 60px; 
-            }
-
-        /* Hamburger Button */
-        #toggleSidebar {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 1100;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-            #toggleSidebar:focus {
-                outline: none;
-            }
-    </style>
+    <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true" />
+    
 
 
 </head>
