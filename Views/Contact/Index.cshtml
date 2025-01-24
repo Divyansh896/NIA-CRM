@@ -7,45 +7,50 @@
 
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
-    <h1 class="mb-0">Contacts</h1>
-    <a asp-action="Create" class="btn btn-primary">+ Add Contact</a>
+    <h1 class="mb-0" id="contacts-title">Contacts</h1>
+    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
 </div>
 
-<form asp-action="Index" method="get">
+<form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
-    <div class="d-flex flex-row position-relative overflow-hidden">
 
+    <div class="d-flex flex-row position-relative overflow-hidden">
         <!-- Filter/Search Section -->
         <div class="m-auto flex-grow-1">
             <div class="form-horizontal">
                 <button class="btn @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
-                        data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                        data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter"
+                        aria-label="Toggle filter and search options">
                     Filter/Search @ViewData["numberFilters"]
-                </button><br />
+                </button>
+                <br />
                 <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
                     <div class="card card-body bg-light">
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label class="control-label">Search By Name:</label>
-                                @Html.TextBox("SearchString", null, new { @class = "form-control" })
+                                <label for="search-name" class="control-label">Search By Name:</label>
+                                @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name" })
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label class="control-label">Filter by Title:</label>
-                                @Html.DropDownList("Titles", null, "All Titles", htmlAttributes: new { @class = "form-control" })
+                                <label for="filter-title" class="control-label">Filter by Title:</label>
+                                @Html.DropDownList("Titles", null, "All Titles", htmlAttributes: new { @class = "form-control", id = "filter-title" })
                             </div>
+
                             <div class="form-group col-md-3">
-                                <label class="control-label">Filter by Department:</label>
-                                @Html.DropDownList("Departments", null, "All Departments", htmlAttributes: new { @class = "form-control" })
+                                <label for="filter-department" class="control-label">Filter by Department:</label>
+                                @Html.DropDownList("Departments", null, "All Departments", htmlAttributes: new { @class = "form-control", id = "filter-department" })
                             </div>
+
                             <div class="form-group col-md-2">
                                 <label class="control-label" for="OnlyVIP">Only VIPs</label>
-                                @Html.CheckBox("IsVIP", htmlAttributes: new { @class = "form-check-input" })
+                                @Html.CheckBox("IsVIP", htmlAttributes: new { @class = "form-check-input", id = "OnlyVIP" })
                             </div>
+
                             <div class="form-group col-md-2 align-self-end mt-2">
                                 <input type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary" />
-                                <a asp-action="Index" class="btn btn-outline-dark">Clear</a>
+                                <a asp-action="Index" class="btn btn-outline-dark" aria-label="Clear all filters">Clear</a>
                             </div>
                         </div>
                     </div>
@@ -54,93 +59,64 @@
             <div>
                 <label class="control-label">@ViewData["records"]</label>
             </div>
-            <!-- Contacts Table -->
-            <table class="table table-bordered table-striped" id="myTable">
-                <thead class="thead-dark">
 
+            <!-- Contacts Table -->
+            <table class="table table-bordered table-striped" id="contacts-table" aria-labelledby="contacts-title">
+                <caption class="sr-only">Contacts table showing filtered results</caption>
+                <thead class="thead-dark">
                     <tr>
-                        <th>
-                            <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" />
+                        <th scope="col">
+                            <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.MiddleName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.LastName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Title)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Department)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Email)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Phone)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.LinkedInUrl)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.IsVip)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Member)
-                        </th>
-                        <th></th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.MiddleName)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.LastName)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Title)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Department)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Email)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Phone)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.IsVip)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Member)</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr class="clickable-row" data-id="@item.Id">
+                            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MiddleName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Department)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.FirstName)
+                                <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
                             </td>
+                            <td>@Html.DisplayFor(modelItem => item.IsVip)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Member.MemberFirstName)</td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.MiddleName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LastName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Department)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Phone)
-                            </td>
-                            <td>
-                                <a href="@item.LinkedInUrl" target="_blank">View LinkedIn</a>
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsVip)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Member.MemberFirstName)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" aria-label="Edit contact @item.FirstName @item.LastName">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id" aria-label="View details of contact @item.FirstName @item.LastName">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id" aria-label="Delete contact @item.FirstName @item.LastName">Delete</a>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
+
         <!-- Preview Container -->
-        <div id="previewContainer" class="preview-content hidden"></div>
+        <div id="previewContainer" class="preview-content hidden" role="region" aria-labelledby="previewTitle">
+            <h2 id="previewTitle" class="sr-only">Preview Section</h2>
+            <!-- Preview content will be dynamically injected here -->
+        </div>
     </div>
+
     <partial name="_PagingNavBar" />
 </form>
+
 @section Scripts  {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

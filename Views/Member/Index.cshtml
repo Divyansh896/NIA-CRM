@@ -9,88 +9,111 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<form asp-action="Index" method="get">
-<!-- Filter/Search Toggle Button -->
-<button class="btn btn-outline-secondary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filterForm" aria-expanded="false" aria-controls="filterForm">
-    Filter/Search
-</button>
+<form asp-action="Index" method="get" aria-labelledby="form-title">
+    <h2 id="form-title" class="sr-only">Filter and Search Form</h2>
 
-<!-- Filter/Search Form -->
-<div class="collapse" id="filterForm">
+    <!-- Filter/Search Toggle Button -->
+    <button class="btn btn-outline-secondary mb-3"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#filterForm"
+            aria-expanded="false"
+            aria-controls="filterForm">
+        Filter/Search
+    </button>
+
+    <!-- Filter/Search Form -->
+    <div class="collapse" id="filterForm" aria-labelledby="filter-section-title">
         <div class="form-horizontal">
+            <h3 id="filter-section-title" class="sr-only">Filter Options</h3>
             <div class="row">
                 <!-- Filter by Member Name -->
                 <div class="form-group col-md-4">
-                    <label class="control-label">Search by Member Name:</label>
-                    @Html.TextBox("SearchString", ViewData["SearchString"] as string, new { @class = "form-control", placeholder = "Enter Member Name" })
+                    <label for="SearchString" class="control-label">Search by Member Name:</label>
+                    @Html.TextBox("SearchString", ViewData["SearchString"] as string, new
+                        {
+                            @class = "form-control",
+                            id = "SearchString",
+                            placeholder = "Enter Member Name"
+                            
+                        })
+                    <span id="search-name-help" class="sr-only">Type the member name to search.</span>
                 </div>
                 <!-- Filter by Join Date -->
                 <div class="form-group col-md-4">
-                    <label class="control-label">Filter by Join Date:</label>
-                    @Html.TextBox("JoinDate", ViewData["JoinDate"] as string, new { @class = "form-control", placeholder = "YYYY-MM-DD", type = "date" })
+                    <label for="JoinDate" class="control-label">Filter by Join Date:</label>
+                    @Html.TextBox("JoinDate", ViewData["JoinDate"] as string, new
+                        {
+                            @class = "form-control",
+                            id = "JoinDate",
+                            placeholder = "YYYY-MM-DD",
+                            type = "date"
+                            
+                        })
+                    <span id="join-date-help" class="sr-only">Enter the date in YYYY-MM-DD format.</span>
                 </div>
                 <!-- Filter by Organization Name -->
                 <div class="form-group col-md-4">
-                    <label class="control-label">Search by Organization Name:</label>
-                    @Html.TextBox("Organization", ViewData["Organization"] as string, new { @class = "form-control", placeholder = "Enter Organization Name" })
+                    <label for="Organization" class="control-label">Search by Organization Name:</label>
+                    @Html.TextBox("Organization", ViewData["Organization"] as string, new
+                        {
+                            @class = "form-control",
+                            id = "Organization",
+                            placeholder = "Enter Organization Name"
+                            
+                        })
+                    <span id="organization-name-help" class="sr-only">Type the organization name to filter.</span>
                 </div>
             </div>
 
             <!-- Buttons -->
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-outline-primary">Apply Filters</button>
-                    <a asp-action="Index" class="btn btn-outline-dark">Clear</a>
+                    <button type="submit" class="btn btn-outline-primary" aria-label="Apply filters">Apply Filters</button>
+                    <a asp-action="Index" class="btn btn-outline-dark" aria-label="Clear filters">Clear</a>
                 </div>
             </div>
         </div>
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MemberFirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemberMiddleName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemberLastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JoinDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StandingStatus)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemberFirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemberMiddleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemberLastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JoinDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StandingStatus)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    </div>
+
+    <!-- Table -->
+    <table class="table" aria-labelledby="table-title">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.MemberFirstName)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.MemberMiddleName)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.MemberLastName)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.JoinDate)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.StandingStatus)
+                </th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.MemberFirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MemberMiddleName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MemberLastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.JoinDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.StandingStatus)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID" aria-label="Edit @item.MemberFirstName @item.MemberLastName">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID" aria-label="View details of @item.MemberFirstName @item.MemberLastName">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID" aria-label="Delete @item.MemberFirstName @item.MemberLastName">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </form>

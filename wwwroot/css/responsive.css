@@ -111,6 +111,37 @@
 .d-flex.flex-row {
     overflow: hidden;
 }
+
+.table-head-static {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1050; /* Ensure it's above other content */
+    background: #434343 !important; /* Solid background */
+    color: #fff;
+    width: 200px;
+    border-right: 1px solid #dee2e6;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for better separation */
+}
+
+.table-head {
+    position: sticky;
+    top: 0;
+    z-index: 1020; /* Ensure it's above content but below .table-head-static */
+    background: #434343 !important; /* Solid background */
+    color: #fff;
+    border-right: 1px solid #dee2e6;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for better separation */
+}
+
+.table-row-static {
+    position: sticky;
+    left: 0;
+    z-index: 1050;
+    background: #f8f9fa !important
+}
+
+
 /* Mobile Devices (Phones) */
 @media (max-width: 768px) {
     body {

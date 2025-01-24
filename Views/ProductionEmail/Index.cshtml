@@ -9,39 +9,43 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table" aria-labelledby="table-title">
+    <caption id="table-title" class="sr-only">Email Records Table</caption>
     <thead>
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.EmailType)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Subject)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Body)
             </th>
-            <th></th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Body)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" aria-label="Email body preview">
+                        @Html.DisplayFor(modelItem => item.Body)
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" aria-label="Edit email of type @item.EmailType with subject @item.Subject">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" aria-label="View details of email of type @item.EmailType with subject @item.Subject">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" aria-label="Delete email of type @item.EmailType with subject @item.Subject">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

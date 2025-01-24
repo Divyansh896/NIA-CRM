@@ -4,45 +4,48 @@
     ViewData["Title"] = "Member Details";
 }
 <!--WIDGETS-->
-<div class="content" id="content">
-    <h1>Dashboard</h1>
-    <div class="row">
+<div class="content" id="content" role="main" aria-labelledby="dashboard-title">
+    <h1 id="dashboard-title">Dashboard</h1>
+    <div class="row" role="region" aria-labelledby="dashboard-stats">
+        <h2 id="dashboard-stats" class="sr-only">Dashboard Statistics</h2>
+
         <!-- Card 1 -->
         <div class="col-md-4">
-            <div class="card">
+            <div class="card" role="group" aria-labelledby="total-members-title">
                 <div class="card-body text-center">
-                    <p class="card-title">Total Members</p>
-                    <p class="card-text">@Model.Count()</p>
+                    <p class="card-title" id="total-members-title" role="heading" aria-level="3">Total Members</p>
+                    <p class="card-text" aria-live="polite">@Model.Count()</p>
                 </div>
             </div>
         </div>
+
         <!-- Card 2 -->
         <div class="col-md-4">
-            <div class="card">
+            <div class="card" role="group" aria-labelledby="members-copperport-title">
                 <div class="card-body text-center">
-                    <p class="card-title">Members in Copperport</p>
-                    <p class="card-text">@Model.Count(m => m.Addresses.Any(a => a.City == "Copperport"))</p>
+                    <p class="card-title" id="members-copperport-title" role="heading" aria-level="3">Members in Copperport</p>
+                    <p class="card-text" aria-live="polite">@Model.Count(m => m.Addresses.Any(a => a.City == "Copperport"))</p>
                 </div>
             </div>
         </div>
+
         <!-- Card 3 -->
         <div class="col-md-4">
-            <div class="card">
+            <div class="card" role="group" aria-labelledby="vip-clients-title">
                 <div class="card-body text-center">
-                    <p class="card-title">VIP Clients</p>
-                    <p class="card-text">@ViewData["VipCount"]</p>
+                    <p class="card-title" id="vip-clients-title" role="heading" aria-level="3">VIP Clients</p>
+                    <p class="card-text" aria-live="polite">@ViewData["VipCount"]</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
 <!--Member Table-->
 
 <h2>Member Details</h2>
-<form asp-action="Index" method="get">
-
+<form asp-action="Index" method="get" aria-labelledby="form-title">
+    <div id="form-title" class="sr-only">Filter and Search Form</div>
     <div class="table-container">
 
         <!-- Filter/Search Button -->
@@ -50,24 +53,30 @@
         <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
 
         <div class="form-horizontal mb-3">
-            <button class="btn btn-secondary @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
-                    data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            <button class="btn btn-secondary @ViewData["Filtering"]"
+                    type="button"
+                    id="filterToggle"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseFilter"
+                    aria-expanded="false"
+                    aria-controls="collapseFilter">
                 Filter/Search @ViewData["numberFilters"]
             </button>
+
             <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
-                <div class="card card-body bg-light">
+                <div class="card card-body bg-light" role="region" aria-labelledby="filter-section-title">
+                    <h2 id="filter-section-title" class="sr-only">Filter and Search Options</h2>
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label for="SearchString" class="control-label">Search By Member Name:</label>
                             @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Enter subject..." })
+                            <span id="search-help" class="sr-only">Type a member's name to search.</span>
                         </div>
-                        @* <div class="form-group col-md-4"> *@
-                        @*     <label for="EmailTypeID" class="control-label">Filter by Organization:</label> *@
-                        @*     @Html.DropDownList("OrganizationID", null, "All Organizations", htmlAttributes: new { @class = "form-control" }) *@
-                        @* </div> *@
+
                         <div class="form-group col-md-4">
-                            <label for="EmailTypeID" class="control-label">Filter by Industry:</label>
-                            @Html.DropDownList("IndustryID", null, "All Industry", htmlAttributes: new { @class = "form-control" })
+                            <label for="IndustryID" class="control-label">Filter by Industry:</label>
+                            @Html.DropDownList("IndustryID", null, "All Industry", htmlAttributes: new { @class = "form-control"})
+                            <span id="industry-help" class="sr-only">Select an industry to filter members by.</span>
                         </div>
 
                         <div class="form-group col-md-4 d-flex align-items-end mt-2">
@@ -79,37 +88,35 @@
             </div>
         </div>
     </div>
+
     <!--Table Data-->
-    <div class="table-container mt-4" style="position: relative; overflow: auto; border: 1px solid #ddd;">
-        <table class="table table-bordered table-striped" style="table-layout: fixed; width: 100%;" id="myTable">
+    <div class="table-container mt-4" role="region" aria-labelledby="table-title" style="position: relative; overflow: auto; border: 1px solid #ddd;">
+        <h2 id="table-title" class="sr-only">Member Details Table</h2>
+        <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
             <thead class="thead-dark">
                 <tr>
-                    <th style="position: sticky; top: 0; left: 0; z-index: 1030; background: #434343; color: #fff; width: 200px;">
-                        <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" />
-
+                    <th scope="col" class="table-head-static">
+                        <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member Name" />
                     </th>
-                    
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 150px;">
-                        <input type="submit" name="actionButton" value="Industry" class="btn btn-link" />
-
+                    <th scope="col" class="table-head">
+                        <input type="submit" name="actionButton" value="Industry" class="btn btn-link" aria-label="Sort by Industry" />
                     </th>
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 300px;">Address</th>
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 200px;">Contact Name</th>
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 200px;">Contact Title</th>
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 200px;">Contact Department</th>
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 250px;">Contact Email</th>
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 200px;">Contact Phone</th>
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 150px;">LinkedIn</th>
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 100px;">VIP Status</th>
-                    <th style="position: sticky; top: 0; z-index: 1020; background: #434343; color: #fff; width: 100px;">Pin Column</th>
+                    <th scope="col" class="table-head">Address</th>
+                    <th scope="col" class="table-head">Contact Name</th>
+                    <th scope="col" class="table-head">Contact Title</th>
+                    <th scope="col" class="table-head">Contact Department</th>
+                    <th scope="col" class="table-head">Contact Email</th>
+                    <th scope="col" class="table-head">Contact Phone</th>
+                    <th scope="col" class="table-head">LinkedIn</th>
+                    <th scope="col" class="table-head">VIP Status</th>
+                    <th scope="col" class="table-head">Pin Column</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var member in Model)
                 {
-
                     <tr class="clickable-row" data-id="@member.ID">
-                        <td style="position: sticky; left: 0; z-index: 1020; background: #f8f9fa;">@member.Summary</td>
+                        <td class="table-row-static">@member.Summary</td>
                         <td>
                             @if (member.MemberIndustries != null)
                             {
@@ -130,33 +137,29 @@
                                         @address.AddressLine2
                                     }
                                     <br />
-
                                     @address.City @address.StateProvince @address.PostalCode @address.Country
-                                            
                                 }
-
-                                
                             </div>
                         </td>
                         @if (member.Contacts != null && member.Contacts.Count > 0)
                         {
                             <td colspan="7">
-                                <table class="table">
+                                <table class="table" aria-label="Contact Details for @member.Summary">
                                     @foreach (var contact in member.Contacts)
                                     {
                                         <tr>
-                                            <td style="width: 200px;">@contact.Summary</td>
-                                            <td style="width: 200px;">@contact.Title</td>
-                                            <td style="width: 200px;">@contact.Department</td>
-                                            <td style="word-wrap: break-word; overflow-wrap: break-word; width: 250px;">@contact.Email</td>
-                                            <td style="white-space: nowrap; width: 200px;">@contact.Phone</td>
-                                            <td style="width: 150px;">
+                                            <td>@contact.Summary</td>
+                                            <td>@contact.Title</td>
+                                            <td>@contact.Department</td>
+                                            <td>@contact.Email</td>
+                                            <td>@contact.Phone</td>
+                                            <td>
                                                 @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
                                                 {
-                                                    <a href="@contact.LinkedInUrl" target="_blank">LinkedIn</a>
+                                                    <a href="@contact.LinkedInUrl" target="_blank" aria-label="View LinkedIn profile for @contact.Summary">LinkedIn</a>
                                                 }
                                             </td>
-                                            <td style="width: 100px;">@(contact.IsVip ? "Yes" : "No")</td>
+                                            <td>@(contact.IsVip ? "Yes" : "No")</td>
                                         </tr>
                                     }
                                 </table>
@@ -166,26 +169,21 @@
                         {
                             <td colspan="7">No Contacts Available</td>
                         }
-
                         <td>
-                            <button class="btn btn-primary btn-sm pin-column" onclick="pinColumn(this)">Pin</button>
+                            <button class="btn btn-primary btn-sm pin-column" onclick="pinColumn(this)" aria-label="Pin this column">Pin</button>
                         </td>
-
                     </tr>
                 }
             </tbody>
         </table>
         <div id="previewContainer" class="preview-content hidden"></div>
-
     </div>
     <partial name="_PagingNavBar" />
-
 </form>
 
+
 @section Scripts {
-    <style>
-       
-    </style>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>

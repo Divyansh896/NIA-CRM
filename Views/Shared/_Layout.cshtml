@@ -21,43 +21,43 @@
                 <div class="position-sticky p-3">
                     <ul class="nav flex-column">
                         <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Home page">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Home page" title="Home">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-home"></i></span>
                                 <span class="text-black ms-2">Home</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
                                 <span class="text-black ms-2">Add Member</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email" title="Email">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
                                 <span class="text-black ms-2">Production Email</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
                                 <span class="text-black ms-2">Contacts</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Interaction")" aria-label="View Notes and Interactions">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Interaction")" aria-label="View Notes and Interactions" title="Notes">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-sticky-note"></i></span>
                                 <span class="text-black ms-2">Notes</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")" aria-label="Manage Cancellations">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")" aria-label="Manage Cancellations" title="Cancellations">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
                                 <span class="text-black ms-2">Cancellations</span>
                             </a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+                    @* <partial name="_LoginPartial" /> *@
                 </div>
             </nav>
 
@@ -113,6 +113,12 @@
         });
 
 
+    </script>
+    <script type="text/javascript">
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
