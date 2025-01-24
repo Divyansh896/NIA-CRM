@@ -40,6 +40,14 @@
                     background-color: #e9ecef;
                     border-radius: 5px;
                 }
+.sr-only {
+    border: 0;
+    clip: rect(0,0,0,0);
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: inherit;
+}
 
 /* Main content */
 .main-content {

@@ -9,77 +9,7 @@
     <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-    <style>
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            height: 100vh;
-            width: 250px;
-            background-color: #f8f9fa;
-            transition: left 0.3s ease;
-            z-index: 1050;
-            padding-top: 60px;
-        }
-
-            .sidebar.show {
-                left: 0;
-            }
-
-            .sidebar ul {
-                padding: 0;
-                margin: 0;
-                list-style: none;
-            }
-
-                .sidebar ul li {
-                    padding: 10px 20px;
-                }
-
-                    .sidebar ul li a {
-                        text-decoration: none;
-                        color: #333;
-                        font-size: 16px;
-                        display: block;
-                    }
-
-                        .sidebar ul li a:hover {
-                            background-color: #e9ecef;
-                            border-radius: 5px;
-                        }
-
-        /* Main content */
-        .main-content {
-            margin-left: 250px;
-            transition: margin-left 0.3s ease;
-            padding: 20px;
-        }
-
-            .main-content.sidebar-collapsed {
-                margin-left: 60px;
-            }
-
-        /* Hamburger Button */
-        #toggleSidebar {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 1100;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-            #toggleSidebar:focus {
-                outline: none;
-            }
-    </style>
-
+  
 
 </head>
 <body>
@@ -93,37 +23,37 @@
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Home page">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-home"></i></span>
-                                <span class="sr-only">Home</span>
+                                <span class="text-black ms-2">Home</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
-                                <span class="sr-only">Add Member</span>
+                                <span class="text-black ms-2">Add Member</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
-                                <span class="sr-only">Production Email</span>
+                                <span class="text-black ms-2">Production Email</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
-                                <span class="sr-only">Contacts</span>
+                                <span class="text-black ms-2">Contacts</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Interaction")" aria-label="View Notes and Interactions">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-sticky-note"></i></span>
-                                <span class="sr-only">Notes</span>
+                                <span class="text-black ms-2">Notes</span>
                             </a>
                         </li>
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")" aria-label="Manage Cancellations">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
-                                <span class="sr-only">Cancellations</span>
+                                <span class="text-black ms-2">Cancellations</span>
                             </a>
                         </li>
                     </ul>
