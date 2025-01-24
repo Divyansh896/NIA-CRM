@@ -7,22 +7,24 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     <style>
         /* Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
-            left: -250px; 
+            left: -250px;
             height: 100vh;
             width: 250px;
             background-color: #f8f9fa;
             transition: left 0.3s ease;
-            z-index: 1050; 
-            padding-top: 60px; 
+            z-index: 1050;
+            padding-top: 60px;
         }
 
             .sidebar.show {
-                left: 0; 
+                left: 0;
             }
 
             .sidebar ul {
@@ -32,7 +34,7 @@
             }
 
                 .sidebar ul li {
-                    padding: 10px 20px; 
+                    padding: 10px 20px;
                 }
 
                     .sidebar ul li a {
@@ -51,11 +53,11 @@
         .main-content {
             margin-left: 250px;
             transition: margin-left 0.3s ease;
-            padding: 20px; 
+            padding: 20px;
         }
 
             .main-content.sidebar-collapsed {
-                margin-left: 60px; 
+                margin-left: 60px;
             }
 
         /* Hamburger Button */
@@ -82,30 +84,48 @@
 </head>
 <body>
     <header>
+
         <div class="container-fluid">
             <!-- Sidebar -->
             <nav id="sidebarMenu" class="sidebar">
                 <div class="position-sticky p-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Home")">Home</a>
+                        <li class="nav-item" role="menuitem">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Home page">
+                                <span class="icon" aria-hidden="true"><i class="fas fa-home"></i></span>
+                                <span class="sr-only">Home</span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Member")">Add Member</a>
+                        <li class="nav-item" role="menuitem">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member">
+                                <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
+                                <span class="sr-only">Add Member</span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")">Production Email</a>
+                        <li class="nav-item" role="menuitem">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email">
+                                <span class="icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
+                                <span class="sr-only">Production Email</span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")">Contacts</a>
+                        <li class="nav-item" role="menuitem">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts">
+                                <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
+                                <span class="sr-only">Contacts</span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Interaction")">Notes</a>
+                        <li class="nav-item" role="menuitem">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Interaction")" aria-label="View Notes and Interactions">
+                                <span class="icon" aria-hidden="true"><i class="fas fa-sticky-note"></i></span>
+                                <span class="sr-only">Notes</span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")">Cancellations</a>
+                        <li class="nav-item" role="menuitem">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")" aria-label="Manage Cancellations">
+                                <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
+                                <span class="sr-only">Cancellations</span>
+                            </a>
                         </li>
-                        
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

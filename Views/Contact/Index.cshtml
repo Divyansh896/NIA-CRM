@@ -4,7 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
@@ -96,7 +95,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr class="clickable-row" data-id="@item.Id">
                             <td>
                                 @Html.DisplayFor(modelItem => item.FirstName)
                             </td>

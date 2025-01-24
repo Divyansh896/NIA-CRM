@@ -81,7 +81,7 @@ namespace NIA_CRM.Controllers
             if (!String.IsNullOrEmpty(SearchString))
             {
                 contacts = contacts.Where(p => p.LastName.ToUpper().Contains(SearchString.ToUpper())
-                                       || p.LastName.ToUpper().Contains(SearchString.ToUpper()));
+                                       || p.FirstName.ToUpper().Contains(SearchString.ToUpper()));
                 numberFilters++;
             }
             //Give feedback about the state of the filters
