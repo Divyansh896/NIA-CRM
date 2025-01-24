@@ -9,7 +9,7 @@
     left: -250px;
     height: 100vh;
     width: 250px;
-    background-color: #f8f9fa;
+    background-color: #A61C1C;
     transition: left 0.3s ease;
     z-index: 1050;
     padding-top: 60px;
@@ -37,8 +37,12 @@
             }
 
                 .sidebar ul li a:hover {
-                    background-color: #e9ecef;
+                    background-color: #8C1818;
                     border-radius: 5px;
+                }
+
+                .sidebar span{
+                    color: #ffffff;
                 }
 .sr-only {
     border: 0;
@@ -66,7 +70,7 @@
     top: 15px;
     left: 15px;
     z-index: 1100;
-    background-color: #007bff;
+    background-color: #A61C1C;
     color: #fff;
     border: none;
     border-radius: 5px;
