@@ -1,0 +1,53 @@
+﻿
+    /* responsive.css */
+    /* Mobile Devices (Phones) */
+    @media (max-width: 768px) {
+        body {
+            font-size: 14px;
+        }
+
+        /* Adjust navigation bar */
+        .navbar {
+            font-size: 14px;
+        }
+
+        .main-content {
+            margin-left: 0 !important; /* Remove margin when collapsed */
+        }
+
+        /* Example of adjusting layout for smaller screens */
+        .container {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        /* Adjust grid layout */
+        .row {
+            flex-direction: column;
+        }
+    }
+    /* Tablets */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .navbar {
+            font-size: 16px;
+        }
+
+        .container {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .row {
+            flex-direction: row;
+        }
+    }
+    /* Desktops (larger screens) */
+    @media (min-width: 1025px) {
+        .navbar {
+            font-size: 18px;
+        }
+
+        .main-content {
+            margin-left: 250px; /* Adjust the margin for larger screens */
+        }
+    }
