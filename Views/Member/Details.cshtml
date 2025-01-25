@@ -9,6 +9,16 @@
 <div>
     <h4>Member</h4>
     <hr />
+    @{
+        if (Model.MemberLogo?.Content != null)
+        {
+            @:<div>
+                string imageBase64 = Convert.ToBase64String(Model.MemberLogo.Content);
+                string imageSrc = string.Format("data:" + Model.MemberLogo.MimeType + ";base64,{0}", imageBase64);
+                <img src="@imageSrc" alt="Profile Picture of @Model.Summary" title="Profile Picture of @Model.Summary" class="img-fluid rounded" />
+            @:</div><hr />
+        }
+    }
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.MemberFirstName)

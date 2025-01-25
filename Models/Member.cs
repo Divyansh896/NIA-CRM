@@ -51,6 +51,8 @@ namespace NIA_CRM.Models
         [Required(ErrorMessage = "You must select the standing status.")]
         public StandingStatus StandingStatus { get; set; }
 
+        public MemberLogo? MemberLogo { get; set; }
+        public MemberThumbnail? MemberThumbnail { get; set; }
 
         public ICollection<MemberIndustry> MemberIndustries { get; set; } = new List<MemberIndustry>();
         public ICollection<MemberMembershipType> MemberMembershipTypes { get; set; } = new List<MemberMembershipType>();

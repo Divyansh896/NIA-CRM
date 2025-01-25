@@ -64,6 +64,7 @@ namespace NIA_CRM.Controllers
     .Include(m => m.Cancellations) // Include Cancellations related to the Member
     .Include(m => m.MemberNotes) // Include Member Notes
     .Include(m => m.Interactions) // Include Interactions related to the Member
+    .Include(m => m.MemberThumbnail)
     .AsNoTracking();
 
 

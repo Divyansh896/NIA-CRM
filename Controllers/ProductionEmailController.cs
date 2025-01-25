@@ -38,6 +38,7 @@ namespace NIA_CRM.Controllers
             if (EmailTypeID.HasValue)
             {
                 emailsQuery = emailsQuery.Where(e => e.Id == EmailTypeID.Value);
+                numberFilters++;
             }
 
             // Handle sorting

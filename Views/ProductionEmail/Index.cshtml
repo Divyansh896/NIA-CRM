@@ -4,7 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
@@ -85,9 +84,7 @@
                                 @Html.DisplayFor(modelItem => item.Subject)
                             </td>
                             <td>
-                                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" aria-label="Email body preview">
                                     @Html.DisplayFor(modelItem => item.Body)
-                                </div>
                             </td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.Id" aria-label="Edit email of type @item.EmailType with subject @item.Subject">Edit</a> |

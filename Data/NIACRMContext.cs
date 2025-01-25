@@ -37,6 +37,8 @@ namespace NIA_CRM.Data
         public DbSet<ContactIndustry> ContactIndustries { get; set; }
         public DbSet<ProductionEmail> ProductionEmails { get; set; }
         public DbSet<MemberIndustry> MemberIndustries { get; set; }
+        public DbSet<MemberLogo> MemberLogos { get; set; }
+        public DbSet<MemberThumbnail> MemebrThumbnails { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
