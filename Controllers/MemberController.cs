@@ -154,19 +154,12 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-<<<<<<< HEAD
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, string? chkRemoveImage, IFormFile? thePicture)
         {
             var memberToUpdate = await _context.Members.FirstOrDefaultAsync(m => m.ID == id);
 
             if (memberToUpdate == null)
-=======
-        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")] 
-        Member member, string? chkRemoveImage, IFormFile? thePicture)
-        {
 
-            if (id != member.ID)
->>>>>>> origin/master
             {
                 return NotFound();
             }
@@ -176,12 +169,8 @@ namespace NIA_CRM.Controllers
             {
                 try
                 {
-<<<<<<< HEAD
                     _context.Update(memberToUpdate);
-=======
-                    
-                    _context.Update(member);
->>>>>>> origin/master
+
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }

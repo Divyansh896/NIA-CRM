@@ -35,35 +35,35 @@
     padding-top: 60px;
 }
 
-    .sidebar.show {
-        left: 0;
-    }
+.sidebar.show {
+    left: 0;
+}
 
-    .sidebar ul {
-        padding: 0;
-        margin: 0;
-        list-style: none;
-    }
+.sidebar ul {
+padding: 0;
+margin: 0;
+list-style: none;
+}
 
-        .sidebar ul li {
-            padding: 10px 20px;
-        }
+.sidebar ul li {
+padding: 10px 20px;
+}
 
-            .sidebar ul li a {
-                text-decoration: none;
-                color: #333;
-                font-size: 16px;
-                display: block;
-            }
+.sidebar ul li a {
+text-decoration: none;
+color: #333;
+font-size: 16px;
+display: block;
+}
 
-                .sidebar ul li a:hover {
-                    background-color: #8C1818;
-                    border-radius: 5px;
-                }
+.sidebar ul li a:hover {
+background-color: #8C1818;
+border-radius: 5px;
+}
 
-                .sidebar span{
-                    color: #ffffff;
-                }
+.sidebar span{
+color: #ffffff;
+}
 .sr-only {
     border: 0;
     clip: rect(0,0,0,0);
@@ -80,9 +80,9 @@
     padding: 20px;
 }
 
-    .main-content.sidebar-collapsed {
-        margin-left: 60px;
-    }
+.main-content.sidebar-collapsed {
+    margin-left: 60px;
+}
 
 /* Hamburger Button */
 #toggleSidebar {
@@ -99,9 +99,9 @@
     cursor: pointer;
 }
 
-    #toggleSidebar:focus {
-        outline: none;
-    }
+#toggleSidebar:focus {
+    outline: none;
+}
 /* Highlight row on hover */
 .clickable-row:hover {
     background-color: #f5f5f5; /* Light grey background */
@@ -165,6 +165,9 @@
     z-index: 1050;
     background: #f8f9fa !important;
     border-left: #f8f9fa !important;
+}
+.card{
+    border: none;
 }
 
 
