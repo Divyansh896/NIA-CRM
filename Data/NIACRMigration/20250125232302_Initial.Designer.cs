@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250125071618_Initial")]
+    [Migration("20250125232302_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -196,6 +196,9 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.Property<int>("IndustrySize")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 

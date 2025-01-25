@@ -31,8 +31,7 @@ namespace NIA_CRM.Controllers
             ViewData["Filtering"] = "btn-outline-secondary";
             int numberFilters = 0;
 
-            var contacts = _context.Contacts.AsQueryable();
-
+            var contacts = _context.Contacts.Include(c => c.Member).AsQueryable();
             if (Departments != null)
             {
                 contacts = contacts.Where(c => c.Department == Departments);
@@ -276,12 +275,22 @@ namespace NIA_CRM.Controllers
         }
         public IActionResult GetContactPreview(int id)
         {
-            var contact = _context.Contacts.Where(i => i.Id == id).FirstOrDefault();
+            // Fetch the contact by id, including related industries through ContactIndustries
+            var contact = _context.Contacts
+                .Include(c => c.ContactIndustries)
+                    .ThenInclude(ci => ci.Industry)  // Include related industries through the ContactIndustry table
+                .Where(c => c.Id == id)  // Filter the contact by id
+                .FirstOrDefault();  // Return the first result or null if not found
+
+            // Check if contact was not found
             if (contact == null)
             {
-                return NotFound();
+                return NotFound();  // Return 404 if the contact does not exist
             }
+
+            // Return the partial view with the contact data
             return PartialView("_ContactPreview", contact);  // Ensure the partial view name is correct
         }
+
     }
 }

@@ -112,53 +112,52 @@ namespace NIA_CRM.Data
                     if (!context.Industries.Any())
                     {
                         context.Industries.AddRange(
-                            new Industry { ID = 1, IndustryName = "Alpha Steel", IndustrySize = 250 },
-                            new Industry { ID = 2, IndustryName = "TISCO CO.", IndustrySize = 150 },
-                            new Industry { ID = 3, IndustryName = "M Time Irons", IndustrySize = 100 },
-                            new Industry { ID = 4, IndustryName = "Forge & Foundry Inc.", IndustrySize = 300 },
-                            new Industry { ID = 5, IndustryName = "Northern Metalworks", IndustrySize = 120 },
-                            new Industry { ID = 6, IndustryName = "Titanium Solutions", IndustrySize = 400 },
-                            new Industry { ID = 7, IndustryName = "Phoenix Alloys", IndustrySize = 350 },
-                            new Industry { ID = 8, IndustryName = "Galaxy Metals", IndustrySize = 500 },
-                            new Industry { ID = 9, IndustryName = "Ironclad Industries", IndustrySize = 220 },
-                            new Industry { ID = 10, IndustryName = "Silverline Fabrication", IndustrySize = 180 },
-                            new Industry { ID = 11, IndustryName = "Star Steelworks", IndustrySize = 230 },
-                            new Industry { ID = 12, IndustryName = "Summit Metal Co.", IndustrySize = 270 },
-                            new Industry { ID = 13, IndustryName = "Everest Iron Corp.", IndustrySize = 210 },
-                            new Industry { ID = 14, IndustryName = "Prime Alloy Coatings", IndustrySize = 160 },
-                            new Industry { ID = 15, IndustryName = "Magnum Steel Solutions", IndustrySize = 190 },
-                            new Industry { ID = 16, IndustryName = "Quantum Tech Innovations", IndustrySize = 450 },
-                            new Industry { ID = 17, IndustryName = "Aurora Renewable Energy", IndustrySize = 500 },
-                            new Industry { ID = 18, IndustryName = "Vertex Financial Group", IndustrySize = 80 },
-                            new Industry { ID = 19, IndustryName = "Nova Biotech Labs", IndustrySize = 60 },
-                            new Industry { ID = 20, IndustryName = "Summit Construction Co.", IndustrySize = 250 },
-                            new Industry { ID = 21, IndustryName = "Oceanic Shipping Corp", IndustrySize = 600 },
-                            new Industry { ID = 22, IndustryName = "Evergreen Agriculture", IndustrySize = 550 },
-                            new Industry { ID = 23, IndustryName = "Ironclad Manufacturing Ltd.", IndustrySize = 300 },
-                            new Industry { ID = 24, IndustryName = "Skyline Architects Inc.", IndustrySize = 130 },
-                            new Industry { ID = 25, IndustryName = "Pinnacle Consulting Services", IndustrySize = 90 },
-                            new Industry { ID = 26, IndustryName = "Crystal Water Solutions", IndustrySize = 110 },
-                            new Industry { ID = 27, IndustryName = "Elite Healthcare Partners", IndustrySize = 150 },
-                            new Industry { ID = 28, IndustryName = "Galaxy IT Solutions", IndustrySize = 400 },
-                            new Industry { ID = 29, IndustryName = "Urban Infrastructure Group", IndustrySize = 350 },
-                            new Industry { ID = 30, IndustryName = "Horizon Aerospace Inc.", IndustrySize = 450 },
-                            new Industry { ID = 31, IndustryName = "Cobalt Mining Ventures", IndustrySize = 500 },
-                            new Industry { ID = 32, IndustryName = "LakesIde Resorts and Hotels", IndustrySize = 200 },
-                            new Industry { ID = 33, IndustryName = "NextGen Media Productions", IndustrySize = 100 },
-                            new Industry { ID = 34, IndustryName = "Crestwood Pharmaceutical", IndustrySize = 120 },
-                            new Industry { ID = 35, IndustryName = "Dynamic Logistics Group", IndustrySize = 180 },
-                            new Industry { ID = 36, IndustryName = "Northern Timber Products", IndustrySize = 160 },
-                            new Industry { ID = 37, IndustryName = "Brightline Education Systems", IndustrySize = 50 },
-                            new Industry { ID = 38, IndustryName = "Fusion Energy Solutions", IndustrySize = 300 },
-                            new Industry { ID = 39, IndustryName = "Trailblazer Automotive Group", IndustrySize = 450 },
-                            new Industry { ID = 40, IndustryName = "Harvest Foods International", IndustrySize = 400 },
-                            new Industry { ID = 41, IndustryName = "Regal Entertainment Network", IndustrySize = 220 },
-                            new Industry { ID = 42, IndustryName = "EcoSmart Waste Management", IndustrySize = 270 },
-                            new Industry { ID = 43, IndustryName = "Summit Legal Services", IndustrySize = 130 },
-                            new Industry { ID = 44, IndustryName = "Zenith Apparel Ltd.", IndustrySize = 80 },
-                            new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 200 }
-
-                        );
+                        new Industry { ID = 1, IndustryName = "Alpha Steel", IndustrySize = 250, WebsiteUrl = "https://www.alphasteel.com" },
+                        new Industry { ID = 2, IndustryName = "TISCO CO.", IndustrySize = 150, WebsiteUrl = "https://www.tisco.com" },
+                        new Industry { ID = 3, IndustryName = "M Time Irons", IndustrySize = 100, WebsiteUrl = "https://www.mtimeirons.com" },
+                        new Industry { ID = 4, IndustryName = "Forge & Foundry Inc.", IndustrySize = 300, WebsiteUrl = "https://www.forgefoundry.com" },
+                        new Industry { ID = 5, IndustryName = "Northern Metalworks", IndustrySize = 120, WebsiteUrl = "https://www.northernmetalworks.com" },
+                        new Industry { ID = 6, IndustryName = "Titanium Solutions", IndustrySize = 400, WebsiteUrl = "https://www.titaniumsolutions.com" },
+                        new Industry { ID = 7, IndustryName = "Phoenix Alloys", IndustrySize = 350, WebsiteUrl = "https://www.phoenixalloys.com" },
+                        new Industry { ID = 8, IndustryName = "Galaxy Metals", IndustrySize = 500, WebsiteUrl = "https://www.galaxymetals.com" },
+                        new Industry { ID = 9, IndustryName = "Ironclad Industries", IndustrySize = 220, WebsiteUrl = "https://www.ironcladindustries.com" },
+                        new Industry { ID = 10, IndustryName = "Silverline Fabrication", IndustrySize = 180, WebsiteUrl = "https://www.silverlinefab.com" },
+                        new Industry { ID = 11, IndustryName = "Star Steelworks", IndustrySize = 230, WebsiteUrl = "https://www.starsteelworks.com" },
+                        new Industry { ID = 12, IndustryName = "Summit Metal Co.", IndustrySize = 270, WebsiteUrl = "https://www.summitmetalco.com" },
+                        new Industry { ID = 13, IndustryName = "Everest Iron Corp.", IndustrySize = 210, WebsiteUrl = "https://www.everestironcorp.com" },
+                        new Industry { ID = 14, IndustryName = "Prime Alloy Coatings", IndustrySize = 160, WebsiteUrl = "https://www.primealloycoatings.com" },
+                        new Industry { ID = 15, IndustryName = "Magnum Steel Solutions", IndustrySize = 190, WebsiteUrl = "https://www.magnumsteel.com" },
+                        new Industry { ID = 16, IndustryName = "Quantum Tech Innovations", IndustrySize = 450, WebsiteUrl = "https://www.quantumtechinnovations.com" },
+                        new Industry { ID = 17, IndustryName = "Aurora Renewable Energy", IndustrySize = 500, WebsiteUrl = "https://www.aurorarenewable.com" },
+                        new Industry { ID = 18, IndustryName = "Vertex Financial Group", IndustrySize = 80, WebsiteUrl = "https://www.vertexfinancialgroup.com" },
+                        new Industry { ID = 19, IndustryName = "Nova Biotech Labs", IndustrySize = 60, WebsiteUrl = "https://www.novabiotechlabs.com" },
+                        new Industry { ID = 20, IndustryName = "Summit Construction Co.", IndustrySize = 250, WebsiteUrl = "https://www.summitconstruction.com" },
+                        new Industry { ID = 21, IndustryName = "Oceanic Shipping Corp", IndustrySize = 600, WebsiteUrl = "https://www.oceanicshipping.com" },
+                        new Industry { ID = 22, IndustryName = "Evergreen Agriculture", IndustrySize = 550, WebsiteUrl = "https://www.evergreenagriculture.com" },
+                        new Industry { ID = 23, IndustryName = "Ironclad Manufacturing Ltd.", IndustrySize = 300, WebsiteUrl = "https://www.ironcladmanufacturing.com" },
+                        new Industry { ID = 24, IndustryName = "Skyline Architects Inc.", IndustrySize = 130, WebsiteUrl = "https://www.skylinearchitects.com" },
+                        new Industry { ID = 25, IndustryName = "Pinnacle Consulting Services", IndustrySize = 90, WebsiteUrl = "https://www.pinnacleconsulting.com" },
+                        new Industry { ID = 26, IndustryName = "Crystal Water Solutions", IndustrySize = 110, WebsiteUrl = "https://www.crystalwatersolutions.com" },
+                        new Industry { ID = 27, IndustryName = "Elite Healthcare Partners", IndustrySize = 150, WebsiteUrl = "https://www.elitehealthcarepartners.com" },
+                        new Industry { ID = 28, IndustryName = "Galaxy IT Solutions", IndustrySize = 400, WebsiteUrl = "https://www.galaxyitsolutions.com" },
+                        new Industry { ID = 29, IndustryName = "Urban Infrastructure Group", IndustrySize = 350, WebsiteUrl = "https://www.urbaninfrastructure.com" },
+                        new Industry { ID = 30, IndustryName = "Horizon Aerospace Inc.", IndustrySize = 450, WebsiteUrl = "https://www.horizonaerospace.com" },
+                        new Industry { ID = 31, IndustryName = "Cobalt Mining Ventures", IndustrySize = 500, WebsiteUrl = "https://www.cobaltminingventures.com" },
+                        new Industry { ID = 32, IndustryName = "LakesIde Resorts and Hotels", IndustrySize = 200, WebsiteUrl = "https://www.lakesideresorts.com" },
+                        new Industry { ID = 33, IndustryName = "NextGen Media Productions", IndustrySize = 100, WebsiteUrl = "https://www.nextgenmediaproductions.com" },
+                        new Industry { ID = 34, IndustryName = "Crestwood Pharmaceutical", IndustrySize = 120, WebsiteUrl = "https://www.crestwoodpharmaceutical.com" },
+                        new Industry { ID = 35, IndustryName = "Dynamic Logistics Group", IndustrySize = 180, WebsiteUrl = "https://www.dynamiclogisticsgroup.com" },
+                        new Industry { ID = 36, IndustryName = "Northern Timber Products", IndustrySize = 160, WebsiteUrl = "https://www.northerntimberproducts.com" },
+                        new Industry { ID = 37, IndustryName = "Brightline Education Systems", IndustrySize = 50, WebsiteUrl = "https://www.brightlineeducationsystems.com" },
+                        new Industry { ID = 38, IndustryName = "Fusion Energy Solutions", IndustrySize = 300, WebsiteUrl = "https://www.fusionenergysolutions.com" },
+                        new Industry { ID = 39, IndustryName = "Trailblazer Automotive Group", IndustrySize = 450, WebsiteUrl = "https://www.trailblazerautomotive.com" },
+                        new Industry { ID = 40, IndustryName = "Harvest Foods International", IndustrySize = 400, WebsiteUrl = "https://www.harvestfoods.com" },
+                        new Industry { ID = 41, IndustryName = "Regal Entertainment Network", IndustrySize = 220, WebsiteUrl = "https://www.regalentertainmentnetwork.com" },
+                        new Industry { ID = 42, IndustryName = "EcoSmart Waste Management", IndustrySize = 270, WebsiteUrl = "https://www.ecosmartwastemanagement.com" },
+                        new Industry { ID = 43, IndustryName = "Summit Legal Services", IndustrySize = 130, WebsiteUrl = "https://www.summitlegalservices.com" },
+                        new Industry { ID = 44, IndustryName = "Zenith Apparel Ltd.", IndustrySize = 80, WebsiteUrl = "https://www.zenithapparel.com" },
+                        new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 200, WebsiteUrl = "https://www.bluewavesoftware.com" }
+                    );
                         context.SaveChanges();
                     }
 
@@ -226,7 +225,7 @@ namespace NIA_CRM.Data
                         {
                             ID = 2,
                             MemberFirstName = "Jane",
-                            MemberMiddleName= "Marie",
+                            MemberMiddleName = "Marie",
                             MemberLastName = "Smith",
                             JoinDate = new DateTime(2022, 1, 20),
                             StandingStatus = StandingStatus.Inactive,
@@ -271,7 +270,7 @@ namespace NIA_CRM.Data
                         {
                             ID = 4,
                             MemberFirstName = "Emily",
-                            MemberMiddleName= "Sharma",
+                            MemberMiddleName = "Sharma",
                             MemberLastName = "Davis",
                             JoinDate = new DateTime(2022, 8, 8),
                             StandingStatus = StandingStatus.Good,
@@ -293,7 +292,7 @@ namespace NIA_CRM.Data
                         {
                             ID = 5,
                             MemberFirstName = "Michael",
-                            MemberMiddleName = null ,
+                            MemberMiddleName = null,
                             MemberLastName = "Brown",
                             JoinDate = new DateTime(2020, 5, 10),
                             StandingStatus = StandingStatus.Good,
@@ -315,7 +314,7 @@ namespace NIA_CRM.Data
                         {
                             ID = 6,
                             MemberFirstName = "Sarah",
-                            MemberMiddleName= "Singh",
+                            MemberMiddleName = "Singh",
                             MemberLastName = "Johnson",
                             JoinDate = new DateTime(2021, 9, 15),
                             StandingStatus = StandingStatus.Inactive,
@@ -1058,53 +1057,53 @@ namespace NIA_CRM.Data
                     if (!context.MemberIndustries.Any())
                     {
                         context.MemberIndustries.AddRange(
-                            new MemberIndustry {MemberId = 1, IndustryId = 1 },
-                            new MemberIndustry {MemberId = 2, IndustryId = 2 },
-                            new MemberIndustry {MemberId = 3, IndustryId = 3 },
-                            new MemberIndustry {MemberId = 4, IndustryId = 4 },
-                            new MemberIndustry {MemberId = 5, IndustryId = 5 },
-                            new MemberIndustry {MemberId = 6, IndustryId = 6 },
-                            new MemberIndustry {MemberId = 7, IndustryId = 7 },
-                            new MemberIndustry {MemberId = 8, IndustryId = 8 },
-                            new MemberIndustry {MemberId = 9, IndustryId = 9 },
-                            new MemberIndustry {MemberId = 10, IndustryId = 10 },
-                            new MemberIndustry {MemberId = 10, IndustryId = 41 },
-                            new MemberIndustry {MemberId = 11, IndustryId = 11 },
-                            new MemberIndustry {MemberId = 12, IndustryId = 12 },
-                            new MemberIndustry {MemberId = 13, IndustryId = 13 },
-                            new MemberIndustry {MemberId = 14, IndustryId = 14 },
-                            new MemberIndustry {MemberId = 15, IndustryId = 15 },
-                            new MemberIndustry {MemberId = 15, IndustryId = 42 },
-                            new MemberIndustry {MemberId = 16, IndustryId = 16 },
-                            new MemberIndustry {MemberId = 17, IndustryId = 17 },
-                            new MemberIndustry {MemberId = 18, IndustryId = 18 },
-                            new MemberIndustry {MemberId = 19, IndustryId = 19 },
-                            new MemberIndustry {MemberId = 20, IndustryId = 20 },
-                            new MemberIndustry {MemberId = 21, IndustryId = 21 },
-                            new MemberIndustry {MemberId = 22, IndustryId = 22 },
-                            new MemberIndustry {MemberId = 23, IndustryId = 23 },
-                            new MemberIndustry {MemberId = 24, IndustryId = 24 },
-                            new MemberIndustry {MemberId = 25, IndustryId = 25 },
-                            new MemberIndustry {MemberId = 25, IndustryId = 43 },
-                            new MemberIndustry {MemberId = 26, IndustryId = 26 },
-                            new MemberIndustry {MemberId = 27, IndustryId = 27 },
-                            new MemberIndustry {MemberId = 28, IndustryId = 28 },
-                            new MemberIndustry {MemberId = 29, IndustryId = 29 },
-                            new MemberIndustry {MemberId = 30, IndustryId = 30 },
-                            new MemberIndustry {MemberId = 31, IndustryId = 31 },
-                            new MemberIndustry {MemberId = 32, IndustryId = 32 },
-                            new MemberIndustry {MemberId = 32, IndustryId = 44 },
-                            new MemberIndustry {MemberId = 33, IndustryId = 33 },
-                            new MemberIndustry {MemberId = 34, IndustryId = 34 },
-                            new MemberIndustry {MemberId = 35, IndustryId = 35 },
-                            new MemberIndustry {MemberId = 36, IndustryId = 36 },
-                            new MemberIndustry {MemberId = 37, IndustryId = 37 },
-                            new MemberIndustry {MemberId = 38, IndustryId = 38 },
-                            new MemberIndustry {MemberId = 39, IndustryId = 39 },
-                            new MemberIndustry {MemberId = 40, IndustryId = 40 },
-                            new MemberIndustry {MemberId = 40, IndustryId = 45 }
+                            new MemberIndustry { MemberId = 1, IndustryId = 1 },
+                            new MemberIndustry { MemberId = 2, IndustryId = 2 },
+                            new MemberIndustry { MemberId = 3, IndustryId = 3 },
+                            new MemberIndustry { MemberId = 4, IndustryId = 4 },
+                            new MemberIndustry { MemberId = 5, IndustryId = 5 },
+                            new MemberIndustry { MemberId = 6, IndustryId = 6 },
+                            new MemberIndustry { MemberId = 7, IndustryId = 7 },
+                            new MemberIndustry { MemberId = 8, IndustryId = 8 },
+                            new MemberIndustry { MemberId = 9, IndustryId = 9 },
+                            new MemberIndustry { MemberId = 10, IndustryId = 10 },
+                            new MemberIndustry { MemberId = 10, IndustryId = 41 },
+                            new MemberIndustry { MemberId = 11, IndustryId = 11 },
+                            new MemberIndustry { MemberId = 12, IndustryId = 12 },
+                            new MemberIndustry { MemberId = 13, IndustryId = 13 },
+                            new MemberIndustry { MemberId = 14, IndustryId = 14 },
+                            new MemberIndustry { MemberId = 15, IndustryId = 15 },
+                            new MemberIndustry { MemberId = 15, IndustryId = 42 },
+                            new MemberIndustry { MemberId = 16, IndustryId = 16 },
+                            new MemberIndustry { MemberId = 17, IndustryId = 17 },
+                            new MemberIndustry { MemberId = 18, IndustryId = 18 },
+                            new MemberIndustry { MemberId = 19, IndustryId = 19 },
+                            new MemberIndustry { MemberId = 20, IndustryId = 20 },
+                            new MemberIndustry { MemberId = 21, IndustryId = 21 },
+                            new MemberIndustry { MemberId = 22, IndustryId = 22 },
+                            new MemberIndustry { MemberId = 23, IndustryId = 23 },
+                            new MemberIndustry { MemberId = 24, IndustryId = 24 },
+                            new MemberIndustry { MemberId = 25, IndustryId = 25 },
+                            new MemberIndustry { MemberId = 25, IndustryId = 43 },
+                            new MemberIndustry { MemberId = 26, IndustryId = 26 },
+                            new MemberIndustry { MemberId = 27, IndustryId = 27 },
+                            new MemberIndustry { MemberId = 28, IndustryId = 28 },
+                            new MemberIndustry { MemberId = 29, IndustryId = 29 },
+                            new MemberIndustry { MemberId = 30, IndustryId = 30 },
+                            new MemberIndustry { MemberId = 31, IndustryId = 31 },
+                            new MemberIndustry { MemberId = 32, IndustryId = 32 },
+                            new MemberIndustry { MemberId = 32, IndustryId = 44 },
+                            new MemberIndustry { MemberId = 33, IndustryId = 33 },
+                            new MemberIndustry { MemberId = 34, IndustryId = 34 },
+                            new MemberIndustry { MemberId = 35, IndustryId = 35 },
+                            new MemberIndustry { MemberId = 36, IndustryId = 36 },
+                            new MemberIndustry { MemberId = 37, IndustryId = 37 },
+                            new MemberIndustry { MemberId = 38, IndustryId = 38 },
+                            new MemberIndustry { MemberId = 39, IndustryId = 39 },
+                            new MemberIndustry { MemberId = 40, IndustryId = 40 },
+                            new MemberIndustry { MemberId = 40, IndustryId = 45 }
                             );
-                    
+
                         context.SaveChanges();
                     }
                     if (!context.MemberMembershipTypes.Any())
@@ -1112,207 +1111,207 @@ namespace NIA_CRM.Data
                         context.MemberMembershipTypes.AddRange(
                             new MemberMembershipType
                             {
-                               MemberId = 1, // John Doe
+                                MemberId = 1, // John Doe
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 1, // John Doe
+                                MemberId = 1, // John Doe
                                 MembershipTypeId = 3 // Family Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 2, // Jane Smith
+                                MemberId = 2, // Jane Smith
                                 MembershipTypeId = 2 // Premium Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 3, // Robert Johnson
+                                MemberId = 3, // Robert Johnson
                                 MembershipTypeId = 4 // Student Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 4, // Emily Davis
+                                MemberId = 4, // Emily Davis
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 5, // William Brown
+                                MemberId = 5, // William Brown
                                 MembershipTypeId = 2 // Silver Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 6, // Olivia Clark
+                                MemberId = 6, // Olivia Clark
                                 MembershipTypeId = 5 // Platinum Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 7, // Noah Miller
+                                MemberId = 7, // Noah Miller
                                 MembershipTypeId = 3 // Premium Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 8, // Sophia Wilson
+                                MemberId = 8, // Sophia Wilson
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 9, // Liam Martinez
+                                MemberId = 9, // Liam Martinez
                                 MembershipTypeId = 4 // Gold Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 10, // Ava Anderson
+                                MemberId = 10, // Ava Anderson
                                 MembershipTypeId = 2 // Silver Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 11, // Mason Lee
+                                MemberId = 11, // Mason Lee
                                 MembershipTypeId = 5 //
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 12,
+                                MemberId = 12,
                                 MembershipTypeId = 4 // Student Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 13,
+                                MemberId = 13,
                                 MembershipTypeId = 2 // Premium Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 14,
+                                MemberId = 14,
                                 MembershipTypeId = 3 // Family Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 15,
+                                MemberId = 15,
                                 MembershipTypeId = 5 // Corporate Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 16,
+                                MemberId = 16,
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 17,
+                                MemberId = 17,
                                 MembershipTypeId = 4 // Student Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 18,
+                                MemberId = 18,
                                 MembershipTypeId = 2 // Premium Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 19,
+                                MemberId = 19,
                                 MembershipTypeId = 3 // Family Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 20,
+                                MemberId = 20,
                                 MembershipTypeId = 5 // Corporate Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 21,
+                                MemberId = 21,
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 22,
+                                MemberId = 22,
                                 MembershipTypeId = 4 // Student Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 23,
+                                MemberId = 23,
                                 MembershipTypeId = 2 // Premium Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 24,
+                                MemberId = 24,
                                 MembershipTypeId = 3 // Family Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 25,
+                                MemberId = 25,
                                 MembershipTypeId = 5 // Corporate Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 26,
+                                MemberId = 26,
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 27,
+                                MemberId = 27,
                                 MembershipTypeId = 4 // Student Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 28,
+                                MemberId = 28,
                                 MembershipTypeId = 2 // Premium Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 29,
+                                MemberId = 29,
                                 MembershipTypeId = 3 // Family Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 30,
+                                MemberId = 30,
                                 MembershipTypeId = 5 // Corporate Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 31,
+                                MemberId = 31,
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 32,
+                                MemberId = 32,
                                 MembershipTypeId = 4 // Student Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 33,
+                                MemberId = 33,
                                 MembershipTypeId = 2 // Premium Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 34,
+                                MemberId = 34,
                                 MembershipTypeId = 3 // Family Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 35,
+                                MemberId = 35,
                                 MembershipTypeId = 5 // Corporate Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 36,
+                                MemberId = 36,
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 37,
+                                MemberId = 37,
                                 MembershipTypeId = 4 // Student Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 38,
+                                MemberId = 38,
                                 MembershipTypeId = 2 // Premium Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 39,
+                                MemberId = 39,
                                 MembershipTypeId = 3 // Family Membership
                             },
                             new MemberMembershipType
                             {
-                               MemberId = 40,
+                                MemberId = 40,
                                 MembershipTypeId = 5 // Corporate Membership
                             }
                         );
@@ -1332,7 +1331,7 @@ namespace NIA_CRM.Data
                                 Phone = "1234567890",
                                 LinkedInUrl = "https://www.linkedin.com/in/johndoe",
                                 IsVip = true,
-                               MemberId = 1
+                                MemberId = 1
                             },
                             new Contact
                             {
@@ -1345,7 +1344,7 @@ namespace NIA_CRM.Data
                                 Phone = "9876543210",
                                 LinkedInUrl = "https://www.linkedin.com/in/janesmith",
                                 IsVip = false,
-                               MemberId = 2
+                                MemberId = 2
                             },
                             new Contact
                             {
@@ -1358,7 +1357,7 @@ namespace NIA_CRM.Data
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/alicejohnson",
                                 IsVip = true,
-                               MemberId = 3
+                                MemberId = 3
                             },
                             new Contact
                             {
@@ -1371,7 +1370,7 @@ namespace NIA_CRM.Data
                                 Phone = "5557654321",
                                 LinkedInUrl = "https://www.linkedin.com/in/bobbrown",
                                 IsVip = true,
-                               MemberId = 4
+                                MemberId = 4
                             },
                             new Contact
                             {
@@ -1384,7 +1383,7 @@ namespace NIA_CRM.Data
                                 Phone = "5557890123",
                                 LinkedInUrl = "https://www.linkedin.com/in/charliedavis",
                                 IsVip = false,
-                               MemberId = 5
+                                MemberId = 5
                             },
                             new Contact
                             {
@@ -1397,7 +1396,7 @@ namespace NIA_CRM.Data
                                 Phone = "5552345678",
                                 LinkedInUrl = "https://www.linkedin.com/in/deborahwilliams",
                                 IsVip = true,
-                               MemberId = 6
+                                MemberId = 6
                             },
                             new Contact
                             {
@@ -1410,7 +1409,7 @@ namespace NIA_CRM.Data
                                 Phone = "5553456789",
                                 LinkedInUrl = "https://www.linkedin.com/in/evetaylor",
                                 IsVip = false,
-                               MemberId = 7
+                                MemberId = 7
                             },
                             new Contact
                             {
@@ -1423,7 +1422,7 @@ namespace NIA_CRM.Data
                                 Phone = "5554567890",
                                 LinkedInUrl = "https://www.linkedin.com/in/frankharris",
                                 IsVip = true,
-                               MemberId = 8
+                                MemberId = 8
                             },
                             new Contact
                             {
@@ -1436,7 +1435,7 @@ namespace NIA_CRM.Data
                                 Phone = "5555678901",
                                 LinkedInUrl = "https://www.linkedin.com/in/graceking",
                                 IsVip = false,
-                               MemberId = 9
+                                MemberId = 9
                             },
                             new Contact
                             {
@@ -1449,7 +1448,7 @@ namespace NIA_CRM.Data
                                 Phone = "5556789012",
                                 LinkedInUrl = "https://www.linkedin.com/in/hanklee",
                                 IsVip = true,
-                               MemberId = 10
+                                MemberId = 10
                             },
                             new Contact
                             {
@@ -1462,7 +1461,7 @@ namespace NIA_CRM.Data
                                 Phone = "5557890123",
                                 LinkedInUrl = "https://www.linkedin.com/in/ivyadams",
                                 IsVip = false,
-                               MemberId = 1
+                                MemberId = 11
                             },
                             new Contact
                             {
@@ -1475,7 +1474,7 @@ namespace NIA_CRM.Data
                                 Phone = "5558901234",
                                 LinkedInUrl = "https://www.linkedin.com/in/jackscott",
                                 IsVip = true,
-                               MemberId = 1
+                                MemberId = 12
                             },
                             new Contact
                             {
@@ -1488,7 +1487,7 @@ namespace NIA_CRM.Data
                                 Phone = "5559012345",
                                 LinkedInUrl = "https://www.linkedin.com/in/kathymorris",
                                 IsVip = false,
-                               MemberId = 2
+                                MemberId = 13
                             },
                             new Contact
                             {
@@ -1501,7 +1500,7 @@ namespace NIA_CRM.Data
                                 Phone = "5550123456",
                                 LinkedInUrl = "https://www.linkedin.com/in/louiswalker",
                                 IsVip = true,
-                               MemberId = 3
+                                MemberId = 14
                             },
                             new Contact
                             {
@@ -1514,7 +1513,7 @@ namespace NIA_CRM.Data
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/monawhite",
                                 IsVip = false,
-                               MemberId = 4
+                                MemberId = 15
                             },
                             new Contact
                             {
@@ -1527,7 +1526,7 @@ namespace NIA_CRM.Data
                                 Phone = "5559876543",
                                 LinkedInUrl = "https://www.linkedin.com/in/jamessmith",
                                 IsVip = false,
-                               MemberId = 5
+                                MemberId = 16
                             },
                             new Contact
                             {
@@ -1540,7 +1539,7 @@ namespace NIA_CRM.Data
                                 Phone = "5551122334",
                                 LinkedInUrl = "https://www.linkedin.com/in/sarahjohnson",
                                 IsVip = false,
-                               MemberId = 6
+                                MemberId = 17
                             },
                             new Contact
                             {
@@ -1553,7 +1552,7 @@ namespace NIA_CRM.Data
                                 Phone = "5552233445",
                                 LinkedInUrl = "https://www.linkedin.com/in/davIdbrown",
                                 IsVip = true,
-                               MemberId = 7
+                                MemberId = 18
                             },
                             new Contact
                             {
@@ -1566,7 +1565,7 @@ namespace NIA_CRM.Data
                                 Phone = "5556677889",
                                 LinkedInUrl = "https://www.linkedin.com/in/emilywilliams",
                                 IsVip = false,
-                               MemberId = 8
+                                MemberId = 19
                             },
                             new Contact
                             {
@@ -1579,7 +1578,7 @@ namespace NIA_CRM.Data
                                 Phone = "5558899001",
                                 LinkedInUrl = "https://www.linkedin.com/in/michaeldavis",
                                 IsVip = false,
-                               MemberId = 9
+                                MemberId = 20
                             },
                             new Contact
                             {
@@ -1592,7 +1591,7 @@ namespace NIA_CRM.Data
                                 Phone = "5553456789",
                                 LinkedInUrl = "https://www.linkedin.com/in/oliviamartinez",
                                 IsVip = true,
-                               MemberId = 10
+                                MemberId = 21
                             },
                             new Contact
                             {
@@ -1605,7 +1604,7 @@ namespace NIA_CRM.Data
                                 Phone = "5552345678",
                                 LinkedInUrl = "https://www.linkedin.com/in/ethantaylor",
                                 IsVip = false,
-                               MemberId = 1
+                                MemberId = 22
                             },
                             new Contact
                             {
@@ -1618,7 +1617,7 @@ namespace NIA_CRM.Data
                                 Phone = "5556781234",
                                 LinkedInUrl = "https://www.linkedin.com/in/sophiawilson",
                                 IsVip = false,
-                               MemberId = 2
+                                MemberId = 23
                             },
                             new Contact
                             {
@@ -1631,7 +1630,7 @@ namespace NIA_CRM.Data
                                 Phone = "5559988776",
                                 LinkedInUrl = "https://www.linkedin.com/in/danielmoore",
                                 IsVip = false,
-                               MemberId = 3
+                                MemberId = 24
                             },
                         new Contact
                         {
@@ -1644,7 +1643,7 @@ namespace NIA_CRM.Data
                             Phone = "5557766554",
                             LinkedInUrl = "https://www.linkedin.com/in/chloemartin",
                             IsVip = true,
-                           MemberId = 4
+                            MemberId = 25
                         },
                         new Contact
                         {
@@ -1657,7 +1656,7 @@ namespace NIA_CRM.Data
                             Phone = "5554433221",
                             LinkedInUrl = "https://www.linkedin.com/in/liamgreen",
                             IsVip = false,
-                           MemberId = 5
+                            MemberId = 26
                         },
                         new Contact
                         {
@@ -1670,7 +1669,7 @@ namespace NIA_CRM.Data
                             Phone = "5559988776",
                             LinkedInUrl = "https://www.linkedin.com/in/isabellahudson",
                             IsVip = true,
-                           MemberId = 6
+                            MemberId = 27
                         },
                         new Contact
                         {
@@ -1683,7 +1682,7 @@ namespace NIA_CRM.Data
                             Phone = "5551122334",
                             LinkedInUrl = "https://www.linkedin.com/in/ethanpeters",
                             IsVip = false,
-                           MemberId = 7
+                            MemberId = 28
                         },
                         new Contact
                         {
@@ -1696,7 +1695,7 @@ namespace NIA_CRM.Data
                             Phone = "5556677889",
                             LinkedInUrl = "https://www.linkedin.com/in/avawilliams",
                             IsVip = true,
-                           MemberId = 8
+                            MemberId = 29
                         },
                         new Contact
                         {
@@ -1709,7 +1708,7 @@ namespace NIA_CRM.Data
                             Phone = "5554455667",
                             LinkedInUrl = "https://www.linkedin.com/in/masonjames",
                             IsVip = false,
-                           MemberId = 9
+                            MemberId = 30
                         },
                         new Contact
                         {
@@ -1722,7 +1721,7 @@ namespace NIA_CRM.Data
                             Phone = "5552334455",
                             LinkedInUrl = "https://www.linkedin.com/in/sophiaking",
                             IsVip = true,
-                           MemberId = 10
+                            MemberId = 31
                         },
                         new Contact
                         {
@@ -1735,7 +1734,7 @@ namespace NIA_CRM.Data
                             Phone = "5555555555",
                             LinkedInUrl = "https://www.linkedin.com/in/jacksontaylor",
                             IsVip = true,
-                           MemberId = 11
+                            MemberId = 32
                         },
                         new Contact
                         {
@@ -1748,7 +1747,7 @@ namespace NIA_CRM.Data
                             Phone = "5552233446",
                             LinkedInUrl = "https://www.linkedin.com/in/charlottelarson",
                             IsVip = false,
-                           MemberId = 12
+                            MemberId = 33
                         },
                         new Contact
                         {
@@ -1761,7 +1760,7 @@ namespace NIA_CRM.Data
                             Phone = "5556677880",
                             LinkedInUrl = "https://www.linkedin.com/in/lucasbrown",
                             IsVip = true,
-                           MemberId = 13
+                            MemberId = 34
                         },
                         new Contact
                         {
@@ -1774,7 +1773,7 @@ namespace NIA_CRM.Data
                             Phone = "5553334446",
                             LinkedInUrl = "https://www.linkedin.com/in/miacarter",
                             IsVip = true,
-                           MemberId = 14
+                            MemberId = 35
                         },
                         new Contact
                         {
@@ -1787,7 +1786,7 @@ namespace NIA_CRM.Data
                             Phone = "5553344556",
                             LinkedInUrl = "https://www.linkedin.com/in/logandavis",
                             IsVip = false,
-                           MemberId = 15
+                            MemberId = 36
                         },
                         new Contact
                         {
@@ -1800,7 +1799,7 @@ namespace NIA_CRM.Data
                             Phone = "5555566778",
                             LinkedInUrl = "https://www.linkedin.com/in/harpermorris",
                             IsVip = true,
-                           MemberId = 16
+                            MemberId = 37
                         },
                         new Contact
                         {
@@ -1813,7 +1812,7 @@ namespace NIA_CRM.Data
                             Phone = "5551223344",
                             LinkedInUrl = "https://www.linkedin.com/in/benjaminnelson",
                             IsVip = true,
-                           MemberId = 17
+                            MemberId = 38
                         },
                         new Contact
                         {
@@ -1826,7 +1825,7 @@ namespace NIA_CRM.Data
                             Phone = "5554455668",
                             LinkedInUrl = "https://www.linkedin.com/in/ellaolson",
                             IsVip = false,
-                           MemberId = 18
+                            MemberId = 39
                         },
                         new Contact
                         {
@@ -1839,327 +1838,61 @@ namespace NIA_CRM.Data
                             Phone = "5557768999",
                             LinkedInUrl = "https://www.linkedin.com/in/jamesphillips",
                             IsVip = true,
-                           MemberId = 19
+                            MemberId = 40
                         }
 
                         );
                         context.SaveChanges();
                     }
 
+                    if (!context.ContactIndustries.Any())
+                    {
+                        context.ContactIndustries.AddRange(
+                         new ContactIndustry { Id = 1, ContactId = 1, IndustryId = 1 },
+                         new ContactIndustry { Id = 2, ContactId = 2, IndustryId = 2 },
+                         new ContactIndustry { Id = 3, ContactId = 1, IndustryId = 3 },
+                         new ContactIndustry { Id = 4, ContactId = 3, IndustryId = 1 },
+                         new ContactIndustry { Id = 5, ContactId = 4, IndustryId = 2 },
+                         new ContactIndustry { Id = 6, ContactId = 2, IndustryId = 3 },
+                         new ContactIndustry { Id = 7, ContactId = 3, IndustryId = 4 },
+                         new ContactIndustry { Id = 8, ContactId = 4, IndustryId = 5 },
+                         new ContactIndustry { Id = 9, ContactId = 5, IndustryId = 1 },
+                         new ContactIndustry { Id = 10, ContactId = 6, IndustryId = 2 },
+                         new ContactIndustry { Id = 11, ContactId = 7, IndustryId = 3 },
+                         new ContactIndustry { Id = 12, ContactId = 8, IndustryId = 4 },
+                         new ContactIndustry { Id = 13, ContactId = 9, IndustryId = 5 },
+                         new ContactIndustry { Id = 14, ContactId = 10, IndustryId = 1 },
+                         new ContactIndustry { Id = 15, ContactId = 11, IndustryId = 2 },
+                         new ContactIndustry { Id = 16, ContactId = 12, IndustryId = 3 },
+                         new ContactIndustry { Id = 17, ContactId = 13, IndustryId = 4 },
+                         new ContactIndustry { Id = 18, ContactId = 14, IndustryId = 5 },
+                         new ContactIndustry { Id = 19, ContactId = 15, IndustryId = 1 },
+                         new ContactIndustry { Id = 20, ContactId = 16, IndustryId = 2 },
+                         new ContactIndustry { Id = 21, ContactId = 17, IndustryId = 3 },
+                         new ContactIndustry { Id = 22, ContactId = 18, IndustryId = 4 },
+                         new ContactIndustry { Id = 23, ContactId = 19, IndustryId = 5 },
+                         new ContactIndustry { Id = 24, ContactId = 20, IndustryId = 1 },
+                         new ContactIndustry { Id = 25, ContactId = 21, IndustryId = 2 },
+                         new ContactIndustry { Id = 26, ContactId = 22, IndustryId = 3 },
+                         new ContactIndustry { Id = 27, ContactId = 23, IndustryId = 4 },
+                         new ContactIndustry { Id = 28, ContactId = 24, IndustryId = 5 },
+                         new ContactIndustry { Id = 29, ContactId = 25, IndustryId = 1 },
+                         new ContactIndustry { Id = 30, ContactId = 26, IndustryId = 2 },
+                         new ContactIndustry { Id = 31, ContactId = 27, IndustryId = 3 },
+                         new ContactIndustry { Id = 32, ContactId = 28, IndustryId = 4 },
+                         new ContactIndustry { Id = 33, ContactId = 29, IndustryId = 5 },
+                         new ContactIndustry { Id = 34, ContactId = 30, IndustryId = 6 },
+                         new ContactIndustry { Id = 35, ContactId = 31, IndustryId = 7 },
+                         new ContactIndustry { Id = 36, ContactId = 32, IndustryId = 8 },
+                         new ContactIndustry { Id = 37, ContactId = 33, IndustryId = 9 },
+                         new ContactIndustry { Id = 38, ContactId = 34, IndustryId = 10 },
+                         new ContactIndustry { Id = 39, ContactId = 35, IndustryId = 11 },
+                         new ContactIndustry { Id = 40, ContactId = 36, IndustryId = 12 }
+                     );
 
-                    //if (!context.Opportunities.Any())
-                    //{
-                    //    context.Opportunities.AddRange(
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "New Partnership with TechCo",
-                    //            OpportunityDescr = "Potential collaboration with TechCo to offer joint solutions.",
-                    //            OpportunityStatus = OpportunityStatus.Open,
-                    //            ID = 1,  // Assuming Organization with Id 1 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 1, 5),
-                    //            //    InteractionNotes = "Initial discussion on potential partnership."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "Software Development for HealthCorp",
-                    //            OpportunityDescr = "Software development project for HealthCorp to enhance their internal systems.",
-                    //            OpportunityStatus = OpportunityStatus.InProgress,
-                    //            ID = 2,  // Assuming Organization with Id 2 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 1, 10),
-                    //            //    InteractionNotes = "Meeting to finalize project requirements."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "Website Overhaul for FinServe",
-                    //            OpportunityDescr = "Website redesign project for FinServe to improve their online presence.",
-                    //            OpportunityStatus = OpportunityStatus.Closed,
-                    //            ID = 3,  // Assuming Organization with Id 3 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 1, 15),
-                    //            //    InteractionNotes = "Final meeting to close project details."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "Mobile App Development for EduTech",
-                    //            OpportunityDescr = "Development of a mobile app for EduTech to expand their reach in the education sector.",
-                    //            OpportunityStatus = OpportunityStatus.Open,
-                    //            ID = 4,  // Assuming Organization with Id 4 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 1, 18),
-                    //            //    InteractionNotes = "Kickoff meeting for mobile app project."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "CRM System for SalesForce",
-                    //            OpportunityDescr = "Implementation of a CRM system for SalesForce to improve their customer relationship management.",
-                    //            OpportunityStatus = OpportunityStatus.InProgress,
-                    //            ID = 5,  // Assuming Organization with Id 5 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 1, 20),
-                    //            //    InteractionNotes = "Meeting to discuss CRM system features."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "E-commerce Platform for ShopMart",
-                    //            OpportunityDescr = "Development of a full-fledged e-commerce platform for ShopMart.",
-                    //            OpportunityStatus = OpportunityStatus.Closed,
-                    //            ID = 6,  // Assuming Organization with Id 6 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 1, 22),
-                    //            //    InteractionNotes = "Final review meeting before project closure."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "AI Integration for SmartTech",
-                    //            OpportunityDescr = "Integration of AI-based solutions for SmartTech's systems.",
-                    //            OpportunityStatus = OpportunityStatus.Open,
-                    //            ID = 7,  // Assuming Organization with Id 7 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 1, 25),
-                    //            //    InteractionNotes = "Discussion about AI integration and scope."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "Cloud Migration for DataCloud",
-                    //            OpportunityDescr = "Cloud migration for DataCloud to streamline their operations and storage.",
-                    //            OpportunityStatus = OpportunityStatus.InProgress,
-                    //            ID = 8,  // Assuming Organization with Id 8 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 1, 28),
-                    //            //    InteractionNotes = "Discussing cloud architecture for migration."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "Cybersecurity for SecureNet",
-                    //            OpportunityDescr = "Cybersecurity services for SecureNet to enhance their data protection.",
-                    //            OpportunityStatus = OpportunityStatus.Closed,
-                    //            ID = 9,  // Assuming Organization with Id 9 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 1, 30),
-                    //            //    InteractionNotes = "Final agreement on cybersecurity solutions."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "Data Analytics for AnalyticsPro",
-                    //            OpportunityDescr = "Implementing a data analytics platform for AnalyticsPro to improve decision-making.",
-                    //            OpportunityStatus = OpportunityStatus.Open,
-                    //            ID = 10,  // Assuming Organization with Id 10 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 2, 2),
-                    //            //    InteractionNotes = "Initial discussion on data analytics requirements."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "Business Intelligence for BizIntel",
-                    //            OpportunityDescr = "ProvIding business intelligence solutions for BizIntel to enhance reporting capabilities.",
-                    //            OpportunityStatus = OpportunityStatus.InProgress,
-                    //            ID = 11,  // Assuming Organization with Id 11 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 2, 5),
-                    //            //    InteractionNotes = "Meeting to review BI system features."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "ERP System for GlobalCorp",
-                    //            OpportunityDescr = "ERP system implementation for GlobalCorp to streamline operations.",
-                    //            OpportunityStatus = OpportunityStatus.Closed,
-                    //            ID = 12,  // Assuming Organization with Id 12 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 2, 7),
-                    //            //    InteractionNotes = "Reviewing implementation plan and timeline."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "Virtual Events Platform for EventPro",
-                    //            OpportunityDescr = "Development of a platform for virtual events for EventPro.",
-                    //            OpportunityStatus = OpportunityStatus.Open,
-                    //            ID = 13,  // Assuming Organization with Id 13 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 2, 10),
-                    //            //    InteractionNotes = "Kickoff meeting to discuss platform features."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "Logistics Management System for MoveIt",
-                    //            OpportunityDescr = "Logistics management software for MoveIt to optimize their operations.",
-                    //            OpportunityStatus = OpportunityStatus.InProgress,
-                    //            ID = 14,  // Assuming Organization with Id 14 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 2, 12),
-                    //            //    InteractionNotes = "Discussing project scope and logistics software needs."
-                    //            //}
-                    //        },
-                    //        new Opportunity
-                    //        {
-                    //            OpportunityName = "Blockchain Solutions for ChainTech",
-                    //            OpportunityDescr = "Developing blockchain-based solutions for ChainTech's supply chain management.",
-                    //            OpportunityStatus = OpportunityStatus.Closed,
-                    //            ID = 15,  // Assuming Organization with Id 15 exists
-                    //            //Interaction = new Interaction
-                    //            //{
-                    //            //    InteractionDate = new DateTime(2025, 2, 14),
-                    //            //    InteractionNotes = "Final meeting on blockchain integration."
-                    //            //}
-                    //        }
-                    //    );
-                    //    context.SaveChanges();
-                    //}
+                        context.SaveChanges();
+                    }
 
-                    //if (!context.Interactions.Any())
-                    //{
-                    //    context.Interactions.AddRange(
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 1),
-                    //            InteractionNotes = "Initial contact for potential collaboration.",
-                    //            ContactId = 1,
-                    //           MemberId = 1,
-                    //            OpportunityId = 1
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 3),
-                    //            InteractionNotes = "Follow-up Email regarding partnership details.",
-                    //            ContactId = 2,
-                    //           MemberId = 2,
-                    //            OpportunityId = 2
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 5),
-                    //            InteractionNotes = "Scheduled call to discuss project needs.",
-                    //            ContactId = 3,
-                    //           MemberId = 3,
-                    //            OpportunityId = 3
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 10),
-                    //            InteractionNotes = "Met to discuss contract terms and conditions.",
-                    //            ContactId = 4,
-                    //           MemberId = 4,
-                    //            OpportunityId = 4
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 12),
-                    //            InteractionNotes = "Client inquiry on pricing models.",
-                    //            ContactId = 5,
-                    //           MemberId = 1,
-                    //            OpportunityId = 5
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 15),
-                    //            InteractionNotes = "Discussed solution packages for enterprise clients.",
-                    //            ContactId = 6,
-                    //           MemberId = 2,
-                    //            OpportunityId = 6
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 18),
-                    //            InteractionNotes = "Following up on service proposal.",
-                    //            ContactId = 7,
-                    //           MemberId = 3,
-                    //            OpportunityId = 7
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 20),
-                    //            InteractionNotes = "Finalizing service agreement terms.",
-                    //            ContactId = 8,
-                    //           MemberId = 4,
-                    //            OpportunityId = 8
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 22),
-                    //            InteractionNotes = "Agreement on next steps and deliverables.",
-                    //            ContactId = 9,
-                    //           MemberId = 1,
-                    //            OpportunityId = 9
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 25),
-                    //            InteractionNotes = "Reviewing deliverables for upcoming project.",
-                    //            ContactId = 10,
-                    //           MemberId = 2,
-                    //            OpportunityId = 10
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 28),
-                    //            InteractionNotes = "Update on progress and timeline.",
-                    //            ContactId = 11,
-                    //           MemberId = 3,
-                    //            OpportunityId = 11
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 1, 30),
-                    //            InteractionNotes = "Follow-up on final proposal details.",
-                    //            ContactId = 12,
-                    //           MemberId = 4,
-                    //            OpportunityId = 12
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 2, 2),
-                    //            InteractionNotes = "Final meeting before project launch.",
-                    //            ContactId = 13,
-                    //           MemberId = 1,
-                    //            OpportunityId = 13
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 2, 5),
-                    //            InteractionNotes = "Confirming details of service agreement.",
-                    //            ContactId = 14,
-                    //           MemberId = 2,
-                    //            OpportunityId = 14
-                    //        },
-                    //        new Interaction
-                    //        {
-                    //            InteractionDate = new DateTime(2025, 2, 7),
-                    //            InteractionNotes = "Meeting to finalize documentation.",
-                    //            ContactId = 3,
-                    //           MemberId = 3,
-                    //            OpportunityId = 15
-                    //        }
-                    //    );
-                    //    context.SaveChanges();
-                    //}
                     if (!context.Cancellations.Any())
                     {
                         context.Cancellations.AddRange(
@@ -2169,14 +1902,14 @@ namespace NIA_CRM.Data
                                 CancellationDate = new DateTime(2025, 1, 5),
                                 Canceled = true,
                                 CancellationNote = "Member requested cancellation due to personal reasons.",
-                               MemberID = 1  // Assuming Member with Id 1 exists
+                                MemberID = 1  // Assuming Member with Id 1 exists
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 15),
                                 Canceled = true,
                                 CancellationNote = "Member canceled their subscription after failing to make payments.",
-                               MemberID = 2  // Assuming Member with Id 2 exists
+                                MemberID = 2  // Assuming Member with Id 2 exists
                             },
 
                             // 13 Non-Canceled records
@@ -2185,56 +1918,56 @@ namespace NIA_CRM.Data
                                 CancellationDate = new DateTime(2025, 1, 10),
                                 Canceled = false,
                                 CancellationNote = "Good member, no cancellation.",
-                               MemberID = 3
+                                MemberID = 3
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 12),
                                 Canceled = false,
                                 CancellationNote = "Good member, no cancellation.",
-                               MemberID = 4
+                                MemberID = 4
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 18),
                                 Canceled = false,
                                 CancellationNote = "Good member, no cancellation.",
-                               MemberID = 5
+                                MemberID = 5
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 20),
                                 Canceled = false,
                                 CancellationNote = "Good member, no cancellation.",
-                               MemberID = 6
+                                MemberID = 6
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 22),
                                 Canceled = false,
                                 CancellationNote = "Good member, no cancellation.",
-                               MemberID = 7
+                                MemberID = 7
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 25),
                                 Canceled = false,
                                 CancellationNote = "Good member, no cancellation.",
-                               MemberID = 8
+                                MemberID = 8
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 27),
                                 Canceled = false,
                                 CancellationNote = "Good member, no cancellation.",
-                               MemberID = 9
+                                MemberID = 9
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 30),
                                 Canceled = false,
                                 CancellationNote = "Good member, no cancellation.",
-                               MemberID = 10
+                                MemberID = 10
                             },
                             new Cancellation
                             {
@@ -2273,139 +2006,114 @@ namespace NIA_CRM.Data
                             }
                         );
                         context.SaveChanges();
+                    }
+                    //Seed data needed for production and during development
 
-                        //Seed data needed for production and during development
-
-                        if (!context.ProductionEmails.Any())
-                        {
-                            // Random member names to be used in the Email content
-                            var randomNames = new List<string>
+                    if (!context.ProductionEmails.Any())
+                    {
+                        // Random member names to be used in the Email content
+                        var randomNames = new List<string>
                             {
                                 "John Doe", "Jane Smith", "Robert Johnson", "Emily Davis", "Michael Brown"
                             };
 
-                            // Seeding predefined production Email templates with random member names
-                            context.ProductionEmails.AddRange(
-                                 new ProductionEmail
-                                 {
-                                     Id = 1,
-                                     EmailType = "Welcome Email",
-                                     Subject = "Welcome to NIA!",
-                                     Body = $"Dear {randomNames[0]},\n\nWelcome to the NIA community! We are thrilled to have you onboard. Please let us know if you need any assistance.\n\nBest regards,\nNIA Team",
-                                     //IsGood = true
-                                 },
-                                 new ProductionEmail
-                                 {
-                                     Id = 2,
-                                     EmailType = "Renewal Reminder",
-                                     Subject = "Membership Renewal Reminder",
-                                     Body = $"Dear {randomNames[1]},\n\nYour membership with NIA is about to expire on 2025-02-15. Please renew your membership to continue enjoying all the benefits.\n\nBest regards,\nNIA Team",
-                                     //IsGood = true
-                                 },
-                                 new ProductionEmail
-                                 {
-                                     Id = 3,
-                                     EmailType = "Cancellation Notice",
-                                     Subject = "Membership Cancellation Confirmation",
-                                     Body = $"Dear {randomNames[2]},\n\nWe are sorry to see you go. Your membership has been successfully canceled. If you change your mind in the future, we’d love to have you back.\n\nBest regards,\nNIA Team",
-                                     //IsGood = true
-                                 },
-                                 new ProductionEmail
-                                 {
-                                     Id = 4,
-                                     EmailType = "Membership Update",
-                                     Subject = "Important Membership Update",
-                                     Body = $"Dear {randomNames[3]},\n\nWe would like to inform you of an important update regarding your membership status. Please log in to your account for more details.\n\nBest regards,\nNIA Team",
-                                     //IsGood = true
-                                 },
-                                 new ProductionEmail
-                                 {
-                                     Id = 5,
-                                     EmailType = "General Notification",
-                                     Subject = "NIA System Update",
-                                     Body = $"Dear {randomNames[4]},\n\nThis is a notification regarding a recent update to the NIA system. We encourage you to check out the new features and improvements.\n\nBest regards,\nNIA Team",
-                                     //IsGood = true
-                                 });
-                            context.SaveChanges();
-                        }
+                        // Seeding predefined production Email templates with random member names
+                        context.ProductionEmails.AddRange(
+                             new ProductionEmail
+                             {
+                                 Id = 1,
+                                 EmailType = "Welcome Email",
+                                 Subject = "Welcome to NIA!",
+                                 Body = $"Dear {randomNames[0]},\n\nWelcome to the NIA community! We are thrilled to have you onboard. Please let us know if you need any assistance.\n\nBest regards,\nNIA Team",
+                                 //IsGood = true
+                             },
+                             new ProductionEmail
+                             {
+                                 Id = 2,
+                                 EmailType = "Renewal Reminder",
+                                 Subject = "Membership Renewal Reminder",
+                                 Body = $"Dear {randomNames[1]},\n\nYour membership with NIA is about to expire on 2025-02-15. Please renew your membership to continue enjoying all the benefits.\n\nBest regards,\nNIA Team",
+                                 //IsGood = true
+                             },
+                             new ProductionEmail
+                             {
+                                 Id = 3,
+                                 EmailType = "Cancellation Notice",
+                                 Subject = "Membership Cancellation Confirmation",
+                                 Body = $"Dear {randomNames[2]},\n\nWe are sorry to see you go. Your membership has been successfully canceled. If you change your mind in the future, we’d love to have you back.\n\nBest regards,\nNIA Team",
+                                 //IsGood = true
+                             },
+                             new ProductionEmail
+                             {
+                                 Id = 4,
+                                 EmailType = "Membership Update",
+                                 Subject = "Important Membership Update",
+                                 Body = $"Dear {randomNames[3]},\n\nWe would like to inform you of an important update regarding your membership status. Please log in to your account for more details.\n\nBest regards,\nNIA Team",
+                                 //IsGood = true
+                             },
+                             new ProductionEmail
+                             {
+                                 Id = 5,
+                                 EmailType = "General Notification",
+                                 Subject = "NIA System Update",
+                                 Body = $"Dear {randomNames[4]},\n\nThis is a notification regarding a recent update to the NIA system. We encourage you to check out the new features and improvements.\n\nBest regards,\nNIA Team",
+                                 //IsGood = true
+                             });
+                        context.SaveChanges();
+                    }
 
+                    if (!context.MemberNotes.Any())
+                    {
+                        context.MemberNotes.AddRange(
+                        new MemberNote { Id = 1, MemberId = 1, Note = "Initial onboarding discussion with the client about the new CRM implementation project.", CreatedAt = DateTime.Now.AddDays(-30) },
+                        new MemberNote { Id = 2, MemberId = 2, Note = "Client follow-up meeting to discuss the status of the CRM project.", CreatedAt = DateTime.Now.AddDays(-28) },
+                        new MemberNote { Id = 3, MemberId = 3, Note = "Reviewed the feedback provided by the client regarding the CRM customization.", CreatedAt = DateTime.Now.AddDays(-25) },
+                        new MemberNote { Id = 4, MemberId = 4, Note = "Final meeting to present the completed CRM project and gather client feedback.", CreatedAt = DateTime.Now.AddDays(-20) },
+                        new MemberNote { Id = 5, MemberId = 5, Note = "Discussed potential upgrades to the CRM system and next steps for implementation.", CreatedAt = DateTime.Now.AddDays(-15) },
+                        new MemberNote { Id = 6, MemberId = 6, Note = "Follow-up meeting on CRM feedback and next implementation steps.", CreatedAt = DateTime.Now.AddDays(-14) },
+                        new MemberNote { Id = 7, MemberId = 7, Note = "Presentation of CRM reports and how they impact client operations.", CreatedAt = DateTime.Now.AddDays(-13) },
+                        new MemberNote { Id = 8, MemberId = 8, Note = "Discussed additional CRM modules with the client.", CreatedAt = DateTime.Now.AddDays(-12) },
+                        new MemberNote { Id = 9, MemberId = 9, Note = "Client requested further training on CRM features.", CreatedAt = DateTime.Now.AddDays(-10) },
+                        new MemberNote { Id = 10, MemberId = 10, Note = "Assessed CRM performance and discussed any issues with the client.", CreatedAt = DateTime.Now.AddDays(-9) },
+                        new MemberNote { Id = 11, MemberId = 11, Note = "Discussed CRM data integration challenges with client.", CreatedAt = DateTime.Now.AddDays(-8) },
+                        new MemberNote { Id = 12, MemberId = 12, Note = "Client praised CRM's data accuracy and reporting tools.", CreatedAt = DateTime.Now.AddDays(-7) },
+                        new MemberNote { Id = 13, MemberId = 13, Note = "Discussed CRM security enhancements and data privacy concerns.", CreatedAt = DateTime.Now.AddDays(-6) },
+                        new MemberNote { Id = 14, MemberId = 14, Note = "Review of CRM system uptime and performance metrics.", CreatedAt = DateTime.Now.AddDays(-5) },
+                        new MemberNote { Id = 15, MemberId = 15, Note = "Final meeting to present CRM system's success and discuss potential upgrades.", CreatedAt = DateTime.Now.AddDays(-4) },
+                        new MemberNote { Id = 16, MemberId = 16, Note = "Client follow-up on CRM project post-implementation.", CreatedAt = DateTime.Now.AddDays(-3) },
+                        new MemberNote { Id = 17, MemberId = 17, Note = "CRM update meeting scheduled for next month.", CreatedAt = DateTime.Now.AddDays(-2) },
+                        new MemberNote { Id = 18, MemberId = 18, Note = "Client expressed satisfaction with CRM customization.", CreatedAt = DateTime.Now.AddDays(-1) },
+                        new MemberNote { Id = 19, MemberId = 19, Note = "Discussed the CRM's future roadmap with the client.", CreatedAt = DateTime.Now.AddDays(-30) },
+                        new MemberNote { Id = 20, MemberId = 20, Note = "Explained the new CRM reporting features to the client.", CreatedAt = DateTime.Now.AddDays(-29) },
+                        new MemberNote { Id = 21, MemberId = 21, Note = "Meeting to review CRM's feature requests and client requirements.", CreatedAt = DateTime.Now.AddDays(-28) },
+                        new MemberNote { Id = 22, MemberId = 22, Note = "CRM performance review meeting with the client team.", CreatedAt = DateTime.Now.AddDays(-27) },
+                        new MemberNote { Id = 23, MemberId = 23, Note = "Discussions on improving CRM speed and scalability.", CreatedAt = DateTime.Now.AddDays(-26) },
+                        new MemberNote { Id = 24, MemberId = 24, Note = "Client feedback session on CRM user interface improvements.", CreatedAt = DateTime.Now.AddDays(-25) },
+                        new MemberNote { Id = 25, MemberId = 25, Note = "Client to provide feedback on the newly integrated CRM modules.", CreatedAt = DateTime.Now.AddDays(-24) },
+                        new MemberNote { Id = 26, MemberId = 26, Note = "Final training session on CRM features for the client team.", CreatedAt = DateTime.Now.AddDays(-23) },
+                        new MemberNote { Id = 27, MemberId = 27, Note = "Discussed potential issues with CRM's third-party integration.", CreatedAt = DateTime.Now.AddDays(-22) },
+                        new MemberNote { Id = 28, MemberId = 28, Note = "Client inquired about additional CRM customization options.", CreatedAt = DateTime.Now.AddDays(-21) },
+                        new MemberNote { Id = 29, MemberId = 29, Note = "Debrief on CRM deployment and initial reactions from the client team.", CreatedAt = DateTime.Now.AddDays(-20) },
+                        new MemberNote { Id = 30, MemberId = 30, Note = "Scheduled CRM review call for next week with the client.", CreatedAt = DateTime.Now.AddDays(-19) },
+                        new MemberNote { Id = 31, MemberId = 31, Note = "Client requested demo on advanced CRM reporting capabilities.", CreatedAt = DateTime.Now.AddDays(-18) },
+                        new MemberNote { Id = 32, MemberId = 32, Note = "Client shared feedback on CRM's mobile interface and app.", CreatedAt = DateTime.Now.AddDays(-17) },
+                        new MemberNote { Id = 33, MemberId = 33, Note = "Discussed client satisfaction and future CRM upgrades.", CreatedAt = DateTime.Now.AddDays(-16) },
+                        new MemberNote { Id = 34, MemberId = 34, Note = "Followed up with the client regarding CRM bug fixes.", CreatedAt = DateTime.Now.AddDays(-15) },
+                        new MemberNote { Id = 35, MemberId = 35, Note = "Revisited CRM's customization options for the client.", CreatedAt = DateTime.Now.AddDays(-14) },
+                        new MemberNote { Id = 36, MemberId = 36, Note = "Review meeting with the client about CRM's current status.", CreatedAt = DateTime.Now.AddDays(-13) },
+                        new MemberNote { Id = 37, MemberId = 37, Note = "Client requested documentation for CRM integration with existing systems.", CreatedAt = DateTime.Now.AddDays(-12) },
+                        new MemberNote { Id = 38, MemberId = 38, Note = "Explained CRM's data storage architecture to the client.", CreatedAt = DateTime.Now.AddDays(-11) },
+                        new MemberNote { Id = 39, MemberId = 39, Note = "Client follow-up regarding CRM's email marketing tools.", CreatedAt = DateTime.Now.AddDays(-10) },
+                        new MemberNote { Id = 40, MemberId = 40, Note = "Discussed CRM's scalability and future-proofing with the client.", CreatedAt = DateTime.Now.AddDays(-9) }
+                        );
 
-                        //new MemberNote
-                        //{
-                        //    Id = 1,
-                        //    MemberId = 1,
-                        //    Note = "Initial onboarding discussion with the client about the new CRM implementation project.",
-                        //    CreatedAt = DateTime.Now.AddDays(-30)
-                        //},
-                        //    new MemberNote
-                        //    {
-                        //        Id = 2,
-                        //        MemberId = 2,
-                        //        Note = "Client follow-up meeting to discuss the status of the CRM project.",
-                        //        CreatedAt = DateTime.Now.AddDays(-20)
-                        //    },
-                        //    new MemberNote
-                        //    {
-                        //        Id = 3,
-                        //        MemberId = 3,
-                        //        Note = "Reviewed the feedback provided by the client regarding the CRM customization.",
-                        //        CreatedAt = DateTime.Now.AddDays(-15)
-                        //    },
-                        //    new MemberNote
-                        //    {
-                        //        Id = 4,
-                        //        MemberId = 4,
-                        //        Note = "Final meeting to present the completed CRM project and gather client feedback.",
-                        //        CreatedAt = DateTime.Now.AddDays(-5)
-                        //    },
-                        //    new MemberNote
-                        //    {
-                        //        Id = 5,
-                        //        MemberId = 5,
-                        //        Note = "Discussed potential upgrades to the CRM system and next steps for implementation.",
-                        //        CreatedAt = DateTime.Now.AddDays(-1)
-                        //    }
-                        //);
+                        context.SaveChanges();
 
-
-                        //new ContactNote
-                        //{
-                        //    Id = 1,
-                        //    ContactId = 1,
-                        //    Note = "Followed up with the client regarding additional customization needs for the CRM system.",
-                        //    CreatedAt = DateTime.Now.AddDays(-25)
-                        //},
-                    //    new ContactNote
-                    //    {
-                    //        Id = 2,
-                    //        ContactId = 2,
-                    //        Note = "Provided the client with a detailed overview of CRM features during the demonstration.",
-                    //        CreatedAt = DateTime.Now.AddDays(-18)
-                    //    },
-                    //    new ContactNote
-                    //    {
-                    //        Id = 3,
-                    //        ContactId = 3,
-                    //        Note = "Client requested a new feature to track employee performance metrics.",
-                    //        CreatedAt = DateTime.Now.AddDays(-12)
-                    //    },
-                    //    new ContactNote
-                    //    {
-                    //        Id = 4,
-                    //        ContactId = 4,
-                    //        Note = "Inquired about potential integrations with the existing HR software.",
-                    //        CreatedAt = DateTime.Now.AddDays(-7)
-                    //    },
-                    //    new ContactNote
-                    //    {
-                    //        Id = 5,
-                    //        ContactId = 5,
-                    //        Note = "Arranged a meeting to discuss possible CRM upgrade options and pricing.",
-                    //        CreatedAt = DateTime.Now.AddDays(-2)
-                    //    }
-                    //);
                     }
                 }
+
+
+
                 catch (Exception ex)
                 {
                     Console.WriteLine("Error: " + ex.Message);

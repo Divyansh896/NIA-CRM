@@ -39,6 +39,7 @@ namespace NIA_CRM.Data
         public DbSet<MemberIndustry> MemberIndustries { get; set; }
         public DbSet<MemberLogo> MemberLogos { get; set; }
         public DbSet<MemberThumbnail> MemebrThumbnails { get; set; }
+        public DbSet<MemberNote> MemberNotes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -60,6 +61,17 @@ namespace NIA_CRM.Data
                 .WithMany(mt => mt.MemberMembershipTypes)
                 .HasForeignKey(mmt => mmt.MembershipTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Contact>()
+                .HasOne(c => c.Member)
+                .WithMany(m => m.Contacts)
+                .HasForeignKey(c => c.MemberId)
+                .OnDelete(DeleteBehavior.Cascade); // Specify cascade delete if appropriate
+
+            modelBuilder.Entity<MemberNote>()
+                .HasOne(c => c.Member)
+                .WithMany(c => c.MemberNotes)
+                .HasForeignKey(c => c.MemberId);
 
             // Contact -> Industry (Many-to-Many)
             modelBuilder.Entity<ContactIndustry>()
@@ -163,5 +175,6 @@ namespace NIA_CRM.Data
             }
         }
         public DbSet<NIA_CRM.Models.NAICSCode> NAICSCode { get; set; } = default!;
+        public DbSet<NIA_CRM.Models.MemberNote> MemberNote { get; set; } = default!;
     }
 }

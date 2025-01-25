@@ -14,6 +14,8 @@ namespace NIA_CRM.Models
         [Display(Name = "Industry Size")]
         public int IndustrySize { get; set; }
 
+        public string? WebsiteUrl { get; set; }
+
         public ICollection<MemberIndustry> MemberIndustries { get; set; } = new List<MemberIndustry>();
         public ICollection<IndustryNAICSCode> IndustryNAICSCodes { get; set; } = new List<IndustryNAICSCode>();
         public ICollection<ContactIndustry> ContactIndustries { get; set; } = new List<ContactIndustry>();

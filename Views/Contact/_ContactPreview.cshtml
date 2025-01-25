@@ -14,26 +14,55 @@
     </div>
 
     <div>
-        <h5>Contact Details:</h5>
-        @if (Model.ContactIndustries.Any())
-        {
-            <ul>
-                @foreach (var contactOrg in Model.ContactIndustries)
+        <h5>Industry:</h5>
+        @{
+            int industryCount = Model.ContactIndustries.Count;
+            if (industryCount > 0)
+            {
+                string firstIndustryName = Model.ContactIndustries.FirstOrDefault()?.Industry.IndustryName;
+                string firstIndustrySize = Model.ContactIndustries.FirstOrDefault()?.Industry.IndustrySize.ToString();
+                string firstIndustryWebsite = Model.ContactIndustries.FirstOrDefault()?.Industry.WebsiteUrl; // Assuming the Industry model has a WebsiteUrl property
+
+                if (industryCount > 1)
                 {
-                    <li>
-                        <strong>Industry Name:</strong> @contactOrg.Industry.IndustryName
-                        <br />
-                        <strong>Industry Size:</strong> @contactOrg.Industry.IndustrySize
-                        <br />
-                        <strong>Website:</strong> <a href="@contactOrg.Contact.LinkedInUrl" target="_blank">@contactOrg.Contact.LinkedInUrl</a>
-                    </li>
+                    string industryDetails = ""; // HTML string of industry details
+                    var industries = Model.ContactIndustries.ToList();
+                    for (int i = 1; i < industryCount; i++) // Skip the first industry because we have it already
+                    {
+                        var industry = industries[i].Industry;
+                        industryDetails += $@"
+        <strong>Industry Name:</strong> {industry.IndustryName}<br />
+        <strong>Industry Size:</strong> {industry.IndustrySize}<br />
+        <strong>Website:</strong> <a href='{industry.WebsiteUrl}' target='_blank'>{industry.WebsiteUrl}</a><br /><br />";
+                    }
+                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseIndustry@(Model.Id)"
+                       aria-expanded="false" aria-controls="collapseIndustry@(Model.Id)">
+                        @firstIndustryName <span class="badge bg-info">@industryCount</span>
+                    </a>
+                    <div class="collapse" id="collapseIndustry@(Model.Id)">
+                        <strong>Industry Name:</strong> @firstIndustryName<br />
+                        <strong>Industry Size:</strong> @firstIndustrySize<br />
+                        <strong>Website:</strong> <a href="@firstIndustryWebsite" target="_blank">@firstIndustryWebsite</a><br /><br />
+                        @Html.Raw(industryDetails)
+                    </div>
                 }
-            </ul>
+                else
+                {
+                    <strong>Industry Name:</strong> @firstIndustryName
+
+                    <br />
+                    <strong>Industry Size:</strong> @firstIndustrySize
+
+                    <br />
+                    <strong>Website:</strong> <a href="@firstIndustryWebsite" target="_blank">@firstIndustryWebsite</a>
+                }
+            }
+            else
+            {
+                <p>No data associated with this contact.</p>
+            }
         }
-        else
-        {
-            <p>No data associated with this contact.</p>
-        }
+
     </div>
 
     <div class="mt-3">

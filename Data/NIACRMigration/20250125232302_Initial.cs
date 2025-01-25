@@ -18,7 +18,8 @@ namespace NIA_CRM.Data.NIACRMigration
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     IndustryName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    IndustrySize = table.Column<int>(type: "INTEGER", nullable: false)
+                    IndustrySize = table.Column<int>(type: "INTEGER", nullable: false),
+                    WebsiteUrl = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

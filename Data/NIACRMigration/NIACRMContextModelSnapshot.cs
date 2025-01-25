@@ -194,6 +194,9 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<int>("IndustrySize")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("WebsiteUrl")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
 
                     b.ToTable("Industries");
