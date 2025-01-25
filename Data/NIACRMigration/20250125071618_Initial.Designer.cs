@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250125043326_Initial")]
+    [Migration("20250125071618_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -238,12 +238,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<DateTime>("InteractionDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MemberId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Notes")
+                    b.Property<string>("InteractionNotes")
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("OpportunityId")
                         .HasColumnType("INTEGER");
@@ -614,7 +614,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasOne("NIA_CRM.Models.Opportunity", "Opportunity")
                         .WithMany("Interactions")
                         .HasForeignKey("OpportunityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Contact");
 

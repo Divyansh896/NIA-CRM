@@ -235,12 +235,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<DateTime>("InteractionDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MemberId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Notes")
+                    b.Property<string>("InteractionNotes")
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("OpportunityId")
                         .HasColumnType("INTEGER");
@@ -611,7 +611,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasOne("NIA_CRM.Models.Opportunity", "Opportunity")
                         .WithMany("Interactions")
                         .HasForeignKey("OpportunityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Contact");
 

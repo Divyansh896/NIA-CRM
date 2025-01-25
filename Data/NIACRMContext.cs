@@ -103,6 +103,26 @@ namespace NIA_CRM.Data
                 .HasOne(i => i.Opportunity)
                 .WithMany(i => i.Interactions)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Opportunity>()
+                .HasMany(o => o.Interactions)
+                .WithOne(i => i.Opportunity)
+                .HasForeignKey(i => i.OpportunityId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // Configure the relationship between MemberNote and Member
+            modelBuilder.Entity<MemberNote>()
+                .HasOne(mn => mn.Member)  // Each MemberNote is associated with one Member
+                .WithMany(m => m.MemberNotes)  // One Member can have many MemberNotes
+                .HasForeignKey(mn => mn.MemberId)  // MemberId is the foreign key in MemberNote
+                .OnDelete(DeleteBehavior.Cascade);  // Define delete behavior (optional)
+
+            // Configure the relationship between ContactNote and Contact
+            modelBuilder.Entity<ContactNote>()
+                .HasOne(cn => cn.Contact)  // Each ContactNote is associated with one Contact
+                .WithMany(c => c.ContactNotes)  // One Contact can have many ContactNotes
+                .HasForeignKey(cn => cn.ContactId)  // ContactId is the foreign key in ContactNote
+                .OnDelete(DeleteBehavior.Cascade);  // Define delete behavior (optional)
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

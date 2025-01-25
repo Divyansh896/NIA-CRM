@@ -18,7 +18,7 @@ namespace NIA_CRM.Models
         public int? OpportunityId { get; set; }
 
         [StringLength(500, ErrorMessage = "Notes cannot be longer than 500 characters.")]
-        public string? Notes { get; set; }
+        public string? InteractionNotes { get; set; }
 
         [Required(ErrorMessage = "Creation date is required.")]
         public DateTime? CreatedAt { get; set; }

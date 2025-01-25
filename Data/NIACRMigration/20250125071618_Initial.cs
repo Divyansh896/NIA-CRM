@@ -384,7 +384,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     ContactId = table.Column<int>(type: "INTEGER", nullable: false),
                     InteractionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     OpportunityId = table.Column<int>(type: "INTEGER", nullable: true),
-                    Notes = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    InteractionNotes = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -408,7 +408,7 @@ namespace NIA_CRM.Data.NIACRMigration
                         column: x => x.OpportunityId,
                         principalTable: "Opportunities",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateIndex(

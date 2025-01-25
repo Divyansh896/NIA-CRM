@@ -113,50 +113,50 @@ namespace NIA_CRM.Data
                     {
                         context.Industries.AddRange(
                             new Industry { ID = 1, IndustryName = "Alpha Steel", IndustrySize = 250 },
-new Industry { ID = 2, IndustryName = "TISCO CO.", IndustrySize = 150 },
-new Industry { ID = 3, IndustryName = "M Time Irons", IndustrySize = 100 },
-new Industry { ID = 4, IndustryName = "Forge & Foundry Inc.", IndustrySize = 300 },
-new Industry { ID = 5, IndustryName = "Northern Metalworks", IndustrySize = 120 },
-new Industry { ID = 6, IndustryName = "Titanium Solutions", IndustrySize = 400 },
-new Industry { ID = 7, IndustryName = "Phoenix Alloys", IndustrySize = 350 },
-new Industry { ID = 8, IndustryName = "Galaxy Metals", IndustrySize = 500 },
-new Industry { ID = 9, IndustryName = "Ironclad Industries", IndustrySize = 220 },
-new Industry { ID = 10, IndustryName = "Silverline Fabrication", IndustrySize = 180 },
-new Industry { ID = 11, IndustryName = "Star Steelworks", IndustrySize = 230 },
-new Industry { ID = 12, IndustryName = "Summit Metal Co.", IndustrySize = 270 },
-new Industry { ID = 13, IndustryName = "Everest Iron Corp.", IndustrySize = 210 },
-new Industry { ID = 14, IndustryName = "Prime Alloy Coatings", IndustrySize = 160 },
-new Industry { ID = 15, IndustryName = "Magnum Steel Solutions", IndustrySize = 190 },
-new Industry { ID = 16, IndustryName = "Quantum Tech Innovations", IndustrySize = 450 },
-new Industry { ID = 17, IndustryName = "Aurora Renewable Energy", IndustrySize = 500 },
-new Industry { ID = 18, IndustryName = "Vertex Financial Group", IndustrySize = 80 },
-new Industry { ID = 19, IndustryName = "Nova Biotech Labs", IndustrySize = 60 },
-new Industry { ID = 20, IndustryName = "Summit Construction Co.", IndustrySize = 250 },
-new Industry { ID = 21, IndustryName = "Oceanic Shipping Corp", IndustrySize = 600 },
-new Industry { ID = 22, IndustryName = "Evergreen Agriculture", IndustrySize = 550 },
-new Industry { ID = 23, IndustryName = "Ironclad Manufacturing Ltd.", IndustrySize = 300 },
-new Industry { ID = 24, IndustryName = "Skyline Architects Inc.", IndustrySize = 130 },
-new Industry { ID = 25, IndustryName = "Pinnacle Consulting Services", IndustrySize = 90 },
-new Industry { ID = 26, IndustryName = "Crystal Water Solutions", IndustrySize = 110 },
-new Industry { ID = 27, IndustryName = "Elite Healthcare Partners", IndustrySize = 150 },
-new Industry { ID = 28, IndustryName = "Galaxy IT Solutions", IndustrySize = 400 },
-new Industry { ID = 29, IndustryName = "Urban Infrastructure Group", IndustrySize = 350 },
-new Industry { ID = 30, IndustryName = "Horizon Aerospace Inc.", IndustrySize = 450 },
-new Industry { ID = 31, IndustryName = "Cobalt Mining Ventures", IndustrySize = 500 },
-new Industry { ID = 32, IndustryName = "LakesIde Resorts and Hotels", IndustrySize = 200 },
-new Industry { ID = 33, IndustryName = "NextGen Media Productions", IndustrySize = 100 },
-new Industry { ID = 34, IndustryName = "Crestwood Pharmaceutical", IndustrySize = 120 },
-new Industry { ID = 35, IndustryName = "Dynamic Logistics Group", IndustrySize = 180 },
-new Industry { ID = 36, IndustryName = "Northern Timber Products", IndustrySize = 160 },
-new Industry { ID = 37, IndustryName = "Brightline Education Systems", IndustrySize = 50 },
-new Industry { ID = 38, IndustryName = "Fusion Energy Solutions", IndustrySize = 300 },
-new Industry { ID = 39, IndustryName = "Trailblazer Automotive Group", IndustrySize = 450 },
-new Industry { ID = 40, IndustryName = "Harvest Foods International", IndustrySize = 400 },
-new Industry { ID = 41, IndustryName = "Regal Entertainment Network", IndustrySize = 220 },
-new Industry { ID = 42, IndustryName = "EcoSmart Waste Management", IndustrySize = 270 },
-new Industry { ID = 43, IndustryName = "Summit Legal Services", IndustrySize = 130 },
-new Industry { ID = 44, IndustryName = "Zenith Apparel Ltd.", IndustrySize = 80 },
-new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 200 }
+                            new Industry { ID = 2, IndustryName = "TISCO CO.", IndustrySize = 150 },
+                            new Industry { ID = 3, IndustryName = "M Time Irons", IndustrySize = 100 },
+                            new Industry { ID = 4, IndustryName = "Forge & Foundry Inc.", IndustrySize = 300 },
+                            new Industry { ID = 5, IndustryName = "Northern Metalworks", IndustrySize = 120 },
+                            new Industry { ID = 6, IndustryName = "Titanium Solutions", IndustrySize = 400 },
+                            new Industry { ID = 7, IndustryName = "Phoenix Alloys", IndustrySize = 350 },
+                            new Industry { ID = 8, IndustryName = "Galaxy Metals", IndustrySize = 500 },
+                            new Industry { ID = 9, IndustryName = "Ironclad Industries", IndustrySize = 220 },
+                            new Industry { ID = 10, IndustryName = "Silverline Fabrication", IndustrySize = 180 },
+                            new Industry { ID = 11, IndustryName = "Star Steelworks", IndustrySize = 230 },
+                            new Industry { ID = 12, IndustryName = "Summit Metal Co.", IndustrySize = 270 },
+                            new Industry { ID = 13, IndustryName = "Everest Iron Corp.", IndustrySize = 210 },
+                            new Industry { ID = 14, IndustryName = "Prime Alloy Coatings", IndustrySize = 160 },
+                            new Industry { ID = 15, IndustryName = "Magnum Steel Solutions", IndustrySize = 190 },
+                            new Industry { ID = 16, IndustryName = "Quantum Tech Innovations", IndustrySize = 450 },
+                            new Industry { ID = 17, IndustryName = "Aurora Renewable Energy", IndustrySize = 500 },
+                            new Industry { ID = 18, IndustryName = "Vertex Financial Group", IndustrySize = 80 },
+                            new Industry { ID = 19, IndustryName = "Nova Biotech Labs", IndustrySize = 60 },
+                            new Industry { ID = 20, IndustryName = "Summit Construction Co.", IndustrySize = 250 },
+                            new Industry { ID = 21, IndustryName = "Oceanic Shipping Corp", IndustrySize = 600 },
+                            new Industry { ID = 22, IndustryName = "Evergreen Agriculture", IndustrySize = 550 },
+                            new Industry { ID = 23, IndustryName = "Ironclad Manufacturing Ltd.", IndustrySize = 300 },
+                            new Industry { ID = 24, IndustryName = "Skyline Architects Inc.", IndustrySize = 130 },
+                            new Industry { ID = 25, IndustryName = "Pinnacle Consulting Services", IndustrySize = 90 },
+                            new Industry { ID = 26, IndustryName = "Crystal Water Solutions", IndustrySize = 110 },
+                            new Industry { ID = 27, IndustryName = "Elite Healthcare Partners", IndustrySize = 150 },
+                            new Industry { ID = 28, IndustryName = "Galaxy IT Solutions", IndustrySize = 400 },
+                            new Industry { ID = 29, IndustryName = "Urban Infrastructure Group", IndustrySize = 350 },
+                            new Industry { ID = 30, IndustryName = "Horizon Aerospace Inc.", IndustrySize = 450 },
+                            new Industry { ID = 31, IndustryName = "Cobalt Mining Ventures", IndustrySize = 500 },
+                            new Industry { ID = 32, IndustryName = "LakesIde Resorts and Hotels", IndustrySize = 200 },
+                            new Industry { ID = 33, IndustryName = "NextGen Media Productions", IndustrySize = 100 },
+                            new Industry { ID = 34, IndustryName = "Crestwood Pharmaceutical", IndustrySize = 120 },
+                            new Industry { ID = 35, IndustryName = "Dynamic Logistics Group", IndustrySize = 180 },
+                            new Industry { ID = 36, IndustryName = "Northern Timber Products", IndustrySize = 160 },
+                            new Industry { ID = 37, IndustryName = "Brightline Education Systems", IndustrySize = 50 },
+                            new Industry { ID = 38, IndustryName = "Fusion Energy Solutions", IndustrySize = 300 },
+                            new Industry { ID = 39, IndustryName = "Trailblazer Automotive Group", IndustrySize = 450 },
+                            new Industry { ID = 40, IndustryName = "Harvest Foods International", IndustrySize = 400 },
+                            new Industry { ID = 41, IndustryName = "Regal Entertainment Network", IndustrySize = 220 },
+                            new Industry { ID = 42, IndustryName = "EcoSmart Waste Management", IndustrySize = 270 },
+                            new Industry { ID = 43, IndustryName = "Summit Legal Services", IndustrySize = 130 },
+                            new Industry { ID = 44, IndustryName = "Zenith Apparel Ltd.", IndustrySize = 80 },
+                            new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 200 }
 
                         );
                         context.SaveChanges();
@@ -168,31 +168,31 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                             new MembershipType
                             {
                                 ID = 1,
-                                TypeName = "Basic Membership",
+                                TypeName = "Associate",
                                 TypeDescr = "Access to gym equipment and locker room facilities."
                             },
                             new MembershipType
                             {
                                 ID = 2,
-                                TypeName = "Premium Membership",
+                                TypeName = "Chamber,Associate",
                                 TypeDescr = "Includes Basic Membership benefits plus access to group classes and pool."
                             },
                             new MembershipType
                             {
                                 ID = 3,
-                                TypeName = "Family Membership",
+                                TypeName = "Government & Education,Associate",
                                 TypeDescr = "Includes Premium Membership benefits for up to 4 family members."
                             },
                             new MembershipType
                             {
                                 ID = 4,
-                                TypeName = "Student Membership",
+                                TypeName = "Local Industrial",
                                 TypeDescr = "Discounted membership for students with valId Id."
                             },
                             new MembershipType
                             {
                                 ID = 5,
-                                TypeName = "Corporate Membership",
+                                TypeName = "Non-Local Industrial",
                                 TypeDescr = "Special membership for employees of partner organizations."
                             }
                         );
@@ -226,7 +226,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             ID = 2,
                             MemberFirstName = "Jane",
-
+                            MemberMiddleName= "Marie",
                             MemberLastName = "Smith",
                             JoinDate = new DateTime(2022, 1, 20),
                             StandingStatus = StandingStatus.Inactive,
@@ -249,7 +249,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             ID = 3,
                             MemberFirstName = "Robert",
-
+                            MemberMiddleName = "Joe",
                             MemberLastName = "Johnson",
                             JoinDate = new DateTime(2023, 3, 12),
                             StandingStatus = StandingStatus.Cancelled,
@@ -271,7 +271,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             ID = 4,
                             MemberFirstName = "Emily",
-
+                            MemberMiddleName= "Sharma",
                             MemberLastName = "Davis",
                             JoinDate = new DateTime(2022, 8, 8),
                             StandingStatus = StandingStatus.Good,
@@ -293,7 +293,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             ID = 5,
                             MemberFirstName = "Michael",
-                            //MemberLastName = "Adam",
+                            MemberMiddleName = null ,
                             MemberLastName = "Brown",
                             JoinDate = new DateTime(2020, 5, 10),
                             StandingStatus = StandingStatus.Good,
@@ -315,7 +315,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             ID = 6,
                             MemberFirstName = "Sarah",
-
+                            MemberMiddleName= "Singh",
                             MemberLastName = "Johnson",
                             JoinDate = new DateTime(2021, 9, 15),
                             StandingStatus = StandingStatus.Inactive,
@@ -337,7 +337,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             ID = 7,
                             MemberFirstName = "William",
-
+                            MemberMiddleName = "Pat",
                             MemberLastName = "Taylor",
                             JoinDate = new DateTime(2019, 4, 20),
                             StandingStatus = StandingStatus.Good,
@@ -359,7 +359,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             ID = 8,
                             MemberFirstName = "Jessica",
-                            //MemberLastName = "Lamay",
+                            MemberMiddleName = "Divyansh",
                             MemberLastName = "Martinez",
                             JoinDate = new DateTime(2023, 1, 1),
                             StandingStatus = StandingStatus.Cancelled,
@@ -381,7 +381,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             ID = 9,
                             MemberFirstName = "James",
-                            //MemberLastName = "Con",
+                            MemberMiddleName = "Hosi",
                             MemberLastName = "Lee",
                             JoinDate = new DateTime(2022, 6, 30),
                             StandingStatus = StandingStatus.Good,
@@ -403,8 +403,8 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             ID = 10,
                             MemberFirstName = "Olivia",
+                            MemberMiddleName = null,
                             MemberLastName = "Rody",
-                            //MemberLastName = "Harris",
                             JoinDate = new DateTime(2020, 2, 25),
                             StandingStatus = StandingStatus.Inactive,
                             Addresses = new List<Address>  // Initialize as a list
@@ -420,783 +420,691 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 }
                             }
 
+                        },
+                        new Member
+                        {
+                            ID = 11,
+                            MemberFirstName = "Liam",
+                            MemberMiddleName = null,
+                            MemberLastName = "Smith",
+                            JoinDate = new DateTime(2021, 3, 17),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "12 Maple Street",
+                                    AddressLine2 = "Suite 101",
+                                    City = "Oakwood",
+                                    StateProvince = "Green Valley",
+                                    PostalCode = "G7F8M3",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 12,
+                            MemberFirstName = "Emma",
+                            MemberMiddleName = "Grace",
+                            MemberLastName = "Johnson",
+                            JoinDate = new DateTime(2022, 1, 5),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "45 Pine Road",
+                                    AddressLine2 = "Apt 12B",
+                                    City = "Springfield",
+                                    StateProvince = "Illinois",
+                                    PostalCode = "62704",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 13,
+                            MemberFirstName = "Ava",
+                            MemberMiddleName = "Marie",
+                            MemberLastName = "Williams",
+                            JoinDate = new DateTime(2019, 8, 22),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "99 Oak Drive",
+                                    AddressLine2 = "Floor 3",
+                                    City = "Rivertown",
+                                    StateProvince = "Ocean State",
+                                    PostalCode = "O4R2T1",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 14,
+                            MemberFirstName = "Noah",
+                            MemberMiddleName = "Alexander",
+                            MemberLastName = "Brown",
+                            JoinDate = new DateTime(2020, 6, 10),
+                            StandingStatus = StandingStatus.Inactive,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "120 Birch Lane",
+                                    AddressLine2 = "Unit 205",
+                                    City = "Hillcrest",
+                                    StateProvince = "Mountain Region",
+                                    PostalCode = "M2N1K7",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 15,
+                            MemberFirstName = "Sophia",
+                            MemberMiddleName = null,
+                            MemberLastName = "Davis",
+                            JoinDate = new DateTime(2021, 4, 30),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "58 Cedar Street",
+                                    AddressLine2 = "Building 4",
+                                    City = "Brookside",
+                                    StateProvince = "Blue Ridge",
+                                    PostalCode = "B1A3N8",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 16,
+                            MemberFirstName = "James",
+                            MemberMiddleName = "Edward",
+                            MemberLastName = "Martinez",
+                            JoinDate = new DateTime(2018, 9, 15),
+                            StandingStatus = StandingStatus.Inactive,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "111 Cherry Avenue",
+                                    AddressLine2 = "Suite 500",
+                                    City = "Silverbrook",
+                                    StateProvince = "Sunshine State",
+                                    PostalCode = "S2F9H1",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 17,
+                            MemberFirstName = "Isabella",
+                            MemberMiddleName = "Rose",
+                            MemberLastName = "Taylor",
+                            JoinDate = new DateTime(2021, 11, 9),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "78 Elm Street",
+                                    AddressLine2 = "Floor 2",
+                                    City = "Brighton",
+                                    StateProvince = "New Horizons",
+                                    PostalCode = "N5W2B4",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 18,
+                            MemberFirstName = "Mason",
+                            MemberMiddleName = "Joshua",
+                            MemberLastName = "Anderson",
+                            JoinDate = new DateTime(2022, 7, 21),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "21 Fir Street",
+                                    AddressLine2 = "Unit 50",
+                                    City = "New Haven",
+                                    StateProvince = "Mystic Valley",
+                                    PostalCode = "M3H8G2",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 19,
+                            MemberFirstName = "Amelia",
+                            MemberMiddleName = "Lynn",
+                            MemberLastName = "Clark",
+                            JoinDate = new DateTime(2021, 12, 18),
+                            StandingStatus = StandingStatus.Inactive,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "36 Redwood Crescent",
+                                    AddressLine2 = "Apartment 3",
+                                    City = "Clearwater",
+                                    StateProvince = "River Valley",
+                                    PostalCode = "C8D2T5",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 20,
+                            MemberFirstName = "Ethan",
+                            MemberMiddleName = "Michael",
+                            MemberLastName = "Garcia",
+                            JoinDate = new DateTime(2020, 12, 14),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "64 Aspen Road",
+                                    AddressLine2 = "Unit 207",
+                                    City = "Forest Grove",
+                                    StateProvince = "Woodland Hills",
+                                    PostalCode = "W5T6D2",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 21,
+                            MemberFirstName = "Charlotte",
+                            MemberMiddleName = "Anne",
+                            MemberLastName = "Hernandez",
+                            JoinDate = new DateTime(2023, 2, 1),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "77 Riverbend Street",
+                                    AddressLine2 = "Suite 9",
+                                    City = "Silver Valley",
+                                    StateProvince = "Sunset Coast",
+                                    PostalCode = "S8K9J4",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 22,
+                            MemberFirstName = "Benjamin",
+                            MemberMiddleName = "David",
+                            MemberLastName = "Moore",
+                            JoinDate = new DateTime(2019, 5, 3),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "90 Willow Drive",
+                                    AddressLine2 = "Floor 1",
+                                    City = "Lakeside",
+                                    StateProvince = "Silverwood",
+                                    PostalCode = "L6C7S9",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 23,
+                            MemberFirstName = "Ella",
+                            MemberMiddleName = "Sophia",
+                            MemberLastName = "Scott",
+                            JoinDate = new DateTime(2020, 11, 19),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "102 Maple Lane",
+                                    AddressLine2 = "Apt 1003",
+                                    City = "Hill Valley",
+                                    StateProvince = "Autumn Ridge",
+                                    PostalCode = "A7X5Z2",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 24,
+                            MemberFirstName = "Jack",
+                            MemberMiddleName = null,
+                            MemberLastName = "King",
+                            JoinDate = new DateTime(2021, 8, 23),
+                            StandingStatus = StandingStatus.Inactive,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "33 Ocean Breeze",
+                                    AddressLine2 = "Unit 3",
+                                    City = "Sunny Bay",
+                                    StateProvince = "Tropical State",
+                                    PostalCode = "T5Q1E2",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 25,
+                            MemberFirstName = "Zoe",
+                            MemberMiddleName = "Grace",
+                            MemberLastName = "Lee",
+                            JoinDate = new DateTime(2022, 9, 8),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "134 Rosewood Road",
+                                    AddressLine2 = "Suite 101",
+                                    City = "Lakeshore",
+                                    StateProvince = "Northern Territory",
+                                    PostalCode = "L8V2S3",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 26,
+                            MemberFirstName = "Lucas",
+                            MemberMiddleName = "Nathaniel",
+                            MemberLastName = "Perez",
+                            JoinDate = new DateTime(2021, 10, 5),
+                            StandingStatus = StandingStatus.Inactive,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "56 Sunset Boulevard",
+                                    AddressLine2 = "Building 2",
+                                    City = "Greenridge",
+                                    StateProvince = "Hill Valley",
+                                    PostalCode = "G9T2R5",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 27,
+                            MemberFirstName = "Mia",
+                            MemberMiddleName = "Isabel",
+                            MemberLastName = "Gonzalez",
+                            JoinDate = new DateTime(2022, 2, 28),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "22 Brook Street",
+                                    AddressLine2 = "Floor 5",
+                                    City = "Sunrise City",
+                                    StateProvince = "East Valley",
+                                    PostalCode = "B3F6M2",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 28,
+                            MemberFirstName = "Henry",
+                            MemberMiddleName = "Charles",
+                            MemberLastName = "Martinez",
+                            JoinDate = new DateTime(2018, 11, 1),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "72 Birchwood Drive",
+                                    AddressLine2 = "Apt 9B",
+                                    City = "Riverwood",
+                                    StateProvince = "Greenwood",
+                                    PostalCode = "G1H8K3",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 29,
+                            MemberFirstName = "Grace",
+                            MemberMiddleName = "Lily",
+                            MemberLastName = "Nguyen",
+                            JoinDate = new DateTime(2022, 4, 19),
+                            StandingStatus = StandingStatus.Inactive,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "23 Forest Avenue",
+                                    AddressLine2 = "Unit 12",
+                                    City = "Autumn Park",
+                                    StateProvince = "Misty Hills",
+                                    PostalCode = "F9D8P6",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 30,
+                            MemberFirstName = "Daniel",
+                            MemberMiddleName = "Jesse",
+                            MemberLastName = "Harris",
+                            JoinDate = new DateTime(2023, 1, 7),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "123 Oakwood Drive",
+                                    AddressLine2 = "Apt 406",
+                                    City = "Maple Town",
+                                    StateProvince = "Riverdale",
+                                    PostalCode = "M1H2N4",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 31,
+                            MemberFirstName = "Sophie",
+                            MemberMiddleName = "Claire",
+                            MemberLastName = "Jackson",
+                            JoinDate = new DateTime(2021, 5, 30),
+                            StandingStatus = StandingStatus.Inactive,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "10 Willow Street",
+                                    AddressLine2 = "Suite 10",
+                                    City = "Starwood",
+                                    StateProvince = "Golden Hills",
+                                    PostalCode = "S1A7Q5",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 32,
+                            MemberFirstName = "David",
+                            MemberMiddleName = "Victor",
+                            MemberLastName = "Roberts",
+                            JoinDate = new DateTime(2019, 7, 23),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "58 Chestnut Lane",
+                                    AddressLine2 = "Unit 4",
+                                    City = "Pinehill",
+                                    StateProvince = "Silverwood",
+                                    PostalCode = "P7A6V9",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 33,
+                            MemberFirstName = "Lily",
+                            MemberMiddleName = null,
+                            MemberLastName = "Adams",
+                            JoinDate = new DateTime(2023, 5, 14),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "45 Sunset Way",
+                                    AddressLine2 = "Building 6",
+                                    City = "Crystal Falls",
+                                    StateProvince = "Mountain Ridge",
+                                    PostalCode = "C5H1N2",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 34,
+                            MemberFirstName = "Jack",
+                            MemberMiddleName = "Elliott",
+                            MemberLastName = "Sanchez",
+                            JoinDate = new DateTime(2021, 3, 12),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "89 Mountain Avenue",
+                                    AddressLine2 = "Suite 301",
+                                    City = "Rockport",
+                                    StateProvince = "Redwood Hills",
+                                    PostalCode = "R7P8X3",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 35,
+                            MemberFirstName = "Natalie",
+                            MemberMiddleName = null,
+                            MemberLastName = "Mitchell",
+                            JoinDate = new DateTime(2022, 6, 20),
+                            StandingStatus = StandingStatus.Inactive,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "65 Pine Hill",
+                                    AddressLine2 = "Apt 203",
+                                    City = "Mapleton",
+                                    StateProvince = "Sunny Fields",
+                                    PostalCode = "M3L8W9",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 36,
+                            MemberFirstName = "Ella",
+                            MemberMiddleName = "Mae",
+                            MemberLastName = "Kim",
+                            JoinDate = new DateTime(2021, 6, 17),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "53 Bluebell Road",
+                                    AddressLine2 = "Floor 4",
+                                    City = "Riverside",
+                                    StateProvince = "Green Hills",
+                                    PostalCode = "B2F6T4",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 37,
+                            MemberFirstName = "David",
+                            MemberMiddleName = null,
+                            MemberLastName = "Baker",
+                            JoinDate = new DateTime(2019, 12, 5),
+                            StandingStatus = StandingStatus.Inactive,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "31 Maple Terrace",
+                                    AddressLine2 = "Unit 203",
+                                    City = "Riverfield",
+                                    StateProvince = "North Hills",
+                                    PostalCode = "N8Y5D7",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 38,
+                            MemberFirstName = "Charlotte",
+                            MemberMiddleName = "Daisy",
+                            MemberLastName = "Foster",
+                            JoinDate = new DateTime(2020, 7, 1),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "77 Birchwood Crescent",
+                                    AddressLine2 = "Apt 306",
+                                    City = "Lakeview",
+                                    StateProvince = "Horizon Bay",
+                                    PostalCode = "L3D4S8",
+                                    Country = "USA"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 39,
+                            MemberFirstName = "Michael",
+                            MemberMiddleName = "Harrison",
+                            MemberLastName = "Evans",
+                            JoinDate = new DateTime(2022, 3, 29),
+                            StandingStatus = StandingStatus.Good,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "16 Redberry Lane",
+                                    AddressLine2 = "Unit 4",
+                                    City = "Silver Ridge",
+                                    StateProvince = "Western Province",
+                                    PostalCode = "S4G5A2",
+                                    Country = "Canada"
+                                }
+                            }
+                        },
+                        new Member
+                        {
+                            ID = 40,
+                            MemberFirstName = "Elena",
+                            MemberMiddleName = "Paige",
+                            MemberLastName = "Graham",
+                            JoinDate = new DateTime(2021, 9, 25),
+                            StandingStatus = StandingStatus.Inactive,
+                            Addresses = new List<Address>
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "19 Golden Court",
+                                    AddressLine2 = "Suite 601",
+                                    City = "Mountain Creek",
+                                    StateProvince = "Silverstone",
+                                    PostalCode = "G3J2B1",
+                                    Country = "USA"
+                                }
+                            }
                         }
-                        //new Member
-                        //{
-                        //    Id = 11,
-                        //    MemberFirstName = "Liam",
-                        //    
-                        //    MemberLastName = "Garcia",
-                        //    JoinDate = new DateTime(2021, 7, 10),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 11,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "321 Birch Parkway",
-                        //        AddressLineTwo = null,
-                        //        City = "Forgestone",
-                        //        StateProvince = "Metal Hills",
-                        //        PostalCode = "B3P7K9",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 12,
-                        //    MemberFirstName = "Sophia",
-                        //    MemberLastName = "Eeren",
-                        //    MemberLastName = "Rodriguez",
-                        //    JoinDate = new DateTime(2023, 3, 15),
-                        //    StandingStatus = StandingStatus.Cancelled,
-                        //    OrganizationId = 12,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "789 Poplar Court",
-                        //        AddressLineTwo = "Apt 12C",
-                        //        City = "Alloyton",
-                        //        StateProvince = "Forge Land",
-                        //        PostalCode = "P1L3A8",
-                        //        Country = "UK"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 13,
-                        //    MemberFirstName = "Benjamin",
-                        //    
-                        //    MemberLastName = "Clark",
-                        //    JoinDate = new DateTime(2020, 8, 19),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 13,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "102 Maple Circle",
-                        //        AddressLineTwo = null,
-                        //        City = "Copperlake",
-                        //        StateProvince = "Metal Coast",
-                        //        PostalCode = "M2C4L7",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 14,
-                        //    MemberFirstName = "Emma",
-                        //    
-                        //    MemberLastName = "Lopez",
-                        //    JoinDate = new DateTime(2021, 5, 20),
-                        //    StandingStatus = StandingStatus.Inactive,
-                        //    OrganizationId = 14,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "455 Oak Crescent",
-                        //        AddressLineTwo = "Suite 8",
-                        //        City = "Iron Bay",
-                        //        StateProvince = "Steel Region",
-                        //        PostalCode = "O5C8L4",
-                        //        Country = "Canada"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 15,
-                        //    MemberFirstName = "Alexander",
-                        //    
-                        //    MemberLastName = "Walker",
-                        //    JoinDate = new DateTime(2022, 11, 18),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 15,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "678 Elmwood Drive",
-                        //        AddressLineTwo = null,
-                        //        City = "Iron Harbor",
-                        //        StateProvince = "Metal Territory",
-                        //        PostalCode = "E5L8M2",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 16,
-                        //    MemberFirstName = "Isabella",
-                        //    MemberLastName = "Maria",
-                        //    MemberLastName = "Young",
-                        //    JoinDate = new DateTime(2023, 4, 5),
-                        //    StandingStatus = StandingStatus.Cancelled,
-                        //    OrganizationId = 16,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "150 Pine View Lane",
-                        //        AddressLineTwo = "Unit 11A",
-                        //        City = "Steel RIdge",
-                        //        StateProvince = "Forge County",
-                        //        PostalCode = "P2V3L1",
-                        //        Country = "Canada"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 17,
-                        //    MemberFirstName = "Ethan",
-                        //    MemberLastName = "Jordan",
-                        //    MemberLastName = "Hall",
-                        //    JoinDate = new DateTime(2019, 9, 30),
-                        //    StandingStatus = StandingStatus.Inactive,
-                        //    OrganizationId = 17,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "982 Cedar Grove",
-                        //        AddressLineTwo = null,
-                        //        City = "Alloyville",
-                        //        StateProvince = "Iron District",
-                        //        PostalCode = "C9D8V6",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 18,
-                        //    MemberFirstName = "Mia",
-                        //    
-                        //    MemberLastName = "Adams",
-                        //    JoinDate = new DateTime(2020, 7, 15),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 18,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "455 Redwood Trail",
-                        //        AddressLineTwo = "Building 2",
-                        //        City = "Forge City",
-                        //        StateProvince = "Steel Plateau",
-                        //        PostalCode = "R1D6C8",
-                        //        Country = "UK"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 19,
-                        //    MemberFirstName = "Daniel",
-                        //    MemberLastName = "Amber",
-                        //    MemberLastName = "Hernandez",
-                        //    JoinDate = new DateTime(2021, 10, 10),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 19,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "210 Birchwood Terrace",
-                        //        AddressLineTwo = null,
-                        //        City = "Copperton",
-                        //        StateProvince = "Forge Hills",
-                        //        PostalCode = "B7L9P3",
-                        //        Country = "Australia"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 20,
-                        //    MemberFirstName = "Ava",
-                        //    
-                        //    MemberLastName = "Roberts",
-                        //    JoinDate = new DateTime(2022, 12, 25),
-                        //    StandingStatus = StandingStatus.Inactive,
-                        //    OrganizationId = 20,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "300 Maple Valley",
-                        //        AddressLineTwo = "Suite 7B",
-                        //        City = "Iron BrIdge",
-                        //        StateProvince = "Metal County",
-                        //        PostalCode = "M8C9B5",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 21,
-                        //    MemberFirstName = "Lucas",
-                        //    MemberLastName = "Rody",
-                        //    MemberLastName = "Perez",
-                        //    JoinDate = new DateTime(2018, 3, 3),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 21,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "150 Granite Street",
-                        //        AddressLineTwo = "Floor 1",
-                        //        City = "Steel Heights",
-                        //        StateProvince = "Iron Plains",
-                        //        PostalCode = "G1N5T8",
-                        //        Country = "UK"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 22,
-                        //    MemberFirstName = "Charlotte",
-                        //    MemberLastName = "L.",
-                        //    MemberLastName = "King",
-                        //    JoinDate = new DateTime(2023, 8, 20),
-                        //    StandingStatus = StandingStatus.Cancelled,
-                        //    OrganizationId = 22,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "489 Walnut Road",
-                        //        AddressLineTwo = null,
-                        //        City = "Forgeland",
-                        //        StateProvince = "Metal Shores",
-                        //        PostalCode = "W5R9K2",
-                        //        Country = "Canada"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 23,
-                        //    MemberFirstName = "Henry",
-                        //    
-                        //    MemberLastName = "Scott",
-                        //    JoinDate = new DateTime(2020, 11, 8),
-                        //    StandingStatus = StandingStatus.Inactive,
-                        //    OrganizationId = 23,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "670 Cedar Hills",
-                        //        AddressLineTwo = "Building 5",
-                        //        City = "Ironwood",
-                        //        StateProvince = "Steel Peninsula",
-                        //        PostalCode = "I2R7L3",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 24,
-                        //    MemberFirstName = "Amelia",
-                        //    MemberLastName = "New",
-                        //    MemberLastName = "Green",
-                        //    JoinDate = new DateTime(2021, 2, 2),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 24,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "90 Ashwood Lane",
-                        //        AddressLineTwo = "Unit 6A",
-                        //        City = "Copper RIdge",
-                        //        StateProvince = "Metal Valley",
-                        //        PostalCode = "A1L3T7",
-                        //        Country = "Australia"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 25,
-                        //    MemberFirstName = "Jack",
-                        //    
-                        //    MemberLastName = "White",
-                        //    JoinDate = new DateTime(2019, 12, 15),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 25,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "300 Maple Hill",
-                        //        AddressLineTwo = null,
-                        //        City = "Steelport",
-                        //        StateProvince = "Iron Range",
-                        //        PostalCode = "M4R2N1",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 26,
-                        //    MemberFirstName = "Olivia",
-                        //    MemberLastName = "Eron",
-                        //    MemberLastName = "Taylor",
-                        //    JoinDate = new DateTime(2020, 4, 18),
-                        //    StandingStatus = StandingStatus.Inactive,
-                        //    OrganizationId = 26,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "500 Birchwood Avenue",
-                        //        AddressLineTwo = null,
-                        //        City = "Forgedale",
-                        //        StateProvince = "Metal Coast",
-                        //        PostalCode = "F6G8H4",
-                        //        Country = "UK"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 27,
-                        //    MemberFirstName = "Noah",
-                        //    MemberLastName = "Hood",
-                        //    MemberLastName = "Martinez",
-                        //    JoinDate = new DateTime(2023, 7, 25),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 27,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "789 Ironwood Lane",
-                        //        AddressLineTwo = "Suite 3B",
-                        //        City = "Steelton",
-                        //        StateProvince = "Forge Province",
-                        //        PostalCode = "S3T5R2",
-                        //        Country = "Canada"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 28,
-                        //    MemberFirstName = "Sophia",
-                        //    
-                        //    MemberLastName = "Garcia",
-                        //    JoinDate = new DateTime(2021, 5, 12),
-                        //    StandingStatus = StandingStatus.Cancelled,
-                        //    OrganizationId = 28,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "213 Maplewood Drive",
-                        //        AddressLineTwo = "Apt 14",
-                        //        City = "Ironville",
-                        //        StateProvince = "Steel Heights",
-                        //        PostalCode = "I5R6T8",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 29,
-                        //    MemberFirstName = "Mason",
-                        //    MemberLastName = "Kotlyn",
-                        //    MemberLastName = "Thomas",
-                        //    JoinDate = new DateTime(2018, 9, 1),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 29,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "112 Copper Valley Road",
-                        //        AddressLineTwo = null,
-                        //        City = "Alloytown",
-                        //        StateProvince = "Metal District",
-                        //        PostalCode = "C8D2R4",
-                        //        Country = "Australia"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 30,
-                        //    MemberFirstName = "Ella",
-                        //    
-                        //    MemberLastName = "Harris",
-                        //    JoinDate = new DateTime(2022, 3, 17),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 30,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "75 Elmwood Circle",
-                        //        AddressLineTwo = "Floor 2",
-                        //        City = "Forgeland",
-                        //        StateProvince = "Iron Region",
-                        //        PostalCode = "E7F8G9",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 31,
-                        //    MemberFirstName = "James",
-                        //    MemberLastName = "Lopez",
-                        //    MemberLastName = "Nelson",
-                        //    JoinDate = new DateTime(2020, 12, 22),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 31,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "680 Pine Crest Road",
-                        //        AddressLineTwo = null,
-                        //        City = "Steel RIdge",
-                        //        StateProvince = "Metal Canyon",
-                        //        PostalCode = "P6R9T3",
-                        //        Country = "Canada"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 32,
-                        //    MemberFirstName = "Grace",
-                        //    MemberLastName = "Martinez",
-                        //    MemberLastName = "Clark",
-                        //    JoinDate = new DateTime(2019, 7, 10),
-                        //    StandingStatus = StandingStatus.Inactive,
-                        //    OrganizationId = 32,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "145 Ashwood Lane",
-                        //        AddressLineTwo = "Unit 9",
-                        //        City = "Iron Harbor",
-                        //        StateProvince = "Forge Peninsula",
-                        //        PostalCode = "A2L5C8",
-                        //        Country = "UK"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 33,
-                        //    MemberFirstName = "Benjamin",
-                        //    
-                        //    MemberLastName = "Lewis",
-                        //    JoinDate = new DateTime(2021, 10, 14),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 33,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "390 Cedar Park Drive",
-                        //        AddressLineTwo = null,
-                        //        City = "Copperton",
-                        //        StateProvince = "Metal Zone",
-                        //        PostalCode = "C3T6R2",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 34,
-                        //    MemberFirstName = "Emily",
-                        //    MemberLastName = "Nethan",
-                        //    MemberLastName = "Young",
-                        //    JoinDate = new DateTime(2022, 5, 27),
-                        //    StandingStatus = StandingStatus.Cancelled,
-                        //    OrganizationId = 34,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "870 Birch View Lane",
-                        //        AddressLineTwo = "Suite 2A",
-                        //        City = "Steelville",
-                        //        StateProvince = "Iron Plateau",
-                        //        PostalCode = "B8L2M5",
-                        //        Country = "Australia"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 35,
-                        //    MemberFirstName = "Henry",
-                        //    MemberLastName = "A.",
-                        //    MemberLastName = "Walker",
-                        //    JoinDate = new DateTime(2019, 4, 30),
-                        //    StandingStatus = StandingStatus.Inactive,
-                        //    OrganizationId = 35,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "540 Maple Street",
-                        //        AddressLineTwo = null,
-                        //        City = "Alloyport",
-                        //        StateProvince = "Forge Territory",
-                        //        PostalCode = "M5N3T9",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 36,
-                        //    MemberFirstName = "Abigail",
-                        //    MemberLastName = "Ember",
-                        //    MemberLastName = "Hill",
-                        //    JoinDate = new DateTime(2020, 6, 18),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 36,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "235 Ironwood Blvd",
-                        //        AddressLineTwo = "Unit 10",
-                        //        City = "Forgeland",
-                        //        StateProvince = "Metal Highlands",
-                        //        PostalCode = "F4G8T2",
-                        //        Country = "Canada"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 37,
-                        //    MemberFirstName = "Lucas",
-                        //    MemberLastName = "Ralph",
-                        //    MemberLastName = "Carter",
-                        //    JoinDate = new DateTime(2021, 1, 19),
-                        //    StandingStatus = StandingStatus.Cancelled,
-                        //    OrganizationId = 37,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "999 Oak Valley",
-                        //        AddressLineTwo = "Building 8",
-                        //        City = "Iron Heights",
-                        //        StateProvince = "Steel Peninsula",
-                        //        PostalCode = "I7R4M3",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 38,
-                        //    MemberFirstName = "Chloe",
-                        //    MemberLastName = "Lindsy",
-                        //    MemberLastName = "Green",
-                        //    JoinDate = new DateTime(2022, 9, 12),
-                        //    StandingStatus = StandingStatus.Inactive,
-                        //    OrganizationId = 38,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "455 Maple View",
-                        //        AddressLineTwo = null,
-                        //        City = "Steel RIdge",
-                        //        StateProvince = "Forge Zone",
-                        //        PostalCode = "M6R2L8",
-                        //        Country = "UK"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 39,
-                        //    MemberFirstName = "Mason",
-                        //    
-                        //    MemberLastName = "Evans",
-                        //    JoinDate = new DateTime(2018, 8, 10),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 39,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "67 Elm Park Road",
-                        //        AddressLineTwo = "Suite 1C",
-                        //        City = "Iron Valley",
-                        //        StateProvince = "Metal Canyon",
-                        //        PostalCode = "E2R5L9",
-                        //        Country = "Australia"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 40,
-                        //    MemberFirstName = "Amelia",
-                        //    MemberLastName = "Kaper",
-                        //    MemberLastName = "Perez",
-                        //    JoinDate = new DateTime(2019, 3, 5),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 40,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "310 Birch Grove",
-                        //        AddressLineTwo = null,
-                        //        City = "Alloytown",
-                        //        StateProvince = "Steel Coast",
-                        //        PostalCode = "A3N5M1",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 41,
-                        //    MemberFirstName = "James",
-                        //    
-                        //    MemberLastName = "Reed",
-                        //    JoinDate = new DateTime(2020, 11, 25),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 41,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "175 Pinewood Ave",
-                        //        AddressLineTwo = "Floor 3",
-                        //        City = "Copperport",
-                        //        StateProvince = "Iron RIdge",
-                        //        PostalCode = "P9R3L7",
-                        //        Country = "Canada"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 42,
-                        //    MemberFirstName = "Olivia",
-                        //    MemberLastName = "Marie",
-                        //    MemberLastName = "Harris",
-                        //    JoinDate = new DateTime(2022, 7, 14),
-                        //    StandingStatus = StandingStatus.Cancelled,
-                        //    OrganizationId = 42,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "890 Maple Heights",
-                        //        AddressLineTwo = "Unit 12",
-                        //        City = "Steelton",
-                        //        StateProvince = "Forge Region",
-                        //        PostalCode = "S4T8M6",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 43,
-                        //    MemberFirstName = "Liam",
-                        //    MemberLastName = "Toot",
-                        //    MemberLastName = "Campbell",
-                        //    JoinDate = new DateTime(2021, 6, 21),
-                        //    StandingStatus = StandingStatus.Inactive,
-                        //    OrganizationId = 43,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "650 Ironwood Lane",
-                        //        AddressLineTwo = "Suite 9B",
-                        //        City = "Forgeland",
-                        //        StateProvince = "Metal Territory",
-                        //        PostalCode = "F8L2T3",
-                        //        Country = "UK"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 44,
-                        //    MemberFirstName = "Sophia",
-                        //    MemberLastName = "Root",
-                        //    MemberLastName = "King",
-                        //    JoinDate = new DateTime(2019, 5, 30),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 44,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "100 Elmview Road",
-                        //        AddressLineTwo = "Apt 3D",
-                        //        City = "Steel RIdge",
-                        //        StateProvince = "Iron Zone",
-                        //        PostalCode = "E9R4M2",
-                        //        Country = "Australia"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 45,
-                        //    MemberFirstName = "Emma",
-                        //    MemberLastName = "N.",
-                        //    MemberLastName = "Lewis",
-                        //    JoinDate = new DateTime(2023, 2, 17),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 45,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "360 Maple Grove",
-                        //        AddressLineTwo = null,
-                        //        City = "Alloytown",
-                        //        StateProvince = "Metal Shores",
-                        //        PostalCode = "M2R5L8",
-                        //        Country = "Canada"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 46,
-                        //    MemberFirstName = "Benjamin",
-                        //    
-                        //    MemberLastName = "Moore",
-                        //    JoinDate = new DateTime(2021, 9, 9),
-                        //    StandingStatus = StandingStatus.Cancelled,
-                        //    OrganizationId = 1,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "550 Cedar Valley",
-                        //        AddressLineTwo = "Suite 4A",
-                        //        City = "Copperport",
-                        //        StateProvince = "Iron Valley",
-                        //        PostalCode = "C6N3M4",
-                        //        Country = "USA"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 47,
-                        //    MemberFirstName = "Isabella",
-                        //    MemberLastName = "F.",
-                        //    MemberLastName = "Morgan",
-                        //    JoinDate = new DateTime(2020, 4, 11),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 2,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "770 Oakleaf Drive",
-                        //        AddressLineTwo = null,
-                        //        City = "Metal City",
-                        //        StateProvince = "Iron Plains",
-                        //        PostalCode = "O1M3T7",
-                        //        Country = "Canada"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 48,
-                        //    MemberFirstName = "Alexander",
-                        //    MemberLastName = "Jeremie",
-                        //    MemberLastName = "Taylor",
-                        //    JoinDate = new DateTime(2022, 10, 7),
-                        //    StandingStatus = StandingStatus.Inactive,
-                        //    OrganizationId = 3,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "145 Steel Valley",
-                        //        AddressLineTwo = "Building 5C",
-                        //        City = "Forgeland",
-                        //        StateProvince = "Metal Heights",
-                        //        PostalCode = "S3V5L2",
-                        //        Country = "UK"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 49,
-                        //    MemberFirstName = "Mia",
-                        //    MemberLastName = "Han",
-                        //    MemberLastName = "Baker",
-                        //    JoinDate = new DateTime(2021, 3, 3),
-                        //    StandingStatus = StandingStatus.Good,
-                        //    OrganizationId = 4,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "92 Maple Way",
-                        //        AddressLineTwo = null,
-                        //        City = "Steelton",
-                        //        StateProvince = "Forge Valley",
-                        //        PostalCode = "M7T2L9",
-                        //        Country = "Australia"
-                        //    }
-                        //},
-                        //new Member
-                        //{
-                        //    Id = 50,
-                        //    MemberFirstName = "Elijah",
-                        //    
-                        //    MemberLastName = "Hughes",
-                        //    JoinDate = new DateTime(2019, 12, 15),
-                        //    StandingStatus = StandingStatus.Cancelled,
-                        //    OrganizationId = 5,
-                        //    Address = new Address
-                        //    {
-                        //        AddressLineOne = "333 Cedar Trail",
-                        //        AddressLineTwo = "Apt 8F",
-                        //        City = "Iron Heights",
-                        //        StateProvince = "Metal District",
-                        //        PostalCode = "C4N8M5",
-                        //        Country = "USA"
-                        //    }
-                        //}
+
                         );
                         context.SaveChanges();
                     }
                     if (!context.MemberIndustries.Any())
                     {
                         context.MemberIndustries.AddRange(
-                            new MemberIndustry { MemberId = 1, IndustryId = 1 },
-    new MemberIndustry { MemberId = 2, IndustryId = 2 },
-    new MemberIndustry { MemberId = 3, IndustryId = 3 },
-    new MemberIndustry { MemberId = 4, IndustryId = 4 },
-    new MemberIndustry { MemberId = 5, IndustryId = 5 },
-    new MemberIndustry { MemberId = 6, IndustryId = 6 },
-    new MemberIndustry { MemberId = 7, IndustryId = 7 },
-    new MemberIndustry { MemberId = 8, IndustryId = 8 },
-    new MemberIndustry { MemberId = 9, IndustryId = 9 },
-    new MemberIndustry { MemberId = 10, IndustryId = 10 });
+                            new MemberIndustry {MemberId = 1, IndustryId = 1 },
+                            new MemberIndustry {MemberId = 2, IndustryId = 2 },
+                            new MemberIndustry {MemberId = 3, IndustryId = 3 },
+                            new MemberIndustry {MemberId = 4, IndustryId = 4 },
+                            new MemberIndustry {MemberId = 5, IndustryId = 5 },
+                            new MemberIndustry {MemberId = 6, IndustryId = 6 },
+                            new MemberIndustry {MemberId = 7, IndustryId = 7 },
+                            new MemberIndustry {MemberId = 8, IndustryId = 8 },
+                            new MemberIndustry {MemberId = 9, IndustryId = 9 },
+                            new MemberIndustry {MemberId = 10, IndustryId = 10 },
+                            new MemberIndustry {MemberId = 10, IndustryId = 41 },
+                            new MemberIndustry {MemberId = 11, IndustryId = 11 },
+                            new MemberIndustry {MemberId = 12, IndustryId = 12 },
+                            new MemberIndustry {MemberId = 13, IndustryId = 13 },
+                            new MemberIndustry {MemberId = 14, IndustryId = 14 },
+                            new MemberIndustry {MemberId = 15, IndustryId = 15 },
+                            new MemberIndustry {MemberId = 15, IndustryId = 42 },
+                            new MemberIndustry {MemberId = 16, IndustryId = 16 },
+                            new MemberIndustry {MemberId = 17, IndustryId = 17 },
+                            new MemberIndustry {MemberId = 18, IndustryId = 18 },
+                            new MemberIndustry {MemberId = 19, IndustryId = 19 },
+                            new MemberIndustry {MemberId = 20, IndustryId = 20 },
+                            new MemberIndustry {MemberId = 21, IndustryId = 21 },
+                            new MemberIndustry {MemberId = 22, IndustryId = 22 },
+                            new MemberIndustry {MemberId = 23, IndustryId = 23 },
+                            new MemberIndustry {MemberId = 24, IndustryId = 24 },
+                            new MemberIndustry {MemberId = 25, IndustryId = 25 },
+                            new MemberIndustry {MemberId = 25, IndustryId = 43 },
+                            new MemberIndustry {MemberId = 26, IndustryId = 26 },
+                            new MemberIndustry {MemberId = 27, IndustryId = 27 },
+                            new MemberIndustry {MemberId = 28, IndustryId = 28 },
+                            new MemberIndustry {MemberId = 29, IndustryId = 29 },
+                            new MemberIndustry {MemberId = 30, IndustryId = 30 },
+                            new MemberIndustry {MemberId = 31, IndustryId = 31 },
+                            new MemberIndustry {MemberId = 32, IndustryId = 32 },
+                            new MemberIndustry {MemberId = 32, IndustryId = 44 },
+                            new MemberIndustry {MemberId = 33, IndustryId = 33 },
+                            new MemberIndustry {MemberId = 34, IndustryId = 34 },
+                            new MemberIndustry {MemberId = 35, IndustryId = 35 },
+                            new MemberIndustry {MemberId = 36, IndustryId = 36 },
+                            new MemberIndustry {MemberId = 37, IndustryId = 37 },
+                            new MemberIndustry {MemberId = 38, IndustryId = 38 },
+                            new MemberIndustry {MemberId = 39, IndustryId = 39 },
+                            new MemberIndustry {MemberId = 40, IndustryId = 40 },
+                            new MemberIndustry {MemberId = 40, IndustryId = 45 }
+                            );
+                    
                         context.SaveChanges();
                     }
                     if (!context.MemberMembershipTypes.Any())
@@ -1204,259 +1112,209 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         context.MemberMembershipTypes.AddRange(
                             new MemberMembershipType
                             {
-                                MemberId = 1, // John Doe
+                               MemberId = 1, // John Doe
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                                MemberId = 1, // John Doe
+                               MemberId = 1, // John Doe
                                 MembershipTypeId = 3 // Family Membership
                             },
                             new MemberMembershipType
                             {
-                                MemberId = 2, // Jane Smith
+                               MemberId = 2, // Jane Smith
                                 MembershipTypeId = 2 // Premium Membership
                             },
                             new MemberMembershipType
                             {
-                                MemberId = 3, // Robert Johnson
+                               MemberId = 3, // Robert Johnson
                                 MembershipTypeId = 4 // Student Membership
                             },
                             new MemberMembershipType
                             {
-                                MemberId = 4, // Emily Davis
+                               MemberId = 4, // Emily Davis
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                                MemberId = 5, // William Brown
+                               MemberId = 5, // William Brown
                                 MembershipTypeId = 2 // Silver Membership
                             },
                             new MemberMembershipType
                             {
-                                MemberId = 6, // Olivia Clark
+                               MemberId = 6, // Olivia Clark
                                 MembershipTypeId = 5 // Platinum Membership
                             },
                             new MemberMembershipType
                             {
-                                MemberId = 7, // Noah Miller
+                               MemberId = 7, // Noah Miller
                                 MembershipTypeId = 3 // Premium Membership
                             },
                             new MemberMembershipType
                             {
-                                MemberId = 8, // Sophia Wilson
+                               MemberId = 8, // Sophia Wilson
                                 MembershipTypeId = 1 // Basic Membership
                             },
                             new MemberMembershipType
                             {
-                                MemberId = 9, // Liam Martinez
+                               MemberId = 9, // Liam Martinez
                                 MembershipTypeId = 4 // Gold Membership
                             },
                             new MemberMembershipType
                             {
-                                MemberId = 10, // Ava Anderson
+                               MemberId = 10, // Ava Anderson
                                 MembershipTypeId = 2 // Silver Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 11, // Mason Lee
+                                MembershipTypeId = 5 //
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 12,
+                                MembershipTypeId = 4 // Student Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 13,
+                                MembershipTypeId = 2 // Premium Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 14,
+                                MembershipTypeId = 3 // Family Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 15,
+                                MembershipTypeId = 5 // Corporate Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 16,
+                                MembershipTypeId = 1 // Basic Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 17,
+                                MembershipTypeId = 4 // Student Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 18,
+                                MembershipTypeId = 2 // Premium Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 19,
+                                MembershipTypeId = 3 // Family Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 20,
+                                MembershipTypeId = 5 // Corporate Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 21,
+                                MembershipTypeId = 1 // Basic Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 22,
+                                MembershipTypeId = 4 // Student Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 23,
+                                MembershipTypeId = 2 // Premium Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 24,
+                                MembershipTypeId = 3 // Family Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 25,
+                                MembershipTypeId = 5 // Corporate Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 26,
+                                MembershipTypeId = 1 // Basic Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 27,
+                                MembershipTypeId = 4 // Student Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 28,
+                                MembershipTypeId = 2 // Premium Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 29,
+                                MembershipTypeId = 3 // Family Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 30,
+                                MembershipTypeId = 5 // Corporate Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 31,
+                                MembershipTypeId = 1 // Basic Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 32,
+                                MembershipTypeId = 4 // Student Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 33,
+                                MembershipTypeId = 2 // Premium Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 34,
+                                MembershipTypeId = 3 // Family Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 35,
+                                MembershipTypeId = 5 // Corporate Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 36,
+                                MembershipTypeId = 1 // Basic Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 37,
+                                MembershipTypeId = 4 // Student Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 38,
+                                MembershipTypeId = 2 // Premium Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 39,
+                                MembershipTypeId = 3 // Family Membership
+                            },
+                            new MemberMembershipType
+                            {
+                               MemberId = 40,
+                                MembershipTypeId = 5 // Corporate Membership
                             }
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 11, // Mason Lee
-                        //        MembershipTypeId = 5 //
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 12,
-                        //        MembershipTypeId = 4 // Student Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 13,
-                        //        MembershipTypeId = 2 // Premium Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 14,
-                        //        MembershipTypeId = 3 // Family Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 15,
-                        //        MembershipTypeId = 5 // Corporate Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 16,
-                        //        MembershipTypeId = 1 // Basic Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 17,
-                        //        MembershipTypeId = 4 // Student Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 18,
-                        //        MembershipTypeId = 2 // Premium Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 19,
-                        //        MembershipTypeId = 3 // Family Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 20,
-                        //        MembershipTypeId = 5 // Corporate Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 21,
-                        //        MembershipTypeId = 1 // Basic Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 22,
-                        //        MembershipTypeId = 4 // Student Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 23,
-                        //        MembershipTypeId = 2 // Premium Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 24,
-                        //        MembershipTypeId = 3 // Family Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 25,
-                        //        MembershipTypeId = 5 // Corporate Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 26,
-                        //        MembershipTypeId = 1 // Basic Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 27,
-                        //        MembershipTypeId = 4 // Student Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 28,
-                        //        MembershipTypeId = 2 // Premium Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 29,
-                        //        MembershipTypeId = 3 // Family Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 30,
-                        //        MembershipTypeId = 5 // Corporate Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 31,
-                        //        MembershipTypeId = 1 // Basic Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 32,
-                        //        MembershipTypeId = 4 // Student Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 33,
-                        //        MembershipTypeId = 2 // Premium Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 34,
-                        //        MembershipTypeId = 3 // Family Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 35,
-                        //        MembershipTypeId = 5 // Corporate Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 36,
-                        //        MembershipTypeId = 1 // Basic Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 37,
-                        //        MembershipTypeId = 4 // Student Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 38,
-                        //        MembershipTypeId = 2 // Premium Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 39,
-                        //        MembershipTypeId = 3 // Family Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 40,
-                        //        MembershipTypeId = 5 // Corporate Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 41,
-                        //        MembershipTypeId = 1 // Basic Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 42,
-                        //        MembershipTypeId = 4 // Student Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 43,
-                        //        MembershipTypeId = 2 // Premium Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 44,
-                        //        MembershipTypeId = 3 // Family Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 45,
-                        //        MembershipTypeId = 5 // Corporate Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 46,
-                        //        MembershipTypeId = 1 // Basic Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 47,
-                        //        MembershipTypeId = 4 // Student Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 48,
-                        //        MembershipTypeId = 2 // Premium Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 49,
-                        //        MembershipTypeId = 3 // Family Membership
-                        //    },
-                        //    new MemberMembershipType
-                        //    {
-                        //        MemberId = 50,
-                        //        MembershipTypeId = 5 // Corporate Membership
-                        //    }
                         );
                         context.SaveChanges();
                     }
@@ -1474,7 +1332,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "1234567890",
                                 LinkedInUrl = "https://www.linkedin.com/in/johndoe",
                                 IsVip = true,
-                                MemberId = 1
+                               MemberId = 1
                             },
                             new Contact
                             {
@@ -1487,7 +1345,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "9876543210",
                                 LinkedInUrl = "https://www.linkedin.com/in/janesmith",
                                 IsVip = false,
-                                MemberId = 2
+                               MemberId = 2
                             },
                             new Contact
                             {
@@ -1500,7 +1358,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/alicejohnson",
                                 IsVip = true,
-                                MemberId = 3
+                               MemberId = 3
                             },
                             new Contact
                             {
@@ -1513,7 +1371,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5557654321",
                                 LinkedInUrl = "https://www.linkedin.com/in/bobbrown",
                                 IsVip = true,
-                                MemberId = 4
+                               MemberId = 4
                             },
                             new Contact
                             {
@@ -1526,7 +1384,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5557890123",
                                 LinkedInUrl = "https://www.linkedin.com/in/charliedavis",
                                 IsVip = false,
-                                MemberId = 5
+                               MemberId = 5
                             },
                             new Contact
                             {
@@ -1539,7 +1397,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5552345678",
                                 LinkedInUrl = "https://www.linkedin.com/in/deborahwilliams",
                                 IsVip = true,
-                                MemberId = 6
+                               MemberId = 6
                             },
                             new Contact
                             {
@@ -1552,7 +1410,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5553456789",
                                 LinkedInUrl = "https://www.linkedin.com/in/evetaylor",
                                 IsVip = false,
-                                MemberId = 7
+                               MemberId = 7
                             },
                             new Contact
                             {
@@ -1565,7 +1423,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5554567890",
                                 LinkedInUrl = "https://www.linkedin.com/in/frankharris",
                                 IsVip = true,
-                                MemberId = 8
+                               MemberId = 8
                             },
                             new Contact
                             {
@@ -1578,7 +1436,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5555678901",
                                 LinkedInUrl = "https://www.linkedin.com/in/graceking",
                                 IsVip = false,
-                                MemberId = 9
+                               MemberId = 9
                             },
                             new Contact
                             {
@@ -1591,7 +1449,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5556789012",
                                 LinkedInUrl = "https://www.linkedin.com/in/hanklee",
                                 IsVip = true,
-                                MemberId = 10
+                               MemberId = 10
                             },
                             new Contact
                             {
@@ -1604,7 +1462,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5557890123",
                                 LinkedInUrl = "https://www.linkedin.com/in/ivyadams",
                                 IsVip = false,
-                                MemberId = 1
+                               MemberId = 1
                             },
                             new Contact
                             {
@@ -1617,7 +1475,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5558901234",
                                 LinkedInUrl = "https://www.linkedin.com/in/jackscott",
                                 IsVip = true,
-                                MemberId = 1
+                               MemberId = 1
                             },
                             new Contact
                             {
@@ -1630,7 +1488,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5559012345",
                                 LinkedInUrl = "https://www.linkedin.com/in/kathymorris",
                                 IsVip = false,
-                                MemberId = 2
+                               MemberId = 2
                             },
                             new Contact
                             {
@@ -1643,7 +1501,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5550123456",
                                 LinkedInUrl = "https://www.linkedin.com/in/louiswalker",
                                 IsVip = true,
-                                MemberId = 3
+                               MemberId = 3
                             },
                             new Contact
                             {
@@ -1656,7 +1514,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/monawhite",
                                 IsVip = false,
-                                MemberId = 4
+                               MemberId = 4
                             },
                             new Contact
                             {
@@ -1669,7 +1527,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5559876543",
                                 LinkedInUrl = "https://www.linkedin.com/in/jamessmith",
                                 IsVip = false,
-                                MemberId = 5
+                               MemberId = 5
                             },
                             new Contact
                             {
@@ -1682,7 +1540,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5551122334",
                                 LinkedInUrl = "https://www.linkedin.com/in/sarahjohnson",
                                 IsVip = false,
-                                MemberId = 6
+                               MemberId = 6
                             },
                             new Contact
                             {
@@ -1695,7 +1553,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5552233445",
                                 LinkedInUrl = "https://www.linkedin.com/in/davIdbrown",
                                 IsVip = true,
-                                MemberId = 7
+                               MemberId = 7
                             },
                             new Contact
                             {
@@ -1708,7 +1566,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5556677889",
                                 LinkedInUrl = "https://www.linkedin.com/in/emilywilliams",
                                 IsVip = false,
-                                MemberId = 8
+                               MemberId = 8
                             },
                             new Contact
                             {
@@ -1721,7 +1579,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5558899001",
                                 LinkedInUrl = "https://www.linkedin.com/in/michaeldavis",
                                 IsVip = false,
-                                MemberId = 9
+                               MemberId = 9
                             },
                             new Contact
                             {
@@ -1734,7 +1592,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5553456789",
                                 LinkedInUrl = "https://www.linkedin.com/in/oliviamartinez",
                                 IsVip = true,
-                                MemberId = 10
+                               MemberId = 10
                             },
                             new Contact
                             {
@@ -1747,7 +1605,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5552345678",
                                 LinkedInUrl = "https://www.linkedin.com/in/ethantaylor",
                                 IsVip = false,
-                                MemberId = 1
+                               MemberId = 1
                             },
                             new Contact
                             {
@@ -1760,7 +1618,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5556781234",
                                 LinkedInUrl = "https://www.linkedin.com/in/sophiawilson",
                                 IsVip = false,
-                                MemberId = 2
+                               MemberId = 2
                             },
                             new Contact
                             {
@@ -1773,21 +1631,217 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5559988776",
                                 LinkedInUrl = "https://www.linkedin.com/in/danielmoore",
                                 IsVip = false,
-                                MemberId = 3
+                               MemberId = 3
                             },
-                            new Contact
-                            {
-                                Id = 25,
-                                FirstName = "Chloe",
-                                LastName = "S.",
-                                Title = "Senior Analyst",
-                                Department = "Finance",
-                                Email = "chloe.martin@example.com",
-                                Phone = "5557766554",
-                                LinkedInUrl = "https://www.linkedin.com/in/chloemartin",
-                                IsVip = true,
-                                MemberId = 4
-                            }
+                        new Contact
+                        {
+                            Id = 25,
+                            FirstName = "Chloe",
+                            LastName = "S.",
+                            Title = "Senior Analyst",
+                            Department = "Finance",
+                            Email = "chloe.martin@example.com",
+                            Phone = "5557766554",
+                            LinkedInUrl = "https://www.linkedin.com/in/chloemartin",
+                            IsVip = true,
+                           MemberId = 4
+                        },
+                        new Contact
+                        {
+                            Id = 26,
+                            FirstName = "Liam",
+                            LastName = "G.",
+                            Title = "Project Manager",
+                            Department = "Operations",
+                            Email = "liam.green@example.com",
+                            Phone = "5554433221",
+                            LinkedInUrl = "https://www.linkedin.com/in/liamgreen",
+                            IsVip = false,
+                           MemberId = 5
+                        },
+                        new Contact
+                        {
+                            Id = 27,
+                            FirstName = "Isabella",
+                            LastName = "H.",
+                            Title = "Marketing Director",
+                            Department = "Marketing",
+                            Email = "isabella.hudson@example.com",
+                            Phone = "5559988776",
+                            LinkedInUrl = "https://www.linkedin.com/in/isabellahudson",
+                            IsVip = true,
+                           MemberId = 6
+                        },
+                        new Contact
+                        {
+                            Id = 28,
+                            FirstName = "Ethan",
+                            LastName = "P.",
+                            Title = "Sales Manager",
+                            Department = "Sales",
+                            Email = "ethan.peters@example.com",
+                            Phone = "5551122334",
+                            LinkedInUrl = "https://www.linkedin.com/in/ethanpeters",
+                            IsVip = false,
+                           MemberId = 7
+                        },
+                        new Contact
+                        {
+                            Id = 29,
+                            FirstName = "Ava",
+                            LastName = "W.",
+                            Title = "Human Resources Specialist",
+                            Department = "HR",
+                            Email = "ava.williams@example.com",
+                            Phone = "5556677889",
+                            LinkedInUrl = "https://www.linkedin.com/in/avawilliams",
+                            IsVip = true,
+                           MemberId = 8
+                        },
+                        new Contact
+                        {
+                            Id = 30,
+                            FirstName = "Mason",
+                            LastName = "J.",
+                            Title = "Data Scientist",
+                            Department = "IT",
+                            Email = "mason.james@example.com",
+                            Phone = "5554455667",
+                            LinkedInUrl = "https://www.linkedin.com/in/masonjames",
+                            IsVip = false,
+                           MemberId = 9
+                        },
+                        new Contact
+                        {
+                            Id = 31,
+                            FirstName = "Sophia",
+                            LastName = "K.",
+                            Title = "Customer Support Lead",
+                            Department = "Customer Service",
+                            Email = "sophia.king@example.com",
+                            Phone = "5552334455",
+                            LinkedInUrl = "https://www.linkedin.com/in/sophiaking",
+                            IsVip = true,
+                           MemberId = 10
+                        },
+                        new Contact
+                        {
+                            Id = 32,
+                            FirstName = "Jackson",
+                            LastName = "T.",
+                            Title = "Chief Technology Officer",
+                            Department = "Technology",
+                            Email = "jackson.taylor@example.com",
+                            Phone = "5555555555",
+                            LinkedInUrl = "https://www.linkedin.com/in/jacksontaylor",
+                            IsVip = true,
+                           MemberId = 11
+                        },
+                        new Contact
+                        {
+                            Id = 33,
+                            FirstName = "Charlotte",
+                            LastName = "L.",
+                            Title = "Finance Manager",
+                            Department = "Finance",
+                            Email = "charlotte.larson@example.com",
+                            Phone = "5552233446",
+                            LinkedInUrl = "https://www.linkedin.com/in/charlottelarson",
+                            IsVip = false,
+                           MemberId = 12
+                        },
+                        new Contact
+                        {
+                            Id = 34,
+                            FirstName = "Lucas",
+                            LastName = "B.",
+                            Title = "IT Specialist",
+                            Department = "IT",
+                            Email = "lucas.brown@example.com",
+                            Phone = "5556677880",
+                            LinkedInUrl = "https://www.linkedin.com/in/lucasbrown",
+                            IsVip = true,
+                           MemberId = 13
+                        },
+                        new Contact
+                        {
+                            Id = 35,
+                            FirstName = "Mia",
+                            LastName = "C.",
+                            Title = "Legal Advisor",
+                            Department = "Legal",
+                            Email = "mia.carter@example.com",
+                            Phone = "5553334446",
+                            LinkedInUrl = "https://www.linkedin.com/in/miacarter",
+                            IsVip = true,
+                           MemberId = 14
+                        },
+                        new Contact
+                        {
+                            Id = 36,
+                            FirstName = "Logan",
+                            LastName = "D.",
+                            Title = "Operations Manager",
+                            Department = "Operations",
+                            Email = "logan.davis@example.com",
+                            Phone = "5553344556",
+                            LinkedInUrl = "https://www.linkedin.com/in/logandavis",
+                            IsVip = false,
+                           MemberId = 15
+                        },
+                        new Contact
+                        {
+                            Id = 37,
+                            FirstName = "Harper",
+                            LastName = "M.",
+                            Title = "Product Manager",
+                            Department = "Product",
+                            Email = "harper.morris@example.com",
+                            Phone = "5555566778",
+                            LinkedInUrl = "https://www.linkedin.com/in/harpermorris",
+                            IsVip = true,
+                           MemberId = 16
+                        },
+                        new Contact
+                        {
+                            Id = 38,
+                            FirstName = "Benjamin",
+                            LastName = "N.",
+                            Title = "Chief Executive Officer",
+                            Department = "Executive",
+                            Email = "benjamin.nelson@example.com",
+                            Phone = "5551223344",
+                            LinkedInUrl = "https://www.linkedin.com/in/benjaminnelson",
+                            IsVip = true,
+                           MemberId = 17
+                        },
+                        new Contact
+                        {
+                            Id = 39,
+                            FirstName = "Ella",
+                            LastName = "O.",
+                            Title = "Public Relations Manager",
+                            Department = "PR",
+                            Email = "ella.olson@example.com",
+                            Phone = "5554455668",
+                            LinkedInUrl = "https://www.linkedin.com/in/ellaolson",
+                            IsVip = false,
+                           MemberId = 18
+                        },
+                        new Contact
+                        {
+                            Id = 40,
+                            FirstName = "James",
+                            LastName = "P.",
+                            Title = "Chief Marketing Officer",
+                            Department = "Marketing",
+                            Email = "james.phillips@example.com",
+                            Phone = "5557768999",
+                            LinkedInUrl = "https://www.linkedin.com/in/jamesphillips",
+                            IsVip = true,
+                           MemberId = 19
+                        }
+
                         );
                         context.SaveChanges();
                     }
@@ -1801,11 +1855,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "New Partnership with TechCo",
                     //            OpportunityDescr = "Potential collaboration with TechCo to offer joint solutions.",
                     //            OpportunityStatus = OpportunityStatus.Open,
-                    //            OrganizationId = 1,  // Assuming Organization with Id 1 exists
+                    //            ID = 1,  // Assuming Organization with Id 1 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 1, 5),
-                    //            //    InteractionNote = "Initial discussion on potential partnership."
+                    //            //    InteractionNotes = "Initial discussion on potential partnership."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1813,11 +1867,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "Software Development for HealthCorp",
                     //            OpportunityDescr = "Software development project for HealthCorp to enhance their internal systems.",
                     //            OpportunityStatus = OpportunityStatus.InProgress,
-                    //            OrganizationId = 2,  // Assuming Organization with Id 2 exists
+                    //            ID = 2,  // Assuming Organization with Id 2 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 1, 10),
-                    //            //    InteractionNote = "Meeting to finalize project requirements."
+                    //            //    InteractionNotes = "Meeting to finalize project requirements."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1825,11 +1879,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "Website Overhaul for FinServe",
                     //            OpportunityDescr = "Website redesign project for FinServe to improve their online presence.",
                     //            OpportunityStatus = OpportunityStatus.Closed,
-                    //            OrganizationId = 3,  // Assuming Organization with Id 3 exists
+                    //            ID = 3,  // Assuming Organization with Id 3 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 1, 15),
-                    //            //    InteractionNote = "Final meeting to close project details."
+                    //            //    InteractionNotes = "Final meeting to close project details."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1837,11 +1891,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "Mobile App Development for EduTech",
                     //            OpportunityDescr = "Development of a mobile app for EduTech to expand their reach in the education sector.",
                     //            OpportunityStatus = OpportunityStatus.Open,
-                    //            OrganizationId = 4,  // Assuming Organization with Id 4 exists
+                    //            ID = 4,  // Assuming Organization with Id 4 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 1, 18),
-                    //            //    InteractionNote = "Kickoff meeting for mobile app project."
+                    //            //    InteractionNotes = "Kickoff meeting for mobile app project."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1849,11 +1903,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "CRM System for SalesForce",
                     //            OpportunityDescr = "Implementation of a CRM system for SalesForce to improve their customer relationship management.",
                     //            OpportunityStatus = OpportunityStatus.InProgress,
-                    //            OrganizationId = 5,  // Assuming Organization with Id 5 exists
+                    //            ID = 5,  // Assuming Organization with Id 5 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 1, 20),
-                    //            //    InteractionNote = "Meeting to discuss CRM system features."
+                    //            //    InteractionNotes = "Meeting to discuss CRM system features."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1861,11 +1915,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "E-commerce Platform for ShopMart",
                     //            OpportunityDescr = "Development of a full-fledged e-commerce platform for ShopMart.",
                     //            OpportunityStatus = OpportunityStatus.Closed,
-                    //            OrganizationId = 6,  // Assuming Organization with Id 6 exists
+                    //            ID = 6,  // Assuming Organization with Id 6 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 1, 22),
-                    //            //    InteractionNote = "Final review meeting before project closure."
+                    //            //    InteractionNotes = "Final review meeting before project closure."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1873,11 +1927,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "AI Integration for SmartTech",
                     //            OpportunityDescr = "Integration of AI-based solutions for SmartTech's systems.",
                     //            OpportunityStatus = OpportunityStatus.Open,
-                    //            OrganizationId = 7,  // Assuming Organization with Id 7 exists
+                    //            ID = 7,  // Assuming Organization with Id 7 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 1, 25),
-                    //            //    InteractionNote = "Discussion about AI integration and scope."
+                    //            //    InteractionNotes = "Discussion about AI integration and scope."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1885,11 +1939,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "Cloud Migration for DataCloud",
                     //            OpportunityDescr = "Cloud migration for DataCloud to streamline their operations and storage.",
                     //            OpportunityStatus = OpportunityStatus.InProgress,
-                    //            OrganizationId = 8,  // Assuming Organization with Id 8 exists
+                    //            ID = 8,  // Assuming Organization with Id 8 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 1, 28),
-                    //            //    InteractionNote = "Discussing cloud architecture for migration."
+                    //            //    InteractionNotes = "Discussing cloud architecture for migration."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1897,11 +1951,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "Cybersecurity for SecureNet",
                     //            OpportunityDescr = "Cybersecurity services for SecureNet to enhance their data protection.",
                     //            OpportunityStatus = OpportunityStatus.Closed,
-                    //            OrganizationId = 9,  // Assuming Organization with Id 9 exists
+                    //            ID = 9,  // Assuming Organization with Id 9 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 1, 30),
-                    //            //    InteractionNote = "Final agreement on cybersecurity solutions."
+                    //            //    InteractionNotes = "Final agreement on cybersecurity solutions."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1909,11 +1963,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "Data Analytics for AnalyticsPro",
                     //            OpportunityDescr = "Implementing a data analytics platform for AnalyticsPro to improve decision-making.",
                     //            OpportunityStatus = OpportunityStatus.Open,
-                    //            OrganizationId = 10,  // Assuming Organization with Id 10 exists
+                    //            ID = 10,  // Assuming Organization with Id 10 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 2, 2),
-                    //            //    InteractionNote = "Initial discussion on data analytics requirements."
+                    //            //    InteractionNotes = "Initial discussion on data analytics requirements."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1921,11 +1975,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "Business Intelligence for BizIntel",
                     //            OpportunityDescr = "ProvIding business intelligence solutions for BizIntel to enhance reporting capabilities.",
                     //            OpportunityStatus = OpportunityStatus.InProgress,
-                    //            OrganizationId = 11,  // Assuming Organization with Id 11 exists
+                    //            ID = 11,  // Assuming Organization with Id 11 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 2, 5),
-                    //            //    InteractionNote = "Meeting to review BI system features."
+                    //            //    InteractionNotes = "Meeting to review BI system features."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1933,11 +1987,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "ERP System for GlobalCorp",
                     //            OpportunityDescr = "ERP system implementation for GlobalCorp to streamline operations.",
                     //            OpportunityStatus = OpportunityStatus.Closed,
-                    //            OrganizationId = 12,  // Assuming Organization with Id 12 exists
+                    //            ID = 12,  // Assuming Organization with Id 12 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 2, 7),
-                    //            //    InteractionNote = "Reviewing implementation plan and timeline."
+                    //            //    InteractionNotes = "Reviewing implementation plan and timeline."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1945,11 +1999,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "Virtual Events Platform for EventPro",
                     //            OpportunityDescr = "Development of a platform for virtual events for EventPro.",
                     //            OpportunityStatus = OpportunityStatus.Open,
-                    //            OrganizationId = 13,  // Assuming Organization with Id 13 exists
+                    //            ID = 13,  // Assuming Organization with Id 13 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 2, 10),
-                    //            //    InteractionNote = "Kickoff meeting to discuss platform features."
+                    //            //    InteractionNotes = "Kickoff meeting to discuss platform features."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1957,11 +2011,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "Logistics Management System for MoveIt",
                     //            OpportunityDescr = "Logistics management software for MoveIt to optimize their operations.",
                     //            OpportunityStatus = OpportunityStatus.InProgress,
-                    //            OrganizationId = 14,  // Assuming Organization with Id 14 exists
+                    //            ID = 14,  // Assuming Organization with Id 14 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 2, 12),
-                    //            //    InteractionNote = "Discussing project scope and logistics software needs."
+                    //            //    InteractionNotes = "Discussing project scope and logistics software needs."
                     //            //}
                     //        },
                     //        new Opportunity
@@ -1969,11 +2023,11 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //            OpportunityName = "Blockchain Solutions for ChainTech",
                     //            OpportunityDescr = "Developing blockchain-based solutions for ChainTech's supply chain management.",
                     //            OpportunityStatus = OpportunityStatus.Closed,
-                    //            OrganizationId = 15,  // Assuming Organization with Id 15 exists
+                    //            ID = 15,  // Assuming Organization with Id 15 exists
                     //            //Interaction = new Interaction
                     //            //{
                     //            //    InteractionDate = new DateTime(2025, 2, 14),
-                    //            //    InteractionNote = "Final meeting on blockchain integration."
+                    //            //    InteractionNotes = "Final meeting on blockchain integration."
                     //            //}
                     //        }
                     //    );
@@ -1986,121 +2040,121 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 1),
-                    //            InteractionNote = "Initial contact for potential collaboration.",
+                    //            InteractionNotes = "Initial contact for potential collaboration.",
                     //            ContactId = 1,
-                    //            MemberID = 1,
+                    //           MemberId = 1,
                     //            OpportunityId = 1
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 3),
-                    //            InteractionNote = "Follow-up Email regarding partnership details.",
+                    //            InteractionNotes = "Follow-up Email regarding partnership details.",
                     //            ContactId = 2,
-                    //            MemberID = 2,
+                    //           MemberId = 2,
                     //            OpportunityId = 2
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 5),
-                    //            InteractionNote = "Scheduled call to discuss project needs.",
+                    //            InteractionNotes = "Scheduled call to discuss project needs.",
                     //            ContactId = 3,
-                    //            MemberID = 3,
+                    //           MemberId = 3,
                     //            OpportunityId = 3
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 10),
-                    //            InteractionNote = "Met to discuss contract terms and conditions.",
+                    //            InteractionNotes = "Met to discuss contract terms and conditions.",
                     //            ContactId = 4,
-                    //            MemberID = 4,
+                    //           MemberId = 4,
                     //            OpportunityId = 4
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 12),
-                    //            InteractionNote = "Client inquiry on pricing models.",
+                    //            InteractionNotes = "Client inquiry on pricing models.",
                     //            ContactId = 5,
-                    //            MemberID = 1,
+                    //           MemberId = 1,
                     //            OpportunityId = 5
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 15),
-                    //            InteractionNote = "Discussed solution packages for enterprise clients.",
+                    //            InteractionNotes = "Discussed solution packages for enterprise clients.",
                     //            ContactId = 6,
-                    //            MemberID = 2,
+                    //           MemberId = 2,
                     //            OpportunityId = 6
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 18),
-                    //            InteractionNote = "Following up on service proposal.",
+                    //            InteractionNotes = "Following up on service proposal.",
                     //            ContactId = 7,
-                    //            MemberID = 3,
+                    //           MemberId = 3,
                     //            OpportunityId = 7
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 20),
-                    //            InteractionNote = "Finalizing service agreement terms.",
+                    //            InteractionNotes = "Finalizing service agreement terms.",
                     //            ContactId = 8,
-                    //            MemberID = 4,
+                    //           MemberId = 4,
                     //            OpportunityId = 8
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 22),
-                    //            InteractionNote = "Agreement on next steps and deliverables.",
+                    //            InteractionNotes = "Agreement on next steps and deliverables.",
                     //            ContactId = 9,
-                    //            MemberID = 1,
+                    //           MemberId = 1,
                     //            OpportunityId = 9
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 25),
-                    //            InteractionNote = "Reviewing deliverables for upcoming project.",
+                    //            InteractionNotes = "Reviewing deliverables for upcoming project.",
                     //            ContactId = 10,
-                    //            MemberID = 2,
+                    //           MemberId = 2,
                     //            OpportunityId = 10
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 28),
-                    //            InteractionNote = "Update on progress and timeline.",
+                    //            InteractionNotes = "Update on progress and timeline.",
                     //            ContactId = 11,
-                    //            MemberID = 3,
+                    //           MemberId = 3,
                     //            OpportunityId = 11
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 1, 30),
-                    //            InteractionNote = "Follow-up on final proposal details.",
+                    //            InteractionNotes = "Follow-up on final proposal details.",
                     //            ContactId = 12,
-                    //            MemberID = 4,
+                    //           MemberId = 4,
                     //            OpportunityId = 12
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 2, 2),
-                    //            InteractionNote = "Final meeting before project launch.",
+                    //            InteractionNotes = "Final meeting before project launch.",
                     //            ContactId = 13,
-                    //            MemberID = 1,
+                    //           MemberId = 1,
                     //            OpportunityId = 13
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 2, 5),
-                    //            InteractionNote = "Confirming details of service agreement.",
+                    //            InteractionNotes = "Confirming details of service agreement.",
                     //            ContactId = 14,
-                    //            MemberID = 2,
+                    //           MemberId = 2,
                     //            OpportunityId = 14
                     //        },
                     //        new Interaction
                     //        {
                     //            InteractionDate = new DateTime(2025, 2, 7),
-                    //            InteractionNote = "Meeting to finalize documentation.",
+                    //            InteractionNotes = "Meeting to finalize documentation.",
                     //            ContactId = 3,
-                    //            MemberID = 3,
+                    //           MemberId = 3,
                     //            OpportunityId = 15
                     //        }
                     //    );
@@ -2115,14 +2169,14 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 CancellationDate = new DateTime(2025, 1, 5),
                                 Canceled = true,
                                 CancellationNote = "Member requested cancellation due to personal reasons.",
-                                MemberID = 1  // Assuming Member with Id 1 exists
+                               MemberID = 1  // Assuming Member with Id 1 exists
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 15),
                                 Canceled = true,
                                 CancellationNote = "Member canceled their subscription after failing to make payments.",
-                                MemberID = 2  // Assuming Member with Id 2 exists
+                               MemberID = 2  // Assuming Member with Id 2 exists
                             },
 
                             // 13 Non-Canceled records
@@ -2130,93 +2184,93 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                             {
                                 CancellationDate = new DateTime(2025, 1, 10),
                                 Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 3
+                                CancellationNote = "Good member, no cancellation.",
+                               MemberID = 3
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 12),
                                 Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 4
+                                CancellationNote = "Good member, no cancellation.",
+                               MemberID = 4
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 18),
                                 Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 5
+                                CancellationNote = "Good member, no cancellation.",
+                               MemberID = 5
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 20),
                                 Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 6
+                                CancellationNote = "Good member, no cancellation.",
+                               MemberID = 6
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 22),
                                 Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 7
+                                CancellationNote = "Good member, no cancellation.",
+                               MemberID = 7
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 25),
                                 Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 8
+                                CancellationNote = "Good member, no cancellation.",
+                               MemberID = 8
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 27),
                                 Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 9
+                                CancellationNote = "Good member, no cancellation.",
+                               MemberID = 9
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 30),
                                 Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 10
+                                CancellationNote = "Good member, no cancellation.",
+                               MemberID = 10
+                            },
+                            new Cancellation
+                            {
+                                CancellationDate = new DateTime(2025, 2, 1),
+                                Canceled = false,
+                                CancellationNote = "Good member, no cancellation.",
+                                MemberID = 11
+                            },
+                            new Cancellation
+                            {
+                                CancellationDate = new DateTime(2025, 2, 5),
+                                Canceled = false,
+                                CancellationNote = "Good member, no cancellation.",
+                                MemberID = 12
+                            },
+                            new Cancellation
+                            {
+                                CancellationDate = new DateTime(2025, 2, 10),
+                                Canceled = false,
+                                CancellationNote = "Good member, no cancellation.",
+                                MemberID = 13
+                            },
+                            new Cancellation
+                            {
+                                CancellationDate = new DateTime(2025, 2, 15),
+                                Canceled = false,
+                                CancellationNote = "Good member, no cancellation.",
+                                MemberID = 14
+                            },
+                            new Cancellation
+                            {
+                                CancellationDate = new DateTime(2025, 2, 18),
+                                Canceled = false,
+                                CancellationNote = "Good member, no cancellation.",
+                                MemberID = 15
                             }
-                            //new Cancellation
-                            //{
-                            //    CancellationDate = new DateTime(2025, 2, 1),
-                            //    Canceled = false,
-                            //    CancellationNote = "Active member, no cancellation.",
-                            //    MemberID = 11
-                            //},
-                            //new Cancellation
-                            //{
-                            //    CancellationDate = new DateTime(2025, 2, 5),
-                            //    Canceled = false,
-                            //    CancellationNote = "Active member, no cancellation.",
-                            //    MemberID = 12
-                            //},
-                            //new Cancellation
-                            //{
-                            //    CancellationDate = new DateTime(2025, 2, 10),
-                            //    Canceled = false,
-                            //    CancellationNote = "Active member, no cancellation.",
-                            //    MemberID = 13
-                            //},
-                            //new Cancellation
-                            //{
-                            //    CancellationDate = new DateTime(2025, 2, 15),
-                            //    Canceled = false,
-                            //    CancellationNote = "Active member, no cancellation.",
-                            //    MemberID = 14
-                            //},
-                            //new Cancellation
-                            //{
-                            //    CancellationDate = new DateTime(2025, 2, 18),
-                            //    Canceled = false,
-                            //    CancellationNote = "Active member, no cancellation.",
-                            //    MemberID = 15
-                            //}
                         );
                         context.SaveChanges();
 
@@ -2238,7 +2292,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                      EmailType = "Welcome Email",
                                      Subject = "Welcome to NIA!",
                                      Body = $"Dear {randomNames[0]},\n\nWelcome to the NIA community! We are thrilled to have you onboard. Please let us know if you need any assistance.\n\nBest regards,\nNIA Team",
-                                     //IsActive = true
+                                     //IsGood = true
                                  },
                                  new ProductionEmail
                                  {
@@ -2246,7 +2300,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                      EmailType = "Renewal Reminder",
                                      Subject = "Membership Renewal Reminder",
                                      Body = $"Dear {randomNames[1]},\n\nYour membership with NIA is about to expire on 2025-02-15. Please renew your membership to continue enjoying all the benefits.\n\nBest regards,\nNIA Team",
-                                     //IsActive = true
+                                     //IsGood = true
                                  },
                                  new ProductionEmail
                                  {
@@ -2254,7 +2308,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                      EmailType = "Cancellation Notice",
                                      Subject = "Membership Cancellation Confirmation",
                                      Body = $"Dear {randomNames[2]},\n\nWe are sorry to see you go. Your membership has been successfully canceled. If you change your mind in the future, we’d love to have you back.\n\nBest regards,\nNIA Team",
-                                     //IsActive = true
+                                     //IsGood = true
                                  },
                                  new ProductionEmail
                                  {
@@ -2262,7 +2316,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                      EmailType = "Membership Update",
                                      Subject = "Important Membership Update",
                                      Body = $"Dear {randomNames[3]},\n\nWe would like to inform you of an important update regarding your membership status. Please log in to your account for more details.\n\nBest regards,\nNIA Team",
-                                     //IsActive = true
+                                     //IsGood = true
                                  },
                                  new ProductionEmail
                                  {
@@ -2270,10 +2324,86 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                      EmailType = "General Notification",
                                      Subject = "NIA System Update",
                                      Body = $"Dear {randomNames[4]},\n\nThis is a notification regarding a recent update to the NIA system. We encourage you to check out the new features and improvements.\n\nBest regards,\nNIA Team",
-                                     //IsActive = true
+                                     //IsGood = true
                                  });
                             context.SaveChanges();
                         }
+
+
+                        //new MemberNote
+                        //{
+                        //    Id = 1,
+                        //    MemberId = 1,
+                        //    Note = "Initial onboarding discussion with the client about the new CRM implementation project.",
+                        //    CreatedAt = DateTime.Now.AddDays(-30)
+                        //},
+                        //    new MemberNote
+                        //    {
+                        //        Id = 2,
+                        //        MemberId = 2,
+                        //        Note = "Client follow-up meeting to discuss the status of the CRM project.",
+                        //        CreatedAt = DateTime.Now.AddDays(-20)
+                        //    },
+                        //    new MemberNote
+                        //    {
+                        //        Id = 3,
+                        //        MemberId = 3,
+                        //        Note = "Reviewed the feedback provided by the client regarding the CRM customization.",
+                        //        CreatedAt = DateTime.Now.AddDays(-15)
+                        //    },
+                        //    new MemberNote
+                        //    {
+                        //        Id = 4,
+                        //        MemberId = 4,
+                        //        Note = "Final meeting to present the completed CRM project and gather client feedback.",
+                        //        CreatedAt = DateTime.Now.AddDays(-5)
+                        //    },
+                        //    new MemberNote
+                        //    {
+                        //        Id = 5,
+                        //        MemberId = 5,
+                        //        Note = "Discussed potential upgrades to the CRM system and next steps for implementation.",
+                        //        CreatedAt = DateTime.Now.AddDays(-1)
+                        //    }
+                        //);
+
+
+                        //new ContactNote
+                        //{
+                        //    Id = 1,
+                        //    ContactId = 1,
+                        //    Note = "Followed up with the client regarding additional customization needs for the CRM system.",
+                        //    CreatedAt = DateTime.Now.AddDays(-25)
+                        //},
+                    //    new ContactNote
+                    //    {
+                    //        Id = 2,
+                    //        ContactId = 2,
+                    //        Note = "Provided the client with a detailed overview of CRM features during the demonstration.",
+                    //        CreatedAt = DateTime.Now.AddDays(-18)
+                    //    },
+                    //    new ContactNote
+                    //    {
+                    //        Id = 3,
+                    //        ContactId = 3,
+                    //        Note = "Client requested a new feature to track employee performance metrics.",
+                    //        CreatedAt = DateTime.Now.AddDays(-12)
+                    //    },
+                    //    new ContactNote
+                    //    {
+                    //        Id = 4,
+                    //        ContactId = 4,
+                    //        Note = "Inquired about potential integrations with the existing HR software.",
+                    //        CreatedAt = DateTime.Now.AddDays(-7)
+                    //    },
+                    //    new ContactNote
+                    //    {
+                    //        Id = 5,
+                    //        ContactId = 5,
+                    //        Note = "Arranged a meeting to discuss possible CRM upgrade options and pricing.",
+                    //        CreatedAt = DateTime.Now.AddDays(-2)
+                    //    }
+                    //);
                     }
                 }
                 catch (Exception ex)
