@@ -210,38 +210,38 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                             JoinDate = new DateTime(2021, 6, 15),
                             StandingStatus = StandingStatus.Good,
                             Addresses = new List<Address>  // Correctly initialize Addresses as a collection
-    {
-        new Address
-        {
-            AddressLine1 = "123 Elm St",
-            AddressLine2 = "Apt 4B",
-            City = "Metaltown",
-            StateProvince = "Metal State",
-            PostalCode = "M1E2L3",
-            Country = "USA"
-        }
-    }
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "123 Elm St",
+                                    AddressLine2 = "Apt 4B",
+                                    City = "Metaltown",
+                                    StateProvince = "Metal State",
+                                    PostalCode = "M1E2L3",
+                                    Country = "USA"
+                                }
+                            }
                         },
                         new Member
                         {
                             ID = 2,
                             MemberFirstName = "Jane",
-                            
+
                             MemberLastName = "Smith",
                             JoinDate = new DateTime(2022, 1, 20),
                             StandingStatus = StandingStatus.Inactive,
                             Addresses = new List<Address>  // Initialize as a list
-{
-    new Address
-    {
-        AddressLine1 = "456 Oak Ave",
-        AddressLine2 = null,
-        City = "Ironville",
-        StateProvince = "Steel Province",
-        PostalCode = "I2R3O4",
-        Country = "Canada"
-    }
-}
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "456 Oak Ave",
+                                    AddressLine2 = null,
+                                    City = "Ironville",
+                                    StateProvince = "Steel Province",
+                                    PostalCode = "I2R3O4",
+                                    Country = "Canada"
+                                }
+                            }
 
 
                         },
@@ -249,44 +249,44 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             ID = 3,
                             MemberFirstName = "Robert",
-                            
+
                             MemberLastName = "Johnson",
                             JoinDate = new DateTime(2023, 3, 12),
                             StandingStatus = StandingStatus.Cancelled,
                             Addresses = new List<Address>  // Initialize as a list
-{
-    new Address
-    {
-        AddressLine1 = "789 Pine Rd",
-        AddressLine2 = "Suite 302",
-        City = "Steelton",
-        StateProvince = "Metal Zone",
-        PostalCode = "S3T4E5",
-        Country = "UK"
-    }
-}
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "789 Pine Rd",
+                                    AddressLine2 = "Suite 302",
+                                    City = "Steelton",
+                                    StateProvince = "Metal Zone",
+                                    PostalCode = "S3T4E5",
+                                    Country = "UK"
+                                }
+                            }
 
                         },
                         new Member
                         {
                             ID = 4,
                             MemberFirstName = "Emily",
-                            
+
                             MemberLastName = "Davis",
                             JoinDate = new DateTime(2022, 8, 8),
                             StandingStatus = StandingStatus.Good,
                             Addresses = new List<Address>  // Initialize as a list
-{
-    new Address
-    {
-        AddressLine1 = "789 Pine Rd",  // Corrected property name as per your requirement
-        AddressLine2 = "Suite 302",   // Corrected property name as per your requirement
-        City = "Steelton",
-        StateProvince = "Metal Zone",
-        PostalCode = "S3T4E5",
-        Country = "UK"
-    }
-}
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "789 Pine Rd",  // Corrected property name as per your requirement
+                                    AddressLine2 = "Suite 302",   // Corrected property name as per your requirement
+                                    City = "Steelton",
+                                    StateProvince = "Metal Zone",
+                                    PostalCode = "S3T4E5",
+                                    Country = "UK"
+                                }
+                            }
 
                         },
                         new Member
@@ -298,61 +298,61 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                             JoinDate = new DateTime(2020, 5, 10),
                             StandingStatus = StandingStatus.Good,
                             Addresses = new List<Address>  // Initialize as a list
-{
-    new Address
-    {
-        AddressLine1 = "201 Maple Street",  // Correct property name
-        AddressLine2 = "Unit 101",          // Correct property name
-        City = "Copperville",
-        StateProvince = "Metalland",
-        PostalCode = "C2P1E1",
-        Country = "USA"
-    }
-}
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "201 Maple Street",  // Correct property name
+                                    AddressLine2 = "Unit 101",          // Correct property name
+                                    City = "Copperville",
+                                    StateProvince = "Metalland",
+                                    PostalCode = "C2P1E1",
+                                    Country = "USA"
+                                }
+                            }
 
                         },
                         new Member
                         {
                             ID = 6,
                             MemberFirstName = "Sarah",
-                            
+
                             MemberLastName = "Johnson",
                             JoinDate = new DateTime(2021, 9, 15),
                             StandingStatus = StandingStatus.Inactive,
                             Addresses = new List<Address>  // Initialize as a list
-{
-    new Address
-    {
-        AddressLine1 = "543 Cedar Lane",  // Correct property name
-        AddressLine2 = null,              // Correct property name
-        City = "Ironcrest",
-        StateProvince = "Steelstate",
-        PostalCode = "I3N4O5",
-        Country = "Canada"
-    }
-}
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "543 Cedar Lane",  // Correct property name
+                                    AddressLine2 = null,              // Correct property name
+                                    City = "Ironcrest",
+                                    StateProvince = "Steelstate",
+                                    PostalCode = "I3N4O5",
+                                    Country = "Canada"
+                                }
+                            }
 
                         },
                         new Member
                         {
                             ID = 7,
                             MemberFirstName = "William",
-                            
+
                             MemberLastName = "Taylor",
                             JoinDate = new DateTime(2019, 4, 20),
                             StandingStatus = StandingStatus.Good,
                             Addresses = new List<Address>  // Initialize as a list
-{
-    new Address
-    {
-        AddressLine1 = "15 Granite Road",  // Correct property name
-        AddressLine2 = "Suite 205",       // Correct property name
-        City = "Minerstown",
-        StateProvince = "Ore County",
-        PostalCode = "G1R2A8",
-        Country = "UK"
-    }
-}
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "15 Granite Road",  // Correct property name
+                                    AddressLine2 = "Suite 205",       // Correct property name
+                                    City = "Minerstown",
+                                    StateProvince = "Ore County",
+                                    PostalCode = "G1R2A8",
+                                    Country = "UK"
+                                }
+                            }
 
                         },
                         new Member
@@ -364,17 +364,17 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                             JoinDate = new DateTime(2023, 1, 1),
                             StandingStatus = StandingStatus.Cancelled,
                             Addresses = new List<Address>  // Initialize as a list
-{
-    new Address
-    {
-        AddressLine1 = "876 Redwood Drive",  // Correct property name
-        AddressLine2 = null,                 // Correct property name
-        City = "Steelville",
-        StateProvince = "Forge State",
-        PostalCode = "R4D6W2",
-        Country = "USA"
-    }
-}
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "876 Redwood Drive",  // Correct property name
+                                    AddressLine2 = null,                 // Correct property name
+                                    City = "Steelville",
+                                    StateProvince = "Forge State",
+                                    PostalCode = "R4D6W2",
+                                    Country = "USA"
+                                }
+                            }
 
                         },
                         new Member
@@ -386,17 +386,17 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                             JoinDate = new DateTime(2022, 6, 30),
                             StandingStatus = StandingStatus.Good,
                             Addresses = new List<Address>  // Initialize as a list
-{
-    new Address
-    {
-        AddressLine1 = "654 Willow Avenue",  // Correct property name
-        AddressLine2 = "Floor 3",            // Correct property name
-        City = "Ironworks",
-        StateProvince = "Steel Kingdom",
-        PostalCode = "W2L5A7",
-        Country = "Australia"
-    }
-}
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "654 Willow Avenue",  // Correct property name
+                                    AddressLine2 = "Floor 3",            // Correct property name
+                                    City = "Ironworks",
+                                    StateProvince = "Steel Kingdom",
+                                    PostalCode = "W2L5A7",
+                                    Country = "Australia"
+                                }
+                            }
 
                         },
                         new Member
@@ -408,17 +408,17 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                             JoinDate = new DateTime(2020, 2, 25),
                             StandingStatus = StandingStatus.Inactive,
                             Addresses = new List<Address>  // Initialize as a list
-{
-    new Address
-    {
-        AddressLine1 = "99 Ash Boulevard",
-        AddressLine2 = "Building A",
-        City = "Metaltown",
-        StateProvince = "Steel Nation",
-        PostalCode = "A9H4L2",
-        Country = "Canada"
-    }
-}
+                            {
+                                new Address
+                                {
+                                    AddressLine1 = "99 Ash Boulevard",
+                                    AddressLine2 = "Building A",
+                                    City = "Metaltown",
+                                    StateProvince = "Steel Nation",
+                                    PostalCode = "A9H4L2",
+                                    Country = "Canada"
+                                }
+                            }
 
                         }
                         //new Member
@@ -1197,7 +1197,7 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
     new MemberIndustry { MemberId = 8, IndustryId = 8 },
     new MemberIndustry { MemberId = 9, IndustryId = 9 },
     new MemberIndustry { MemberId = 10, IndustryId = 10 });
-                        context.SaveChanges( );
+                        context.SaveChanges();
                     }
                     if (!context.MemberMembershipTypes.Any())
                     {
@@ -1786,13 +1786,13 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Phone = "5557766554",
                                 LinkedInUrl = "https://www.linkedin.com/in/chloemartin",
                                 IsVip = true,
-                                MemberId=4
+                                MemberId = 4
                             }
                         );
                         context.SaveChanges();
                     }
 
-                 
+
                     //if (!context.Opportunities.Any())
                     //{
                     //    context.Opportunities.AddRange(
@@ -2181,42 +2181,42 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                                 Canceled = false,
                                 CancellationNote = "Active member, no cancellation.",
                                 MemberID = 10
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 2, 1),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 11
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 2, 5),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 12
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 2, 10),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 13
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 2, 15),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 14
-                            },
-                            new Cancellation
-                            {
-                                CancellationDate = new DateTime(2025, 2, 18),
-                                Canceled = false,
-                                CancellationNote = "Active member, no cancellation.",
-                                MemberID = 15
                             }
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 2, 1),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 11
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 2, 5),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 12
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 2, 10),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 13
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 2, 15),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 14
+                            //},
+                            //new Cancellation
+                            //{
+                            //    CancellationDate = new DateTime(2025, 2, 18),
+                            //    Canceled = false,
+                            //    CancellationNote = "Active member, no cancellation.",
+                            //    MemberID = 15
+                            //}
                         );
                         context.SaveChanges();
 
@@ -2226,9 +2226,9 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
                         {
                             // Random member names to be used in the Email content
                             var randomNames = new List<string>
-        {
-            "John Doe", "Jane Smith", "Robert Johnson", "Emily Davis", "Michael Brown"
-        };
+                            {
+                                "John Doe", "Jane Smith", "Robert Johnson", "Emily Davis", "Michael Brown"
+                            };
 
                             // Seeding predefined production Email templates with random member names
                             context.ProductionEmails.AddRange(
@@ -2288,6 +2288,6 @@ new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 
 
         }
 
-        
+
     }
 }

@@ -146,23 +146,27 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")] Member member)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id != member.ID)
+            var memberToUpdate = await _context.Members.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (memberToUpdate == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            // Try update model approach
+            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberFirstName, m => m.MemberMiddleName, m => m.MemberLastName, m => m.JoinDate, m => m.StandingStatus))
             {
                 try
                 {
-                    _context.Update(member);
+                    _context.Update(memberToUpdate);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MemberExists(member.ID))
+                    if (!MemberExists(memberToUpdate.ID))
                     {
                         return NotFound();
                     }
@@ -171,9 +175,15 @@ namespace NIA_CRM.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                catch (DbUpdateException dex)
+                {
+                    string message = dex.GetBaseException().Message;
+
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+
+                }
             }
-            return View(member);
+            return View(memberToUpdate);
         }
 
         // GET: Member/Delete/5

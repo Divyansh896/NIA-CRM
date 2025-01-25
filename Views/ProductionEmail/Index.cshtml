@@ -6,46 +6,98 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table" aria-labelledby="table-title">
-    <caption id="table-title" class="sr-only">Email Records Table</caption>
-    <thead>
-        <tr>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.EmailType)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.Subject)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.Body)
-            </th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmailType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subject)
-                </td>
-                <td>
-                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" aria-label="Email body preview">
-                        @Html.DisplayFor(modelItem => item.Body)
+
+<div class="d-flex flex-row align-items-center justify-content-between mb-4">
+    <h1 class="mb-0" id="Email-title">Emails</h1>
+    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new Email">+ Add Email</a>
+</div>
+
+<form asp-action="Index" method="get" aria-labelledby="contacts-title">
+    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
+    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+
+    <div class="d-flex flex-row position-relative overflow-hidden">
+        <!-- Filter/Search Section -->
+        <div class="m-auto flex-grow-1">
+            <div class="form-horizontal">
+                <button class="btn @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
+                        data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter"
+                        aria-label="Toggle filter and search options">
+                    Filter/Search @ViewData["numberFilters"]
+                </button>
+                <br />
+                <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
+                    <div class="card card-body bg-light">
+                        <div class="row">
+                            @* <div class="form-group col-md-3"> *@
+                            @*     <label for="search-name" class="control-label">Search By Name:</label> *@
+                            @*     @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name" }) *@
+                            @* </div> *@
+
+                            <div class="form-group col-md-3">
+                                <label for="filter-email" class="control-label">Filter By Email Type:</label>
+                                @Html.DropDownList("EmailTypeID", null, "All Email Types", htmlAttributes: new { @class = "form-control", id = "filter-email" })
+                            </div>
+
+                            @* <div class="form-group col-md-3"> *@
+                            @*     <label for="filter-department" class="control-label">Filter by Department:</label> *@
+                            @*     @Html.DropDownList("Departments", null, "All Departments", htmlAttributes: new { @class = "form-control", id = "filter-department" }) *@
+                            @* </div> *@
+
+                            @* <div class="form-group col-md-2"> *@
+                            @*     <label class="control-label" for="OnlyVIP">Only VIPs</label> *@
+                            @*     @Html.CheckBox("IsVIP", htmlAttributes: new { @class = "form-check-input", id = "OnlyVIP" }) *@
+                            @* </div> *@
+
+                            <div class="form-group col-md-2 align-self-end mt-2">
+                                <input type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary" />
+                                <a asp-action="Index" class="btn btn-outline-dark" aria-label="Clear all filters">Clear</a>
+                            </div>
+                        </div>
                     </div>
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" aria-label="Edit email of type @item.EmailType with subject @item.Subject">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" aria-label="View details of email of type @item.EmailType with subject @item.Subject">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" aria-label="Delete email of type @item.EmailType with subject @item.Subject">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </div>
+            </div>
+            <table class="table" aria-labelledby="table-title">
+                <caption id="table-title" class="sr-only">Email Records Table</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <input type="submit" name="actionButton" value="Email Type" class="btn btn-link" aria-label="Sort by Email Type" />
+
+                        </th>
+                        <th scope="col">
+                            <input type="submit" name="actionButton" value="Subject" class="btn btn-link" aria-label="Sort by Subject" />
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Body)
+                        </th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmailType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Subject)
+                            </td>
+                            <td>
+                                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" aria-label="Email body preview">
+                                    @Html.DisplayFor(modelItem => item.Body)
+                                </div>
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id" aria-label="Edit email of type @item.EmailType with subject @item.Subject">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id" aria-label="View details of email of type @item.EmailType with subject @item.Subject">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id" aria-label="Delete email of type @item.EmailType with subject @item.Subject">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

@@ -174,23 +174,31 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,MiddleName,LastName,Title,Department,Email,Phone,LinkedInUrl,IsVip,MemberId")] Contact contact)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id != contact.Id)
+            var ContactToUpdate = await _context.Contacts.FirstOrDefaultAsync(m => m.Id == id);
+
+
+            if (ContactToUpdate == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            // Try update model approach
+            if (await TryUpdateModelAsync<Contact>(ContactToUpdate, "",
+                c => c.FirstName, c => c.MiddleName, c => c.LastName, c => c.Title, c => c.Department,
+                c => c.Email, c => c.Phone, c => c.LinkedInUrl, c => c.IsVip, c => c.MemberId))
             {
                 try
                 {
-                    _context.Update(contact);
+                    _context.Update(ContactToUpdate);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContactExists(contact.Id))
+                    if (!ContactExists(ContactToUpdate.Id))
                     {
                         return NotFound();
                     }
@@ -199,10 +207,15 @@ namespace NIA_CRM.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                catch (DbUpdateException dex)
+                {
+                    string message = dex.GetBaseException().Message;
+
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+
+                }
             }
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
-            return View(contact);
+            return View(ContactToUpdate);
         }
 
         // GET: Contact/Delete/5
