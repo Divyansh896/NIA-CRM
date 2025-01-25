@@ -215,6 +215,27 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
+                name: "MemberLogos",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Content = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    MemberID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MemberLogos", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_MemberLogos_Members_MemberID",
+                        column: x => x.MemberID,
+                        principalTable: "Members",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MemberNote",
                 columns: table => new
                 {
@@ -230,6 +251,27 @@ namespace NIA_CRM.Data.NIACRMigration
                     table.ForeignKey(
                         name: "FK_MemberNote_Members_MemberId",
                         column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MemebrThumbnails",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Content = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    MemberID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MemebrThumbnails", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_MemebrThumbnails_Members_MemberID",
+                        column: x => x.MemberID,
                         principalTable: "Members",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -430,6 +472,12 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "MemberId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MemberLogos_MemberID",
+                table: "MemberLogos",
+                column: "MemberID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MemberMembershipTypes_MembershipTypeId",
                 table: "MemberMembershipTypes",
                 column: "MembershipTypeId");
@@ -438,6 +486,12 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "IX_MemberNote_MemberId",
                 table: "MemberNote",
                 column: "MemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MemebrThumbnails_MemberID",
+                table: "MemebrThumbnails",
+                column: "MemberID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Opportunities_IndustryId",
@@ -470,10 +524,16 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "MemberIndustries");
 
             migrationBuilder.DropTable(
+                name: "MemberLogos");
+
+            migrationBuilder.DropTable(
                 name: "MemberMembershipTypes");
 
             migrationBuilder.DropTable(
                 name: "MemberNote");
+
+            migrationBuilder.DropTable(
+                name: "MemebrThumbnails");
 
             migrationBuilder.DropTable(
                 name: "ProductionEmails");

@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250124214237_Initial")]
+    [Migration("20250125010632_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -314,6 +314,30 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.ToTable("MemberIndustries");
                 });
 
+            modelBuilder.Entity("NIA_CRM.Models.MemberLogo", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Content")
+                        .HasColumnType("BLOB");
+
+                    b.Property<int>("MemberID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("MimeType")
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MemberID")
+                        .IsUnique();
+
+                    b.ToTable("MemberLogos");
+                });
+
             modelBuilder.Entity("NIA_CRM.Models.MemberMembershipType", b =>
                 {
                     b.Property<int>("MemberId")
@@ -353,6 +377,30 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasIndex("MemberId");
 
                     b.ToTable("MemberNote");
+                });
+
+            modelBuilder.Entity("NIA_CRM.Models.MemberThumbnail", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Content")
+                        .HasColumnType("BLOB");
+
+                    b.Property<int>("MemberID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("MimeType")
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MemberID")
+                        .IsUnique();
+
+                    b.ToTable("MemebrThumbnails");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.MembershipType", b =>
@@ -594,6 +642,17 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Navigation("Member");
                 });
 
+            modelBuilder.Entity("NIA_CRM.Models.MemberLogo", b =>
+                {
+                    b.HasOne("NIA_CRM.Models.Member", "Member")
+                        .WithOne("MemberLogo")
+                        .HasForeignKey("NIA_CRM.Models.MemberLogo", "MemberID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Member");
+                });
+
             modelBuilder.Entity("NIA_CRM.Models.MemberMembershipType", b =>
                 {
                     b.HasOne("NIA_CRM.Models.Member", "Member")
@@ -618,6 +677,17 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasOne("NIA_CRM.Models.Member", "Member")
                         .WithMany("MemberNotes")
                         .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Member");
+                });
+
+            modelBuilder.Entity("NIA_CRM.Models.MemberThumbnail", b =>
+                {
+                    b.HasOne("NIA_CRM.Models.Member", "Member")
+                        .WithOne("MemberThumbnail")
+                        .HasForeignKey("NIA_CRM.Models.MemberThumbnail", "MemberID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -667,9 +737,13 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.Navigation("MemberIndustries");
 
+                    b.Navigation("MemberLogo");
+
                     b.Navigation("MemberMembershipTypes");
 
                     b.Navigation("MemberNotes");
+
+                    b.Navigation("MemberThumbnail");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.MembershipType", b =>

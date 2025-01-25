@@ -1,5 +1,25 @@
 ﻿
 /* responsive.css */
+/* NIA Logo Css*/
+.card-body {
+    border-radius: 20px;
+    background-color: #A61C1C;
+}
+
+.card title {
+    color: #ffffff;
+}
+
+.card p{
+    color: #ffffff;
+}
+/* Logo container */
+
+/* Logo image */
+.logo {
+    max-height: 150px; /* Adjust size as needed */
+    width: auto;
+}
 
 /*root css*/
 /* Sidebar */

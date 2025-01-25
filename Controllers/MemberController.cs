@@ -28,7 +28,10 @@ namespace NIA_CRM.Controllers
             string[] sortOptions = { "Member Name", "Industry" };
             int numberFilters = 0;
 
-            var members = _context.Members.AsNoTracking();
+            var members = _context.Members
+                .Include(m => m.MemberThumbnail)
+            .AsNoTracking();
+                
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
             {
@@ -94,6 +97,7 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
+                .Include(m => m.MemberLogo)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -114,10 +118,12 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")] Member member)
+        public async Task<IActionResult> Create([Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")] 
+        Member member, IFormFile? thePicture)
         {
             if (ModelState.IsValid)
             {
+                await AddPicture(member, thePicture);
                 _context.Add(member);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -133,7 +139,9 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Members.FindAsync(id);
+            var member = await _context.Members
+                .Include(m => m.MemberLogo)
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
                 return NotFound();
@@ -146,8 +154,10 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")] Member member)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")] 
+        Member member, string? chkRemoveImage, IFormFile? thePicture)
         {
+
             if (id != member.ID)
             {
                 return NotFound();
@@ -157,6 +167,7 @@ namespace NIA_CRM.Controllers
             {
                 try
                 {
+                    
                     _context.Update(member);
                     await _context.SaveChangesAsync();
                 }
@@ -185,6 +196,7 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
+                .Include(m => m.MemberLogo)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -207,6 +219,52 @@ namespace NIA_CRM.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task AddPicture(Member member, IFormFile thePicture)
+        {
+            //Get the picture and save it with the Patient (2 sizes)
+            if (thePicture != null)
+            {
+                string mimeType = thePicture.ContentType;
+                long fileLength = thePicture.Length;
+                if (!(mimeType == "" || fileLength == 0))//Looks like we have a file!!!
+                {
+                    if (mimeType.Contains("image"))
+                    {
+                        using var memoryStream = new MemoryStream();
+                        await thePicture.CopyToAsync(memoryStream);
+                        var pictureArray = memoryStream.ToArray();//Gives us the Byte[]
+
+                        //Check if we are replacing or creating new
+                        if (member.MemberLogo != null)
+                        {
+                            //We already have pictures so just replace the Byte[]
+                            member.MemberLogo.Content = ResizeImage.ShrinkImageWebp(pictureArray, 500, 600);
+
+                            //Get the Thumbnail so we can update it.  Remember we didn't include it
+                            member.MemberThumbnail = _context.MemebrThumbnails.Where(p => p.MemberID == member.ID).FirstOrDefault();
+                            if (member.MemberThumbnail != null)
+                            {
+                                member.MemberThumbnail.Content = ResizeImage.ShrinkImageWebp(pictureArray, 75, 90);
+                            }
+                        }
+                        else //No pictures saved so start new
+                        {
+                            member.MemberLogo = new MemberLogo
+                            {
+                                Content = ResizeImage.ShrinkImageWebp(pictureArray, 500, 600),
+                                MimeType = "image/webp"
+                            };
+                            member.MemberThumbnail = new MemberThumbnail
+                            {
+                                Content = ResizeImage.ShrinkImageWebp(pictureArray, 75, 90),
+                                MimeType = "image/webp"
+                            };
+                        }
+                    }
+                }
+            }
         }
 
         private bool MemberExists(int id)
