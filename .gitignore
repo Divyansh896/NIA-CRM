@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /NIA_CRM.db
+/NIA_CRM.db-shm
+/NIA_CRM.db-wal
+/.gitignore
