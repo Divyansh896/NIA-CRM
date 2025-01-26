@@ -39,9 +39,15 @@
         color: white;
     }
 
-.otherPic {
-    max-height: 425px;
+.btn-dark {
+    background-color: #434343 !important;
 }
+    .btn-dark:hover {
+        background-color: #434343 !important;
+    }
+    .otherPic {
+        max-height: 425px;
+    }
 
 body {
     font-family: 'Open Sans', sans-serif;

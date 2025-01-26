@@ -82,7 +82,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+                <th class="table-head">
                 <!--Empty column for logo-->
             </th>
                 
@@ -92,7 +92,6 @@
                 <th scope="col" class="table-head">Membership Type</th>
 
                 <th scope="col" class="table-head">Standing Status</th>
-                <th></th>
         </tr>
     </thead>
     <tbody>
@@ -154,11 +153,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.StandingStatus)
             </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ID" aria-label="Edit contact @item.MemberFirstName @item.MemberLastName">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ID" aria-label="View details of contact item.MemberFirstName @item.MemberLastName">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ID" aria-label="Delete contact item.MemberFirstName @item.MemberLastName">Delete</a>
-                    </td>
+                    
         </tr>
 }
     </tbody>

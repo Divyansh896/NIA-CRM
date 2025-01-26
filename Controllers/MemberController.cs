@@ -280,7 +280,7 @@ namespace NIA_CRM.Controllers
                             member.MemberThumbnail = _context.MemebrThumbnails.Where(p => p.MemberID == member.ID).FirstOrDefault();
                             if (member.MemberThumbnail != null)
                             {
-                                member.MemberThumbnail.Content = ResizeImage.ShrinkImageWebp(pictureArray, 75, 90);
+                                member.MemberThumbnail.Content = ResizeImage.ShrinkImageWebp(pictureArray, 115, 125);
                             }
                         }
                         else //No pictures saved so start new
@@ -292,7 +292,7 @@ namespace NIA_CRM.Controllers
                             };
                             member.MemberThumbnail = new MemberThumbnail
                             {
-                                Content = ResizeImage.ShrinkImageWebp(pictureArray, 75, 90),
+                                Content = ResizeImage.ShrinkImageWebp(pictureArray, 115, 125),
                                 MimeType = "image/webp"
                             };
                         }
