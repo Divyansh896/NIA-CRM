@@ -4,43 +4,43 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Cancellations</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="d-flex flex-row align-items-center justify-content-between mb-4">
+    <h1 id="Cancellation-title">Cancellations</h1>
+    <a asp-action="Create" class="btn btn-primary"> New Cancellation</a>
+</div>
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
 
-<table class="table table-bordered table-striped" id="cancellations-table" aria-label="Cancellations">
-    <caption class="sr-only">Table listing cancellations with their details</caption>
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">@Html.DisplayNameFor(model => model.CancellationDate)</th>
-            <th scope="col">@Html.DisplayNameFor(model => model.Canceled)</th>
-            <th scope="col">@Html.DisplayNameFor(model => model.CancellationNote)</th>
-            <th scope="col">@Html.DisplayNameFor(model => model.Member)</th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table table-bordered table-striped" id="cancellations-table" aria-label="Cancellations">
+        <caption class="sr-only">Table listing cancellations with their details</caption>
+        <thead class="thead-dark">
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.CancellationDate)</td>
-                <td>@Html.DisplayFor(modelItem => item.Canceled)</td>
-                <td>@Html.DisplayFor(modelItem => item.CancellationNote)</td>
-                <td>@Html.DisplayFor(modelItem => item.Member.MemberFirstName)</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID" aria-label="Edit cancellation for @item.Member.MemberFirstName">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID" aria-label="View details of cancellation for @item.Member.MemberFirstName">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID" aria-label="Delete cancellation for @item.Member.MemberFirstName">Delete</a>
-                </td>
+                <th scope="col">@Html.DisplayNameFor(model => model.CancellationDate)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Canceled)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CancellationNote)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Member)</th>
+                <th scope="col">Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.CancellationDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Canceled)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CancellationNote)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Member.MemberFirstName)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID" aria-label="Edit cancellation for @item.Member.MemberFirstName">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID" aria-label="View details of cancellation for @item.Member.MemberFirstName">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID" aria-label="Delete cancellation for @item.Member.MemberFirstName">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
     <partial name="_PagingNavBar" />
 
 </form>
