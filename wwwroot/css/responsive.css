@@ -197,9 +197,7 @@ color: #ffffff;
     .row {
         flex-direction: column;
     }
-    .card-body {
-        margin-top: 0;
-    }
+   
 }
 /* Tablets */
 @media (min-width: 769px) and (max-width: 1024px) {
