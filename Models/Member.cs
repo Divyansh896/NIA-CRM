@@ -44,10 +44,12 @@ namespace NIA_CRM.Models
         [StringLength(100, ErrorMessage = "Member last name cannot be more than 255 characters long.")]
         public string MemberLastName { get; set; } = "";
 
+        [Display(Name = "Join Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? JoinDate { get; set; }
 
+        [Display(Name = "Standing Status")]
         [Required(ErrorMessage = "You must select the standing status.")]
         public StandingStatus StandingStatus { get; set; }
 
