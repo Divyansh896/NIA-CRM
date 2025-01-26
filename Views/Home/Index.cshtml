@@ -109,7 +109,8 @@
         <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
             <thead class="thead-dark">
                 <tr>
-                    <th><!--Empty header for logos --></th>
+
+                    <th class="table-head-static"><!--Empty header for logos --></th>
                     
                     <th scope="col" class="table-head-static">
                         <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member name" />
@@ -132,8 +133,8 @@
             <tbody>
                 @foreach (var member in Model)
                 {
-                    <tr class="clickable-row" data-id="@member.ID">
-                        <td>
+                    <tr class="clickable-row" data-id="@member.ID" title="Click on row to get preview">
+                        <td class="table-row-static">
                             @{
                                 if (member.MemberThumbnail?.Content != null)
                                 {
@@ -142,9 +143,15 @@
                                     <img src="@imageSrc" alt="Profile Picture of @member?.Summary"
                                          title="Profile Picture of @member?.Summary" class="img-fluid rounded" />
                                 }
+                                else
+            {
+
+                <img src="images/blankProfile.jpg" alt="blank profile picture"
+                     title="blank profile picture" class="img-fluid rounded" />
+            }
                             }
                         </td>
-                        <td class="table-row-static">@member.MemberFirstName</td>
+                        <td >@member.MemberFirstName</td>
                         
                         <td>
                             @if (member.MemberIndustries != null)

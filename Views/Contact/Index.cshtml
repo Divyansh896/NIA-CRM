@@ -81,7 +81,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr class="clickable-row" data-id="@item.Id">
+                        <tr class="clickable-row" data-id="@item.Id" title="Click on row to get preview">
                             <td>@Html.DisplayFor(modelItem => item.Summary)</td>
                             <td>@Html.DisplayFor(modelItem => item.Title)</td>
                             <td>@Html.DisplayFor(modelItem => item.Department)</td>
