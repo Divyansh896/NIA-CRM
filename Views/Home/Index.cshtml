@@ -16,7 +16,7 @@
 
         <!-- Card 1 -->
         <div class="col-md-4">
-            <div class="card" role="group" aria-labelledby="total-members-title">
+            <div class="card text-light" role="group" aria-labelledby="total-members-title">
                 <div class="card-body text-center">
                     <p class="card-title" id="total-members-title" role="heading" aria-level="3">Total Members</p>
                     <p class="card-text" aria-live="polite">@Model.Count()</p>
@@ -26,7 +26,7 @@
 
         <!-- Card 2 -->
         <div class="col-md-4">
-            <div class="card" role="group" aria-labelledby="members-copperport-title">
+            <div class="card text-light" role="group" aria-labelledby="members-copperport-title">
                 <div class="card-body text-center">
                     <p class="card-title" id="members-copperport-title" role="heading" aria-level="3">Members in Copperport</p>
                     <p class="card-text" aria-live="polite">@Model.Count(m => m.Addresses.Any(a => a.City == "Copperport"))</p>
@@ -36,7 +36,7 @@
 
         <!-- Card 3 -->
         <div class="col-md-4">
-            <div class="card" role="group" aria-labelledby="vip-clients-title">
+            <div class="card text-light" role="group" aria-labelledby="vip-clients-title">
                 <div class="card-body text-center">
                     <p class="card-title" id="vip-clients-title" role="heading" aria-level="3">VIP Clients</p>
                     <p class="card-text" aria-live="polite">@ViewData["VipCount"]</p>
@@ -102,9 +102,7 @@
             <thead class="thead-dark">
                 <tr>
                     <th><!--Empty header for logos --></th>
-                    <th class="table-head-static">
-                        <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member Name" />
-                    </th>
+                    
 
                     <th scope="col" class="table-head">
                         <input type="submit" name="actionButton" value="Industry" class="btn btn-link" aria-label="Sort by Industry" />
@@ -135,7 +133,7 @@
                                 }
                             }
                         </td>
-                        <td class="table-row-static">@member.MemberFirstName</td>
+                        
                         <td>
                             @if (member.MemberIndustries != null)
                             {

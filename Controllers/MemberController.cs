@@ -30,6 +30,10 @@ namespace NIA_CRM.Controllers
 
             var members = _context.Members
                 .Include(m => m.MemberThumbnail)
+                .Include(m =>m.Addresses)
+                .Include(m => m.MemberMembershipTypes).ThenInclude(m=>m.MembershipType)
+                .Include(m => m.MemberNotes)
+                .Include(m=>m.MemberIndustries).ThenInclude(m=>m.Industry)
             .AsNoTracking();
                 
 
@@ -97,7 +101,11 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
-                .Include(m => m.MemberLogo)
+                .Include(m => m.Addresses)
+                .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+                .Include(m => m.MemberNotes)
+                .Include(m => m.MemberIndustries).ThenInclude(m => m.Industry)
+                .Include(m => m.Contacts)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {

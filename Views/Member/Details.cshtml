@@ -9,7 +9,13 @@
 <div>
     <h4>Member</h4>
     <hr />
-    @{
+
+    <div class="container">
+        <div class="row">
+            <!-- Left Card: Logo and Summaries -->
+            <div class="col-md-6">
+                <div class="text-center mb-3">
+                        @{
         if (Model.MemberLogo?.Content != null)
         {
             @:<div>
@@ -19,40 +25,106 @@
             @:</div><hr />
         }
     }
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MemberFirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MemberFirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MemberMiddleName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MemberMiddleName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MemberLastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MemberLastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.JoinDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.JoinDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StandingStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StandingStatus)
-        </dd>
-    </dl>
+                       
+                    </div>
+                <div class="card card-body bg-light text-black">
+                    <!-- Logo Section -->
+                    
+
+                    <!-- Summary Section -->
+                        <h5 class="card-title">Summary</h5>
+                        <p>Total Addresses: @Model.Addresses?.Count() ?? 0</p>
+                        <p>Membership Types: @Model.MemberMembershipTypes?.Count() ?? 0</p>
+                        <p>Notes: @Model.MemberNotes?.Count() ?? 0</p>
+                </div>
+            </div>
+
+            <!-- Right Card: Detailed Information -->
+            <div class="col-md-6">
+                <div class="card card-body bg-light text-black">
+                    <h5 class="card-title">Detailed Information</h5>
+                    <div class="row">
+                        <!-- Left side of the right card -->
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <!-- Addresses -->
+                                <dt class="col-sm-4">Addresses</dt>
+                                <dd class="col-sm-8">
+                                    @if (Model.Addresses != null && Model.Addresses.Any())
+                                    {
+                                        @foreach (var address in Model.Addresses)
+                                        {
+                                            <p>@address.City</p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>No addresses available.</p>
+                                    }
+                                </dd>
+
+                                <!-- Membership Type -->
+                                <dt class="col-sm-4">Membership Type:</dt>
+                                <dd class="col-sm-8">
+                                    @if (Model.MemberMembershipTypes != null && Model.MemberMembershipTypes.Any())
+                                    {
+                                        @foreach (var membership in Model.MemberMembershipTypes)
+                                        {
+                                            <p>@membership.MembershipType.TypeName</p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>No membership type available.</p>
+                                    }
+                                </dd>
+
+                                <!-- Join Date -->
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.JoinDate)</dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(model => model.JoinDate)
+                                </dd>
+
+                                <!-- Standing Status -->
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.StandingStatus)</dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(model => model.StandingStatus)
+                                </dd>
+                            </dl>
+                        </div>
+
+                        <!-- Right side of the right card -->
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <!-- Notes -->
+                                <dt class="col-sm-4">Notes:</dt>
+                                <dd class="col-sm-12">
+                                    @if (Model.MemberNotes != null && Model.MemberNotes.Any())
+                                    {
+                                        @foreach (var note in Model.MemberNotes)
+                                        {
+                                            <textarea class="form-control mb-2" readonly>@note.Note</textarea>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <textarea class="form-control" readonly>No notes available.</textarea>
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+    <a class="btn btn-primary" asp-controller="Member" asp-action="Index">Back to List</a>
 </div>

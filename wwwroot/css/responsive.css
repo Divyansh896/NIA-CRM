@@ -4,18 +4,21 @@
 .card-body {
     border-radius: 20px;
     background-color: #A61C1C;
-    margin-top: 15px
+    margin-top: 15px;
+    border: solid !important;
+    border-color: #A61C1C !important;
 }
 
-.card title {
-    color: #ffffff;
+.btn-primary {
+    background-color: #A61C1C;
+    border-color: #A61C1C;
 }
 
-.card p{
-    color: #ffffff;
-}
+    .btn-primary:hover {
+        background-color: #8C1818 !important;
+        border-color: #A61C1C;
+    }
 /* Logo container */
-
 /* Logo image */
 .logo {
     max-height: 150px; /* Adjust size as needed */

@@ -83,22 +83,14 @@
             <th>
                 <!--Empty column for logo-->
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemberFirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemberMiddleName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemberLastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JoinDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StandingStatus)
-            </th>
-            <th></th>
+                
+                <th scope="col" class="table-head">Member Name</th>
+                <th scope="col" class="table-head">City</th>
+                <th scope="col" class="table-head">Join Date</th>
+                <th scope="col" class="table-head">Membership Type</th>
+
+                <th scope="col" class="table-head">Standing Status</th>
+                <th></th>
         </tr>
     </thead>
     <tbody>
@@ -115,26 +107,49 @@
                             }
                         }
                     </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemberFirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemberMiddleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemberLastName)
-            </td>
+                    <td>
+                        @if (item.MemberIndustries != null)
+                        {
+                            foreach (var industry in item.MemberIndustries)
+                            {
+                                @industry.Industry.IndustryName
+                                <br />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (item.Addresses != null)
+                        {
+                            foreach (var industry in item.Addresses)
+                            {
+                                @industry.City
+                                <br />
+                            }
+                        }
+                    </td>
+                    
             <td>
                 @Html.DisplayFor(modelItem => item.JoinDate)
             </td>
+
+                    <td>
+                        @if (item.MemberMembershipTypes != null)
+                        {
+                            foreach (var industry in item.MemberMembershipTypes)
+                            {
+                                @industry.MembershipType.TypeName
+                                <br />
+                            }
+                        }
+                    </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StandingStatus)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID" aria-label="Edit contact @item.MemberFirstName @item.MemberLastName">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID" aria-label="View details of contact item.MemberFirstName @item.MemberLastName">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID" aria-label="Delete contact item.MemberFirstName @item.MemberLastName">Delete</a>
+                    </td>
         </tr>
 }
     </tbody>
