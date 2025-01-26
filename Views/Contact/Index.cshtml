@@ -65,28 +65,24 @@
                 <caption class="sr-only">Contacts table showing filtered results</caption>
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">
+                        <th scope="col" class="table-head">
                             <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
                         </th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.MiddleName)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.LastName)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.Title)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.Department)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.Email)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.Phone)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.IsVip)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.Member)</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Title)</th>
+                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Department)</th>
+                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Email)</th>
+                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Phone)</th>
+                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
+                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.IsVip)</th>
+                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Member)</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr class="clickable-row" data-id="@item.Id">
-                            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.MiddleName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Summary)</td>
                             <td>@Html.DisplayFor(modelItem => item.Title)</td>
                             <td>@Html.DisplayFor(modelItem => item.Department)</td>
                             <td>@Html.DisplayFor(modelItem => item.Email)</td>
@@ -96,11 +92,7 @@
                             </td>
                             <td>@Html.DisplayFor(modelItem => item.IsVip)</td>
                             <td>@Html.DisplayFor(modelItem => item.Member.MemberFirstName)</td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id" aria-label="Edit contact @item.FirstName @item.LastName">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.Id" aria-label="View details of contact @item.FirstName @item.LastName">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.Id" aria-label="Delete contact @item.FirstName @item.LastName">Delete</a>
-                            </td>
+                            
                         </tr>
                     }
                 </tbody>

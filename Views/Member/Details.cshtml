@@ -24,7 +24,12 @@
                 <img src="@imageSrc" alt="Profile Picture of @Model.Summary" title="Profile Picture of @Model.Summary" class="img-fluid rounded" />
             @:</div>
         }
-    }
+                        else
+                        {
+                            <img src="~/images/Unknown_person.jpg" alt="Profile Picture of @Model.Summary"
+                            title="Profile Picture of @Model.Summary" class ="otherPic"/>
+                        }
+                    }
                 </div>
                 <h5 class="card-title">Summary</h5>
                 <div class="card card-body bg-light text-black">

@@ -67,12 +67,15 @@ namespace NIA_CRM.Controllers
                 if (sortDirection == "desc")
                 {
                     contacts = contacts
-                        .OrderByDescending(p => p.FirstName);
+                        .OrderByDescending(p => p.FirstName)
+                        .ThenByDescending(p => p.LastName);
+                    
                 }
                 else
                 {
                     contacts = contacts
-                        .OrderBy(p => p.FirstName);
+                        .OrderBy(p => p.FirstName)
+                        .ThenBy(p => p.LastName);
 
                 }
             }

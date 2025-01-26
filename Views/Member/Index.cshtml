@@ -7,22 +7,24 @@
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="member-title">Member</h1>
-    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new Member">+ Add Member</a>
 </div>
 <form asp-action="Index" method="get" aria-labelledby="form-title">
     <h2 id="form-title" class="sr-only">Filter and Search Form</h2>
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
     <!-- Filter/Search Toggle Button -->
-    <button class="btn btn-secondary @ViewData["Filtering"]"
-            type="button"
-            id="filterToggle"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseFilter"
-            aria-expanded="false"
-            aria-controls="collapseFilter">
-        Filter/Search @ViewData["numberFilters"]
-    </button>
+    <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-secondary @ViewData["Filtering"]"
+                type="button"
+                id="filterToggle"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFilter"
+                aria-expanded="false"
+                aria-controls="collapseFilter">
+            Filter/Search @ViewData["numberFilters"]
+        </button>
+        <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Member</a>
+    </div>
 
     <!-- Filter/Search Form -->
     <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
@@ -78,19 +80,18 @@
         </div>
 </div>
 <table class="table">
-    <thead>
+        <thead class="thead-dark">
         <tr>
-            <th>
+                <th class="table-head">
                 <!--Empty column for logo-->
             </th>
-                
                 <th scope="col" class="table-head">Member Name</th>
                 <th scope="col" class="table-head">City</th>
                 <th scope="col" class="table-head">Join Date</th>
                 <th scope="col" class="table-head">Membership Type</th>
 
                 <th scope="col" class="table-head">Standing Status</th>
-                <th></th>
+                
         </tr>
     </thead>
     <tbody>
@@ -107,7 +108,7 @@
                             }
                         }
                     </td>
-                    <td>@item.MemberFirstName</td>
+                    
                     <td>
                         @if (item.MemberIndustries != null)
                         {
@@ -146,11 +147,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.StandingStatus)
             </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ID" aria-label="Edit contact @item.MemberFirstName @item.MemberLastName">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ID" aria-label="View details of contact item.MemberFirstName @item.MemberLastName">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ID" aria-label="Delete contact item.MemberFirstName @item.MemberLastName">Delete</a>
-                    </td>
+             
         </tr>
 }
     </tbody>

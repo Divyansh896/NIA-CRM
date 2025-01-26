@@ -14,15 +14,15 @@
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
 
 <table class="table">
-    <thead>
+        <thead>
         <tr>
-            <th>
+                <th class="table-head">
                 @Html.DisplayNameFor(model => model.Note)
             </th>
-            <th>
+                <th class="table-head">
                 @Html.DisplayNameFor(model => model.CreatedAt)
             </th>
-            <th>
+                <th class="table-head">
                 @Html.DisplayNameFor(model => model.Member)
             </th>
             <th></th>

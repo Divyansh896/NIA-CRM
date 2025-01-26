@@ -7,7 +7,7 @@ namespace NIA_CRM.Models
         public int ID { get; set; }
 
         [Required(ErrorMessage = "You cannot leave the industry name blank.")]
-        [Display(Name = "Industry Name")]
+        [Display(Name = "Member Name")]
         [StringLength(255, ErrorMessage = "Industry name cannot be more than 255 characters long.")]
         public string IndustryName { get; set; } = "";
         [Required(ErrorMessage = "You cannot leave the industry size blank.")]
