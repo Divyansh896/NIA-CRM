@@ -103,7 +103,10 @@
                 <tr>
                     <th><!--Empty header for logos --></th>
                     
+                    <th scope="col" class="table-head-static">
+                        <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member name" />
 
+                    </th>
                     <th scope="col" class="table-head">
                         <input type="submit" name="actionButton" value="Industry" class="btn btn-link" aria-label="Sort by Industry" />
                     </th>
@@ -133,6 +136,7 @@
                                 }
                             }
                         </td>
+                        <td class="table-row-static">@member.MemberFirstName</td>
                         
                         <td>
                             @if (member.MemberIndustries != null)
