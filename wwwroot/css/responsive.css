@@ -18,6 +18,13 @@
         background-color: #8C1818 !important;
         border-color: #A61C1C;
     }
+
+.position-bottom-left {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 100%;
+}
 /* Logo container */
 /* Logo image */
 .logo {

@@ -15,40 +15,39 @@
             <!-- Left Card: Logo and Summaries -->
             <div class="col-md-6">
                 <div class="text-center mb-3">
-                        @{
+                    @{
         if (Model.MemberLogo?.Content != null)
         {
             @:<div>
                 string imageBase64 = Convert.ToBase64String(Model.MemberLogo.Content);
                 string imageSrc = string.Format("data:" + Model.MemberLogo.MimeType + ";base64,{0}", imageBase64);
                 <img src="@imageSrc" alt="Profile Picture of @Model.Summary" title="Profile Picture of @Model.Summary" class="img-fluid rounded" />
-            @:</div><hr />
+            @:</div>
         }
     }
-                       
-                    </div>
+                </div>
+                <h5 class="card-title">Summary</h5>
                 <div class="card card-body bg-light text-black">
-                    <!-- Logo Section -->
-                    
-
                     <!-- Summary Section -->
-                        <h5 class="card-title">Summary</h5>
-                        <p>Total Addresses: @Model.Addresses?.Count() ?? 0</p>
-                        <p>Membership Types: @Model.MemberMembershipTypes?.Count() ?? 0</p>
-                        <p>Notes: @Model.MemberNotes?.Count() ?? 0</p>
+                    <dl>
+                        <dt class="col-sm-6">How Long Since Joined:</dt>
+                        <dd class="col-sm-6">@Html.DisplayFor(model => model.TimeSinceJoined)</dd>
+                        <dt class="col-sm-6">Days Left in Subscription:</dt>
+                        <dd class="col-sm-6">3 months 4 days</dd>
+                    </dl>
                 </div>
             </div>
 
             <!-- Right Card: Detailed Information -->
             <div class="col-md-6">
+                <h5 class="card-title">Detailed Information</h5>
                 <div class="card card-body bg-light text-black">
-                    <h5 class="card-title">Detailed Information</h5>
                     <div class="row">
                         <!-- Left side of the right card -->
                         <div class="col-md-6">
-                            <dl class="row">
-                                <!-- Addresses -->
-                                <dt class="col-sm-4">Addresses</dt>
+                            <dl>
+                                <!-- Address -->
+                                <dt class="col-sm-4">Address:</dt>
                                 <dd class="col-sm-8">
                                     @if (Model.Addresses != null && Model.Addresses.Any())
                                     {
@@ -84,8 +83,39 @@
                                 <dd class="col-sm-8">
                                     @Html.DisplayFor(model => model.JoinDate)
                                 </dd>
-
+                                <dt class="col-sm-4">Website:</dt>
+                                <dd class="col-sm-8">
+                                    @if (Model.MemberIndustries != null && Model.MemberIndustries.Any())
+                                    {
+                                        @foreach (var membership in Model.MemberIndustries)
+                                        {
+                                            <p>@membership.Industry.WebsiteUrl</p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>No membership type available.</p>
+                                    }
+                                </dd>
                                 <!-- Standing Status -->
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.StandingStatus)</dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(model => model.StandingStatus)
+                                </dd>
+                                <dt class="col-sm-4">Size:</dt>
+                                <dd class="col-sm-8">
+                                    @if (Model.MemberIndustries != null && Model.MemberIndustries.Any())
+                                    {
+                                        @foreach (var membership in Model.MemberIndustries)
+                                        {
+                                            <p>@membership.Industry.IndustrySize</p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>No membership type available.</p>
+                                    }
+                                </dd>
                                 <dt class="col-sm-4">@Html.DisplayNameFor(model => model.StandingStatus)</dt>
                                 <dd class="col-sm-8">
                                     @Html.DisplayFor(model => model.StandingStatus)
@@ -95,10 +125,10 @@
 
                         <!-- Right side of the right card -->
                         <div class="col-md-6">
-                            <dl class="row">
+                            <dl>
                                 <!-- Notes -->
                                 <dt class="col-sm-4">Notes:</dt>
-                                <dd class="col-sm-12">
+                                <dd class="col-sm-12 flex-grow-1">
                                     @if (Model.MemberNotes != null && Model.MemberNotes.Any())
                                     {
                                         @foreach (var note in Model.MemberNotes)
@@ -117,14 +147,73 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
+        <!-- Contact Cards -->
+        <div>
+    <h5>Contact Information</h5>
+@if (Model.Contacts != null && Model.Contacts.Any())
+{
+    @foreach (var contact in Model.Contacts)
+    {
+        <div class="col-12 mb-3">
+            <div class="card card-body bg-light text-black">
+                <dl class="row">
+                    <!-- Summary and VIP Label -->
+                    <div class="col-sm-4">
+                        <dt>Contact Name:</dt>
+                        <dd>
+                            @contact.Summary
+                            @if (contact.IsVip)
+                            {
+                                <span class="badge bg-warning text-dark ms-2">VIP</span>
+                            }
+                        </dd>
+                    </div>
 
+                    <!-- Title -->
+                    <div class="col-sm-4">
+                        <dt>Title:</dt>
+                        <dd>@contact.Title</dd>
+                    </div>
 
+                    <!-- Department -->
+                    <div class="col-sm-4">
+                        <dt>Department:</dt>
+                        <dd>@contact.Department</dd>
+                    </div>
 
+                    <!-- Email -->
+                    <div class="col-sm-4">
+                        <dt>Email:</dt>
+                        <dd>@contact.Email</dd>
+                    </div>
 
-<div>
-    <a class="btn btn-primary" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+                    <!-- Phone -->
+                    <div class="col-sm-4">
+                        <dt>Phone:</dt>
+                        <dd>@contact.Phone</dd>
+                    </div>
+
+                    <!-- LinkedIn -->
+                    @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
+                    {
+                        <div class="col-sm-4">
+                            <dt>LinkedIn:</dt>
+                            <dd><a href="@contact.LinkedInUrl" target="_blank">@contact.LinkedInUrl</a></dd>
+                        </div>
+                    }
+                </dl>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>No contacts available.</p>
+}
+
+<div class="position-bottom-left">
+    <a class="btn btn-primary me-2" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
     <a class="btn btn-primary" asp-controller="Member" asp-action="Index">Back to List</a>
 </div>
+

@@ -106,6 +106,7 @@ namespace NIA_CRM.Controllers
                 .Include(m => m.MemberNotes)
                 .Include(m => m.MemberIndustries).ThenInclude(m => m.Industry)
                 .Include(m => m.Contacts)
+                .Include(m => m.MemberLogo)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -164,7 +165,9 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, string? chkRemoveImage, IFormFile? thePicture)
         {
-            var memberToUpdate = await _context.Members.FirstOrDefaultAsync(m => m.ID == id);
+            var memberToUpdate = await _context.Members
+                .Include(m => m.MemberLogo)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (memberToUpdate == null)
 
@@ -173,10 +176,24 @@ namespace NIA_CRM.Controllers
             }
 
             // Try update model approach
-            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberFirstName, m => m.MemberMiddleName, m => m.MemberLastName, m => m.JoinDate, m => m.StandingStatus))
+            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberFirstName, m => m.MemberMiddleName, m => m.MemberLastName, m => m.JoinDate, m => m.StandingStatus, m => m.MemberLogo))
             {
                 try
                 {
+                    if (chkRemoveImage != null)
+                    {
+                        //If we are just deleting the two versions of the photo, we need to make sure the Change Tracker knows
+                        //about them both so go get the Thumbnail since we did not include it.
+                        memberToUpdate.MemberThumbnail = _context.MemebrThumbnails.Where(p => p.MemberID == memberToUpdate.ID).FirstOrDefault();
+                        //Then, setting them to null will cause them to be deleted from the database.
+                        memberToUpdate.MemberLogo = null;
+                        memberToUpdate.MemberThumbnail = null;
+                    }
+                    else
+                    {
+                        await AddPicture(memberToUpdate, thePicture);
+                    }
+
                     _context.Update(memberToUpdate);
 
                     await _context.SaveChangesAsync();
