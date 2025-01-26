@@ -58,19 +58,19 @@
             </div>
             <table class="table" aria-labelledby="table-title">
                 <caption id="table-title" class="sr-only">Email Records Table</caption>
-                <thead>
+                <thead class="thead-dark">
                     <tr>
-                        <th scope="col">
+                        <th scope="col" class="table-head">
                             <input type="submit" name="actionButton" value="Email Type" class="btn btn-link" aria-label="Sort by Email Type" />
 
                         </th>
-                        <th scope="col">
+                        <th scope="col" class="table-head">
                             <input type="submit" name="actionButton" value="Subject" class="btn btn-link" aria-label="Sort by Subject" />
                         </th>
-                        <th scope="col">
+                        <th scope="col" class="table-head">
                             @Html.DisplayNameFor(model => model.Body)
                         </th>
-                        <th scope="col">Actions</th>
+                        <th scope="col" class="table-head">Actions</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -1,14 +1,15 @@
 @model IEnumerable<NIA_CRM.Models.Member>
 
 @{
-    ViewData["Title"] = "Member Details";
+    ViewData["Title"] = "Index";
 }
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <!--WIDGETS-->
 <div class="content" id="content" role="main" aria-labelledby="dashboard-title">
     
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
         <h1 id="dashboard-title">Dashboard</h1>
-        <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Member</a>
+        <button class="btn btn-primary">Customize</button>
     </div>
 
     <div class="row" role="region" aria-labelledby="dashboard-stats">
@@ -51,7 +52,11 @@
 <h2>Member Details</h2>
 
 <form asp-action="Index" method="get" aria-labelledby="form-title">
-    <div id="form-title" class="sr-only">Filter and Search Form</div>
+    
+        <div id="form-title" class="sr-only">Filter and Search Form</div>
+        
+    
+
     <div class="table-container">
 
         <!-- Filter/Search Button -->
@@ -59,6 +64,7 @@
         <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
 
         <div class="form-horizontal mb-3">
+            <div class="d-flex justify-content-between align-items-center">
             <button class="btn btn-secondary @ViewData["Filtering"]"
                     type="button"
                     id="filterToggle"
@@ -68,6 +74,8 @@
                     aria-controls="collapseFilter">
                 Filter/Search @ViewData["numberFilters"]
             </button>
+            <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Member</a>
+            </div>
 
             <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
                 <div class="card card-body bg-light" role="region" aria-labelledby="filter-section-title">
@@ -101,12 +109,12 @@
         <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col" class="table-head-static"><!--Empty header for logos --> Logo</th>
+                    <th><!--Empty header for logos --></th>
                     
-                    @* <th scope="col" class="table-head-static"> *@
-                    @*     <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member name" /> *@
+                    <th scope="col" class="table-head-static">
+                        <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member name" />
 
-                    @* </th> *@
+                    </th table-head>
                     <th scope="col" class="table-head">
                         <input type="submit" name="actionButton" value="Industry" class="btn btn-link" aria-label="Sort by Industry" />
                     </th>
@@ -124,8 +132,8 @@
             <tbody>
                 @foreach (var member in Model)
                 {
-                    <tr class="clickable-row" data-id="@member.ID" title="Click to get preview">
-                        <td class="table-row-static">
+                    <tr class="clickable-row" data-id="@member.ID">
+                        <td>
                             @{
                                 if (member.MemberThumbnail?.Content != null)
                                 {
@@ -134,17 +142,9 @@
                                     <img src="@imageSrc" alt="Profile Picture of @member?.Summary"
                                          title="Profile Picture of @member?.Summary" class="img-fluid rounded" />
                                 }
-                                else
-                                {
-
-                                    <img src="/images/blankProfile.jpg"
-                                         alt="Blank profile picture"
-                                         title="Blank profile picture"
-                                         class="img-fluid rounded profile-picture"/>
-                                }
                             }
                         </td>
-                        @* <td >@member.MemberFirstName</td> *@
+                        <td class="table-row-static">@member.MemberFirstName</td>
                         
                         <td>
                             @if (member.MemberIndustries != null)
@@ -170,36 +170,34 @@
                                 }
                             </div>
                         </td>
+                        <!-- Display contact information within the same row -->
                         @if (member.Contacts != null && member.Contacts.Count > 0)
                         {
-                            <td colspan="7">
-                                <table class="table" aria-label="Contact Details for @member.Summary">
-                                    @foreach (var contact in member.Contacts)
+                            @foreach (var contact in member.Contacts)
+                            {
+                                <td>@contact.Summary</td>
+                                <td>@contact.Title</td>
+                                <td>@contact.Department</td>
+                                <td>@contact.Email</td>
+                                <td>@contact.Phone</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
                                     {
-                                        <tr>
-                                            <td>@contact.Summary</td>
-                                            <td>@contact.Title</td>
-                                            <td>@contact.Department</td>
-                                            <td>@contact.Email</td>
-                                            <td>@contact.Phone</td>
-                                            <td>
-                                                @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
-                                                {
-                                                    <a href="@contact.LinkedInUrl" target="_blank" aria-label="View LinkedIn profile for @contact.Summary">LinkedIn</a>
-                                                }
-                                            </td>
-                                            <td>@(contact.IsVip ? "Yes" : "No")</td>
-                                        </tr>
+                                        <a href="@contact.LinkedInUrl" target="_blank" aria-label="View LinkedIn profile for @contact.Summary">LinkedIn</a>
                                     }
-                                </table>
-                            </td>
+                                </td>
+                                <td>@(contact.IsVip ? "Yes" : "No")</td>
+                            }
                         }
                         else
                         {
                             <td colspan="7">No Contacts Available</td>
                         }
+
                         <td>
-                            <button class="btn btn-primary btn-sm pin-column" onclick="pinColumn(this)" aria-label="Pin this column">Pin</button>
+                            <button class="btn btn-primary btn-sm pin-column" onclick="pinColumn(this)" aria-label="Pin this column">
+                                <i class="fas fa-thumbtack"></i> <!-- Pin icon -->
+                            </button>
                         </td>
                     </tr>
                 }
@@ -208,6 +206,7 @@
         <div id="previewContainer" class="preview-content hidden"></div>
     </div>
     <partial name="_PagingNavBar" />
+
 </form>
 
 

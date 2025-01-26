@@ -19,18 +19,58 @@
         border-color: #A61C1C;
     }
 
+.page-item.active .page-link {
+    background-color: #A61C1C !important;
+    ;
+    border-color: #A61C1C;
+}
 .position-bottom-left {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     height: 100%;
 }
-/* Logo container */
-/* Logo image */
-.logo {
-    max-height: 150px; /* Adjust size as needed */
-    width: auto;
+
+.btn-link{
+    color: white;
 }
+
+    .btn-link:hover {
+        color: white;
+    }
+
+.otherPic {
+    max-height: 425px;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+/* Ensure the table displays correctly */
+.table td, .table th {
+    vertical-align: middle;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Ensure proper alignment in the contact information columns */
+.table td {
+    padding: 8px;
+    text-align: left;
+}
+
+/* Adjust contact info layout */
+.contact-info-container td {
+    padding: 5px 10px;
+}
+
+
+    /* Logo container */
+    /* Logo image */
+    .logo {
+        max-height: 150px; /* Adjust size as needed */
+        width: auto;
+    }
 
 /*root css*/
 /* Sidebar */
@@ -149,7 +189,7 @@ color: #ffffff;
 }
 
 .table-head-static {
-    position: sticky;
+    position: sticky !important;
     top: 0;
     left: 0;
     z-index: 1050; /* Ensure it's above other content */
