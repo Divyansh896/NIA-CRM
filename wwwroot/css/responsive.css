@@ -176,12 +176,16 @@ color: #ffffff;
     z-index: 1050;
     background: #f8f9fa !important;
     border-left: #f8f9fa !important;
+    width:500px;
 }
 .card{
     border: none;
 }
 
-
+.table-row-static img{
+    display: block;
+    max-width: 500px !important;
+}
 /* Mobile Devices (Phones) */
 @media (max-width: 768px) {
     body {

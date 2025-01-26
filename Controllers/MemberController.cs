@@ -197,7 +197,7 @@ namespace NIA_CRM.Controllers
                     _context.Update(memberToUpdate);
 
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (DbUpdateConcurrencyException)
                 {

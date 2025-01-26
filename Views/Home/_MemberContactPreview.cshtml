@@ -3,9 +3,21 @@
 <div>
     <h3>Preview Member Details</h3>
     <div class="d-flex">
-        <img src="~/images/preview.jpg" alt="Profile Picture of @Model.MemberFirstName @Model.MemberLastName"
-             title="Profile Picture of @Model.MemberFirstName @Model.MemberLastName"
-             class="img-fluid rounded" style="max-width: 150px; margin-right: 15px;" />
+        @{
+            if (Model.MemberThumbnail?.Content != null)
+            {
+                string imageBase64 = Convert.ToBase64String(Model.MemberThumbnail.Content);
+                string imageSrc = string.Format("data:" + Model.MemberThumbnail.MimeType + ";base64,{0}", imageBase64);
+                <img src="@imageSrc" alt="Profile Picture of @Model?.Summary"
+                     title="Profile Picture of @Model?.Summary" class="img-fluid rounded" />
+            }
+            else
+            {
+
+                <img src="images/blankProfile.jpg" alt="blank profile picture"
+                     title="blank profile picture" class="img-fluid rounded" style="margin-right: 5px !important;" />
+            }
+        }
         <div>
             <p><strong>Member Name:</strong> @Model.MemberFirstName @Model.MemberLastName</p>
 
