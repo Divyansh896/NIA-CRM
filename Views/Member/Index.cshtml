@@ -13,8 +13,9 @@
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
     <!-- Filter/Search Toggle Button -->
+    <div class="form-horizontal mb-3">
     <div class="d-flex justify-content-between align-items-center">
-        <button class="btn btn-secondary @ViewData["Filtering"]"
+        <button class="btn btn-dark @ViewData["Filtering"]"
                 type="button"
                 id="filterToggle"
                 data-bs-toggle="collapse"
@@ -68,15 +69,14 @@
                 @*         }) *@
                 @*     <span id="organization-name-help" class="sr-only">Type the organization name to filter.</span> *@
                 @* </div> *@
-            </div>
 
             <!-- Buttons -->
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-outline-primary" aria-label="Apply filters">Apply Filters</button>
-                    <a asp-action="Index" class="btn btn-outline-dark" aria-label="Clear filters">Clear</a>
-                </div>
+            <div class="form-group col-md-4 d-flex align-items-end mt-2">
+                <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
+                <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
             </div>
+        </div>
+        </div>
         </div>
 </div>
 <table class="table">

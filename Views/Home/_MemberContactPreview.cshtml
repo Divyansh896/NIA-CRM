@@ -18,6 +18,7 @@
              title="blank profile picture" class="img-fluid rounded" style="margin-right: 5px !important;" />
     }
 }
+<div class="card card-body bg-light text-black">
 <div>
     <dt>Member Name:</dt>
     <dd>
@@ -90,10 +91,11 @@
     <label for="memberNote"><strong>Additional Notes:</strong></label><br />
     <textarea id="memberNote" name="memberNote" class="form-control" rows="4" placeholder="Add notes here..." data-id="@Model.ID"></textarea>
 </div>
-
-<div class="mt-3">
-    <a class="btn btn-dark" asp-controller="Member" asp-route-id="@Model.ID">Archive</a>
-    <a class="btn btn-dark" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
-    <a class="btn btn-primary" asp-controller="Member" asp-action="Details" asp-route-id="@Model.ID">Details</a>
-
+</div>
+<div class="sticky-buttons">
+    <div class="sticky-buttons-container">
+        <a class="btn btn-dark" asp-controller="Member" asp-route-id="@Model.ID">Archive</a>
+        <a class="btn btn-dark" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+        <a class="btn btn-primary" asp-controller="Member" asp-action="Details" asp-route-id="@Model.ID">Details</a>
+    </div>
 </div>

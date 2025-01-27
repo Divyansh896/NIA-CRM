@@ -48,7 +48,25 @@
     .otherPic {
         max-height: 425px;
     }
+.sticky-buttons {
+    position: sticky !important;
+    bottom: 20px; /* Distance from the bottom edge */
+    right: 20px; /* Distance from the right edge */
+    z-index: 1000; /* Ensures it stays above other elements */
+    display: flex; /* Aligns buttons horizontally */
+    gap: 10px; /* Adds spacing between the buttons */
 
+}
+.sticky-buttons-container {
+    background-color: white; /* Semi-transparent black background */
+    padding: 10px 15px; /* Adds padding around the buttons */
+    border-radius: 10px; /* Smooth, rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+    display: flex; /* Aligns the buttons horizontally */
+    gap: 10px; /* Adds space between the buttons */
+    width: 100%;
+    justify-content: flex-end;
+}
 body {
     font-family: 'Open Sans', sans-serif;
 }
