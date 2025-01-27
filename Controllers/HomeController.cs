@@ -161,9 +161,9 @@ namespace NIA_CRM.Controllers
 
 
             var industries = _context.Members
-     .SelectMany(m => m.MemberIndustries)  // Flatten the collection of MemberIndustries
-     .Select(mi => new { mi.Industry.ID, mi.Industry.IndustryName }) // Select the ID and IndustryName from the related Industry
-     .Distinct() // Ensures distinct results based on both ID and IndustryName
+     .SelectMany(m => m.MemberIndustries)  
+     .Select(mi => new { mi.Industry.ID, mi.Industry.IndustryName }) 
+     .Distinct() 
      .OrderBy(i => i.IndustryName) // Orders by IndustryName
      .AsNoTracking() // Disables tracking for better performance
      .ToList(); // Executes the query and returns the result
@@ -176,6 +176,11 @@ namespace NIA_CRM.Controllers
         {
             var member = await _context.Members
                 .Include(m => m.Addresses) // Include the related Address
+                .Include(m => m.MemberThumbnail)
+                .Include(m => m.MemberMembershipTypes)
+                .ThenInclude(mm => mm.MembershipType)
+                .Include(m => m.MemberIndustries)
+                .ThenInclude(m => m.Industry)
                 .FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
 
             if (member == null)
