@@ -1,5 +1,8 @@
 ﻿
 /* responsive.css */
+
+/* This css will be the base of the website and will be applied to the mobile screens at first so we don't need media query fo mobile */
+
 /* NIA Logo Css*/
 .card-body {
     border-radius: 20px;
@@ -14,10 +17,10 @@
     border-color: #A61C1C;
 }
 
-    .btn-primary:hover {
-        background-color: #8C1818 !important;
-        border-color: #A61C1C;
-    }
+.btn-primary:hover {
+    background-color: #8C1818 !important;
+    border-color: #A61C1C;
+}
 
 .page-item.active .page-link {
     background-color: #A61C1C !important;
@@ -35,19 +38,19 @@
     color: white;
 }
 
-    .btn-link:hover {
-        color: white;
-    }
+.btn-link:hover {
+    color: white;
+}
 
 .btn-dark {
     background-color: #434343 !important;
 }
-    .btn-dark:hover {
-        background-color: #434343 !important;
-    }
-    .otherPic {
-        max-height: 425px;
-    }
+.btn-dark:hover {
+    background-color: #434343 !important;
+}
+.otherPic {
+    max-height: 425px;
+}
 .sticky-buttons {
     position: sticky !important;
     bottom: 20px; /* Distance from the bottom edge */
@@ -89,12 +92,12 @@ body {
 }
 
 
-    /* Logo container */
-    /* Logo image */
-    .logo {
-        max-height: 150px; /* Adjust size as needed */
-        width: auto;
-    }
+/* Logo container */
+/* Logo image */
+.logo {
+    max-height: 150px; /* Adjust size as needed */
+    width: auto;
+}
 
 /*root css*/
 /* Sidebar */
@@ -250,35 +253,37 @@ color: #ffffff;
     display: block;
     max-width: 500px !important;
 }
+
+/*
 /* Mobile Devices (Phones) */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
     body {
         font-size: 14px;
-    }
+    }*/
 
     /* Adjust navigation bar */
-    .navbar {
+    /*.navbar {
         font-size: 14px;
     }
 
     .main-content {
-        margin-left: 0 !important; /* Remove margin when collapsed */
-    }
+        margin-left: 0 !important;*/ /* Remove margin when collapsed */
+    /*}*/
 
     /* Example of adjusting layout for smaller screens */
-    .container {
+    /*.container {
         padding-left: 10px;
         padding-right: 10px;
-    }
+    }*/
 
     /* Adjust grid layout */
-    .row {
+    /*.row {
         flex-direction: column;
     }
    
-}
+}*/
 /* Tablets */
-@media (min-width: 769px) and (max-width: 1024px) {
+/*@media (min-width: 769px) and (max-width: 1024px) {
     .navbar {
         font-size: 16px;
     }
@@ -291,14 +296,48 @@ color: #ffffff;
     .row {
         flex-direction: row;
     }
-}
+}*/
 /* Desktops (larger screens) */
-@media (min-width: 1025px) {
+/*@media (min-width: 1025px) {
     .navbar {
         font-size: 18px;
     }
 
     .main-content {
-        margin-left: 250px; /* Adjust the margin for larger screens */
-    }
+        margin-left: 250px;*/ /* Adjust the margin for larger screens */
+    /*}
+}*/
+
+
+
+/*
+    Note: If your css property id not gettting applied where you want, it is because of the bootstrap precedence, 
+          so to fix this issue use !important after that property where you want to get it applied.
+          Eg: background: #434343 !important; /* Solid background 
+*/
+
+
+/* Tablet (768px and above) */
+@media (min-width: 768px) {
+    /* Your styles for tablets and larger screens */
+}
+
+/* Small Desktop (1024px and above) */
+@media (min-width: 1024px) {
+    /* Your styles for small desktops and larger screens */
+}
+
+/* Medium Desktop/Laptops (144px and above) */
+@media (min-width: 1440px) {
+    /* Your styles for medium desktops and larger screens */
+}
+
+/* Large Desktop (1920px and above) */
+@media (min-width: 1920px) {
+    /* Your styles for large desktops and larger screens */
+}
+
+/* 4K UHD (2560px and above) */
+@media (min-width: 2560px) {
+    /* Your styles for 4K and ultra-wide screens */
 }
