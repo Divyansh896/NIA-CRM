@@ -16,9 +16,9 @@ namespace NIA_CRM.Models
 
         [Required(ErrorMessage = "You must select the opportunity status.")]
         public OpportunityStatus OpportunityStatus { get; set; }
-        public int IndustryId { get; set; }
+        public int MemberId { get; set; }
 
-        public Industry Industry { get; set; }
+        public Member Member { get; set; }
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
     }
 }

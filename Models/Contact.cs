@@ -36,10 +36,10 @@ namespace NIA_CRM.Models
         public string? LinkedInUrl { get; set; }
 
         public bool IsVip { get; set; } = false;
-
-        public ICollection<ContactIndustry> ContactIndustries { get; set; } = new List<ContactIndustry>();
+        
         public ICollection<ContactNote> ContactNotes { get; set; } = new List<ContactNote>();
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
+
         public int MemberId { get; set; }  // Foreign key to Member
         public Member Member { get; set; } // Navigation property to Member
 
