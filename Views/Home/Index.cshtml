@@ -136,8 +136,8 @@
                                 {
                                     string imageBase64 = Convert.ToBase64String(member.MemberThumbnail.Content);
                                     string imageSrc = string.Format("data:" + member.MemberThumbnail.MimeType + ";base64,{0}", imageBase64);
-                                    <img src="@imageSrc" alt="Profile Picture of @member?.Summary"
-                                         title="Profile Picture of @member?.Summary" class="img-fluid rounded" />
+                                    <img src="@imageSrc" alt="Profile Picture of @member?.MemberName"
+                                         title="Profile Picture of @member?.MemberName" class="img-fluid rounded" />
                                 }
                                 else
             {
@@ -147,17 +147,8 @@
             }
                             }
                         </td>
-                        
-                        <td>
-                            @if (member.MemberIndustries != null)
-                            {
-                                foreach (var industry in member.MemberIndustries)
-                                {
-                                    @industry.Industry.IndustryName
-                                    <br />
-                                }
-                            }
-                        </td>
+
+                        <td>@Html.DisplayFor(modelItem => member.MemberName)</td>
                         <td>
                             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 @foreach (var address in member.Addresses)

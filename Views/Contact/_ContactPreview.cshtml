@@ -16,17 +16,17 @@
     <div>
         <h5>Industry:</h5>
         @{
-            int industryCount = Model.ContactIndustries.Count;
+            int industryCount = Model.Member.Count;
             if (industryCount > 0)
             {
-                string firstIndustryName = Model.ContactIndustries.FirstOrDefault()?.Industry.IndustryName;
-                string firstIndustrySize = Model.ContactIndustries.FirstOrDefault()?.Industry.IndustrySize.ToString();
-                string firstIndustryWebsite = Model.ContactIndustries.FirstOrDefault()?.Industry.WebsiteUrl; // Assuming the Industry model has a WebsiteUrl property
+                string firstIndustryName = Model.Member.FirstOrDefault()?.Industry.MemberName;
+                string firstIndustrySize = Model.Member.FirstOrDefault()?.Industry.MemberSize.ToString();
+                string firstIndustryWebsite = Model.Member.FirstOrDefault()?.Industry.WebsiteUrl; // Assuming the Industry model has a WebsiteUrl property
 
                 if (industryCount > 1)
                 {
                     string industryDetails = ""; // HTML string of industry details
-                    var industries = Model.ContactIndustries.ToList();
+                    var industries = Model.Member.ToList();
                     for (int i = 1; i < industryCount; i++) // Skip the first industry because we have it already
                     {
                         var industry = industries[i].Industry;

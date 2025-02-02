@@ -8,8 +8,8 @@
     {
         string imageBase64 = Convert.ToBase64String(Model.MemberThumbnail.Content);
         string imageSrc = string.Format("data:" + Model.MemberThumbnail.MimeType + ";base64,{0}", imageBase64);
-        <img src="@imageSrc" alt="Profile Picture of @Model?.Summary"
-             title="Profile Picture of @Model?.Summary" class="img-fluid rounded" />
+        <img src="@imageSrc" alt="Profile Picture of @Model?.MemberName"
+             title="Profile Picture of @Model?.MemberName" class="img-fluid rounded" />
     }
     else
     {
@@ -21,16 +21,9 @@
 <div class="card card-body bg-light text-black">
 <div>
     <dt>Member Name:</dt>
-    <dd>
-        @if (Model.MemberIndustries != null)
-        {
-            foreach (var industry in Model.MemberIndustries)
-            {
-                @industry.Industry.IndustryName
-                <br />
-            }
-        }
-    </dd>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.MemberName)
+        </dd>
     <dt><strong>Address:</strong></dt>
     @if (Model.Addresses != null && Model.Addresses.Any())
     {
@@ -68,22 +61,9 @@
         }
     </dd>
     <dt class="col-sm-4">Website:</dt>
-    <dd class="col-sm-8">
-        @if (Model.MemberIndustries != null && Model.MemberIndustries.Any())
-        {
-            @foreach (var membership in Model.MemberIndustries)
-            {
-                <a href="@membership.Industry.WebsiteUrl" target="_blank">
-                    @membership.Industry.WebsiteUrl
-                </a>
-            }
-        }
-        else
-        {
-            <p>No Industry Available.</p>
-            
-        }
-    </dd>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.WebsiteUrl)
+        </dd>
 </div>
 
 

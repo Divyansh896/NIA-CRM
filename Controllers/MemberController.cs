@@ -33,7 +33,8 @@ namespace NIA_CRM.Controllers
                 .Include(m =>m.Addresses)
                 .Include(m => m.MemberMembershipTypes).ThenInclude(m=>m.MembershipType)
                 .Include(m => m.MemberNotes)
-                .Include(m=>m.MemberIndustries).ThenInclude(m=>m.Industry)
+                .Include(m => m.Contacts)
+                .Include(m => m.IndustryNAICSCodes).ThenInclude(m=> m.NAICSCode)
             .AsNoTracking();
                 
 
@@ -53,8 +54,7 @@ namespace NIA_CRM.Controllers
             if (!string.IsNullOrEmpty(SearchString))
             {
                 members = members.Where(m =>
-                    m.MemberFirstName.ToUpper().Contains(SearchString.ToUpper()) ||
-                    m.MemberLastName.ToUpper().Contains(SearchString.ToUpper()));
+                    m.MemberName.ToUpper().Contains(SearchString.ToUpper()));
                 numberFilters++;
             }
 
@@ -104,9 +104,10 @@ namespace NIA_CRM.Controllers
                 .Include(m => m.Addresses)
                 .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
                 .Include(m => m.MemberNotes)
-                .Include(m => m.MemberIndustries).ThenInclude(m => m.Industry)
                 .Include(m => m.Contacts)
                 .Include(m => m.MemberLogo)
+                .Include(m => m.Contacts)
+                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -176,7 +177,7 @@ namespace NIA_CRM.Controllers
             }
 
             // Try update model approach
-            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberFirstName, m => m.MemberMiddleName, m => m.MemberLastName, m => m.JoinDate, m => m.StandingStatus, m => m.MemberLogo))
+            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberName, m => m.MemberSize, m => m.WebsiteUrl, m => m.JoinDate, m => m.MemberLogo))
             {
                 try
                 {
