@@ -12,31 +12,15 @@ namespace NIA_CRM.Data.NIACRMigration
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Industries",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    IndustryName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    IndustrySize = table.Column<int>(type: "INTEGER", nullable: false),
-                    WebsiteUrl = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Industries", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Members",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    MemberFirstName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    MemberMiddleName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    MemberLastName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    JoinDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    StandingStatus = table.Column<int>(type: "INTEGER", nullable: false)
+                    MemberName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    MemberSize = table.Column<int>(type: "INTEGER", nullable: false),
+                    WebsiteUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    JoinDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,28 +74,6 @@ namespace NIA_CRM.Data.NIACRMigration
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductionEmails", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Opportunities",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OpportunityName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    OpportunityDescr = table.Column<string>(type: "TEXT", nullable: true),
-                    OpportunityStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Opportunities", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Opportunities_Industries_IndustryId",
-                        column: x => x.IndustryId,
-                        principalTable: "Industries",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -190,32 +152,6 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "MemberIndustries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MemberIndustries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MemberIndustries_Industries_IndustryId",
-                        column: x => x.IndustryId,
-                        principalTable: "Industries",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MemberIndustries_Members_MemberId",
-                        column: x => x.MemberId,
-                        principalTable: "Members",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "MemberLogos",
                 columns: table => new
                 {
@@ -279,6 +215,28 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
+                name: "Opportunities",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OpportunityName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    OpportunityDescr = table.Column<string>(type: "TEXT", nullable: true),
+                    OpportunityStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    MemberId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Opportunities", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Opportunities_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MemberMembershipTypes",
                 columns: table => new
                 {
@@ -307,50 +265,24 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "IndustryNAICSCode",
                 columns: table => new
                 {
+                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
+                    NAICSCodeId = table.Column<int>(type: "INTEGER", nullable: false),
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    NAICSCodeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IndustryNAICSCode", x => x.Id);
+                    table.PrimaryKey("PK_IndustryNAICSCode", x => new { x.MemberId, x.NAICSCodeId });
                     table.ForeignKey(
-                        name: "FK_IndustryNAICSCode_Industries_IndustryId",
-                        column: x => x.IndustryId,
-                        principalTable: "Industries",
+                        name: "FK_IndustryNAICSCode_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_IndustryNAICSCode_NAICSCode_NAICSCodeId",
                         column: x => x.NAICSCodeId,
                         principalTable: "NAICSCode",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ContactIndustries",
-                columns: table => new
-                {
-                    ContactId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContactIndustries", x => new { x.ContactId, x.IndustryId });
-                    table.ForeignKey(
-                        name: "FK_ContactIndustries_Contacts_ContactId",
-                        column: x => x.ContactId,
-                        principalTable: "Contacts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ContactIndustries_Industries_IndustryId",
-                        column: x => x.IndustryId,
-                        principalTable: "Industries",
-                        principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -423,11 +355,6 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "MemberID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContactIndustries_IndustryId",
-                table: "ContactIndustries",
-                column: "IndustryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ContactNote_ContactId",
                 table: "ContactNote",
                 column: "ContactId");
@@ -436,11 +363,6 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "IX_Contacts_MemberId",
                 table: "Contacts",
                 column: "MemberId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IndustryNAICSCode_IndustryId",
-                table: "IndustryNAICSCode",
-                column: "IndustryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustryNAICSCode_NAICSCodeId",
@@ -461,16 +383,6 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "IX_Interactions_OpportunityId",
                 table: "Interactions",
                 column: "OpportunityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MemberIndustries_IndustryId",
-                table: "MemberIndustries",
-                column: "IndustryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MemberIndustries_MemberId",
-                table: "MemberIndustries",
-                column: "MemberId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MemberLogos_MemberID",
@@ -495,9 +407,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Opportunities_IndustryId",
+                name: "IX_Opportunities_MemberId",
                 table: "Opportunities",
-                column: "IndustryId");
+                column: "MemberId");
         }
 
         /// <inheritdoc />
@@ -510,9 +422,6 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "Cancellations");
 
             migrationBuilder.DropTable(
-                name: "ContactIndustries");
-
-            migrationBuilder.DropTable(
                 name: "ContactNote");
 
             migrationBuilder.DropTable(
@@ -520,9 +429,6 @@ namespace NIA_CRM.Data.NIACRMigration
 
             migrationBuilder.DropTable(
                 name: "Interactions");
-
-            migrationBuilder.DropTable(
-                name: "MemberIndustries");
 
             migrationBuilder.DropTable(
                 name: "MemberLogos");
@@ -553,9 +459,6 @@ namespace NIA_CRM.Data.NIACRMigration
 
             migrationBuilder.DropTable(
                 name: "Members");
-
-            migrationBuilder.DropTable(
-                name: "Industries");
         }
     }
 }
