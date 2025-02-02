@@ -1895,30 +1895,52 @@ namespace NIA_CRM.Data
                     if (!context.IndustryNAICSCodes.Any())
                     {
                         context.IndustryNAICSCodes.AddRange(
-                            new IndustryNAICSCode { Id = 1, MemberId = 1, NAICSCodeId = 1 },  // Example: Member 1, Agriculture
-                            new IndustryNAICSCode { Id = 2, MemberId = 2, NAICSCodeId = 2 },  // Example: Member 2, Mining
-                            new IndustryNAICSCode { Id = 3, MemberId = 3, NAICSCodeId = 3 },  // Example: Member 3, Utilities
-                            new IndustryNAICSCode { Id = 4, MemberId = 4, NAICSCodeId = 4 },  // Example: Member 4, Construction
-                            new IndustryNAICSCode { Id = 5, MemberId = 5, NAICSCodeId = 5 },  // Example: Member 5, Manufacturing
-                            new IndustryNAICSCode { Id = 6, MemberId = 6, NAICSCodeId = 6 },  // Example: Member 6, Wholesale Trade
-                            new IndustryNAICSCode { Id = 7, MemberId = 7, NAICSCodeId = 7 },  // Example: Member 7, Retail Trade
-                            new IndustryNAICSCode { Id = 8, MemberId = 8, NAICSCodeId = 8 },  // Example: Member 8, Transportation
-                            new IndustryNAICSCode { Id = 9, MemberId = 9, NAICSCodeId = 9 },  // Example: Member 9, Information
-                            new IndustryNAICSCode { Id = 10, MemberId = 10, NAICSCodeId = 10 },  // Example: Member 10, Finance
-                            new IndustryNAICSCode { Id = 11, MemberId = 11, NAICSCodeId = 11 },  // Example: Member 11, Real Estate
-                            new IndustryNAICSCode { Id = 12, MemberId = 12, NAICSCodeId = 12 },  // Example: Member 12, Professional Services
-                            new IndustryNAICSCode { Id = 13, MemberId = 13, NAICSCodeId = 13 },  // Example: Member 13, Administrative Support
-                            new IndustryNAICSCode { Id = 14, MemberId = 14, NAICSCodeId = 14 },  // Example: Member 14, Education
-                            new IndustryNAICSCode { Id = 15, MemberId = 15, NAICSCodeId = 15 },  // Example: Member 15, Health Care
-                            new IndustryNAICSCode { Id = 16, MemberId = 16, NAICSCodeId = 16 },  // Example: Member 16, Arts & Entertainment
-                            new IndustryNAICSCode { Id = 17, MemberId = 17, NAICSCodeId = 17 },  // Example: Member 17, Accommodation
-                            new IndustryNAICSCode { Id = 18, MemberId = 18, NAICSCodeId = 18 },  // Example: Member 18, Automotive
-                            new IndustryNAICSCode { Id = 19, MemberId = 19, NAICSCodeId = 19 }   // Example: Member 19, Public Administration
+                            new IndustryNAICSCode { Id = 1, MemberId = 1, NAICSCodeId = 1 },  // Member 1, NAICS Code 1
+                            new IndustryNAICSCode { Id = 2, MemberId = 2, NAICSCodeId = 2 },  // Member 2, NAICS Code 2
+                            new IndustryNAICSCode { Id = 3, MemberId = 3, NAICSCodeId = 3 },  // Member 3, NAICS Code 3
+                            new IndustryNAICSCode { Id = 4, MemberId = 4, NAICSCodeId = 4 },  // Member 4, NAICS Code 4
+                            new IndustryNAICSCode { Id = 5, MemberId = 5, NAICSCodeId = 5 },  // Member 5, NAICS Code 5
+                            new IndustryNAICSCode { Id = 6, MemberId = 6, NAICSCodeId = 6 },  // Member 6, NAICS Code 6
+                            new IndustryNAICSCode { Id = 7, MemberId = 7, NAICSCodeId = 7 },  // Member 7, NAICS Code 7
+                            new IndustryNAICSCode { Id = 8, MemberId = 8, NAICSCodeId = 8 },  // Member 8, NAICS Code 8
+                            new IndustryNAICSCode { Id = 9, MemberId = 9, NAICSCodeId = 9 },  // Member 9, NAICS Code 9
+                            new IndustryNAICSCode { Id = 10, MemberId = 10, NAICSCodeId = 10 },  // Member 10, NAICS Code 10
+                            new IndustryNAICSCode { Id = 11, MemberId = 11, NAICSCodeId = 11 },  // Member 11, NAICS Code 11
+                            new IndustryNAICSCode { Id = 12, MemberId = 12, NAICSCodeId = 12 },  // Member 12, NAICS Code 12
+                            new IndustryNAICSCode { Id = 13, MemberId = 13, NAICSCodeId = 13 },  // Member 13, NAICS Code 13
+                            new IndustryNAICSCode { Id = 14, MemberId = 14, NAICSCodeId = 14 },  // Member 14, NAICS Code 14
+                            new IndustryNAICSCode { Id = 15, MemberId = 15, NAICSCodeId = 15 },  // Member 15, NAICS Code 15
+                            new IndustryNAICSCode { Id = 16, MemberId = 16, NAICSCodeId = 16 },  // Member 16, NAICS Code 16
+                            new IndustryNAICSCode { Id = 17, MemberId = 17, NAICSCodeId = 17 },  // Member 17, NAICS Code 17
+                            new IndustryNAICSCode { Id = 18, MemberId = 18, NAICSCodeId = 18 },  // Member 18, NAICS Code 18
+                            new IndustryNAICSCode { Id = 19, MemberId = 19, NAICSCodeId = 19 },  // Member 19, NAICS Code 19
+                            new IndustryNAICSCode { Id = 20, MemberId = 20, NAICSCodeId = 1 },  // Member 20, NAICS Code 1
+                            new IndustryNAICSCode { Id = 21, MemberId = 21, NAICSCodeId = 2 },  // Member 21, NAICS Code 2
+                            new IndustryNAICSCode { Id = 22, MemberId = 22, NAICSCodeId = 3 },  // Member 22, NAICS Code 3
+                            new IndustryNAICSCode { Id = 23, MemberId = 23, NAICSCodeId = 4 },  // Member 23, NAICS Code 4
+                            new IndustryNAICSCode { Id = 24, MemberId = 24, NAICSCodeId = 5 },  // Member 24, NAICS Code 5
+                            new IndustryNAICSCode { Id = 25, MemberId = 25, NAICSCodeId = 6 },  // Member 25, NAICS Code 6
+                            new IndustryNAICSCode { Id = 26, MemberId = 26, NAICSCodeId = 7 },  // Member 26, NAICS Code 7
+                            new IndustryNAICSCode { Id = 27, MemberId = 27, NAICSCodeId = 8 },  // Member 27, NAICS Code 8
+                            new IndustryNAICSCode { Id = 28, MemberId = 28, NAICSCodeId = 9 },  // Member 28, NAICS Code 9
+                            new IndustryNAICSCode { Id = 29, MemberId = 29, NAICSCodeId = 10 },  // Member 29, NAICS Code 10
+                            new IndustryNAICSCode { Id = 30, MemberId = 30, NAICSCodeId = 11 },  // Member 30, NAICS Code 11
+                            new IndustryNAICSCode { Id = 31, MemberId = 31, NAICSCodeId = 12 },  // Member 31, NAICS Code 12
+                            new IndustryNAICSCode { Id = 32, MemberId = 32, NAICSCodeId = 13 },  // Member 32, NAICS Code 13
+                            new IndustryNAICSCode { Id = 33, MemberId = 33, NAICSCodeId = 14 },  // Member 33, NAICS Code 14
+                            new IndustryNAICSCode { Id = 34, MemberId = 34, NAICSCodeId = 15 },  // Member 34, NAICS Code 15
+                            new IndustryNAICSCode { Id = 35, MemberId = 35, NAICSCodeId = 16 },  // Member 35, NAICS Code 16
+                            new IndustryNAICSCode { Id = 36, MemberId = 36, NAICSCodeId = 17 },  // Member 36, NAICS Code 17
+                            new IndustryNAICSCode { Id = 37, MemberId = 37, NAICSCodeId = 18 },  // Member 37, NAICS Code 18
+                            new IndustryNAICSCode { Id = 38, MemberId = 38, NAICSCodeId = 19 },  // Member 38, NAICS Code 19
+                            new IndustryNAICSCode { Id = 39, MemberId = 39, NAICSCodeId = 1 },  // Member 39, NAICS Code 1
+                            new IndustryNAICSCode { Id = 40, MemberId = 40, NAICSCodeId = 2 }   // Member 40, NAICS Code 2
                         );
 
                         // Save changes to persist the data
                         context.SaveChanges();
                     }
+
 
                     if (!context.ProductionEmails.Any())
                     {

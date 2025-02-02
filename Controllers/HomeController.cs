@@ -50,8 +50,7 @@ namespace NIA_CRM.Controllers
             int numberFilters = 0;
 
             // Populate dropdowns (ensure method works)
-            PopulateDropdowns();
-
+            ViewData["IndustryID"] = PopulateDropdowns();
             // Fetch data from the database
             var memberDetailsQuery = _context.Members
 
@@ -156,5 +155,10 @@ namespace NIA_CRM.Controllers
             return PartialView("_MemberContactPreview", member); // Ensure the partial view name matches
         }
 
+        private SelectList PopulateDropdowns()
+        {
+            var memberIndustries = _context.Members.ToList();
+            return new SelectList(memberIndustries);
+        }
     }
 }

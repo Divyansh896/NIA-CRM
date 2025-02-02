@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250125232302_Initial")]
+    [Migration("20250202065826_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -141,24 +141,6 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("NIA_CRM.Models.ContactIndustry", b =>
-                {
-                    b.Property<int>("ContactId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IndustryId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ContactId", "IndustryId");
-
-                    b.HasIndex("IndustryId");
-
-                    b.ToTable("ContactIndustries");
-                });
-
             modelBuilder.Entity("NIA_CRM.Models.ContactNote", b =>
                 {
                     b.Property<int>("Id")
@@ -183,35 +165,13 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.ToTable("ContactNote");
                 });
 
-            modelBuilder.Entity("NIA_CRM.Models.Industry", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("IndustryName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("IndustrySize")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("WebsiteUrl")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Industries");
-                });
-
             modelBuilder.Entity("NIA_CRM.Models.IndustryNAICSCode", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("IndustryId")
+                    b.Property<int>("MemberId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("NAICSCodeId")
@@ -219,11 +179,11 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IndustryId");
+                    b.HasIndex("MemberId");
 
                     b.HasIndex("NAICSCodeId");
 
-                    b.ToTable("IndustryNAICSCode");
+                    b.ToTable("IndustryNAICSCodes");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Interaction", b =>
@@ -274,47 +234,20 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<DateTime?>("JoinDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MemberFirstName")
+                    b.Property<string>("MemberName")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MemberLastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("MemberMiddleName")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("StandingStatus")
+                    b.Property<int>("MemberSize")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 
                     b.ToTable("Members");
-                });
-
-            modelBuilder.Entity("NIA_CRM.Models.MemberIndustry", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IndustryId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MemberId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IndustryId");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("MemberIndustries");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.MemberLogo", b =>
@@ -453,7 +386,7 @@ namespace NIA_CRM.Data.NIACRMigration
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("IndustryId")
+                    b.Property<int>("MemberId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("OpportunityDescr")
@@ -469,7 +402,7 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("ID");
 
-                    b.HasIndex("IndustryId");
+                    b.HasIndex("MemberId");
 
                     b.ToTable("Opportunities");
                 });
@@ -551,25 +484,6 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Navigation("Member");
                 });
 
-            modelBuilder.Entity("NIA_CRM.Models.ContactIndustry", b =>
-                {
-                    b.HasOne("NIA_CRM.Models.Contact", "Contact")
-                        .WithMany("ContactIndustries")
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("NIA_CRM.Models.Industry", "Industry")
-                        .WithMany("ContactIndustries")
-                        .HasForeignKey("IndustryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Contact");
-
-                    b.Navigation("Industry");
-                });
-
             modelBuilder.Entity("NIA_CRM.Models.ContactNote", b =>
                 {
                     b.HasOne("NIA_CRM.Models.Contact", "Contact")
@@ -583,19 +497,19 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.IndustryNAICSCode", b =>
                 {
-                    b.HasOne("NIA_CRM.Models.Industry", "Industry")
+                    b.HasOne("NIA_CRM.Models.Member", "Member")
                         .WithMany("IndustryNAICSCodes")
-                        .HasForeignKey("IndustryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("NIA_CRM.Models.NAICSCode", "NAICSCode")
                         .WithMany("IndustryNAICSCodes")
                         .HasForeignKey("NAICSCodeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Industry");
+                    b.Navigation("Member");
 
                     b.Navigation("NAICSCode");
                 });
@@ -624,25 +538,6 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Navigation("Member");
 
                     b.Navigation("Opportunity");
-                });
-
-            modelBuilder.Entity("NIA_CRM.Models.MemberIndustry", b =>
-                {
-                    b.HasOne("NIA_CRM.Models.Industry", "Industry")
-                        .WithMany("MemberIndustries")
-                        .HasForeignKey("IndustryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NIA_CRM.Models.Member", "Member")
-                        .WithMany("MemberIndustries")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Industry");
-
-                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.MemberLogo", b =>
@@ -699,33 +594,20 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.Opportunity", b =>
                 {
-                    b.HasOne("NIA_CRM.Models.Industry", "Industry")
+                    b.HasOne("NIA_CRM.Models.Member", "Member")
                         .WithMany("Opportunities")
-                        .HasForeignKey("IndustryId")
+                        .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Industry");
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Contact", b =>
                 {
-                    b.Navigation("ContactIndustries");
-
                     b.Navigation("ContactNotes");
 
                     b.Navigation("Interactions");
-                });
-
-            modelBuilder.Entity("NIA_CRM.Models.Industry", b =>
-                {
-                    b.Navigation("ContactIndustries");
-
-                    b.Navigation("IndustryNAICSCodes");
-
-                    b.Navigation("MemberIndustries");
-
-                    b.Navigation("Opportunities");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Member", b =>
@@ -736,9 +618,9 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.Navigation("Contacts");
 
-                    b.Navigation("Interactions");
+                    b.Navigation("IndustryNAICSCodes");
 
-                    b.Navigation("MemberIndustries");
+                    b.Navigation("Interactions");
 
                     b.Navigation("MemberLogo");
 
@@ -747,6 +629,8 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Navigation("MemberNotes");
 
                     b.Navigation("MemberThumbnail");
+
+                    b.Navigation("Opportunities");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.MembershipType", b =>
