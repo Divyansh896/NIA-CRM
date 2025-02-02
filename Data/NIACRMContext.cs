@@ -27,7 +27,6 @@ namespace NIA_CRM.Data
         // DbSets for entities
         public DbSet<Member> Members { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Industry> Industries { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Interaction> Interactions { get; set; }
         public DbSet<Opportunity> Opportunities { get; set; }
@@ -36,7 +35,6 @@ namespace NIA_CRM.Data
         public DbSet<MemberMembershipType> MemberMembershipTypes { get; set; }
         public DbSet<ContactIndustry> ContactIndustries { get; set; }
         public DbSet<ProductionEmail> ProductionEmails { get; set; }
-        public DbSet<MemberIndustry> MemberIndustries { get; set; }
         public DbSet<MemberLogo> MemberLogos { get; set; }
         public DbSet<MemberThumbnail> MemebrThumbnails { get; set; }
         public DbSet<MemberNote> MemberNotes { get; set; }
@@ -68,25 +66,31 @@ namespace NIA_CRM.Data
                 .HasForeignKey(c => c.MemberId)
                 .OnDelete(DeleteBehavior.Cascade); // Specify cascade delete if appropriate
 
+            modelBuilder.Entity<Opportunity>()
+               .HasOne(c => c.Member)
+               .WithMany(m => m.Opportunities)
+               .HasForeignKey(c => c.MemberId)
+               .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<MemberNote>()
                 .HasOne(c => c.Member)
                 .WithMany(c => c.MemberNotes)
                 .HasForeignKey(c => c.MemberId);
 
-            // Contact -> Industry (Many-to-Many)
-            modelBuilder.Entity<ContactIndustry>()
-                .HasKey(ci => new { ci.ContactId, ci.IndustryId });
+            // NAICSCode -> Member (Many-to-Many)
+            modelBuilder.Entity<IndustryNAICSCode>()
+                .HasKey(mmt => new { mmt.MemberId, mmt.NAICSCodeId });
 
-            modelBuilder.Entity<ContactIndustry>()
-                .HasOne(ci => ci.Contact)
-                .WithMany(c => c.ContactIndustries)
-                .HasForeignKey(ci => ci.ContactId)
+            modelBuilder.Entity<IndustryNAICSCode>()
+                .HasOne(mmt => mmt.Member)
+                .WithMany(m => m.IndustryNAICSCodes)
+                .HasForeignKey(mmt => mmt.MemberId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<ContactIndustry>()
-                .HasOne(ci => ci.Industry)
-                .WithMany(i => i.ContactIndustries)
-                .HasForeignKey(ci => ci.IndustryId)
+            modelBuilder.Entity<IndustryNAICSCode>()
+                .HasOne(mmt => mmt.NAICSCode)
+                .WithMany(m => m.IndustryNAICSCodes)
+                .HasForeignKey(mmt => mmt.NAICSCodeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Address -> Member (One-to-Many)
@@ -98,9 +102,9 @@ namespace NIA_CRM.Data
 
             // Industry -> Opportunity (One-to-Many)
             modelBuilder.Entity<Opportunity>()
-                .HasOne(o => o.Industry)
+                .HasOne(o => o.Member)
                 .WithMany(i => i.Opportunities)
-                .HasForeignKey(o => o.IndustryId)
+                .HasForeignKey(o => o.MemberId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Member -> Cancellation (One-to-Many)
