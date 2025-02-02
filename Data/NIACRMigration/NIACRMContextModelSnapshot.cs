@@ -164,27 +164,19 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.IndustryNAICSCode", b =>
                 {
-<<<<<<< HEAD
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-=======
->>>>>>> origin/master
                     b.Property<int>("MemberId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("NAICSCodeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
+                    b.HasKey("Id");
 
-<<<<<<< HEAD
                     b.HasIndex("MemberId");
-=======
-                    b.HasKey("MemberId", "NAICSCodeId");
->>>>>>> origin/master
 
                     b.HasIndex("NAICSCodeId");
 
