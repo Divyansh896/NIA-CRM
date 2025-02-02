@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NIA_CRM.Data;
 
@@ -10,9 +11,15 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    partial class NIACRMContextModelSnapshot : ModelSnapshot
+<<<<<<<< HEAD:Data/NIACRMigration/20250202065826_Initial.Designer.cs
+    [Migration("20250202065826_Initial")]
+========
+    [Migration("20250202060922_Initial")]
+>>>>>>>> origin/master:Data/NIACRMigration/20250202060922_Initial.Designer.cs
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
@@ -164,13 +171,13 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.IndustryNAICSCode", b =>
                 {
-<<<<<<< HEAD
+<<<<<<<< HEAD:Data/NIACRMigration/20250202065826_Initial.Designer.cs
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-=======
->>>>>>> origin/master
+========
+>>>>>>>> origin/master:Data/NIACRMigration/20250202060922_Initial.Designer.cs
                     b.Property<int>("MemberId")
                         .HasColumnType("INTEGER");
 
@@ -180,11 +187,11 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<int>("Id")
                         .HasColumnType("INTEGER");
 
-<<<<<<< HEAD
+<<<<<<<< HEAD:Data/NIACRMigration/20250202065826_Initial.Designer.cs
                     b.HasIndex("MemberId");
-=======
+========
                     b.HasKey("MemberId", "NAICSCodeId");
->>>>>>> origin/master
+>>>>>>>> origin/master:Data/NIACRMigration/20250202060922_Initial.Designer.cs
 
                     b.HasIndex("NAICSCodeId");
 
