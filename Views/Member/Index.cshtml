@@ -99,7 +99,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+                <tr class="clickable-row" data-id="@item.ID">
                     <td>
                         @{
                             if (item.MemberThumbnail?.Content != null)

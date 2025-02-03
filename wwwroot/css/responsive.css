@@ -251,7 +251,6 @@ td, th {
     padding-top: 5px;
     background-color: #fff;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
-    transition: right 3s ease-in-out;
     z-index: 9999;
     visibility: hidden; /* Initially hide */
     overflow-y:auto;
@@ -262,11 +261,12 @@ td, th {
     #previewContainer.visible {
         right: 0;
         visibility: visible; /* Make visible when showing */
+        transition: 1s ease-in-out;
     }
 
     #previewContainer.hidden {
         visibility: hidden; /* Hide the container */
-        transition: 3s ease-in-out;
+        transition: 1s ease-in-out;
     }
 
 .clickable-row:hover {
