@@ -14,32 +14,49 @@
     <div class="row" role="region" aria-labelledby="dashboard-stats">
         <h2 id="dashboard-stats" class="sr-only">Dashboard Statistics</h2>
 
-        <!-- Card 1 -->
+        <!-- Card 1: Total Members -->
         <div class="col-md-4">
-            <div class="card text-light" role="group" aria-labelledby="total-members-title">
-                <div class="card-body text-center">
-                    <p class="card-title" id="total-members-title" role="heading" aria-level="3">Total Members</p>
-                    <p class="card-text" aria-live="polite">@ViewData["MemberCount"]</p>
+            <div class="card text-light vidget-MemebrCount" role="group" aria-labelledby="total-members-title">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <!-- Left Column (Title & Text) -->
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="total-members-title" role="heading" aria-level="3">Total Members</p>
+                            <p class="card-text fixed-text" aria-live="polite">@ViewData["MemberCount"]</p>
+                        </div>
+                        <!-- Right Column (Blank Space) -->
+                        <div class="col-6"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Card 2 -->
+        <!-- Card 2: Members in Copperport -->
         <div class="col-md-4">
-            <div class="card text-light" role="group" aria-labelledby="members-copperport-title">
-                <div class="card-body text-center">
-                    <p class="card-title" id="members-copperport-title" role="heading" aria-level="3">Members in Copperport</p>
-                    <p class="card-text" aria-live="polite">@Model.Count(m => m.Addresses.Any(a => a.City == "Copperport"))</p>
+            <div class="card text-light vidget-MemebrCity" role="group" aria-labelledby="members-copperport-title">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="members-copperport-title" role="heading" aria-level="3">Members in Copperport</p>
+                            <p class="card-text fixed-text" aria-live="polite">@Model.Count(m => m.Addresses.Any(a => a.City == "Copperport"))</p>
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Card 3 -->
+        <!-- Card 3: VIP Clients -->
         <div class="col-md-4">
-            <div class="card text-light" role="group" aria-labelledby="vip-clients-title">
-                <div class="card-body text-center">
-                    <p class="card-title" id="vip-clients-title" role="heading" aria-level="3">VIP Clients</p>
-                    <p class="card-text" aria-live="polite">@ViewData["VipCount"]</p>
+            <div class="card text-light vidget-Memebr" role="group" aria-labelledby="vip-clients-title">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="vip-clients-title" role="heading" aria-level="3">VIP Clients</p>
+                            <p class="card-text fixed-text" aria-live="polite">@ViewData["VipCount"]</p>
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,9 +104,15 @@
                         @* </div> *@
 
                         <div class="form-group col-md-4">
-                            <label for="Members" class="control-label">Filter by Industry:</label>
-                            @Html.DropDownList("Members", null, "All Industry", htmlAttributes: new { @class = "form-control" })
-                            <span id="industry-help" class="sr-only">Select an industry to filter members by.</span>
+                            <label for="SearchString" class="control-label">Search by Member Name:</label>
+                            @Html.TextBox("SearchString", ViewData["SearchString"] as string, new
+                                {
+                                    @class = "form-control",
+                                    id = "SearchString",
+                                    placeholder = "Enter Member Name"
+
+                                })
+                            <span id="search-name-help" class="sr-only">Type the member name to search.</span>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="MembershipTypes" class="control-label">Filter by Membership Types:</label>
@@ -106,7 +129,9 @@
             </div>
         </div>
     </div>
-
+    <div>
+        <label class="control-label">@ViewData["records"]</label>
+    </div>
     <!--Table Data-->
     <div class="table-container mt-4" role="region" aria-labelledby="table-title" style="position: relative; overflow: auto; border: 1px solid #ddd;">
         <h2 id="table-title" class="sr-only">Member Details Table</h2>
@@ -114,8 +139,13 @@
             <thead class="thead-dark">
                 <tr>
 
-                    <th class="table-head"><!--Empty header for logos --></th>
+<<<<<<<<< Temporary merge branch 1
+                    <th class="table-head-static"><!--Empty header for logos --></th>
+                    
+=========
+                    <th class="table-head-static"><!--Empty header for logos --></th>
 
+>>>>>>>>> Temporary merge branch 2
                     <th scope="col" class="table-head">
                         <input type="submit" name="actionButton" value="Industry" class="btn btn-link" aria-label="Sort by Industry" />
                     </th>
@@ -151,7 +181,11 @@
 
                                     <img src="images/blankProfile.jpg" alt="blank profile picture"
                                          title="blank profile picture" class="img-fluid rounded" />
+<<<<<<<<< Temporary merge branch 1
+            }
+=========
                                 }
+>>>>>>>>> Temporary merge branch 2
                             }
                         </td>
 
@@ -179,10 +213,9 @@
                                     @address.AddressLine1
                                     @if (!string.IsNullOrEmpty(address.AddressLine2))
                                     {
-                                        @address.AddressLine2
+                                        @address.FormattedAddress
                                     }
                                     <br />
-                                    @address.City @address.StateProvince @address.PostalCode @address.Country
                                 }
                             </div>
                         </td>
@@ -194,16 +227,19 @@
                                 <td>@contact.Summary</td>
                                 <td>@contact.Title</td>
                                 <td>@contact.Department</td>
+<<<<<<<<< Temporary merge branch 1
+                                <td>@contact.Email</td>
+                                <td>@contact.PhoneFormatted</td>
+=========
                                 <td>
                                     <a href="mailto:@contact.Email">Email</a>
+
+                                        ? $"({contact.Phone.Substring(0, 3)}) {contact.Phone.Substring(3, 3)}-{contact.Phone.Substring(6, 4)}"
+                                        : contact.Phone)
                                 </td>
-                                <td>@contact.PhoneFormatted</td>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
-                                    {
-                                        <a href="@contact.LinkedInUrl" target="_blank" aria-label="View LinkedIn profile for @contact.Summary">LinkedIn</a>
-                                    }
-                                </td>
+
+>>>>>>>>> Temporary merge branch 2
+
                                 @* <td>@(contact.IsVip ? "Yes" : "No")</td> *@
                             }
                         }
