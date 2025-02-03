@@ -22,9 +22,67 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Cancellation
-        public async Task<IActionResult> Index(int? page, int? pageSizeID)
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, int? Members, string? SearchString, bool cancelled, string? actionButton,
+                                              string sortDirection = "asc", string sortField = "Member")
         {
-            var cancellations = _context.Cancellations.Include(c => c.Member).Where(c => c.Canceled);
+            PopulateDropdowns();
+            string[] sortOptions = new[] { "Member" };
+
+            var cancellations = _context.Cancellations.Include(c => c.Member).AsQueryable();
+
+            int numberFilters = 0;
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                cancellations = cancellations.Where(m =>
+                    m.Member.MemberName.ToUpper().Contains(SearchString.ToUpper()));
+                numberFilters++;
+            }
+            if (cancelled)
+            {
+                cancellations = cancellations.Where(c => c.Canceled);
+                numberFilters++;
+            }
+
+            if (sortField == "Member")
+            {
+                if (sortDirection == "desc")
+                {
+                    cancellations = cancellations
+                        .OrderByDescending(p => p.Member.MemberName)
+                        .ThenByDescending(p => p.Member.MemberName);
+
+                }
+                else
+                {
+                    cancellations = cancellations
+                        .OrderBy(p => p.Member.MemberName)
+                        .ThenBy(p => p.Member.MemberName);
+
+                }
+            }
+
+            if (Members.HasValue)
+            {
+                cancellations = cancellations.Where(p => p.MemberID == Members);
+                numberFilters++;
+            }
+            //Give feedback about the state of the filters
+            if (numberFilters != 0)
+            {
+                //Toggle the Open/Closed state of the collapse depending on if we are filtering
+                ViewData["Filtering"] = " btn-danger";
+                //Show how many filters have been applied
+                ViewData["numberFilters"] = "(" + numberFilters.ToString()
+                    + " Filter" + (numberFilters > 1 ? "s" : "") + " Applied)";
+                //Keep the Bootstrap collapse open
+                @ViewData["ShowFilter"] = " show";
+            }
+
+            ViewData["SortDirection"] = sortDirection;
+            ViewData["SortField"] = sortField;
+            ViewData["numberFilters"] = numberFilters;
+            //ViewData["records"] = $"Records Found: {contacts.Count()}";
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
             ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
@@ -166,6 +224,14 @@ namespace NIA_CRM.Controllers
         private bool CancellationExists(int id)
         {
             return _context.Cancellations.Any(e => e.ID == id);
+        }
+
+        private void PopulateDropdowns()
+        {
+            // Fetch Members for dropdown
+            var members = _context.Members.ToList();
+            ViewData["Members"] = new SelectList(members, "ID", "MemberName");
+
         }
     }
 }
