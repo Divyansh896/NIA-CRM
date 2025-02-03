@@ -13,80 +13,80 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
-  
+
 
 </head>
 <body>
-        <div class="container-fluid main-container" >
-            <!-- Sidebar -->
-            <nav id="sidebarMenu" class="sidebar">
-                <div class="position-sticky p-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Home page" title="Home">
-                                <span class="icon" aria-hidden="true"><i class="fas fa-home"></i></span>
-                                <span class="text-white ms-2">Home</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
-                                <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
-                                <span class="text-white ms-2">Members</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email" title="Email">
-                                <span class="icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
-                                <span class="text-white ms-2">Production Email</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
-                                <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
-                                <span class="text-white ms-2">Contacts</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" role="menuitem">
+    <div class="container-fluid main-container">
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="sidebar">
+            <div class="position-sticky p-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item" role="menuitem">
+                        <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Home page" title="Home">
+                            <span class="icon" aria-hidden="true"><i class="fas fa-home"></i></span>
+                            <span class="text-white ms-2">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="menuitem">
+                        <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
+                            <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
+                            <span class="text-white ms-2">Members</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="menuitem">
+                        <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email" title="Email">
+                            <span class="icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
+                            <span class="text-white ms-2">Production Email</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="menuitem">
+                        <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
+                            <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
+                            <span class="text-white ms-2">Contacts</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="menuitem">
                         <a class="nav-link text-dark" href="@Url.Action("Index", "MemberNote")" aria-label="View Notes for members" title="Notes">
-                                <span class="icon" aria-hidden="true"><i class="fas fa-sticky-note"></i></span>
-                                <span class="text-white ms-2">Member Notes</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" role="menuitem">
+                            <span class="icon" aria-hidden="true"><i class="fas fa-sticky-note"></i></span>
+                            <span class="text-white ms-2">Member Notes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="menuitem">
                         <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")" aria-label="Manage Archivings" title="Archivings">
-                                <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
-                                <span class="text-white ms-2">Archived</span>
-                            </a>
-                        </li>
-                        @* <li class="nav-item" role="menuitem"> *@
-                        @*     <a class="nav-link text-dark" href="@Url.Action("Index", "NAICSCode")" aria-label="Show NIACS Codes" title="NIACS Codes"> *@
-                        @*         <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span> *@
-                        @*         <span class="text-black ms-2">NIACS Codes</span> *@
-                        @*     </a> *@
-                        @* </li> *@
-                    </ul>
-                    <!--<partial name="_LoginPartial" />-->
-                </div>
-            </nav>
+                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
+                            <span class="text-white ms-2">Archived</span>
+                        </a>
+                    </li>
+                    @* <li class="nav-item" role="menuitem"> *@
+                    @*     <a class="nav-link text-dark" href="@Url.Action("Index", "NAICSCode")" aria-label="Show NIACS Codes" title="NIACS Codes"> *@
+                    @*         <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span> *@
+                    @*         <span class="text-black ms-2">NIACS Codes</span> *@
+                    @*     </a> *@
+                    @* </li> *@
+                </ul>
+                <!--<partial name="_LoginPartial" />-->
+            </div>
+        </nav>
 
-            <!-- Main Content -->
-            <div id="mainContent" class="main-content">
-                <button id="toggleSidebar" class="btn btn-black">☰</button>
-                <main role="main" class="pb-3">
+        <!-- Main Content -->
+        <div id="mainContent" class="main-content">
+            <button id="toggleSidebar" class="btn btn-black">☰</button>
+            <main role="main" class="pb-3">
                 <div class="logo-container">
                     <a href="~/">
                         <img src="~/images/NIA-Logo.jpg" alt="Logo" class="logo" />
                     </a>
                 </div>
-                    @RenderBody()
-                </main>
-            </div>
+                @RenderBody()
+            </main>
         </div>
-    
+    </div>
+
 
     <!-- Footer -->
     <footer class="border-top footer text-muted text-center" id="footer-scroll">
-        <div class="container">
+        <div class="container mt-2">
             &copy; 2025 - NIA CRM - <a href="@Url.Action("Privacy", "Home")">Privacy</a>
             <p>
                 <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="19">
