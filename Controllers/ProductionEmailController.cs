@@ -85,6 +85,7 @@ namespace NIA_CRM.Controllers
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
+            ViewData["records"] = $"Records Found: {emailsQuery.Count()}";
 
             // Return the paginated result
             return View(pagedData);

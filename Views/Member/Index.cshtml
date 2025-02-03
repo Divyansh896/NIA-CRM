@@ -84,6 +84,9 @@
             </div>
         </div>
     </div>
+    <div>
+        <label class="control-label">@ViewData["records"]</label>
+    </div>
     <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
         <thead>
             <tr>
@@ -95,13 +98,22 @@
                 <th scope="col" class="table-head">City</th>
                 <th scope="col" class="table-head">Join Date</th>
                 <th scope="col" class="table-head">Membership Type</th>
+<<<<<<<<< Temporary merge branch 1
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                    <td class="table-row-static">
+=========
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr class="clickable-row" data-id="@item.ID">
+                <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
                     <td class="table-row-static">
+>>>>>>>>> Temporary merge branch 2
                         @{
                             if (item.MemberThumbnail?.Content != null)
                             {
