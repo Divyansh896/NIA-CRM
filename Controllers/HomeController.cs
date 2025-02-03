@@ -40,7 +40,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Index(string? SearchString,
      int? OrganizationID,
      int? Members,
-     int? IndustryNAICSCodes,
+     int? MembershipTypes,
      int? page,
      int? pageSizeID,
      string? actionButton,
@@ -110,12 +110,14 @@ namespace NIA_CRM.Controllers
                 numberFilters++;
             }
 
-            if (IndustryNAICSCodes.HasValue)
+            if (MembershipTypes.HasValue)
             {
-                // Assuming IndustryNAICSCodes is a collection, so we need to match the selected code
-                memberDetailsQuery = memberDetailsQuery.Where(p => p.IndustryNAICSCodes.Any(i => i.NAICSCodeId == IndustryNAICSCodes.Value));
+                // Assuming MembershipTypes is the ID or a collection of IDs for the membership type
+                memberDetailsQuery = memberDetailsQuery
+                    .Where(p => p.MemberMembershipTypes.Any(mmt => mmt.MembershipTypeId == MembershipTypes.Value));
                 numberFilters++;
             }
+
 
             if (sortField == "Industry")
             {
@@ -182,6 +184,10 @@ namespace NIA_CRM.Controllers
             // Fetch Industry NAICS Codes
             // Query the IndustryNAICSCode table and include related NAICSCode data.
             var naicsCodes = _context.NAICSCodes.ToList();
+
+            var membershipTypes = _context.MembershipTypes.ToList();
+
+            ViewData["MembershipTypes"] = new SelectList(membershipTypes, "ID", "TypeName");
 
             // Create a SelectList using the "ID" as the value field and "NAICSCode.Code" as the display field.
             ViewData["IndustryNAICSCodes"] = new SelectList(naicsCodes, "ID", "Code");

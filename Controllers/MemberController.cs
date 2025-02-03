@@ -22,9 +22,11 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Member
-        public async Task<IActionResult> Index(string? SearchString, string? JoinDate, int? page, int? pageSizeID, string? actionButton, string sortDirection = "asc", string sortField = "Member Name")
+        public async Task<IActionResult> Index(string? SearchString, string? JoinDate, int? page, int? pageSizeID, string? actionButton, int? MembershipTypes, string sortDirection = "asc", string sortField = "Member Name")
 
         {
+
+            PopulateDropdowns();
             string[] sortOptions = { "Member Name", "Industry" };
             int numberFilters = 0;
 
@@ -68,6 +70,13 @@ namespace NIA_CRM.Controllers
                 {
                     ModelState.AddModelError("JoinDate", "Invalid date format. Please use YYYY-MM-DD.");
                 }
+            }
+            if (MembershipTypes.HasValue)
+            {
+                // Assuming MembershipTypes is the ID or a collection of IDs for the membership type
+                members = members
+                    .Where(p => p.MemberMembershipTypes.Any(mmt => mmt.MembershipTypeId == MembershipTypes.Value));
+                numberFilters++;
             }
             if (numberFilters != 0)
             {
@@ -324,6 +333,19 @@ namespace NIA_CRM.Controllers
             }
 
             return PartialView("_MemberPreview", member); // Ensure the partial view name matches
+        }
+
+        private void PopulateDropdowns()
+        {
+           
+            
+
+            var membershipTypes = _context.MembershipTypes.ToList();
+
+            ViewData["MembershipTypes"] = new SelectList(membershipTypes, "ID", "TypeName");
+
+            
+
         }
     }
 }

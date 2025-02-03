@@ -91,11 +91,11 @@
                             @Html.DropDownList("Members", null, "All Industry", htmlAttributes: new { @class = "form-control" })
                             <span id="industry-help" class="sr-only">Select an industry to filter members by.</span>
                         </div>
-                        @* <div class="form-group col-md-4"> *@
-                        @*     <label for="IndustryNAICSCodes" class="control-label">Filter by Industry NAICS Codes:</label> *@
-                        @*     @Html.DropDownList("IndustryNAICSCodes", null, "All Industry NAICS Codes", htmlAttributes: new { @class = "form-control" }) *@
-                        @*     <span id="industry-help" class="sr-only">Select an Industry NAICS Codes to filter members by.</span> *@
-                        @* </div> *@
+                        <div class="form-group col-md-4"> 
+                             <label for="MembershipTypes" class="control-label">Filter by Membership Types:</label> 
+                             @Html.DropDownList("MembershipTypes", null, "All MembershipTypes", htmlAttributes: new { @class = "form-control" }) 
+                            <span id="industry-help" class="sr-only">Select Membership Types to filter members by.</span> 
+                         </div> 
 
                         <div class="form-group col-md-4 d-flex align-items-end mt-2">
                             <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
@@ -129,7 +129,7 @@
                     <th scope="col" class="table-head">Contact Email</th>
                     <th scope="col" class="table-head">Contact Phone</th>
                     <th scope="col" class="table-head">LinkedIn</th>
-                    @* <th scope="col" class="table-head">VIP Status</th> *@
+                    @* <th scope="col" class="table-head">VIP Status</th>
                     @* <th scope="col" class="table-head">Pin Column</th> *@
                 </tr>
             </thead>
