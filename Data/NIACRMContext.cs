@@ -37,6 +37,8 @@ namespace NIA_CRM.Data
         public DbSet<MemberLogo> MemberLogos { get; set; }
         public DbSet<MemberThumbnail> MemebrThumbnails { get; set; }
         public DbSet<MemberNote> MemberNotes { get; set; }
+        public DbSet<IndustryNAICSCode> IndustryNAICSCodes { get; set; }
+        public DbSet<NAICSCode> NAICSCodes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -138,6 +140,19 @@ namespace NIA_CRM.Data
                 .WithMany(c => c.ContactNotes)  // One Contact can have many ContactNotes
                 .HasForeignKey(cn => cn.ContactId)  // ContactId is the foreign key in ContactNote
                 .OnDelete(DeleteBehavior.Cascade);  // Define delete behavior (optional)
+
+            modelBuilder.Entity<IndustryNAICSCode>()
+    .HasKey(inc => inc.Id);
+
+            modelBuilder.Entity<IndustryNAICSCode>()
+                .HasOne(inc => inc.Member)
+                .WithMany(m => m.IndustryNAICSCodes)
+                .HasForeignKey(inc => inc.MemberId);
+
+            modelBuilder.Entity<IndustryNAICSCode>()
+                .HasOne(inc => inc.NAICSCode)
+                .WithMany(n => n.IndustryNAICSCodes)
+                .HasForeignKey(inc => inc.NAICSCodeId);
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -177,7 +192,6 @@ namespace NIA_CRM.Data
                 }
             }
         }
-        public DbSet<NIA_CRM.Models.NAICSCode> NAICSCode { get; set; } = default!;
-        public DbSet<NIA_CRM.Models.MemberNote> MemberNote { get; set; } = default!;
+       
     }
 }

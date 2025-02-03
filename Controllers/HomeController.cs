@@ -39,18 +39,19 @@ namespace NIA_CRM.Controllers
 
         public async Task<IActionResult> Index(string? SearchString,
      int? OrganizationID,
-     int? IndustryID,
+     int? Members,
+     int? IndustryNAICSCodes,
      int? page,
      int? pageSizeID,
      string? actionButton,
      string sortDirection = "asc",
-     string sortField = "Member Name")
+     string sortField = "Industry")
         {
-            string[] sortOptions = { "Member Name", "Organization", "Industry" };
+            string[] sortOptions = { "Industry" };
             int numberFilters = 0;
 
             // Populate dropdowns (ensure method works)
-            ViewData["IndustryID"] = PopulateDropdowns();
+            PopulateDropdowns();
             // Fetch data from the database
             var memberDetailsQuery = _context.Members
 
@@ -103,15 +104,32 @@ namespace NIA_CRM.Controllers
                 numberFilters++;
             }
 
-            // Apply sorting
-            memberDetailsQuery = sortField switch
+            if (Members.HasValue)
             {
-                "Member Name" => sortDirection == "asc"
-                    ? memberDetailsQuery.OrderBy(m => m.MemberName)
-                    : memberDetailsQuery.OrderByDescending(m => m.MemberName),
+                memberDetailsQuery = memberDetailsQuery.Where(p => p.ID == Members);
+                numberFilters++;
+            }
 
-                _ => memberDetailsQuery
-            };
+            if (IndustryNAICSCodes.HasValue)
+            {
+                // Assuming IndustryNAICSCodes is a collection, so we need to match the selected code
+                memberDetailsQuery = memberDetailsQuery.Where(p => p.IndustryNAICSCodes.Any(i => i.NAICSCodeId == IndustryNAICSCodes.Value));
+                numberFilters++;
+            }
+
+            if (sortField == "Industry")
+            {
+                if (sortDirection == "asc")
+                {
+                    memberDetailsQuery = memberDetailsQuery
+                        .OrderByDescending(p => p.MemberName);
+                }
+                else
+                {
+                    memberDetailsQuery = memberDetailsQuery
+                        .OrderBy(p => p.MemberName);
+                }
+            }
 
             if (numberFilters != 0)
             {
@@ -155,10 +173,20 @@ namespace NIA_CRM.Controllers
             return PartialView("_MemberContactPreview", member); // Ensure the partial view name matches
         }
 
-        private SelectList PopulateDropdowns()
+        private void PopulateDropdowns()
         {
-            var members = _context.Members.ToList(); // Fixed incorrect property access
-            return new SelectList(members, "ID", "MemberName"); // Specify value and text fields
+            // Fetch Members for dropdown
+            var members = _context.Members.ToList();
+            ViewData["Members"] = new SelectList(members, "ID", "MemberName");
+
+            // Fetch Industry NAICS Codes
+            // Query the IndustryNAICSCode table and include related NAICSCode data.
+            var naicsCodes = _context.NAICSCodes.ToList();
+
+            // Create a SelectList using the "ID" as the value field and "NAICSCode.Code" as the display field.
+            ViewData["IndustryNAICSCodes"] = new SelectList(naicsCodes, "ID", "Code");
+
         }
+
     }
 }

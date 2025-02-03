@@ -3,10 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <!--WIDGETS-->
 <div class="content" id="content" role="main" aria-labelledby="dashboard-title">
-    
+
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
         <h1 id="dashboard-title">Dashboard</h1>
         <button class="btn btn-primary">Customize</button>
@@ -52,10 +51,10 @@
 <h2>Member Details</h2>
 
 <form asp-action="Index" method="get" aria-labelledby="form-title">
-    
-        <div id="form-title" class="sr-only">Filter and Search Form</div>
-        
-    
+
+    <div id="form-title" class="sr-only">Filter and Search Form</div>
+
+
 
     <div class="table-container">
 
@@ -65,16 +64,16 @@
 
         <div class="form-horizontal mb-3">
             <div class="d-flex justify-content-between align-items-center">
-            <button class="btn btn-dark @ViewData["Filtering"]"
-                    type="button"
-                    id="filterToggle"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseFilter"
-                    aria-expanded="false"
-                    aria-controls="collapseFilter">
-                Filter/Search @ViewData["numberFilters"]
-            </button>
-            <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Member</a>
+                <button class="btn btn-dark @ViewData["Filtering"]"
+                        type="button"
+                        id="filterToggle"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseFilter"
+                        aria-expanded="false"
+                        aria-controls="collapseFilter">
+                    Filter/Search @ViewData["numberFilters"]
+                </button>
+                <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Member</a>
             </div>
 
             <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
@@ -88,10 +87,15 @@
                         @* </div> *@
 
                         <div class="form-group col-md-4">
-                            <label for="IndustryID" class="control-label">Filter by Industry:</label>
-                            @Html.DropDownList("IndustryID", null, "All Industry", htmlAttributes: new { @class = "form-control"})
+                            <label for="Members" class="control-label">Filter by Industry:</label>
+                            @Html.DropDownList("Members", null, "All Industry", htmlAttributes: new { @class = "form-control" })
                             <span id="industry-help" class="sr-only">Select an industry to filter members by.</span>
                         </div>
+                        @* <div class="form-group col-md-4"> *@
+                        @*     <label for="IndustryNAICSCodes" class="control-label">Filter by Industry NAICS Codes:</label> *@
+                        @*     @Html.DropDownList("IndustryNAICSCodes", null, "All Industry NAICS Codes", htmlAttributes: new { @class = "form-control" }) *@
+                        @*     <span id="industry-help" class="sr-only">Select an Industry NAICS Codes to filter members by.</span> *@
+                        @* </div> *@
 
                         <div class="form-group col-md-4 d-flex align-items-end mt-2">
                             <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
@@ -111,7 +115,7 @@
                 <tr>
 
                     <th class="table-head-static"><!--Empty header for logos --></th>
-                    
+
                     <th scope="col" class="table-head">
                         <input type="submit" name="actionButton" value="Industry" class="btn btn-link" aria-label="Sort by Industry" />
                     </th>
@@ -143,18 +147,31 @@
                                          title="Profile Picture of @member?.MemberName" class="img-fluid rounded" />
                                 }
                                 else
-            {
+                                {
 
-                <img src="images/blankProfile.jpg" alt="blank profile picture"
-                     title="blank profile picture" class="img-fluid rounded" />
-            }
+                                    <img src="images/blankProfile.jpg" alt="blank profile picture"
+                                         title="blank profile picture" class="img-fluid rounded" />
+                                }
                             }
                         </td>
 
                         <td>@Html.DisplayFor(modelItem => member.MemberName)</td>
                         <td>
-                            @Html.DisplayFor(modelItem => member.IndustryNAICSCodes);
+                            @if (member.IndustryNAICSCodes != null && member.IndustryNAICSCodes.Any())
+                            {
+                                <ul class="list-unstyled mb-0">
+                                    @foreach (var industryNAICS in member.IndustryNAICSCodes)
+                                    {
+                                        <li>@industryNAICS.NAICSCode.Code</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No NAICS Code</span>
+                            }
                         </td>
+
                         <td>
                             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 @foreach (var address in member.Addresses)
@@ -177,7 +194,10 @@
                                 <td>@contact.Summary</td>
                                 <td>@contact.Title</td>
                                 <td>@contact.Department</td>
-                                <td>@contact.Email</td>
+                                <td>
+                                    <a href="mailto:@contact.Email">Email</a>
+                                </td>
+
                                 <td>
                                     @(contact.Phone.Length == 10
                                         ? $"({contact.Phone.Substring(0, 3)}) {contact.Phone.Substring(3, 3)}-{contact.Phone.Substring(6, 4)}"
@@ -215,7 +235,7 @@
 
 
 @section Scripts {
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>

@@ -1,14 +1,12 @@
-﻿
-/* responsive.css */
-/* NIA Logo Css*/
-.card-body {
-    border-radius: 20px;
-    background-color: #A61C1C;
-    margin-top: 15px;
-    border: solid !important;
-    border-color: #A61C1C !important;
+﻿/* responsive.css */
+
+/* Base Styles - Mobile First */
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px; /* Default font size for mobile */
 }
 
+/* General Button Styles */
 .btn-primary {
     background-color: #A61C1C;
     border-color: #A61C1C;
@@ -19,19 +17,7 @@
         border-color: #A61C1C;
     }
 
-.page-item.active .page-link {
-    background-color: #A61C1C !important;
-    ;
-    border-color: #A61C1C;
-}
-.position-bottom-left {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    height: 100%;
-}
-
-.btn-link{
+.btn-link {
     color: white;
 }
 
@@ -42,61 +28,54 @@
 .btn-dark {
     background-color: #434343 !important;
 }
+
     .btn-dark:hover {
         background-color: #434343 !important;
     }
-    .otherPic {
-        max-height: 425px;
-    }
+
+/* Card Styles */
+.card {
+    border: none;
+}
+
+.card-body {
+    border-radius: 20px;
+    background-color: #A61C1C;
+    margin-top: 4px;
+    border: solid !important;
+    border-color: #A61C1C !important;
+}
+
+/* Sticky Buttons */
 .sticky-buttons {
     position: sticky !important;
-    bottom: 20px; /* Distance from the bottom edge */
-    right: 20px; /* Distance from the right edge */
-    z-index: 1000; /* Ensures it stays above other elements */
-    display: flex; /* Aligns buttons horizontally */
-    gap: 10px; /* Adds spacing between the buttons */
-
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
 }
+
 .sticky-buttons-container {
-    background-color: white; /* Semi-transparent black background */
-    padding: 10px 15px; /* Adds padding around the buttons */
-    border-radius: 10px; /* Smooth, rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
-    display: flex; /* Aligns the buttons horizontally */
-    gap: 10px; /* Adds space between the buttons */
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    gap: 10px;
     width: 100%;
     justify-content: flex-end;
 }
-body {
-    font-family: 'Open Sans', sans-serif;
-}
-/* Ensure the table displays correctly */
-.table td, .table th {
-    vertical-align: middle;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
 
-/* Ensure proper alignment in the contact information columns */
-.table td {
-    padding: 8px;
-    text-align: left;
+/* Logo */
+.logo {
+    max-height: 53px;
+    width: auto;
+    position: relative;
+    z-index: 1100; /* Ensure it appears above other elements */
+    margin-left: 60px; /* Creates space between logo and hamburger */
 }
 
-/* Adjust contact info layout */
-.contact-info-container td {
-    padding: 5px 10px;
-}
-
-
-    /* Logo container */
-    /* Logo image */
-    .logo {
-        max-height: 150px; /* Adjust size as needed */
-        width: auto;
-    }
-
-/*root css*/
 /* Sidebar */
 .sidebar {
     position: fixed;
@@ -110,61 +89,64 @@ body {
     padding-top: 60px;
 }
 
-.sidebar.show {
-    left: 0;
+    .sidebar.show {
+        left: 0;
+    }
+
+    .sidebar ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+        .sidebar ul li {
+            padding: 10px 10px;
+        }
+
+            .sidebar ul li a {
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                display: block;
+            }
+
+                .sidebar ul li a:hover {
+                    background-color: #8C1818;
+                    border-radius: 5px;
+                }
+
+    .sidebar span {
+        color: #ffffff;
+    }
+
+h1 {
+    margin-top: 20px; /* Adjust as needed */
 }
 
-.sidebar ul {
-padding: 0;
-margin: 0;
-list-style: none;
+h2 {
+    margin-top: 20px;
+    /* Adjust as needed */
+    margin-bottom: 20px;
 }
 
-.sidebar ul li {
-padding: 10px 10px;
-}
-
-.sidebar ul li a {
-text-decoration: none;
-color: #333;
-font-size: 16px;
-display: block;
-}
-
-.sidebar ul li a:hover {
-background-color: #8C1818;
-border-radius: 5px;
-}
-
-.sidebar span{
-color: #ffffff;
-}
-.sr-only {
-    border: 0;
-    clip: rect(0,0,0,0);
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: inherit;
-}
-
-/* Main content */
+/* Main Content */
 .main-content {
     margin-left: 250px;
     transition: margin-left 0.3s ease;
     padding: 20px;
+    padding-top: 20px;
 }
 
-.main-content.sidebar-collapsed {
-    margin-left: 60px;
-}
+    .main-content.sidebar-collapsed {
+        margin-left: 60px;
+    }
 
 /* Hamburger Button */
 #toggleSidebar {
     position: fixed;
     top: 15px;
     left: 15px;
-    z-index: 1100;
+    z-index: 1200;
     background-color: #A61C1C;
     color: #fff;
     border: none;
@@ -174,65 +156,40 @@ color: #ffffff;
     cursor: pointer;
 }
 
-#toggleSidebar:focus {
-    outline: none;
-}
-/* Highlight row on hover */
-.clickable-row:hover {
-    background-color: #f5f5f5; /* Light grey background */
-    cursor: pointer; /* Hand cursor */
-}
+    #toggleSidebar:focus {
+        outline: none;
+    }
 
-.hidden {
-    visibility: hidden; /* Prevent visibility on page load */
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in-out, visibility 0s 0.5s; /* Delay visibility change */
-}
-
-.visible {
-    visibility: visible; /* Ensure it's visible when sliding in */
-    transform: translateX(0);
-    transition: transform 0.5s ease-in-out, visibility 0s 0s; /* Remove the delay for visibility */
-}
-
-.preview-content {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 25%;
-    height: 100vh;
-    background-color: #f8f9fa;
-    padding: 20px;
-    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
-    overflow-y: auto;
-    z-index: 2000;
-}
-
-.d-flex.flex-row {
-    overflow: hidden;
+/* Table Styles */
+.table td, .table th {
+    vertical-align: middle;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 8px;
+    text-align: left;
 }
 
 .table-head-static {
     position: sticky !important;
     top: 0;
     left: 0;
-    z-index: 1050; /* Ensure it's above other content */
-    background: #434343 !important; /* Solid background */
+    z-index: 1050;
+    background: #434343 !important;
     color: #fff;
     width: 200px;
     border-right: 1px solid #dee2e6;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for better separation */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .table-head {
     position: sticky;
     top: 0;
-    z-index: 1020; /* Ensure it's above content but below .table-head-static */
-    background: #434343 !important; /* Solid background */
+    z-index: 1020;
+    background: #434343 !important;
     color: #fff;
     border-right: 1px solid #dee2e6;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for better separation */
-   
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .table-row-static {
@@ -240,13 +197,7 @@ color: #ffffff;
     left: 0;
     z-index: 1050;
     background: #f8f9fa !important;
-    border-left: #f8f9fa !important;
-    width:500px;
 }
-.card{
-    border: none;
-}
-
 .table-row-static img{
     display: block;
     max-width: 500px !important;
@@ -261,35 +212,58 @@ td, th {
     white-space: nowrap;
     padding: 10px;
 }
+#previewContainer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 350px;
+    height: 100%;
+    padding-right: 8px;
+    padding-top: 5px;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+    transition: right 3s ease-in-out;
+    z-index: 9999;
+    visibility: hidden; /* Initially hide */
+    overflow-y:auto;
+}
+    #previewContainer .card-body, #previewContainer img{
+        margin-left: 10px;
+    }
+    #previewContainer.visible {
+        right: 0;
+        visibility: visible; /* Make visible when showing */
+    }
 
-/* Mobile Devices (Phones) */
+    #previewContainer.hidden {
+        visibility: hidden; /* Hide the container */
+        transition: 3s ease-in-out;
+    }
+
+
 @media (max-width: 768px) {
     body {
         font-size: 14px;
     }
 
-    /* Adjust navigation bar */
     .navbar {
         font-size: 14px;
     }
 
     .main-content {
-        margin-left: 0 !important; /* Remove margin when collapsed */
+        margin-left: 0 !important;
     }
 
-    /* Example of adjusting layout for smaller screens */
     .container {
         padding-left: 10px;
         padding-right: 10px;
     }
 
-    /* Adjust grid layout */
     .row {
-        flex-direction: column;
+        
     }
-   
 }
-/* Tablets */
+
 @media (min-width: 769px) and (max-width: 1024px) {
     .navbar {
         font-size: 16px;
@@ -304,13 +278,68 @@ td, th {
         flex-direction: row;
     }
 }
-/* Desktops (larger screens) */
-@media (min-width: 1025px) {
+
+/*@media (min-width: 1025px) {
     .navbar {
         font-size: 18px;
     }
 
     .main-content {
-        margin-left: 250px; /* Adjust the margin for larger screens */
+        margin-left: 250px;
     }
+}
+*/
+@media screen and (max-width: 1024px) { /* Adjust based on your tablet breakpoint */
+    h1 {
+        margin-top: 20px; /* Adjust spacing for dashboard title */
+        font-size: 28px; /* Reduce size for better fit */
+    }
+
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 15px;
+        font-size: 22px;
+    }
+
+    .dashboard-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Center cards */
+        gap: 10px; /* Space between cards */
+    }
+
+        .dashboard-cards .card {
+            width: 100%; /* Make cards take full width on smaller screens */
+            max-width: 300px; /* Limit size for consistency */
+        }
+
+    .filter-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .add-member-btn {
+        width: 100%;
+        max-width: 200px; /* Adjust button size */
+    }
+
+    table {
+        width: 100%;
+        overflow-x: auto; /* Allow scrolling if needed */
+    }
+}
+
+
+@media (min-width: 1440px) {
+    /* Medium desktop styles */
+}
+
+@media (min-width: 1920px) {
+    /* Large desktop styles */
+}
+
+@media (min-width: 2560px) {
+    /* 4K UHD styles */
 }

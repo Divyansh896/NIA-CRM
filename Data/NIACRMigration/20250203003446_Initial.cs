@@ -42,7 +42,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "NAICSCode",
+                name: "NAICSCodes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -53,7 +53,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NAICSCode", x => x.Id);
+                    table.PrimaryKey("PK_NAICSCodes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,7 +173,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "MemberNote",
+                name: "MemberNotes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -184,9 +184,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MemberNote", x => x.Id);
+                    table.PrimaryKey("PK_MemberNotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MemberNote_Members_MemberId",
+                        name: "FK_MemberNotes_Members_MemberId",
                         column: x => x.MemberId,
                         principalTable: "Members",
                         principalColumn: "ID",
@@ -262,26 +262,27 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "IndustryNAICSCode",
+                name: "IndustryNAICSCodes",
                 columns: table => new
                 {
-                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
-                    NAICSCodeId = table.Column<int>(type: "INTEGER", nullable: false),
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
+                    NAICSCodeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IndustryNAICSCode", x => new { x.MemberId, x.NAICSCodeId });
+                    table.PrimaryKey("PK_IndustryNAICSCodes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IndustryNAICSCode_Members_MemberId",
+                        name: "FK_IndustryNAICSCodes_Members_MemberId",
                         column: x => x.MemberId,
                         principalTable: "Members",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_IndustryNAICSCode_NAICSCode_NAICSCodeId",
+                        name: "FK_IndustryNAICSCodes_NAICSCodes_NAICSCodeId",
                         column: x => x.NAICSCodeId,
-                        principalTable: "NAICSCode",
+                        principalTable: "NAICSCodes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -365,8 +366,13 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "MemberId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IndustryNAICSCode_NAICSCodeId",
-                table: "IndustryNAICSCode",
+                name: "IX_IndustryNAICSCodes_MemberId",
+                table: "IndustryNAICSCodes",
+                column: "MemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IndustryNAICSCodes_NAICSCodeId",
+                table: "IndustryNAICSCodes",
                 column: "NAICSCodeId");
 
             migrationBuilder.CreateIndex(
@@ -396,8 +402,8 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "MembershipTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MemberNote_MemberId",
-                table: "MemberNote",
+                name: "IX_MemberNotes_MemberId",
+                table: "MemberNotes",
                 column: "MemberId");
 
             migrationBuilder.CreateIndex(
@@ -425,7 +431,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "ContactNote");
 
             migrationBuilder.DropTable(
-                name: "IndustryNAICSCode");
+                name: "IndustryNAICSCodes");
 
             migrationBuilder.DropTable(
                 name: "Interactions");
@@ -437,7 +443,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "MemberMembershipTypes");
 
             migrationBuilder.DropTable(
-                name: "MemberNote");
+                name: "MemberNotes");
 
             migrationBuilder.DropTable(
                 name: "MemebrThumbnails");
@@ -446,7 +452,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "ProductionEmails");
 
             migrationBuilder.DropTable(
-                name: "NAICSCode");
+                name: "NAICSCodes");
 
             migrationBuilder.DropTable(
                 name: "Contacts");

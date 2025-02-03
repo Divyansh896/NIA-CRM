@@ -24,7 +24,7 @@ namespace NIA_CRM.Controllers
         // GET: MemberNote
         public async Task<IActionResult> Index(int? page, int? pageSizeID)
         {
-            var memberNotes = _context.MemberNote.Include(m => m.Member);
+            var memberNotes = _context.MemberNotes.Include(m => m.Member);
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
             ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
@@ -41,7 +41,7 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var memberNote = await _context.MemberNote
+            var memberNote = await _context.MemberNotes
                 .Include(m => m.Member)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (memberNote == null)
@@ -84,7 +84,7 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var memberNote = await _context.MemberNote.FindAsync(id);
+            var memberNote = await _context.MemberNotes.FindAsync(id);
             if (memberNote == null)
             {
                 return NotFound();
@@ -137,7 +137,7 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var memberNote = await _context.MemberNote
+            var memberNote = await _context.MemberNotes
                 .Include(m => m.Member)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (memberNote == null)
@@ -153,10 +153,10 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var memberNote = await _context.MemberNote.FindAsync(id);
+            var memberNote = await _context.MemberNotes.FindAsync(id);
             if (memberNote != null)
             {
-                _context.MemberNote.Remove(memberNote);
+                _context.MemberNotes.Remove(memberNote);
             }
 
             await _context.SaveChangesAsync();
@@ -165,7 +165,7 @@ namespace NIA_CRM.Controllers
 
         private bool MemberNoteExists(int id)
         {
-            return _context.MemberNote.Any(e => e.Id == id);
+            return _context.MemberNotes.Any(e => e.Id == id);
         }
     }
 }
