@@ -45,9 +45,9 @@ namespace NIA_CRM.Controllers
      int? pageSizeID,
      string? actionButton,
      string sortDirection = "asc",
-     string sortField = "Industry")
+     string sortField = "Member Name")
         {
-            string[] sortOptions = { "Industry" };
+            string[] sortOptions = { "Member Name" };
             int numberFilters = 0;
 
             // Populate dropdowns (ensure method works)
@@ -81,6 +81,7 @@ namespace NIA_CRM.Controllers
             ViewData["MemberCount"] = memberCount;
             ViewData["VipCount"] = vipCount;
             ViewData["CopperportCount"] = copperportCount;
+            
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
             {
@@ -119,17 +120,18 @@ namespace NIA_CRM.Controllers
             }
 
 
-            if (sortField == "Industry")
+            if (sortField == "Member Name")
             {
                 if (sortDirection == "asc")
                 {
                     memberDetailsQuery = memberDetailsQuery
-                        .OrderByDescending(p => p.MemberName);
+                        .OrderBy(p => p.MemberName);
                 }
                 else
                 {
+                    
                     memberDetailsQuery = memberDetailsQuery
-                        .OrderBy(p => p.MemberName);
+                        .OrderByDescending(p => p.MemberName);
                 }
             }
 
@@ -147,6 +149,7 @@ namespace NIA_CRM.Controllers
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
+            ViewData["records"] = $"Records Found: {memberDetailsQuery.Count()}";
 
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());

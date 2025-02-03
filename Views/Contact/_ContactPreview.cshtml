@@ -8,13 +8,13 @@
         <div>
             <p><strong>Contact Name:</strong> <br />@Model.Summary</p>
             <p><strong>Contact Email:</strong> <br /> @Model.Email</p>
-            <p><strong>Phone:</strong> <br /> @Model.Phone</p>
+            <p><strong>Phone:</strong> <br /> @Model.PhoneFormatted</p>
             <p><a href="@Model.LinkedInUrl" target="_blank">View LinkedIn</a></p>
         </div>
     </div>
 
-    <div>
-        
+
+        <div class="card card-body bg-light text-black">
         <h5>Industry:</h5>
         @{
             var industry = Model.Member; // Single industry object
@@ -44,7 +44,7 @@
         }
 
 
-    </div>
+
 
     <div class="mt-3">
         <label for="contactNote"><strong>Additional Notes:</strong></label><br />
@@ -52,10 +52,12 @@
 
         <textarea id="contactNote" name="contactNote" class="form-control" rows="4" placeholder="Add notes here..." data-id="@Model.Id"></textarea>
     </div>
-
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-        <a asp-controller="Member" asp-action="Details" asp-route-id="@Model.Id">Details</a> |
-        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    </div>
+    <div class="sticky-buttons">
+        <div class="sticky-buttons-container">
+            <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <a class="btn btn-dark" asp-controller="Member" asp-action="Details" asp-route-id="@Model.Id">Details</a>
+            <a class="btn btn-primary" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    </div>
     </div>
 </div>

@@ -153,7 +153,7 @@ namespace NIA_CRM.Data
                            new Member
                            {
                                ID = 1,
-                               MemberName = "John Doe",
+                               MemberName = "Alpha Steel",
                                MemberSize = 10,
                                JoinDate = new DateTime(2021, 1, 1),
                                WebsiteUrl = "https://www.johndoe.com",
@@ -163,17 +163,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "123 Main St",
                                 AddressLine2 = "Apt 1B",
-                                City = "New York",
-                                StateProvince = "NY",
-                                PostalCode = "10001",
-                                Country = "USA"
+                                City = "Niagara Falls",
+                                StateProvince = "ON",
+                                PostalCode = "L2G 3Y7",
+                                Country = "Canada"
                             }
                                                }
                            },
                                            new Member
                                            {
                                                ID = 2,
-                                               MemberName = "Jane Smith",
+                                               MemberName = "TISCO CO.",
                                                MemberSize = 5,
                                                JoinDate = new DateTime(2020, 6, 15),
                                                WebsiteUrl = "https://www.janesmith.com",
@@ -183,17 +183,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "456 Oak Ave",
                                 AddressLine2 = "Unit 2A",
-                                City = "Los Angeles",
-                                StateProvince = "CA",
-                                PostalCode = "90001",
-                                Country = "USA"
+                                City = "Niagara Falls",
+                                StateProvince = "ON",
+                                PostalCode = "L2H 1H4",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 3,
-                                               MemberName = "Emily Johnson",
+                                               MemberName = "M Time Irons",
                                                MemberSize = 8,
                                                JoinDate = new DateTime(2019, 4, 21),
                                                WebsiteUrl = "https://www.emilyjohnson.com",
@@ -203,17 +203,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "789 Pine Rd",
                                 AddressLine2 = "Suite 3C",
-                                City = "Chicago",
-                                StateProvince = "IL",
-                                PostalCode = "60601",
-                                Country = "USA"
+                                City = "Niagara Falls",
+                                StateProvince = "ON",
+                                PostalCode = "L2E 6S5",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 4,
-                                               MemberName = "Michael Brown",
+                                               MemberName = "Forge & Foundry Inc.",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2021, 7, 11),
                                                WebsiteUrl = "https://www.michaelbrown.com",
@@ -223,17 +223,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "101 Maple St",
                                 AddressLine2 = "Apt 4D",
-                                City = "San Francisco",
-                                StateProvince = "CA",
-                                PostalCode = "94101",
-                                Country = "USA"
+                                City = "Niagara Falls",
+                                StateProvince = "ON",
+                                PostalCode = "L2E 1B1",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 5,
-                                               MemberName = "Sarah Davis",
+                                               MemberName = "Northern Metalworks",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2020, 3, 25),
                                                WebsiteUrl = "https://www.sarahdavis.com",
@@ -243,17 +243,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "555 Birch Blvd",
                                 AddressLine2 = "Unit 7B",
-                                City = "Houston",
-                                StateProvince = "TX",
-                                PostalCode = "77001",
-                                Country = "USA"
+                                City = "Niagara Falls",
+                                StateProvince = "ON",
+                                PostalCode = "L2G 7M7",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 6,
-                                               MemberName = "David Martinez",
+                                               MemberName = "Titanium Solutions",
                                                MemberSize = 12,
                                                JoinDate = new DateTime(2022, 5, 19),
                                                WebsiteUrl = "https://www.davidmartinez.com",
@@ -263,17 +263,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "888 Cedar St",
                                 AddressLine2 = "Apt 10E",
-                                City = "Austin",
-                                StateProvince = "TX",
-                                PostalCode = "73301",
-                                Country = "USA"
+                                City = "St. Catharines",
+                                StateProvince = "ON",
+                                PostalCode = "L2M 3Y3",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 7,
-                                               MemberName = "Robert Wilson",
+                                               MemberName = "Phoenix Alloys",
                                                MemberSize = 15,
                                                JoinDate = new DateTime(2018, 2, 7),
                                                WebsiteUrl = "https://www.robertwilson.com",
@@ -283,17 +283,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "222 Elm St",
                                 AddressLine2 = "Suite 5A",
-                                City = "Dallas",
-                                StateProvince = "TX",
-                                PostalCode = "75201",
-                                Country = "USA"
+                                City = "St. Catharines",
+                                StateProvince = "ON",
+                                PostalCode = "L2P 3H2",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 8,
-                                               MemberName = "William Moore",
+                                               MemberName = "Galaxy Metals",
                                                MemberSize = 3,
                                                JoinDate = new DateTime(2020, 8, 30),
                                                WebsiteUrl = "https://www.williammoore.com",
@@ -303,17 +303,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "333 Ash Ave",
                                 AddressLine2 = "Unit 2C",
-                                City = "Phoenix",
-                                StateProvince = "AZ",
-                                PostalCode = "85001",
-                                Country = "USA"
+                                City = "St. Catharines",
+                                StateProvince = "ON",
+                                PostalCode = "L2N 5V4",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 9,
-                                               MemberName = "Olivia Taylor",
+                                               MemberName = "Ironclad Industries",
                                                MemberSize = 9,
                                                JoinDate = new DateTime(2022, 10, 18),
                                                WebsiteUrl = "https://www.oliviataylor.com",
@@ -323,17 +323,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "444 Birch Rd",
                                 AddressLine2 = "Suite 5B",
-                                City = "Seattle",
-                                StateProvince = "WA",
-                                PostalCode = "98101",
-                                Country = "USA"
+                                City = "St. Catharines",
+                                StateProvince = "ON",
+                                PostalCode = "L2T 2P3",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 10,
-                                               MemberName = "Sophia Anderson",
+                                               MemberName = "Silverline Fabrication",
                                                MemberSize = 7,
                                                JoinDate = new DateTime(2019, 5, 21),
                                                WebsiteUrl = "https://www.sophiaanderson.com",
@@ -343,17 +343,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "555 Oak Blvd",
                                 AddressLine2 = "Unit 1A",
-                                City = "Denver",
-                                StateProvince = "CO",
-                                PostalCode = "80201",
-                                Country = "USA"
+                                City = "St. Catharines",
+                                StateProvince = "ON",
+                                PostalCode = "L2S 1P9",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 11,
-                                               MemberName = "James Thomas",
+                                               MemberName = "Star Steelworks",
                                                MemberSize = 2,
                                                JoinDate = new DateTime(2021, 12, 8),
                                                WebsiteUrl = "https://www.jamesthomas.com",
@@ -363,17 +363,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "111 Maple Rd",
                                 AddressLine2 = "Apt 2C",
-                                City = "Chicago",
-                                StateProvince = "IL",
-                                PostalCode = "60607",
-                                Country = "USA"
+                                City = "Welland",
+                                StateProvince = "ON",
+                                PostalCode = "L3B 1A1",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 12,
-                                               MemberName = "Daniel Lee",
+                                               MemberName = "Summit Metal Co.",
                                                MemberSize = 11,
                                                JoinDate = new DateTime(2017, 11, 15),
                                                WebsiteUrl = "https://www.daniellee.com",
@@ -383,17 +383,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "333 Pine Blvd",
                                 AddressLine2 = "Apt 1F",
-                                City = "San Francisco",
-                                StateProvince = "CA",
-                                PostalCode = "94105",
-                                Country = "USA"
+                                City = "Welland",
+                                StateProvince = "ON",
+                                PostalCode = "L3B 5N9",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 13,
-                                               MemberName = "Lucas Harris",
+                                               MemberName = "Everest Iron Corp.",
                                                MemberSize = 8,
                                                JoinDate = new DateTime(2022, 9, 22),
                                                WebsiteUrl = "https://www.lucasharris.com",
@@ -403,17 +403,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "777 Oak Rd",
                                 AddressLine2 = "Suite 5B",
-                                City = "Miami",
-                                StateProvince = "FL",
-                                PostalCode = "33101",
-                                Country = "USA"
+                                City = "Welland",
+                                StateProvince = "ON",
+                                PostalCode = "L3C 7C1",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 14,
-                                               MemberName = "Ella Walker",
+                                               MemberName = "Prime Alloy Coatings",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2022, 6, 30),
                                                WebsiteUrl = "https://www.ellawalker.com",
@@ -423,17 +423,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "555 Birch St",
                                 AddressLine2 = "Unit 4A",
-                                City = "New York",
-                                StateProvince = "NY",
-                                PostalCode = "10002",
-                                Country = "USA"
+                                City = "Welland",
+                                StateProvince = "ON",
+                                PostalCode = "L3C 4T6",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 15,
-                                               MemberName = "Liam Robinson",
+                                               MemberName = "Magnum Steel Solutions",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2021, 3, 12),
                                                WebsiteUrl = "https://www.liamrobinson.com",
@@ -443,17 +443,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "200 Maple Rd",
                                 AddressLine2 = "Unit 6D",
-                                City = "Boston",
-                                StateProvince = "MA",
-                                PostalCode = "02110",
-                                Country = "USA"
+                                City = "Welland",
+                                StateProvince = "ON",
+                                PostalCode = "L3C 2A9",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 16,
-                                               MemberName = "Ava Lewis",
+                                               MemberName = "Quantum Tech Innovations",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2021, 11, 12),
                                                WebsiteUrl = "https://www.avalewis.com",
@@ -463,9 +463,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "965 Elm St",
                                 AddressLine2 = "Apt 7A",
-                                City = "Quebec City",
-                                StateProvince = "Quebec",
-                                PostalCode = "G1K 4Y7",
+                                City = "Thorold",
+                                StateProvince = "ON",
+                                PostalCode = "L2V 4Y6",
                                 Country = "Canada"
                             }
                                                }
@@ -473,7 +473,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 17,
-                                               MemberName = "Ethan Walker",
+                                               MemberName = "Aurora Renewable Energy",
                                                MemberSize = 3,
                                                JoinDate = new DateTime(2020, 4, 28),
                                                WebsiteUrl = "https://www.ethanwalker.com",
@@ -483,9 +483,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "124 Maple Blvd",
                                 AddressLine2 = "Unit 6",
-                                City = "Vancouver",
-                                StateProvince = "British Columbia",
-                                PostalCode = "V6J 3M2",
+                                City = "Thorold",
+                                StateProvince = "ON",
+                                PostalCode = "L2V 1H1",
                                 Country = "Canada"
                             }
                                                }
@@ -493,7 +493,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 18,
-                                               MemberName = "Mason King",
+                                               MemberName = "Vertex Financial Group",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2021, 10, 4),
                                                WebsiteUrl = "https://www.masonking.com",
@@ -503,9 +503,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "481 Cedar Ave",
                                 AddressLine2 = "Apt 12B",
-                                City = "Toronto",
-                                StateProvince = "Ontario",
-                                PostalCode = "M4E 5W1",
+                                City = "Thorold",
+                                StateProvince = "ON",
+                                PostalCode = "L2V 3P2",
                                 Country = "Canada"
                             }
                                                }
@@ -513,7 +513,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 19,
-                                               MemberName = "Lucas Green",
+                                               MemberName = "Nova Biotech Labs",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2022, 4, 18),
                                                WebsiteUrl = "https://www.lucasgreen.com",
@@ -523,9 +523,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "187 Birch Rd",
                                 AddressLine2 = "Suite 4",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K2P 1P1",
+                                City = "Thorold",
+                                StateProvince = "ON",
+                                PostalCode = "L2V 5Z8",
                                 Country = "Canada"
                             }
                                                }
@@ -533,7 +533,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 20,
-                                               MemberName = "Charlotte Hall",
+                                               MemberName = "Summit Construction Co.",
                                                MemberSize = 9,
                                                JoinDate = new DateTime(2021, 7, 14),
                                                WebsiteUrl = "https://www.charlottehall.com",
@@ -543,9 +543,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "922 Cedar St",
                                 AddressLine2 = "Unit 5A",
-                                City = "Calgary",
-                                StateProvince = "Alberta",
-                                PostalCode = "T2N 1X5",
+                                City = "Thorold",
+                                StateProvince = "ON",
+                                PostalCode = "L2V 4K9",
                                 Country = "Canada"
                             }
                                                }
@@ -553,7 +553,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 21,
-                                               MemberName = "Benjamin Harris",
+                                               MemberName = "Oceanic Shipping Corp",
                                                MemberSize = 7,
                                                JoinDate = new DateTime(2021, 8, 30),
                                                WebsiteUrl = "https://www.benjaminharris.com",
@@ -563,9 +563,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "643 Cedar Blvd",
                                 AddressLine2 = "Apt 9D",
-                                City = "Montreal",
-                                StateProvince = "Quebec",
-                                PostalCode = "H2Y 1G3",
+                                City = "Port Colborne",
+                                StateProvince = "ON",
+                                PostalCode = "L3K 2W9",
                                 Country = "Canada"
                             }
                                                }
@@ -573,7 +573,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 22,
-                                               MemberName = "Aiden Clark",
+                                               MemberName = "Evergreen Agriculture",
                                                MemberSize = 2,
                                                JoinDate = new DateTime(2022, 9, 7),
                                                WebsiteUrl = "https://www.aidenclark.com",
@@ -583,9 +583,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "876 Maple Rd",
                                 AddressLine2 = "Unit 1B",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K1A 0B1",
+                                City = "Port Colborne",
+                                StateProvince = "ON",
+                                PostalCode = "L3K 3V2",
                                 Country = "Canada"
                             }
                                                }
@@ -593,7 +593,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 23,
-                                               MemberName = "Ella Moore",
+                                               MemberName = "Ironclad Manufacturing Ltd.",
                                                MemberSize = 3,
                                                JoinDate = new DateTime(2020, 12, 15),
                                                WebsiteUrl = "https://www.ellamoore.com",
@@ -603,9 +603,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "134 Pine St",
                                 AddressLine2 = "Apt 6A",
-                                City = "Toronto",
-                                StateProvince = "Ontario",
-                                PostalCode = "M5A 3J2",
+                                City = "Port Colborne",
+                                StateProvince = "ON",
+                                PostalCode = "L3K 6A9",
                                 Country = "Canada"
                             }
                                                }
@@ -613,7 +613,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 24,
-                                               MemberName = "Jacob White",
+                                               MemberName = "Skyline Architects Inc.",
                                                MemberSize = 5,
                                                JoinDate = new DateTime(2021, 5, 21),
                                                WebsiteUrl = "https://www.jacobwhite.com",
@@ -623,9 +623,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "789 Oak St",
                                 AddressLine2 = "Suite 4B",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K2P 7J9",
+                                City = "Port Colborne",
+                                StateProvince = "ON",
+                                PostalCode = "L3K 5E8",
                                 Country = "Canada"
                             }
                                                }
@@ -633,7 +633,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 25,
-                                               MemberName = "Abigail Nelson",
+                                               MemberName = "Pinnacle Consulting Services",
                                                MemberSize = 8,
                                                JoinDate = new DateTime(2020, 10, 18),
                                                WebsiteUrl = "https://www.abigailnelson.com",
@@ -643,9 +643,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "233 Cedar St",
                                 AddressLine2 = "Unit 7C",
-                                City = "Vancouver",
-                                StateProvince = "British Columbia",
-                                PostalCode = "V6Z 3A7",
+                                City = "Port Colborne",
+                                StateProvince = "ON",
+                                PostalCode = "L3K 7X5",
                                 Country = "Canada"
                             }
                                                }
@@ -653,7 +653,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 26,
-                                               MemberName = "Mason Lee",
+                                               MemberName = "Crystal Water Solutions",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2021, 7, 14),
                                                WebsiteUrl = "https://www.masonlee.com",
@@ -663,9 +663,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "111 Birch Blvd",
                                 AddressLine2 = "Apt 4D",
-                                City = "Calgary",
-                                StateProvince = "Alberta",
-                                PostalCode = "T2P 5B8",
+                                City = "Grimsby",
+                                StateProvince = "ON",
+                                PostalCode = "L3M 1R2",
                                 Country = "Canada"
                             }
                                                }
@@ -673,7 +673,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 27,
-                                               MemberName = "Chloe Scott",
+                                               MemberName = "Elite Healthcare Partners",
                                                MemberSize = 9,
                                                JoinDate = new DateTime(2022, 1, 22),
                                                WebsiteUrl = "https://www.chloescott.com",
@@ -683,9 +683,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "533 Cedar Rd",
                                 AddressLine2 = "Unit 2B",
-                                City = "Toronto",
-                                StateProvince = "Ontario",
-                                PostalCode = "M5G 3B9",
+                                City = "Grimsby",
+                                StateProvince = "ON",
+                                PostalCode = "L3M 4N6",
                                 Country = "Canada"
                             }
                                                }
@@ -693,7 +693,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 28,
-                                               MemberName = "Daniel Harris",
+                                               MemberName = "Galaxy IT Solutions",
                                                MemberSize = 7,
                                                JoinDate = new DateTime(2022, 7, 11),
                                                WebsiteUrl = "https://www.danielharris.com",
@@ -703,9 +703,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "987 Maple St",
                                 AddressLine2 = "Apt 3A",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K1R 4T2",
+                                City = "Grimsby",
+                                StateProvince = "ON",
+                                PostalCode = "L3M 3J5",
                                 Country = "Canada"
                             }
                                                }
@@ -713,7 +713,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 29,
-                                               MemberName = "Ava Carter",
+                                               MemberName = "Urban Infrastructure Group",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2021, 9, 3),
                                                WebsiteUrl = "https://www.avacarter.com",
@@ -723,9 +723,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "444 Oak Blvd",
                                 AddressLine2 = "Suite 8B",
-                                City = "Vancouver",
-                                StateProvince = "British Columbia",
-                                PostalCode = "V5Y 2B6",
+                                 City = "Grimsby",
+                                StateProvince = "ON",
+                                PostalCode = "L3M 2A8",
                                 Country = "Canada"
                             }
                                                }
@@ -733,7 +733,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 30,
-                                               MemberName = "Landon Walker",
+                                               MemberName = "Horizon Aerospace Inc.",
                                                MemberSize = 5,
                                                JoinDate = new DateTime(2022, 8, 18),
                                                WebsiteUrl = "https://www.landonwalker.com",
@@ -743,9 +743,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "872 Cedar Rd",
                                 AddressLine2 = "Apt 9C",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K2K 5B9",
+                                City = "Grimsby",
+                                StateProvince = "ON",
+                                PostalCode = "L3M 5K9",
                                 Country = "Canada"
                             }
                                                }
@@ -753,7 +753,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 31,
-                                               MemberName = "Amelia Harris",
+                                               MemberName = "Cobalt Mining Ventures",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2022, 6, 13),
                                                WebsiteUrl = "https://www.ameliaharris.com",
@@ -763,9 +763,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "1234 Oak Blvd",
                                 AddressLine2 = "Apt 2C",
-                                City = "Montreal",
-                                StateProvince = "Quebec",
-                                PostalCode = "H2X 1N8",
+                                City = "Fort Erie",
+                                StateProvince = "ON",
+                                PostalCode = "L2A 5R1",
                                 Country = "Canada"
                             }
                                                }
@@ -773,7 +773,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 32,
-                                               MemberName = "Oliver Lee",
+                                               MemberName = "Lakeside Resorts and Hotels",
                                                MemberSize = 9,
                                                JoinDate = new DateTime(2022, 7, 6),
                                                WebsiteUrl = "https://www.oliverlee.com",
@@ -783,9 +783,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "990 Pine Rd",
                                 AddressLine2 = "Unit 7",
-                                City = "Calgary",
-                                StateProvince = "Alberta",
-                                PostalCode = "T2P 7N3",
+                                City = "Fort Erie",
+                                StateProvince = "ON",
+                                PostalCode = "L2A 7B9",
                                 Country = "Canada"
                             }
                                                }
@@ -793,7 +793,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 33,
-                                               MemberName = "Harper Scott",
+                                               MemberName = "NextGen Media Productions",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2021, 5, 10),
                                                WebsiteUrl = "https://www.harperscott.com",
@@ -803,9 +803,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "522 Cedar Rd",
                                 AddressLine2 = "Suite 6A",
-                                City = "Hamilton",
-                                StateProvince = "Ontario",
-                                PostalCode = "L8N 1A3",
+                                  City = "Fort Erie",
+                                StateProvince = "ON",
+                                PostalCode = "L2A 2T6",
                                 Country = "Canada"
                             }
                                                }
@@ -813,7 +813,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 34,
-                                               MemberName = "Sophie Adams",
+                                               MemberName = "Crestwood Pharmaceutical",
                                                MemberSize = 7,
                                                JoinDate = new DateTime(2022, 1, 24),
                                                WebsiteUrl = "https://www.sophieadams.com",
@@ -823,9 +823,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "690 Birch St",
                                 AddressLine2 = "Unit 3A",
-                                City = "Toronto",
-                                StateProvince = "Ontario",
-                                PostalCode = "M4G 2B3",
+                                City = "Fort Erie",
+                                StateProvince = "ON",
+                                PostalCode = "L2A 9W8",
                                 Country = "Canada"
                             }
                                                }
@@ -833,7 +833,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 35,
-                                               MemberName = "Isaac Morgan",
+                                               MemberName = "Dynamic Logistics Group",
                                                MemberSize = 2,
                                                JoinDate = new DateTime(2021, 4, 9),
                                                WebsiteUrl = "https://www.isaacmorgan.com",
@@ -843,9 +843,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "123 Birch Rd",
                                 AddressLine2 = "Apt 7C",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K1Y 2X5",
+                                City = "Fort Erie",
+                                StateProvince = "ON",
+                                PostalCode = "L2A 4K3",
                                 Country = "Canada"
                             }
                                                }
@@ -853,7 +853,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 36,
-                                               MemberName = "Mia Thompson",
+                                               MemberName = "Northern Timber Products",
                                                MemberSize = 8,
                                                JoinDate = new DateTime(2022, 4, 19),
                                                WebsiteUrl = "https://www.miathompson.com",
@@ -863,9 +863,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "987 Birch Rd",
                                 AddressLine2 = "Unit 4A",
-                                City = "Vancouver",
-                                StateProvince = "British Columbia",
-                                PostalCode = "V6B 3E9",
+                                City = "Lincoln",
+                                StateProvince = "ON",
+                                PostalCode = "L0R 1B1",
                                 Country = "Canada"
                             }
                                                }
@@ -873,7 +873,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 37,
-                                               MemberName = "Ethan Johnson",
+                                               MemberName = "Brightline Education Systems",
                                                MemberSize = 5,
                                                JoinDate = new DateTime(2022, 10, 10),
                                                WebsiteUrl = "https://www.ethanjohnson.com",
@@ -883,9 +883,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "456 Oak Rd",
                                 AddressLine2 = "Suite 2B",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K2P 1V8",
+                                City = "Lincoln",
+                                StateProvince = "ON",
+                                PostalCode = "L0R 2C0",
                                 Country = "Canada"
                             }
                                                }
@@ -893,7 +893,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 38,
-                                               MemberName = "Grace Miller",
+                                               MemberName = "Fusion Energy Solutions",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2022, 5, 15),
                                                WebsiteUrl = "https://www.gracemiller.com",
@@ -903,9 +903,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "890 Cedar Blvd",
                                 AddressLine2 = "Suite 2B",
-                                City = "Montreal",
-                                StateProvince = "Quebec",
-                                PostalCode = "H3B 2G4",
+                                City = "Pelham",
+                                StateProvince = "ON",
+                                PostalCode = "L0S 1C0",
                                 Country = "Canada"
                             }
                                                }
@@ -913,7 +913,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 39,
-                                               MemberName = "Lily Turner",
+                                               MemberName = "Trailblazer Automotive Group",
                                                MemberSize = 3,
                                                JoinDate = new DateTime(2022, 8, 22),
                                                WebsiteUrl = "https://www.lilyturner.com",
@@ -923,9 +923,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "800 Maple Blvd",
                                 AddressLine2 = "Unit 5A",
-                                City = "Vancouver",
-                                StateProvince = "British Columbia",
-                                PostalCode = "V6B 1N4",
+                                City = "Pelham",
+                                StateProvince = "ON",
+                                PostalCode = "L0S 1E0",
                                 Country = "Canada"
                             }
                                                }
@@ -933,7 +933,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 40,
-                                               MemberName = "Liam Walker",
+                                               MemberName = "Harvest Foods International",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2021, 3, 18),
                                                WebsiteUrl = "https://www.liamwalker.com",
@@ -943,9 +943,9 @@ namespace NIA_CRM.Data
                                                 {
                                                     AddressLine1 = "354 Cedar St",
                                                     AddressLine2 = "Apt 6D",
-                                                    City = "Calgary",
-                                                    StateProvince = "Alberta",
-                                                    PostalCode = "T2V 1Z6",
+                                                    City = "Fort Erie",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2A 1M7",
                                                     Country = "Canada"
                                                 }
                                                 }

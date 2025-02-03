@@ -30,15 +30,12 @@
         foreach (var address in Model.Addresses)
         {
             <dd>
-                @address.AddressLine1'<br />
                 @if (!string.IsNullOrEmpty(address.AddressLine2))
                 {
-                    @address.AddressLine2
+                        @address.FormattedAddress
 
                     <br />
                 }
-                @address.City, @address.StateProvince, @address.PostalCode<br />
-                @address.Country
             </dd>
         }
     }

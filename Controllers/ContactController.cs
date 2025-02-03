@@ -28,7 +28,6 @@ namespace NIA_CRM.Controllers
             PopulateDropdownLists();
             string[] sortOptions = new[] { "Contact Name" };  // You can add more sort options if needed
 
-            ViewData["Filtering"] = "btn-outline-secondary";
             int numberFilters = 0;
 
             var contacts = _context.Contacts.Include(c => c.Member).AsQueryable();

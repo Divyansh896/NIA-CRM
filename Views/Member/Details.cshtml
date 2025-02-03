@@ -58,7 +58,7 @@
                                     {
                                         @foreach (var address in Model.Addresses)
                                         {
-                                            <p>@address.City</p>
+                                            <p>@address.FormattedAddress</p>
                                         }
                                     }
                                     else
@@ -167,7 +167,7 @@
                     <!-- Phone -->
                     <div class="col-sm-4">
                         <dt>Phone:</dt>
-                        <dd>@contact.Phone</dd>
+                        <dd>@contact.PhoneFormatted</dd>
                     </div>
 
                     <!-- LinkedIn -->
