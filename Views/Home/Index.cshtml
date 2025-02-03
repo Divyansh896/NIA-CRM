@@ -8,7 +8,7 @@
 
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
         <h1 id="dashboard-title">Dashboard</h1>
-        <button class="btn btn-primary">Customize</button>
+        @* <button class="btn btn-primary">Customize</button> *@
     </div>
 
     <div class="row" role="region" aria-labelledby="dashboard-stats">
@@ -220,11 +220,11 @@
                                 <td>@contact.Summary</td>
                                 <td>@contact.Title</td>
                                 <td>@contact.Department</td>
-                                <td>@contact.Email</td>
-                                <td>@contact.PhoneFormatted</td>
                                 <td>
                                     <a href="mailto:@contact.Email">Email</a>
                                 </td>
+                                <td>@contact.PhoneFormatted</td>
+                                
 
                                 @* <td>@(contact.IsVip ? "Yes" : "No")</td> *@
                             }
