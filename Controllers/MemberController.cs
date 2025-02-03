@@ -306,5 +306,24 @@ namespace NIA_CRM.Controllers
         {
             return _context.Members.Any(e => e.ID == id);
         }
+
+        public async Task<IActionResult> GetMemberPreview(int id)
+        {
+            var member = await _context.Members
+                .Include(m => m.Addresses) // Include the related Address
+                .Include(m => m.MemberThumbnail)
+                .Include(m => m.MemberMembershipTypes)
+                .ThenInclude(mm => mm.MembershipType)
+                .Include(m => m.Contacts)
+                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                .FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
+
+            if (member == null)
+            {
+                return NotFound(); // Return 404 if the member doesn't exist
+            }
+
+            return PartialView("_MemberPreview", member); // Ensure the partial view name matches
+        }
     }
 }
