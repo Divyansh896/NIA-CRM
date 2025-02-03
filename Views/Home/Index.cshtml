@@ -114,8 +114,8 @@
             <thead class="thead-dark">
                 <tr>
 
-                    <th class="table-head-static"><!--Empty header for logos --></th>
-
+                    <th class="table-head"><!--Empty header for logos --></th>
+                    
                     <th scope="col" class="table-head">
                         <input type="submit" name="actionButton" value="Industry" class="btn btn-link" aria-label="Sort by Industry" />
                     </th>
@@ -149,9 +149,9 @@
                                 else
                                 {
 
-                                    <img src="images/blankProfile.jpg" alt="blank profile picture"
-                                         title="blank profile picture" class="img-fluid rounded" />
-                                }
+                <img src="images/blankProfile.jpg" alt="blank profile picture"
+                     title="blank profile picture" class="img-fluid rounded" />
+            }
                             }
                         </td>
 
@@ -195,15 +195,9 @@
                                 <td>@contact.Title</td>
                                 <td>@contact.Department</td>
                                 <td>
-                                    <a href="mailto:@contact.Email">Email</a>
-                                </td>
-
-                                <td>
-                                    @(contact.Phone.Length == 10
-                                        ? $"({contact.Phone.Substring(0, 3)}) {contact.Phone.Substring(3, 3)}-{contact.Phone.Substring(6, 4)}"
-                                        : contact.Phone)
-                                </td>
-
+    <a href="mailto:@contact.Email">Email</a>
+</td>
+                                <td>@contact.PhoneFormatted</td>
                                 <td>
                                     @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
                                     {

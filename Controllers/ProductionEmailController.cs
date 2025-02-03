@@ -29,7 +29,6 @@ namespace NIA_CRM.Controllers
             int numberFilters = 0;
 
             string[] sortOptions = new[] { "Email Type", "Subject" };
-            ViewData["Filtering"] = "btn-outline-secondary";
 
             // Declare the email list to be used in the view
             var emailsQuery = _context.ProductionEmails.AsQueryable();

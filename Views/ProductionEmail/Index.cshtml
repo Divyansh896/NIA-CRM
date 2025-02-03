@@ -8,23 +8,30 @@
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="Email-title">Emails</h1>
-    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new Email">+ Add Email</a>
+
 </div>
 
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
 
-    <div class="d-flex flex-row position-relative overflow-hidden">
+
         <!-- Filter/Search Section -->
         <div class="m-auto flex-grow-1">
-            <div class="form-horizontal">
-                <button class="btn btn-dark @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
-                        data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter"
-                        aria-label="Toggle filter and search options">
+                <div class="form-horizontal mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                <button class="btn btn-dark @ViewData["Filtering"]"
+                        type="button"
+                        id="filterToggle"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseFilter"
+                        aria-expanded="false"
+                        aria-controls="collapseFilter">
                     Filter/Search @ViewData["numberFilters"]
                 </button>
-                <br />
+                    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new Email">+ Add Email</a>
+                </div>
+                
                 <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
                     <div class="card card-body bg-light">
                         <div class="row">
@@ -48,14 +55,14 @@
                             @*     @Html.CheckBox("IsVIP", htmlAttributes: new { @class = "form-check-input", id = "OnlyVIP" }) *@
                             @* </div> *@
 
-                            <div class="form-group col-md-2 align-self-end mt-2">
-                                <input type="submit" name="actionButton" value="Filter" class="btn btn-primary me-2" />
-                                <a asp-action="Index" class="btn btn-dark" aria-label="Clear all filters">Clear</a>
-                            </div>
+                            <div class="form-group col-md-4 d-flex align-items-end mt-2">
+                <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
+                <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
+            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
             <table class="table" aria-labelledby="table-title">
                 <caption id="table-title" class="sr-only">Email Records Table</caption>
                 <thead class="thead-dark">
@@ -96,5 +103,4 @@
                 </tbody>
             </table>
         </div>
-    </div>
 </form>
