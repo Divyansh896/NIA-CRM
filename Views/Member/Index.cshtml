@@ -27,74 +27,81 @@
         <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Members</a>
     </div>
 
-    <!-- Filter/Search Form -->
-    <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
-        <div class="card card-body bg-light" role="region" aria-labelledby="filter-section-title">
-            <h2 id="filter-section-title" class="sr-only">Filter and Search Options</h2>
-            <div class="row">
-                <!-- Filter by Member Name -->
-                <div class="form-group col-md-4">
-                    <label for="SearchString" class="control-label">Search by Member Name:</label>
-                    @Html.TextBox("SearchString", ViewData["SearchString"] as string, new
-                        {
-                            @class = "form-control",
-                            id = "SearchString",
-                            placeholder = "Enter Member Name"
+        <!-- Filter/Search Form -->
+        <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
+            <div class="card card-body bg-light" role="region" aria-labelledby="filter-section-title">
+                <h2 id="filter-section-title" class="sr-only">Filter and Search Options</h2>
+                <div class="row">
+                    <!-- Filter by Member Name -->
+                    <div class="form-group col-md-4">
+                        <label for="SearchString" class="control-label">Search by Member Name:</label>
+                        @Html.TextBox("SearchString", ViewData["SearchString"] as string, new
+                            {
+                                @class = "form-control",
+                                id = "SearchString",
+                                placeholder = "Enter Member Name"
 
-                        })
-                    <span id="search-name-help" class="sr-only">Type the member name to search.</span>
+                            })
+                        <span id="search-name-help" class="sr-only">Type the member name to search.</span>
+                    </div>
+                    <!-- Filter by Join Date -->
+                    <div class="form-group col-md-4">
+                        <label for="JoinDate" class="control-label">Filter by Join Date:</label>
+                        @Html.TextBox("JoinDate", ViewData["JoinDate"] as string, new
+                            {
+                                @class = "form-control",
+                                id = "JoinDate",
+                                placeholder = "YYYY-MM-DD",
+                                type = "date"
+
+                            })
+                        <span id="join-date-help" class="sr-only">Enter the date in YYYY-MM-DD format.</span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="MembershipTypes" class="control-label">Filter by Membership Types:</label>
+                        @Html.DropDownList("MembershipTypes", null, "All MembershipTypes", htmlAttributes: new { @class = "form-control" })
+                        <span id="industry-help" class="sr-only">Select Membership Types to filter members by.</span>
+                    </div>
+                    <!-- Filter by Organization Name -->
+                    @* <div class="form-group col-md-4"> *@
+                    @*     <label for="Organization" class="control-label">Search by Organization Name:</label> *@
+                    @*     @Html.TextBox("Organization", ViewData["Organization"] as string, new *@
+                    @*         { *@
+                    @*             @class = "form-control", *@
+                    @*             id = "Organization", *@
+                    @*             placeholder = "Enter Organization Name" *@
+
+                    @*         }) *@
+                    @*     <span id="organization-name-help" class="sr-only">Type the organization name to filter.</span> *@
+                    @* </div> *@
+
+                    <!-- Buttons -->
+                    <div class="form-group col-md-4 d-flex align-items-end mt-2">
+                        <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
+                        <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
+                    </div>
                 </div>
-                <!-- Filter by Join Date -->
-                <div class="form-group col-md-4">
-                    <label for="JoinDate" class="control-label">Filter by Join Date:</label>
-                    @Html.TextBox("JoinDate", ViewData["JoinDate"] as string, new
-                        {
-                            @class = "form-control",
-                            id = "JoinDate",
-                            placeholder = "YYYY-MM-DD",
-                            type = "date"
-
-                        })
-                    <span id="join-date-help" class="sr-only">Enter the date in YYYY-MM-DD format.</span>
-                </div>
-                <!-- Filter by Organization Name -->
-                @* <div class="form-group col-md-4"> *@
-                @*     <label for="Organization" class="control-label">Search by Organization Name:</label> *@
-                @*     @Html.TextBox("Organization", ViewData["Organization"] as string, new *@
-                @*         { *@
-                @*             @class = "form-control", *@
-                @*             id = "Organization", *@
-                @*             placeholder = "Enter Organization Name" *@
-
-                @*         }) *@
-                @*     <span id="organization-name-help" class="sr-only">Type the organization name to filter.</span> *@
-                @* </div> *@
-
-            <!-- Buttons -->
-            <div class="form-group col-md-4 d-flex align-items-end mt-2">
-                <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
-                <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
             </div>
         </div>
-        </div>
-        </div>
-</div>
-<table class="table">
-    <thead>
-        <tr>
+    </div>
+    <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
+        <thead>
+            <tr>
                 <th class="table-head">
-                <!--Empty column for logo-->
-            </th>
-                
-                <th scope="col" class="table-head">Members Name</th>
+
+                    <!--Empty column for logo-->
+                </th>
+
+                <th scope="col" class="table-head">Member Name</th>
                 <th scope="col" class="table-head">City</th>
                 <th scope="col" class="table-head">Join Date</th>
                 <th scope="col" class="table-head">Membership Type</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
                     <td>
                         @{
                             if (item.MemberThumbnail?.Content != null)
@@ -112,7 +119,7 @@
                             }
                         }
                     </td>
-                    
+
                     <td>
                         @Html.DisplayFor(modelItem => item.MemberName)
                     </td>
@@ -141,12 +148,63 @@
                             }
                         }
                     </td>
-                    
-        </tr>
-}
-    </tbody>
-</table>
+
+                </tr>
+            }
+        </tbody>
+    </table>
 
     <partial name="_PagingNavBar" />
 
 </form>
+
+<div id="previewContainer" class="preview-content hidden"></div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+              $(document).ready(function () {
+            // Initially hide the preview content
+            $('#previewContainer').addClass('hidden');
+
+            // Handle click event on rows with the "clickable-row" class
+            $(document).on('click', '.clickable-row', function () {
+                var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+
+                if (!contactId) {
+                    console.error('No contact ID found for this row.');
+                    return;
+                }
+
+                // Make an AJAX request to get the partial view for the selected contact
+                $.ajax({
+                    url: '/Member/GetMemberPreview', // Adjust the URL to match your routing
+                    type: 'GET',
+                    data: { id: contactId },
+                    success: function (result) {
+                        // Insert the result (partial view) into the preview container
+                        $('#previewContainer').html(result);
+                        $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+                    },
+                    error: function () {
+                        alert('An error occurred while loading the preview.');
+                    }
+                });
+            });
+
+            // Window click listener to collapse preview when clicked outside
+            $(window).click(function (event) {
+                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                    $('#previewContainer').removeClass('visible').addClass('hidden');
+                }
+            });
+
+            // Prevent the preview container from closing when clicked inside
+            $('#previewContainer').click(function (event) {
+                event.stopPropagation(); // Stop the event from propagating to the window
+            });
+        });
+
+    </script>
+}

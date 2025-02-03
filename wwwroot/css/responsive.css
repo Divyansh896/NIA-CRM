@@ -188,6 +188,7 @@ h2 {
     background: #434343 !important;
     color: #fff;
     border-right: 1px solid #dee2e6;
+
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -197,8 +198,53 @@ h2 {
     z-index: 1050;
     background: #f8f9fa !important;
 }
+.table-row-static img{
+    display: block;
+    max-width: 500px !important;
+}
 
-/* Responsive Media Queries */
+table {
+    table-layout: auto;
+    width: 100%; /* Ensure it adapts to available space */
+}
+
+td, th {
+    white-space: nowrap;
+    padding: 10px;
+}
+#previewContainer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 350px;
+    height: 100%;
+    padding-right: 8px;
+    padding-top: 5px;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+    transition: right 3s ease-in-out;
+    z-index: 9999;
+    visibility: hidden; /* Initially hide */
+    overflow-y:auto;
+}
+    #previewContainer .card-body, #previewContainer img{
+        margin-left: 10px;
+    }
+    #previewContainer.visible {
+        right: 0;
+        visibility: visible; /* Make visible when showing */
+    }
+
+    #previewContainer.hidden {
+        visibility: hidden; /* Hide the container */
+        transition: 3s ease-in-out;
+    }
+
+.clickable-row:hover {
+    background-color: #d3d3d3; /* Light grey background */
+    color: #333;
+}
+
 @media (max-width: 768px) {
     body {
         font-size: 14px;

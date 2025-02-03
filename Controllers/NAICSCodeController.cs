@@ -39,7 +39,7 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var nAICSCode = await _context.NAICSCode
+            var nAICSCode = await _context.NAICSCodes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (nAICSCode == null)
             {
@@ -77,7 +77,7 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var nAICSCode = await _context.NAICSCode.FindAsync(id);
+            var nAICSCode = await _context.NAICSCodes.FindAsync(id);
             if (nAICSCode == null)
             {
                 return NotFound();
@@ -126,7 +126,7 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var nAICSCode = await _context.NAICSCode
+            var nAICSCode = await _context.NAICSCodes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (nAICSCode == null)
             {
@@ -141,10 +141,10 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var nAICSCode = await _context.NAICSCode.FindAsync(id);
+            var nAICSCode = await _context.NAICSCodes.FindAsync(id);
             if (nAICSCode != null)
             {
-                _context.NAICSCode.Remove(nAICSCode);
+                _context.NAICSCodes.Remove(nAICSCode);
             }
 
             await _context.SaveChangesAsync();
@@ -153,7 +153,7 @@ namespace NIA_CRM.Controllers
 
         private bool NAICSCodeExists(int id)
         {
-            return _context.NAICSCode.Any(e => e.Id == id);
+            return _context.NAICSCodes.Any(e => e.Id == id);
         }
     }
 }

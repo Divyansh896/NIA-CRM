@@ -38,6 +38,7 @@ namespace NIA_CRM.Data
         public DbSet<MemberThumbnail> MemebrThumbnails { get; set; }
         public DbSet<MemberNote> MemberNotes { get; set; }
         public DbSet<IndustryNAICSCode> IndustryNAICSCodes { get; set; }
+        public DbSet<NAICSCode> NAICSCodes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -191,7 +192,6 @@ namespace NIA_CRM.Data
                 }
             }
         }
-        public DbSet<NIA_CRM.Models.NAICSCode> NAICSCode { get; set; } = default!;
-        public DbSet<NIA_CRM.Models.MemberNote> MemberNote { get; set; } = default!;
+       
     }
 }
