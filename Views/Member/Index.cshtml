@@ -84,6 +84,9 @@
             </div>
         </div>
     </div>
+    <div>
+        <label class="control-label">@ViewData["records"]</label>
+    </div>
     <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
         <thead>
             <tr>
@@ -95,14 +98,12 @@
                 <th scope="col" class="table-head">City</th>
                 <th scope="col" class="table-head">Join Date</th>
                 <th scope="col" class="table-head">Membership Type</th>
-                </tr>
-
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
-                    <td>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                    <td table-row-static>
                         @{
                             if (item.MemberThumbnail?.Content != null)
                             {

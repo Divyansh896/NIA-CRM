@@ -1,5 +1,38 @@
 ﻿/* responsive.css */
 
+
+.vidget-MemebrCount {
+    height: 250px;
+    background-image: url('/images/TotalVidget.jpg') !important; /* Replace with your image path */
+    background-size: cover; /* Ensures the image covers the div */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.vidget-MemebrCity {
+    height: 250px;
+    background-image: url('/images/CityVidget.jpg') !important;
+    background-size: cover; /* Ensures the image covers the div */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.vidget-Memebr {
+    height: 250px;
+    background-image: url('/images/MembershipVidget.jpg') !important; /* Replace with your image path */
+    background-size: cover; /* Ensures the image covers the div */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
 /* Base Styles - Mobile First */
 body {
     font-family: 'Open Sans', sans-serif;
@@ -32,17 +65,15 @@ body {
     align-items: flex-end;
     height: 100%;
 }
-
-.page-link{
-    color: black;
+.otherPic {
+    max-height: 300px;
+    max-width: 400px;
 }
 
-.page-link:hover {
+.page-link, .page-link:hover {
     color: black;
 }
-
-
-.btn-link {
+.btn-link{
     color: white;
 }
 
@@ -65,12 +96,29 @@ body {
 
 .card-body {
     border-radius: 20px;
-    background-color: #A61C1C;
     margin-top: 4px;
     border: solid !important;
     border-color: #A61C1C !important;
 }
 
+.card-text, .card-title{
+    color: black;
+    
+}
+
+.fixed-text {
+    position: absolute;
+    bottom: 100px; /* Ensures all numbers align at the same level */
+    left: 10px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0;
+}
+
+.title-vidget{
+    font-size:25px;
+}
 /* Sticky Buttons */
 .sticky-buttons {
     position: sticky !important;
@@ -94,11 +142,9 @@ body {
 
 /* Logo */
 .logo {
-    max-height: 53px;
+    max-height: 80px;
     width: auto;
     position: relative;
-    z-index: 220; /* Ensure it appears above other elements */
-    margin-left: 60px; /* Creates space between logo and hamburger */
 }
 
 /* Sidebar */

@@ -81,6 +81,7 @@ namespace NIA_CRM.Controllers
             ViewData["MemberCount"] = memberCount;
             ViewData["VipCount"] = vipCount;
             ViewData["CopperportCount"] = copperportCount;
+            
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
             {
@@ -147,6 +148,7 @@ namespace NIA_CRM.Controllers
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
+            ViewData["records"] = $"Records Found: {memberDetailsQuery.Count()}";
 
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
