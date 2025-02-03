@@ -56,12 +56,15 @@
                             @* </div> *@
 
                             <div class="form-group col-md-4 d-flex align-items-end mt-2">
-                <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
-                <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
-            </div>
+                                <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
+                                <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+        </div>
+        <div>
+            <label class="control-label">@ViewData["records"]</label>
         </div>
             <table class="table" aria-labelledby="table-title">
                 <caption id="table-title" class="sr-only">Email Records Table</caption>
