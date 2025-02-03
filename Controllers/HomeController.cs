@@ -45,9 +45,9 @@ namespace NIA_CRM.Controllers
      int? pageSizeID,
      string? actionButton,
      string sortDirection = "asc",
-     string sortField = "Industry")
+     string sortField = "Member Name")
         {
-            string[] sortOptions = { "Industry" };
+            string[] sortOptions = { "Member Name" };
             int numberFilters = 0;
 
             // Populate dropdowns (ensure method works)
@@ -120,17 +120,18 @@ namespace NIA_CRM.Controllers
             }
 
 
-            if (sortField == "Industry")
+            if (sortField == "Member Name")
             {
                 if (sortDirection == "asc")
                 {
                     memberDetailsQuery = memberDetailsQuery
-                        .OrderByDescending(p => p.MemberName);
+                        .OrderBy(p => p.MemberName);
                 }
                 else
                 {
+                    
                     memberDetailsQuery = memberDetailsQuery
-                        .OrderBy(p => p.MemberName);
+                        .OrderByDescending(p => p.MemberName);
                 }
             }
 
