@@ -1864,9 +1864,9 @@ namespace NIA_CRM.Data
                     }
                     //Seed data needed for production and during development
 
-                    if (!context.NAICSCode.Any())
+                    if (!context.NAICSCodes.Any())
                     {
-                        context.NAICSCode.AddRange(
+                        context.NAICSCodes.AddRange(
                             new NAICSCode { Id = 1, Label = "Agriculture", Code = "1111", Description = "Oilseed and Grain Farming" },
                             new NAICSCode { Id = 2, Label = "Mining", Code = "2111", Description = "Oil and Gas Extraction" },
                             new NAICSCode { Id = 3, Label = "Utilities", Code = "2211", Description = "Electric Power Generation, Transmission, and Distribution" },

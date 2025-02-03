@@ -42,7 +42,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "NAICSCode",
+                name: "NAICSCodes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -53,7 +53,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NAICSCode", x => x.Id);
+                    table.PrimaryKey("PK_NAICSCodes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,7 +173,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "MemberNote",
+                name: "MemberNotes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -184,9 +184,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MemberNote", x => x.Id);
+                    table.PrimaryKey("PK_MemberNotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MemberNote_Members_MemberId",
+                        name: "FK_MemberNotes_Members_MemberId",
                         column: x => x.MemberId,
                         principalTable: "Members",
                         principalColumn: "ID",
@@ -280,9 +280,9 @@ namespace NIA_CRM.Data.NIACRMigration
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_IndustryNAICSCodes_NAICSCode_NAICSCodeId",
+                        name: "FK_IndustryNAICSCodes_NAICSCodes_NAICSCodeId",
                         column: x => x.NAICSCodeId,
-                        principalTable: "NAICSCode",
+                        principalTable: "NAICSCodes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -402,8 +402,8 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "MembershipTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MemberNote_MemberId",
-                table: "MemberNote",
+                name: "IX_MemberNotes_MemberId",
+                table: "MemberNotes",
                 column: "MemberId");
 
             migrationBuilder.CreateIndex(
@@ -443,7 +443,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "MemberMembershipTypes");
 
             migrationBuilder.DropTable(
-                name: "MemberNote");
+                name: "MemberNotes");
 
             migrationBuilder.DropTable(
                 name: "MemebrThumbnails");
@@ -452,7 +452,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "ProductionEmails");
 
             migrationBuilder.DropTable(
-                name: "NAICSCode");
+                name: "NAICSCodes");
 
             migrationBuilder.DropTable(
                 name: "Contacts");
