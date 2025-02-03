@@ -95,10 +95,11 @@
                 <th scope="col" class="table-head">City</th>
                 <th scope="col" class="table-head">Join Date</th>
                 <th scope="col" class="table-head">Membership Type</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
                 <tr class="clickable-row" data-id="@item.ID">
                     <td>
                         @{

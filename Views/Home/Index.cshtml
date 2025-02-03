@@ -91,11 +91,11 @@
                             @Html.DropDownList("Members", null, "All Industry", htmlAttributes: new { @class = "form-control" })
                             <span id="industry-help" class="sr-only">Select an industry to filter members by.</span>
                         </div>
-                        <div class="form-group col-md-4"> 
-                             <label for="MembershipTypes" class="control-label">Filter by Membership Types:</label> 
-                             @Html.DropDownList("MembershipTypes", null, "All MembershipTypes", htmlAttributes: new { @class = "form-control" }) 
-                            <span id="industry-help" class="sr-only">Select Membership Types to filter members by.</span> 
-                         </div> 
+                        <div class="form-group col-md-4">
+                            <label for="MembershipTypes" class="control-label">Filter by Membership Types:</label>
+                            @Html.DropDownList("MembershipTypes", null, "All MembershipTypes", htmlAttributes: new { @class = "form-control" })
+                            <span id="industry-help" class="sr-only">Select Membership Types to filter members by.</span>
+                        </div>
 
                         <div class="form-group col-md-4 d-flex align-items-end mt-2">
                             <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
@@ -115,7 +115,7 @@
                 <tr>
 
                     <th class="table-head"><!--Empty header for logos --></th>
-                    
+
                     <th scope="col" class="table-head">
                         <input type="submit" name="actionButton" value="Industry" class="btn btn-link" aria-label="Sort by Industry" />
                     </th>
@@ -149,9 +149,9 @@
                                 else
                                 {
 
-                <img src="images/blankProfile.jpg" alt="blank profile picture"
-                     title="blank profile picture" class="img-fluid rounded" />
-            }
+                                    <img src="images/blankProfile.jpg" alt="blank profile picture"
+                                         title="blank profile picture" class="img-fluid rounded" />
+                                }
                             }
                         </td>
 
@@ -195,8 +195,8 @@
                                 <td>@contact.Title</td>
                                 <td>@contact.Department</td>
                                 <td>
-    <a href="mailto:@contact.Email">Email</a>
-</td>
+                                    <a href="mailto:@contact.Email">Email</a>
+                                </td>
                                 <td>@contact.PhoneFormatted</td>
                                 <td>
                                     @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
