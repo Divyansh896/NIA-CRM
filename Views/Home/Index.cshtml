@@ -39,7 +39,7 @@
         <div class="col-md-4">
             <div class="card text-light" role="group" aria-labelledby="vip-clients-title">
                 <div class="card-body text-center">
-                    <p class="card-title" id="vip-clients-title" role="heading" aria-level="3">VIP Clients</p>
+                    <p class="card-title" id="vip-clients-title" role="heading" aria-level="3">VIP Members</p>
                     <p class="card-text" aria-live="polite">@ViewData["VipCount"]</p>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                     aria-controls="collapseFilter">
                 Filter/Search @ViewData["numberFilters"]
             </button>
-            <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Member</a>
+            <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Members</a>
             </div>
 
             <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
@@ -105,8 +105,8 @@
 
     <!--Table Data-->
     <div class="table-container mt-4" role="region" aria-labelledby="table-title" style="position: relative; overflow: auto; border: 1px solid #ddd;">
-        <h2 id="table-title" class="sr-only">Member Details Table</h2>
-        <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
+        <h2 id="table-title" class="sr-only">Members Detail Table</h2>
+        <table class="table table-bordered table-striped" id="myTable" aria-label="Members Detail Table">
             <thead class="thead-dark">
                 <tr>
 
