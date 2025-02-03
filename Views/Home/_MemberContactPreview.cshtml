@@ -30,7 +30,6 @@
         foreach (var address in Model.Addresses)
         {
             <dd>
-                @address.AddressLine1'<br />
                 @if (!string.IsNullOrEmpty(address.AddressLine2))
                 {
                         @address.FormattedAddress

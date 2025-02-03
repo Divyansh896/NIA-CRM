@@ -204,7 +204,6 @@
                             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 @foreach (var address in member.Addresses)
                                 {
-                                    @address.AddressLine1
                                     @if (!string.IsNullOrEmpty(address.AddressLine2))
                                     {
                                         @address.FormattedAddress
