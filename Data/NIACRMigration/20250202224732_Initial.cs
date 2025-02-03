@@ -265,10 +265,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "IndustryNAICSCodes",
                 columns: table => new
                 {
-                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
-                    NAICSCodeId = table.Column<int>(type: "INTEGER", nullable: false),
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
-<<<<<<<< HEAD:Data/NIACRMigration/20250202065826_Initial.cs
                         .Annotation("Sqlite:Autoincrement", true),
                     MemberId = table.Column<int>(type: "INTEGER", nullable: false),
                     NAICSCodeId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -278,14 +275,6 @@ namespace NIA_CRM.Data.NIACRMigration
                     table.PrimaryKey("PK_IndustryNAICSCodes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_IndustryNAICSCodes_Members_MemberId",
-========
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IndustryNAICSCode", x => new { x.MemberId, x.NAICSCodeId });
-                    table.ForeignKey(
-                        name: "FK_IndustryNAICSCode_Members_MemberId",
->>>>>>>> origin/master:Data/NIACRMigration/20250202060922_Initial.cs
                         column: x => x.MemberId,
                         principalTable: "Members",
                         principalColumn: "ID",
@@ -377,7 +366,6 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "MemberId");
 
             migrationBuilder.CreateIndex(
-<<<<<<<< HEAD:Data/NIACRMigration/20250202065826_Initial.cs
                 name: "IX_IndustryNAICSCodes_MemberId",
                 table: "IndustryNAICSCodes",
                 column: "MemberId");
@@ -385,10 +373,6 @@ namespace NIA_CRM.Data.NIACRMigration
             migrationBuilder.CreateIndex(
                 name: "IX_IndustryNAICSCodes_NAICSCodeId",
                 table: "IndustryNAICSCodes",
-========
-                name: "IX_IndustryNAICSCode_NAICSCodeId",
-                table: "IndustryNAICSCode",
->>>>>>>> origin/master:Data/NIACRMigration/20250202060922_Initial.cs
                 column: "NAICSCodeId");
 
             migrationBuilder.CreateIndex(

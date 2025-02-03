@@ -11,11 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-<<<<<<<< HEAD:Data/NIACRMigration/20250202065826_Initial.Designer.cs
-    [Migration("20250202065826_Initial")]
-========
-    [Migration("20250202060922_Initial")]
->>>>>>>> origin/master:Data/NIACRMigration/20250202060922_Initial.Designer.cs
+    [Migration("20250202224732_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -171,27 +167,19 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.IndustryNAICSCode", b =>
                 {
-<<<<<<<< HEAD:Data/NIACRMigration/20250202065826_Initial.Designer.cs
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-========
->>>>>>>> origin/master:Data/NIACRMigration/20250202060922_Initial.Designer.cs
                     b.Property<int>("MemberId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("NAICSCodeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
+                    b.HasKey("Id");
 
-<<<<<<<< HEAD:Data/NIACRMigration/20250202065826_Initial.Designer.cs
                     b.HasIndex("MemberId");
-========
-                    b.HasKey("MemberId", "NAICSCodeId");
->>>>>>>> origin/master:Data/NIACRMigration/20250202060922_Initial.Designer.cs
 
                     b.HasIndex("NAICSCodeId");
 

@@ -8,54 +8,63 @@
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="contacts-title">Contacts</h1>
-    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
+
 </div>
 
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
 
-    <div class="d-flex flex-row position-relative overflow-hidden">
+
         <!-- Filter/Search Section -->
         <div class="m-auto flex-grow-1">
-            <div class="form-horizontal">
-                <button class="btn btn-dark @ViewData["Filtering"]" type="button" data-bs-toggle="collapse" id="filterToggle"
-                        data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter"
-                        aria-label="Toggle filter and search options">
-                    Filter/Search @ViewData["numberFilters"]
-                </button>
-                <br />
-                <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
-                    <div class="card card-body bg-light">
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="search-name" class="control-label">Search By Name:</label>
-                                @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name" })
-                            </div>
+            <div class="form-horizontal mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <button class="btn btn-dark @ViewData["Filtering"]"
+                            type="button"
+                            id="filterToggle"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseFilter"
+                            aria-expanded="false"
+                            aria-controls="collapseFilter">
+                        Filter/Search @ViewData["numberFilters"]
+                    </button>
+                    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
+                    </div>
+            </div>
+        <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
+            <div class="card card-body bg-light">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label for="search-name" class="control-label">Search By Name:</label>
+                        @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name" })
+                    </div>
 
-                            <div class="form-group col-md-3">
-                                <label for="filter-title" class="control-label">Filter by Title:</label>
-                                @Html.DropDownList("Titles", null, "All Titles", htmlAttributes: new { @class = "form-control", id = "filter-title" })
-                            </div>
+                    <div class="form-group col-md-3">
+                        <label for="filter-title" class="control-label">Filter by Title:</label>
+                        @Html.DropDownList("Titles", null, "All Titles", htmlAttributes: new { @class = "form-control", id = "filter-title" })
+                    </div>
 
-                            <div class="form-group col-md-3">
-                                <label for="filter-department" class="control-label">Filter by Department:</label>
-                                @Html.DropDownList("Departments", null, "All Departments", htmlAttributes: new { @class = "form-control", id = "filter-department" })
-                            </div>
+                    <div class="form-group col-md-3">
+                        <label for="filter-department" class="control-label">Filter by Department:</label>
+                        @Html.DropDownList("Departments", null, "All Departments", htmlAttributes: new { @class = "form-control", id = "filter-department" })
+                    </div>
 
-                            <div class="form-group col-md-2">
-                                <label class="control-label" for="OnlyVIP">Only VIPs</label>
-                                @Html.CheckBox("IsVIP", htmlAttributes: new { @class = "form-check-input", id = "OnlyVIP" })
-                            </div>
+                    <div class="form-group col-md-2 d-flex align-items-end">
+                        <label class="control-label me-2" for="OnlyVIP">Only VIPs:</label>
+                        @Html.CheckBox("IsVIP", htmlAttributes: new { @class = "form-check-input", id = "OnlyVIP" })
+                    </div>
 
-                            <div class="form-group col-md-2 align-self-end mt-2">
-                                <input type="submit" name="actionButton" value="Filter" class="btn btn-primary me-2" />
-                                <a asp-action="Index" class="btn btn-dark" aria-label="Clear all filters">Clear</a>
-                            </div>
-                        </div>
+                    <div class="form-group col-md-4 d-flex align-items-end mt-2">
+                        <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
+                        <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
                     </div>
                 </div>
             </div>
+        </div>
+
+
+            
             <div>
                 <label class="control-label">@ViewData["records"]</label>
             </div>
@@ -86,7 +95,7 @@
                             <td>@Html.DisplayFor(modelItem => item.Title)</td>
                             <td>@Html.DisplayFor(modelItem => item.Department)</td>
                             <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PhoneFormatted)</td>
                             <td>
                                 <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
                             </td>
@@ -104,7 +113,7 @@
             <h2 id="previewTitle" class="sr-only">Preview Section</h2>
             <!-- Preview content will be dynamically injected here -->
         </div>
-    </div>
+
 
     <partial name="_PagingNavBar" />
 </form>
