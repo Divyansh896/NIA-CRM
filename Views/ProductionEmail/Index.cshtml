@@ -90,9 +90,10 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Subject)
                             </td>
-                            <td>
-                                    @Html.DisplayFor(modelItem => item.Body)
-                            </td>
+                        <td>
+                            @(item.Body.Length > 25 ? item.Body.Substring(0, 25) + "..." : item.Body)
+                        </td>
+
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.Id" aria-label="Edit email of type @item.EmailType with subject @item.Subject">Edit</a> |
                                 <a asp-action="Details" asp-route-id="@item.Id" aria-label="View details of email of type @item.EmailType with subject @item.Subject">Details</a> |
