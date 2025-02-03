@@ -37,8 +37,8 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
-                            <p class="card-title title-vidget" id="members-copperport-title" role="heading" aria-level="3">Members in Copperport</p>
-                            <p class="card-text fixed-text" aria-live="polite">@Model.Count(m => m.Addresses.Any(a => a.City == "Copperport"))</p>
+                            <p class="card-title title-vidget" id="members-copperport-title" role="heading" aria-level="3">Members in Welland</p>
+                            <p class="card-text fixed-text" aria-live="polite">@Model.Count(m => m.Addresses.Any(a => a.City == "Welland"))</p>
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -52,8 +52,9 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
-                            <p class="card-title title-vidget" id="vip-clients-title" role="heading" aria-level="3">VIP Clients</p>
-                            <p class="card-text fixed-text" aria-live="polite">@ViewData["VipCount"]</p>
+                            <p class="card-title title-vidget" id="vip-clients-title" role="heading" aria-level="3">Associate Members</p>
+                            <p class="card-text fixed-text" aria-live="polite">8</p>
+                            <!--<p class="card-text fixed-text" aria-live="polite">@ViewData["VipCount"]</p>-->
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -143,7 +144,7 @@
                     <th class="table-head-static"><!--Empty header for logos --></th>
 
                     <th scope="col" class="table-head">
-                        <input type="submit" name="actionButton" value="Industry" class="btn btn-link" aria-label="Sort by Industry" />
+                        <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Industry" />
                     </th>
                     <th scope="col" class="table-head">
                         NAICS Code
