@@ -115,6 +115,9 @@
                     <th scope="col" class="table-head">
                         <input type="submit" name="actionButton" value="Industry" class="btn btn-link" aria-label="Sort by Industry" />
                     </th>
+                    <th scope="col" class="table-head">
+                        NAICS Code
+                    </th>
                     <th scope="col" class="table-head">Address</th>
                     <th scope="col" class="table-head">Contact Name</th>
                     <th scope="col" class="table-head">Contact Title</th>
@@ -122,8 +125,8 @@
                     <th scope="col" class="table-head">Contact Email</th>
                     <th scope="col" class="table-head">Contact Phone</th>
                     <th scope="col" class="table-head">LinkedIn</th>
-                    <th scope="col" class="table-head">VIP Status</th>
-                    <th scope="col" class="table-head">Pin Column</th>
+                    @* <th scope="col" class="table-head">VIP Status</th> *@
+                    @* <th scope="col" class="table-head">Pin Column</th> *@
                 </tr>
             </thead>
             <tbody>
@@ -150,6 +153,9 @@
 
                         <td>@Html.DisplayFor(modelItem => member.MemberName)</td>
                         <td>
+                            @Html.DisplayFor(modelItem => member.IndustryNAICSCodes);
+                        </td>
+                        <td>
                             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 @foreach (var address in member.Addresses)
                                 {
@@ -172,14 +178,19 @@
                                 <td>@contact.Title</td>
                                 <td>@contact.Department</td>
                                 <td>@contact.Email</td>
-                                <td>@contact.Phone</td>
+                                <td>
+                                    @(contact.Phone.Length == 10
+                                        ? $"({contact.Phone.Substring(0, 3)}) {contact.Phone.Substring(3, 3)}-{contact.Phone.Substring(6, 4)}"
+                                        : contact.Phone)
+                                </td>
+
                                 <td>
                                     @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
                                     {
                                         <a href="@contact.LinkedInUrl" target="_blank" aria-label="View LinkedIn profile for @contact.Summary">LinkedIn</a>
                                     }
                                 </td>
-                                <td>@(contact.IsVip ? "Yes" : "No")</td>
+                                @* <td>@(contact.IsVip ? "Yes" : "No")</td> *@
                             }
                         }
                         else
@@ -187,11 +198,11 @@
                             <td colspan="7">No Contacts Available</td>
                         }
 
-                        <td>
-                            <button class="btn btn-primary btn-sm pin-column" onclick="pinColumn(this)" aria-label="Pin this column">
-                                <i class="fas fa-thumbtack"></i> <!-- Pin icon -->
-                            </button>
-                        </td>
+                        @* <td> *@
+                        @*     <button class="btn btn-primary btn-sm pin-column" onclick="pinColumn(this)" aria-label="Pin this column"> *@
+                        @*         <i class="fas fa-thumbtack"></i> <!-- Pin icon --> *@
+                        @*     </button> *@
+                        @* </td> *@
                     </tr>
                 }
             </tbody>

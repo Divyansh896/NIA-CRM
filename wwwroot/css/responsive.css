@@ -232,6 +232,7 @@ color: #ffffff;
     color: #fff;
     border-right: 1px solid #dee2e6;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for better separation */
+   
 }
 
 .table-row-static {
@@ -250,6 +251,17 @@ color: #ffffff;
     display: block;
     max-width: 500px !important;
 }
+
+table {
+    table-layout: auto;
+    width: 100%; /* Ensure it adapts to available space */
+}
+
+td, th {
+    white-space: nowrap;
+    padding: 10px;
+}
+
 /* Mobile Devices (Phones) */
 @media (max-width: 768px) {
     body {

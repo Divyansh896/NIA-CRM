@@ -24,7 +24,7 @@ namespace NIA_CRM.Controllers
         // GET: Cancellation
         public async Task<IActionResult> Index(int? page, int? pageSizeID)
         {
-            var cancellations = _context.Cancellations.Include(c => c.Member);
+            var cancellations = _context.Cancellations.Include(c => c.Member).Where(c => c.Canceled);
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
             ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);

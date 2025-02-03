@@ -157,8 +157,8 @@ namespace NIA_CRM.Controllers
 
         private SelectList PopulateDropdowns()
         {
-            var memberIndustries = _context.Members.ToList();
-            return new SelectList(memberIndustries);
+            var members = _context.Members.ToList(); // Fixed incorrect property access
+            return new SelectList(members, "ID", "MemberName"); // Specify value and text fields
         }
     }
 }
