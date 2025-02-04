@@ -6,7 +6,7 @@
 
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
-    <h1 class="mb-0" id="member-title">Member</h1>
+    <h1 class="mb-0" id="member-title">Members</h1>
 </div>
 <form asp-action="Index" method="get" aria-labelledby="form-title">
     <h2 id="form-title" class="sr-only">Filter and Search Form</h2>
@@ -14,18 +14,18 @@
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
     <!-- Filter/Search Toggle Button -->
     <div class="form-horizontal mb-3">
-        <div class="d-flex justify-content-between align-items-center">
-            <button class="btn btn-dark @ViewData["Filtering"]"
-                    type="button"
-                    id="filterToggle"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseFilter"
-                    aria-expanded="false"
-                    aria-controls="collapseFilter">
-                Filter/Search @ViewData["numberFilters"]
-            </button>
-            <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Member</a>
-        </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-dark @ViewData["Filtering"]"
+                type="button"
+                id="filterToggle"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFilter"
+                aria-expanded="false"
+                aria-controls="collapseFilter">
+            Filter/Search @ViewData["numberFilters"]
+        </button>
+        <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Members</a>
+    </div>
 
         <!-- Filter/Search Form -->
         <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
@@ -91,6 +91,7 @@
         <thead>
             <tr>
                 <th class="table-head">
+
                     <!--Empty column for logo-->
                 </th>
 
