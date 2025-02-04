@@ -8,9 +8,9 @@
         public string ContactMiddleName { get; set; }
         public string Title { get; set; }
         public string Department { get; set; }
-        public string EMail { get; set; }
+        public string Email { get; set; }
         public string Phone { get; set; }
-        public string LinkedinUrl { get; set; }
+        public string LinkedInUrl { get; set; }
         public bool IsVIP { get; set; }
         public string Summary { get; set; }
     }

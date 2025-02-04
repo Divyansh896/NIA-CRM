@@ -113,7 +113,7 @@ namespace NIA_CRM.Controllers
         // GET: Cancellation/Create
         public IActionResult Create()
         {
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName");
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName");
             return View();
         }
 
@@ -130,7 +130,7 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName", cancellation.MemberID);
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", cancellation.MemberID);
             return View(cancellation);
         }
 
@@ -147,7 +147,7 @@ namespace NIA_CRM.Controllers
             {
                 return NotFound();
             }
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName", cancellation.MemberID);
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", cancellation.MemberID);
             return View(cancellation);
         }
 
@@ -183,7 +183,7 @@ namespace NIA_CRM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName", cancellation.MemberID);
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", cancellation.MemberID);
             return View(cancellation);
         }
 

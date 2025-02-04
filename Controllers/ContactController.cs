@@ -132,7 +132,8 @@ namespace NIA_CRM.Controllers
         // GET: Contact/Create
         public IActionResult Create()
         {
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName");
+            PopulateDropdowns();
+            //ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName");
             return View();
         }
 
@@ -149,7 +150,8 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
+            PopulateDropdowns();
+            //ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
             return View(contact);
         }
 
@@ -293,5 +295,14 @@ namespace NIA_CRM.Controllers
             return PartialView("_ContactPreview", contact);  // Ensure the partial view name is correct
         }
 
+
+        private void PopulateDropdowns()
+        {
+            // Fetch Members for dropdown
+            var members = _context.Members.ToList();
+            ViewData["Members"] = new SelectList(members, "ID", "MemberName");
+
+
+        }
     }
 }

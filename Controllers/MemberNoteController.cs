@@ -55,7 +55,7 @@ namespace NIA_CRM.Controllers
         // GET: MemberNote/Create
         public IActionResult Create()
         {
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName");
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName");
             return View();
         }
 
@@ -72,7 +72,7 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", memberNote.MemberId);
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName", memberNote.MemberId);
             return View(memberNote);
         }
 
@@ -89,7 +89,7 @@ namespace NIA_CRM.Controllers
             {
                 return NotFound();
             }
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", memberNote.MemberId);
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName", memberNote.MemberId);
             return View(memberNote);
         }
 
@@ -125,7 +125,7 @@ namespace NIA_CRM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", memberNote.MemberId);
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName", memberNote.MemberId);
             return View(memberNote);
         }
 
