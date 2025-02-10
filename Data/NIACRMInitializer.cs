@@ -1741,6 +1741,19 @@ namespace NIA_CRM.Data
                             LinkedInUrl = "https://www.linkedin.com/in/jamesphillips",
                             IsVip = true,
                             MemberId = 40
+                        },
+                        new Contact
+                        {
+                            Id = 41,
+                            FirstName = "Astarion",
+                            LastName = "Ancunin",
+                            Title = "Manager",
+                            Department = "Sales",
+                            Email = "iplayedbg3toomuch@example.com",
+                            Phone = "7077077777",
+                            LinkedInUrl = "https://www.linkedin.com/in/johndoe",
+                            IsVip = false,
+                            MemberId = 1
                         }
 
                         );

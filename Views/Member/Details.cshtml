@@ -4,56 +4,52 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="row align-items-center">
+    <!-- Logo (Member Thumbnail or Default Image) -->
+    <div class="col-auto">
+        @if (Model.MemberLogo?.Content != null)
+        {
+            string imageBase64 = Convert.ToBase64String(Model.MemberLogo.Content);
+            string imageSrc = $"data:{Model.MemberLogo.MimeType};base64,{imageBase64}";
+            <img src="@imageSrc" alt="Profile Picture of @Model.MemberName"
+                 title="Profile Picture of @Model.MemberName"
+                 class="img-fluid rounded" style="height: 70px; width: 70px; object-fit: cover;" />
+        }
+        else
+        {
+            <img src="~/images/Unknown_person.jpg"
+                 alt="Profile Picture of @Model.MemberName"
+                 title="Profile Picture of @Model.MemberName"
+                 class="img-fluid rounded" style="height: 70px; width: 70px; object-fit: cover;" />
+        }
+    </div>
+
+    <!-- Member Name -->
+    <div class="col">
+        <h1 class="mb-0">@Model.MemberName</h1>
+    </div>
+</div>
 
 <div>
-    <h4>Member</h4>
+    <h4>Details</h4>
     <hr />
+@{
+    var primaryContact = Model.Contacts?.FirstOrDefault(c => c.IsVip) ?? Model.Contacts?.FirstOrDefault();
+    var additionalContacts = Model.Contacts?.Where(c => c != primaryContact).ToList();
+}
 
-    <div class="container">
-        <div class="row">
-            <!-- Left Card: Logo and Summaries -->
-            <div class="col-md-6">
-                <div class="text-center mb-3">
-                    @{
-        if (Model.MemberLogo?.Content != null)
-        {
-            @:<div>
-                string imageBase64 = Convert.ToBase64String(Model.MemberLogo.Content);
-                string imageSrc = string.Format("data:" + Model.MemberLogo.MimeType + ";base64,{0}", imageBase64);
-                <img src="@imageSrc" alt="Profile Picture of @Model.MemberName" title="Profile Picture of @Model.MemberName" class="img-fluid rounded" />
-            @:</div>
-        }
-                        else
-                        {
-                            <img src="~/images/Unknown_person.jpg" alt="Profile Picture of @Model.MemberName"
-                            title="Profile Picture of @Model.MemberName" class ="otherPic"/>
-                        }
-                    }
-                </div>
-                <h5 class="card-title">Summary</h5>
-                <div class="card card-body bg-light text-black">
-                    <!-- Summary Section -->
-                    <dl>
-                        <dt class="col-sm-6">How Long Since Joined:</dt>
-                        <dd class="col-sm-6">@Html.DisplayFor(model => model.TimeSinceJoined)</dd>
-                        <dt class="col-sm-6">Days Left in Subscription:</dt>
-                        <dd class="col-sm-6">3 months 4 days</dd>
-                    </dl>
-                </div>
-            </div>
-
-            <!-- Right Card: Detailed Information -->
+<div class="container">
+    <div class="row">
+        <!-- Left Card: Detailed Information -->
             <div class="col-md-6">
                 <h5 class="card-title">Detailed Information</h5>
                 <div class="card card-body bg-light text-black">
                     <div class="row">
-                        <!-- Left side of the right card -->
+                        <!-- Left Column: Address & Membership Type -->
                         <div class="col-md-6">
                             <dl>
-                                <!-- Address -->
-                                <dt class="col-sm-4">Address:</dt>
-                                <dd class="col-sm-8">
+                                <dt>Address:</dt>
+                                <dd>
                                     @if (Model.Addresses != null && Model.Addresses.Any())
                                     {
                                         @foreach (var address in Model.Addresses)
@@ -67,9 +63,8 @@
                                     }
                                 </dd>
 
-                                <!-- Membership Type -->
-                                <dt class="col-sm-4">Membership Type:</dt>
-                                <dd class="col-sm-8">
+                                <dt>Membership Type:</dt>
+                                <dd>
                                     @if (Model.MemberMembershipTypes != null && Model.MemberMembershipTypes.Any())
                                     {
                                         @foreach (var membership in Model.MemberMembershipTypes)
@@ -82,111 +77,164 @@
                                         <p>No membership type available.</p>
                                     }
                                 </dd>
-
-                                <!-- Join Date -->
-                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.JoinDate)</dt>
-                                <dd class="col-sm-8">
-                                    @Html.DisplayFor(model => model.JoinDate)
-                                </dd>
-                                <dt class="col-sm-4">Website:</dt>
-                                <dd class="col-sm-8">
-                                    @Html.DisplayFor(model => model.WebsiteUrl)
-                                </dd>
-                                <dt class="col-sm-4">Size:</dt>
-                                <dd class="col-sm-8">
-                                    @Html.DisplayFor(model => model.MemberSize)
-                                </dd>
                             </dl>
                         </div>
 
-                        <!-- Right side of the right card -->
+                        <!-- Right Column: Other Details -->
                         <div class="col-md-6">
                             <dl>
-                                <!-- Notes -->
-                                <dt class="col-sm-4">Notes:</dt>
-                                <dd class="col-sm-12 flex-grow-1">
-                                    @if (Model.MemberNotes != null && Model.MemberNotes.Any())
-                                    {
-                                        @foreach (var note in Model.MemberNotes)
-                                        {
-                                            <textarea class="form-control mb-2" readonly>@note.Note</textarea>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <textarea class="form-control" readonly>No notes available.</textarea>
-                                    }
-                                </dd>
+                                <dt>@Html.DisplayNameFor(model => model.JoinDate)</dt>
+                                <dd>@Html.DisplayFor(model => model.JoinDate)</dd>
+
+                                <dt>Website:</dt>
+                                <dd>@Html.DisplayFor(model => model.WebsiteUrl)</dd>
+
+                                <dt>Size:</dt>
+                                <dd>@Html.DisplayFor(model => model.MemberSize)</dd>
                             </dl>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Contact Cards -->
-        <div>
-    <h5>Contact Information</h5>
-@if (Model.Contacts != null && Model.Contacts.Any())
-{
-    @foreach (var contact in Model.Contacts)
-    {
-        <div class="col-12 mb-3">
+
+        <!-- Right Card: Primary Contact Information -->
+            <div class="col-md-6">
+                <h5>Primary Contact Information</h5>
+                @if (primaryContact != null)
+                {
+                    <div class="card card-body bg-light text-black">
+                        <div class="row">
+                            <!-- Left Column -->
+                            <div class="col-md-6">
+                                <dl>
+                                    <dt>Contact Name:</dt>
+                                    <dd>
+                                        @primaryContact.Summary
+                                        @if (primaryContact.IsVip)
+                                        {
+                                            <span class="badge bg-warning text-dark ms-2">VIP</span>
+                                        }
+                                    </dd>
+
+                                    <dt>Title:</dt>
+                                    <dd>@primaryContact.Title</dd>
+
+                                    <dt>Department:</dt>
+                                    <dd>@primaryContact.Department</dd>
+                                </dl>
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="col-md-6">
+                                <dl>
+                                    <dt>Email:</dt>
+                                    <dd>@primaryContact.Email</dd>
+
+                                    <dt>Phone:</dt>
+                                    <dd>@primaryContact.PhoneFormatted</dd>
+
+                                    @if (!string.IsNullOrEmpty(primaryContact.LinkedInUrl))
+                                    {
+                                        <dt>LinkedIn:</dt>
+                                        <dd><a href="@primaryContact.LinkedInUrl" target="_blank">@primaryContact.LinkedInUrl</a></dd>
+                                    }
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <p>No primary contact available.</p>
+                }
+            </div>
+
+
+    <!-- Additional Information Card (How Long Since Joined, Days Left, Notes) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h5>Additional Information</h5>
             <div class="card card-body bg-light text-black">
-                <dl class="row">
-                    <!-- Summary and VIP Label -->
-                    <div class="col-sm-4">
-                        <dt>Contact Name:</dt>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <dt>How Long Since Joined:</dt>
+                        <dd>@Html.DisplayFor(model => model.TimeSinceJoined)</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Days Left in Subscription:</dt>
+                        <dd>3 months 4 days</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Notes:</dt>
                         <dd>
-                            @contact.Summary
-                            @if (contact.IsVip)
+                            @if (Model.MemberNotes != null && Model.MemberNotes.Any())
                             {
-                                <span class="badge bg-warning text-dark ms-2">VIP</span>
+                                @foreach (var note in Model.MemberNotes)
+                                {
+                                    <textarea class="form-control mb-2" readonly>@note.Note</textarea>
+                                }
+                            }
+                            else
+                            {
+                                <textarea class="form-control" readonly>No notes available.</textarea>
                             }
                         </dd>
                     </div>
-
-                    <!-- Title -->
-                    <div class="col-sm-4">
-                        <dt>Title:</dt>
-                        <dd>@contact.Title</dd>
-                    </div>
-
-                    <!-- Department -->
-                    <div class="col-sm-4">
-                        <dt>Department:</dt>
-                        <dd>@contact.Department</dd>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="col-sm-4">
-                        <dt>Email:</dt>
-                        <dd>@contact.Email</dd>
-                    </div>
-
-                    <!-- Phone -->
-                    <div class="col-sm-4">
-                        <dt>Phone:</dt>
-                        <dd>@contact.PhoneFormatted</dd>
-                    </div>
-
-                    <!-- LinkedIn -->
-                    @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
-                    {
-                        <div class="col-sm-4">
-                            <dt>LinkedIn:</dt>
-                            <dd><a href="@contact.LinkedInUrl" target="_blank">@contact.LinkedInUrl</a></dd>
-                        </div>
-                    }
-                </dl>
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- Additional Contacts (If any) -->
+    @if (additionalContacts != null && additionalContacts.Any())
+    {
+        <div class="row mt-3">
+            <div class="col-md-12">
+                    <h5>Additional Contacts</h5>
+                    @foreach (var contact in additionalContacts)
+                    {
+                        <div class="mb-3">
+                            <div class="card card-body bg-white text-black">
+                                <dl class="row">
+                                    <div class="col-sm-4">
+                                        <dt>Contact Name:</dt>
+                                        <dd>@contact.Summary</dd>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <dt>Title:</dt>
+                                        <dd>@contact.Title</dd>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <dt>Department:</dt>
+                                        <dd>@contact.Department</dd>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <dt>Email:</dt>
+                                        <dd>@contact.Email</dd>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <dt>Phone:</dt>
+                                        <dd>@contact.PhoneFormatted</dd>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
+                                    {
+                                        <div class="col-sm-4">
+                                            <dt>LinkedIn:</dt>
+                                            <dd><a href="@contact.LinkedInUrl" target="_blank">@contact.LinkedInUrl</a></dd>
+                                        </div>
+                                    }
+                                </dl>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
     }
-}
-else
-{
-    <p>No contacts available.</p>
-}
+</div>
+
+
 
 <div class="position-bottom-left">
     <a class="btn btn-dark me-2">Archive</a>
