@@ -27,6 +27,37 @@
         <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Members</a>
     </div>
 
+
+        @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
+        {
+            <div class="filters-container mt-2">
+                @if (!string.IsNullOrEmpty(ViewData["SearchString"] as string))
+                {
+                    <span class="custom-filter-badge me-2">
+                        Member Name: @ViewData["SearchString"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('SearchString')">x</button>
+                    </span>
+                }
+                @if (ViewData["JoinDate"] != null)
+                {
+                    <span class="custom-filter-badge me-2">
+                        Join Date: @ViewData["JoinDate"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('JoinDate')">x</button>
+                    </span>
+                }
+                @if (ViewData["MembershipTypesFilter"] != null)
+                {
+                    <span class="custom-filter-badge me-2">
+                        Membership Type: @ViewData["MembershipTypesFilter"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('MembershipTypes')">x</button>
+                    </span>
+                }
+            </div>
+
+
+        }
+
+
         <!-- Filter/Search Form -->
         <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
             <div class="card card-body bg-light" role="region" aria-labelledby="filter-section-title">
@@ -210,5 +241,17 @@
             });
         });
 
+        function clearFilter(filterName){
+            // Get the current URL
+            var url = window.location.href.split('?')[0]; // Current URL without query string
+
+            // Get the query parameters from the URL
+            var params = new URLSearchParams(window.location.search);
+            params.delete(filterName)
+
+            // Reload the page with the updated query string (filters removed)
+            window.location.href = url + '?' + params.toString();
+            
+        }
     </script>
 }

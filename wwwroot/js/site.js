@@ -17,3 +17,4 @@ footer.addEventListener('click', () => {
 btnBackToTop.addEventListener('click', () => {
     BackToTop()
 })
+

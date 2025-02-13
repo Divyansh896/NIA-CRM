@@ -58,6 +58,7 @@ namespace NIA_CRM.Controllers
                 members = members.Where(m =>
                     m.MemberName.ToUpper().Contains(SearchString.ToUpper()));
                 numberFilters++;
+                ViewData["SearchString"] = SearchString;
             }
 
             if (!string.IsNullOrEmpty(JoinDate))
@@ -65,6 +66,7 @@ namespace NIA_CRM.Controllers
                 if (DateTime.TryParse(JoinDate, out var parsedDate))
                 {
                     members = members.Where(m => m.JoinDate == parsedDate);
+                    ViewData["JoinDate"] = JoinDate;
                 }
                 else
                 {
@@ -73,11 +75,25 @@ namespace NIA_CRM.Controllers
             }
             if (MembershipTypes.HasValue)
             {
-                // Assuming MembershipTypes is the ID or a collection of IDs for the membership type
-                members = members
-                    .Where(p => p.MemberMembershipTypes.Any(mmt => mmt.MembershipTypeId == MembershipTypes.Value));
-                numberFilters++;
+                // Retrieve the MembershipType object from the database using the ID
+                var membershipType = _context.MembershipTypes
+                                             .FirstOrDefault(m => m.ID == MembershipTypes.Value);
+
+                if (membershipType != null)
+                {
+                    // Filter members based on MembershipTypeId (MemberMembershipType)
+                    members = members
+                        .Where(p => p.MemberMembershipTypes
+                            .Any(mmt => mmt.MembershipTypeId == MembershipTypes.Value));
+
+                    numberFilters++;
+
+                    // Store the name of the selected membership type in ViewData
+                    ViewData["MembershipTypesFilter"] = membershipType.TypeName;
+                }
             }
+            
+
             if (numberFilters != 0)
             {
                 //Toggle the Open/Closed state of the collapse depending on if we are filtering

@@ -27,6 +27,36 @@
             </button>
         </div>
 
+        @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
+        {
+            <div class="filters-container mt-2">
+                @if (!string.IsNullOrEmpty(ViewData["SearchString"] as string))
+                {
+                    <span class="custom-filter-badge me-2">
+                        Member Name: @ViewData["SearchString"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('SearchString')">x</button>
+                    </span>
+                }
+                @if (ViewData["MembersFilter"] != null)
+                {
+                    <span class="custom-filter-badge me-2">
+                        Members: @ViewData["MembersFilter"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('Members')">x</button>
+                    </span>
+                }
+                @if (ViewData["cancelledFilter"] != null)
+                {
+                    <span class="custom-filter-badge me-2">
+                        cancelled: @ViewData["cancelledFilter"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('cancelled')">x</button>
+                    </span>
+                }
+                
+            </div>
+
+
+        }
+
         <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
             <div class="card card-body bg-light" role="region" aria-labelledby="filter-section-title">
                 <h2 id="filter-section-title" class="sr-only">Filter and Search Options</h2>
@@ -91,3 +121,31 @@
     <partial name="_PagingNavBar" />
 
 </form>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+
+        function clearFilter(filterName){
+            // Get the current URL
+            var url = window.location.href.split('?')[0]; // Current URL without query string
+
+            // Get the query parameters from the URL
+            var params = new URLSearchParams(window.location.search);
+            params.delete(filterName)
+
+            // Reload the page with the updated query string (filters removed)
+            window.location.href = url + '?' + params.toString();
+
+        }
+
+    </script>
+    <script type="text/javascript">
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}

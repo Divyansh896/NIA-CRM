@@ -31,7 +31,21 @@
                 </button>
                     <a asp-action="Create" class="btn btn-primary" aria-label="Add a new Email">+ Add Email</a>
                 </div>
-                
+            @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
+            {
+                <div class="filters-container mt-2">
+                    @if (ViewData["EmailTypeIDFilter"] != null)
+                    {
+                        <span class="custom-filter-badge me-2">
+                            Email Type: @ViewData["EmailTypeIDFilter"]
+                            <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('EmailTypeID')">x</button>
+                        </span>
+                    }
+                   
+                </div>
+
+
+            }
                 <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
                     <div class="card card-body bg-light">
                         <div class="row">
@@ -108,3 +122,31 @@
             </table>
         </div>
 </form>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+             
+
+        function clearFilter(filterName){
+            // Get the current URL
+            var url = window.location.href.split('?')[0]; // Current URL without query string
+
+            // Get the query parameters from the URL
+            var params = new URLSearchParams(window.location.search);
+            params.delete(filterName)
+
+            // Reload the page with the updated query string (filters removed)
+            window.location.href = url + '?' + params.toString();
+
+        }
+
+    </script>
+    <script type="text/javascript">
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}

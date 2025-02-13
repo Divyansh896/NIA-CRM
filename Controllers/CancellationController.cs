@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -37,11 +38,15 @@ namespace NIA_CRM.Controllers
                 cancellations = cancellations.Where(m =>
                     m.Member.MemberName.ToUpper().Contains(SearchString.ToUpper()));
                 numberFilters++;
+                ViewData["SearchString"] = SearchString;
+
             }
             if (cancelled)
             {
                 cancellations = cancellations.Where(c => c.Canceled);
                 numberFilters++;
+                ViewData["cancelledFilter"] = "Applied";
+
             }
 
             if (sortField == "Member")
@@ -64,8 +69,15 @@ namespace NIA_CRM.Controllers
 
             if (Members.HasValue)
             {
-                cancellations = cancellations.Where(p => p.MemberID == Members);
-                numberFilters++;
+                // Assuming you have a Members entity or lookup to fetch the name by ID
+                var member = _context.Members.FirstOrDefault(m => m.ID == Members.Value);
+
+                if (member != null)
+                {
+                    cancellations = cancellations.Where(p => p.MemberID == Members.Value);
+                    numberFilters++;
+                    ViewData["MembersFilter"] = member.MemberName; // Set the member's name in ViewData
+                }
             }
             //Give feedback about the state of the filters
             if (numberFilters != 0)

@@ -35,16 +35,30 @@ namespace NIA_CRM.Controllers
             {
                 contacts = contacts.Where(c => c.Department == Departments);
                 numberFilters++;
+                ViewData["DepartmentsFilter"] = Departments;
             }
             if (Titles != null)
             {
                 contacts = contacts.Where(c => c.Title == Titles);
                 numberFilters++;
+                ViewData["TitlesFilter"] = Titles;
+
             }
             if (IsVIP)
             {
                 contacts = contacts.Where(c => c.IsVip);
                 numberFilters++;
+                ViewData["IsVIPFilter"] = "VIP"; // Set filter value for VIP
+
+            }
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                contacts = contacts.Where(p => p.LastName.ToUpper().Contains(SearchString.ToUpper())
+                                       || p.FirstName.ToUpper().Contains(SearchString.ToUpper()));
+                numberFilters++;
+                ViewData["SearchString"] = SearchString;
+
             }
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
@@ -79,12 +93,7 @@ namespace NIA_CRM.Controllers
                 }
             }
 
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                contacts = contacts.Where(p => p.LastName.ToUpper().Contains(SearchString.ToUpper())
-                                       || p.FirstName.ToUpper().Contains(SearchString.ToUpper()));
-                numberFilters++;
-            }
+            
             //Give feedback about the state of the filters
             if (numberFilters != 0)
             {

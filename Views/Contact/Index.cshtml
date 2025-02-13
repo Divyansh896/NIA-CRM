@@ -16,22 +16,58 @@
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
 
 
-        <!-- Filter/Search Section -->
-        <div class="m-auto flex-grow-1">
-            <div class="form-horizontal mb-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <button class="btn btn-dark @ViewData["Filtering"]"
-                            type="button"
-                            id="filterToggle"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#collapseFilter"
-                            aria-expanded="false"
-                            aria-controls="collapseFilter">
-                        Filter/Search @ViewData["numberFilters"]
-                    </button>
-                    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
-                    </div>
+    <!-- Filter/Search Section -->
+    <div class="m-auto flex-grow-1">
+        <div class="form-horizontal mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <button class="btn btn-dark @ViewData["Filtering"]"
+                        type="button"
+                        id="filterToggle"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseFilter"
+                        aria-expanded="false"
+                        aria-controls="collapseFilter">
+                    Filter/Search @ViewData["numberFilters"]
+                </button>
+                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
             </div>
+            @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
+            {
+                <div class="filters-container mt-2">
+                    @if (!string.IsNullOrEmpty(ViewData["SearchString"] as string))
+                    {
+                        <span class="custom-filter-badge me-2">
+                            Member Name: @ViewData["SearchString"]
+                            <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('SearchString')">x</button>
+                        </span>
+                    }
+                    @if (ViewData["TitlesFilter"] != null)
+                    {
+                        <span class="custom-filter-badge me-2">
+                            Title: @ViewData["TitlesFilter"]
+                            <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('Titles')">x</button>
+                        </span>
+                    }
+                    @if (ViewData["DepartmentsFilter"] != null)
+                    {
+                        <span class="custom-filter-badge me-2">
+                            Department: @ViewData["DepartmentsFilter"]
+                            <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('Departments')">x</button>
+                        </span>
+                    }
+                    @if (ViewData["IsVIPFilter"] != null)
+                    {
+                        <span class="custom-filter-badge me-2">
+                            VIPs: @ViewData["IsVIPFilter"]
+                            <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('IsVIP')">x</button>
+                        </span>
+                    }
+                </div>
+
+
+            }
+
+        </div>
         <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
             <div class="card card-body bg-light">
                 <div class="row">
@@ -64,111 +100,124 @@
         </div>
 
 
-            
-            <div>
-                <label class="control-label">@ViewData["records"]</label>
-            </div>
 
-            <!-- Contacts Table -->
-            <table class="table table-bordered table-striped" id="contacts-table" aria-labelledby="contacts-title">
-                <caption class="sr-only">Contacts table showing filtered results</caption>
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col" class="table-head">
-                            <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
-                        </th>
-                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Title)</th>
-                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Department)</th>
-                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Email)</th>
-                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Phone)</th>
-                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
-                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.IsVip)</th>
-                        <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Member)</th>
-                        
+        <div>
+            <label class="control-label">@ViewData["records"]</label>
+        </div>
+
+        <!-- Contacts Table -->
+        <table class="table table-bordered table-striped" id="contacts-table" aria-labelledby="contacts-title">
+            <caption class="sr-only">Contacts table showing filtered results</caption>
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="table-head">
+                        <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
+                    </th>
+                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Title)</th>
+                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Department)</th>
+                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Email)</th>
+                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Phone)</th>
+                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
+                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.IsVip)</th>
+                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Member)</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="clickable-row" data-id="@item.Id" title="Click on row to get preview">
+                        <td>@Html.DisplayFor(modelItem => item.Summary)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Department)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PhoneFormatted)</td>
+                        <td>
+                            <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.IsVip)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Member.MemberName)</td>
+
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr class="clickable-row" data-id="@item.Id" title="Click on row to get preview">
-                            <td>@Html.DisplayFor(modelItem => item.Summary)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Department)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                            <td>@Html.DisplayFor(modelItem => item.PhoneFormatted)</td>
-                            <td>
-                                <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
-                            </td>
-                            <td>@Html.DisplayFor(modelItem => item.IsVip)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Member.MemberName)</td>
-                            
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
+    </div>
 
-        <!-- Preview Container -->
-        <div id="previewContainer" class="preview-content hidden" role="region" aria-labelledby="previewTitle">
-            <h2 id="previewTitle" class="sr-only">Preview Section</h2>
-            <!-- Preview content will be dynamically injected here -->
-        </div>
+    <!-- Preview Container -->
+    <div id="previewContainer" class="preview-content hidden" role="region" aria-labelledby="previewTitle">
+        <h2 id="previewTitle" class="sr-only">Preview Section</h2>
+        <!-- Preview content will be dynamically injected here -->
+    </div>
 
 
     <partial name="_PagingNavBar" />
 </form>
 
-@section Scripts  {
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-          $(document).ready(function () {
-        // Initially hide the preview content
-        $('#previewContainer').addClass('hidden');
+    <script>
+              $(document).ready(function () {
+            // Initially hide the preview content
+            $('#previewContainer').addClass('hidden');
 
-        // Handle click event on rows with the "clickable-row" class
-        $(document).on('click', '.clickable-row', function () {
-            var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+            // Handle click event on rows with the "clickable-row" class
+            $(document).on('click', '.clickable-row', function () {
+                var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
 
-            if (!contactId) {
-                console.error('No contact ID found for this row.');
-                return;
-            }
-
-            // Make an AJAX request to get the partial view for the selected contact
-            $.ajax({
-                url: '/Contact/GetContactPreview', // Adjust the URL to match your routing
-                type: 'GET',
-                data: { id: contactId },
-                success: function (result) {
-                    // Insert the result (partial view) into the preview container
-                    $('#previewContainer').html(result);
-                    $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
-                },
-                error: function () {
-                    alert('An error occurred while loading the preview.');
+                if (!contactId) {
+                    console.error('No contact ID found for this row.');
+                    return;
                 }
+
+                // Make an AJAX request to get the partial view for the selected contact
+                $.ajax({
+                    url: '/Contact/GetContactPreview', // Adjust the URL to match your routing
+                    type: 'GET',
+                    data: { id: contactId },
+                    success: function (result) {
+                        // Insert the result (partial view) into the preview container
+                        $('#previewContainer').html(result);
+                        $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+                    },
+                    error: function () {
+                        alert('An error occurred while loading the preview.');
+                    }
+                });
+            });
+
+            // Window click listener to collapse preview when clicked outside
+            $(window).click(function (event) {
+                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                    $('#previewContainer').removeClass('visible').addClass('hidden');
+                }
+            });
+
+            // Prevent the preview container from closing when clicked inside
+            $('#previewContainer').click(function (event) {
+                event.stopPropagation(); // Stop the event from propagating to the window
             });
         });
 
-        // Window click listener to collapse preview when clicked outside
-        $(window).click(function (event) {
-            if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
-                $('#previewContainer').removeClass('visible').addClass('hidden');
-            }
-        });
+        function clearFilter(filterName){
+            // Get the current URL
+            var url = window.location.href.split('?')[0]; // Current URL without query string
 
-        // Prevent the preview container from closing when clicked inside
-        $('#previewContainer').click(function (event) {
-            event.stopPropagation(); // Stop the event from propagating to the window
-        });
-    });
+            // Get the query parameters from the URL
+            var params = new URLSearchParams(window.location.search);
+            params.delete(filterName)
 
-</script>
-<script type="text/javascript">
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-</script>
+            // Reload the page with the updated query string (filters removed)
+            window.location.href = url + '?' + params.toString();
+
+        }
+
+    </script>
+    <script type="text/javascript">
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 }

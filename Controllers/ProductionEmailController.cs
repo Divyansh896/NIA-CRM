@@ -36,8 +36,16 @@ namespace NIA_CRM.Controllers
             // Filter by EmailTypeID if provided
             if (EmailTypeID.HasValue)
             {
-                emailsQuery = emailsQuery.Where(e => e.Id == EmailTypeID.Value);
-                numberFilters++;
+                var emailType = emailsQuery.FirstOrDefault(et => et.Id == EmailTypeID.Value);
+
+                if (emailType != null)
+                {
+                    emailsQuery = emailsQuery.Where(e => e.Id == EmailTypeID.Value);
+                    numberFilters++;
+                    ViewData["EmailTypeIDFilter"] = emailType.EmailType; // Set the email type name in ViewData
+                }
+
+
             }
 
             // Handle sorting
