@@ -28,7 +28,6 @@ namespace NIA_CRM.Controllers
             PopulateDropdownLists();
             string[] sortOptions = new[] { "Contact Name" };  // You can add more sort options if needed
 
-            ViewData["Filtering"] = "btn-outline-secondary";
             int numberFilters = 0;
 
             var contacts = _context.Contacts.Include(c => c.Member).AsQueryable();
@@ -36,16 +35,30 @@ namespace NIA_CRM.Controllers
             {
                 contacts = contacts.Where(c => c.Department == Departments);
                 numberFilters++;
+                ViewData["DepartmentsFilter"] = Departments;
             }
             if (Titles != null)
             {
                 contacts = contacts.Where(c => c.Title == Titles);
                 numberFilters++;
+                ViewData["TitlesFilter"] = Titles;
+
             }
             if (IsVIP)
             {
                 contacts = contacts.Where(c => c.IsVip);
                 numberFilters++;
+                ViewData["IsVIPFilter"] = "VIP"; // Set filter value for VIP
+
+            }
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                contacts = contacts.Where(p => p.LastName.ToUpper().Contains(SearchString.ToUpper())
+                                       || p.FirstName.ToUpper().Contains(SearchString.ToUpper()));
+                numberFilters++;
+                ViewData["SearchString"] = SearchString;
+
             }
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
@@ -80,12 +93,7 @@ namespace NIA_CRM.Controllers
                 }
             }
 
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                contacts = contacts.Where(p => p.LastName.ToUpper().Contains(SearchString.ToUpper())
-                                       || p.FirstName.ToUpper().Contains(SearchString.ToUpper()));
-                numberFilters++;
-            }
+            
             //Give feedback about the state of the filters
             if (numberFilters != 0)
             {
@@ -133,7 +141,8 @@ namespace NIA_CRM.Controllers
         // GET: Contact/Create
         public IActionResult Create()
         {
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName");
+            PopulateDropdowns();
+            //ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName");
             return View();
         }
 
@@ -150,7 +159,8 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
+            PopulateDropdowns();
+            //ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
             return View(contact);
         }
 
@@ -294,5 +304,14 @@ namespace NIA_CRM.Controllers
             return PartialView("_ContactPreview", contact);  // Ensure the partial view name is correct
         }
 
+
+        private void PopulateDropdowns()
+        {
+            // Fetch Members for dropdown
+            var members = _context.Members.ToList();
+            ViewData["Members"] = new SelectList(members, "ID", "MemberName");
+
+
+        }
     }
 }

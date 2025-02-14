@@ -22,9 +22,11 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Member
-        public async Task<IActionResult> Index(string? SearchString, string? JoinDate, int? page, int? pageSizeID, string? actionButton, string sortDirection = "asc", string sortField = "Member Name")
+        public async Task<IActionResult> Index(string? SearchString, string? JoinDate, int? page, int? pageSizeID, string? actionButton, int? MembershipTypes, string sortDirection = "asc", string sortField = "Member Name")
 
         {
+
+            PopulateDropdowns();
             string[] sortOptions = { "Member Name", "Industry" };
             int numberFilters = 0;
 
@@ -58,6 +60,7 @@ namespace NIA_CRM.Controllers
                 members = members.Where(m =>
                     m.MemberName.ToUpper().Contains(SearchString.ToUpper()));
                 numberFilters++;
+                ViewData["SearchString"] = SearchString;
             }
 
             if (!string.IsNullOrEmpty(JoinDate))
@@ -65,12 +68,34 @@ namespace NIA_CRM.Controllers
                 if (DateTime.TryParse(JoinDate, out var parsedDate))
                 {
                     members = members.Where(m => m.JoinDate == parsedDate);
+                    ViewData["JoinDate"] = JoinDate;
                 }
                 else
                 {
                     ModelState.AddModelError("JoinDate", "Invalid date format. Please use YYYY-MM-DD.");
                 }
             }
+            if (MembershipTypes.HasValue)
+            {
+                // Retrieve the MembershipType object from the database using the ID
+                var membershipType = _context.MembershipTypes
+                                             .FirstOrDefault(m => m.ID == MembershipTypes.Value);
+
+                if (membershipType != null)
+                {
+                    // Filter members based on MembershipTypeId (MemberMembershipType)
+                    members = members
+                        .Where(p => p.MemberMembershipTypes
+                            .Any(mmt => mmt.MembershipTypeId == MembershipTypes.Value));
+
+                    numberFilters++;
+
+                    // Store the name of the selected membership type in ViewData
+                    ViewData["MembershipTypesFilter"] = membershipType.TypeName;
+                }
+            }
+            
+
             if (numberFilters != 0)
             {
                 //Toggle the Open/Closed state of the collapse depending on if we are filtering
@@ -85,6 +110,7 @@ namespace NIA_CRM.Controllers
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
+            ViewData["records"] = $"Records Found: {members.Count()}";
 
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
@@ -307,6 +333,38 @@ namespace NIA_CRM.Controllers
         private bool MemberExists(int id)
         {
             return _context.Members.Any(e => e.ID == id);
+        }
+
+        public async Task<IActionResult> GetMemberPreview(int id)
+        {
+            var member = await _context.Members
+                .Include(m => m.Addresses) // Include the related Address
+                .Include(m => m.MemberThumbnail)
+                .Include(m => m.MemberMembershipTypes)
+                .ThenInclude(mm => mm.MembershipType)
+                .Include(m => m.Contacts)
+                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                .FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
+
+            if (member == null)
+            {
+                return NotFound(); // Return 404 if the member doesn't exist
+            }
+
+            return PartialView("_MemberPreview", member); // Ensure the partial view name matches
+        }
+
+        private void PopulateDropdowns()
+        {
+           
+            
+
+            var membershipTypes = _context.MembershipTypes.ToList();
+
+            ViewData["MembershipTypes"] = new SelectList(membershipTypes, "ID", "TypeName");
+
+            
+
         }
     }
 }

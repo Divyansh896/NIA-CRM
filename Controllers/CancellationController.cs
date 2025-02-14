@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,9 +23,78 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Cancellation
-        public async Task<IActionResult> Index(int? page, int? pageSizeID)
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, int? Members, string? SearchString, bool cancelled, string? actionButton,
+                                              string sortDirection = "asc", string sortField = "Member")
         {
-            var cancellations = _context.Cancellations.Include(c => c.Member);
+            PopulateDropdowns();
+            string[] sortOptions = new[] { "Member" };
+
+            var cancellations = _context.Cancellations.Include(c => c.Member).AsQueryable();
+
+            int numberFilters = 0;
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                cancellations = cancellations.Where(m =>
+                    m.Member.MemberName.ToUpper().Contains(SearchString.ToUpper()));
+                numberFilters++;
+                ViewData["SearchString"] = SearchString;
+
+            }
+            if (cancelled)
+            {
+                cancellations = cancellations.Where(c => c.Canceled);
+                numberFilters++;
+                ViewData["cancelledFilter"] = "Applied";
+
+            }
+
+            if (sortField == "Member")
+            {
+                if (sortDirection == "desc")
+                {
+                    cancellations = cancellations
+                        .OrderByDescending(p => p.Member.MemberName)
+                        .ThenByDescending(p => p.Member.MemberName);
+
+                }
+                else
+                {
+                    cancellations = cancellations
+                        .OrderBy(p => p.Member.MemberName)
+                        .ThenBy(p => p.Member.MemberName);
+
+                }
+            }
+
+            if (Members.HasValue)
+            {
+                // Assuming you have a Members entity or lookup to fetch the name by ID
+                var member = _context.Members.FirstOrDefault(m => m.ID == Members.Value);
+
+                if (member != null)
+                {
+                    cancellations = cancellations.Where(p => p.MemberID == Members.Value);
+                    numberFilters++;
+                    ViewData["MembersFilter"] = member.MemberName; // Set the member's name in ViewData
+                }
+            }
+            //Give feedback about the state of the filters
+            if (numberFilters != 0)
+            {
+                //Toggle the Open/Closed state of the collapse depending on if we are filtering
+                ViewData["Filtering"] = " btn-danger";
+                //Show how many filters have been applied
+                ViewData["numberFilters"] = "(" + numberFilters.ToString()
+                    + " Filter" + (numberFilters > 1 ? "s" : "") + " Applied)";
+                //Keep the Bootstrap collapse open
+                @ViewData["ShowFilter"] = " show";
+            }
+
+            ViewData["SortDirection"] = sortDirection;
+            ViewData["SortField"] = sortField;
+            ViewData["numberFilters"] = numberFilters;
+            //ViewData["records"] = $"Records Found: {contacts.Count()}";
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
             ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
@@ -55,7 +125,7 @@ namespace NIA_CRM.Controllers
         // GET: Cancellation/Create
         public IActionResult Create()
         {
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName");
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName");
             return View();
         }
 
@@ -72,7 +142,7 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName", cancellation.MemberID);
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", cancellation.MemberID);
             return View(cancellation);
         }
 
@@ -89,7 +159,7 @@ namespace NIA_CRM.Controllers
             {
                 return NotFound();
             }
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName", cancellation.MemberID);
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", cancellation.MemberID);
             return View(cancellation);
         }
 
@@ -125,7 +195,7 @@ namespace NIA_CRM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberFirstName", cancellation.MemberID);
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", cancellation.MemberID);
             return View(cancellation);
         }
 
@@ -166,6 +236,34 @@ namespace NIA_CRM.Controllers
         private bool CancellationExists(int id)
         {
             return _context.Cancellations.Any(e => e.ID == id);
+        }
+
+        private void PopulateDropdowns()
+        {
+            // Fetch Members for dropdown
+            var members = _context.Members.ToList();
+            ViewData["Members"] = new SelectList(members, "ID", "MemberName");
+
+        }
+
+
+        public async Task<IActionResult> GetMemberPreview(int id)
+        {
+            var member = await _context.Members
+                .Include(m => m.Addresses) // Include the related Address
+                .Include(m => m.MemberThumbnail)
+                .Include(m => m.MemberMembershipTypes)
+                .ThenInclude(mm => mm.MembershipType)
+                .Include(m => m.Contacts)
+                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                .FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
+
+            if (member == null)
+            {
+                return NotFound(); // Return 404 if the member doesn't exist
+            }
+
+            return PartialView("_MemberPreview", member); // Ensure the partial view name matches
         }
     }
 }

@@ -4,6 +4,10 @@ namespace NIA_CRM.Models
 {
     public class Contact
     {
+        [Display(Name = "Phone")]
+        public string PhoneFormatted => "(" + Phone?.Substring(0, 3) + ") "
+            + Phone?.Substring(3, 3) + "-" + Phone?[6..];
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "First Name is required.")]

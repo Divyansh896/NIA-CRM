@@ -312,7 +312,7 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasIndex("MemberId");
 
-                    b.ToTable("MemberNote");
+                    b.ToTable("MemberNotes");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.MemberThumbnail", b =>
@@ -377,7 +377,7 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("Id");
 
-                    b.ToTable("NAICSCode");
+                    b.ToTable("NAICSCodes");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Opportunity", b =>

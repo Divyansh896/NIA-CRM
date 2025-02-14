@@ -20,6 +20,7 @@ namespace NIA_CRM.Models
 
         [Required(ErrorMessage = "Body content is required")]
         [DisplayName("Body Content")]
+        [DataType(DataType.MultilineText)]
         public string? Body { get; set; } // Body content of the email
         
         [ScaffoldColumn(false)]

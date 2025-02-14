@@ -3,44 +3,62 @@
 @{
     ViewData["Title"] = "Index";
 }
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <!--WIDGETS-->
 <div class="content" id="content" role="main" aria-labelledby="dashboard-title">
-    
+
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
         <h1 id="dashboard-title">Dashboard</h1>
-        <button class="btn btn-primary">Customize</button>
+        @* <button class="btn btn-primary">Customize</button> *@
     </div>
 
     <div class="row" role="region" aria-labelledby="dashboard-stats">
         <h2 id="dashboard-stats" class="sr-only">Dashboard Statistics</h2>
 
-        <!-- Card 1 -->
+        <!-- Card 1: Total Members -->
         <div class="col-md-4">
-            <div class="card text-light" role="group" aria-labelledby="total-members-title">
-                <div class="card-body text-center">
-                    <p class="card-title" id="total-members-title" role="heading" aria-level="3">Total Members</p>
-                    <p class="card-text" aria-live="polite">@ViewData["MemberCount"]</p>
+            <div class="card text-light vidget-MemebrCount" role="group" aria-labelledby="total-members-title">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <!-- Left Column (Title & Text) -->
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="total-members-title" role="heading" aria-level="3">Total Members</p>
+                            <p class="card-text fixed-text" aria-live="polite">@ViewData["MemberCount"]</p>
+                        </div>
+                        <!-- Right Column (Blank Space) -->
+                        <div class="col-6"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Card 2 -->
+        <!-- Card 2: Members in Copperport -->
         <div class="col-md-4">
-            <div class="card text-light" role="group" aria-labelledby="members-copperport-title">
-                <div class="card-body text-center">
-                    <p class="card-title" id="members-copperport-title" role="heading" aria-level="3">Members in Copperport</p>
-                    <p class="card-text" aria-live="polite">@Model.Count(m => m.Addresses.Any(a => a.City == "Copperport"))</p>
+            <div class="card text-light vidget-MemebrCity" role="group" aria-labelledby="members-copperport-title">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="members-copperport-title" role="heading" aria-level="3">Members in Welland</p>
+                            <p class="card-text fixed-text" aria-live="polite">@Model.Count(m => m.Addresses.Any(a => a.City == "Welland"))</p>
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Card 3 -->
+        <!-- Card 3: VIP Clients -->
         <div class="col-md-4">
-            <div class="card text-light" role="group" aria-labelledby="vip-clients-title">
-                <div class="card-body text-center">
-                    <p class="card-title" id="vip-clients-title" role="heading" aria-level="3">VIP Clients</p>
-                    <p class="card-text" aria-live="polite">@ViewData["VipCount"]</p>
+
+            <div class="card text-light vidget-Memebr" role="group" aria-labelledby="vip-clients-title">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="vip-clients-title" role="heading" aria-level="3">Associate Members</p>
+                            <p class="card-text fixed-text" aria-live="polite">8</p>
+                            <!--<p class="card-text fixed-text" aria-live="polite">@ViewData["VipCount"]</p>-->
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,9 +66,8 @@
 </div>
 
 
-
 @section Scripts {
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>

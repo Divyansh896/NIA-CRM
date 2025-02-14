@@ -29,7 +29,6 @@ namespace NIA_CRM.Controllers
             int numberFilters = 0;
 
             string[] sortOptions = new[] { "Email Type", "Subject" };
-            ViewData["Filtering"] = "btn-outline-secondary";
 
             // Declare the email list to be used in the view
             var emailsQuery = _context.ProductionEmails.AsQueryable();
@@ -37,8 +36,16 @@ namespace NIA_CRM.Controllers
             // Filter by EmailTypeID if provided
             if (EmailTypeID.HasValue)
             {
-                emailsQuery = emailsQuery.Where(e => e.Id == EmailTypeID.Value);
-                numberFilters++;
+                var emailType = emailsQuery.FirstOrDefault(et => et.Id == EmailTypeID.Value);
+
+                if (emailType != null)
+                {
+                    emailsQuery = emailsQuery.Where(e => e.Id == EmailTypeID.Value);
+                    numberFilters++;
+                    ViewData["EmailTypeIDFilter"] = emailType.EmailType; // Set the email type name in ViewData
+                }
+
+
             }
 
             // Handle sorting
@@ -86,6 +93,7 @@ namespace NIA_CRM.Controllers
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
+            ViewData["records"] = $"Records Found: {emailsQuery.Count()}";
 
             // Return the paginated result
             return View(pagedData);

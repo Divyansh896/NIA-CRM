@@ -153,7 +153,7 @@ namespace NIA_CRM.Data
                            new Member
                            {
                                ID = 1,
-                               MemberName = "John Doe",
+                               MemberName = "Alpha Steel",
                                MemberSize = 10,
                                JoinDate = new DateTime(2021, 1, 1),
                                WebsiteUrl = "https://www.johndoe.com",
@@ -163,17 +163,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "123 Main St",
                                 AddressLine2 = "Apt 1B",
-                                City = "New York",
-                                StateProvince = "NY",
-                                PostalCode = "10001",
-                                Country = "USA"
+                                City = "Niagara Falls",
+                                StateProvince = "ON",
+                                PostalCode = "L2G 3Y7",
+                                Country = "Canada"
                             }
                                                }
                            },
                                            new Member
                                            {
                                                ID = 2,
-                                               MemberName = "Jane Smith",
+                                               MemberName = "TISCO CO.",
                                                MemberSize = 5,
                                                JoinDate = new DateTime(2020, 6, 15),
                                                WebsiteUrl = "https://www.janesmith.com",
@@ -183,17 +183,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "456 Oak Ave",
                                 AddressLine2 = "Unit 2A",
-                                City = "Los Angeles",
-                                StateProvince = "CA",
-                                PostalCode = "90001",
-                                Country = "USA"
+                                City = "Niagara Falls",
+                                StateProvince = "ON",
+                                PostalCode = "L2H 1H4",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 3,
-                                               MemberName = "Emily Johnson",
+                                               MemberName = "M Time Irons",
                                                MemberSize = 8,
                                                JoinDate = new DateTime(2019, 4, 21),
                                                WebsiteUrl = "https://www.emilyjohnson.com",
@@ -203,17 +203,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "789 Pine Rd",
                                 AddressLine2 = "Suite 3C",
-                                City = "Chicago",
-                                StateProvince = "IL",
-                                PostalCode = "60601",
-                                Country = "USA"
+                                City = "Niagara Falls",
+                                StateProvince = "ON",
+                                PostalCode = "L2E 6S5",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 4,
-                                               MemberName = "Michael Brown",
+                                               MemberName = "Forge & Foundry Inc.",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2021, 7, 11),
                                                WebsiteUrl = "https://www.michaelbrown.com",
@@ -223,17 +223,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "101 Maple St",
                                 AddressLine2 = "Apt 4D",
-                                City = "San Francisco",
-                                StateProvince = "CA",
-                                PostalCode = "94101",
-                                Country = "USA"
+                                City = "Niagara Falls",
+                                StateProvince = "ON",
+                                PostalCode = "L2E 1B1",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 5,
-                                               MemberName = "Sarah Davis",
+                                               MemberName = "Northern Metalworks",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2020, 3, 25),
                                                WebsiteUrl = "https://www.sarahdavis.com",
@@ -243,17 +243,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "555 Birch Blvd",
                                 AddressLine2 = "Unit 7B",
-                                City = "Houston",
-                                StateProvince = "TX",
-                                PostalCode = "77001",
-                                Country = "USA"
+                                City = "Niagara Falls",
+                                StateProvince = "ON",
+                                PostalCode = "L2G 7M7",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 6,
-                                               MemberName = "David Martinez",
+                                               MemberName = "Titanium Solutions",
                                                MemberSize = 12,
                                                JoinDate = new DateTime(2022, 5, 19),
                                                WebsiteUrl = "https://www.davidmartinez.com",
@@ -263,17 +263,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "888 Cedar St",
                                 AddressLine2 = "Apt 10E",
-                                City = "Austin",
-                                StateProvince = "TX",
-                                PostalCode = "73301",
-                                Country = "USA"
+                                City = "St. Catharines",
+                                StateProvince = "ON",
+                                PostalCode = "L2M 3Y3",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 7,
-                                               MemberName = "Robert Wilson",
+                                               MemberName = "Phoenix Alloys",
                                                MemberSize = 15,
                                                JoinDate = new DateTime(2018, 2, 7),
                                                WebsiteUrl = "https://www.robertwilson.com",
@@ -283,17 +283,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "222 Elm St",
                                 AddressLine2 = "Suite 5A",
-                                City = "Dallas",
-                                StateProvince = "TX",
-                                PostalCode = "75201",
-                                Country = "USA"
+                                City = "St. Catharines",
+                                StateProvince = "ON",
+                                PostalCode = "L2P 3H2",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 8,
-                                               MemberName = "William Moore",
+                                               MemberName = "Galaxy Metals",
                                                MemberSize = 3,
                                                JoinDate = new DateTime(2020, 8, 30),
                                                WebsiteUrl = "https://www.williammoore.com",
@@ -303,17 +303,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "333 Ash Ave",
                                 AddressLine2 = "Unit 2C",
-                                City = "Phoenix",
-                                StateProvince = "AZ",
-                                PostalCode = "85001",
-                                Country = "USA"
+                                City = "St. Catharines",
+                                StateProvince = "ON",
+                                PostalCode = "L2N 5V4",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 9,
-                                               MemberName = "Olivia Taylor",
+                                               MemberName = "Ironclad Industries",
                                                MemberSize = 9,
                                                JoinDate = new DateTime(2022, 10, 18),
                                                WebsiteUrl = "https://www.oliviataylor.com",
@@ -323,17 +323,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "444 Birch Rd",
                                 AddressLine2 = "Suite 5B",
-                                City = "Seattle",
-                                StateProvince = "WA",
-                                PostalCode = "98101",
-                                Country = "USA"
+                                City = "St. Catharines",
+                                StateProvince = "ON",
+                                PostalCode = "L2T 2P3",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 10,
-                                               MemberName = "Sophia Anderson",
+                                               MemberName = "Silverline Fabrication",
                                                MemberSize = 7,
                                                JoinDate = new DateTime(2019, 5, 21),
                                                WebsiteUrl = "https://www.sophiaanderson.com",
@@ -343,17 +343,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "555 Oak Blvd",
                                 AddressLine2 = "Unit 1A",
-                                City = "Denver",
-                                StateProvince = "CO",
-                                PostalCode = "80201",
-                                Country = "USA"
+                                City = "St. Catharines",
+                                StateProvince = "ON",
+                                PostalCode = "L2S 1P9",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 11,
-                                               MemberName = "James Thomas",
+                                               MemberName = "Star Steelworks",
                                                MemberSize = 2,
                                                JoinDate = new DateTime(2021, 12, 8),
                                                WebsiteUrl = "https://www.jamesthomas.com",
@@ -363,17 +363,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "111 Maple Rd",
                                 AddressLine2 = "Apt 2C",
-                                City = "Chicago",
-                                StateProvince = "IL",
-                                PostalCode = "60607",
-                                Country = "USA"
+                                City = "Welland",
+                                StateProvince = "ON",
+                                PostalCode = "L3B 1A1",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 12,
-                                               MemberName = "Daniel Lee",
+                                               MemberName = "Summit Metal Co.",
                                                MemberSize = 11,
                                                JoinDate = new DateTime(2017, 11, 15),
                                                WebsiteUrl = "https://www.daniellee.com",
@@ -383,17 +383,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "333 Pine Blvd",
                                 AddressLine2 = "Apt 1F",
-                                City = "San Francisco",
-                                StateProvince = "CA",
-                                PostalCode = "94105",
-                                Country = "USA"
+                                City = "Welland",
+                                StateProvince = "ON",
+                                PostalCode = "L3B 5N9",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 13,
-                                               MemberName = "Lucas Harris",
+                                               MemberName = "Everest Iron Corp.",
                                                MemberSize = 8,
                                                JoinDate = new DateTime(2022, 9, 22),
                                                WebsiteUrl = "https://www.lucasharris.com",
@@ -403,17 +403,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "777 Oak Rd",
                                 AddressLine2 = "Suite 5B",
-                                City = "Miami",
-                                StateProvince = "FL",
-                                PostalCode = "33101",
-                                Country = "USA"
+                                City = "Welland",
+                                StateProvince = "ON",
+                                PostalCode = "L3C 7C1",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 14,
-                                               MemberName = "Ella Walker",
+                                               MemberName = "Prime Alloy Coatings",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2022, 6, 30),
                                                WebsiteUrl = "https://www.ellawalker.com",
@@ -423,17 +423,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "555 Birch St",
                                 AddressLine2 = "Unit 4A",
-                                City = "New York",
-                                StateProvince = "NY",
-                                PostalCode = "10002",
-                                Country = "USA"
+                                City = "Welland",
+                                StateProvince = "ON",
+                                PostalCode = "L3C 4T6",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 15,
-                                               MemberName = "Liam Robinson",
+                                               MemberName = "Magnum Steel Solutions",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2021, 3, 12),
                                                WebsiteUrl = "https://www.liamrobinson.com",
@@ -443,17 +443,17 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "200 Maple Rd",
                                 AddressLine2 = "Unit 6D",
-                                City = "Boston",
-                                StateProvince = "MA",
-                                PostalCode = "02110",
-                                Country = "USA"
+                                City = "Welland",
+                                StateProvince = "ON",
+                                PostalCode = "L3C 2A9",
+                                Country = "Canada"
                             }
                                                }
                                            },
                                            new Member
                                            {
                                                ID = 16,
-                                               MemberName = "Ava Lewis",
+                                               MemberName = "Quantum Tech Innovations",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2021, 11, 12),
                                                WebsiteUrl = "https://www.avalewis.com",
@@ -463,9 +463,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "965 Elm St",
                                 AddressLine2 = "Apt 7A",
-                                City = "Quebec City",
-                                StateProvince = "Quebec",
-                                PostalCode = "G1K 4Y7",
+                                City = "Thorold",
+                                StateProvince = "ON",
+                                PostalCode = "L2V 4Y6",
                                 Country = "Canada"
                             }
                                                }
@@ -473,7 +473,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 17,
-                                               MemberName = "Ethan Walker",
+                                               MemberName = "Aurora Renewable Energy",
                                                MemberSize = 3,
                                                JoinDate = new DateTime(2020, 4, 28),
                                                WebsiteUrl = "https://www.ethanwalker.com",
@@ -483,9 +483,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "124 Maple Blvd",
                                 AddressLine2 = "Unit 6",
-                                City = "Vancouver",
-                                StateProvince = "British Columbia",
-                                PostalCode = "V6J 3M2",
+                                City = "Thorold",
+                                StateProvince = "ON",
+                                PostalCode = "L2V 1H1",
                                 Country = "Canada"
                             }
                                                }
@@ -493,7 +493,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 18,
-                                               MemberName = "Mason King",
+                                               MemberName = "Vertex Financial Group",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2021, 10, 4),
                                                WebsiteUrl = "https://www.masonking.com",
@@ -503,9 +503,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "481 Cedar Ave",
                                 AddressLine2 = "Apt 12B",
-                                City = "Toronto",
-                                StateProvince = "Ontario",
-                                PostalCode = "M4E 5W1",
+                                City = "Thorold",
+                                StateProvince = "ON",
+                                PostalCode = "L2V 3P2",
                                 Country = "Canada"
                             }
                                                }
@@ -513,7 +513,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 19,
-                                               MemberName = "Lucas Green",
+                                               MemberName = "Nova Biotech Labs",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2022, 4, 18),
                                                WebsiteUrl = "https://www.lucasgreen.com",
@@ -523,9 +523,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "187 Birch Rd",
                                 AddressLine2 = "Suite 4",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K2P 1P1",
+                                City = "Thorold",
+                                StateProvince = "ON",
+                                PostalCode = "L2V 5Z8",
                                 Country = "Canada"
                             }
                                                }
@@ -533,7 +533,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 20,
-                                               MemberName = "Charlotte Hall",
+                                               MemberName = "Summit Construction Co.",
                                                MemberSize = 9,
                                                JoinDate = new DateTime(2021, 7, 14),
                                                WebsiteUrl = "https://www.charlottehall.com",
@@ -543,9 +543,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "922 Cedar St",
                                 AddressLine2 = "Unit 5A",
-                                City = "Calgary",
-                                StateProvince = "Alberta",
-                                PostalCode = "T2N 1X5",
+                                City = "Thorold",
+                                StateProvince = "ON",
+                                PostalCode = "L2V 4K9",
                                 Country = "Canada"
                             }
                                                }
@@ -553,7 +553,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 21,
-                                               MemberName = "Benjamin Harris",
+                                               MemberName = "Oceanic Shipping Corp",
                                                MemberSize = 7,
                                                JoinDate = new DateTime(2021, 8, 30),
                                                WebsiteUrl = "https://www.benjaminharris.com",
@@ -563,9 +563,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "643 Cedar Blvd",
                                 AddressLine2 = "Apt 9D",
-                                City = "Montreal",
-                                StateProvince = "Quebec",
-                                PostalCode = "H2Y 1G3",
+                                City = "Port Colborne",
+                                StateProvince = "ON",
+                                PostalCode = "L3K 2W9",
                                 Country = "Canada"
                             }
                                                }
@@ -573,7 +573,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 22,
-                                               MemberName = "Aiden Clark",
+                                               MemberName = "Evergreen Agriculture",
                                                MemberSize = 2,
                                                JoinDate = new DateTime(2022, 9, 7),
                                                WebsiteUrl = "https://www.aidenclark.com",
@@ -583,9 +583,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "876 Maple Rd",
                                 AddressLine2 = "Unit 1B",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K1A 0B1",
+                                City = "Port Colborne",
+                                StateProvince = "ON",
+                                PostalCode = "L3K 3V2",
                                 Country = "Canada"
                             }
                                                }
@@ -593,7 +593,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 23,
-                                               MemberName = "Ella Moore",
+                                               MemberName = "Ironclad Manufacturing Ltd.",
                                                MemberSize = 3,
                                                JoinDate = new DateTime(2020, 12, 15),
                                                WebsiteUrl = "https://www.ellamoore.com",
@@ -603,9 +603,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "134 Pine St",
                                 AddressLine2 = "Apt 6A",
-                                City = "Toronto",
-                                StateProvince = "Ontario",
-                                PostalCode = "M5A 3J2",
+                                City = "Port Colborne",
+                                StateProvince = "ON",
+                                PostalCode = "L3K 6A9",
                                 Country = "Canada"
                             }
                                                }
@@ -613,7 +613,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 24,
-                                               MemberName = "Jacob White",
+                                               MemberName = "Skyline Architects Inc.",
                                                MemberSize = 5,
                                                JoinDate = new DateTime(2021, 5, 21),
                                                WebsiteUrl = "https://www.jacobwhite.com",
@@ -623,9 +623,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "789 Oak St",
                                 AddressLine2 = "Suite 4B",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K2P 7J9",
+                                City = "Port Colborne",
+                                StateProvince = "ON",
+                                PostalCode = "L3K 5E8",
                                 Country = "Canada"
                             }
                                                }
@@ -633,7 +633,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 25,
-                                               MemberName = "Abigail Nelson",
+                                               MemberName = "Pinnacle Consulting Services",
                                                MemberSize = 8,
                                                JoinDate = new DateTime(2020, 10, 18),
                                                WebsiteUrl = "https://www.abigailnelson.com",
@@ -643,9 +643,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "233 Cedar St",
                                 AddressLine2 = "Unit 7C",
-                                City = "Vancouver",
-                                StateProvince = "British Columbia",
-                                PostalCode = "V6Z 3A7",
+                                City = "Port Colborne",
+                                StateProvince = "ON",
+                                PostalCode = "L3K 7X5",
                                 Country = "Canada"
                             }
                                                }
@@ -653,7 +653,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 26,
-                                               MemberName = "Mason Lee",
+                                               MemberName = "Crystal Water Solutions",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2021, 7, 14),
                                                WebsiteUrl = "https://www.masonlee.com",
@@ -663,9 +663,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "111 Birch Blvd",
                                 AddressLine2 = "Apt 4D",
-                                City = "Calgary",
-                                StateProvince = "Alberta",
-                                PostalCode = "T2P 5B8",
+                                City = "Grimsby",
+                                StateProvince = "ON",
+                                PostalCode = "L3M 1R2",
                                 Country = "Canada"
                             }
                                                }
@@ -673,7 +673,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 27,
-                                               MemberName = "Chloe Scott",
+                                               MemberName = "Elite Healthcare Partners",
                                                MemberSize = 9,
                                                JoinDate = new DateTime(2022, 1, 22),
                                                WebsiteUrl = "https://www.chloescott.com",
@@ -683,9 +683,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "533 Cedar Rd",
                                 AddressLine2 = "Unit 2B",
-                                City = "Toronto",
-                                StateProvince = "Ontario",
-                                PostalCode = "M5G 3B9",
+                                City = "Grimsby",
+                                StateProvince = "ON",
+                                PostalCode = "L3M 4N6",
                                 Country = "Canada"
                             }
                                                }
@@ -693,7 +693,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 28,
-                                               MemberName = "Daniel Harris",
+                                               MemberName = "Galaxy IT Solutions",
                                                MemberSize = 7,
                                                JoinDate = new DateTime(2022, 7, 11),
                                                WebsiteUrl = "https://www.danielharris.com",
@@ -703,9 +703,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "987 Maple St",
                                 AddressLine2 = "Apt 3A",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K1R 4T2",
+                                City = "Grimsby",
+                                StateProvince = "ON",
+                                PostalCode = "L3M 3J5",
                                 Country = "Canada"
                             }
                                                }
@@ -713,7 +713,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 29,
-                                               MemberName = "Ava Carter",
+                                               MemberName = "Urban Infrastructure Group",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2021, 9, 3),
                                                WebsiteUrl = "https://www.avacarter.com",
@@ -723,9 +723,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "444 Oak Blvd",
                                 AddressLine2 = "Suite 8B",
-                                City = "Vancouver",
-                                StateProvince = "British Columbia",
-                                PostalCode = "V5Y 2B6",
+                                 City = "Grimsby",
+                                StateProvince = "ON",
+                                PostalCode = "L3M 2A8",
                                 Country = "Canada"
                             }
                                                }
@@ -733,7 +733,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 30,
-                                               MemberName = "Landon Walker",
+                                               MemberName = "Horizon Aerospace Inc.",
                                                MemberSize = 5,
                                                JoinDate = new DateTime(2022, 8, 18),
                                                WebsiteUrl = "https://www.landonwalker.com",
@@ -743,9 +743,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "872 Cedar Rd",
                                 AddressLine2 = "Apt 9C",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K2K 5B9",
+                                City = "Grimsby",
+                                StateProvince = "ON",
+                                PostalCode = "L3M 5K9",
                                 Country = "Canada"
                             }
                                                }
@@ -753,7 +753,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 31,
-                                               MemberName = "Amelia Harris",
+                                               MemberName = "Cobalt Mining Ventures",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2022, 6, 13),
                                                WebsiteUrl = "https://www.ameliaharris.com",
@@ -763,9 +763,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "1234 Oak Blvd",
                                 AddressLine2 = "Apt 2C",
-                                City = "Montreal",
-                                StateProvince = "Quebec",
-                                PostalCode = "H2X 1N8",
+                                City = "Fort Erie",
+                                StateProvince = "ON",
+                                PostalCode = "L2A 5R1",
                                 Country = "Canada"
                             }
                                                }
@@ -773,7 +773,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 32,
-                                               MemberName = "Oliver Lee",
+                                               MemberName = "Lakeside Resorts and Hotels",
                                                MemberSize = 9,
                                                JoinDate = new DateTime(2022, 7, 6),
                                                WebsiteUrl = "https://www.oliverlee.com",
@@ -783,9 +783,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "990 Pine Rd",
                                 AddressLine2 = "Unit 7",
-                                City = "Calgary",
-                                StateProvince = "Alberta",
-                                PostalCode = "T2P 7N3",
+                                City = "Fort Erie",
+                                StateProvince = "ON",
+                                PostalCode = "L2A 7B9",
                                 Country = "Canada"
                             }
                                                }
@@ -793,7 +793,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 33,
-                                               MemberName = "Harper Scott",
+                                               MemberName = "NextGen Media Productions",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2021, 5, 10),
                                                WebsiteUrl = "https://www.harperscott.com",
@@ -803,9 +803,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "522 Cedar Rd",
                                 AddressLine2 = "Suite 6A",
-                                City = "Hamilton",
-                                StateProvince = "Ontario",
-                                PostalCode = "L8N 1A3",
+                                  City = "Fort Erie",
+                                StateProvince = "ON",
+                                PostalCode = "L2A 2T6",
                                 Country = "Canada"
                             }
                                                }
@@ -813,7 +813,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 34,
-                                               MemberName = "Sophie Adams",
+                                               MemberName = "Crestwood Pharmaceutical",
                                                MemberSize = 7,
                                                JoinDate = new DateTime(2022, 1, 24),
                                                WebsiteUrl = "https://www.sophieadams.com",
@@ -823,9 +823,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "690 Birch St",
                                 AddressLine2 = "Unit 3A",
-                                City = "Toronto",
-                                StateProvince = "Ontario",
-                                PostalCode = "M4G 2B3",
+                                City = "Fort Erie",
+                                StateProvince = "ON",
+                                PostalCode = "L2A 9W8",
                                 Country = "Canada"
                             }
                                                }
@@ -833,7 +833,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 35,
-                                               MemberName = "Isaac Morgan",
+                                               MemberName = "Dynamic Logistics Group",
                                                MemberSize = 2,
                                                JoinDate = new DateTime(2021, 4, 9),
                                                WebsiteUrl = "https://www.isaacmorgan.com",
@@ -843,9 +843,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "123 Birch Rd",
                                 AddressLine2 = "Apt 7C",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K1Y 2X5",
+                                City = "Fort Erie",
+                                StateProvince = "ON",
+                                PostalCode = "L2A 4K3",
                                 Country = "Canada"
                             }
                                                }
@@ -853,7 +853,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 36,
-                                               MemberName = "Mia Thompson",
+                                               MemberName = "Northern Timber Products",
                                                MemberSize = 8,
                                                JoinDate = new DateTime(2022, 4, 19),
                                                WebsiteUrl = "https://www.miathompson.com",
@@ -863,9 +863,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "987 Birch Rd",
                                 AddressLine2 = "Unit 4A",
-                                City = "Vancouver",
-                                StateProvince = "British Columbia",
-                                PostalCode = "V6B 3E9",
+                                City = "Lincoln",
+                                StateProvince = "ON",
+                                PostalCode = "L0R 1B1",
                                 Country = "Canada"
                             }
                                                }
@@ -873,7 +873,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 37,
-                                               MemberName = "Ethan Johnson",
+                                               MemberName = "Brightline Education Systems",
                                                MemberSize = 5,
                                                JoinDate = new DateTime(2022, 10, 10),
                                                WebsiteUrl = "https://www.ethanjohnson.com",
@@ -883,9 +883,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "456 Oak Rd",
                                 AddressLine2 = "Suite 2B",
-                                City = "Ottawa",
-                                StateProvince = "Ontario",
-                                PostalCode = "K2P 1V8",
+                                City = "Lincoln",
+                                StateProvince = "ON",
+                                PostalCode = "L0R 2C0",
                                 Country = "Canada"
                             }
                                                }
@@ -893,7 +893,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 38,
-                                               MemberName = "Grace Miller",
+                                               MemberName = "Fusion Energy Solutions",
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2022, 5, 15),
                                                WebsiteUrl = "https://www.gracemiller.com",
@@ -903,9 +903,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "890 Cedar Blvd",
                                 AddressLine2 = "Suite 2B",
-                                City = "Montreal",
-                                StateProvince = "Quebec",
-                                PostalCode = "H3B 2G4",
+                                City = "Pelham",
+                                StateProvince = "ON",
+                                PostalCode = "L0S 1C0",
                                 Country = "Canada"
                             }
                                                }
@@ -913,7 +913,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 39,
-                                               MemberName = "Lily Turner",
+                                               MemberName = "Trailblazer Automotive Group",
                                                MemberSize = 3,
                                                JoinDate = new DateTime(2022, 8, 22),
                                                WebsiteUrl = "https://www.lilyturner.com",
@@ -923,9 +923,9 @@ namespace NIA_CRM.Data
                             {
                                 AddressLine1 = "800 Maple Blvd",
                                 AddressLine2 = "Unit 5A",
-                                City = "Vancouver",
-                                StateProvince = "British Columbia",
-                                PostalCode = "V6B 1N4",
+                                City = "Pelham",
+                                StateProvince = "ON",
+                                PostalCode = "L0S 1E0",
                                 Country = "Canada"
                             }
                                                }
@@ -933,7 +933,7 @@ namespace NIA_CRM.Data
                                            new Member
                                            {
                                                ID = 40,
-                                               MemberName = "Liam Walker",
+                                               MemberName = "Harvest Foods International",
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2021, 3, 18),
                                                WebsiteUrl = "https://www.liamwalker.com",
@@ -943,15 +943,1216 @@ namespace NIA_CRM.Data
                                                 {
                                                     AddressLine1 = "354 Cedar St",
                                                     AddressLine2 = "Apt 6D",
-                                                    City = "Calgary",
-                                                    StateProvince = "Alberta",
-                                                    PostalCode = "T2V 1Z6",
+                                                    City = "Fort Erie",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2A 1M7",
                                                     Country = "Canada"
                                                 }
                                                 }
 
-                                           }
-                                           );
+                                           },
+                                           new Member
+                                           {
+                                               ID = 41,
+                                               MemberName = "Niagara Energy Solutions",
+                                               MemberSize = 10,
+                                               JoinDate = new DateTime(2020, 9, 12),
+                                               WebsiteUrl = "https://www.jacobpeterson.com",
+                                               Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "123 Power Ave",
+                                                    AddressLine2 = "Suite 1B",
+                                                    City = "Niagara Falls",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2E 3P2",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                           },
+                                        new Member
+                                        {
+                                            ID = 42,
+                                            MemberName = "Brock University",
+                                            MemberSize = 25,
+                                            JoinDate = new DateTime(2021, 5, 3),
+                                            WebsiteUrl = "https://www.marcusjones.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "500 Glenridge Ave",
+                                                    AddressLine2 = "Building C",
+                                                    City = "St. Catharines",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2S 3A1",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 43,
+                                            MemberName = "Niagara Healthcare Inc.",
+                                            MemberSize = 15,
+                                            JoinDate = new DateTime(2022, 1, 20),
+                                            WebsiteUrl = "https://www.sarahmartin.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "45 Welland Ave",
+                                                    AddressLine2 = "Unit 7B",
+                                                    City = "Welland",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L3C 1V8",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 44,
+                                            MemberName = "Niagara Financial Advisors",
+                                            MemberSize = 20,
+                                            JoinDate = new DateTime(2021, 8, 14),
+                                            WebsiteUrl = "https://www.oliviamartinez.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "2500 South Service Rd",
+                                                    AddressLine2 = "Suite 11A",
+                                                    City = "Grimsby",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L3M 2R7",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 45,
+                                            MemberName = "Vineyard Estates Winery",
+                                            MemberSize = 30,
+                                            JoinDate = new DateTime(2022, 4, 8),
+                                            WebsiteUrl = "https://www.tylermorris.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "1234 Vine St",
+                                                    AddressLine2 = "Winery Rd",
+                                                    City = "Niagara-on-the-Lake",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L0S 1J0",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 46,
+                                            MemberName = "St. Catharines Brewing Co.",
+                                            MemberSize = 8,
+                                            JoinDate = new DateTime(2020, 11, 2),
+                                            WebsiteUrl = "https://www.danielcollins.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "29 Queen St",
+                                                    AddressLine2 = "Brewery Lane",
+                                                    City = "St. Catharines",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2R 5A9",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 47,
+                                            MemberName = "Niagara Logistics Solutions",
+                                            MemberSize = 12,
+                                            JoinDate = new DateTime(2021, 10, 10),
+                                            WebsiteUrl = "https://www.rachelharris.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "55 Industrial Dr",
+                                                    AddressLine2 = "Unit 3",
+                                                    City = "Thorold",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2V 2P9",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 48,
+                                            MemberName = "Niagara Roofing & Construction",
+                                            MemberSize = 10,
+                                            JoinDate = new DateTime(2022, 2, 11),
+                                            WebsiteUrl = "https://www.jamieclark.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "2141 Mewburn Rd",
+                                                    AddressLine2 = "Suite 10",
+                                                    City = "Niagara Falls",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2G 7V6",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 49,
+                                            MemberName = "The Port Colborne Bakery",
+                                            MemberSize = 5,
+                                            JoinDate = new DateTime(2021, 6, 17),
+                                            WebsiteUrl = "https://www.nicholasanderson.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "1500 Elm St",
+                                                    AddressLine2 = "Unit 4",
+                                                    City = "Port Colborne",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L3K 5Y5",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 50,
+                                            MemberName = "Sunset Motors",
+                                            MemberSize = 7,
+                                            JoinDate = new DateTime(2022, 5, 19),
+                                            WebsiteUrl = "https://www.elizabethlee.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "123 Sunset Blvd",
+                                                    AddressLine2 = "Car Sales",
+                                                    City = "Niagara Falls",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2E 6X5",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 51,
+                                            MemberName = "Niagara Recycling Ltd.",
+                                            MemberSize = 22,
+                                            JoinDate = new DateTime(2021, 12, 25),
+                                            WebsiteUrl = "https://www.nicholasjones.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "7893 South Niagara Pkwy",
+                                                    AddressLine2 = "Recycling Plant",
+                                                    City = "Niagara Falls",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2E 6V8",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 52,
+                                            MemberName = "Rosewood Estates Winery",
+                                            MemberSize = 20,
+                                            JoinDate = new DateTime(2022, 9, 18),
+                                            WebsiteUrl = "https://www.meganvaughn.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "123 Rosewood Ave",
+                                                    AddressLine2 = "Winery Rd",
+                                                    City = "Niagara-on-the-Lake",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L0S 1J1",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 53,
+                                            MemberName = "Niagara Falls Convention Centre",
+                                            MemberSize = 18,
+                                            JoinDate = new DateTime(2020, 7, 10),
+                                            WebsiteUrl = "https://www.andrewjohnson.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "6815 Stanley Ave",
+                                                    AddressLine2 = "Convention Centre",
+                                                    City = "Niagara Falls",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2G 3Y9",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 54,
+                                            MemberName = "Niagara Home Furnishings",
+                                            MemberSize = 14,
+                                            JoinDate = new DateTime(2021, 4, 25),
+                                            WebsiteUrl = "https://www.joshuasmith.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "7600 Montrose Rd",
+                                                    AddressLine2 = "Furniture Store",
+                                                    City = "Niagara Falls",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2H 2T7",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 55,
+                                            MemberName = "Niagara Construction Ltd.",
+                                            MemberSize = 12,
+                                            JoinDate = new DateTime(2020, 10, 14),
+                                            WebsiteUrl = "https://www.justinwhite.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "1550 Ontario St",
+                                                    AddressLine2 = "Unit 9",
+                                                    City = "St. Catharines",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2N 7Y4",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 56,
+                                            MemberName = "Brockway Plumbing Services",
+                                            MemberSize = 6,
+                                            JoinDate = new DateTime(2021, 2, 7),
+                                            WebsiteUrl = "https://www.jennifermartin.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "9800 Lundy's Lane",
+                                                    AddressLine2 = "Unit 12",
+                                                    City = "Niagara Falls",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2H 1H7",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 57,
+                                            MemberName = "Grand Niagara Golf Club",
+                                            MemberSize = 25,
+                                            JoinDate = new DateTime(2021, 11, 16),
+                                            WebsiteUrl = "https://www.kimberlydavis.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "1500 Montrose Rd",
+                                                    AddressLine2 = "Golf Club",
+                                                    City = "Niagara Falls",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2H 3N6",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 58,
+                                            MemberName = "Niagara Peninsula Foods",
+                                            MemberSize = 28,
+                                            JoinDate = new DateTime(2020, 12, 5),
+                                            WebsiteUrl = "https://www.ryanscott.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "6347 Stanley Ave",
+                                                    AddressLine2 = "Unit 20",
+                                                    City = "Niagara Falls",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2G 3Z6",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 59,
+                                            MemberName = "Niagara Falls Hospitality Group",
+                                            MemberSize = 30,
+                                            JoinDate = new DateTime(2021, 5, 10),
+                                            WebsiteUrl = "https://www.dylanross.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "123 Victoria Ave",
+                                                    AddressLine2 = "Hospitality Suite",
+                                                    City = "Niagara Falls",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L2E 4Y3",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 60,
+                                            MemberName = "Peachland Grocers",
+                                            MemberSize = 14,
+                                            JoinDate = new DateTime(2022, 3, 29),
+                                            WebsiteUrl = "https://www.johnadams.com",
+                                            Addresses = new List<Address>
+                                            {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "8255 Greenhill Ave",
+                                                    AddressLine2 = "Grocery Store",
+                                                    City = "Pelham",
+                                                    StateProvince = "ON",
+                                                    PostalCode = "L0S 1E2",
+                                                    Country = "Canada"
+                                                }
+                                            }
+                                        },
+                                        new Member
+                                        {
+                                            ID = 61,
+                                            MemberName = "Niagara Valley Distillery",
+                                            MemberSize = 8,
+                                            JoinDate = new DateTime(2022, 8, 30),
+                                            WebsiteUrl = "https://www.alexthompson.com",
+                                            Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "1904 Niagara Stone Rd",
+                                                AddressLine2 = "Distillery Lane",
+                                                City = "Niagara-on-the-Lake",
+                                                StateProvince = "ON",
+                                                PostalCode = "L0S 1J0",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                        },
+                                    new Member
+                                    {
+                                        ID = 62,
+                                        MemberName = "The House of Jerky",
+                                        MemberSize = 6,
+                                        JoinDate = new DateTime(2021, 3, 5),
+                                        WebsiteUrl = "https://www.susanwilliams.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "120 Main St E",
+                                                AddressLine2 = "Unit 3",
+                                                City = "Grimsby",
+                                                StateProvince = "ON",
+                                                PostalCode = "L3M 1P3",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 63,
+                                        MemberName = "Port Niagara Supplies",
+                                        MemberSize = 12,
+                                        JoinDate = new DateTime(2020, 12, 8),
+                                        WebsiteUrl = "https://www.nathanharris.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "500 Port Rd",
+                                                AddressLine2 = "Warehouse 4",
+                                                City = "Port Colborne",
+                                                StateProvince = "ON",
+                                                PostalCode = "L3K 3T2",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 64,
+                                        MemberName = "Hamilton Fabricators",
+                                        MemberSize = 18,
+                                        JoinDate = new DateTime(2021, 7, 22),
+                                        WebsiteUrl = "https://www.davidmiller.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "8200 Park Rd",
+                                                AddressLine2 = "Steelworks Building",
+                                                City = "Stoney Creek",
+                                                StateProvince = "ON",
+                                                PostalCode = "L8E 5R2",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 65,
+                                        MemberName = "Niagara Freight Forwarders",
+                                        MemberSize = 16,
+                                        JoinDate = new DateTime(2021, 9, 18),
+                                        WebsiteUrl = "https://www.kendalljohnson.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "2173 Merrittville Hwy",
+                                                AddressLine2 = "Freight Office",
+                                                City = "Thorold",
+                                                StateProvince = "ON",
+                                                PostalCode = "L2V 1A1",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 66,
+                                        MemberName = "Fort Erie Construction Ltd.",
+                                        MemberSize = 14,
+                                        JoinDate = new DateTime(2022, 4, 5),
+                                        WebsiteUrl = "https://www.michaelscott.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "2567 Dominion Rd",
+                                                AddressLine2 = "Building A",
+                                                City = "Fort Erie",
+                                                StateProvince = "ON",
+                                                PostalCode = "L2A 1E5",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 67,
+                                        MemberName = "Niagara Water Services",
+                                        MemberSize = 9,
+                                        JoinDate = new DateTime(2020, 11, 12),
+                                        WebsiteUrl = "https://www.lucasbrown.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "7600 South Service Rd",
+                                                AddressLine2 = "Water Distribution Centre",
+                                                City = "Grimsby",
+                                                StateProvince = "ON",
+                                                PostalCode = "L3M 2Z1",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 68,
+                                        MemberName = "Summit Sports Equipment",
+                                        MemberSize = 13,
+                                        JoinDate = new DateTime(2022, 2, 2),
+                                        WebsiteUrl = "https://www.sophiareid.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "1450 Mountain Rd",
+                                                AddressLine2 = "Sporting Goods Store",
+                                                City = "Niagara Falls",
+                                                StateProvince = "ON",
+                                                PostalCode = "L2G 1X9",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 69,
+                                        MemberName = "Niagara Waterpark Group",
+                                        MemberSize = 24,
+                                        JoinDate = new DateTime(2021, 6, 15),
+                                        WebsiteUrl = "https://www.annaevans.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "2001 Park Rd",
+                                                AddressLine2 = "Waterpark Entrance",
+                                                City = "Niagara Falls",
+                                                StateProvince = "ON",
+                                                PostalCode = "L2E 6T1",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 70,
+                                        MemberName = "Niagara Adventure Tours",
+                                        MemberSize = 8,
+                                        JoinDate = new DateTime(2022, 7, 25),
+                                        WebsiteUrl = "https://www.williamroberts.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "1786 Falls Ave",
+                                                AddressLine2 = "Tour Operator HQ",
+                                                City = "Niagara Falls",
+                                                StateProvince = "ON",
+                                                PostalCode = "L2E 6V9",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 71,
+                                        MemberName = "Kettle Creek Logistics",
+                                        MemberSize = 20,
+                                        JoinDate = new DateTime(2022, 3, 18),
+                                        WebsiteUrl = "https://www.ryanjames.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "8459 Creek Rd",
+                                                AddressLine2 = "Logistics Centre",
+                                                City = "Niagara-on-the-Lake",
+                                                StateProvince = "ON",
+                                                PostalCode = "L0S 1J0",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 72,
+                                        MemberName = "Niagara Custom Carpentry",
+                                        MemberSize = 12,
+                                        JoinDate = new DateTime(2021, 1, 28),
+                                        WebsiteUrl = "https://www.emilydavis.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "3125 Highway 20",
+                                                AddressLine2 = "Woodworking Shop",
+                                                City = "Thorold",
+                                                StateProvince = "ON",
+                                                PostalCode = "L2V 3M4",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 73,
+                                        MemberName = "Greenstone Landscaping",
+                                        MemberSize = 7,
+                                        JoinDate = new DateTime(2022, 5, 8),
+                                        WebsiteUrl = "https://www.sophiebaker.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "1349 Greenstone Rd",
+                                                AddressLine2 = "Landscaping Services",
+                                                City = "St. Catharines",
+                                                StateProvince = "ON",
+                                                PostalCode = "L2M 3W3",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 74,
+                                        MemberName = "Niagara Marketing Group",
+                                        MemberSize = 10,
+                                        JoinDate = new DateTime(2021, 4, 1),
+                                        WebsiteUrl = "https://www.kennethgonzalez.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "1550 King St",
+                                                AddressLine2 = "Marketing Agency",
+                                                City = "Niagara Falls",
+                                                StateProvince = "ON",
+                                                PostalCode = "L2G 1J7",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 75,
+                                        MemberName = "Elmwood Construction",
+                                        MemberSize = 8,
+                                        JoinDate = new DateTime(2022, 5, 15),
+                                        WebsiteUrl = "https://www.alexanderjohnson.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "500 Elmwood Ave",
+                                                AddressLine2 = "Construction Office",
+                                                City = "Welland",
+                                                StateProvince = "ON",
+                                                PostalCode = "L3C 1W1",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 76,
+                                        MemberName = "Harbourview Cafe",
+                                        MemberSize = 4,
+                                        JoinDate = new DateTime(2021, 11, 2),
+                                        WebsiteUrl = "https://www.jonathandoe.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "5100 Lakeshore Rd",
+                                                AddressLine2 = "Cafe Front",
+                                                City = "Port Colborne",
+                                                StateProvince = "ON",
+                                                PostalCode = "L3K 5V3",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 77,
+                                        MemberName = "Niagara River Cruises",
+                                        MemberSize = 15,
+                                        JoinDate = new DateTime(2021, 10, 11),
+                                        WebsiteUrl = "https://www.isaacmoore.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "123 Niagara Pkwy",
+                                                AddressLine2 = "Cruise Dock",
+                                                City = "Niagara-on-the-Lake",
+                                                StateProvince = "ON",
+                                                PostalCode = "L0S 1J0",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 78,
+                                        MemberName = "Main Street Bistro",
+                                        MemberSize = 6,
+                                        JoinDate = new DateTime(2021, 9, 5),
+                                        WebsiteUrl = "https://www.maryjackson.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "435 Main St",
+                                                AddressLine2 = "Bistro Shop",
+                                                City = "Grimsby",
+                                                StateProvince = "ON",
+                                                PostalCode = "L3M 1P1",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 79,
+                                        MemberName = "Clearwater Springs Lodge",
+                                        MemberSize = 28,
+                                        JoinDate = new DateTime(2021, 12, 15),
+                                        WebsiteUrl = "https://www.olivermiller.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "2252 Lakeshore Rd",
+                                                AddressLine2 = "Lodge Entrance",
+                                                City = "Fort Erie",
+                                                StateProvince = "ON",
+                                                PostalCode = "L2A 1G2",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 80,
+                                        MemberName = "The Stone Oven Bakery",
+                                        MemberSize = 5,
+                                        JoinDate = new DateTime(2022, 1, 17),
+                                        WebsiteUrl = "https://www.jamesroberts.com",
+                                        Addresses = new List<Address>
+                                        {
+                                            new Address
+                                            {
+                                                AddressLine1 = "100 Main St",
+                                                AddressLine2 = "Bakery Front",
+                                                City = "Niagara-on-the-Lake",
+                                                StateProvince = "ON",
+                                                PostalCode = "L0S 1J0",
+                                                Country = "Canada"
+                                            }
+                                        }
+                                    },
+                                    new Member
+                                    {
+                                        ID = 81,
+                                        MemberName = "Golden Oaks Winery",
+                                        MemberSize = 11,
+                                        JoinDate = new DateTime(2022, 2, 10),
+                                        WebsiteUrl = "https://www.jenniferhill.com",
+                                        Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "1234 Golden Rd",
+                                            AddressLine2 = "Tasting Room",
+                                            City = "Niagara-on-the-Lake",
+                                            StateProvince = "ON",
+                                            PostalCode = "L0S 1J0",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                    },
+                                new Member
+                                {
+                                    ID = 82,
+                                    MemberName = "Cedar Ridge Rentals",
+                                    MemberSize = 10,
+                                    JoinDate = new DateTime(2021, 8, 19),
+                                    WebsiteUrl = "https://www.joemartinez.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "1000 Ridge Rd",
+                                            AddressLine2 = "Rental Office",
+                                            City = "St. Catharines",
+                                            StateProvince = "ON",
+                                            PostalCode = "L2P 3R3",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 83,
+                                    MemberName = "Silverstone Golf Club",
+                                    MemberSize = 35,
+                                    JoinDate = new DateTime(2021, 5, 14),
+                                    WebsiteUrl = "https://www.christopheranderson.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "500 Silverstone Dr",
+                                            AddressLine2 = "Clubhouse",
+                                            City = "Niagara Falls",
+                                            StateProvince = "ON",
+                                            PostalCode = "L2E 6V1",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 84,
+                                    MemberName = "Napa Valley Art Gallery",
+                                    MemberSize = 6,
+                                    JoinDate = new DateTime(2022, 1, 23),
+                                    WebsiteUrl = "https://www.briannawilliams.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "222 Art St",
+                                            AddressLine2 = "Gallery Showroom",
+                                            City = "Niagara-on-the-Lake",
+                                            StateProvince = "ON",
+                                            PostalCode = "L0S 1J0",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 85,
+                                    MemberName = "Waterfront Bites Restaurant",
+                                    MemberSize = 15,
+                                    JoinDate = new DateTime(2021, 10, 2),
+                                    WebsiteUrl = "https://www.daniellawson.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "345 Lake Rd",
+                                            AddressLine2 = "Restaurant Dining",
+                                            City = "Port Colborne",
+                                            StateProvince = "ON",
+                                            PostalCode = "L3K 3Y6",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 86,
+                                    MemberName = "Starlight Cinemas",
+                                    MemberSize = 50,
+                                    JoinDate = new DateTime(2020, 11, 28),
+                                    WebsiteUrl = "https://www.ashleymorris.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "2200 Main St",
+                                            AddressLine2 = "Cinema Entrance",
+                                            City = "Niagara Falls",
+                                            StateProvince = "ON",
+                                            PostalCode = "L2G 1J4",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 87,
+                                    MemberName = "Niagara Fitness Club",
+                                    MemberSize = 30,
+                                    JoinDate = new DateTime(2021, 6, 30),
+                                    WebsiteUrl = "https://www.jessicaperez.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "1585 Fitness Rd",
+                                            AddressLine2 = "Gym Entrance",
+                                            City = "St. Catharines",
+                                            StateProvince = "ON",
+                                            PostalCode = "L2R 1C9",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 88,
+                                    MemberName = "Rolling Hills Construction",
+                                    MemberSize = 20,
+                                    JoinDate = new DateTime(2022, 3, 10),
+                                    WebsiteUrl = "https://www.jordanpeterson.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "1196 Rolling Hills Rd",
+                                            AddressLine2 = "Construction Site",
+                                            City = "Welland",
+                                            StateProvince = "ON",
+                                            PostalCode = "L3B 4K9",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 89,
+                                    MemberName = "Firefly Electronics",
+                                    MemberSize = 10,
+                                    JoinDate = new DateTime(2021, 4, 25),
+                                    WebsiteUrl = "https://www.marykline.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "789 Tech Rd",
+                                            AddressLine2 = "Electronics HQ",
+                                            City = "Grimsby",
+                                            StateProvince = "ON",
+                                            PostalCode = "L3M 4R2",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 90,
+                                    MemberName = "Crystal Clear Pools",
+                                    MemberSize = 18,
+                                    JoinDate = new DateTime(2022, 6, 15),
+                                    WebsiteUrl = "https://www.nicholasjohnson.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "1200 Crystal Blvd",
+                                            AddressLine2 = "Pool Services",
+                                            City = "Niagara Falls",
+                                            StateProvince = "ON",
+                                            PostalCode = "L2E 1P8",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 91,
+                                    MemberName = "Niagara Soapworks",
+                                    MemberSize = 8,
+                                    JoinDate = new DateTime(2022, 4, 18),
+                                    WebsiteUrl = "https://www.lauranorris.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "234 Soap Rd",
+                                            AddressLine2 = "Soap Factory",
+                                            City = "Niagara-on-the-Lake",
+                                            StateProvince = "ON",
+                                            PostalCode = "L0S 1J0",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 92,
+                                    MemberName = "Pinehurst Brewing Company",
+                                    MemberSize = 20,
+                                    JoinDate = new DateTime(2021, 9, 23),
+                                    WebsiteUrl = "https://www.hannahbrooks.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "567 Pinehurst Rd",
+                                            AddressLine2 = "Brewery Entrance",
+                                            City = "Thorold",
+                                            StateProvince = "ON",
+                                            PostalCode = "L2V 1A9",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 93,
+                                    MemberName = "Niagara Ice Creamery",
+                                    MemberSize = 5,
+                                    JoinDate = new DateTime(2021, 12, 20),
+                                    WebsiteUrl = "https://www.danielpatel.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "1346 Creamery Rd",
+                                            AddressLine2 = "Ice Cream Shop",
+                                            City = "Niagara Falls",
+                                            StateProvince = "ON",
+                                            PostalCode = "L2E 6T3",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 94,
+                                    MemberName = "Green Valley Farms",
+                                    MemberSize = 14,
+                                    JoinDate = new DateTime(2022, 2, 28),
+                                    WebsiteUrl = "https://www.amandaevans.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "2345 Green Valley Rd",
+                                            AddressLine2 = "Farm Shop",
+                                            City = "St. Catharines",
+                                            StateProvince = "ON",
+                                            PostalCode = "L2P 3J5",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 95,
+                                    MemberName = "Lakefront Wine Cellars",
+                                    MemberSize = 10,
+                                    JoinDate = new DateTime(2021, 8, 12),
+                                    WebsiteUrl = "https://www.rachelwhitman.com",
+                                    Addresses = new List<Address>
+                                    {
+                                        new Address
+                                        {
+                                            AddressLine1 = "665 Lakeview Rd",
+                                            AddressLine2 = "Tasting Room",
+                                            City = "Niagara-on-the-Lake",
+                                            StateProvince = "ON",
+                                            PostalCode = "L0S 1J0",
+                                            Country = "Canada"
+                                        }
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 96,
+                                    MemberName = "Vineyard View Estates",
+                                    MemberSize = 25,
+                                    JoinDate = new DateTime(2022, 5, 7),
+                                    WebsiteUrl = "https://www.oliviagray.com",
+                                    Addresses = new List<Address>
+                                {
+                                    new Address
+                                    {
+                                        AddressLine1 = "888 Vineyard Dr",
+                                        AddressLine2 = "Winery Entrance",
+                                        City = "Niagara-on-the-Lake",
+                                        StateProvince = "ON",
+                                        PostalCode = "L0S 1J0",
+                                        Country = "Canada"
+                                    }
+                                }
+                                },
+                            new Member
+                            {
+                                ID = 97,
+                                MemberName = "Pinewood Resorts",
+                                MemberSize = 40,
+                                JoinDate = new DateTime(2021, 11, 15),
+                                WebsiteUrl = "https://www.juliajones.com",
+                                Addresses = new List<Address>
+                                {
+                                    new Address
+                                    {
+                                        AddressLine1 = "1420 Pinewood Ln",
+                                        AddressLine2 = "Resort Main Office",
+                                        City = "Welland",
+                                        StateProvince = "ON",
+                                        PostalCode = "L3B 2H6",
+                                        Country = "Canada"
+                                    }
+                                }
+                            },
+                            new Member
+                            {
+                                ID = 98,
+                                MemberName = "Riverside Marinas",
+                                MemberSize = 12,
+                                JoinDate = new DateTime(2022, 8, 1),
+                                WebsiteUrl = "https://www.matthewharris.com",
+                                Addresses = new List<Address>
+                                {
+                                    new Address
+                                    {
+                                        AddressLine1 = "750 Riverside Dr",
+                                        AddressLine2 = "Marina Office",
+                                        City = "Port Colborne",
+                                        StateProvince = "ON",
+                                        PostalCode = "L3K 5C3",
+                                        Country = "Canada"
+                                    }
+                                }
+                            },
+                            new Member
+                            {
+                                ID = 99,
+                                MemberName = "Niagara Craft Distillery",
+                                MemberSize = 8,
+                                JoinDate = new DateTime(2021, 7, 18),
+                                WebsiteUrl = "https://www.kaylathompson.com",
+                                Addresses = new List<Address>
+                                {
+                                    new Address
+                                    {
+                                        AddressLine1 = "346 Distillery Rd",
+                                        AddressLine2 = "Distillery Shop",
+                                        City = "Niagara-on-the-Lake",
+                                        StateProvince = "ON",
+                                        PostalCode = "L0S 1J0",
+                                        Country = "Canada"
+                                    }
+                                }
+                            },
+                            new Member
+                            {
+                                ID = 100,
+                                MemberName = "Heritage Hotels & Resorts",
+                                MemberSize = 65,
+                                JoinDate = new DateTime(2022, 3, 5),
+                                WebsiteUrl = "https://www.zoemorris.com",
+                                Addresses = new List<Address>
+                                {
+                                    new Address
+                                    {
+                                        AddressLine1 = "200 Heritage Ln",
+                                        AddressLine2 = "Hotel Main Entrance",
+                                        City = "Niagara Falls",
+                                        StateProvince = "ON",
+                                        PostalCode = "L2G 1P8",
+                                        Country = "Canada"
+                                    }
+                                }
+                            }
+
+                        );
 
 
                         context.SaveChanges();
@@ -1010,215 +2211,34 @@ namespace NIA_CRM.Data
                     //}
                     if (!context.MemberMembershipTypes.Any())
                     {
-                        context.MemberMembershipTypes.AddRange(
-                            new MemberMembershipType
+                        // MembershipTypeIds (from 1 to 5, corresponding to different types)
+                        int[] membershipTypeIds = new int[] { 1, 2, 3, 4, 5 }; // Basic, Premium, Family, Student, Corporate
+
+                        // Create a random generator
+                        Random random = new Random();
+
+                        // Initialize a list to hold the MemberMembershipType entries
+                        List<MemberMembershipType> memberMembershipTypes = new List<MemberMembershipType>();
+
+                        // Loop over the member IDs (from 1 to 100)
+                        for (int memberId = 1; memberId <= 100; memberId++)
+                        {
+                            // Randomly pick a MembershipTypeId for each member
+                            int randomMembershipTypeId = membershipTypeIds[random.Next(membershipTypeIds.Length)];
+
+                            // Add the random membership type to the list
+                            memberMembershipTypes.Add(new MemberMembershipType
                             {
-                                MemberId = 1, // John Doe
-                                MembershipTypeId = 1 // Basic Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 1, // John Doe
-                                MembershipTypeId = 3 // Family Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 2, // Jane Smith
-                                MembershipTypeId = 2 // Premium Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 3, // Robert Johnson
-                                MembershipTypeId = 4 // Student Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 4, // Emily Davis
-                                MembershipTypeId = 1 // Basic Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 5, // William Brown
-                                MembershipTypeId = 2 // Silver Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 6, // Olivia Clark
-                                MembershipTypeId = 5 // Platinum Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 7, // Noah Miller
-                                MembershipTypeId = 3 // Premium Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 8, // Sophia Wilson
-                                MembershipTypeId = 1 // Basic Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 9, // Liam Martinez
-                                MembershipTypeId = 4 // Gold Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 10, // Ava Anderson
-                                MembershipTypeId = 2 // Silver Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 11, // Mason Lee
-                                MembershipTypeId = 5 //
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 12,
-                                MembershipTypeId = 4 // Student Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 13,
-                                MembershipTypeId = 2 // Premium Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 14,
-                                MembershipTypeId = 3 // Family Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 15,
-                                MembershipTypeId = 5 // Corporate Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 16,
-                                MembershipTypeId = 1 // Basic Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 17,
-                                MembershipTypeId = 4 // Student Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 18,
-                                MembershipTypeId = 2 // Premium Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 19,
-                                MembershipTypeId = 3 // Family Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 20,
-                                MembershipTypeId = 5 // Corporate Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 21,
-                                MembershipTypeId = 1 // Basic Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 22,
-                                MembershipTypeId = 4 // Student Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 23,
-                                MembershipTypeId = 2 // Premium Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 24,
-                                MembershipTypeId = 3 // Family Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 25,
-                                MembershipTypeId = 5 // Corporate Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 26,
-                                MembershipTypeId = 1 // Basic Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 27,
-                                MembershipTypeId = 4 // Student Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 28,
-                                MembershipTypeId = 2 // Premium Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 29,
-                                MembershipTypeId = 3 // Family Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 30,
-                                MembershipTypeId = 5 // Corporate Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 31,
-                                MembershipTypeId = 1 // Basic Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 32,
-                                MembershipTypeId = 4 // Student Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 33,
-                                MembershipTypeId = 2 // Premium Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 34,
-                                MembershipTypeId = 3 // Family Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 35,
-                                MembershipTypeId = 5 // Corporate Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 36,
-                                MembershipTypeId = 1 // Basic Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 37,
-                                MembershipTypeId = 4 // Student Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 38,
-                                MembershipTypeId = 2 // Premium Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 39,
-                                MembershipTypeId = 3 // Family Membership
-                            },
-                            new MemberMembershipType
-                            {
-                                MemberId = 40,
-                                MembershipTypeId = 5 // Corporate Membership
-                            }
-                        );
+                                MemberId = memberId,
+                                MembershipTypeId = randomMembershipTypeId
+                            });
+                        }
+
+                        // Save the data to the context
+                        context.MemberMembershipTypes.AddRange(memberMembershipTypes);
                         context.SaveChanges();
                     }
+
                     if (!context.Contacts.Any())
                     {
                         context.Contacts.AddRange(
@@ -1741,8 +2761,789 @@ namespace NIA_CRM.Data
                             LinkedInUrl = "https://www.linkedin.com/in/jamesphillips",
                             IsVip = true,
                             MemberId = 40
-                        }
+                        },
+                        new Contact
+                        {
+                            Id = 41,
+                            FirstName = "Astarion",
+                            LastName = "Ancunin",
+                            Title = "Manager",
+                            Department = "Sales",
+                            Email = "iplayedbg3toomuch@example.com",
+                            Phone = "7077077777",
+                            LinkedInUrl = "https://www.linkedin.com/in/johndoe",
+                            IsVip = false,
+                            MemberId = 41
+                        },
+                        new Contact
+                        {
+                            Id = 42,
+                            FirstName = "John",
+                            LastName = "Thomas",
+                            Title = "Manager",
+                            Department = "Sales",
+                            Email = "john.doe@example.com",
+                            Phone = "1234567890",
+                            LinkedInUrl = "https://www.linkedin.com/in/johndoe",
+                            IsVip = true,
+                            MemberId = 42
+                        },
 
+                            new Contact
+                            {
+                                Id = 43,
+                                FirstName = "Jane",
+                                LastName = "Smith",
+                                Title = "Director",
+                                Department = "Marketing",
+                                Email = "jane.smith@example.com",
+                                Phone = "9876543210",
+                                LinkedInUrl = "https://www.linkedin.com/in/janesmith",
+                                IsVip = false,
+                                MemberId = 43
+                            },
+                            new Contact
+                            {
+                                Id = 44,
+                                FirstName = "Alice",
+                                LastName = "Johnson",
+                                Title = "VP",
+                                Department = "Human Resources",
+                                Email = "alice.johnson@example.com",
+                                Phone = "5551234567",
+                                LinkedInUrl = "https://www.linkedin.com/in/alicejohnson",
+                                IsVip = true,
+                                MemberId = 44
+                            },
+                            new Contact
+                            {
+                                Id = 45,
+                                FirstName = "Bob",
+                                LastName = "Joe",
+                                Title = "Chief Financial Officer",
+                                Department = "Finance",
+                                Email = "bob.brown@example.com",
+                                Phone = "5557654321",
+                                LinkedInUrl = "https://www.linkedin.com/in/bobbrown",
+                                IsVip = true,
+                                MemberId = 45
+                            },
+                            new Contact
+                            {
+                                Id = 46,
+                                FirstName = "Charlie",
+                                LastName = "Davis",
+                                Title = "Chief Operating Officer",
+                                Department = "Operations",
+                                Email = "charlie.davis@example.com",
+                                Phone = "5557890123",
+                                LinkedInUrl = "https://www.linkedin.com/in/charliedavis",
+                                IsVip = false,
+                                MemberId = 46
+                            },
+                            new Contact
+                            {
+                                Id = 47,
+                                FirstName = "Deborah",
+                                LastName = "Williams",
+                                Title = "Director of Technology",
+                                Department = "Technology",
+                                Email = "deborah.williams@example.com",
+                                Phone = "5552345678",
+                                LinkedInUrl = "https://www.linkedin.com/in/deborahwilliams",
+                                IsVip = true,
+                                MemberId = 47
+                            },
+                            new Contact
+                            {
+                                Id = 48,
+                                FirstName = "Eve",
+                                LastName = "Marie",
+                                Title = "Marketing Specialist",
+                                Department = "Marketing",
+                                Email = "eve.taylor@example.com",
+                                Phone = "5553456789",
+                                LinkedInUrl = "https://www.linkedin.com/in/evetaylor",
+                                IsVip = false,
+                                MemberId = 48
+                            },
+                            new Contact
+                            {
+                                Id = 49,
+                                FirstName = "Frank",
+                                LastName = "Harris",
+                                Title = "Senior Engineer",
+                                Department = "Engineering",
+                                Email = "frank.harris@example.com",
+                                Phone = "5554567890",
+                                LinkedInUrl = "https://www.linkedin.com/in/frankharris",
+                                IsVip = true,
+                                MemberId = 49
+                            },
+                            new Contact
+                            {
+                                Id = 50,
+                                FirstName = "Grace",
+                                LastName = "King",
+                                Title = "Business Development Manager",
+                                Department = "Sales",
+                                Email = "grace.king@example.com",
+                                Phone = "5555678901",
+                                LinkedInUrl = "https://www.linkedin.com/in/graceking",
+                                IsVip = false,
+                                MemberId = 50
+                            },
+                            new Contact
+                            {
+                                Id = 51,
+                                FirstName = "Hank",
+                                LastName = "Lee",
+                                Title = "Head of Research",
+                                Department = "Research and Development",
+                                Email = "hank.lee@example.com",
+                                Phone = "5556789012",
+                                LinkedInUrl = "https://www.linkedin.com/in/hanklee",
+                                IsVip = true,
+                                MemberId = 51
+                            },
+                            new Contact
+                            {
+                                Id = 52,
+                                FirstName = "Ivy",
+                                LastName = "Adams",
+                                Title = "Project Manager",
+                                Department = "Operations",
+                                Email = "ivy.adams@example.com",
+                                Phone = "5557890123",
+                                LinkedInUrl = "https://www.linkedin.com/in/ivyadams",
+                                IsVip = false,
+                                MemberId = 52
+                            },
+                            new Contact
+                            {
+                                Id = 53,
+                                FirstName = "Jack",
+                                LastName = "Scott",
+                                Title = "CEO",
+                                Department = "Executive",
+                                Email = "jack.scott@example.com",
+                                Phone = "5558901234",
+                                LinkedInUrl = "https://www.linkedin.com/in/jackscott",
+                                IsVip = true,
+                                MemberId = 53
+                            },
+                            new Contact
+                            {
+                                Id = 54,
+                                FirstName = "Kathy",
+                                LastName = "Elizabeth",
+                                Title = "HR Specialist",
+                                Department = "Human Resources",
+                                Email = "kathy.morris@example.com",
+                                Phone = "5559012345",
+                                LinkedInUrl = "https://www.linkedin.com/in/kathymorris",
+                                IsVip = false,
+                                MemberId = 54
+                            },
+                            new Contact
+                            {
+                                Id = 55,
+                                FirstName = "Louis",
+                                LastName = "Alexandr",
+                                Title = "Customer Service Lead",
+                                Department = "Customer Service",
+                                Email = "louis.walker@example.com",
+                                Phone = "5550123456",
+                                LinkedInUrl = "https://www.linkedin.com/in/louiswalker",
+                                IsVip = true,
+                                MemberId = 55
+                            },
+                            new Contact
+                            {
+                                Id = 56,
+                                FirstName = "Mona",
+                                LastName = "Grace",
+                                Title = "Legal Advisor",
+                                Department = "Legal",
+                                Email = "mona.white@example.com",
+                                Phone = "5551234567",
+                                LinkedInUrl = "https://www.linkedin.com/in/monawhite",
+                                IsVip = false,
+                                MemberId = 56
+                            },
+                            new Contact
+                            {
+                                Id = 57,
+                                FirstName = "James",
+                                LastName = "T.",
+                                Title = "Marketing Manager",
+                                Department = "Marketing",
+                                Email = "james.smith@example.com",
+                                Phone = "5559876543",
+                                LinkedInUrl = "https://www.linkedin.com/in/jamessmith",
+                                IsVip = false,
+                                MemberId = 57
+                            },
+                            new Contact
+                            {
+                                Id = 58,
+                                FirstName = "Sarah",
+                                LastName = "A.",
+                                Title = "HR Specialist",
+                                Department = "Human Resources",
+                                Email = "sarah.johnson@example.com",
+                                Phone = "5551122334",
+                                LinkedInUrl = "https://www.linkedin.com/in/sarahjohnson",
+                                IsVip = false,
+                                MemberId = 58
+                            },
+                            new Contact
+                            {
+                                Id = 59,
+                                FirstName = "DavId",
+                                LastName = "L.",
+                                Title = "Chief Executive Officer",
+                                Department = "Executive",
+                                Email = "davId.brown@example.com",
+                                Phone = "5552233445",
+                                LinkedInUrl = "https://www.linkedin.com/in/davIdbrown",
+                                IsVip = true,
+                                MemberId = 59
+                            },
+                            new Contact
+                            {
+                                Id = 60,
+                                FirstName = "Emily",
+                                LastName = "M.",
+                                Title = "Product Designer",
+                                Department = "Design",
+                                Email = "emily.williams@example.com",
+                                Phone = "5556677889",
+                                LinkedInUrl = "https://www.linkedin.com/in/emilywilliams",
+                                IsVip = false,
+                                MemberId = 60
+                            },
+                            new Contact
+                            {
+                                Id = 61,
+                                FirstName = "Michael",
+                                LastName = "J.",
+                                Title = "Sales Director",
+                                Department = "Sales",
+                                Email = "michael.davis@example.com",
+                                Phone = "5558899001",
+                                LinkedInUrl = "https://www.linkedin.com/in/michaeldavis",
+                                IsVip = false,
+                                MemberId = 61
+                            },
+                            new Contact
+                            {
+                                Id = 62,
+                                FirstName = "Olivia",
+                                LastName = "K.",
+                                Title = "Chief Financial Officer",
+                                Department = "Finance",
+                                Email = "olivia.martinez@example.com",
+                                Phone = "5553456789",
+                                LinkedInUrl = "https://www.linkedin.com/in/oliviamartinez",
+                                IsVip = true,
+                                MemberId = 62
+                            },
+                            new Contact
+                            {
+                                Id = 63,
+                                FirstName = "Ethan",
+                                LastName = "B.",
+                                Title = "IT Manager",
+                                Department = "IT",
+                                Email = "ethan.taylor@example.com",
+                                Phone = "5552345678",
+                                LinkedInUrl = "https://www.linkedin.com/in/ethantaylor",
+                                IsVip = false,
+                                MemberId = 63
+                            },
+                            new Contact
+                            {
+                                Id = 64,
+                                FirstName = "Sophia",
+                                LastName = "J.",
+                                Title = "Operations Coordinator",
+                                Department = "Operations",
+                                Email = "sophia.wilson@example.com",
+                                Phone = "5556781234",
+                                LinkedInUrl = "https://www.linkedin.com/in/sophiawilson",
+                                IsVip = false,
+                                MemberId = 64
+                            },
+                            new Contact
+                            {
+                                Id = 65,
+                                FirstName = "Daniel",
+                                LastName = "P.",
+                                Title = "Customer Success Manager",
+                                Department = "Customer Support",
+                                Email = "daniel.moore@example.com",
+                                Phone = "5559988776",
+                                LinkedInUrl = "https://www.linkedin.com/in/danielmoore",
+                                IsVip = false,
+                                MemberId = 65
+                            },
+                        new Contact
+                        {
+                            Id = 66,
+                            FirstName = "Chloe",
+                            LastName = "S.",
+                            Title = "Senior Analyst",
+                            Department = "Finance",
+                            Email = "chloe.martin@example.com",
+                            Phone = "5557766554",
+                            LinkedInUrl = "https://www.linkedin.com/in/chloemartin",
+                            IsVip = true,
+                            MemberId = 66
+                        },
+                        new Contact
+                        {
+                            Id = 67,
+                            FirstName = "Liam",
+                            LastName = "G.",
+                            Title = "Project Manager",
+                            Department = "Operations",
+                            Email = "liam.green@example.com",
+                            Phone = "5554433221",
+                            LinkedInUrl = "https://www.linkedin.com/in/liamgreen",
+                            IsVip = false,
+                            MemberId = 67
+                        },
+                        new Contact
+                        {
+                            Id = 68,
+                            FirstName = "Isabella",
+                            LastName = "H.",
+                            Title = "Marketing Director",
+                            Department = "Marketing",
+                            Email = "isabella.hudson@example.com",
+                            Phone = "5559988776",
+                            LinkedInUrl = "https://www.linkedin.com/in/isabellahudson",
+                            IsVip = true,
+                            MemberId = 68
+                        },
+                        new Contact
+                        {
+                            Id = 69,
+                            FirstName = "Ethan",
+                            LastName = "P.",
+                            Title = "Sales Manager",
+                            Department = "Sales",
+                            Email = "ethan.peters@example.com",
+                            Phone = "5551122334",
+                            LinkedInUrl = "https://www.linkedin.com/in/ethanpeters",
+                            IsVip = false,
+                            MemberId = 69
+                        },
+                        new Contact
+                        {
+                            Id = 70,
+                            FirstName = "Ava",
+                            LastName = "W.",
+                            Title = "Human Resources Specialist",
+                            Department = "HR",
+                            Email = "ava.williams@example.com",
+                            Phone = "5556677889",
+                            LinkedInUrl = "https://www.linkedin.com/in/avawilliams",
+                            IsVip = true,
+                            MemberId = 70
+                        },
+                        new Contact
+                        {
+                            Id = 71,
+                            FirstName = "Mason",
+                            LastName = "J.",
+                            Title = "Data Scientist",
+                            Department = "IT",
+                            Email = "mason.james@example.com",
+                            Phone = "5554455667",
+                            LinkedInUrl = "https://www.linkedin.com/in/masonjames",
+                            IsVip = false,
+                            MemberId = 71
+                        },
+                        new Contact
+                        {
+                            Id = 72,
+                            FirstName = "Sophia",
+                            LastName = "K.",
+                            Title = "Customer Support Lead",
+                            Department = "Customer Service",
+                            Email = "sophia.king@example.com",
+                            Phone = "5552334455",
+                            LinkedInUrl = "https://www.linkedin.com/in/sophiaking",
+                            IsVip = true,
+                            MemberId = 72
+                        },
+                        new Contact
+                        {
+                            Id = 73,
+                            FirstName = "Jackson",
+                            LastName = "T.",
+                            Title = "Chief Technology Officer",
+                            Department = "Technology",
+                            Email = "jackson.taylor@example.com",
+                            Phone = "5555555555",
+                            LinkedInUrl = "https://www.linkedin.com/in/jacksontaylor",
+                            IsVip = true,
+                            MemberId = 73
+                        },
+                        new Contact
+                        {
+                            Id = 74,
+                            FirstName = "Charlotte",
+                            LastName = "L.",
+                            Title = "Finance Manager",
+                            Department = "Finance",
+                            Email = "charlotte.larson@example.com",
+                            Phone = "5552233446",
+                            LinkedInUrl = "https://www.linkedin.com/in/charlottelarson",
+                            IsVip = false,
+                            MemberId = 74
+                        },
+                        new Contact
+                        {
+                            Id = 75,
+                            FirstName = "Lucas",
+                            LastName = "B.",
+                            Title = "IT Specialist",
+                            Department = "IT",
+                            Email = "lucas.brown@example.com",
+                            Phone = "5556677880",
+                            LinkedInUrl = "https://www.linkedin.com/in/lucasbrown",
+                            IsVip = true,
+                            MemberId = 75
+                        },
+                        new Contact
+                        {
+                            Id = 76,
+                            FirstName = "Mia",
+                            LastName = "C.",
+                            Title = "Legal Advisor",
+                            Department = "Legal",
+                            Email = "mia.carter@example.com",
+                            Phone = "5553334446",
+                            LinkedInUrl = "https://www.linkedin.com/in/miacarter",
+                            IsVip = true,
+                            MemberId = 76
+                        },
+                        new Contact
+                        {
+                            Id = 77,
+                            FirstName = "Logan",
+                            LastName = "D.",
+                            Title = "Operations Manager",
+                            Department = "Operations",
+                            Email = "logan.davis@example.com",
+                            Phone = "5553344556",
+                            LinkedInUrl = "https://www.linkedin.com/in/logandavis",
+                            IsVip = false,
+                            MemberId = 77
+                        },
+                        new Contact
+                        {
+                            Id = 78,
+                            FirstName = "Harper",
+                            LastName = "M.",
+                            Title = "Product Manager",
+                            Department = "Product",
+                            Email = "harper.morris@example.com",
+                            Phone = "5555566778",
+                            LinkedInUrl = "https://www.linkedin.com/in/harpermorris",
+                            IsVip = true,
+                            MemberId = 78
+                        },
+                        new Contact
+                        {
+                            Id = 79,
+                            FirstName = "Benjamin",
+                            LastName = "N.",
+                            Title = "Chief Executive Officer",
+                            Department = "Executive",
+                            Email = "benjamin.nelson@example.com",
+                            Phone = "5551223344",
+                            LinkedInUrl = "https://www.linkedin.com/in/benjaminnelson",
+                            IsVip = true,
+                            MemberId = 79
+                        },
+                        new Contact
+                        {
+                            Id = 80,
+                            FirstName = "Ella",
+                            LastName = "O.",
+                            Title = "Public Relations Manager",
+                            Department = "PR",
+                            Email = "ella.olson@example.com",
+                            Phone = "5554455668",
+                            LinkedInUrl = "https://www.linkedin.com/in/ellaolson",
+                            IsVip = false,
+                            MemberId = 80
+                        },
+                        new Contact
+                        {
+                            Id = 81,
+                            FirstName = "James",
+                            LastName = "P.",
+                            Title = "Chief Marketing Officer",
+                            Department = "Marketing",
+                            Email = "james.phillips@example.com",
+                            Phone = "5557768999",
+                            LinkedInUrl = "https://www.linkedin.com/in/jamesphillips",
+                            IsVip = true,
+                            MemberId = 81
+                        },
+                        new Contact
+                        {
+                            Id = 82,
+                            FirstName = "John",
+                            LastName = "Thomas",
+                            Title = "Manager",
+                            Department = "Sales",
+                            Email = "john.doe@example.com",
+                            Phone = "1234567890",
+                            LinkedInUrl = "https://www.linkedin.com/in/johndoe",
+                            IsVip = true,
+                            MemberId = 82
+                        },
+
+                            new Contact
+                            {
+                                Id = 83,
+                                FirstName = "Jane",
+                                LastName = "Smith",
+                                Title = "Director",
+                                Department = "Marketing",
+                                Email = "jane.smith@example.com",
+                                Phone = "9876543210",
+                                LinkedInUrl = "https://www.linkedin.com/in/janesmith",
+                                IsVip = false,
+                                MemberId = 83
+                            },
+                            new Contact
+                            {
+                                Id = 84,
+                                FirstName = "Alice",
+                                LastName = "Johnson",
+                                Title = "VP",
+                                Department = "Human Resources",
+                                Email = "alice.johnson@example.com",
+                                Phone = "5551234567",
+                                LinkedInUrl = "https://www.linkedin.com/in/alicejohnson",
+                                IsVip = true,
+                                MemberId = 84
+                            },
+                            new Contact
+                            {
+                                Id = 85,
+                                FirstName = "Bob",
+                                LastName = "Joe",
+                                Title = "Chief Financial Officer",
+                                Department = "Finance",
+                                Email = "bob.brown@example.com",
+                                Phone = "5557654321",
+                                LinkedInUrl = "https://www.linkedin.com/in/bobbrown",
+                                IsVip = true,
+                                MemberId = 85
+                            },
+                            new Contact
+                            {
+                                Id = 86,
+                                FirstName = "Charlie",
+                                LastName = "Davis",
+                                Title = "Chief Operating Officer",
+                                Department = "Operations",
+                                Email = "charlie.davis@example.com",
+                                Phone = "5557890123",
+                                LinkedInUrl = "https://www.linkedin.com/in/charliedavis",
+                                IsVip = false,
+                                MemberId = 86
+                            },
+                            new Contact
+                            {
+                                Id = 87,
+                                FirstName = "Deborah",
+                                LastName = "Williams",
+                                Title = "Director of Technology",
+                                Department = "Technology",
+                                Email = "deborah.williams@example.com",
+                                Phone = "5552345678",
+                                LinkedInUrl = "https://www.linkedin.com/in/deborahwilliams",
+                                IsVip = true,
+                                MemberId = 87
+                            },
+                            new Contact
+                            {
+                                Id = 88,
+                                FirstName = "Eve",
+                                LastName = "Marie",
+                                Title = "Marketing Specialist",
+                                Department = "Marketing",
+                                Email = "eve.taylor@example.com",
+                                Phone = "5553456789",
+                                LinkedInUrl = "https://www.linkedin.com/in/evetaylor",
+                                IsVip = false,
+                                MemberId = 88
+                            },
+                            new Contact
+                            {
+                                Id = 89,
+                                FirstName = "Frank",
+                                LastName = "Harris",
+                                Title = "Senior Engineer",
+                                Department = "Engineering",
+                                Email = "frank.harris@example.com",
+                                Phone = "5554567890",
+                                LinkedInUrl = "https://www.linkedin.com/in/frankharris",
+                                IsVip = true,
+                                MemberId = 89
+                            },
+                            new Contact
+                            {
+                                Id = 90,
+                                FirstName = "Grace",
+                                LastName = "King",
+                                Title = "Business Development Manager",
+                                Department = "Sales",
+                                Email = "grace.king@example.com",
+                                Phone = "5555678901",
+                                LinkedInUrl = "https://www.linkedin.com/in/graceking",
+                                IsVip = false,
+                                MemberId = 90
+                            },
+                            new Contact
+                            {
+                                Id = 91,
+                                FirstName = "Hank",
+                                LastName = "Lee",
+                                Title = "Head of Research",
+                                Department = "Research and Development",
+                                Email = "hank.lee@example.com",
+                                Phone = "5556789012",
+                                LinkedInUrl = "https://www.linkedin.com/in/hanklee",
+                                IsVip = true,
+                                MemberId = 91
+                            },
+                            new Contact
+                            {
+                                Id = 92,
+                                FirstName = "Ivy",
+                                LastName = "Adams",
+                                Title = "Project Manager",
+                                Department = "Operations",
+                                Email = "ivy.adams@example.com",
+                                Phone = "5557890123",
+                                LinkedInUrl = "https://www.linkedin.com/in/ivyadams",
+                                IsVip = false,
+                                MemberId = 92
+                            },
+                            new Contact
+                            {
+                                Id = 93,
+                                FirstName = "Jack",
+                                LastName = "Scott",
+                                Title = "CEO",
+                                Department = "Executive",
+                                Email = "jack.scott@example.com",
+                                Phone = "5558901234",
+                                LinkedInUrl = "https://www.linkedin.com/in/jackscott",
+                                IsVip = true,
+                                MemberId = 93
+                            },
+                            new Contact
+                            {
+                                Id = 94,
+                                FirstName = "Kathy",
+                                LastName = "Elizabeth",
+                                Title = "HR Specialist",
+                                Department = "Human Resources",
+                                Email = "kathy.morris@example.com",
+                                Phone = "5559012345",
+                                LinkedInUrl = "https://www.linkedin.com/in/kathymorris",
+                                IsVip = false,
+                                MemberId = 94
+                            },
+                            new Contact
+                            {
+                                Id = 95,
+                                FirstName = "Louis",
+                                LastName = "Alexandr",
+                                Title = "Customer Service Lead",
+                                Department = "Customer Service",
+                                Email = "louis.walker@example.com",
+                                Phone = "5550123456",
+                                LinkedInUrl = "https://www.linkedin.com/in/louiswalker",
+                                IsVip = true,
+                                MemberId = 95
+                            },
+                            new Contact
+                            {
+                                Id = 96,
+                                FirstName = "Mona",
+                                LastName = "Grace",
+                                Title = "Legal Advisor",
+                                Department = "Legal",
+                                Email = "mona.white@example.com",
+                                Phone = "5551234567",
+                                LinkedInUrl = "https://www.linkedin.com/in/monawhite",
+                                IsVip = false,
+                                MemberId = 96
+                            },
+                            new Contact
+                            {
+                                Id = 97,
+                                FirstName = "James",
+                                LastName = "T.",
+                                Title = "Marketing Manager",
+                                Department = "Marketing",
+                                Email = "james.smith@example.com",
+                                Phone = "5559876543",
+                                LinkedInUrl = "https://www.linkedin.com/in/jamessmith",
+                                IsVip = false,
+                                MemberId = 97
+                            },
+                            new Contact
+                            {
+                                Id = 98,
+                                FirstName = "Sarah",
+                                LastName = "A.",
+                                Title = "HR Specialist",
+                                Department = "Human Resources",
+                                Email = "sarah.johnson@example.com",
+                                Phone = "5551122334",
+                                LinkedInUrl = "https://www.linkedin.com/in/sarahjohnson",
+                                IsVip = false,
+                                MemberId = 98
+                            },
+                            new Contact
+                            {
+                                Id = 99,
+                                FirstName = "DavId",
+                                LastName = "L.",
+                                Title = "Chief Executive Officer",
+                                Department = "Executive",
+                                Email = "davId.brown@example.com",
+                                Phone = "5552233445",
+                                LinkedInUrl = "https://www.linkedin.com/in/davIdbrown",
+                                IsVip = true,
+                                MemberId = 99
+                            },
+                            new Contact
+                            {
+                                Id = 100,
+                                FirstName = "Emily",
+                                LastName = "M.",
+                                Title = "Product Designer",
+                                Department = "Design",
+                                Email = "emily.williams@example.com",
+                                Phone = "5556677889",
+                                LinkedInUrl = "https://www.linkedin.com/in/emilywilliams",
+                                IsVip = false,
+                                MemberId = 100
+                            }
                         );
                         context.SaveChanges();
                     }
@@ -1864,9 +3665,9 @@ namespace NIA_CRM.Data
                     }
                     //Seed data needed for production and during development
 
-                    if (!context.NAICSCode.Any())
+                    if (!context.NAICSCodes.Any())
                     {
-                        context.NAICSCode.AddRange(
+                        context.NAICSCodes.AddRange(
                             new NAICSCode { Id = 1, Label = "Agriculture", Code = "1111", Description = "Oilseed and Grain Farming" },
                             new NAICSCode { Id = 2, Label = "Mining", Code = "2111", Description = "Oil and Gas Extraction" },
                             new NAICSCode { Id = 3, Label = "Utilities", Code = "2211", Description = "Electric Power Generation, Transmission, and Distribution" },
@@ -1934,7 +3735,67 @@ namespace NIA_CRM.Data
                             new IndustryNAICSCode { Id = 37, MemberId = 37, NAICSCodeId = 18 },  // Member 37, NAICS Code 18
                             new IndustryNAICSCode { Id = 38, MemberId = 38, NAICSCodeId = 19 },  // Member 38, NAICS Code 19
                             new IndustryNAICSCode { Id = 39, MemberId = 39, NAICSCodeId = 1 },  // Member 39, NAICS Code 1
-                            new IndustryNAICSCode { Id = 40, MemberId = 40, NAICSCodeId = 2 }   // Member 40, NAICS Code 2
+                            new IndustryNAICSCode { Id = 40, MemberId = 40, NAICSCodeId = 2 },
+                            new IndustryNAICSCode { Id = 41, MemberId = 41, NAICSCodeId = 1 },  // Member 1, NAICS Code 1
+                            new IndustryNAICSCode { Id = 42, MemberId = 42, NAICSCodeId = 2 },  // Member 2, NAICS Code 2
+                            new IndustryNAICSCode { Id = 43, MemberId = 43, NAICSCodeId = 3 },  // Member 3, NAICS Code 3
+                            new IndustryNAICSCode { Id = 44, MemberId = 44, NAICSCodeId = 4 },  // Member 4, NAICS Code 4
+                            new IndustryNAICSCode { Id = 45, MemberId = 45, NAICSCodeId = 5 },  // Member 5, NAICS Code 5
+                            new IndustryNAICSCode { Id = 46, MemberId = 46, NAICSCodeId = 6 },  // Member 6, NAICS Code 6
+                            new IndustryNAICSCode { Id = 47, MemberId = 47, NAICSCodeId = 7 },  // Member 7, NAICS Code 7
+                            new IndustryNAICSCode { Id = 48, MemberId = 48, NAICSCodeId = 8 },  // Member 8, NAICS Code 8
+                            new IndustryNAICSCode { Id = 49, MemberId = 49, NAICSCodeId = 9 },  // Member 9, NAICS Code 9
+                            new IndustryNAICSCode { Id = 50, MemberId = 50, NAICSCodeId = 10 },  // Member 10, NAICS Code 10
+                            new IndustryNAICSCode { Id = 51, MemberId = 51, NAICSCodeId = 11 },  // Member 11, NAICS Code 11
+                            new IndustryNAICSCode { Id = 52, MemberId = 52, NAICSCodeId = 12 },  // Member 12, NAICS Code 12
+                            new IndustryNAICSCode { Id = 53, MemberId = 53, NAICSCodeId = 13 },  // Member 13, NAICS Code 13
+                            new IndustryNAICSCode { Id = 54, MemberId = 54, NAICSCodeId = 14 },  // Member 14, NAICS Code 14
+                            new IndustryNAICSCode { Id = 55, MemberId = 55, NAICSCodeId = 15 },  // Member 15, NAICS Code 15
+                            new IndustryNAICSCode { Id = 56, MemberId = 56, NAICSCodeId = 16 },  // Member 16, NAICS Code 16
+                            new IndustryNAICSCode { Id = 57, MemberId = 57, NAICSCodeId = 17 },  // Member 17, NAICS Code 17
+                            new IndustryNAICSCode { Id = 58, MemberId = 58, NAICSCodeId = 18 },  // Member 18, NAICS Code 18
+                            new IndustryNAICSCode { Id = 59, MemberId = 59, NAICSCodeId = 19 },  // Member 19, NAICS Code 19
+                            new IndustryNAICSCode { Id = 60, MemberId = 60, NAICSCodeId = 1 },  // Member 20, NAICS Code 1
+                            new IndustryNAICSCode { Id = 61, MemberId = 61, NAICSCodeId = 2 },  // Member 21, NAICS Code 2
+                            new IndustryNAICSCode { Id = 62, MemberId = 62, NAICSCodeId = 3 },  // Member 22, NAICS Code 3
+                            new IndustryNAICSCode { Id = 63, MemberId = 63, NAICSCodeId = 4 },  // Member 23, NAICS Code 4
+                            new IndustryNAICSCode { Id = 64, MemberId = 64, NAICSCodeId = 5 },  // Member 24, NAICS Code 5
+                            new IndustryNAICSCode { Id = 65, MemberId = 65, NAICSCodeId = 6 },  // Member 25, NAICS Code 6
+                            new IndustryNAICSCode { Id = 66, MemberId = 66, NAICSCodeId = 7 },  // Member 26, NAICS Code 7
+                            new IndustryNAICSCode { Id = 67, MemberId = 67, NAICSCodeId = 8 },  // Member 27, NAICS Code 8
+                            new IndustryNAICSCode { Id = 68, MemberId = 68, NAICSCodeId = 9 },  // Member 28, NAICS Code 9
+                            new IndustryNAICSCode { Id = 69, MemberId = 69, NAICSCodeId = 10 },  // Member 29, NAICS Code 10
+                            new IndustryNAICSCode { Id = 70, MemberId = 70, NAICSCodeId = 11 },  // Member 30, NAICS Code 11
+                            new IndustryNAICSCode { Id = 71, MemberId = 71, NAICSCodeId = 12 },  // Member 31, NAICS Code 12
+                            new IndustryNAICSCode { Id = 72, MemberId = 72, NAICSCodeId = 13 },  // Member 32, NAICS Code 13
+                            new IndustryNAICSCode { Id = 73, MemberId = 73, NAICSCodeId = 14 },  // Member 33, NAICS Code 14
+                            new IndustryNAICSCode { Id = 74, MemberId = 74, NAICSCodeId = 15 },  // Member 34, NAICS Code 15
+                            new IndustryNAICSCode { Id = 75, MemberId = 75, NAICSCodeId = 16 },  // Member 35, NAICS Code 16
+                            new IndustryNAICSCode { Id = 76, MemberId = 76, NAICSCodeId = 17 },  // Member 36, NAICS Code 17
+                            new IndustryNAICSCode { Id = 77, MemberId = 77, NAICSCodeId = 18 },  // Member 37, NAICS Code 18
+                            new IndustryNAICSCode { Id = 78, MemberId = 78, NAICSCodeId = 19 },  // Member 38, NAICS Code 19
+                            new IndustryNAICSCode { Id = 79, MemberId = 79, NAICSCodeId = 1 },  // Member 39, NAICS Code 1
+                            new IndustryNAICSCode { Id = 80, MemberId = 80, NAICSCodeId = 2 },
+                            new IndustryNAICSCode { Id = 81, MemberId = 81, NAICSCodeId = 2 },  // Member 21, NAICS Code 2
+                            new IndustryNAICSCode { Id = 82, MemberId = 82, NAICSCodeId = 3 },  // Member 22, NAICS Code 3
+                            new IndustryNAICSCode { Id = 83, MemberId = 83, NAICSCodeId = 4 },  // Member 23, NAICS Code 4
+                            new IndustryNAICSCode { Id = 84, MemberId = 84, NAICSCodeId = 5 },  // Member 24, NAICS Code 5
+                            new IndustryNAICSCode { Id = 85, MemberId = 85, NAICSCodeId = 6 },  // Member 25, NAICS Code 6
+                            new IndustryNAICSCode { Id = 86, MemberId = 86, NAICSCodeId = 7 },  // Member 26, NAICS Code 7
+                            new IndustryNAICSCode { Id = 87, MemberId = 87, NAICSCodeId = 8 },  // Member 27, NAICS Code 8
+                            new IndustryNAICSCode { Id = 88, MemberId = 88, NAICSCodeId = 9 },  // Member 28, NAICS Code 9
+                            new IndustryNAICSCode { Id = 89, MemberId = 89, NAICSCodeId = 10 },  // Member 29, NAICS Code 10
+                            new IndustryNAICSCode { Id = 90, MemberId = 90, NAICSCodeId = 11 },  // Member 30, NAICS Code 11
+                            new IndustryNAICSCode { Id = 91, MemberId = 91, NAICSCodeId = 12 },  // Member 31, NAICS Code 12
+                            new IndustryNAICSCode { Id = 92, MemberId = 92, NAICSCodeId = 13 },  // Member 32, NAICS Code 13
+                            new IndustryNAICSCode { Id = 93, MemberId = 93, NAICSCodeId = 14 },  // Member 33, NAICS Code 14
+                            new IndustryNAICSCode { Id = 94, MemberId = 94, NAICSCodeId = 15 },  // Member 34, NAICS Code 15
+                            new IndustryNAICSCode { Id = 95, MemberId = 95, NAICSCodeId = 16 },  // Member 35, NAICS Code 16
+                            new IndustryNAICSCode { Id = 96, MemberId = 96, NAICSCodeId = 17 },  // Member 36, NAICS Code 17
+                            new IndustryNAICSCode { Id = 97, MemberId = 97, NAICSCodeId = 18 },  // Member 37, NAICS Code 18
+                            new IndustryNAICSCode { Id = 98, MemberId = 98, NAICSCodeId = 19 },  // Member 38, NAICS Code 19
+                            new IndustryNAICSCode { Id = 99, MemberId = 99, NAICSCodeId = 1 },  // Member 39, NAICS Code 1
+                            new IndustryNAICSCode { Id = 100, MemberId = 100, NAICSCodeId = 2 }// Member 40, NAICS Code 2
                         );
 
                         // Save changes to persist the data
@@ -2037,7 +3898,67 @@ namespace NIA_CRM.Data
                         new MemberNote { Id = 37, MemberId = 37, Note = "Client requested documentation for CRM integration with existing systems.", CreatedAt = DateTime.Now.AddDays(-12) },
                         new MemberNote { Id = 38, MemberId = 38, Note = "Explained CRM's data storage architecture to the client.", CreatedAt = DateTime.Now.AddDays(-11) },
                         new MemberNote { Id = 39, MemberId = 39, Note = "Client follow-up regarding CRM's email marketing tools.", CreatedAt = DateTime.Now.AddDays(-10) },
-                        new MemberNote { Id = 40, MemberId = 40, Note = "Discussed CRM's scalability and future-proofing with the client.", CreatedAt = DateTime.Now.AddDays(-9) }
+                        new MemberNote { Id = 40, MemberId = 40, Note = "Discussed CRM's scalability and future-proofing with the client.", CreatedAt = DateTime.Now.AddDays(-9) },
+                        new MemberNote { Id = 41, MemberId = 41, Note = "Client inquiry regarding CRM customization options for reporting.", CreatedAt = DateTime.Now.AddDays(-8) },
+                        new MemberNote { Id = 42, MemberId = 42, Note = "Initial CRM implementation discussion, defining project scope.", CreatedAt = DateTime.Now.AddDays(-7) },
+                        new MemberNote { Id = 43, MemberId = 43, Note = "Follow-up meeting to address client concerns about data integration.", CreatedAt = DateTime.Now.AddDays(-6) },
+                        new MemberNote { Id = 44, MemberId = 44, Note = "Demonstration of new CRM features for enhanced data reporting.", CreatedAt = DateTime.Now.AddDays(-5) },
+                        new MemberNote { Id = 45, MemberId = 45, Note = "CRM scalability discussion to accommodate the client's growing business.", CreatedAt = DateTime.Now.AddDays(-4) },
+                        new MemberNote { Id = 46, MemberId = 46, Note = "Presentation of CRM's mobile app functionalities.", CreatedAt = DateTime.Now.AddDays(-3) },
+                        new MemberNote { Id = 47, MemberId = 47, Note = "Client feedback session on CRM's user interface and navigation.", CreatedAt = DateTime.Now.AddDays(-2) },
+                        new MemberNote { Id = 48, MemberId = 48, Note = "Assessed the CRM's integration with the client's existing software.", CreatedAt = DateTime.Now.AddDays(-1) },
+                        new MemberNote { Id = 49, MemberId = 49, Note = "CRM performance review based on client feedback and usage data.", CreatedAt = DateTime.Now.AddDays(-30) },
+                        new MemberNote { Id = 50, MemberId = 50, Note = "Client requested further customization on CRM's reporting tools.", CreatedAt = DateTime.Now.AddDays(-29) },
+                        new MemberNote { Id = 51, MemberId = 51, Note = "Follow-up meeting to discuss CRM's impact on operational efficiency.", CreatedAt = DateTime.Now.AddDays(-28) },
+                        new MemberNote { Id = 52, MemberId = 52, Note = "Scheduled a training session on CRM's advanced data analytics features.", CreatedAt = DateTime.Now.AddDays(-27) },
+                        new MemberNote { Id = 53, MemberId = 53, Note = "Client requests integration with third-party tools for CRM.", CreatedAt = DateTime.Now.AddDays(-26) },
+                        new MemberNote { Id = 54, MemberId = 54, Note = "Discussion on enhancing CRM's data security protocols.", CreatedAt = DateTime.Now.AddDays(-25) },
+                        new MemberNote { Id = 55, MemberId = 55, Note = "Reviewed CRM performance metrics with the client.", CreatedAt = DateTime.Now.AddDays(-24) },
+                        new MemberNote { Id = 56, MemberId = 56, Note = "Client shared feedback on CRM's data privacy features.", CreatedAt = DateTime.Now.AddDays(-23) },
+                        new MemberNote { Id = 57, MemberId = 57, Note = "Explained upcoming CRM software updates to the client.", CreatedAt = DateTime.Now.AddDays(-22) },
+                        new MemberNote { Id = 58, MemberId = 58, Note = "Final meeting to review CRM's impact and gather client feedback.", CreatedAt = DateTime.Now.AddDays(-21) },
+                        new MemberNote { Id = 59, MemberId = 59, Note = "Client requested a demo for advanced CRM user roles and permissions.", CreatedAt = DateTime.Now.AddDays(-20) },
+                        new MemberNote { Id = 60, MemberId = 60, Note = "Follow-up on CRM feature requests and prioritization for next update.", CreatedAt = DateTime.Now.AddDays(-19) },
+                        new MemberNote { Id = 61, MemberId = 61, Note = "Discussed data integration challenges and next steps with the client.", CreatedAt = DateTime.Now.AddDays(-18) },
+                        new MemberNote { Id = 62, MemberId = 62, Note = "Client's feedback on CRM's mobile app interface and usability.", CreatedAt = DateTime.Now.AddDays(-17) },
+                        new MemberNote { Id = 63, MemberId = 63, Note = "Clarified CRM's data storage solutions for the client's needs.", CreatedAt = DateTime.Now.AddDays(-16) },
+                        new MemberNote { Id = 64, MemberId = 64, Note = "Client inquired about CRM's scalability to handle future growth.", CreatedAt = DateTime.Now.AddDays(-15) },
+                        new MemberNote { Id = 65, MemberId = 65, Note = "Reviewed CRM's feature requests and the roadmap for next year.", CreatedAt = DateTime.Now.AddDays(-14) },
+                        new MemberNote { Id = 66, MemberId = 66, Note = "Presentation of CRM's new features to senior management.", CreatedAt = DateTime.Now.AddDays(-13) },
+                        new MemberNote { Id = 67, MemberId = 67, Note = "Explained CRM's data reporting tools and their benefits to the client.", CreatedAt = DateTime.Now.AddDays(-12) },
+                        new MemberNote { Id = 68, MemberId = 68, Note = "Client expressed satisfaction with CRM's customization options.", CreatedAt = DateTime.Now.AddDays(-11) },
+                        new MemberNote { Id = 69, MemberId = 69, Note = "Client feedback on CRM's real-time reporting features.", CreatedAt = DateTime.Now.AddDays(-10) },
+                        new MemberNote { Id = 70, MemberId = 70, Note = "Discussions on CRM's advanced data analytics capabilities.", CreatedAt = DateTime.Now.AddDays(-9) },
+                        new MemberNote { Id = 71, MemberId = 71, Note = "CRM integration discussion with the client's external systems.", CreatedAt = DateTime.Now.AddDays(-8) },
+                        new MemberNote { Id = 72, MemberId = 72, Note = "Client requested additional support for CRM deployment.", CreatedAt = DateTime.Now.AddDays(-7) },
+                        new MemberNote { Id = 73, MemberId = 73, Note = "Follow-up on client feedback regarding CRM user interface.", CreatedAt = DateTime.Now.AddDays(-6) },
+                        new MemberNote { Id = 74, MemberId = 74, Note = "Explained CRM's security features and data protection protocols.", CreatedAt = DateTime.Now.AddDays(-5) },
+                        new MemberNote { Id = 75, MemberId = 75, Note = "Final review of CRM system before go-live.", CreatedAt = DateTime.Now.AddDays(-4) },
+                        new MemberNote { Id = 76, MemberId = 76, Note = "Client inquired about CRM's future updates and new features.", CreatedAt = DateTime.Now.AddDays(-3) },
+                        new MemberNote { Id = 77, MemberId = 77, Note = "Client requested assistance with CRM's third-party integrations.", CreatedAt = DateTime.Now.AddDays(-2) },
+                        new MemberNote { Id = 78, MemberId = 78, Note = "CRM performance review and feedback collection from the client.", CreatedAt = DateTime.Now.AddDays(-1) },
+                        new MemberNote { Id = 79, MemberId = 79, Note = "Client follow-up on CRM features and system performance.", CreatedAt = DateTime.Now.AddDays(-30) },
+                        new MemberNote { Id = 80, MemberId = 80, Note = "Scheduled a meeting to discuss future CRM feature enhancements.", CreatedAt = DateTime.Now.AddDays(-29) },
+                        new MemberNote { Id = 81, MemberId = 81, Note = "Client's feedback on CRM's usability and user-friendliness.", CreatedAt = DateTime.Now.AddDays(-28) },
+                        new MemberNote { Id = 82, MemberId = 82, Note = "Discussed CRM customization options for enhanced client reporting.", CreatedAt = DateTime.Now.AddDays(-27) },
+                        new MemberNote { Id = 83, MemberId = 83, Note = "Client requested new CRM functionalities to improve workflow.", CreatedAt = DateTime.Now.AddDays(-26) },
+                        new MemberNote { Id = 84, MemberId = 84, Note = "Meeting to review CRM's features and potential improvements.", CreatedAt = DateTime.Now.AddDays(-25) },
+                        new MemberNote { Id = 85, MemberId = 85, Note = "Client requested additional training on CRM's advanced features.", CreatedAt = DateTime.Now.AddDays(-24) },
+                        new MemberNote { Id = 86, MemberId = 86, Note = "Follow-up on CRM deployment success and initial feedback.", CreatedAt = DateTime.Now.AddDays(-23) },
+                        new MemberNote { Id = 87, MemberId = 87, Note = "Discussion on CRM's data backup and disaster recovery strategies.", CreatedAt = DateTime.Now.AddDays(-22) },
+                        new MemberNote { Id = 88, MemberId = 88, Note = "Review of CRM's data reporting accuracy and client feedback.", CreatedAt = DateTime.Now.AddDays(-21) },
+                        new MemberNote { Id = 89, MemberId = 89, Note = "Client follow-up to discuss CRM user training and ongoing support.", CreatedAt = DateTime.Now.AddDays(-20) },
+                        new MemberNote { Id = 90, MemberId = 90, Note = "Client feedback session on CRM's workflow automation features.", CreatedAt = DateTime.Now.AddDays(-19) },
+                        new MemberNote { Id = 91, MemberId = 91, Note = "Discussions on improving CRM's data processing speed.", CreatedAt = DateTime.Now.AddDays(-18) },
+                        new MemberNote { Id = 92, MemberId = 92, Note = "Meeting to discuss CRM's future roadmap and client requirements.", CreatedAt = DateTime.Now.AddDays(-17) },
+                        new MemberNote { Id = 93, MemberId = 93, Note = "Client requested additional features for CRM's user reporting.", CreatedAt = DateTime.Now.AddDays(-16) },
+                        new MemberNote { Id = 94, MemberId = 94, Note = "Follow-up on CRM's post-implementation success and feedback.", CreatedAt = DateTime.Now.AddDays(-15) },
+                        new MemberNote { Id = 95, MemberId = 95, Note = "Discussion on the upcoming CRM version and new functionalities.", CreatedAt = DateTime.Now.AddDays(-14) },
+                        new MemberNote { Id = 96, MemberId = 96, Note = "Explained CRM's new security features and improvements.", CreatedAt = DateTime.Now.AddDays(-13) },
+                        new MemberNote { Id = 97, MemberId = 97, Note = "Client requested CRM customization to better fit their reporting needs.", CreatedAt = DateTime.Now.AddDays(-12) },
+                        new MemberNote { Id = 98, MemberId = 98, Note = "Scheduled follow-up to review CRM's impact on client workflow.", CreatedAt = DateTime.Now.AddDays(-11) },
+                        new MemberNote { Id = 99, MemberId = 99, Note = "Explained CRM's data encryption and privacy policies to the client.", CreatedAt = DateTime.Now.AddDays(-10) },
+                        new MemberNote { Id = 100, MemberId = 100, Note = "Final meeting to discuss CRM's performance and next steps.", CreatedAt = DateTime.Now.AddDays(-9) }
                         );
 
                         context.SaveChanges();

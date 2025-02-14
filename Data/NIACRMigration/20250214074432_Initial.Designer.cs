@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250214073735_Initial")]
+    [Migration("20250214074432_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -315,7 +315,7 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasIndex("MemberId");
 
-                    b.ToTable("MemberNote");
+                    b.ToTable("MemberNotes");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.MemberThumbnail", b =>
@@ -380,7 +380,7 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("Id");
 
-                    b.ToTable("NAICSCode");
+                    b.ToTable("NAICSCodes");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Opportunity", b =>

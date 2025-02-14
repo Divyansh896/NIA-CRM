@@ -18,5 +18,35 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 0;
+}
+
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.custom-filter-badge {
+    background-color: #a61c1c;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.clear-btn {
+    background: transparent !important;
+    border: none;
+    font-size: 1.85rem;
+    color: white;
+    cursor: pointer;
+}
+
+.SortIndicator{
+    margin-left: -6px;
+    font-size: 1.35em;
+
 }
