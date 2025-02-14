@@ -231,7 +231,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<bool>("IsVIP")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("JoinDate")
+                    b.Property<DateTime>("JoinDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MemberName")
