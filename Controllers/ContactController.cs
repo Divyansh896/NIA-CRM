@@ -280,8 +280,7 @@ namespace NIA_CRM.Controllers
         {
             // Fetch the contact by id, including related industries through ContactIndustries
             var contact = _context.Contacts
-                .Include(c => c.ContactIndustries)
-                    .ThenInclude(ci => ci.Industry)  // Include related industries through the ContactIndustry table
+                .Include(c => c.Member)
                 .Where(c => c.Id == id)  // Filter the contact by id
                 .FirstOrDefault();  // Return the first result or null if not found
 

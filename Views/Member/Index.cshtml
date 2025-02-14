@@ -90,8 +90,9 @@
                 <th scope="col" class="table-head">City</th>
                 <th scope="col" class="table-head">Join Date</th>
                 <th scope="col" class="table-head">Membership Type</th>
-
-                <th scope="col" class="table-head">Standing Status</th>
+                <th scope="col" class="table-head">Address</th>
+                <th scope="col" class="table-head">Contacts</th>
+                <th scope="col" class="table-head">VIP Status</th>
         </tr>
     </thead>
     <tbody>
@@ -103,8 +104,8 @@
                             {
                                 string imageBase64 = Convert.ToBase64String(item.MemberThumbnail.Content);
                                 string imageSrc = string.Format("data:" + item.MemberThumbnail.MimeType + ";base64,{0}", imageBase64);
-                                <img src="@imageSrc" alt="Profile Picture of @item?.Summary"
-                                     title="Profile Picture of @item?.Summary" class="img-fluid rounded" />
+                                <img src="@imageSrc" alt="Profile Picture of @item?.MemberName"
+                                     title="Profile Picture of @item?.MemberName" class="img-fluid rounded" />
                             }
                             else
                             {
@@ -116,14 +117,7 @@
                     </td>
                     
                     <td>
-                        @if (item.MemberIndustries != null)
-                        {
-                            foreach (var industry in item.MemberIndustries)
-                            {
-                                @industry.Industry.IndustryName
-                                <br />
-                            }
-                        }
+                        @Html.DisplayFor(modelItem => item.MemberName)
                     </td>
                     <td>
                         @if (item.Addresses != null)
@@ -150,10 +144,50 @@
                             }
                         }
                     </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StandingStatus)
-            </td>
-                    
+
+
+
+                    <!-- New Columns -->
+                    <td>
+                        @if (item.Addresses != null && item.Addresses.Any())
+                        {
+                            foreach (var address in item.Addresses)
+                            {
+                                @($"{address.AddressLine2}, {address.City}, {address.StateProvince}, {address.PostalCode}")
+                                <br />
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">No Address Available</span>
+                        }
+                    </td>
+
+
+                    <td>
+                        @if (item.Contacts != null && item.Contacts.Any())
+                        {
+                            foreach (var contact in item.Contacts)
+                            {
+                                @($"{contact.Phone} | {contact.Email}")
+                                <br />
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">No Contacts Available</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsVIP)
+                        {
+                            <span class="badge bg-success">VIP</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Regular</span>
+                        }
+                    </td>
         </tr>
 }
     </tbody>

@@ -42,4 +42,7 @@ public class Address
     // Navigation Property
     [Display(Name = "Member")]
     public Member Member { get; set; }
+
+
+   
 }

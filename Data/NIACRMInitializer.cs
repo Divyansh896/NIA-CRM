@@ -109,57 +109,6 @@ namespace NIA_CRM.Data
                 try
                 {
                     //Add some Class Start times
-                    if (!context.Industries.Any())
-                    {
-                        context.Industries.AddRange(
-                        new Industry { ID = 1, IndustryName = "Alpha Steel", IndustrySize = 250, WebsiteUrl = "https://www.alphasteel.com" },
-                        new Industry { ID = 2, IndustryName = "TISCO CO.", IndustrySize = 150, WebsiteUrl = "https://www.tisco.com" },
-                        new Industry { ID = 3, IndustryName = "M Time Irons", IndustrySize = 100, WebsiteUrl = "https://www.mtimeirons.com" },
-                        new Industry { ID = 4, IndustryName = "Forge & Foundry Inc.", IndustrySize = 300, WebsiteUrl = "https://www.forgefoundry.com" },
-                        new Industry { ID = 5, IndustryName = "Northern Metalworks", IndustrySize = 120, WebsiteUrl = "https://www.northernmetalworks.com" },
-                        new Industry { ID = 6, IndustryName = "Titanium Solutions", IndustrySize = 400, WebsiteUrl = "https://www.titaniumsolutions.com" },
-                        new Industry { ID = 7, IndustryName = "Phoenix Alloys", IndustrySize = 350, WebsiteUrl = "https://www.phoenixalloys.com" },
-                        new Industry { ID = 8, IndustryName = "Galaxy Metals", IndustrySize = 500, WebsiteUrl = "https://www.galaxymetals.com" },
-                        new Industry { ID = 9, IndustryName = "Ironclad Industries", IndustrySize = 220, WebsiteUrl = "https://www.ironcladindustries.com" },
-                        new Industry { ID = 10, IndustryName = "Silverline Fabrication", IndustrySize = 180, WebsiteUrl = "https://www.silverlinefab.com" },
-                        new Industry { ID = 11, IndustryName = "Star Steelworks", IndustrySize = 230, WebsiteUrl = "https://www.starsteelworks.com" },
-                        new Industry { ID = 12, IndustryName = "Summit Metal Co.", IndustrySize = 270, WebsiteUrl = "https://www.summitmetalco.com" },
-                        new Industry { ID = 13, IndustryName = "Everest Iron Corp.", IndustrySize = 210, WebsiteUrl = "https://www.everestironcorp.com" },
-                        new Industry { ID = 14, IndustryName = "Prime Alloy Coatings", IndustrySize = 160, WebsiteUrl = "https://www.primealloycoatings.com" },
-                        new Industry { ID = 15, IndustryName = "Magnum Steel Solutions", IndustrySize = 190, WebsiteUrl = "https://www.magnumsteel.com" },
-                        new Industry { ID = 16, IndustryName = "Quantum Tech Innovations", IndustrySize = 450, WebsiteUrl = "https://www.quantumtechinnovations.com" },
-                        new Industry { ID = 17, IndustryName = "Aurora Renewable Energy", IndustrySize = 500, WebsiteUrl = "https://www.aurorarenewable.com" },
-                        new Industry { ID = 18, IndustryName = "Vertex Financial Group", IndustrySize = 80, WebsiteUrl = "https://www.vertexfinancialgroup.com" },
-                        new Industry { ID = 19, IndustryName = "Nova Biotech Labs", IndustrySize = 60, WebsiteUrl = "https://www.novabiotechlabs.com" },
-                        new Industry { ID = 20, IndustryName = "Summit Construction Co.", IndustrySize = 250, WebsiteUrl = "https://www.summitconstruction.com" },
-                        new Industry { ID = 21, IndustryName = "Oceanic Shipping Corp", IndustrySize = 600, WebsiteUrl = "https://www.oceanicshipping.com" },
-                        new Industry { ID = 22, IndustryName = "Evergreen Agriculture", IndustrySize = 550, WebsiteUrl = "https://www.evergreenagriculture.com" },
-                        new Industry { ID = 23, IndustryName = "Ironclad Manufacturing Ltd.", IndustrySize = 300, WebsiteUrl = "https://www.ironcladmanufacturing.com" },
-                        new Industry { ID = 24, IndustryName = "Skyline Architects Inc.", IndustrySize = 130, WebsiteUrl = "https://www.skylinearchitects.com" },
-                        new Industry { ID = 25, IndustryName = "Pinnacle Consulting Services", IndustrySize = 90, WebsiteUrl = "https://www.pinnacleconsulting.com" },
-                        new Industry { ID = 26, IndustryName = "Crystal Water Solutions", IndustrySize = 110, WebsiteUrl = "https://www.crystalwatersolutions.com" },
-                        new Industry { ID = 27, IndustryName = "Elite Healthcare Partners", IndustrySize = 150, WebsiteUrl = "https://www.elitehealthcarepartners.com" },
-                        new Industry { ID = 28, IndustryName = "Galaxy IT Solutions", IndustrySize = 400, WebsiteUrl = "https://www.galaxyitsolutions.com" },
-                        new Industry { ID = 29, IndustryName = "Urban Infrastructure Group", IndustrySize = 350, WebsiteUrl = "https://www.urbaninfrastructure.com" },
-                        new Industry { ID = 30, IndustryName = "Horizon Aerospace Inc.", IndustrySize = 450, WebsiteUrl = "https://www.horizonaerospace.com" },
-                        new Industry { ID = 31, IndustryName = "Cobalt Mining Ventures", IndustrySize = 500, WebsiteUrl = "https://www.cobaltminingventures.com" },
-                        new Industry { ID = 32, IndustryName = "LakesIde Resorts and Hotels", IndustrySize = 200, WebsiteUrl = "https://www.lakesideresorts.com" },
-                        new Industry { ID = 33, IndustryName = "NextGen Media Productions", IndustrySize = 100, WebsiteUrl = "https://www.nextgenmediaproductions.com" },
-                        new Industry { ID = 34, IndustryName = "Crestwood Pharmaceutical", IndustrySize = 120, WebsiteUrl = "https://www.crestwoodpharmaceutical.com" },
-                        new Industry { ID = 35, IndustryName = "Dynamic Logistics Group", IndustrySize = 180, WebsiteUrl = "https://www.dynamiclogisticsgroup.com" },
-                        new Industry { ID = 36, IndustryName = "Northern Timber Products", IndustrySize = 160, WebsiteUrl = "https://www.northerntimberproducts.com" },
-                        new Industry { ID = 37, IndustryName = "Brightline Education Systems", IndustrySize = 50, WebsiteUrl = "https://www.brightlineeducationsystems.com" },
-                        new Industry { ID = 38, IndustryName = "Fusion Energy Solutions", IndustrySize = 300, WebsiteUrl = "https://www.fusionenergysolutions.com" },
-                        new Industry { ID = 39, IndustryName = "Trailblazer Automotive Group", IndustrySize = 450, WebsiteUrl = "https://www.trailblazerautomotive.com" },
-                        new Industry { ID = 40, IndustryName = "Harvest Foods International", IndustrySize = 400, WebsiteUrl = "https://www.harvestfoods.com" },
-                        new Industry { ID = 41, IndustryName = "Regal Entertainment Network", IndustrySize = 220, WebsiteUrl = "https://www.regalentertainmentnetwork.com" },
-                        new Industry { ID = 42, IndustryName = "EcoSmart Waste Management", IndustrySize = 270, WebsiteUrl = "https://www.ecosmartwastemanagement.com" },
-                        new Industry { ID = 43, IndustryName = "Summit Legal Services", IndustrySize = 130, WebsiteUrl = "https://www.summitlegalservices.com" },
-                        new Industry { ID = 44, IndustryName = "Zenith Apparel Ltd.", IndustrySize = 80, WebsiteUrl = "https://www.zenithapparel.com" },
-                        new Industry { ID = 45, IndustryName = "BlueWave Software Inc.", IndustrySize = 200, WebsiteUrl = "https://www.bluewavesoftware.com" }
-                    );
-                        context.SaveChanges();
-                    }
 
                     if (!context.MembershipTypes.Any())
                     {
@@ -197,915 +146,868 @@ namespace NIA_CRM.Data
                         );
                         context.SaveChanges();
                     }
+
                     if (!context.Members.Any())
                     {
                         context.Members.AddRange(
-                        new Member
-                        {
-                            ID = 1,
-                            MemberFirstName = "John",
-                            MemberMiddleName = null,
-                            MemberLastName = "Doe",
-                            JoinDate = new DateTime(2021, 6, 15),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>  // Correctly initialize Addresses as a collection
+                           new Member
+                           {
+                               ID = 1,
+                               MemberName = "John Doe",
+                               MemberSize = 10,
+                               JoinDate = new DateTime(2021, 1, 1),
+                               WebsiteUrl = "https://www.johndoe.com",
+                               Addresses = new List<Address>
+                               {
+                            new Address
                             {
-                                new Address
-                                {
-                                    AddressLine1 = "123 Elm St",
-                                    AddressLine2 = "Apt 4B",
-                                    City = "Metaltown",
-                                    StateProvince = "Metal State",
-                                    PostalCode = "M1E2L3",
-                                    Country = "USA"
-                                }
+                                AddressLine1 = "123 Main St",
+                                AddressLine2 = "Apt 1B",
+                                City = "New York",
+                                StateProvince = "NY",
+                                PostalCode = "10001",
+                                Country = "USA"
                             }
-                        },
-                        new Member
-                        {
-                            ID = 2,
-                            MemberFirstName = "Jane",
-                            MemberMiddleName = "Marie",
-                            MemberLastName = "Smith",
-                            JoinDate = new DateTime(2022, 1, 20),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>  // Initialize as a list
+                                               }
+                           },
+                                           new Member
+                                           {
+                                               ID = 2,
+                                               MemberName = "Jane Smith",
+                                               MemberSize = 5,
+                                               JoinDate = new DateTime(2020, 6, 15),
+                                               WebsiteUrl = "https://www.janesmith.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
                             {
-                                new Address
-                                {
-                                    AddressLine1 = "456 Oak Ave",
-                                    AddressLine2 = null,
-                                    City = "Ironville",
-                                    StateProvince = "Steel Province",
-                                    PostalCode = "I2R3O4",
-                                    Country = "Canada"
-                                }
+                                AddressLine1 = "456 Oak Ave",
+                                AddressLine2 = "Unit 2A",
+                                City = "Los Angeles",
+                                StateProvince = "CA",
+                                PostalCode = "90001",
+                                Country = "USA"
                             }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 3,
+                                               MemberName = "Emily Johnson",
+                                               MemberSize = 8,
+                                               JoinDate = new DateTime(2019, 4, 21),
+                                               WebsiteUrl = "https://www.emilyjohnson.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "789 Pine Rd",
+                                AddressLine2 = "Suite 3C",
+                                City = "Chicago",
+                                StateProvince = "IL",
+                                PostalCode = "60601",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 4,
+                                               MemberName = "Michael Brown",
+                                               MemberSize = 6,
+                                               JoinDate = new DateTime(2021, 7, 11),
+                                               WebsiteUrl = "https://www.michaelbrown.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "101 Maple St",
+                                AddressLine2 = "Apt 4D",
+                                City = "San Francisco",
+                                StateProvince = "CA",
+                                PostalCode = "94101",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 5,
+                                               MemberName = "Sarah Davis",
+                                               MemberSize = 4,
+                                               JoinDate = new DateTime(2020, 3, 25),
+                                               WebsiteUrl = "https://www.sarahdavis.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "555 Birch Blvd",
+                                AddressLine2 = "Unit 7B",
+                                City = "Houston",
+                                StateProvince = "TX",
+                                PostalCode = "77001",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 6,
+                                               MemberName = "David Martinez",
+                                               MemberSize = 12,
+                                               JoinDate = new DateTime(2022, 5, 19),
+                                               WebsiteUrl = "https://www.davidmartinez.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "888 Cedar St",
+                                AddressLine2 = "Apt 10E",
+                                City = "Austin",
+                                StateProvince = "TX",
+                                PostalCode = "73301",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 7,
+                                               MemberName = "Robert Wilson",
+                                               MemberSize = 15,
+                                               JoinDate = new DateTime(2018, 2, 7),
+                                               WebsiteUrl = "https://www.robertwilson.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "222 Elm St",
+                                AddressLine2 = "Suite 5A",
+                                City = "Dallas",
+                                StateProvince = "TX",
+                                PostalCode = "75201",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 8,
+                                               MemberName = "William Moore",
+                                               MemberSize = 3,
+                                               JoinDate = new DateTime(2020, 8, 30),
+                                               WebsiteUrl = "https://www.williammoore.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "333 Ash Ave",
+                                AddressLine2 = "Unit 2C",
+                                City = "Phoenix",
+                                StateProvince = "AZ",
+                                PostalCode = "85001",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 9,
+                                               MemberName = "Olivia Taylor",
+                                               MemberSize = 9,
+                                               JoinDate = new DateTime(2022, 10, 18),
+                                               WebsiteUrl = "https://www.oliviataylor.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "444 Birch Rd",
+                                AddressLine2 = "Suite 5B",
+                                City = "Seattle",
+                                StateProvince = "WA",
+                                PostalCode = "98101",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 10,
+                                               MemberName = "Sophia Anderson",
+                                               MemberSize = 7,
+                                               JoinDate = new DateTime(2019, 5, 21),
+                                               WebsiteUrl = "https://www.sophiaanderson.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "555 Oak Blvd",
+                                AddressLine2 = "Unit 1A",
+                                City = "Denver",
+                                StateProvince = "CO",
+                                PostalCode = "80201",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 11,
+                                               MemberName = "James Thomas",
+                                               MemberSize = 2,
+                                               JoinDate = new DateTime(2021, 12, 8),
+                                               WebsiteUrl = "https://www.jamesthomas.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "111 Maple Rd",
+                                AddressLine2 = "Apt 2C",
+                                City = "Chicago",
+                                StateProvince = "IL",
+                                PostalCode = "60607",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 12,
+                                               MemberName = "Daniel Lee",
+                                               MemberSize = 11,
+                                               JoinDate = new DateTime(2017, 11, 15),
+                                               WebsiteUrl = "https://www.daniellee.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "333 Pine Blvd",
+                                AddressLine2 = "Apt 1F",
+                                City = "San Francisco",
+                                StateProvince = "CA",
+                                PostalCode = "94105",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 13,
+                                               MemberName = "Lucas Harris",
+                                               MemberSize = 8,
+                                               JoinDate = new DateTime(2022, 9, 22),
+                                               WebsiteUrl = "https://www.lucasharris.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "777 Oak Rd",
+                                AddressLine2 = "Suite 5B",
+                                City = "Miami",
+                                StateProvince = "FL",
+                                PostalCode = "33101",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 14,
+                                               MemberName = "Ella Walker",
+                                               MemberSize = 6,
+                                               JoinDate = new DateTime(2022, 6, 30),
+                                               WebsiteUrl = "https://www.ellawalker.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "555 Birch St",
+                                AddressLine2 = "Unit 4A",
+                                City = "New York",
+                                StateProvince = "NY",
+                                PostalCode = "10002",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 15,
+                                               MemberName = "Liam Robinson",
+                                               MemberSize = 4,
+                                               JoinDate = new DateTime(2021, 3, 12),
+                                               WebsiteUrl = "https://www.liamrobinson.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "200 Maple Rd",
+                                AddressLine2 = "Unit 6D",
+                                City = "Boston",
+                                StateProvince = "MA",
+                                PostalCode = "02110",
+                                Country = "USA"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 16,
+                                               MemberName = "Ava Lewis",
+                                               MemberSize = 4,
+                                               JoinDate = new DateTime(2021, 11, 12),
+                                               WebsiteUrl = "https://www.avalewis.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "965 Elm St",
+                                AddressLine2 = "Apt 7A",
+                                City = "Quebec City",
+                                StateProvince = "Quebec",
+                                PostalCode = "G1K 4Y7",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 17,
+                                               MemberName = "Ethan Walker",
+                                               MemberSize = 3,
+                                               JoinDate = new DateTime(2020, 4, 28),
+                                               WebsiteUrl = "https://www.ethanwalker.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "124 Maple Blvd",
+                                AddressLine2 = "Unit 6",
+                                City = "Vancouver",
+                                StateProvince = "British Columbia",
+                                PostalCode = "V6J 3M2",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 18,
+                                               MemberName = "Mason King",
+                                               MemberSize = 6,
+                                               JoinDate = new DateTime(2021, 10, 4),
+                                               WebsiteUrl = "https://www.masonking.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "481 Cedar Ave",
+                                AddressLine2 = "Apt 12B",
+                                City = "Toronto",
+                                StateProvince = "Ontario",
+                                PostalCode = "M4E 5W1",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 19,
+                                               MemberName = "Lucas Green",
+                                               MemberSize = 4,
+                                               JoinDate = new DateTime(2022, 4, 18),
+                                               WebsiteUrl = "https://www.lucasgreen.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "187 Birch Rd",
+                                AddressLine2 = "Suite 4",
+                                City = "Ottawa",
+                                StateProvince = "Ontario",
+                                PostalCode = "K2P 1P1",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 20,
+                                               MemberName = "Charlotte Hall",
+                                               MemberSize = 9,
+                                               JoinDate = new DateTime(2021, 7, 14),
+                                               WebsiteUrl = "https://www.charlottehall.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "922 Cedar St",
+                                AddressLine2 = "Unit 5A",
+                                City = "Calgary",
+                                StateProvince = "Alberta",
+                                PostalCode = "T2N 1X5",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 21,
+                                               MemberName = "Benjamin Harris",
+                                               MemberSize = 7,
+                                               JoinDate = new DateTime(2021, 8, 30),
+                                               WebsiteUrl = "https://www.benjaminharris.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "643 Cedar Blvd",
+                                AddressLine2 = "Apt 9D",
+                                City = "Montreal",
+                                StateProvince = "Quebec",
+                                PostalCode = "H2Y 1G3",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 22,
+                                               MemberName = "Aiden Clark",
+                                               MemberSize = 2,
+                                               JoinDate = new DateTime(2022, 9, 7),
+                                               WebsiteUrl = "https://www.aidenclark.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "876 Maple Rd",
+                                AddressLine2 = "Unit 1B",
+                                City = "Ottawa",
+                                StateProvince = "Ontario",
+                                PostalCode = "K1A 0B1",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 23,
+                                               MemberName = "Ella Moore",
+                                               MemberSize = 3,
+                                               JoinDate = new DateTime(2020, 12, 15),
+                                               WebsiteUrl = "https://www.ellamoore.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "134 Pine St",
+                                AddressLine2 = "Apt 6A",
+                                City = "Toronto",
+                                StateProvince = "Ontario",
+                                PostalCode = "M5A 3J2",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 24,
+                                               MemberName = "Jacob White",
+                                               MemberSize = 5,
+                                               JoinDate = new DateTime(2021, 5, 21),
+                                               WebsiteUrl = "https://www.jacobwhite.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "789 Oak St",
+                                AddressLine2 = "Suite 4B",
+                                City = "Ottawa",
+                                StateProvince = "Ontario",
+                                PostalCode = "K2P 7J9",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 25,
+                                               MemberName = "Abigail Nelson",
+                                               MemberSize = 8,
+                                               JoinDate = new DateTime(2020, 10, 18),
+                                               WebsiteUrl = "https://www.abigailnelson.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "233 Cedar St",
+                                AddressLine2 = "Unit 7C",
+                                City = "Vancouver",
+                                StateProvince = "British Columbia",
+                                PostalCode = "V6Z 3A7",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 26,
+                                               MemberName = "Mason Lee",
+                                               MemberSize = 6,
+                                               JoinDate = new DateTime(2021, 7, 14),
+                                               WebsiteUrl = "https://www.masonlee.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "111 Birch Blvd",
+                                AddressLine2 = "Apt 4D",
+                                City = "Calgary",
+                                StateProvince = "Alberta",
+                                PostalCode = "T2P 5B8",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 27,
+                                               MemberName = "Chloe Scott",
+                                               MemberSize = 9,
+                                               JoinDate = new DateTime(2022, 1, 22),
+                                               WebsiteUrl = "https://www.chloescott.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "533 Cedar Rd",
+                                AddressLine2 = "Unit 2B",
+                                City = "Toronto",
+                                StateProvince = "Ontario",
+                                PostalCode = "M5G 3B9",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 28,
+                                               MemberName = "Daniel Harris",
+                                               MemberSize = 7,
+                                               JoinDate = new DateTime(2022, 7, 11),
+                                               WebsiteUrl = "https://www.danielharris.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "987 Maple St",
+                                AddressLine2 = "Apt 3A",
+                                City = "Ottawa",
+                                StateProvince = "Ontario",
+                                PostalCode = "K1R 4T2",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 29,
+                                               MemberName = "Ava Carter",
+                                               MemberSize = 4,
+                                               JoinDate = new DateTime(2021, 9, 3),
+                                               WebsiteUrl = "https://www.avacarter.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "444 Oak Blvd",
+                                AddressLine2 = "Suite 8B",
+                                City = "Vancouver",
+                                StateProvince = "British Columbia",
+                                PostalCode = "V5Y 2B6",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 30,
+                                               MemberName = "Landon Walker",
+                                               MemberSize = 5,
+                                               JoinDate = new DateTime(2022, 8, 18),
+                                               WebsiteUrl = "https://www.landonwalker.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "872 Cedar Rd",
+                                AddressLine2 = "Apt 9C",
+                                City = "Ottawa",
+                                StateProvince = "Ontario",
+                                PostalCode = "K2K 5B9",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 31,
+                                               MemberName = "Amelia Harris",
+                                               MemberSize = 6,
+                                               JoinDate = new DateTime(2022, 6, 13),
+                                               WebsiteUrl = "https://www.ameliaharris.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "1234 Oak Blvd",
+                                AddressLine2 = "Apt 2C",
+                                City = "Montreal",
+                                StateProvince = "Quebec",
+                                PostalCode = "H2X 1N8",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 32,
+                                               MemberName = "Oliver Lee",
+                                               MemberSize = 9,
+                                               JoinDate = new DateTime(2022, 7, 6),
+                                               WebsiteUrl = "https://www.oliverlee.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "990 Pine Rd",
+                                AddressLine2 = "Unit 7",
+                                City = "Calgary",
+                                StateProvince = "Alberta",
+                                PostalCode = "T2P 7N3",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 33,
+                                               MemberName = "Harper Scott",
+                                               MemberSize = 4,
+                                               JoinDate = new DateTime(2021, 5, 10),
+                                               WebsiteUrl = "https://www.harperscott.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "522 Cedar Rd",
+                                AddressLine2 = "Suite 6A",
+                                City = "Hamilton",
+                                StateProvince = "Ontario",
+                                PostalCode = "L8N 1A3",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 34,
+                                               MemberName = "Sophie Adams",
+                                               MemberSize = 7,
+                                               JoinDate = new DateTime(2022, 1, 24),
+                                               WebsiteUrl = "https://www.sophieadams.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "690 Birch St",
+                                AddressLine2 = "Unit 3A",
+                                City = "Toronto",
+                                StateProvince = "Ontario",
+                                PostalCode = "M4G 2B3",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 35,
+                                               MemberName = "Isaac Morgan",
+                                               MemberSize = 2,
+                                               JoinDate = new DateTime(2021, 4, 9),
+                                               WebsiteUrl = "https://www.isaacmorgan.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "123 Birch Rd",
+                                AddressLine2 = "Apt 7C",
+                                City = "Ottawa",
+                                StateProvince = "Ontario",
+                                PostalCode = "K1Y 2X5",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 36,
+                                               MemberName = "Mia Thompson",
+                                               MemberSize = 8,
+                                               JoinDate = new DateTime(2022, 4, 19),
+                                               WebsiteUrl = "https://www.miathompson.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "987 Birch Rd",
+                                AddressLine2 = "Unit 4A",
+                                City = "Vancouver",
+                                StateProvince = "British Columbia",
+                                PostalCode = "V6B 3E9",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 37,
+                                               MemberName = "Ethan Johnson",
+                                               MemberSize = 5,
+                                               JoinDate = new DateTime(2022, 10, 10),
+                                               WebsiteUrl = "https://www.ethanjohnson.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "456 Oak Rd",
+                                AddressLine2 = "Suite 2B",
+                                City = "Ottawa",
+                                StateProvince = "Ontario",
+                                PostalCode = "K2P 1V8",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 38,
+                                               MemberName = "Grace Miller",
+                                               MemberSize = 4,
+                                               JoinDate = new DateTime(2022, 5, 15),
+                                               WebsiteUrl = "https://www.gracemiller.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "890 Cedar Blvd",
+                                AddressLine2 = "Suite 2B",
+                                City = "Montreal",
+                                StateProvince = "Quebec",
+                                PostalCode = "H3B 2G4",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 39,
+                                               MemberName = "Lily Turner",
+                                               MemberSize = 3,
+                                               JoinDate = new DateTime(2022, 8, 22),
+                                               WebsiteUrl = "https://www.lilyturner.com",
+                                               Addresses = new List<Address>
+                                               {
+                            new Address
+                            {
+                                AddressLine1 = "800 Maple Blvd",
+                                AddressLine2 = "Unit 5A",
+                                City = "Vancouver",
+                                StateProvince = "British Columbia",
+                                PostalCode = "V6B 1N4",
+                                Country = "Canada"
+                            }
+                                               }
+                                           },
+                                           new Member
+                                           {
+                                               ID = 40,
+                                               MemberName = "Liam Walker",
+                                               MemberSize = 6,
+                                               JoinDate = new DateTime(2021, 3, 18),
+                                               WebsiteUrl = "https://www.liamwalker.com",
+                                               Addresses = new List<Address>
+                                               {
+                                                new Address
+                                                {
+                                                    AddressLine1 = "354 Cedar St",
+                                                    AddressLine2 = "Apt 6D",
+                                                    City = "Calgary",
+                                                    StateProvince = "Alberta",
+                                                    PostalCode = "T2V 1Z6",
+                                                    Country = "Canada"
+                                                }
+                                                }
 
+                                           }
+                                           );
 
-                        },
-                        new Member
-                        {
-                            ID = 3,
-                            MemberFirstName = "Robert",
-                            MemberMiddleName = "Joe",
-                            MemberLastName = "Johnson",
-                            JoinDate = new DateTime(2023, 3, 12),
-                            StandingStatus = StandingStatus.Cancelled,
-                            Addresses = new List<Address>  // Initialize as a list
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "789 Pine Rd",
-                                    AddressLine2 = "Suite 302",
-                                    City = "Steelton",
-                                    StateProvince = "Metal Zone",
-                                    PostalCode = "S3T4E5",
-                                    Country = "UK"
-                                }
-                            }
-
-                        },
-                        new Member
-                        {
-                            ID = 4,
-                            MemberFirstName = "Emily",
-                            MemberMiddleName = "Sharma",
-                            MemberLastName = "Davis",
-                            JoinDate = new DateTime(2022, 8, 8),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>  // Initialize as a list
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "789 Pine Rd",  // Corrected property name as per your requirement
-                                    AddressLine2 = "Suite 302",   // Corrected property name as per your requirement
-                                    City = "Steelton",
-                                    StateProvince = "Metal Zone",
-                                    PostalCode = "S3T4E5",
-                                    Country = "UK"
-                                }
-                            }
-
-                        },
-                        new Member
-                        {
-                            ID = 5,
-                            MemberFirstName = "Michael",
-                            MemberMiddleName = null,
-                            MemberLastName = "Brown",
-                            JoinDate = new DateTime(2020, 5, 10),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>  // Initialize as a list
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "201 Maple Street",  // Correct property name
-                                    AddressLine2 = "Unit 101",          // Correct property name
-                                    City = "Copperville",
-                                    StateProvince = "Metalland",
-                                    PostalCode = "C2P1E1",
-                                    Country = "USA"
-                                }
-                            }
-
-                        },
-                        new Member
-                        {
-                            ID = 6,
-                            MemberFirstName = "Sarah",
-                            MemberMiddleName = "Singh",
-                            MemberLastName = "Johnson",
-                            JoinDate = new DateTime(2021, 9, 15),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>  // Initialize as a list
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "543 Cedar Lane",  // Correct property name
-                                    AddressLine2 = null,              // Correct property name
-                                    City = "Ironcrest",
-                                    StateProvince = "Steelstate",
-                                    PostalCode = "I3N4O5",
-                                    Country = "Canada"
-                                }
-                            }
-
-                        },
-                        new Member
-                        {
-                            ID = 7,
-                            MemberFirstName = "William",
-                            MemberMiddleName = "Pat",
-                            MemberLastName = "Taylor",
-                            JoinDate = new DateTime(2019, 4, 20),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>  // Initialize as a list
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "15 Granite Road",  // Correct property name
-                                    AddressLine2 = "Suite 205",       // Correct property name
-                                    City = "Minerstown",
-                                    StateProvince = "Ore County",
-                                    PostalCode = "G1R2A8",
-                                    Country = "UK"
-                                }
-                            }
-
-                        },
-                        new Member
-                        {
-                            ID = 8,
-                            MemberFirstName = "Jessica",
-                            MemberMiddleName = "Divyansh",
-                            MemberLastName = "Martinez",
-                            JoinDate = new DateTime(2023, 1, 1),
-                            StandingStatus = StandingStatus.Cancelled,
-                            Addresses = new List<Address>  // Initialize as a list
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "876 Redwood Drive",  // Correct property name
-                                    AddressLine2 = null,                 // Correct property name
-                                    City = "Steelville",
-                                    StateProvince = "Forge State",
-                                    PostalCode = "R4D6W2",
-                                    Country = "USA"
-                                }
-                            }
-
-                        },
-                        new Member
-                        {
-                            ID = 9,
-                            MemberFirstName = "James",
-                            MemberMiddleName = "Hosi",
-                            MemberLastName = "Lee",
-                            JoinDate = new DateTime(2022, 6, 30),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>  // Initialize as a list
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "654 Willow Avenue",  // Correct property name
-                                    AddressLine2 = "Floor 3",            // Correct property name
-                                    City = "Ironworks",
-                                    StateProvince = "Steel Kingdom",
-                                    PostalCode = "W2L5A7",
-                                    Country = "Australia"
-                                }
-                            }
-
-                        },
-                        new Member
-                        {
-                            ID = 10,
-                            MemberFirstName = "Olivia",
-                            MemberMiddleName = null,
-                            MemberLastName = "Rody",
-                            JoinDate = new DateTime(2020, 2, 25),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>  // Initialize as a list
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "99 Ash Boulevard",
-                                    AddressLine2 = "Building A",
-                                    City = "Metaltown",
-                                    StateProvince = "Steel Nation",
-                                    PostalCode = "A9H4L2",
-                                    Country = "Canada"
-                                }
-                            }
-
-                        },
-                        new Member
-                        {
-                            ID = 11,
-                            MemberFirstName = "Liam",
-                            MemberMiddleName = null,
-                            MemberLastName = "Smith",
-                            JoinDate = new DateTime(2021, 3, 17),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "12 Maple Street",
-                                    AddressLine2 = "Suite 101",
-                                    City = "Oakwood",
-                                    StateProvince = "Green Valley",
-                                    PostalCode = "G7F8M3",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 12,
-                            MemberFirstName = "Emma",
-                            MemberMiddleName = "Grace",
-                            MemberLastName = "Johnson",
-                            JoinDate = new DateTime(2022, 1, 5),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "45 Pine Road",
-                                    AddressLine2 = "Apt 12B",
-                                    City = "Springfield",
-                                    StateProvince = "Illinois",
-                                    PostalCode = "62704",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 13,
-                            MemberFirstName = "Ava",
-                            MemberMiddleName = "Marie",
-                            MemberLastName = "Williams",
-                            JoinDate = new DateTime(2019, 8, 22),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "99 Oak Drive",
-                                    AddressLine2 = "Floor 3",
-                                    City = "Rivertown",
-                                    StateProvince = "Ocean State",
-                                    PostalCode = "O4R2T1",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 14,
-                            MemberFirstName = "Noah",
-                            MemberMiddleName = "Alexander",
-                            MemberLastName = "Brown",
-                            JoinDate = new DateTime(2020, 6, 10),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "120 Birch Lane",
-                                    AddressLine2 = "Unit 205",
-                                    City = "Hillcrest",
-                                    StateProvince = "Mountain Region",
-                                    PostalCode = "M2N1K7",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 15,
-                            MemberFirstName = "Sophia",
-                            MemberMiddleName = null,
-                            MemberLastName = "Davis",
-                            JoinDate = new DateTime(2021, 4, 30),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "58 Cedar Street",
-                                    AddressLine2 = "Building 4",
-                                    City = "Brookside",
-                                    StateProvince = "Blue Ridge",
-                                    PostalCode = "B1A3N8",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 16,
-                            MemberFirstName = "James",
-                            MemberMiddleName = "Edward",
-                            MemberLastName = "Martinez",
-                            JoinDate = new DateTime(2018, 9, 15),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "111 Cherry Avenue",
-                                    AddressLine2 = "Suite 500",
-                                    City = "Silverbrook",
-                                    StateProvince = "Sunshine State",
-                                    PostalCode = "S2F9H1",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 17,
-                            MemberFirstName = "Isabella",
-                            MemberMiddleName = "Rose",
-                            MemberLastName = "Taylor",
-                            JoinDate = new DateTime(2021, 11, 9),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "78 Elm Street",
-                                    AddressLine2 = "Floor 2",
-                                    City = "Brighton",
-                                    StateProvince = "New Horizons",
-                                    PostalCode = "N5W2B4",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 18,
-                            MemberFirstName = "Mason",
-                            MemberMiddleName = "Joshua",
-                            MemberLastName = "Anderson",
-                            JoinDate = new DateTime(2022, 7, 21),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "21 Fir Street",
-                                    AddressLine2 = "Unit 50",
-                                    City = "New Haven",
-                                    StateProvince = "Mystic Valley",
-                                    PostalCode = "M3H8G2",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 19,
-                            MemberFirstName = "Amelia",
-                            MemberMiddleName = "Lynn",
-                            MemberLastName = "Clark",
-                            JoinDate = new DateTime(2021, 12, 18),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "36 Redwood Crescent",
-                                    AddressLine2 = "Apartment 3",
-                                    City = "Clearwater",
-                                    StateProvince = "River Valley",
-                                    PostalCode = "C8D2T5",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 20,
-                            MemberFirstName = "Ethan",
-                            MemberMiddleName = "Michael",
-                            MemberLastName = "Garcia",
-                            JoinDate = new DateTime(2020, 12, 14),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "64 Aspen Road",
-                                    AddressLine2 = "Unit 207",
-                                    City = "Forest Grove",
-                                    StateProvince = "Woodland Hills",
-                                    PostalCode = "W5T6D2",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 21,
-                            MemberFirstName = "Charlotte",
-                            MemberMiddleName = "Anne",
-                            MemberLastName = "Hernandez",
-                            JoinDate = new DateTime(2023, 2, 1),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "77 Riverbend Street",
-                                    AddressLine2 = "Suite 9",
-                                    City = "Silver Valley",
-                                    StateProvince = "Sunset Coast",
-                                    PostalCode = "S8K9J4",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 22,
-                            MemberFirstName = "Benjamin",
-                            MemberMiddleName = "David",
-                            MemberLastName = "Moore",
-                            JoinDate = new DateTime(2019, 5, 3),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "90 Willow Drive",
-                                    AddressLine2 = "Floor 1",
-                                    City = "Lakeside",
-                                    StateProvince = "Silverwood",
-                                    PostalCode = "L6C7S9",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 23,
-                            MemberFirstName = "Ella",
-                            MemberMiddleName = "Sophia",
-                            MemberLastName = "Scott",
-                            JoinDate = new DateTime(2020, 11, 19),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "102 Maple Lane",
-                                    AddressLine2 = "Apt 1003",
-                                    City = "Hill Valley",
-                                    StateProvince = "Autumn Ridge",
-                                    PostalCode = "A7X5Z2",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 24,
-                            MemberFirstName = "Jack",
-                            MemberMiddleName = null,
-                            MemberLastName = "King",
-                            JoinDate = new DateTime(2021, 8, 23),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "33 Ocean Breeze",
-                                    AddressLine2 = "Unit 3",
-                                    City = "Sunny Bay",
-                                    StateProvince = "Tropical State",
-                                    PostalCode = "T5Q1E2",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 25,
-                            MemberFirstName = "Zoe",
-                            MemberMiddleName = "Grace",
-                            MemberLastName = "Lee",
-                            JoinDate = new DateTime(2022, 9, 8),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "134 Rosewood Road",
-                                    AddressLine2 = "Suite 101",
-                                    City = "Lakeshore",
-                                    StateProvince = "Northern Territory",
-                                    PostalCode = "L8V2S3",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 26,
-                            MemberFirstName = "Lucas",
-                            MemberMiddleName = "Nathaniel",
-                            MemberLastName = "Perez",
-                            JoinDate = new DateTime(2021, 10, 5),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "56 Sunset Boulevard",
-                                    AddressLine2 = "Building 2",
-                                    City = "Greenridge",
-                                    StateProvince = "Hill Valley",
-                                    PostalCode = "G9T2R5",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 27,
-                            MemberFirstName = "Mia",
-                            MemberMiddleName = "Isabel",
-                            MemberLastName = "Gonzalez",
-                            JoinDate = new DateTime(2022, 2, 28),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "22 Brook Street",
-                                    AddressLine2 = "Floor 5",
-                                    City = "Sunrise City",
-                                    StateProvince = "East Valley",
-                                    PostalCode = "B3F6M2",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 28,
-                            MemberFirstName = "Henry",
-                            MemberMiddleName = "Charles",
-                            MemberLastName = "Martinez",
-                            JoinDate = new DateTime(2018, 11, 1),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "72 Birchwood Drive",
-                                    AddressLine2 = "Apt 9B",
-                                    City = "Riverwood",
-                                    StateProvince = "Greenwood",
-                                    PostalCode = "G1H8K3",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 29,
-                            MemberFirstName = "Grace",
-                            MemberMiddleName = "Lily",
-                            MemberLastName = "Nguyen",
-                            JoinDate = new DateTime(2022, 4, 19),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "23 Forest Avenue",
-                                    AddressLine2 = "Unit 12",
-                                    City = "Autumn Park",
-                                    StateProvince = "Misty Hills",
-                                    PostalCode = "F9D8P6",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 30,
-                            MemberFirstName = "Daniel",
-                            MemberMiddleName = "Jesse",
-                            MemberLastName = "Harris",
-                            JoinDate = new DateTime(2023, 1, 7),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "123 Oakwood Drive",
-                                    AddressLine2 = "Apt 406",
-                                    City = "Maple Town",
-                                    StateProvince = "Riverdale",
-                                    PostalCode = "M1H2N4",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 31,
-                            MemberFirstName = "Sophie",
-                            MemberMiddleName = "Claire",
-                            MemberLastName = "Jackson",
-                            JoinDate = new DateTime(2021, 5, 30),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "10 Willow Street",
-                                    AddressLine2 = "Suite 10",
-                                    City = "Starwood",
-                                    StateProvince = "Golden Hills",
-                                    PostalCode = "S1A7Q5",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 32,
-                            MemberFirstName = "David",
-                            MemberMiddleName = "Victor",
-                            MemberLastName = "Roberts",
-                            JoinDate = new DateTime(2019, 7, 23),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "58 Chestnut Lane",
-                                    AddressLine2 = "Unit 4",
-                                    City = "Pinehill",
-                                    StateProvince = "Silverwood",
-                                    PostalCode = "P7A6V9",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 33,
-                            MemberFirstName = "Lily",
-                            MemberMiddleName = null,
-                            MemberLastName = "Adams",
-                            JoinDate = new DateTime(2023, 5, 14),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "45 Sunset Way",
-                                    AddressLine2 = "Building 6",
-                                    City = "Crystal Falls",
-                                    StateProvince = "Mountain Ridge",
-                                    PostalCode = "C5H1N2",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 34,
-                            MemberFirstName = "Jack",
-                            MemberMiddleName = "Elliott",
-                            MemberLastName = "Sanchez",
-                            JoinDate = new DateTime(2021, 3, 12),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "89 Mountain Avenue",
-                                    AddressLine2 = "Suite 301",
-                                    City = "Rockport",
-                                    StateProvince = "Redwood Hills",
-                                    PostalCode = "R7P8X3",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 35,
-                            MemberFirstName = "Natalie",
-                            MemberMiddleName = null,
-                            MemberLastName = "Mitchell",
-                            JoinDate = new DateTime(2022, 6, 20),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "65 Pine Hill",
-                                    AddressLine2 = "Apt 203",
-                                    City = "Mapleton",
-                                    StateProvince = "Sunny Fields",
-                                    PostalCode = "M3L8W9",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 36,
-                            MemberFirstName = "Ella",
-                            MemberMiddleName = "Mae",
-                            MemberLastName = "Kim",
-                            JoinDate = new DateTime(2021, 6, 17),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "53 Bluebell Road",
-                                    AddressLine2 = "Floor 4",
-                                    City = "Riverside",
-                                    StateProvince = "Green Hills",
-                                    PostalCode = "B2F6T4",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 37,
-                            MemberFirstName = "David",
-                            MemberMiddleName = null,
-                            MemberLastName = "Baker",
-                            JoinDate = new DateTime(2019, 12, 5),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "31 Maple Terrace",
-                                    AddressLine2 = "Unit 203",
-                                    City = "Riverfield",
-                                    StateProvince = "North Hills",
-                                    PostalCode = "N8Y5D7",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 38,
-                            MemberFirstName = "Charlotte",
-                            MemberMiddleName = "Daisy",
-                            MemberLastName = "Foster",
-                            JoinDate = new DateTime(2020, 7, 1),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "77 Birchwood Crescent",
-                                    AddressLine2 = "Apt 306",
-                                    City = "Lakeview",
-                                    StateProvince = "Horizon Bay",
-                                    PostalCode = "L3D4S8",
-                                    Country = "USA"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 39,
-                            MemberFirstName = "Michael",
-                            MemberMiddleName = "Harrison",
-                            MemberLastName = "Evans",
-                            JoinDate = new DateTime(2022, 3, 29),
-                            StandingStatus = StandingStatus.Good,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "16 Redberry Lane",
-                                    AddressLine2 = "Unit 4",
-                                    City = "Silver Ridge",
-                                    StateProvince = "Western Province",
-                                    PostalCode = "S4G5A2",
-                                    Country = "Canada"
-                                }
-                            }
-                        },
-                        new Member
-                        {
-                            ID = 40,
-                            MemberFirstName = "Elena",
-                            MemberMiddleName = "Paige",
-                            MemberLastName = "Graham",
-                            JoinDate = new DateTime(2021, 9, 25),
-                            StandingStatus = StandingStatus.Inactive,
-                            Addresses = new List<Address>
-                            {
-                                new Address
-                                {
-                                    AddressLine1 = "19 Golden Court",
-                                    AddressLine2 = "Suite 601",
-                                    City = "Mountain Creek",
-                                    StateProvince = "Silverstone",
-                                    PostalCode = "G3J2B1",
-                                    Country = "USA"
-                                }
-                            }
-                        }
-
-                        );
-                        context.SaveChanges();
-                    }
-                    if (!context.MemberIndustries.Any())
-                    {
-                        context.MemberIndustries.AddRange(
-                            new MemberIndustry { MemberId = 1, IndustryId = 1 },
-                            new MemberIndustry { MemberId = 2, IndustryId = 2 },
-                            new MemberIndustry { MemberId = 3, IndustryId = 3 },
-                            new MemberIndustry { MemberId = 4, IndustryId = 4 },
-                            new MemberIndustry { MemberId = 5, IndustryId = 5 },
-                            new MemberIndustry { MemberId = 6, IndustryId = 6 },
-                            new MemberIndustry { MemberId = 7, IndustryId = 7 },
-                            new MemberIndustry { MemberId = 8, IndustryId = 8 },
-                            new MemberIndustry { MemberId = 9, IndustryId = 9 },
-                            new MemberIndustry { MemberId = 10, IndustryId = 10 },
-                            new MemberIndustry { MemberId = 10, IndustryId = 41 },
-                            new MemberIndustry { MemberId = 11, IndustryId = 11 },
-                            new MemberIndustry { MemberId = 12, IndustryId = 12 },
-                            new MemberIndustry { MemberId = 13, IndustryId = 13 },
-                            new MemberIndustry { MemberId = 14, IndustryId = 14 },
-                            new MemberIndustry { MemberId = 15, IndustryId = 15 },
-                            new MemberIndustry { MemberId = 15, IndustryId = 42 },
-                            new MemberIndustry { MemberId = 16, IndustryId = 16 },
-                            new MemberIndustry { MemberId = 17, IndustryId = 17 },
-                            new MemberIndustry { MemberId = 18, IndustryId = 18 },
-                            new MemberIndustry { MemberId = 19, IndustryId = 19 },
-                            new MemberIndustry { MemberId = 20, IndustryId = 20 },
-                            new MemberIndustry { MemberId = 21, IndustryId = 21 },
-                            new MemberIndustry { MemberId = 22, IndustryId = 22 },
-                            new MemberIndustry { MemberId = 23, IndustryId = 23 },
-                            new MemberIndustry { MemberId = 24, IndustryId = 24 },
-                            new MemberIndustry { MemberId = 25, IndustryId = 25 },
-                            new MemberIndustry { MemberId = 25, IndustryId = 43 },
-                            new MemberIndustry { MemberId = 26, IndustryId = 26 },
-                            new MemberIndustry { MemberId = 27, IndustryId = 27 },
-                            new MemberIndustry { MemberId = 28, IndustryId = 28 },
-                            new MemberIndustry { MemberId = 29, IndustryId = 29 },
-                            new MemberIndustry { MemberId = 30, IndustryId = 30 },
-                            new MemberIndustry { MemberId = 31, IndustryId = 31 },
-                            new MemberIndustry { MemberId = 32, IndustryId = 32 },
-                            new MemberIndustry { MemberId = 32, IndustryId = 44 },
-                            new MemberIndustry { MemberId = 33, IndustryId = 33 },
-                            new MemberIndustry { MemberId = 34, IndustryId = 34 },
-                            new MemberIndustry { MemberId = 35, IndustryId = 35 },
-                            new MemberIndustry { MemberId = 36, IndustryId = 36 },
-                            new MemberIndustry { MemberId = 37, IndustryId = 37 },
-                            new MemberIndustry { MemberId = 38, IndustryId = 38 },
-                            new MemberIndustry { MemberId = 39, IndustryId = 39 },
-                            new MemberIndustry { MemberId = 40, IndustryId = 40 },
-                            new MemberIndustry { MemberId = 40, IndustryId = 45 }
-                            );
 
                         context.SaveChanges();
                     }
+                    //if (!context.MemberIndustries.Any())
+                    //{
+                    //    context.MemberIndustries.AddRange(
+                    //        new MemberIndustry { MemberId = 1, IndustryId = 1 },
+                    //        new MemberIndustry { MemberId = 2, IndustryId = 2 },
+                    //        new MemberIndustry { MemberId = 3, IndustryId = 3 },
+                    //        new MemberIndustry { MemberId = 4, IndustryId = 4 },
+                    //        new MemberIndustry { MemberId = 5, IndustryId = 5 },
+                    //        new MemberIndustry { MemberId = 6, IndustryId = 6 },
+                    //        new MemberIndustry { MemberId = 7, IndustryId = 7 },
+                    //        new MemberIndustry { MemberId = 8, IndustryId = 8 },
+                    //        new MemberIndustry { MemberId = 9, IndustryId = 9 },
+                    //        new MemberIndustry { MemberId = 10, IndustryId = 10 },
+                    //        new MemberIndustry { MemberId = 10, IndustryId = 41 },
+                    //        new MemberIndustry { MemberId = 11, IndustryId = 11 },
+                    //        new MemberIndustry { MemberId = 12, IndustryId = 12 },
+                    //        new MemberIndustry { MemberId = 13, IndustryId = 13 },
+                    //        new MemberIndustry { MemberId = 14, IndustryId = 14 },
+                    //        new MemberIndustry { MemberId = 15, IndustryId = 15 },
+                    //        new MemberIndustry { MemberId = 15, IndustryId = 42 },
+                    //        new MemberIndustry { MemberId = 16, IndustryId = 16 },
+                    //        new MemberIndustry { MemberId = 17, IndustryId = 17 },
+                    //        new MemberIndustry { MemberId = 18, IndustryId = 18 },
+                    //        new MemberIndustry { MemberId = 19, IndustryId = 19 },
+                    //        new MemberIndustry { MemberId = 20, IndustryId = 20 },
+                    //        new MemberIndustry { MemberId = 21, IndustryId = 21 },
+                    //        new MemberIndustry { MemberId = 22, IndustryId = 22 },
+                    //        new MemberIndustry { MemberId = 23, IndustryId = 23 },
+                    //        new MemberIndustry { MemberId = 24, IndustryId = 24 },
+                    //        new MemberIndustry { MemberId = 25, IndustryId = 25 },
+                    //        new MemberIndustry { MemberId = 25, IndustryId = 43 },
+                    //        new MemberIndustry { MemberId = 26, IndustryId = 26 },
+                    //        new MemberIndustry { MemberId = 27, IndustryId = 27 },
+                    //        new MemberIndustry { MemberId = 28, IndustryId = 28 },
+                    //        new MemberIndustry { MemberId = 29, IndustryId = 29 },
+                    //        new MemberIndustry { MemberId = 30, IndustryId = 30 },
+                    //        new MemberIndustry { MemberId = 31, IndustryId = 31 },
+                    //        new MemberIndustry { MemberId = 32, IndustryId = 32 },
+                    //        new MemberIndustry { MemberId = 32, IndustryId = 44 },
+                    //        new MemberIndustry { MemberId = 33, IndustryId = 33 },
+                    //        new MemberIndustry { MemberId = 34, IndustryId = 34 },
+                    //        new MemberIndustry { MemberId = 35, IndustryId = 35 },
+                    //        new MemberIndustry { MemberId = 36, IndustryId = 36 },
+                    //        new MemberIndustry { MemberId = 37, IndustryId = 37 },
+                    //        new MemberIndustry { MemberId = 38, IndustryId = 38 },
+                    //        new MemberIndustry { MemberId = 39, IndustryId = 39 },
+                    //        new MemberIndustry { MemberId = 40, IndustryId = 40 },
+                    //        new MemberIndustry { MemberId = 40, IndustryId = 45 }
+                    //        );
+
+                    //    context.SaveChanges();
+                    //}
                     if (!context.MemberMembershipTypes.Any())
                     {
                         context.MemberMembershipTypes.AddRange(
@@ -1845,53 +1747,6 @@ namespace NIA_CRM.Data
                         context.SaveChanges();
                     }
 
-                    if (!context.ContactIndustries.Any())
-                    {
-                        context.ContactIndustries.AddRange(
-                         new ContactIndustry { Id = 1, ContactId = 1, IndustryId = 1 },
-                         new ContactIndustry { Id = 2, ContactId = 2, IndustryId = 2 },
-                         new ContactIndustry { Id = 3, ContactId = 1, IndustryId = 3 },
-                         new ContactIndustry { Id = 4, ContactId = 3, IndustryId = 1 },
-                         new ContactIndustry { Id = 5, ContactId = 4, IndustryId = 2 },
-                         new ContactIndustry { Id = 6, ContactId = 2, IndustryId = 3 },
-                         new ContactIndustry { Id = 7, ContactId = 3, IndustryId = 4 },
-                         new ContactIndustry { Id = 8, ContactId = 4, IndustryId = 5 },
-                         new ContactIndustry { Id = 9, ContactId = 5, IndustryId = 1 },
-                         new ContactIndustry { Id = 10, ContactId = 6, IndustryId = 2 },
-                         new ContactIndustry { Id = 11, ContactId = 7, IndustryId = 3 },
-                         new ContactIndustry { Id = 12, ContactId = 8, IndustryId = 4 },
-                         new ContactIndustry { Id = 13, ContactId = 9, IndustryId = 5 },
-                         new ContactIndustry { Id = 14, ContactId = 10, IndustryId = 1 },
-                         new ContactIndustry { Id = 15, ContactId = 11, IndustryId = 2 },
-                         new ContactIndustry { Id = 16, ContactId = 12, IndustryId = 3 },
-                         new ContactIndustry { Id = 17, ContactId = 13, IndustryId = 4 },
-                         new ContactIndustry { Id = 18, ContactId = 14, IndustryId = 5 },
-                         new ContactIndustry { Id = 19, ContactId = 15, IndustryId = 1 },
-                         new ContactIndustry { Id = 20, ContactId = 16, IndustryId = 2 },
-                         new ContactIndustry { Id = 21, ContactId = 17, IndustryId = 3 },
-                         new ContactIndustry { Id = 22, ContactId = 18, IndustryId = 4 },
-                         new ContactIndustry { Id = 23, ContactId = 19, IndustryId = 5 },
-                         new ContactIndustry { Id = 24, ContactId = 20, IndustryId = 1 },
-                         new ContactIndustry { Id = 25, ContactId = 21, IndustryId = 2 },
-                         new ContactIndustry { Id = 26, ContactId = 22, IndustryId = 3 },
-                         new ContactIndustry { Id = 27, ContactId = 23, IndustryId = 4 },
-                         new ContactIndustry { Id = 28, ContactId = 24, IndustryId = 5 },
-                         new ContactIndustry { Id = 29, ContactId = 25, IndustryId = 1 },
-                         new ContactIndustry { Id = 30, ContactId = 26, IndustryId = 2 },
-                         new ContactIndustry { Id = 31, ContactId = 27, IndustryId = 3 },
-                         new ContactIndustry { Id = 32, ContactId = 28, IndustryId = 4 },
-                         new ContactIndustry { Id = 33, ContactId = 29, IndustryId = 5 },
-                         new ContactIndustry { Id = 34, ContactId = 30, IndustryId = 6 },
-                         new ContactIndustry { Id = 35, ContactId = 31, IndustryId = 7 },
-                         new ContactIndustry { Id = 36, ContactId = 32, IndustryId = 8 },
-                         new ContactIndustry { Id = 37, ContactId = 33, IndustryId = 9 },
-                         new ContactIndustry { Id = 38, ContactId = 34, IndustryId = 10 },
-                         new ContactIndustry { Id = 39, ContactId = 35, IndustryId = 11 },
-                         new ContactIndustry { Id = 40, ContactId = 36, IndustryId = 12 }
-                     );
-
-                        context.SaveChanges();
-                    }
 
                     if (!context.Cancellations.Any())
                     {
@@ -2008,6 +1863,84 @@ namespace NIA_CRM.Data
                         context.SaveChanges();
                     }
                     //Seed data needed for production and during development
+
+                    if (!context.NAICSCode.Any())
+                    {
+                        context.NAICSCode.AddRange(
+                            new NAICSCode { Id = 1, Label = "Agriculture", Code = "1111", Description = "Oilseed and Grain Farming" },
+                            new NAICSCode { Id = 2, Label = "Mining", Code = "2111", Description = "Oil and Gas Extraction" },
+                            new NAICSCode { Id = 3, Label = "Utilities", Code = "2211", Description = "Electric Power Generation, Transmission, and Distribution" },
+                            new NAICSCode { Id = 4, Label = "Construction", Code = "2361", Description = "Residential Building Construction" },
+                            new NAICSCode { Id = 5, Label = "Manufacturing", Code = "3111", Description = "Animal Food Manufacturing" },
+                            new NAICSCode { Id = 6, Label = "Wholesale Trade", Code = "4231", Description = "Motor Vehicle and Motor Vehicle Parts and Supplies Wholesalers" },
+                            new NAICSCode { Id = 7, Label = "Retail Trade", Code = "4411", Description = "Automobile Dealers" },
+                            new NAICSCode { Id = 8, Label = "Transportation", Code = "4811", Description = "Scheduled Air Transportation" },
+                            new NAICSCode { Id = 9, Label = "Information", Code = "5111", Description = "Newspaper, Periodical, Book, and Directory Publishers" },
+                            new NAICSCode { Id = 10, Label = "Finance", Code = "5221", Description = "Depository Credit Intermediation" },
+                            new NAICSCode { Id = 11, Label = "Real Estate", Code = "5311", Description = "Lessors of Real Estate" },
+                            new NAICSCode { Id = 12, Label = "Professional Services", Code = "5411", Description = "Legal Services" },
+                            new NAICSCode { Id = 13, Label = "Administrative Support", Code = "5611", Description = "Office Administrative Services" },
+                            new NAICSCode { Id = 14, Label = "Education", Code = "6111", Description = "Elementary and Secondary Schools" },
+                            new NAICSCode { Id = 15, Label = "Health Care", Code = "6211", Description = "Offices of Physicians" },
+                            new NAICSCode { Id = 16, Label = "Arts & Entertainment", Code = "7111", Description = "Performing Arts Companies" },
+                            new NAICSCode { Id = 17, Label = "Accommodation", Code = "7211", Description = "Traveler Accommodation" },
+                            new NAICSCode { Id = 18, Label = "Automotive", Code = "8111", Description = "Automotive Repair and Maintenance" },
+                            new NAICSCode { Id = 19, Label = "Public Administration", Code = "9211", Description = "Executive Offices" }
+                        );
+
+                        // Save changes to persist the data
+                        context.SaveChanges();
+                    }
+
+                    if (!context.IndustryNAICSCodes.Any())
+                    {
+                        context.IndustryNAICSCodes.AddRange(
+                            new IndustryNAICSCode { Id = 1, MemberId = 1, NAICSCodeId = 1 },  // Member 1, NAICS Code 1
+                            new IndustryNAICSCode { Id = 2, MemberId = 2, NAICSCodeId = 2 },  // Member 2, NAICS Code 2
+                            new IndustryNAICSCode { Id = 3, MemberId = 3, NAICSCodeId = 3 },  // Member 3, NAICS Code 3
+                            new IndustryNAICSCode { Id = 4, MemberId = 4, NAICSCodeId = 4 },  // Member 4, NAICS Code 4
+                            new IndustryNAICSCode { Id = 5, MemberId = 5, NAICSCodeId = 5 },  // Member 5, NAICS Code 5
+                            new IndustryNAICSCode { Id = 6, MemberId = 6, NAICSCodeId = 6 },  // Member 6, NAICS Code 6
+                            new IndustryNAICSCode { Id = 7, MemberId = 7, NAICSCodeId = 7 },  // Member 7, NAICS Code 7
+                            new IndustryNAICSCode { Id = 8, MemberId = 8, NAICSCodeId = 8 },  // Member 8, NAICS Code 8
+                            new IndustryNAICSCode { Id = 9, MemberId = 9, NAICSCodeId = 9 },  // Member 9, NAICS Code 9
+                            new IndustryNAICSCode { Id = 10, MemberId = 10, NAICSCodeId = 10 },  // Member 10, NAICS Code 10
+                            new IndustryNAICSCode { Id = 11, MemberId = 11, NAICSCodeId = 11 },  // Member 11, NAICS Code 11
+                            new IndustryNAICSCode { Id = 12, MemberId = 12, NAICSCodeId = 12 },  // Member 12, NAICS Code 12
+                            new IndustryNAICSCode { Id = 13, MemberId = 13, NAICSCodeId = 13 },  // Member 13, NAICS Code 13
+                            new IndustryNAICSCode { Id = 14, MemberId = 14, NAICSCodeId = 14 },  // Member 14, NAICS Code 14
+                            new IndustryNAICSCode { Id = 15, MemberId = 15, NAICSCodeId = 15 },  // Member 15, NAICS Code 15
+                            new IndustryNAICSCode { Id = 16, MemberId = 16, NAICSCodeId = 16 },  // Member 16, NAICS Code 16
+                            new IndustryNAICSCode { Id = 17, MemberId = 17, NAICSCodeId = 17 },  // Member 17, NAICS Code 17
+                            new IndustryNAICSCode { Id = 18, MemberId = 18, NAICSCodeId = 18 },  // Member 18, NAICS Code 18
+                            new IndustryNAICSCode { Id = 19, MemberId = 19, NAICSCodeId = 19 },  // Member 19, NAICS Code 19
+                            new IndustryNAICSCode { Id = 20, MemberId = 20, NAICSCodeId = 1 },  // Member 20, NAICS Code 1
+                            new IndustryNAICSCode { Id = 21, MemberId = 21, NAICSCodeId = 2 },  // Member 21, NAICS Code 2
+                            new IndustryNAICSCode { Id = 22, MemberId = 22, NAICSCodeId = 3 },  // Member 22, NAICS Code 3
+                            new IndustryNAICSCode { Id = 23, MemberId = 23, NAICSCodeId = 4 },  // Member 23, NAICS Code 4
+                            new IndustryNAICSCode { Id = 24, MemberId = 24, NAICSCodeId = 5 },  // Member 24, NAICS Code 5
+                            new IndustryNAICSCode { Id = 25, MemberId = 25, NAICSCodeId = 6 },  // Member 25, NAICS Code 6
+                            new IndustryNAICSCode { Id = 26, MemberId = 26, NAICSCodeId = 7 },  // Member 26, NAICS Code 7
+                            new IndustryNAICSCode { Id = 27, MemberId = 27, NAICSCodeId = 8 },  // Member 27, NAICS Code 8
+                            new IndustryNAICSCode { Id = 28, MemberId = 28, NAICSCodeId = 9 },  // Member 28, NAICS Code 9
+                            new IndustryNAICSCode { Id = 29, MemberId = 29, NAICSCodeId = 10 },  // Member 29, NAICS Code 10
+                            new IndustryNAICSCode { Id = 30, MemberId = 30, NAICSCodeId = 11 },  // Member 30, NAICS Code 11
+                            new IndustryNAICSCode { Id = 31, MemberId = 31, NAICSCodeId = 12 },  // Member 31, NAICS Code 12
+                            new IndustryNAICSCode { Id = 32, MemberId = 32, NAICSCodeId = 13 },  // Member 32, NAICS Code 13
+                            new IndustryNAICSCode { Id = 33, MemberId = 33, NAICSCodeId = 14 },  // Member 33, NAICS Code 14
+                            new IndustryNAICSCode { Id = 34, MemberId = 34, NAICSCodeId = 15 },  // Member 34, NAICS Code 15
+                            new IndustryNAICSCode { Id = 35, MemberId = 35, NAICSCodeId = 16 },  // Member 35, NAICS Code 16
+                            new IndustryNAICSCode { Id = 36, MemberId = 36, NAICSCodeId = 17 },  // Member 36, NAICS Code 17
+                            new IndustryNAICSCode { Id = 37, MemberId = 37, NAICSCodeId = 18 },  // Member 37, NAICS Code 18
+                            new IndustryNAICSCode { Id = 38, MemberId = 38, NAICSCodeId = 19 },  // Member 38, NAICS Code 19
+                            new IndustryNAICSCode { Id = 39, MemberId = 39, NAICSCodeId = 1 },  // Member 39, NAICS Code 1
+                            new IndustryNAICSCode { Id = 40, MemberId = 40, NAICSCodeId = 2 }   // Member 40, NAICS Code 2
+                        );
+
+                        // Save changes to persist the data
+                        context.SaveChanges();
+                    }
+
 
                     if (!context.ProductionEmails.Any())
                     {

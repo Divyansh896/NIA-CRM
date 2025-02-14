@@ -4,6 +4,22 @@ namespace NIA_CRM.Models
 {
     public class Member
     {
+        public string? TimeSinceJoined
+        {
+            get
+            {
+                if (JoinDate == null) { return null; }
+                DateTime today = DateTime.Today;
+                int? years = today.Year - JoinDate?.Year
+                    - ((today.Month < JoinDate?.Month ||
+                        (today.Month == JoinDate?.Month && today.Day < JoinDate?.Day) ? 1 : 0));
+                return years?.ToString() + " year(s) ago";
+            }
+        }
+
+
+        public int ID { get; set; }
+
         [Required(ErrorMessage = "You cannot leave the member name blank.")]
         [Display(Name = "Member Name")]
         [StringLength(255, ErrorMessage = "Member name cannot be more than 255 characters long.")]
@@ -15,6 +31,7 @@ namespace NIA_CRM.Models
 
         public string? WebsiteUrl { get; set; }
 
+        [Required(ErrorMessage = "Join Date is required.")]
         [Display(Name = "Join Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -31,6 +48,10 @@ namespace NIA_CRM.Models
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
         public ICollection<Contact> Contacts { get; set; } = new HashSet<Contact>();
         public ICollection<Opportunity> Opportunities { get; set; } = new List<Opportunity>();
+
+        
+        public bool IsVIP { get; set; }
+
 
     }
 }

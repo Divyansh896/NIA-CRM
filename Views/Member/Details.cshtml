@@ -21,13 +21,13 @@
             @:<div>
                 string imageBase64 = Convert.ToBase64String(Model.MemberLogo.Content);
                 string imageSrc = string.Format("data:" + Model.MemberLogo.MimeType + ";base64,{0}", imageBase64);
-                <img src="@imageSrc" alt="Profile Picture of @Model.Summary" title="Profile Picture of @Model.Summary" class="img-fluid rounded" />
+                <img src="@imageSrc" alt="Profile Picture of @Model.MemberName" title="Profile Picture of @Model.MemberName" class="img-fluid rounded" />
             @:</div>
         }
                         else
                         {
-                            <img src="~/images/Unknown_person.jpg" alt="Profile Picture of @Model.Summary"
-                            title="Profile Picture of @Model.Summary" class ="otherPic"/>
+                            <img src="~/images/Unknown_person.jpg" alt="Profile Picture of @Model.MemberName"
+                            title="Profile Picture of @Model.MemberName" class ="otherPic"/>
                         }
                     }
                 </div>
@@ -90,40 +90,11 @@
                                 </dd>
                                 <dt class="col-sm-4">Website:</dt>
                                 <dd class="col-sm-8">
-                                    @if (Model.MemberIndustries != null && Model.MemberIndustries.Any())
-                                    {
-                                        @foreach (var membership in Model.MemberIndustries)
-                                        {
-                                            <p>@membership.Industry.WebsiteUrl</p>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <p>No membership type available.</p>
-                                    }
-                                </dd>
-                                <!-- Standing Status -->
-                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.StandingStatus)</dt>
-                                <dd class="col-sm-8">
-                                    @Html.DisplayFor(model => model.StandingStatus)
+                                    @Html.DisplayFor(model => model.WebsiteUrl)
                                 </dd>
                                 <dt class="col-sm-4">Size:</dt>
                                 <dd class="col-sm-8">
-                                    @if (Model.MemberIndustries != null && Model.MemberIndustries.Any())
-                                    {
-                                        @foreach (var membership in Model.MemberIndustries)
-                                        {
-                                            <p>@membership.Industry.IndustrySize</p>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <p>No membership type available.</p>
-                                    }
-                                </dd>
-                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.StandingStatus)</dt>
-                                <dd class="col-sm-8">
-                                    @Html.DisplayFor(model => model.StandingStatus)
+                                    @Html.DisplayFor(model => model.MemberSize)
                                 </dd>
                             </dl>
                         </div>
