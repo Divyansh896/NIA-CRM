@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250214042036_Initial")]
+    [Migration("20250214072803_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
