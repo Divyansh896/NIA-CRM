@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +20,14 @@
     <div class="container-fluid main-container">
         <!-- Sidebar -->
         <nav id="sidebarMenu" class="sidebar">
+            <div>
+                <button id="toggleSidebar" class="btn btn-black">☰</button>
+                <div class="logo-container">
+                    <a href="~/">
+                        <img src="~/images/NIA-Logo.jpg" alt="Logo" class="logo" />
+                    </a>
+                </div>
+            </div>
             <div class="position-sticky p-3">
                 <ul class="nav flex-column">
                     <li class="nav-item" role="menuitem">
@@ -70,13 +79,10 @@
 
         <!-- Main Content -->
         <div id="mainContent" class="main-content">
-            <button id="toggleSidebar" class="btn btn-black">☰</button>
+            
+            
             <main role="main" class="pb-3">
-                <div class="logo-container">
-                    <a href="~/">
-                        <img src="~/images/NIA-Logo.jpg" alt="Logo" class="logo" />
-                    </a>
-                </div>
+                
                 @RenderBody()
             </main>
         </div>
@@ -147,6 +153,8 @@
                     toggleButton.innerHTML = '<i class="fas fa-bars"></i>'; // For hamburger menu
                 }
             });
+
+            
         });
 
 

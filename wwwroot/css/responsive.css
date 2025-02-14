@@ -79,17 +79,17 @@ body {
     color: white;
 }
 
-    .btn-link:hover {
-        color: white;
-    }
+.btn-link:hover {
+    color: white;
+}
 
 .btn-dark {
     background-color: #434343 !important;
 }
 
-    .btn-dark:hover {
-        background-color: #2B2B2B !important;
-    }
+.btn-dark:hover {
+    background-color: #2B2B2B !important;
+}
 
 /* Card Styles */
 .card {
@@ -142,12 +142,7 @@ body {
     justify-content: flex-end;
 }
 
-/* Logo */
-.logo {
-    max-height: 80px;
-    width: auto;
-    position: relative;
-}
+
 
 /* Sidebar */
 .sidebar {
@@ -162,46 +157,15 @@ body {
     padding-top: 60px;
 }
 
-    .sidebar.show {
-        left: 0;
-    }
-
-    .sidebar ul {
-        padding: 0;
-        margin: 0;
-        list-style: none;
-    }
-
-        .sidebar ul li {
-            padding: 10px 10px;
-        }
-
-            .sidebar ul li a {
-                text-decoration: none;
-                color: #333;
-                font-size: 16px;
-                display: block;
-            }
-
-                .sidebar ul li a:hover {
-                    background-color: #2B2B2B;
-                    border-radius: 5px;
-                }
-
-    .sidebar span {
-        color: #ffffff;
-    }
-
-h1 {
-    margin-top: 20px; /* Adjust as needed */
+.sidebar.show {
+    left: 0;
 }
 
-h2 {
-    margin-top: 20px;
-    /* Adjust as needed */
-    margin-bottom: 20px;
+.sidebar ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
-
 
 .sidebar ul li {
     padding: 10px 10px;
@@ -214,14 +178,26 @@ h2 {
     display: block;
 }
 
-    .sidebar ul li a:hover {
-        background-color: #2B2B2B;
-        border-radius: 5px;
-    }
+.sidebar ul li a:hover {
+    background-color: #2B2B2B;
+    border-radius: 5px;
+}
 
 .sidebar span {
     color: #ffffff;
 }
+
+h1 {
+    margin-top: 20px; /* Adjust as needed */
+}
+
+h2 {
+    margin-top: 20px;
+    /* Adjust as needed */
+    margin-bottom: 20px;
+}
+
+
 
 .sr-only {
     border: 0;
@@ -239,18 +215,16 @@ h2 {
     margin-left: 250px;
     transition: margin-left 0.3s ease;
     padding: 20px;
-    padding-top: 20px;
+    padding-top: 63px;
 }
 
-    .main-content.sidebar-collapsed {
-        margin-left: 60px;
-    }
+    
 
 /* Hamburger Button */
 #toggleSidebar {
     position: fixed;
     top: 15px;
-    left: 15px;
+    left: 32px;
     z-index: 1100;
     background-color: #434343;
 
@@ -343,19 +317,19 @@ td, th {
     visibility: hidden; /* Initially hide */
     overflow-y:auto;
 }
-    #previewContainer .card-body, #previewContainer img{
-        margin-left: 10px;
-    }
-    #previewContainer.visible {
-        right: 0;
-        visibility: visible; /* Make visible when showing */
-        transition: 1s ease-in-out;
-    }
+#previewContainer .card-body, #previewContainer img{
+    margin-left: 10px;
+}
+#previewContainer.visible {
+    right: 0;
+    visibility: visible; /* Make visible when showing */
+    transition: 1s ease-in-out;
+}
 
-    #previewContainer.hidden {
-        visibility: hidden; /* Hide the container */
-        transition: 1s ease-in-out;
-    }
+#previewContainer.hidden {
+    visibility: hidden; /* Hide the container */
+    transition: 1s ease-in-out;
+}
 
 .clickable-row:hover {
     background-color: #d3d3d3; /* Light grey background */
@@ -387,9 +361,7 @@ td, th {
         padding-right: 10px;
     }
 
-    .row {
-        
-    }
+   
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
