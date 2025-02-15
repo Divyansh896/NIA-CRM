@@ -170,6 +170,7 @@ namespace NIA_CRM.Controllers
             //Put the original RowVersion value in the OriginalValues collection for the entity
             _context.Entry(EmailToUpdate).Property("RowVersion").OriginalValue = RowVersion;
 
+
             if (await TryUpdateModelAsync<ProductionEmail>(EmailToUpdate, "", e => e.EmailType, e => e.Subject, e => e.Body))
             {
                 try

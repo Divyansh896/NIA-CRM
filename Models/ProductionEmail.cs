@@ -22,7 +22,7 @@ namespace NIA_CRM.Models
         [DisplayName("Body Content")]
         [DataType(DataType.MultilineText)]
         public string? Body { get; set; } // Body content of the email
-        
+
         [ScaffoldColumn(false)]
         [Timestamp]
         public Byte[]? RowVersion { get; set; }//Added for concurrency

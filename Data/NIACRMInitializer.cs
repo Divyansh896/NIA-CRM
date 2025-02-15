@@ -40,22 +40,22 @@ namespace NIA_CRM.Data
                         //Create the Triggers
                         string sqlCmd = @"
                             CREATE TRIGGER SetProductionEmailTimestampOnUpdate
-                            AFTER UPDATE ON ProductionEmail
+                            AFTER UPDATE ON ProductionEmails
                             BEGIN
-                                UPDATE ProductionEmail
+                                UPDATE ProductionEmails
                                 SET RowVersion = randomblob(8)
-                                WHERE rowId = NEW.rowId;
+                                WHERE rowid = NEW.rowid;
                             END;
                         ";
                         context.Database.ExecuteSqlRaw(sqlCmd);
 
                         sqlCmd = @"
                             CREATE TRIGGER SetProductionEmailTimestampOnInsert
-                            AFTER INSERT ON ProductionEmail
+                            AFTER INSERT ON ProductionEmails
                             BEGIN
-                                UPDATE ProductionEmail
+                                UPDATE ProductionEmails
                                 SET RowVersion = randomblob(8)
-                                WHERE rowId = NEW.rowId;
+                                WHERE rowid = NEW.rowid;
                             END
                         ";
                         context.Database.ExecuteSqlRaw(sqlCmd);
@@ -73,39 +73,7 @@ namespace NIA_CRM.Data
                     Debug.WriteLine(ex.GetBaseException().Message);
                 }
 
-                /* try
-                 {
-                     //Note: .CanConnect() will return false if the database is not there!
-                     if (DeleteDatabase || !context.Database.CanConnect())
-                     {
-                         context.Database.EnsureDeleted(); //Delete the existing version 
-                         if (UseMigrations)
-                         {
-                             context.Database.Migrate(); //Create the Database and apply all migrations
-                         }
-                         else
-                         {
-                             context.Database.EnsureCreated(); //Create and update the database as per the Model
-                         }
-                     }
-
-                     //Now create any additional database objects such as Triggers or Views
-                     //--------------------------------------------------------------------
-
-                     else //The database is already created
-                     {
-                         if (UseMigrations)
-                         {
-                             context.Database.Migrate(); //Apply all migrations
-                         }
-                     }
-
-                 }
-                 catch (Exception ex)
-                 {
-                     Debug.WriteLine(ex.GetBaseException().Message);
-                 }*/
-
+                
                 try
                 {
                     //Add some Class Start times
