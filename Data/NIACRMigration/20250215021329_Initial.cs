@@ -20,7 +20,8 @@ namespace NIA_CRM.Data.NIACRMigration
                     MemberName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     MemberSize = table.Column<int>(type: "INTEGER", nullable: false),
                     WebsiteUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    JoinDate = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    JoinDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsVIP = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

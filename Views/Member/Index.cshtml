@@ -130,6 +130,9 @@
                 <th scope="col" class="table-head">City</th>
                 <th scope="col" class="table-head">Join Date</th>
                 <th scope="col" class="table-head">Membership Type</th>
+                <th scope="col" class="table-head">Address</th>
+                <th scope="col" class="table-head">Contacts</th>
+                <th scope="col" class="table-head">VIP Status</th>
         </tr>
     </thead>
     <tbody>
@@ -184,11 +187,54 @@
                         }
                     </td>
 
-                </tr>
-            }
-        </tbody>
-    </table>
 
+
+                    <!-- New Columns -->
+                    <td>
+                        @if (item.Addresses != null && item.Addresses.Any())
+                        {
+                            foreach (var address in item.Addresses)
+                            {
+                                @($"{address.AddressLine2}, {address.City}, {address.StateProvince}, {address.PostalCode}")
+                                <br />
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">No Address Available</span>
+                        }
+                    </td>
+
+
+                    <td>
+                        @if (item.Contacts != null && item.Contacts.Any())
+                        {
+                            foreach (var contact in item.Contacts)
+                            {
+                                @($"{contact.Phone} | {contact.Email}")
+                                <br />
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">No Contacts Available</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsVIP)
+                        {
+                            <span class="badge bg-success">VIP</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Regular</span>
+                        }
+                    </td>
+        </tr>
+}
+    </tbody>
+</table>
+                
     <partial name="_PagingNavBar" />
 
 </form>

@@ -31,6 +31,7 @@ namespace NIA_CRM.Models
 
         public string? WebsiteUrl { get; set; }
 
+        [Required(ErrorMessage = "Join Date is required.")]
         [Display(Name = "Join Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -47,6 +48,10 @@ namespace NIA_CRM.Models
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
         public ICollection<Contact> Contacts { get; set; } = new HashSet<Contact>();
         public ICollection<Opportunity> Opportunities { get; set; } = new List<Opportunity>();
+
+        
+        public bool IsVIP { get; set; }
+
 
     }
 }

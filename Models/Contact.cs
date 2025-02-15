@@ -47,6 +47,9 @@ namespace NIA_CRM.Models
         public int MemberId { get; set; }  // Foreign key to Member
         public Member Member { get; set; } // Navigation property to Member
 
+      
+        
+
         [Display(Name = "Contact Name")]
         public string Summary
         {

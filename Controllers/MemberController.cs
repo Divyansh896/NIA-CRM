@@ -37,6 +37,8 @@ namespace NIA_CRM.Controllers
                 .Include(m => m.MemberNotes)
                 .Include(m => m.Contacts)
                 .Include(m => m.IndustryNAICSCodes).ThenInclude(m=> m.NAICSCode)
+                .Include(m => m.Addresses) //new added for addresses
+                .Include(m => m.Contacts) // new added for contacts
             .AsNoTracking();
                 
 
