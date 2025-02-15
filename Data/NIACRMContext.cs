@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NIA_CRM.Models;
+using NIA_CRM.ViewModels;
 
 namespace NIA_CRM.Data
 {
@@ -37,6 +38,7 @@ namespace NIA_CRM.Data
         public DbSet<MemberLogo> MemberLogos { get; set; }
         public DbSet<MemberThumbnail> MemebrThumbnails { get; set; }
         public DbSet<MemberNote> MemberNotes { get; set; }
+        public DbSet<ContactNote> ContactNotes { get; set; }
         public DbSet<IndustryNAICSCode> IndustryNAICSCodes { get; set; }
         public DbSet<NAICSCode> NAICSCodes { get; set; }
 
@@ -77,6 +79,8 @@ namespace NIA_CRM.Data
                 .HasOne(c => c.Member)
                 .WithMany(c => c.MemberNotes)
                 .HasForeignKey(c => c.MemberId);
+
+            
 
             // NAICSCode -> Member (Many-to-Many)
             modelBuilder.Entity<IndustryNAICSCode>()
@@ -141,8 +145,7 @@ namespace NIA_CRM.Data
                 .HasForeignKey(cn => cn.ContactId)  // ContactId is the foreign key in ContactNote
                 .OnDelete(DeleteBehavior.Cascade);  // Define delete behavior (optional)
 
-            modelBuilder.Entity<IndustryNAICSCode>()
-    .HasKey(inc => inc.Id);
+            
 
             modelBuilder.Entity<IndustryNAICSCode>()
                 .HasOne(inc => inc.Member)
@@ -192,6 +195,7 @@ namespace NIA_CRM.Data
                 }
             }
         }
+        
        
     }
 }
