@@ -46,15 +46,50 @@ namespace NIA_CRM.Controllers
                 .ToListAsync();
 
             var cityCounts = await _context.Members
-    .Where(m => m.Addresses != null && m.Addresses.Any())  // Ensure there are addresses
-    .SelectMany(m => m.Addresses)  // Flatten the addresses for each member
-    .GroupBy(a => a.City)  // Group by city
-    .Select(g => new { City = g.Key, Count = g.Count() })  // Get the city and count of addresses
-    .ToListAsync();
+                                            .Where(m => m.Addresses != null && m.Addresses.Any())  // Ensure there are addresses
+                                            .SelectMany(m => m.Addresses)  // Flatten the addresses for each member
+                                            .GroupBy(a => a.City)  // Group by city
+                                            .Select(g => new { City = g.Key, Count = g.Count() })  // Get the city and count of addresses
+                                            .ToListAsync();
+
+            var membershipCount = await _context.MemberMembershipTypes
+                .GroupBy(mmt => mmt.MembershipType)
+                .Select(g => new
+                {
+                    MembershipType = g.Key,
+                    Count = g.Count()
+                })
+                .ToArrayAsync();
+
+            var memberJoinDates = await _context.Members
+                                                .Where(m => m.JoinDate.HasValue)  // Ensure that JoinDate is not null
+                                                .GroupBy(m => new { Year = m.JoinDate.Value.Year, Month = m.JoinDate.Value.Month })  // Access Year and Month safely
+                                                .Select(g => new
+                                                {
+                                                    Year = g.Key.Year,
+                                                    Month = g.Key.Month,
+                                                    MonthName = new DateTime(g.Key.Year, g.Key.Month, 1).ToString("MMMM"),
+                                                    Count = g.Count()
+                                                })
+                                                .ToListAsync();  // Execute the query asynchronously
+            var memberAddress = await _context.Members
+                                                .Include(m => m.Addresses)  // Include the Addresses navigation property
+                                                .SelectMany(m => m.Addresses)  // Flatten the Addresses collection
+                                                .GroupBy(a => a.City)  // Group by the City in the Addresses
+                                                .Select(g => new
+                                                {
+                                                    City = g.Key,
+                                                    Count = g.Count()  // Count how many members have an address in each city
+                                                })
+                                                .ToListAsync();  // Execute the query asynchronously
+
 
             // Pass cityCounts as a model or through ViewData
             ViewData["CityCounts"] = cityCounts;
             ViewData["MemberCount"] = await _context.Members.CountAsync();
+            ViewData["MembershipCount"] = membershipCount;
+            ViewData["MembersJoins"] = memberJoinDates;
+            ViewData["MembersAddress"] = memberAddress;
 
             return View(); // Pass nothing if using ViewData, or you can directly pass data via View()
         }

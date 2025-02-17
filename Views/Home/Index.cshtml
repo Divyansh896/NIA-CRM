@@ -62,11 +62,27 @@
 
 
     </div>
-    
+
     <!-- Chart -->
     <div class="content" id="Chartcontent" role="main" aria-labelledby="dashboard-title">
-        <canvas id="cityBarChart" width="400" height="300"></canvas>
+        <div>
+            <canvas id="cityBarChart"></canvas>
+
+        </div>
+        <div>
+            <canvas id="MemberJoinLineChart"></canvas>
+
+        </div>
+
     </div>
+    <div class="content" id="Chartcontent" role="main" aria-labelledby="dashboard-title">
+        <div>
+            <canvas id="membershipPieChart"></canvas>
+
+        </div>
+
+    </div>
+
 
 </div>
 @section Scripts {
@@ -74,86 +90,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
-    <script type="text/javascript">
-        function initializeCityBarChart() {
-            // Get the serialized data from ViewData
-            const cityCounts = @Html.Raw(Json.Serialize(ViewData["CityCounts"]));
-
-            // Prepare data for the chart
-            const labels = cityCounts.map(function(item) {
-                return item.city;  // City names as labels
-            });
-
-            const data = cityCounts.map(function(item) {
-                return item.count;  // Counts as data points
-            });
-
-            // Function to generate a random color
-            function getRandomColor() {
-                const hue = Math.floor(Math.random() * 360);  // Random hue between 0 and 360
-                const saturation = 100;  // Full saturation for vivid colors
-                const lightness = 60;  // Lightness at 60% for brightness
-                return `hsl(${hue}, ${saturation}%, ${lightness}%)`;  // Return HSL color
-            }
-
-            // Generate random colors for each slice
-            const backgroundColors = data.map(function() {
-                return getRandomColor();  // Assign a random color to each slice
-            });
-
-            // Get the context of the canvas element
-            const canvas = document.getElementById('cityBarChart');
-            const ctx = canvas.getContext('2d');
-
-            // Create the pie chart
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels, // City names as labels
-                    datasets: [{
-                        label: 'Occurrences of Members in Each City',  // Dataset label
-                        data: data,  // Data from counts
-                        backgroundColor: backgroundColors,  // Use random colors
-                        borderColor: backgroundColors,  // Border color same as background
-                        borderWidth: 1,  // Border width for clarity
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        tooltip: {
-                            enabled: true,  // Enable tooltips
-                        },
-                        datalabels: {
-                            // Display labels outside the pie slices
-                            formatter: function(value, context) {
-                                return context.label + ': ' + value;  // Display label and value
-                            },
-                            color: 'black',  // Set text color to black for better visibility
-                            anchor: 'end',  // Position text at the end (outside the pie)
-                            align: 'start',   // Align the text to the start of the slice
-                            offset: 25,  // Add some space between the text and pie slice
-                            font: {
-                                weight: 'bold',
-                                size: 14
-                            }
-                        },
-                        legend: {
-                            display: false,  // Disable the legend
-                        }
-                    },
-                    title: {
-                        display: false,  // Disable the chart title
-                    },
-                    animation: {
-                        animateScale: true, // Enable the explode effect
-                    },
-                    hoverOffset: 25, // Explodes the pie slice slightly on hover
-                }
-            });
-        }
-
-        // Call the function to initialize the chart
-        initializeCityBarChart();
+    <script>
+        var cityCounts = @Html.Raw(Json.Serialize(ViewData["CityCounts"]));
+        var memberCount = @Html.Raw(Json.Serialize(ViewData["MemberCount"]));
+        var MembershipCount = @Html.Raw(Json.Serialize(ViewData["MembershipCount"]));
+        var MembersJoins = @Html.Raw(Json.Serialize(ViewData["MembersJoins"]));
+        var MembersAddress = @Html.Raw(Json.Serialize(ViewData["MembersAddress"]));
     </script>
+    <script src="~/js/dashboard.js"></script>
 }
