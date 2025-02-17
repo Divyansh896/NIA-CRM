@@ -6,216 +6,163 @@
 
 <h1>Create Member</h1>
 
-<h2>Member Create View</h2>
 <hr />
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div asp-validation-summary="All" class="text-danger"></div>
             <h3>Member Details</h3>
-            <!-- Member Details -->
-            <div class="form-group">
-                <label asp-for="Member.MemberName" class="control-label"></label>
-                <input asp-for="Member.MemberName" class="form-control" />
-                <span asp-validation-for="Member.MemberName" class="text-danger"></span>
-            </div>
+            <div class="card card-body bg-light text-black">
+                <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Member.MemberName" class="control-label"></label>
+                            <input asp-for="Member.MemberName" class="form-control" />
+                            <span asp-validation-for="Member.MemberName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MemberMembershipType.MembershipType.TypeName" class="control-label"></label>
+                            @Html.DropDownList("MembershipType", null, "All Membership Types", new { @class = "form-control" })
+                            <span asp-validation-for="MemberMembershipType.MembershipType.TypeName" class="text-danger"></span>
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="Member.MemberSize" class="control-label"></label>
-                <input asp-for="Member.MemberSize" class="form-control" />
-                <span asp-validation-for="Member.MemberSize" class="text-danger"></span>
-            </div>
+                    <!-- Column 2 -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Member.MemberSize" class="control-label"></label>
+                            <input asp-for="Member.MemberSize" class="form-control" />
+                            <span asp-validation-for="Member.MemberSize" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IndustryNAICSCode.NAICSCode.Code" class="control-label"></label>
+                            @Html.DropDownList("NAICSCode", null, "All NAICSCode", new { @class = "form-control" })
+                            <span asp-validation-for="IndustryNAICSCode.NAICSCode.Code" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Member.WebsiteUrl" class="control-label"></label>
+                            <input asp-for="Member.WebsiteUrl" class="form-control" />
+                            <span asp-validation-for="Member.WebsiteUrl" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MemberNote.Note" class="control-label"></label>
+                            <textarea asp-for="MemberNote.Note" class="form-control"></textarea>
+                            <span asp-validation-for="MemberNote.Note" class="text-danger"></span>
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="Member.WebsiteUrl" class="control-label"></label>
-                <input asp-for="Member.WebsiteUrl" class="form-control" />
-                <span asp-validation-for="Member.WebsiteUrl" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Member.JoinDate" class="control-label"></label>
-                <input asp-for="Member.JoinDate" class="form-control" type="date" />
-                <span asp-validation-for="Member.JoinDate" class="text-danger"></span>
-            </div>
-
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Member.IsVIP" /> @Html.DisplayNameFor(model => model.Member.IsVIP)
-                </label>
-            </div>
-            <h3>Member Notes</h3>
-            <div class="form-group">
-                <label asp-for="MemberNote.Note" class="control-label"></label>
-                <textarea asp-for="MemberNote.Note" class="form-control"></textarea>
-                <span asp-validation-for="MemberNote.Note" class="text-danger"></span>
-            </div>
-
-            
-
-            <!-- Address Information (Only showing the first address in the list) -->
-            <div class="form-group">
-                <h3>Address</h3>
-
-                <!-- Address Line 1 -->
-                <div class="form-group">
-                    <label asp-for="Address.AddressLine1" class="control-label"></label>
-                    <input asp-for="Address.AddressLine1" class="form-control" />
-                    <span asp-validation-for="Address.AddressLine1" class="text-danger"></span>
-                </div>
-
-                <!-- Address Line 2 -->
-                <div class="form-group">
-                    <label asp-for="Address.AddressLine2" class="control-label"></label>
-                    <input asp-for="Address.AddressLine2" class="form-control" />
-                    <span asp-validation-for="Address.AddressLine2" class="text-danger"></span>
-                </div>
-
-                <!-- City -->
-                <div class="form-group">
-                    <label asp-for="Address.City" class="control-label"></label>
-                    <input asp-for="Address.City" class="form-control" />
-                    <span asp-validation-for="Address.City" class="text-danger"></span>
-                </div>
-
-                <!-- State/Province -->
-                <div class="form-group">
-                    <label asp-for="Address.StateProvince" class="control-label"></label>
-                    <input asp-for="Address.StateProvince" class="form-control" />
-                    <span asp-validation-for="Address.StateProvince" class="text-danger"></span>
-                </div>
-
-                <!-- Postal Code -->
-                <div class="form-group">
-                    <label asp-for="Address.PostalCode" class="control-label"></label>
-                    <input asp-for="Address.PostalCode" class="form-control" />
-                    <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
-                </div>
-
-                <!-- Country -->
-                <div class="form-group">
-                    <label asp-for="Address.Country" class="control-label"></label>
-                    <input asp-for="Address.Country" class="form-control" />
-                    <span asp-validation-for="Address.Country" class="text-danger"></span>
+                    <!-- Column 3 -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Address.AddressLine1" class="control-label"></label>
+                            <input asp-for="Address.AddressLine1" class="form-control" />
+                            <span asp-validation-for="Address.AddressLine1" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address.AddressLine2" class="control-label"></label>
+                            <input asp-for="Address.AddressLine2" class="form-control" />
+                            <span asp-validation-for="Address.AddressLine2" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address.City" class="control-label"></label>
+                            <input asp-for="Address.City" class="form-control" />
+                            <span asp-validation-for="Address.City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address.StateProvince" class="control-label"></label>
+                            <input asp-for="Address.StateProvince" class="form-control" />
+                            <span asp-validation-for="Address.StateProvince" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address.PostalCode" class="control-label"></label>
+                            <input asp-for="Address.PostalCode" class="form-control" />
+                            <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
             <!-- Contact Information (Only showing the first contact in the list) -->
             <!-- Contact Information -->
             <div class="form-group">
                 <h3>Contact</h3>
+                <div class="card card-body bg-light text-black">
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Contact.FirstName" class="control-label"></label>
+                                <input asp-for="Contact.FirstName" class="form-control" />
+                                <span asp-validation-for="Contact.FirstName" class="text-danger"></span>
+                            </div>
 
-                <!-- First Name -->
-                <div class="form-group">
-                    <label asp-for="Contact.FirstName" class="control-label"></label>
-                    <input asp-for="Contact.FirstName" class="form-control" />
-                    <span asp-validation-for="Contact.FirstName" class="text-danger"></span>
-                </div>
+                            <div class="form-group">
+                                <label asp-for="Contact.MiddleName" class="control-label"></label>
+                                <input asp-for="Contact.MiddleName" class="form-control" />
+                                <span asp-validation-for="Contact.MiddleName" class="text-danger"></span>
+                            </div>
 
-                <!-- Middle Name -->
-                <div class="form-group">
-                    <label asp-for="Contact.MiddleName" class="control-label"></label>
-                    <input asp-for="Contact.MiddleName" class="form-control" />
-                    <span asp-validation-for="Contact.MiddleName" class="text-danger"></span>
-                </div>
+                            <div class="form-group">
+                                <label asp-for="Contact.LastName" class="control-label"></label>
+                                <input asp-for="Contact.LastName" class="form-control" />
+                                <span asp-validation-for="Contact.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
 
-                <!-- Last Name -->
-                <div class="form-group">
-                    <label asp-for="Contact.LastName" class="control-label"></label>
-                    <input asp-for="Contact.LastName" class="form-control" />
-                    <span asp-validation-for="Contact.LastName" class="text-danger"></span>
-                </div>
+                        <!-- Column 2 -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Contact.Email" class="control-label"></label>
+                                <input asp-for="Contact.Email" class="form-control" />
+                                <span asp-validation-for="Contact.Email" class="text-danger"></span>
+                            </div>
 
-                <!-- Title -->
-                <div class="form-group">
-                    <label asp-for="Contact.Title" class="control-label"></label>
-                    <input asp-for="Contact.Title" class="form-control" />
-                    <span asp-validation-for="Contact.Title" class="text-danger"></span>
-                </div>
+                            <div class="form-group">
+                                <label asp-for="Contact.Phone" class="control-label"></label>
+                                <input asp-for="Contact.Phone" class="form-control" />
+                                <span asp-validation-for="Contact.Phone" class="text-danger"></span>
+                            </div>
 
-                <!-- Department -->
-                <div class="form-group">
-                    <label asp-for="Contact.Department" class="control-label"></label>
-                    <input asp-for="Contact.Department" class="form-control" />
-                    <span asp-validation-for="Contact.Department" class="text-danger"></span>
-                </div>
+                            <div class="form-group">
+                                <label asp-for="Contact.LinkedInUrl" class="control-label"></label>
+                                <input asp-for="Contact.LinkedInUrl" class="form-control" />
+                                <span asp-validation-for="Contact.LinkedInUrl" class="text-danger"></span>
+                            </div>
+                        </div>
 
-                <!-- Email -->
-                <div class="form-group">
-                    <label asp-for="Contact.Email" class="control-label"></label>
-                    <input asp-for="Contact.Email" class="form-control" />
-                    <span asp-validation-for="Contact.Email" class="text-danger"></span>
-                </div>
+                        <!-- Column 3 -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Contact.Department" class="control-label"></label>
+                                <input asp-for="Contact.Department" class="form-control" />
+                                <span asp-validation-for="Contact.Department" class="text-danger"></span>
+                            </div>
 
-                <!-- Phone -->
-                <div class="form-group">
-                    <label asp-for="Contact.Phone" class="control-label"></label>
-                    <input asp-for="Contact.Phone" class="form-control" />
-                    <span asp-validation-for="Contact.Phone" class="text-danger"></span>
-                </div>
+                            <div class="form-group">
+                                <label asp-for="Contact.IsVip" class="control-label"></label>
+                                <input class="form-check-input" asp-for="Contact.IsVip" />
+                                <span asp-validation-for="Contact.IsVip" class="text-danger"></span>
+                            </div>
 
-                <!-- LinkedIn URL -->
-                <div class="form-group">
-                    <label asp-for="Contact.LinkedInUrl" class="control-label"></label>
-                    <input asp-for="Contact.LinkedInUrl" class="form-control" />
-                    <span asp-validation-for="Contact.LinkedInUrl" class="text-danger"></span>
-                </div>
-
-                <!-- Is VIP -->
-                <div class="form-group">
-                    <label asp-for="Contact.IsVip" class="control-label"></label>
-                    <input class="form-check-input" asp-for="Contact.IsVip" /> @Html.DisplayNameFor(model => model.Contact.IsVip)
-                    <span asp-validation-for="Contact.IsVip" class="text-danger"></span>
-                </div>
-
-            </div>
-
-            <!-- Contact Notes Information (Single Note) -->
-            <div class="form-group">
-                <h3>Contact Notes</h3>
-                <div class="form-group">
-                    <label asp-for="ContactNote.Note" class="control-label"></label>
-                    <textarea asp-for="ContactNote.Note" class="form-control"></textarea>
-                    <span asp-validation-for="ContactNote.Note" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="ContactNote.CreatedAt" class="control-label"></label>
-                    <input asp-for="ContactNote.CreatedAt" class="form-control" type="date" />
-                    <span asp-validation-for="ContactNote.CreatedAt" class="text-danger"></span>
+                            <div class="form-group">
+                                <label asp-for="ContactNote.Note" class="control-label"></label>
+                                <textarea asp-for="ContactNote.Note" class="form-control"></textarea>
+                                <span asp-validation-for="ContactNote.Note" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
-            <!-- NAICS Codes Information (Single Code) -->
-            <div class="form-group"> 
-                <h3>NAICS Codes</h3> 
-                <div class="form-group"> 
-                     <label asp-for="IndustryNAICSCode.NAICSCode.Code" class="control-label"></label>
-                    @Html.DropDownList("NAICSCode", null, "All NAICSCode", htmlAttributes: new { @class = "form-control" })
-                    <span asp-validation-for="IndustryNAICSCode.NAICSCode.Code" class="text-danger"></span>
-                 </div>
-             </div>
-
-            <div class="form-group"> 
-                <label asp-for="MemberMembershipType.MembershipType.TypeName" class="control-label"></label>
-                @Html.DropDownList("MembershipType", null, "All Membership Types", htmlAttributes: new { @class = "form-control" })
-                <span asp-validation-for="MemberMembershipType.MembershipType.TypeName" class="text-danger"></span>
-
-             </div>
-
             <!-- Submit Button -->
-            <div class="form-group mt-2">
+            <div class="position-bottom-left">
+                <a class="btn btn-dark me-2" asp-controller="Member" asp-action="Index">Cancel</a>
                 <input type="submit" value="Create" class="btn btn-primary" />
+                
             </div>
 
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
