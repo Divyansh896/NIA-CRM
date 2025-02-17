@@ -9,6 +9,7 @@ using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
 using NIA_CRM.Utilities;
+using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
@@ -29,6 +30,8 @@ namespace NIA_CRM.Controllers
             string[] sortOptions = new[] { "Contact Name" };  // You can add more sort options if needed
 
             int numberFilters = 0;
+
+
 
             var contacts = _context.Contacts.Include(c => c.Member).AsQueryable();
             if (Departments != null)
@@ -61,7 +64,14 @@ namespace NIA_CRM.Controllers
 
             }
 
-            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
+            // Check if the actionButton is "ExportExcel" BEFORE applying filters
+            if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
+            {
+                var exportData = await contacts.AsNoTracking().ToListAsync();
+                return ExportContactsToExcel(exportData);
+            }
+
+            if (!String.IsNullOrEmpty(actionButton) ) //Form Submitted!
             {
                 page = 1;//Reset page to start
 
@@ -82,7 +92,7 @@ namespace NIA_CRM.Controllers
                     contacts = contacts
                         .OrderByDescending(p => p.FirstName)
                         .ThenByDescending(p => p.LastName);
-                    
+
                 }
                 else
                 {
@@ -93,7 +103,7 @@ namespace NIA_CRM.Controllers
                 }
             }
 
-            
+
             //Give feedback about the state of the filters
             if (numberFilters != 0)
             {
@@ -117,10 +127,58 @@ namespace NIA_CRM.Controllers
             var pagedData = await PaginatedList<Contact>.CreateAsync(contacts.AsNoTracking(), page ?? 1, pageSize);
 
             return View(pagedData);
-        }
 
-        // GET: Contact/Details/5
-        public async Task<IActionResult> Details(int? id)
+            
+
+        }
+        private IActionResult ExportContactsToExcel(List<Contact> contacts)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Contacts");
+
+                // Adding headers
+                worksheet.Cells[1, 1].Value = "Name";
+                worksheet.Cells[1, 2].Value = "Title";
+                worksheet.Cells[1, 3].Value = "Department";
+                worksheet.Cells[1, 4].Value = "Email";
+                worksheet.Cells[1, 5].Value = "Phone";
+                worksheet.Cells[1, 6].Value = "LinkedIn URL";
+                worksheet.Cells[1, 7].Value = "Is VIP";
+                worksheet.Cells[1, 8].Value = "Member Name";
+
+                // Populating data
+                int row = 2;
+                foreach (var contact in contacts)
+                {
+                    worksheet.Cells[row, 1].Value = contact.Summary;
+                    worksheet.Cells[row, 2].Value = contact.Title;
+                    worksheet.Cells[row, 3].Value = contact.Department;
+                    worksheet.Cells[row, 4].Value = contact.Email;
+                    worksheet.Cells[row, 5].Value = contact.PhoneFormatted;
+                    worksheet.Cells[row, 6].Value = contact.LinkedInUrl;
+                    worksheet.Cells[row, 7].Value = contact.IsVip ? "Yes" : "No";
+                    worksheet.Cells[row, 8].Value = contact.Member?.MemberName;
+                    row++;
+                }
+
+                // Auto-fit columns for better readability
+                worksheet.Cells.AutoFitColumns();
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"Contacts.xlsx";
+
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+    
+
+    // GET: Contact/Details/5
+    public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {

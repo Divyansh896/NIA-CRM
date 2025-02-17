@@ -9,6 +9,7 @@ using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
 using NIA_CRM.Utilities;
+using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
@@ -31,6 +32,57 @@ namespace NIA_CRM.Controllers
             var pagedData = await PaginatedList<MemberNote>.CreateAsync(memberNotes.AsNoTracking(), page ?? 1, pageSize);
 
             return View(pagedData);
+
+
+        }
+        // Export Member Notes to Excel
+        public IActionResult ExportToExcel()
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; 
+
+            var memberNotes = _context.MemberNotes
+                .Select(n => new
+                {
+                    n.Note,
+                    CreatedAt = n.CreatedAt,// Format DateTime
+                    Member = n.Member.MemberName
+                })
+                .ToList();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Member Notes");
+
+                // 🔹 Add Headers
+                worksheet.Cells["A1"].Value = "Note";
+                worksheet.Cells["B1"].Value = "Created At";
+                worksheet.Cells["C1"].Value = "Member";
+
+                using (var range = worksheet.Cells["A1:C1"])
+                {
+                    range.Style.Font.Bold = true;
+                    range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                }
+
+                // 🔹 Insert Data
+                int row = 2;
+                foreach (var note in memberNotes)
+                {
+                    worksheet.Cells[row, 1].Value = note.Note;
+                    worksheet.Cells[row, 2].Value = note.CreatedAt;
+                    worksheet.Cells[row, 3].Value = note.Member;
+                    row++;
+                }
+
+                worksheet.Cells.AutoFitColumns();
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "MemberNotes.xlsx");
+            }
         }
 
         // GET: MemberNote/Details/5
