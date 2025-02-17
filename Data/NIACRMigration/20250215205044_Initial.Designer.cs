@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250215021329_Initial")]
+    [Migration("20250215205044_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -162,24 +162,21 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasIndex("ContactId");
 
-                    b.ToTable("ContactNote");
+                    b.ToTable("ContactNotes");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.IndustryNAICSCode", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("MemberId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("NAICSCodeId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
 
-                    b.HasIndex("MemberId");
+                    b.HasKey("MemberId", "NAICSCodeId");
 
                     b.HasIndex("NAICSCodeId");
 
@@ -308,7 +305,6 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Note")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -368,14 +364,12 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Label")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

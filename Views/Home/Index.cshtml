@@ -1,14 +1,15 @@
-@model IEnumerable<NIA_CRM.Models.Member>
+@model IEnumerable<dynamic>
 
 @{
     ViewData["Title"] = "Index";
+    var cityCounts = ViewData["CityCounts"] as IEnumerable<dynamic>;
+    var memberCount = ViewData["MemberCount"] as int?;
 }
 <!--WIDGETS-->
 <div class="content" id="content" role="main" aria-labelledby="dashboard-title">
 
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
         <h1 id="dashboard-title">Dashboard</h1>
-        @* <button class="btn btn-primary">Customize</button> *@
     </div>
 
     <div class="row" role="region" aria-labelledby="dashboard-stats">
@@ -19,12 +20,10 @@
             <div class="card text-light vidget-MemebrCount" role="group" aria-labelledby="total-members-title">
                 <div class="card-body">
                     <div class="row align-items-center">
-                        <!-- Left Column (Title & Text) -->
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="total-members-title" role="heading" aria-level="3">Total Members</p>
                             <p class="card-text fixed-text" aria-live="polite">@ViewData["MemberCount"]</p>
                         </div>
-                        <!-- Right Column (Blank Space) -->
                         <div class="col-6"></div>
                     </div>
                 </div>
@@ -38,7 +37,7 @@
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="members-copperport-title" role="heading" aria-level="3">Members in Welland</p>
-                            <p class="card-text fixed-text" aria-live="polite">@Model.Count(m => m.Addresses.Any(a => a.City == "Welland"))</p>
+                            <p class="card-text fixed-text" aria-live="polite">3</p>
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -48,73 +47,113 @@
 
         <!-- Card 3: VIP Clients -->
         <div class="col-md-4">
-
             <div class="card text-light vidget-Memebr" role="group" aria-labelledby="vip-clients-title">
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="vip-clients-title" role="heading" aria-level="3">Associate Members</p>
                             <p class="card-text fixed-text" aria-live="polite">8</p>
-                            <!--<p class="card-text fixed-text" aria-live="polite">@ViewData["VipCount"]</p>-->
                         </div>
                         <div class="col-6"></div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
+    
+    <!-- Chart -->
+    <div class="content" id="Chartcontent" role="main" aria-labelledby="dashboard-title">
+        <canvas id="cityBarChart" width="400" height="300"></canvas>
+    </div>
+
 </div>
-
-
 @section Scripts {
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            // Initially hide the preview container
-            $('#previewContainer').addClass('hidden');
-
-            // Handle row clicks
-            $(document).on('click', '.clickable-row', function () {
-                var memberId = $(this).data('id'); // Get the Member ID
-                if (!memberId) {
-                    console.error('No member ID found.');
-                    return;
-                }
-
-                // AJAX request to fetch member details
-                $.ajax({
-                    url: '/Home/GetMemberPreview', // Adjust the route as necessary
-                    type: 'GET',
-                    data: { id: memberId },
-                    success: function (result) {
-                        $('#previewContainer').html(result).removeClass('hidden').addClass('visible');
-                    },
-                    error: function () {
-                        alert('Error fetching member details.');
-                    }
-                });
-            });
-
-            // Hide the preview container when clicking outside
-            $(window).click(function (event) {
-                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
-                    $('#previewContainer').removeClass('visible').addClass('hidden');
-                }
-            });
-
-            // Prevent clicks inside the preview container from propagating
-            $('#previewContainer').click(function (event) {
-                event.stopPropagation();
-            });
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
     <script type="text/javascript">
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
+        function initializeCityBarChart() {
+            // Get the serialized data from ViewData
+            const cityCounts = @Html.Raw(Json.Serialize(ViewData["CityCounts"]));
+
+            // Prepare data for the chart
+            const labels = cityCounts.map(function(item) {
+                return item.city;  // City names as labels
+            });
+
+            const data = cityCounts.map(function(item) {
+                return item.count;  // Counts as data points
+            });
+
+            // Function to generate a random color
+            function getRandomColor() {
+                const hue = Math.floor(Math.random() * 360);  // Random hue between 0 and 360
+                const saturation = 100;  // Full saturation for vivid colors
+                const lightness = 60;  // Lightness at 60% for brightness
+                return `hsl(${hue}, ${saturation}%, ${lightness}%)`;  // Return HSL color
+            }
+
+            // Generate random colors for each slice
+            const backgroundColors = data.map(function() {
+                return getRandomColor();  // Assign a random color to each slice
+            });
+
+            // Get the context of the canvas element
+            const canvas = document.getElementById('cityBarChart');
+            const ctx = canvas.getContext('2d');
+
+            // Create the pie chart
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels, // City names as labels
+                    datasets: [{
+                        label: 'Occurrences of Members in Each City',  // Dataset label
+                        data: data,  // Data from counts
+                        backgroundColor: backgroundColors,  // Use random colors
+                        borderColor: backgroundColors,  // Border color same as background
+                        borderWidth: 1,  // Border width for clarity
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            enabled: true,  // Enable tooltips
+                        },
+                        datalabels: {
+                            // Display labels outside the pie slices
+                            formatter: function(value, context) {
+                                return context.label + ': ' + value;  // Display label and value
+                            },
+                            color: 'black',  // Set text color to black for better visibility
+                            anchor: 'end',  // Position text at the end (outside the pie)
+                            align: 'start',   // Align the text to the start of the slice
+                            offset: 25,  // Add some space between the text and pie slice
+                            font: {
+                                weight: 'bold',
+                                size: 14
+                            }
+                        },
+                        legend: {
+                            display: false,  // Disable the legend
+                        }
+                    },
+                    title: {
+                        display: false,  // Disable the chart title
+                    },
+                    animation: {
+                        animateScale: true, // Enable the explode effect
+                    },
+                    hoverOffset: 25, // Explodes the pie slice slightly on hover
+                }
+            });
+        }
+
+        // Call the function to initialize the chart
+        initializeCityBarChart();
     </script>
 }

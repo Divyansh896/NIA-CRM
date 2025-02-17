@@ -17,7 +17,7 @@ namespace NIA_CRM.Models
             }
         }
 
-
+        [Key]
         public int ID { get; set; }
 
         [Required(ErrorMessage = "You cannot leave the member name blank.")]

@@ -4,6 +4,7 @@ namespace NIA_CRM.Models
 {
     public class Notes
     {
+        [Key]
         public int ID { get; set; }
 
         [Required(ErrorMessage = "Note content is required.")]

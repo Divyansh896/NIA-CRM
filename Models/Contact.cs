@@ -8,6 +8,7 @@ namespace NIA_CRM.Models
         public string PhoneFormatted => "(" + Phone?.Substring(0, 3) + ") "
             + Phone?.Substring(3, 3) + "-" + Phone?[6..];
 
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "First Name is required.")]
@@ -45,7 +46,7 @@ namespace NIA_CRM.Models
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
 
         public int MemberId { get; set; }  // Foreign key to Member
-        public Member Member { get; set; } // Navigation property to Member
+        public Member? Member { get; set; } // Navigation property to Member
 
       
         

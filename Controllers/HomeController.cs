@@ -37,165 +37,33 @@ namespace NIA_CRM.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> Index(string? SearchString,
-     int? OrganizationID,
-     int? Members,
-     int? MembershipTypes,
-     int? page,
-     int? pageSizeID,
-     string? actionButton,
-     string sortDirection = "asc",
-     string sortField = "Member Name")
+        public async Task<IActionResult> Index()
         {
-            string[] sortOptions = { "Member Name" };
-            int numberFilters = 0;
+            var addresses = await _context.Members
+                .Include(m => m.Addresses)
+                .Where(m => m.Addresses != null && m.Addresses.Any()) // Ensure no null addresses
+                .SelectMany(m => m.Addresses)
+                .ToListAsync();
 
-            // Populate dropdowns (ensure method works)
-            PopulateDropdowns();
-            // Fetch data from the database
-            var memberDetailsQuery = _context.Members
+            var cityCounts = await _context.Members
+    .Where(m => m.Addresses != null && m.Addresses.Any())  // Ensure there are addresses
+    .SelectMany(m => m.Addresses)  // Flatten the addresses for each member
+    .GroupBy(a => a.City)  // Group by city
+    .Select(g => new { City = g.Key, Count = g.Count() })  // Get the city and count of addresses
+    .ToListAsync();
 
-    .Include(m => m.Contacts)
-    .Include(m => m.Addresses) // Include Addresses related to the Member
-    .Include(m => m.MemberMembershipTypes) // Include MembershipTypes related to the Member
-    .Include(m => m.Cancellations) // Include Cancellations related to the Member
-    .Include(m => m.MemberNotes) // Include Member Notes
-    .Include(m => m.Interactions) // Include Interactions related to the Member
-    .Include(m => m.MemberThumbnail)
-    .Include(m => m.Contacts)
-                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
-    .AsNoTracking();
+            // Pass cityCounts as a model or through ViewData
+            ViewData["CityCounts"] = cityCounts;
+            ViewData["MemberCount"] = await _context.Members.CountAsync();
 
-
-
-            // Count VIPs
-            var memberCount = await _context.Members.CountAsync();
-            var vipCount = await _context.Contacts.CountAsync(c => c.IsVip);
-
-            var copperportCount = await _context.Members
-    .Include(m => m.Addresses) // Ensure Addresses is included
-    .CountAsync(m => m.Addresses.Any(a => a.City == "Copperport")); // Check if any address has the city "Copperport"
-
-
-
-            ViewData["MemberCount"] = memberCount;
-            ViewData["VipCount"] = vipCount;
-            ViewData["CopperportCount"] = copperportCount;
-            
-
-            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
-            {
-                page = 1;//Reset page to start
-
-                if (sortOptions.Contains(actionButton))//Change of sort is requested
-                {
-                    if (actionButton == sortField) //Reverse order on same field
-                    {
-                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
-                    }
-                    sortField = actionButton;//Sort by the button clicked
-                }
-            }
-
-            // Apply filters
-            if (!string.IsNullOrEmpty(SearchString))
-            {
-                memberDetailsQuery = memberDetailsQuery.Where(m =>
-                    m.MemberName.ToUpper().Contains(SearchString.ToUpper()));
-                numberFilters++;
-            }
-
-            if (Members.HasValue)
-            {
-                memberDetailsQuery = memberDetailsQuery.Where(p => p.ID == Members);
-                numberFilters++;
-            }
-
-            if (MembershipTypes.HasValue)
-            {
-                // Assuming MembershipTypes is the ID or a collection of IDs for the membership type
-                memberDetailsQuery = memberDetailsQuery
-                    .Where(p => p.MemberMembershipTypes.Any(mmt => mmt.MembershipTypeId == MembershipTypes.Value));
-                numberFilters++;
-            }
-
-
-            if (sortField == "Member Name")
-            {
-                if (sortDirection == "asc")
-                {
-                    memberDetailsQuery = memberDetailsQuery
-                        .OrderBy(p => p.MemberName);
-                }
-                else
-                {
-                    
-                    memberDetailsQuery = memberDetailsQuery
-                        .OrderByDescending(p => p.MemberName);
-                }
-            }
-
-            if (numberFilters != 0)
-            {
-                //Toggle the Open/Closed state of the collapse depending on if we are filtering
-                ViewData["Filtering"] = " btn-danger";
-                //Show how many filters have been applied
-                ViewData["numberFilters"] = "(" + numberFilters.ToString()
-                    + " Filter" + (numberFilters > 1 ? "s" : "") + " Applied)";
-                //Keep the Bootstrap collapse open
-                @ViewData["ShowFilter"] = " show";
-            }
-
-            ViewData["SortDirection"] = sortDirection;
-            ViewData["SortField"] = sortField;
-            ViewData["numberFilters"] = numberFilters;
-            ViewData["records"] = $"Records Found: {memberDetailsQuery.Count()}";
-
-            // Handle paging
-            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
-            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
-            var pagedData = await PaginatedList<Member>.CreateAsync(memberDetailsQuery, page ?? 1, pageSize);
-
-            return View(pagedData);
+            return View(); // Pass nothing if using ViewData, or you can directly pass data via View()
         }
 
-        public async Task<IActionResult> GetMemberPreview(int id)
-        {
-            var member = await _context.Members
-                .Include(m => m.Addresses) // Include the related Address
-                .Include(m => m.MemberThumbnail)
-                .Include(m => m.MemberMembershipTypes)
-                .ThenInclude(mm => mm.MembershipType)
-                .Include(m => m.Contacts)
-                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
-                .FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
-
-            if (member == null)
-            {
-                return NotFound(); // Return 404 if the member doesn't exist
-            }
-
-            return PartialView("_MemberContactPreview", member); // Ensure the partial view name matches
-        }
-
-        private void PopulateDropdowns()
-        {
-            // Fetch Members for dropdown
-            var members = _context.Members.ToList();
-            ViewData["Members"] = new SelectList(members, "ID", "MemberName");
-
-            // Fetch Industry NAICS Codes
-            // Query the IndustryNAICSCode table and include related NAICSCode data.
-            var naicsCodes = _context.NAICSCodes.ToList();
-
-            var membershipTypes = _context.MembershipTypes.ToList();
-
-            ViewData["MembershipTypes"] = new SelectList(membershipTypes, "ID", "TypeName");
-
-            // Create a SelectList using the "ID" as the value field and "NAICSCode.Code" as the display field.
-            ViewData["IndustryNAICSCodes"] = new SelectList(naicsCodes, "ID", "Code");
-
-        }
 
     }
+
+
+
+
+
 }

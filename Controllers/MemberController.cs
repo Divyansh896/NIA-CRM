@@ -32,15 +32,15 @@ namespace NIA_CRM.Controllers
 
             var members = _context.Members
                 .Include(m => m.MemberThumbnail)
-                .Include(m =>m.Addresses)
-                .Include(m => m.MemberMembershipTypes).ThenInclude(m=>m.MembershipType)
+                .Include(m => m.Addresses)
+                .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
                 .Include(m => m.MemberNotes)
                 .Include(m => m.Contacts)
-                .Include(m => m.IndustryNAICSCodes).ThenInclude(m=> m.NAICSCode)
+                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
                 .Include(m => m.Addresses) //new added for addresses
                 .Include(m => m.Contacts) // new added for contacts
             .AsNoTracking();
-                
+
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
             {
@@ -94,7 +94,7 @@ namespace NIA_CRM.Controllers
                     ViewData["MembershipTypesFilter"] = membershipType.TypeName;
                 }
             }
-            
+
 
             if (numberFilters != 0)
             {
@@ -156,7 +156,7 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")] 
+        public async Task<IActionResult> Create([Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")]
         Member member, IFormFile? thePicture)
         {
             if (ModelState.IsValid)
@@ -356,15 +356,18 @@ namespace NIA_CRM.Controllers
 
         private void PopulateDropdowns()
         {
-           
-            
+
+
 
             var membershipTypes = _context.MembershipTypes.ToList();
 
             ViewData["MembershipTypes"] = new SelectList(membershipTypes, "ID", "TypeName");
 
-            
+
 
         }
+
+        
+
     }
 }
