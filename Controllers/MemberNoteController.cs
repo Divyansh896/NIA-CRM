@@ -38,7 +38,7 @@ namespace NIA_CRM.Controllers
         // Export Member Notes to Excel
         public IActionResult ExportToExcel()
         {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; 
+            //ExcelPackage.LicenseContext = LicenseContext.NonCommercial; 
 
             var memberNotes = _context.MemberNotes
                 .Select(n => new

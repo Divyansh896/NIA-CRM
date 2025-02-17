@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -133,52 +134,52 @@ namespace NIA_CRM.Controllers
         }
         private IActionResult ExportContactsToExcel(List<Contact> contacts)
         {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            using (var package = new ExcelPackage())
+            //ExcelPackage = LicenseContext;
+
+            var package = new ExcelPackage(); // No 'using' block to avoid disposal
+            var worksheet = package.Workbook.Worksheets.Add("Contacts");
+
+            // Adding headers
+            worksheet.Cells[1, 1].Value = "Name";
+            worksheet.Cells[1, 2].Value = "Title";
+            worksheet.Cells[1, 3].Value = "Department";
+            worksheet.Cells[1, 4].Value = "Email";
+            worksheet.Cells[1, 5].Value = "Phone";
+            worksheet.Cells[1, 6].Value = "LinkedIn URL";
+            worksheet.Cells[1, 7].Value = "Is VIP";
+            worksheet.Cells[1, 8].Value = "Member Name";
+
+            // Populating data
+            int row = 2;
+            foreach (var contact in contacts)
             {
-                var worksheet = package.Workbook.Worksheets.Add("Contacts");
-
-                // Adding headers
-                worksheet.Cells[1, 1].Value = "Name";
-                worksheet.Cells[1, 2].Value = "Title";
-                worksheet.Cells[1, 3].Value = "Department";
-                worksheet.Cells[1, 4].Value = "Email";
-                worksheet.Cells[1, 5].Value = "Phone";
-                worksheet.Cells[1, 6].Value = "LinkedIn URL";
-                worksheet.Cells[1, 7].Value = "Is VIP";
-                worksheet.Cells[1, 8].Value = "Member Name";
-
-                // Populating data
-                int row = 2;
-                foreach (var contact in contacts)
-                {
-                    worksheet.Cells[row, 1].Value = contact.Summary;
-                    worksheet.Cells[row, 2].Value = contact.Title;
-                    worksheet.Cells[row, 3].Value = contact.Department;
-                    worksheet.Cells[row, 4].Value = contact.Email;
-                    worksheet.Cells[row, 5].Value = contact.PhoneFormatted;
-                    worksheet.Cells[row, 6].Value = contact.LinkedInUrl;
-                    worksheet.Cells[row, 7].Value = contact.IsVip ? "Yes" : "No";
-                    worksheet.Cells[row, 8].Value = contact.Member?.MemberName;
-                    row++;
-                }
-
-                // Auto-fit columns for better readability
-                worksheet.Cells.AutoFitColumns();
-
-                var stream = new MemoryStream();
-                package.SaveAs(stream);
-                stream.Position = 0;
-
-                string excelName = $"Contacts.xlsx";
-
-                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+                worksheet.Cells[row, 1].Value = contact.Summary;
+                worksheet.Cells[row, 2].Value = contact.Title;
+                worksheet.Cells[row, 3].Value = contact.Department;
+                worksheet.Cells[row, 4].Value = contact.Email;
+                worksheet.Cells[row, 5].Value = contact.PhoneFormatted;
+                worksheet.Cells[row, 6].Value = contact.LinkedInUrl;
+                worksheet.Cells[row, 7].Value = contact.IsVip ? "Yes" : "No";
+                worksheet.Cells[row, 8].Value = contact.Member?.MemberName;
+                row++;
             }
-        }
-    
 
-    // GET: Contact/Details/5
-    public async Task<IActionResult> Details(int? id)
+            // Auto-fit columns for better readability
+            worksheet.Cells.AutoFitColumns();
+
+            var stream = new MemoryStream();
+            package.SaveAs(stream);
+            stream.Position = 0; // Reset position before returning
+
+            string excelName = $"Contacts.xlsx";
+
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        }
+
+
+
+        // GET: Contact/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {

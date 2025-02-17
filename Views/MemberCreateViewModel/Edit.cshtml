@@ -6,11 +6,10 @@
 
 <h1>Edit</h1>
 
-
 <hr />
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div asp-validation-summary="All" class="text-danger"></div>
             <h3>Member Details</h3>
@@ -24,9 +23,19 @@
                             <span asp-validation-for="Member.MemberName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="MemberMembershipType.MembershipType.TypeName" class="control-label"></label>
-                            @Html.DropDownList("MembershipType", null, "All Membership Types", new { @class = "form-control" })
-                            <span asp-validation-for="MemberMembershipType.MembershipType.TypeName" class="text-danger"></span>
+                            <label asp-for="Member.JoinDate" class="control-label"></label>
+                            <input asp-for="Member.JoinDate" type="date" class="form-control" />
+                            <span asp-validation-for="Member.JoinDate" class="text-danger"></span>
+                        </div>
+                        <!-- Membership Type (Multiple Selection) -->
+                        <div class="form-group">
+                            <label asp-for="SelectedMembershipTypes" class="control-label">Membership Type</label>
+                            @Html.ListBoxFor(
+                                     model => model.SelectedMembershipTypes,
+                                     new SelectList(Model.MembershipTypes, "ID", "TypeName", Model.SelectedMembershipTypes),
+                                     new { @class = "form-control", multiple = "multiple" }
+                                     )
+                            <span asp-validation-for="SelectedMembershipTypes" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -38,9 +47,13 @@
                             <span asp-validation-for="Member.MemberSize" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="IndustryNAICSCode.NAICSCode.Code" class="control-label"></label>
-                            @Html.DropDownList("NAICSCode", null, "All NAICSCode", new { @class = "form-control" })
-                            <span asp-validation-for="IndustryNAICSCode.NAICSCode.Code" class="text-danger"></span>
+                            <label asp-for="SelectedNAICSCodeIds" class="control-label">NAICS Code</label>
+                            @Html.ListBoxFor(
+                                     model => model.SelectedNAICSCodeIds,
+                                     new SelectList(Model.NAICSCodes, "Id", "Code", Model.SelectedNAICSCodeIds),
+                                     new { @class = "form-control", multiple = "multiple" }
+                                     )
+                            <span asp-validation-for="SelectedNAICSCodeIds" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Member.WebsiteUrl" class="control-label"></label>
@@ -81,10 +94,14 @@
                             <input asp-for="Address.PostalCode" class="form-control" />
                             <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
                         </div>
+                        <div class="form-group">
+                            <label asp-for="Address.Country" class="control-label"></label>
+                            <input asp-for="Address.Country" class="form-control" />
+                            <span asp-validation-for="Address.Country" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Contact Information (Only showing the first contact in the list) -->
             <!-- Contact Information -->
             <div class="form-group">
                 <h3>Contact</h3>
@@ -97,20 +114,17 @@
                                 <input asp-for="Contact.FirstName" class="form-control" />
                                 <span asp-validation-for="Contact.FirstName" class="text-danger"></span>
                             </div>
-
                             <div class="form-group">
                                 <label asp-for="Contact.MiddleName" class="control-label"></label>
                                 <input asp-for="Contact.MiddleName" class="form-control" />
                                 <span asp-validation-for="Contact.MiddleName" class="text-danger"></span>
                             </div>
-
                             <div class="form-group">
                                 <label asp-for="Contact.LastName" class="control-label"></label>
                                 <input asp-for="Contact.LastName" class="form-control" />
                                 <span asp-validation-for="Contact.LastName" class="text-danger"></span>
                             </div>
                         </div>
-
                         <!-- Column 2 -->
                         <div class="col-md-4">
                             <div class="form-group">
@@ -118,20 +132,17 @@
                                 <input asp-for="Contact.Email" class="form-control" />
                                 <span asp-validation-for="Contact.Email" class="text-danger"></span>
                             </div>
-
                             <div class="form-group">
                                 <label asp-for="Contact.Phone" class="control-label"></label>
                                 <input asp-for="Contact.Phone" class="form-control" />
                                 <span asp-validation-for="Contact.Phone" class="text-danger"></span>
                             </div>
-
                             <div class="form-group">
                                 <label asp-for="Contact.LinkedInUrl" class="control-label"></label>
                                 <input asp-for="Contact.LinkedInUrl" class="form-control" />
                                 <span asp-validation-for="Contact.LinkedInUrl" class="text-danger"></span>
                             </div>
                         </div>
-
                         <!-- Column 3 -->
                         <div class="col-md-4">
                             <div class="form-group">
@@ -139,13 +150,16 @@
                                 <input asp-for="Contact.Department" class="form-control" />
                                 <span asp-validation-for="Contact.Department" class="text-danger"></span>
                             </div>
-
                             <div class="form-group">
                                 <label asp-for="Contact.IsVip" class="control-label"></label>
                                 <input class="form-check-input" asp-for="Contact.IsVip" />
                                 <span asp-validation-for="Contact.IsVip" class="text-danger"></span>
                             </div>
-
+                            <div class="form-group">
+                                <label asp-for="ContactNote.CreatedAt" class="control-label"></label>
+                                <input asp-for="ContactNote.CreatedAt" class="form-control" />
+                                <span asp-validation-for="ContactNote.CreatedAt" class="text-danger"></span>
+                            </div>
                             <div class="form-group">
                                 <label asp-for="ContactNote.Note" class="control-label"></label>
                                 <textarea asp-for="ContactNote.Note" class="form-control"></textarea>
@@ -158,14 +172,14 @@
 
             <div class="position-bottom-left">
                 <a class="btn btn-dark me-2" asp-controller="Member" asp-action="Index">Cancel</a>
-                <input type="submit" value="Edit" class="btn btn-primary" />
-
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-
         </form>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

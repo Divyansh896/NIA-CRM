@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
 using NIA_CRM.ViewModels;
 
 namespace NIA_CRM.Controllers
 {
-    public class MemberCreateViewModelController : Controller
+    public class MemberCreateViewModelController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -55,45 +56,42 @@ namespace NIA_CRM.Controllers
             return View(member);
         }
 
-        // GET: MemberCreateViewModel/Create
+        // GET: Create
         public IActionResult Create()
         {
             var memberCreateViewModel = new MemberCreateViewModel
             {
                 // Initialize single objects
                 Member = new Member(),
-                MemberNote = new MemberNote(),  // Single MemberNote object
-                Address = new Address(),  // Single Address object
-                Contact = new Contact(),  // Single Contact object
-                ContactNote = new ContactNote(),  // Single Contact Note object
-                NAICSCode = new NAICSCode(),  // Single NAICSCode object
-                IndustryNAICSCode = new IndustryNAICSCode(),
-                //MembershipType = new MembershipType(),
-                MemberMembershipType = new MemberMembershipType()  // Single MemberMembershipType object
+                MemberNote = new MemberNote(),
+                Address = new Address(),
+                Contact = new Contact(),
+                ContactNote = new ContactNote(),
 
+                // Initialize lists to handle multiple selections
+                IndustryNAICSCode = new List<IndustryNAICSCode>(),
+                MemberMembershipTypes = new List<MemberMembershipType>(),
+                MembershipTypes = _context.MembershipTypes.ToList(), // Available membership types
+                NAICSCodes = _context.NAICSCodes.ToList()  // Available NAICS codes
             };
 
-            // Optionally populate the MembershipTypes dropdown if needed
-            var membershipTypes = _context.MembershipTypes.ToList();
-            ViewData["MembershipType"] = new SelectList(membershipTypes, "ID", "TypeName");
-
-            var NAICSCode = _context.NAICSCodes.ToList();
-            ViewData["NAICSCode"] = new SelectList(NAICSCode, "Id", "Code");
+            // Optionally, initialize available NAICS codes for the dropdown
+            memberCreateViewModel.AvailableNAICSCodes = _context.NAICSCodes.ToList();
 
             return View(memberCreateViewModel);
         }
 
 
 
+
         // POST: MemberCreateViewModel/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(MemberCreateViewModel memberCreateViewModel)
         {
             if (ModelState.IsValid)
             {
-                // Ensure the Member entity is saved first
+                // Save Member first
                 _context.Members.Add(memberCreateViewModel.Member);
                 await _context.SaveChangesAsync(); // Get Member ID after save
 
@@ -121,58 +119,71 @@ namespace NIA_CRM.Controllers
                     await _context.SaveChangesAsync(); // Ensure Contact ID is available
                 }
 
-                // Save Contact Note (only if Contact was created)
+                // Save Contact Note if it exists
                 if (memberCreateViewModel.ContactNote != null && memberCreateViewModel.Contact != null)
                 {
                     memberCreateViewModel.ContactNote.ContactId = memberCreateViewModel.Contact.Id;
                     _context.ContactNotes.Add(memberCreateViewModel.ContactNote);
                 }
 
-                if (memberCreateViewModel.NAICSCode != null)
+                // Save multiple Industry NAICS Codes
+                if (memberCreateViewModel.SelectedNAICSCodeIds != null && memberCreateViewModel.SelectedNAICSCodeIds.Any())
                 {
-                    var existingNAICSCode = await _context.NAICSCodes
-                        .FirstOrDefaultAsync(n => n.Id == memberCreateViewModel.NAICSCode.Id);
-
-                    if (existingNAICSCode != null && memberCreateViewModel.IndustryNAICSCode != null)
+                    foreach (var naicsCodeId in memberCreateViewModel.SelectedNAICSCodeIds)
                     {
-                        memberCreateViewModel.IndustryNAICSCode.MemberId = memberCreateViewModel.Member.ID;
-                        memberCreateViewModel.IndustryNAICSCode.NAICSCodeId = existingNAICSCode.Id;
-                        _context.IndustryNAICSCodes.Add(memberCreateViewModel.IndustryNAICSCode);
-                    }
-                }
+                        var existingNAICSCode = await _context.NAICSCodes
+                            .FirstOrDefaultAsync(n => n.Id == naicsCodeId);
 
-                if (memberCreateViewModel.MemberMembershipType.MembershipTypeId > 0)
-                {
-                    // Retrieve the existing MembershipType based on the MembershipTypeId
-                    var existingMembershipType = await _context.MembershipTypes
-                        .FirstOrDefaultAsync(n => n.ID == memberCreateViewModel.MemberMembershipType.MembershipTypeId);
+                        if (existingNAICSCode != null)
+                        {
+                            var industryNAICSCode = new IndustryNAICSCode
+                            {
+                                MemberId = memberId,
+                                NAICSCodeId = existingNAICSCode.Id
+                            };
 
-                    if (existingMembershipType != null && memberCreateViewModel.MemberMembershipType != null)
-                    {
-                        // Set the MemberId for the MemberMembershipType
-                        memberCreateViewModel.MemberMembershipType.MemberId = memberCreateViewModel.Member.ID;
-                        memberCreateViewModel.MemberMembershipType.MembershipTypeId = existingMembershipType.ID;
-                        _context.MemberMembershipTypes.Add(memberCreateViewModel.MemberMembershipType);
+                            _context.IndustryNAICSCodes.Add(industryNAICSCode);
+                        }
                     }
                 }
 
 
+                // Handle multiple membership types
+                if (memberCreateViewModel.SelectedMembershipTypes != null && memberCreateViewModel.SelectedMembershipTypes.Any())
+                {
+                    foreach (var membershipTypeId in memberCreateViewModel.SelectedMembershipTypes)
+                    {
+                        var existingMembershipType = await _context.MembershipTypes
+                            .FirstOrDefaultAsync(n => n.ID == membershipTypeId);
+
+                        if (existingMembershipType != null)
+                        {
+                            var memberMembershipType = new MemberMembershipType
+                            {
+                                MemberId = memberId,
+                                MembershipTypeId = existingMembershipType.ID
+                            };
+
+                            _context.MemberMembershipTypes.Add(memberMembershipType);
+                        }
+                    }
+                }
 
                 // Save all related entities
                 await _context.SaveChangesAsync();
 
-                // Redirect to Index
+                // Redirect to the Details view
                 return RedirectToAction("Details", "Member", new { id = memberCreateViewModel.Member.ID });
             }
 
-            // Re-populate dropdowns before returning the view
-            ViewData["MembershipType"] = new SelectList(_context.MembershipTypes, "ID", "TypeName");
-            ViewData["NAICSCode"] = new SelectList(_context.NAICSCodes, "Id", "Code");
+            // Re-populate the dropdowns in case the form is invalid
+            ViewData["MembershipTypes"] = new SelectList(_context.MembershipTypes, "ID", "TypeName");
+            ViewData["NAICSCodes"] = new SelectList(_context.NAICSCodes, "Id", "Code");
 
             return View(memberCreateViewModel);
         }
 
-        // Get: Edit
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -180,60 +191,248 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Members.FindAsync(id);
+            var member = await _context.Members
+                                        .Include(m => m.MemberThumbnail)
+                                        .Include(m => m.Addresses)
+                                        .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+                                        .Include(m => m.MemberNotes)
+                                        .Include(m => m.Contacts).ThenInclude(m => m.ContactNotes)
+                                        .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                                        .FirstOrDefaultAsync(m => m.ID == id);
+
             if (member == null)
             {
                 return NotFound();
             }
-            return View(member);
+
+            var memberEditViewModel = new MemberCreateViewModel
+            {
+                Member = member,
+                MemberNote = member.MemberNotes.FirstOrDefault(),
+                Address = member.Addresses.FirstOrDefault(),
+                Contact = member.Contacts.FirstOrDefault(),
+                ContactNote = member.Contacts.FirstOrDefault()?.ContactNotes.FirstOrDefault(),
+                IndustryNAICSCode = member.IndustryNAICSCodes?.ToList() ?? new List<IndustryNAICSCode>(),
+                MemberMembershipTypes = member.MemberMembershipTypes?.ToList() ?? new List<MemberMembershipType>(),
+                SelectedNAICSCodeIds = member.IndustryNAICSCodes?.Select(i => i.NAICSCodeId).ToList() ?? new List<int>(),
+                SelectedMembershipTypes = member.MemberMembershipTypes?.Select(m => m.MembershipTypeId).ToList() ?? new List<int>(),
+                MembershipTypes = _context.MembershipTypes.ToList() ?? new List<MembershipType>(),
+                NAICSCodes = _context.NAICSCodes.ToList() ?? new List<NAICSCode>()
+            };
+
+
+
+
+            return View(memberEditViewModel);
         }
 
+
+
+
+
         // POST: MemberCreateViewModel/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, MemberCreateViewModel memberCreateViewModel)
+        public async Task<IActionResult> Edit(int id, MemberCreateViewModel model)
         {
-            if (id != memberCreateViewModel.Member.ID)
+            
+
+            var memberToUpdate = await _context.Members
+                .Include(m => m.MemberThumbnail)
+                .Include(m => m.Addresses)
+                .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+                .Include(m => m.MemberNotes)
+                .Include(m => m.Contacts).ThenInclude(m => m.ContactNotes)
+                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (memberToUpdate == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
+                // Update the Member properties
+                if (await TryUpdateModelAsync<Member>(memberToUpdate, "",
+                    m => m.MemberName,
+                    m => m.MemberSize,
+                    m => m.WebsiteUrl,
+                    m => m.JoinDate,
+                    m => m.IsVIP,
+                    m => m.MemberLogo
+                ))
                 {
-                    var member = await _context.Members.FindAsync(id);
-                    if (member == null)
+                    // Handle Membership Types (Many-to-Many)
+                    var currentMembershipTypes = memberToUpdate.MemberMembershipTypes.Select(m => m.MembershipTypeId).ToList();
+                    var selectedMembershipTypes = model.SelectedMembershipTypes;
+
+                    // Remove the old associations
+                    var toRemoveMembershipTypes = memberToUpdate.MemberMembershipTypes.Where(m => !selectedMembershipTypes.Contains(m.MembershipTypeId)).ToList();
+                    foreach (var item in toRemoveMembershipTypes)
                     {
-                        return NotFound();
+                        memberToUpdate.MemberMembershipTypes.Remove(item);
                     }
 
-                    // Update Member fields
-                    member.MemberName = memberCreateViewModel.Member.MemberName;
-                    member.MemberSize = memberCreateViewModel.Member.MemberSize;
-                    // Add other fields as necessary...
+                    // Add new associations
+                    foreach (var membershipTypeId in selectedMembershipTypes)
+                    {
+                        if (!currentMembershipTypes.Contains(membershipTypeId))
+                        {
+                            memberToUpdate.MemberMembershipTypes.Add(new MemberMembershipType { MembershipTypeId = membershipTypeId, MemberId = memberToUpdate.ID });
+                        }
+                    }
 
-                    _context.Update(member);
+                    // Handle NAICS Codes (Many-to-Many)
+                    var currentNAICSCodes = memberToUpdate.IndustryNAICSCodes.Select(n => n.NAICSCodeId).ToList();
+                    var selectedNAICSCodeIds = model.SelectedNAICSCodeIds;
+
+                    // Remove the old associations
+                    var toRemoveNAICSCode = memberToUpdate.IndustryNAICSCodes.Where(n => !selectedNAICSCodeIds.Contains(n.NAICSCodeId)).ToList();
+                    foreach (var item in toRemoveNAICSCode)
+                    {
+                        memberToUpdate.IndustryNAICSCodes.Remove(item);
+                    }
+
+                    // Add new associations
+                    foreach (var naicsCodeId in selectedNAICSCodeIds)
+                    {
+                        if (!currentNAICSCodes.Contains(naicsCodeId))
+                        {
+                            memberToUpdate.IndustryNAICSCodes.Add(new IndustryNAICSCode { NAICSCodeId = naicsCodeId, MemberId = memberToUpdate.ID });
+                        }
+                    }
+
+                    // Handle single Address
+                    if (model.Address != null)
+                    {
+                        var existingAddress = memberToUpdate.Addresses.FirstOrDefault(a => a.Id == model.Address.Id);
+                        if (existingAddress != null)
+                        {
+                            // Update the existing address with the new values from model
+                            existingAddress.AddressLine1 = model.Address.AddressLine1;
+                            existingAddress.AddressLine2 = model.Address.AddressLine2;
+                            existingAddress.City = model.Address.City;
+                            existingAddress.StateProvince = model.Address.StateProvince;
+                            existingAddress.Country = model.Address.Country;
+                            existingAddress.PostalCode = model.Address.PostalCode;
+                            _context.Entry(existingAddress).CurrentValues.SetValues(model.Address); // This updates the existing contact with new values.
+
+                        }
+                        else
+                        {
+                            // Add new address if none exists
+                            memberToUpdate.Addresses.Add(model.Address);
+                        }
+                    }
+
+
+                    // Handle single Contact
+                    if (model.Contact != null)
+                    {
+                        var existingContact = memberToUpdate.Contacts.FirstOrDefault(c => c.Id == model.Contact.Id);
+                        if (existingContact != null)
+                        {
+                            // Update the existing contact
+                            existingContact.FirstName = model.Contact.FirstName;
+                            existingContact.MiddleName = model.Contact.MiddleName;
+                            existingContact.LastName = model.Contact.LastName;
+                            existingContact.Title = model.Contact.Title;
+                            existingContact.Department = model.Contact.Department;
+                            existingContact.Email = model.Contact.Email;
+                            existingContact.Phone = model.Contact.Phone;
+                            existingContact.LinkedInUrl = model.Contact.LinkedInUrl;
+                            existingContact.IsVip = model.Contact.IsVip;
+
+                            // You can set additional properties if needed, just like you did for the address.
+                            _context.Entry(existingContact).CurrentValues.SetValues(model.Contact); // This updates the existing contact with new values.
+                        }
+                        else
+                        {
+                            // Add new contact if none exists
+                            model.Contact.MemberId = memberToUpdate.ID; // Ensure the contact is associated with the member
+                            memberToUpdate.Contacts.Add(model.Contact);
+                        }
+                    }
+
+
+                    // Handle single Note
+                    // Handle single MemberNote
+                    if (model.MemberNote != null)
+                    {
+                        var existingNote = memberToUpdate.MemberNotes.FirstOrDefault(n => n.Id == model.MemberNote.Id);
+                        if (existingNote != null)
+                        {
+                            // Update the existing note
+                            existingNote.Note = model.MemberNote.Note;
+                            existingNote.CreatedAt = model.MemberNote.CreatedAt;
+
+                            // You can set additional properties if needed
+                            _context.Entry(existingNote).CurrentValues.SetValues(model.MemberNote); // This updates the existing note with new values.
+                        }
+                        else
+                        {
+                            // Add new note if none exists
+                            model.MemberNote.MemberId = memberToUpdate.ID; // Ensure the note is associated with the member
+                            memberToUpdate.MemberNotes.Add(model.MemberNote);
+                        }
+                    }
+
+                    // Handle single ContactNote
+                    if (model.ContactNote != null)
+                    {
+                        var existingContactNote = memberToUpdate.Contacts
+                            .SelectMany(c => c.ContactNotes) // Flatten the ContactNotes collection from all Contacts
+                            .FirstOrDefault(n => n.Id == model.ContactNote.Id);
+
+                        if (existingContactNote != null)
+                        {
+                            // Update the existing contact note
+                            existingContactNote.Note = model.ContactNote.Note;
+                            existingContactNote.CreatedAt = model.ContactNote.CreatedAt;
+
+                            // You can set additional properties if needed
+                            _context.Entry(existingContactNote).CurrentValues.SetValues(model.ContactNote);
+                        }
+                        else
+                        {
+                            // Add new contact note if none exists
+                            model.ContactNote.ContactId = model.Contact.Id; // Associate the note with the correct contact
+                            memberToUpdate.Contacts.FirstOrDefault(c => c.Id == model.Contact.Id)?.ContactNotes.Add(model.ContactNote);
+                        }
+                    }
+
+
+                    // Save the changes to the database
+                    _context.Update(memberToUpdate);
                     await _context.SaveChangesAsync();
+
+                    // Redirect to the Member Index page
+                    return RedirectToAction("Index", "Member");
                 }
-                catch (DbUpdateConcurrencyException)
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MemberExists(memberToUpdate.ID))
                 {
-                    if (!MemberExists(id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
+                else
+                {
+                    throw;
+                }
+            }
+            catch (DbUpdateException dex)
+            {
+                string message = dex.GetBaseException().Message;
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
             }
 
-            return View(memberCreateViewModel);
+           
+
+            return View(model);
         }
+
 
 
         // GET: MemberCreateViewModel/Delete/5

@@ -5,19 +5,29 @@ namespace NIA_CRM.ViewModels
 {
     public class MemberCreateViewModel
     {
-        [Key]
-        public int ID { get; set; }
+        // Member related properties
+        public Member? Member { get; set; }
+        public MemberNote? MemberNote { get; set; }
+        public Address? Address { get; set; }
+        public Contact? Contact { get; set; }
+        public ContactNote? ContactNote { get; set; }
 
-        public Member Member { get; set; } = new Member();
-        public MemberNote MemberNote { get; set; } = new MemberNote();
+        // Industry NAICS Code for the member
+        public List<IndustryNAICSCode>? IndustryNAICSCode { get; set; }  // Change to List<IndustryNAICSCode>
+        // List of available NAICS codes to be shown in the drop-down
+        public List<NAICSCode>? NAICSCodes { get; set; }
 
-        public Address Address { get; set; } = new Address();
-        public Contact Contact { get; set; } = new Contact();
-        public ContactNote ContactNote { get; set; } = new ContactNote();
-        public NAICSCode NAICSCode { get; set; } = new NAICSCode();
-        public IndustryNAICSCode IndustryNAICSCode { get; set; } = new IndustryNAICSCode();
+        // MembershipType related properties
+        public List<MemberMembershipType>? MemberMembershipTypes { get; set; }  // Change to List<MemberMembershipType>
+        // List of available Membership Types to populate the drop-down
+        public List<MembershipType>? MembershipTypes { get; set; }
 
-        //public MembershipType MembershipType { get; set; } = new MembershipType();
-        public MemberMembershipType MemberMembershipType { get; set; } = new MemberMembershipType();
+        // List of selected membership types (for multiple memberships)
+        public List<int> SelectedMembershipTypes { get; set; } = new List<int>();
+
+        public List<int> SelectedNAICSCodeIds { get; set; } = new List<int>();  // Add this property
+        public List<NAICSCode>? AvailableNAICSCodes { get; set; }  // List of available NAICS Codes for dropdown
+        public int SelectedNAICSCodeId { get; set; }  // Single selected NAICS Code for the form
+
     }
 }
