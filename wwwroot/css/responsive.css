@@ -87,10 +87,9 @@ body {
     background-color: #434343 !important;
 }
 
-.btn-dark:hover {
-    background-color: #2B2B2B !important;
-}
-
+    .btn-dark:hover {
+        background-color: #2B2B2B !important;
+    }
 /* Card Styles */
 .card {
     border: none;

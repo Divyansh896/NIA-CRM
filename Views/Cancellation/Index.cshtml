@@ -97,7 +97,6 @@
                 <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.CancellationDate)</th>
                 <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Canceled)</th>
                 <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.CancellationNote)</th>
-                <th scope="col" class="table-head">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -109,11 +108,6 @@
                     <td>@Html.DisplayFor(modelItem => item.CancellationDate)</td>
                     <td>@Html.DisplayFor(modelItem => item.Canceled)</td>
                     <td>@Html.DisplayFor(modelItem => item.CancellationNote)</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ID" aria-label="Edit cancellation for @item.Member.MemberName">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ID" aria-label="View details of cancellation for @item.Member.MemberName">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ID" aria-label="Delete cancellation for @item.Member.MemberName">Delete</a>
-                    </td>
                 </tr>
             }
         </tbody>
