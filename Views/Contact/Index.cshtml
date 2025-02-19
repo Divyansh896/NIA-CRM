@@ -25,6 +25,7 @@
     <div class="m-auto flex-grow-1">
         <div class="form-horizontal mb-3">
             <div class="d-flex justify-content-between align-items-center">
+                <div>
                 <button class="btn btn-dark @ViewData["Filtering"]"
                         type="button"
                         id="filterToggle"
@@ -34,6 +35,10 @@
                         aria-controls="collapseFilter">
                     Filter/Search @ViewData["numberFilters"]
                 </button>
+                <button type="submit" class="btn btn-dark me-2" name="actionButton" value="ExportExcel">
+                    <i class="fa fa-file-excel text-white"></i> Export to Excel
+                </button>
+                </div>
                 <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
             </div>
             @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
@@ -173,9 +178,7 @@
 
     <!--Button for export to excel -->
     <div class="d-flex justify-content-between align-items-center mt-3">
-        <button type="submit" class="btn btn-success" name="actionButton" value="ExportExcel">
-            Export to Excel
-        </button>
+        
     </div>
 
 
