@@ -8,14 +8,17 @@
 
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
-    <h1 class="mb-0" id="Email-title">Emails</h1>
+    <h1 class="mb-0" id="Email-title">Email Patterns</h1>
 
 </div>
 
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
-
+    @{
+        var sortField = ViewData["sortField"]?.ToString();
+        var sortDirection = ViewData["sortDirection"]?.ToString();
+    }
 
     <!-- Filter/Search Section -->
     <div class="m-auto flex-grow-1">
@@ -86,12 +89,42 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" class="table-head">
-                        <input type="submit" name="actionButton" value="Email Type" class="btn btn-link" aria-label="Sort by Email Type" />
+                        @{
+                            var isEmailTypeSortField = sortField == "Email Type";
+                            var emailTypeSortIndicator = isEmailTypeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
 
+
+                        @if (isEmailTypeSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Email Type" class="btn btn-link" aria-label="Sort by Email Type" />
+                            <span class="SortIndicator">@emailTypeSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Email Type" class="btn btn-link" aria-label="Sort by Email Type" />
+                        }
                     </th>
+
                     <th scope="col" class="table-head">
-                        <input type="submit" name="actionButton" value="Subject" class="btn btn-link" aria-label="Sort by Subject" />
+                        @{
+                            var isSubjectSortField = sortField == "Subject";
+                            var subjectSortIndicator = isSubjectSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+
+
+                        @if (isSubjectSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Subject" class="btn btn-link" aria-label="Sort by Subject" />
+                            <span class="SortIndicator">@subjectSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Subject" class="btn btn-link" aria-label="Sort by Subject" />
+                        }
                     </th>
+                    
+                    
                     <th scope="col" class="table-head">
                         @Html.DisplayNameFor(model => model.Body)
                     </th>

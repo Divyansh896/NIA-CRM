@@ -48,7 +48,21 @@ namespace NIA_CRM.Controllers
                 ViewData["cancelledFilter"] = "Applied";
 
             }
+            
 
+            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
+            {
+                page = 1;//Reset page to start
+
+                if (sortOptions.Contains(actionButton))//Change of sort is requested
+                {
+                    if (actionButton == sortField) //Reverse order on same field
+                    {
+                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    sortField = actionButton;//Sort by the button clicked
+                }
+            }
             if (sortField == "Member")
             {
                 if (sortDirection == "desc")

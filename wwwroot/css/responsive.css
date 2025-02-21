@@ -41,8 +41,8 @@ body {
 
 /* General Button Styles */
 .btn-primary {
-    background-color: #A61C1C;
-    border-color: #A61C1C;
+    background-color: #A61C1C !important;
+    border-color: #A61C1C !important;
 }
 .form-check-input:checked {
     background-color: #A61C1C;
@@ -51,7 +51,7 @@ body {
 
 .btn-primary:hover {
     background-color: #8C1818 !important;
-    border-color: #A61C1C;
+    border-color: #A61C1C !important;
 }
 
 .page-item.active .page-link {
@@ -90,6 +90,11 @@ body {
     .btn-dark:hover {
         background-color: #2B2B2B !important;
     }
+
+.custom-filter-badge {
+    background-color: #434343 !important;
+    height: 40px !important;
+}
 /* Card Styles */
 .card {
     border: none;
