@@ -157,7 +157,9 @@
                         <td>@Html.DisplayFor(modelItem => item.Title)</td>
                         <td>@Html.DisplayFor(modelItem => item.Department)</td>
                         <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                        <td>@Html.DisplayFor(modelItem => item.PhoneFormatted)</td>
+                        <td>
+                            <a href="tel:(905) 325-5148" id="phoneNumber">(905) 325-5148</a>
+                        </td>
                         <td>
                             <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
                         </td>
