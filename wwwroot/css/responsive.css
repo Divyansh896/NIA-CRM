@@ -311,7 +311,8 @@ td, th {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 350px;
+    min-width: 380px;
+/*    width: auto;*/
     height: 100%;
     padding-right: 8px;
     padding-top: 5px;

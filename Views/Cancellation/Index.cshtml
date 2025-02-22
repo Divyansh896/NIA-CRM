@@ -162,6 +162,10 @@
                         // Insert the result (partial view) into the preview container
                         $('#previewContainer').html(result);
                         $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+                        // Assign the close event to the button inside the loaded preview
+                        $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
+                            $('#previewContainer').removeClass('visible').addClass('hidden');
+                        });
                     },
                     error: function () {
                         alert('An error occurred while loading the preview.');
