@@ -157,7 +157,7 @@
                         <td>@Html.DisplayFor(modelItem => item.Department)</td>
                         <td>@Html.DisplayFor(modelItem => item.Email)</td>
                         <td>
-                            <a href="tel:(905) 325-5148" id="phoneNumber">(905) 325-5148</a>
+                            <a href="tel:@item.PhoneFormatted" id="phoneNumber">@item.PhoneFormatted</a>
                         </td>
                         <td>
                             <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
@@ -187,7 +187,7 @@
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="~/js/PhoneNumber.js"></script>
     <script>
               $(document).ready(function () {
             // Initially hide the preview content

@@ -10,6 +10,9 @@
 
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
         <h1 id="dashboard-title">Dashboard</h1>
+        <!-- Customize Button -->
+        <input type="button" id="customizeBtn" value="Customize" class="btn btn-primary" />
+
     </div>
 
     <div class="row" role="region" aria-labelledby="dashboard-stats">
@@ -63,7 +66,7 @@
 
     </div>
 
-    <!-- Chart -->
+    @* <!-- Chart -->
     <div class="content" id="Chartcontent" role="main" aria-labelledby="dashboard-title">
         <div>
             <canvas id="membershipPieChart"></canvas>
@@ -73,16 +76,60 @@
             <canvas id="cityBarChart"></canvas>
 
         </div>
-        
+
 
     </div>
     <div class="content" id="Chartcontent" role="main" aria-labelledby="dashboard-title">
         <div>
-            <canvas id="MemberJoinLineChart"></canvas>
+             <canvas id="MemberJoinLineChart"></canvas> 
 
         </div>
 
+    </div> *@
+
+    <!-- Main Dashboard (Initially Visible) -->
+    <div class="grid-stack" id="dashboard"></div>
+
+    <!-- Hidden Widget Selection Panel -->
+    <div id="widgetPanel" class="widget-panel" style="display: none;">
+        <div class="d-flex flex-row align-items-center justify-content-between mb-4">
+
+            <h4>Available Widgets</h4>
+            <input type="button" id="saveLayoutBtn" class="btn btn-success" style="display: none;" value="Save Layout">
+        </div>
+
+        <div class="grid-stack" id="widgetContainer">
+            <!-- Membership Pie Chart Widget -->
+            <div class="grid-stack-item" gs-w="2" gs-h="2" data-chart-id="membershipPieChart" onclick="addToDashboard(this)">
+                <div class="grid-stack-item-content">
+                    <canvas id="membershipPieChart"></canvas>
+                </div>
+            </div>
+
+            <!-- City Bar Chart Widget -->
+            <div class="grid-stack-item" gs-w="2" gs-h="2" data-chart-id="cityBarChart" onclick="addToDashboard(this)">
+                <div class="grid-stack-item-content">
+                    <canvas id="cityBarChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Member Join Line Chart Widget -->
+            <div class="grid-stack-item" gs-w="2" gs-h="2" data-chart-id="MemberJoinLineChart1" onclick="addToDashboard(this)">
+                <div class="grid-stack-item-content">
+                    <canvas id="MemberJoinLineChart1"></canvas>
+                </div>
+            </div>
+
+            <!-- Another Member Join Line Chart Widget -->
+            <div class="grid-stack-item" gs-w="2" gs-h="2" data-chart-id="MemberJoinLineChart2" onclick="addToDashboard(this)">
+                <div class="grid-stack-item-content">
+                    <canvas id="MemberJoinLineChart2"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
+
+
 
 
 </div>
@@ -90,6 +137,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gridstack/dist/gridstack-all.min.js"></script>
 
     <script>
         var cityCounts = @Html.Raw(Json.Serialize(ViewData["CityCounts"]));
