@@ -4,9 +4,12 @@ namespace NIA_CRM.Models
 {
     public enum OpportunityStatus
     {
-        Open,
-        [Display(Name = "In Progress")]
-        InProgress,
-        Closed
+
+       Negotiating,
+        Qualification,
+        [Display(Name = "Closed New Member")]
+        ClosedNewMember,
+        [Display(Name = "Closed Not Interested")]
+        ClosedNotInterested
     }
 }
