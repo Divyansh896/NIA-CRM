@@ -37,10 +37,19 @@ namespace NIA_CRM.Data
         public DbSet<ProductionEmail> ProductionEmails { get; set; }
         public DbSet<MemberLogo> MemberLogos { get; set; }
         public DbSet<MemberThumbnail> MemebrThumbnails { get; set; }
-        public DbSet<MemberNote> MemberNotes { get; set; }
-        public DbSet<ContactNote> ContactNotes { get; set; }
         public DbSet<IndustryNAICSCode> IndustryNAICSCodes { get; set; }
         public DbSet<NAICSCode> NAICSCodes { get; set; }
+        public DbSet<MemberContact> MemberContacts { get; set; }
+        public DbSet<MemberEvent> MemberEvents { get; set; }
+        public DbSet<MEvent> MEvents { get; set; }
+        public DbSet<MemberTag> MemberTags { get; set; }
+        public DbSet<MTag> MTag { get; set; }
+        public DbSet<AnnualAction> AnnualAction { get; set; }
+        public DbSet<Strategy> Strategys { get; set; }
+        public DbSet<MemberSector> MemberSectors { get; set; }
+        public DbSet<Sector> Sector { get; set; }
+        public DbSet<ContactCancellation> ContactCancellations { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -63,24 +72,21 @@ namespace NIA_CRM.Data
                 .HasForeignKey(mmt => mmt.MembershipTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Contact>()
-                .HasOne(c => c.Member)
-                .WithMany(m => m.Contacts)
-                .HasForeignKey(c => c.MemberId)
-                .OnDelete(DeleteBehavior.Cascade); // Specify cascade delete if appropriate
+            // Contact -> Member (Many-to-Many)
+            modelBuilder.Entity<MemberContact>()
+                .HasKey(mmt => new { mmt.MemberId, mmt.ContactId });
 
-            modelBuilder.Entity<Opportunity>()
-               .HasOne(c => c.Member)
-               .WithMany(m => m.Opportunities)
-               .HasForeignKey(c => c.MemberId)
-               .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<MemberContact>()
+                .HasOne(mmt => mmt.Member)
+                .WithMany(m => m.MemberContacts)
+                .HasForeignKey(mmt => mmt.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<MemberNote>()
-                .HasOne(c => c.Member)
-                .WithMany(c => c.MemberNotes)
-                .HasForeignKey(c => c.MemberId);
-
-            
+            modelBuilder.Entity<MemberContact>()
+                .HasOne(mmt => mmt.Contact)
+                .WithMany(m => m.MemberContacts)
+                .HasForeignKey(mmt => mmt.ContactId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // NAICSCode -> Member (Many-to-Many)
             modelBuilder.Entity<IndustryNAICSCode>()
@@ -105,13 +111,6 @@ namespace NIA_CRM.Data
                 .HasForeignKey(a => a.MemberId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Industry -> Opportunity (One-to-Many)
-            modelBuilder.Entity<Opportunity>()
-                .HasOne(o => o.Member)
-                .WithMany(i => i.Opportunities)
-                .HasForeignKey(o => o.MemberId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             // Member -> Cancellation (One-to-Many)
             modelBuilder.Entity<Cancellation>()
                 .HasOne(c => c.Member)
@@ -119,43 +118,60 @@ namespace NIA_CRM.Data
                 .HasForeignKey(c => c.MemberID)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Interaction -> Opportunity (Optional One-to-One)
-            modelBuilder.Entity<Interaction>()
-                .HasOne(i => i.Opportunity)
-                .WithMany(i => i.Interactions)
+            // Contact -> ContactCancellation (One-to-Many)
+            modelBuilder.Entity<ContactCancellation>()
+                .HasOne(c => c.Contact)
+                .WithMany(m => m.ContactCancellations)
+                .HasForeignKey(c => c.ContactID)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Opportunity>()
-                .HasMany(o => o.Interactions)
-                .WithOne(i => i.Opportunity)
-                .HasForeignKey(i => i.OpportunityId)
-                .OnDelete(DeleteBehavior.SetNull);
+            // Member -> Event (Many-to-Many)
+            modelBuilder.Entity<MemberEvent>()
+                .HasKey(mmt => new { mmt.MemberId, mmt.MEventID });
 
-            // Configure the relationship between MemberNote and Member
-            modelBuilder.Entity<MemberNote>()
-                .HasOne(mn => mn.Member)  // Each MemberNote is associated with one Member
-                .WithMany(m => m.MemberNotes)  // One Member can have many MemberNotes
-                .HasForeignKey(mn => mn.MemberId)  // MemberId is the foreign key in MemberNote
-                .OnDelete(DeleteBehavior.Cascade);  // Define delete behavior (optional)
+            modelBuilder.Entity<MemberEvent>()
+                .HasOne(mmt => mmt.Member)
+                .WithMany(m => m.MemberEvents)
+                .HasForeignKey(mmt => mmt.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // Configure the relationship between ContactNote and Contact
-            modelBuilder.Entity<ContactNote>()
-                .HasOne(cn => cn.Contact)  // Each ContactNote is associated with one Contact
-                .WithMany(c => c.ContactNotes)  // One Contact can have many ContactNotes
-                .HasForeignKey(cn => cn.ContactId)  // ContactId is the foreign key in ContactNote
-                .OnDelete(DeleteBehavior.Cascade);  // Define delete behavior (optional)
+            modelBuilder.Entity<MemberEvent>()
+                .HasOne(mmt => mmt.MEvent)
+                .WithMany(m => m.MemberEvents)
+                .HasForeignKey(mmt => mmt.MEventID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            
+            // Member -> Sector (Many-to-Many)
+            modelBuilder.Entity<MemberSector>()
+                .HasKey(mmt => new { mmt.MemberId, mmt.SectorId });
 
-            modelBuilder.Entity<IndustryNAICSCode>()
-                .HasOne(inc => inc.Member)
-                .WithMany(m => m.IndustryNAICSCodes)
-                .HasForeignKey(inc => inc.MemberId);
+            modelBuilder.Entity<MemberSector>()
+                .HasOne(mmt => mmt.Member)
+                .WithMany(m => m.MemberSectors)
+                .HasForeignKey(mmt => mmt.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<IndustryNAICSCode>()
-                .HasOne(inc => inc.NAICSCode)
-                .WithMany(n => n.IndustryNAICSCodes)
-                .HasForeignKey(inc => inc.NAICSCodeId);
+            modelBuilder.Entity<MemberSector>()
+                .HasOne(mmt => mmt.Sector)
+                .WithMany(m => m.MemberSectors)
+                .HasForeignKey(mmt => mmt.SectorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Member -> Tag (Many-to-Many)
+            modelBuilder.Entity<MemberTag>()
+                .HasKey(mmt => new { mmt.MemberId, mmt.MTagID });
+
+            modelBuilder.Entity<MemberTag>()
+                .HasOne(mmt => mmt.Member)
+                .WithMany(m => m.MemberTags)
+                .HasForeignKey(mmt => mmt.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<MemberTag>()
+                .HasOne(mmt => mmt.MTag)
+                .WithMany(m => m.MemberTags)
+                .HasForeignKey(mmt => mmt.MTagID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
