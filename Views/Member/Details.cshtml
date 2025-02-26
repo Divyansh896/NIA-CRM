@@ -34,8 +34,9 @@
     <h4>Details</h4>
     <hr />
 @{
-    var primaryContact = Model.Contacts?.FirstOrDefault(c => c.IsVip) ?? Model.Contacts?.FirstOrDefault();
-    var additionalContacts = Model.Contacts?.Where(c => c != primaryContact).ToList();
+        var contacts = Model.MemberContacts?.Select(mc => mc.Contact).ToList();
+        var primaryContact = contacts?.FirstOrDefault(c => c.IsVip) ?? contacts?.FirstOrDefault();
+        var additionalContacts = contacts?.Where(c => c != primaryContact).ToList();
 }
 
 <div class="container">
@@ -170,20 +171,8 @@
                         <dd>3 months 4 days</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Notes:</dt>
-                        <dd>
-                            @if (Model.MemberNotes != null && Model.MemberNotes.Any())
-                            {
-                                @foreach (var note in Model.MemberNotes)
-                                {
-                                    <textarea class="form-control mb-2" readonly>@note.Note</textarea>
-                                }
-                            }
-                            else
-                            {
-                                <textarea class="form-control" readonly>No notes available.</textarea>
-                            }
-                        </dd>
+                                <dt>Notes:</dt>
+                                <dd>@Html.DisplayFor(model => model.MemberNote)</dd>
                     </div>
                 </div>
             </div>

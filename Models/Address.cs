@@ -15,8 +15,7 @@ public class Address
                 AddressLine2,
                 City,
                 StateProvince,
-                PostalCode,
-                Country
+                PostalCode
             }.Where(p => !string.IsNullOrWhiteSpace(p));
 
             return string.Join(", ", parts);

@@ -133,8 +133,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 1B",
                                 City = "Niagara Falls",
                                 StateProvince = "ON",
-                                PostalCode = "L2G 3Y7",
-                                Country = "Canada"
+                                PostalCode = "L2G 3Y7"
                             }
                                                }
                            },
@@ -153,8 +152,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 2A",
                                 City = "Niagara Falls",
                                 StateProvince = "ON",
-                                PostalCode = "L2H 1H4",
-                                Country = "Canada"
+                                PostalCode = "L2H 1H4"
                             }
                                                }
                                            },
@@ -173,8 +171,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Suite 3C",
                                 City = "Niagara Falls",
                                 StateProvince = "ON",
-                                PostalCode = "L2E 6S5",
-                                Country = "Canada"
+                                PostalCode = "L2E 6S5"
                             }
                                                }
                                            },
@@ -193,8 +190,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 4D",
                                 City = "Niagara Falls",
                                 StateProvince = "ON",
-                                PostalCode = "L2E 1B1",
-                                Country = "Canada"
+                                PostalCode = "L2E 1B1"
                             }
                                                }
                                            },
@@ -213,8 +209,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 7B",
                                 City = "Niagara Falls",
                                 StateProvince = "ON",
-                                PostalCode = "L2G 7M7",
-                                Country = "Canada"
+                                PostalCode = "L2G 7M7"
                             }
                                                }
                                            },
@@ -233,8 +228,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 10E",
                                 City = "St. Catharines",
                                 StateProvince = "ON",
-                                PostalCode = "L2M 3Y3",
-                                Country = "Canada"
+                                PostalCode = "L2M 3Y3"
                             }
                                                }
                                            },
@@ -253,8 +247,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Suite 5A",
                                 City = "St. Catharines",
                                 StateProvince = "ON",
-                                PostalCode = "L2P 3H2",
-                                Country = "Canada"
+                                PostalCode = "L2P 3H2"
                             }
                                                }
                                            },
@@ -273,8 +266,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 2C",
                                 City = "St. Catharines",
                                 StateProvince = "ON",
-                                PostalCode = "L2N 5V4",
-                                Country = "Canada"
+                                PostalCode = "L2N 5V4"
                             }
                                                }
                                            },
@@ -293,8 +285,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Suite 5B",
                                 City = "St. Catharines",
                                 StateProvince = "ON",
-                                PostalCode = "L2T 2P3",
-                                Country = "Canada"
+                                PostalCode = "L2T 2P3"
                             }
                                                }
                                            },
@@ -313,8 +304,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 1A",
                                 City = "St. Catharines",
                                 StateProvince = "ON",
-                                PostalCode = "L2S 1P9",
-                                Country = "Canada"
+                                PostalCode = "L2S 1P9"
                             }
                                                }
                                            },
@@ -333,8 +323,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 2C",
                                 City = "Welland",
                                 StateProvince = "ON",
-                                PostalCode = "L3B 1A1",
-                                Country = "Canada"
+                                PostalCode = "L3B 1A1"
                             }
                                                }
                                            },
@@ -353,8 +342,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 1F",
                                 City = "Welland",
                                 StateProvince = "ON",
-                                PostalCode = "L3B 5N9",
-                                Country = "Canada"
+                                PostalCode = "L3B 5N9"
                             }
                                                }
                                            },
@@ -373,8 +361,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Suite 5B",
                                 City = "Welland",
                                 StateProvince = "ON",
-                                PostalCode = "L3C 7C1",
-                                Country = "Canada"
+                                PostalCode = "L3C 7C1"
                             }
                                                }
                                            },
@@ -393,8 +380,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 4A",
                                 City = "Welland",
                                 StateProvince = "ON",
-                                PostalCode = "L3C 4T6",
-                                Country = "Canada"
+                                PostalCode = "L3C 4T6"
                             }
                                                }
                                            },
@@ -413,8 +399,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 6D",
                                 City = "Welland",
                                 StateProvince = "ON",
-                                PostalCode = "L3C 2A9",
-                                Country = "Canada"
+                                PostalCode = "L3C 2A9"
                             }
                                                }
                                            },
@@ -433,8 +418,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 7A",
                                 City = "Thorold",
                                 StateProvince = "ON",
-                                PostalCode = "L2V 4Y6",
-                                Country = "Canada"
+                                PostalCode = "L2V 4Y6"
                             }
                                                }
                                            },
@@ -453,8 +437,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 6",
                                 City = "Thorold",
                                 StateProvince = "ON",
-                                PostalCode = "L2V 1H1",
-                                Country = "Canada"
+                                PostalCode = "L2V 1H1"
                             }
                                                }
                                            },
@@ -473,8 +456,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 12B",
                                 City = "Thorold",
                                 StateProvince = "ON",
-                                PostalCode = "L2V 3P2",
-                                Country = "Canada"
+                                PostalCode = "L2V 3P2"
                             }
                                                }
                                            },
@@ -493,8 +475,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Suite 4",
                                 City = "Thorold",
                                 StateProvince = "ON",
-                                PostalCode = "L2V 5Z8",
-                                Country = "Canada"
+                                PostalCode = "L2V 5Z8"
                             }
                                                }
                                            },
@@ -513,8 +494,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 5A",
                                 City = "Thorold",
                                 StateProvince = "ON",
-                                PostalCode = "L2V 4K9",
-                                Country = "Canada"
+                                PostalCode = "L2V 4K9"
                             }
                                                }
                                            },
@@ -533,8 +513,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 9D",
                                 City = "Port Colborne",
                                 StateProvince = "ON",
-                                PostalCode = "L3K 2W9",
-                                Country = "Canada"
+                                PostalCode = "L3K 2W9"
                             }
                                                }
                                            },
@@ -553,8 +532,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 1B",
                                 City = "Port Colborne",
                                 StateProvince = "ON",
-                                PostalCode = "L3K 3V2",
-                                Country = "Canada"
+                                PostalCode = "L3K 3V2"
                             }
                                                }
                                            },
@@ -573,8 +551,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 6A",
                                 City = "Port Colborne",
                                 StateProvince = "ON",
-                                PostalCode = "L3K 6A9",
-                                Country = "Canada"
+                                PostalCode = "L3K 6A9"
                             }
                                                }
                                            },
@@ -593,8 +570,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Suite 4B",
                                 City = "Port Colborne",
                                 StateProvince = "ON",
-                                PostalCode = "L3K 5E8",
-                                Country = "Canada"
+                                PostalCode = "L3K 5E8"
                             }
                                                }
                                            },
@@ -613,8 +589,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 7C",
                                 City = "Port Colborne",
                                 StateProvince = "ON",
-                                PostalCode = "L3K 7X5",
-                                Country = "Canada"
+                                PostalCode = "L3K 7X5"
                             }
                                                }
                                            },
@@ -633,8 +608,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 4D",
                                 City = "Grimsby",
                                 StateProvince = "ON",
-                                PostalCode = "L3M 1R2",
-                                Country = "Canada"
+                                PostalCode = "L3M 1R2"
                             }
                                                }
                                            },
@@ -653,8 +627,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 2B",
                                 City = "Grimsby",
                                 StateProvince = "ON",
-                                PostalCode = "L3M 4N6",
-                                Country = "Canada"
+                                PostalCode = "L3M 4N6"
                             }
                                                }
                                            },
@@ -673,8 +646,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 3A",
                                 City = "Grimsby",
                                 StateProvince = "ON",
-                                PostalCode = "L3M 3J5",
-                                Country = "Canada"
+                                PostalCode = "L3M 3J5"
                             }
                                                }
                                            },
@@ -693,8 +665,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Suite 8B",
                                  City = "Grimsby",
                                 StateProvince = "ON",
-                                PostalCode = "L3M 2A8",
-                                Country = "Canada"
+                                PostalCode = "L3M 2A8"
                             }
                                                }
                                            },
@@ -713,8 +684,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 9C",
                                 City = "Grimsby",
                                 StateProvince = "ON",
-                                PostalCode = "L3M 5K9",
-                                Country = "Canada"
+                                PostalCode = "L3M 5K9"
                             }
                                                }
                                            },
@@ -733,8 +703,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 2C",
                                 City = "Fort Erie",
                                 StateProvince = "ON",
-                                PostalCode = "L2A 5R1",
-                                Country = "Canada"
+                                PostalCode = "L2A 5R1"
                             }
                                                }
                                            },
@@ -753,8 +722,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 7",
                                 City = "Fort Erie",
                                 StateProvince = "ON",
-                                PostalCode = "L2A 7B9",
-                                Country = "Canada"
+                                PostalCode = "L2A 7B9"
                             }
                                                }
                                            },
@@ -773,8 +741,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Suite 6A",
                                   City = "Fort Erie",
                                 StateProvince = "ON",
-                                PostalCode = "L2A 2T6",
-                                Country = "Canada"
+                                PostalCode = "L2A 2T6"
                             }
                                                }
                                            },
@@ -793,8 +760,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 3A",
                                 City = "Fort Erie",
                                 StateProvince = "ON",
-                                PostalCode = "L2A 9W8",
-                                Country = "Canada"
+                                PostalCode = "L2A 9W8"
                             }
                                                }
                                            },
@@ -813,8 +779,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Apt 7C",
                                 City = "Fort Erie",
                                 StateProvince = "ON",
-                                PostalCode = "L2A 4K3",
-                                Country = "Canada"
+                                PostalCode = "L2A 4K3"
                             }
                                                }
                                            },
@@ -833,8 +798,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 4A",
                                 City = "Lincoln",
                                 StateProvince = "ON",
-                                PostalCode = "L0R 1B1",
-                                Country = "Canada"
+                                PostalCode = "L0R 1B1"
                             }
                                                }
                                            },
@@ -853,8 +817,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Suite 2B",
                                 City = "Lincoln",
                                 StateProvince = "ON",
-                                PostalCode = "L0R 2C0",
-                                Country = "Canada"
+                                PostalCode = "L0R 2C0"
                             }
                                                }
                                            },
@@ -873,8 +836,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Suite 2B",
                                 City = "Pelham",
                                 StateProvince = "ON",
-                                PostalCode = "L0S 1C0",
-                                Country = "Canada"
+                                PostalCode = "L0S 1C0"
                             }
                                                }
                                            },
@@ -893,8 +855,7 @@ namespace NIA_CRM.Data
                                 AddressLine2 = "Unit 5A",
                                 City = "Pelham",
                                 StateProvince = "ON",
-                                PostalCode = "L0S 1E0",
-                                Country = "Canada"
+                                PostalCode = "L0S 1E0"
                             }
                                                }
                                            },
@@ -913,8 +874,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Apt 6D",
                                                     City = "Fort Erie",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2A 1M7",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2A 1M7"
                                                 }
                                                 }
 
@@ -934,8 +894,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Suite 1B",
                                                     City = "Niagara Falls",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2E 3P2",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2E 3P2"
                                                 }
                                             }
                                            },
@@ -954,8 +913,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Building C",
                                                     City = "St. Catharines",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2S 3A1",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2S 3A1"
                                                 }
                                             }
                                         },
@@ -974,8 +932,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Unit 7B",
                                                     City = "Welland",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L3C 1V8",
-                                                    Country = "Canada"
+                                                    PostalCode = "L3C 1V8"
                                                 }
                                             }
                                         },
@@ -994,8 +951,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Suite 11A",
                                                     City = "Grimsby",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L3M 2R7",
-                                                    Country = "Canada"
+                                                    PostalCode = "L3M 2R7"
                                                 }
                                             }
                                         },
@@ -1014,8 +970,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Winery Rd",
                                                     City = "Niagara-on-the-Lake",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L0S 1J0",
-                                                    Country = "Canada"
+                                                    PostalCode = "L0S 1J0"
                                                 }
                                             }
                                         },
@@ -1034,8 +989,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Brewery Lane",
                                                     City = "St. Catharines",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2R 5A9",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2R 5A9"
                                                 }
                                             }
                                         },
@@ -1054,8 +1008,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Unit 3",
                                                     City = "Thorold",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2V 2P9",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2V 2P9"
                                                 }
                                             }
                                         },
@@ -1074,8 +1027,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Suite 10",
                                                     City = "Niagara Falls",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2G 7V6",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2G 7V6"
                                                 }
                                             }
                                         },
@@ -1094,8 +1046,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Unit 4",
                                                     City = "Port Colborne",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L3K 5Y5",
-                                                    Country = "Canada"
+                                                    PostalCode = "L3K 5Y5"
                                                 }
                                             }
                                         },
@@ -1114,8 +1065,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Car Sales",
                                                     City = "Niagara Falls",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2E 6X5",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2E 6X5"
                                                 }
                                             }
                                         },
@@ -1134,8 +1084,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Recycling Plant",
                                                     City = "Niagara Falls",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2E 6V8",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2E 6V8"
                                                 }
                                             }
                                         },
@@ -1154,8 +1103,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Winery Rd",
                                                     City = "Niagara-on-the-Lake",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L0S 1J1",
-                                                    Country = "Canada"
+                                                    PostalCode = "L0S 1J1"
                                                 }
                                             }
                                         },
@@ -1174,8 +1122,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Convention Centre",
                                                     City = "Niagara Falls",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2G 3Y9",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2G 3Y9"
                                                 }
                                             }
                                         },
@@ -1194,8 +1141,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Furniture Store",
                                                     City = "Niagara Falls",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2H 2T7",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2H 2T7"
                                                 }
                                             }
                                         },
@@ -1214,8 +1160,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Unit 9",
                                                     City = "St. Catharines",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2N 7Y4",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2N 7Y4"
                                                 }
                                             }
                                         },
@@ -1234,8 +1179,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Unit 12",
                                                     City = "Niagara Falls",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2H 1H7",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2H 1H7"
                                                 }
                                             }
                                         },
@@ -1254,8 +1198,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Golf Club",
                                                     City = "Niagara Falls",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2H 3N6",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2H 3N6"
                                                 }
                                             }
                                         },
@@ -1274,8 +1217,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Unit 20",
                                                     City = "Niagara Falls",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2G 3Z6",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2G 3Z6"
                                                 }
                                             }
                                         },
@@ -1294,8 +1236,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Hospitality Suite",
                                                     City = "Niagara Falls",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L2E 4Y3",
-                                                    Country = "Canada"
+                                                    PostalCode = "L2E 4Y3"
                                                 }
                                             }
                                         },
@@ -1314,8 +1255,7 @@ namespace NIA_CRM.Data
                                                     AddressLine2 = "Grocery Store",
                                                     City = "Pelham",
                                                     StateProvince = "ON",
-                                                    PostalCode = "L0S 1E2",
-                                                    Country = "Canada"
+                                                    PostalCode = "L0S 1E2"
                                                 }
                                             }
                                         },
@@ -1334,8 +1274,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Distillery Lane",
                                                 City = "Niagara-on-the-Lake",
                                                 StateProvince = "ON",
-                                                PostalCode = "L0S 1J0",
-                                                Country = "Canada"
+                                                PostalCode = "L0S 1J0"
                                             }
                                         }
                                         },
@@ -1354,8 +1293,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Unit 3",
                                                 City = "Grimsby",
                                                 StateProvince = "ON",
-                                                PostalCode = "L3M 1P3",
-                                                Country = "Canada"
+                                                PostalCode = "L3M 1P3"
                                             }
                                         }
                                     },
@@ -1374,8 +1312,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Warehouse 4",
                                                 City = "Port Colborne",
                                                 StateProvince = "ON",
-                                                PostalCode = "L3K 3T2",
-                                                Country = "Canada"
+                                                PostalCode = "L3K 3T2"
                                             }
                                         }
                                     },
@@ -1394,8 +1331,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Steelworks Building",
                                                 City = "Stoney Creek",
                                                 StateProvince = "ON",
-                                                PostalCode = "L8E 5R2",
-                                                Country = "Canada"
+                                                PostalCode = "L8E 5R2"
                                             }
                                         }
                                     },
@@ -1414,8 +1350,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Freight Office",
                                                 City = "Thorold",
                                                 StateProvince = "ON",
-                                                PostalCode = "L2V 1A1",
-                                                Country = "Canada"
+                                                PostalCode = "L2V 1A1"
                                             }
                                         }
                                     },
@@ -1434,8 +1369,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Building A",
                                                 City = "Fort Erie",
                                                 StateProvince = "ON",
-                                                PostalCode = "L2A 1E5",
-                                                Country = "Canada"
+                                                PostalCode = "L2A 1E5"
                                             }
                                         }
                                     },
@@ -1454,8 +1388,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Water Distribution Centre",
                                                 City = "Grimsby",
                                                 StateProvince = "ON",
-                                                PostalCode = "L3M 2Z1",
-                                                Country = "Canada"
+                                                PostalCode = "L3M 2Z1"
                                             }
                                         }
                                     },
@@ -1474,8 +1407,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Sporting Goods Store",
                                                 City = "Niagara Falls",
                                                 StateProvince = "ON",
-                                                PostalCode = "L2G 1X9",
-                                                Country = "Canada"
+                                                PostalCode = "L2G 1X9"
                                             }
                                         }
                                     },
@@ -1494,8 +1426,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Waterpark Entrance",
                                                 City = "Niagara Falls",
                                                 StateProvince = "ON",
-                                                PostalCode = "L2E 6T1",
-                                                Country = "Canada"
+                                                PostalCode = "L2E 6T1"
                                             }
                                         }
                                     },
@@ -1514,8 +1445,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Tour Operator HQ",
                                                 City = "Niagara Falls",
                                                 StateProvince = "ON",
-                                                PostalCode = "L2E 6V9",
-                                                Country = "Canada"
+                                                PostalCode = "L2E 6V9"
                                             }
                                         }
                                     },
@@ -1534,8 +1464,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Logistics Centre",
                                                 City = "Niagara-on-the-Lake",
                                                 StateProvince = "ON",
-                                                PostalCode = "L0S 1J0",
-                                                Country = "Canada"
+                                                PostalCode = "L0S 1J0"
                                             }
                                         }
                                     },
@@ -1554,8 +1483,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Woodworking Shop",
                                                 City = "Thorold",
                                                 StateProvince = "ON",
-                                                PostalCode = "L2V 3M4",
-                                                Country = "Canada"
+                                                PostalCode = "L2V 3M4"
                                             }
                                         }
                                     },
@@ -1574,8 +1502,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Landscaping Services",
                                                 City = "St. Catharines",
                                                 StateProvince = "ON",
-                                                PostalCode = "L2M 3W3",
-                                                Country = "Canada"
+                                                PostalCode = "L2M 3W3"
                                             }
                                         }
                                     },
@@ -1594,8 +1521,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Marketing Agency",
                                                 City = "Niagara Falls",
                                                 StateProvince = "ON",
-                                                PostalCode = "L2G 1J7",
-                                                Country = "Canada"
+                                                PostalCode = "L2G 1J7"
                                             }
                                         }
                                     },
@@ -1614,8 +1540,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Construction Office",
                                                 City = "Welland",
                                                 StateProvince = "ON",
-                                                PostalCode = "L3C 1W1",
-                                                Country = "Canada"
+                                                PostalCode = "L3C 1W1"
                                             }
                                         }
                                     },
@@ -1634,8 +1559,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Cafe Front",
                                                 City = "Port Colborne",
                                                 StateProvince = "ON",
-                                                PostalCode = "L3K 5V3",
-                                                Country = "Canada"
+                                                PostalCode = "L3K 5V3"
                                             }
                                         }
                                     },
@@ -1654,8 +1578,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Cruise Dock",
                                                 City = "Niagara-on-the-Lake",
                                                 StateProvince = "ON",
-                                                PostalCode = "L0S 1J0",
-                                                Country = "Canada"
+                                                PostalCode = "L0S 1J0"
                                             }
                                         }
                                     },
@@ -1674,8 +1597,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Bistro Shop",
                                                 City = "Grimsby",
                                                 StateProvince = "ON",
-                                                PostalCode = "L3M 1P1",
-                                                Country = "Canada"
+                                                PostalCode = "L3M 1P1"
                                             }
                                         }
                                     },
@@ -1694,8 +1616,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Lodge Entrance",
                                                 City = "Fort Erie",
                                                 StateProvince = "ON",
-                                                PostalCode = "L2A 1G2",
-                                                Country = "Canada"
+                                                PostalCode = "L2A 1G2"
                                             }
                                         }
                                     },
@@ -1714,8 +1635,7 @@ namespace NIA_CRM.Data
                                                 AddressLine2 = "Bakery Front",
                                                 City = "Niagara-on-the-Lake",
                                                 StateProvince = "ON",
-                                                PostalCode = "L0S 1J0",
-                                                Country = "Canada"
+                                                PostalCode = "L0S 1J0"
                                             }
                                         }
                                     },
@@ -1734,8 +1654,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Tasting Room",
                                             City = "Niagara-on-the-Lake",
                                             StateProvince = "ON",
-                                            PostalCode = "L0S 1J0",
-                                            Country = "Canada"
+                                            PostalCode = "L0S 1J0"
                                         }
                                     }
                                     },
@@ -1754,8 +1673,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Rental Office",
                                             City = "St. Catharines",
                                             StateProvince = "ON",
-                                            PostalCode = "L2P 3R3",
-                                            Country = "Canada"
+                                            PostalCode = "L2P 3R3"
                                         }
                                     }
                                 },
@@ -1774,8 +1692,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Clubhouse",
                                             City = "Niagara Falls",
                                             StateProvince = "ON",
-                                            PostalCode = "L2E 6V1",
-                                            Country = "Canada"
+                                            PostalCode = "L2E 6V1"
                                         }
                                     }
                                 },
@@ -1794,8 +1711,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Gallery Showroom",
                                             City = "Niagara-on-the-Lake",
                                             StateProvince = "ON",
-                                            PostalCode = "L0S 1J0",
-                                            Country = "Canada"
+                                            PostalCode = "L0S 1J0"
                                         }
                                     }
                                 },
@@ -1814,8 +1730,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Restaurant Dining",
                                             City = "Port Colborne",
                                             StateProvince = "ON",
-                                            PostalCode = "L3K 3Y6",
-                                            Country = "Canada"
+                                            PostalCode = "L3K 3Y6"
                                         }
                                     }
                                 },
@@ -1834,8 +1749,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Cinema Entrance",
                                             City = "Niagara Falls",
                                             StateProvince = "ON",
-                                            PostalCode = "L2G 1J4",
-                                            Country = "Canada"
+                                            PostalCode = "L2G 1J4"
                                         }
                                     }
                                 },
@@ -1854,8 +1768,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Gym Entrance",
                                             City = "St. Catharines",
                                             StateProvince = "ON",
-                                            PostalCode = "L2R 1C9",
-                                            Country = "Canada"
+                                            PostalCode = "L2R 1C9"
                                         }
                                     }
                                 },
@@ -1874,8 +1787,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Construction Site",
                                             City = "Welland",
                                             StateProvince = "ON",
-                                            PostalCode = "L3B 4K9",
-                                            Country = "Canada"
+                                            PostalCode = "L3B 4K9"
                                         }
                                     }
                                 },
@@ -1894,8 +1806,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Electronics HQ",
                                             City = "Grimsby",
                                             StateProvince = "ON",
-                                            PostalCode = "L3M 4R2",
-                                            Country = "Canada"
+                                            PostalCode = "L3M 4R2"
                                         }
                                     }
                                 },
@@ -1914,8 +1825,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Pool Services",
                                             City = "Niagara Falls",
                                             StateProvince = "ON",
-                                            PostalCode = "L2E 1P8",
-                                            Country = "Canada"
+                                            PostalCode = "L2E 1P8"
                                         }
                                     }
                                 },
@@ -1934,8 +1844,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Soap Factory",
                                             City = "Niagara-on-the-Lake",
                                             StateProvince = "ON",
-                                            PostalCode = "L0S 1J0",
-                                            Country = "Canada"
+                                            PostalCode = "L0S 1J0"
                                         }
                                     }
                                 },
@@ -1954,8 +1863,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Brewery Entrance",
                                             City = "Thorold",
                                             StateProvince = "ON",
-                                            PostalCode = "L2V 1A9",
-                                            Country = "Canada"
+                                            PostalCode = "L2V 1A9"
                                         }
                                     }
                                 },
@@ -1974,8 +1882,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Ice Cream Shop",
                                             City = "Niagara Falls",
                                             StateProvince = "ON",
-                                            PostalCode = "L2E 6T3",
-                                            Country = "Canada"
+                                            PostalCode = "L2E 6T3"
                                         }
                                     }
                                 },
@@ -1994,8 +1901,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Farm Shop",
                                             City = "St. Catharines",
                                             StateProvince = "ON",
-                                            PostalCode = "L2P 3J5",
-                                            Country = "Canada"
+                                            PostalCode = "L2P 3J5"
                                         }
                                     }
                                 },
@@ -2014,8 +1920,7 @@ namespace NIA_CRM.Data
                                             AddressLine2 = "Tasting Room",
                                             City = "Niagara-on-the-Lake",
                                             StateProvince = "ON",
-                                            PostalCode = "L0S 1J0",
-                                            Country = "Canada"
+                                            PostalCode = "L0S 1J0"
                                         }
                                     }
                                 },
@@ -2034,8 +1939,7 @@ namespace NIA_CRM.Data
                                         AddressLine2 = "Winery Entrance",
                                         City = "Niagara-on-the-Lake",
                                         StateProvince = "ON",
-                                        PostalCode = "L0S 1J0",
-                                        Country = "Canada"
+                                        PostalCode = "L0S 1J0"
                                     }
                                 }
                                 },
@@ -2054,8 +1958,7 @@ namespace NIA_CRM.Data
                                         AddressLine2 = "Resort Main Office",
                                         City = "Welland",
                                         StateProvince = "ON",
-                                        PostalCode = "L3B 2H6",
-                                        Country = "Canada"
+                                        PostalCode = "L3B 2H6"
                                     }
                                 }
                             },
@@ -2074,8 +1977,7 @@ namespace NIA_CRM.Data
                                         AddressLine2 = "Marina Office",
                                         City = "Port Colborne",
                                         StateProvince = "ON",
-                                        PostalCode = "L3K 5C3",
-                                        Country = "Canada"
+                                        PostalCode = "L3K 5C3"
                                     }
                                 }
                             },
@@ -2094,8 +1996,7 @@ namespace NIA_CRM.Data
                                         AddressLine2 = "Distillery Shop",
                                         City = "Niagara-on-the-Lake",
                                         StateProvince = "ON",
-                                        PostalCode = "L0S 1J0",
-                                        Country = "Canada"
+                                        PostalCode = "L0S 1J0"
                                     }
                                 }
                             },
@@ -2114,8 +2015,7 @@ namespace NIA_CRM.Data
                                         AddressLine2 = "Hotel Main Entrance",
                                         City = "Niagara Falls",
                                         StateProvince = "ON",
-                                        PostalCode = "L2G 1P8",
-                                        Country = "Canada"
+                                        PostalCode = "L2G 1P8"
                                     }
                                 }
                             }
@@ -2221,7 +2121,6 @@ namespace NIA_CRM.Data
                                 Phone = "1234567890",
                                 LinkedInUrl = "https://www.linkedin.com/in/johndoe",
                                 IsVip = true,
-                                MemberId = 1
                             },
                             new Contact
                             {
@@ -2234,7 +2133,6 @@ namespace NIA_CRM.Data
                                 Phone = "9876543210",
                                 LinkedInUrl = "https://www.linkedin.com/in/janesmith",
                                 IsVip = false,
-                                MemberId = 2
                             },
                             new Contact
                             {
@@ -2247,7 +2145,6 @@ namespace NIA_CRM.Data
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/alicejohnson",
                                 IsVip = true,
-                                MemberId = 3
                             },
                             new Contact
                             {
@@ -2260,7 +2157,6 @@ namespace NIA_CRM.Data
                                 Phone = "5557654321",
                                 LinkedInUrl = "https://www.linkedin.com/in/bobbrown",
                                 IsVip = true,
-                                MemberId = 4
                             },
                             new Contact
                             {
@@ -2273,7 +2169,6 @@ namespace NIA_CRM.Data
                                 Phone = "5557890123",
                                 LinkedInUrl = "https://www.linkedin.com/in/charliedavis",
                                 IsVip = false,
-                                MemberId = 5
                             },
                             new Contact
                             {
@@ -2286,7 +2181,6 @@ namespace NIA_CRM.Data
                                 Phone = "5552345678",
                                 LinkedInUrl = "https://www.linkedin.com/in/deborahwilliams",
                                 IsVip = true,
-                                MemberId = 6
                             },
                             new Contact
                             {
@@ -2299,7 +2193,6 @@ namespace NIA_CRM.Data
                                 Phone = "5553456789",
                                 LinkedInUrl = "https://www.linkedin.com/in/evetaylor",
                                 IsVip = false,
-                                MemberId = 7
                             },
                             new Contact
                             {
@@ -2312,7 +2205,6 @@ namespace NIA_CRM.Data
                                 Phone = "5554567890",
                                 LinkedInUrl = "https://www.linkedin.com/in/frankharris",
                                 IsVip = true,
-                                MemberId = 8
                             },
                             new Contact
                             {
@@ -2325,7 +2217,6 @@ namespace NIA_CRM.Data
                                 Phone = "5555678901",
                                 LinkedInUrl = "https://www.linkedin.com/in/graceking",
                                 IsVip = false,
-                                MemberId = 9
                             },
                             new Contact
                             {
@@ -2338,7 +2229,6 @@ namespace NIA_CRM.Data
                                 Phone = "5556789012",
                                 LinkedInUrl = "https://www.linkedin.com/in/hanklee",
                                 IsVip = true,
-                                MemberId = 10
                             },
                             new Contact
                             {
@@ -2351,7 +2241,6 @@ namespace NIA_CRM.Data
                                 Phone = "5557890123",
                                 LinkedInUrl = "https://www.linkedin.com/in/ivyadams",
                                 IsVip = false,
-                                MemberId = 11
                             },
                             new Contact
                             {
@@ -2364,7 +2253,6 @@ namespace NIA_CRM.Data
                                 Phone = "5558901234",
                                 LinkedInUrl = "https://www.linkedin.com/in/jackscott",
                                 IsVip = true,
-                                MemberId = 12
                             },
                             new Contact
                             {
@@ -2377,7 +2265,6 @@ namespace NIA_CRM.Data
                                 Phone = "5559012345",
                                 LinkedInUrl = "https://www.linkedin.com/in/kathymorris",
                                 IsVip = false,
-                                MemberId = 13
                             },
                             new Contact
                             {
@@ -2390,7 +2277,6 @@ namespace NIA_CRM.Data
                                 Phone = "5550123456",
                                 LinkedInUrl = "https://www.linkedin.com/in/louiswalker",
                                 IsVip = true,
-                                MemberId = 14
                             },
                             new Contact
                             {
@@ -2403,7 +2289,6 @@ namespace NIA_CRM.Data
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/monawhite",
                                 IsVip = false,
-                                MemberId = 15
                             },
                             new Contact
                             {
@@ -2416,7 +2301,6 @@ namespace NIA_CRM.Data
                                 Phone = "5559876543",
                                 LinkedInUrl = "https://www.linkedin.com/in/jamessmith",
                                 IsVip = false,
-                                MemberId = 16
                             },
                             new Contact
                             {
@@ -2429,7 +2313,6 @@ namespace NIA_CRM.Data
                                 Phone = "5551122334",
                                 LinkedInUrl = "https://www.linkedin.com/in/sarahjohnson",
                                 IsVip = false,
-                                MemberId = 17
                             },
                             new Contact
                             {
@@ -2442,7 +2325,6 @@ namespace NIA_CRM.Data
                                 Phone = "5552233445",
                                 LinkedInUrl = "https://www.linkedin.com/in/davIdbrown",
                                 IsVip = true,
-                                MemberId = 18
                             },
                             new Contact
                             {
@@ -2455,7 +2337,6 @@ namespace NIA_CRM.Data
                                 Phone = "5556677889",
                                 LinkedInUrl = "https://www.linkedin.com/in/emilywilliams",
                                 IsVip = false,
-                                MemberId = 19
                             },
                             new Contact
                             {
@@ -2468,7 +2349,6 @@ namespace NIA_CRM.Data
                                 Phone = "5558899001",
                                 LinkedInUrl = "https://www.linkedin.com/in/michaeldavis",
                                 IsVip = false,
-                                MemberId = 20
                             },
                             new Contact
                             {
@@ -2481,7 +2361,6 @@ namespace NIA_CRM.Data
                                 Phone = "5553456789",
                                 LinkedInUrl = "https://www.linkedin.com/in/oliviamartinez",
                                 IsVip = true,
-                                MemberId = 21
                             },
                             new Contact
                             {
@@ -2494,7 +2373,6 @@ namespace NIA_CRM.Data
                                 Phone = "5552345678",
                                 LinkedInUrl = "https://www.linkedin.com/in/ethantaylor",
                                 IsVip = false,
-                                MemberId = 22
                             },
                             new Contact
                             {
@@ -2507,7 +2385,6 @@ namespace NIA_CRM.Data
                                 Phone = "5556781234",
                                 LinkedInUrl = "https://www.linkedin.com/in/sophiawilson",
                                 IsVip = false,
-                                MemberId = 23
                             },
                             new Contact
                             {
@@ -2520,7 +2397,6 @@ namespace NIA_CRM.Data
                                 Phone = "5559988776",
                                 LinkedInUrl = "https://www.linkedin.com/in/danielmoore",
                                 IsVip = false,
-                                MemberId = 24
                             },
                         new Contact
                         {
@@ -2533,7 +2409,6 @@ namespace NIA_CRM.Data
                             Phone = "5557766554",
                             LinkedInUrl = "https://www.linkedin.com/in/chloemartin",
                             IsVip = true,
-                            MemberId = 25
                         },
                         new Contact
                         {
@@ -2546,7 +2421,6 @@ namespace NIA_CRM.Data
                             Phone = "5554433221",
                             LinkedInUrl = "https://www.linkedin.com/in/liamgreen",
                             IsVip = false,
-                            MemberId = 26
                         },
                         new Contact
                         {
@@ -2559,7 +2433,6 @@ namespace NIA_CRM.Data
                             Phone = "5559988776",
                             LinkedInUrl = "https://www.linkedin.com/in/isabellahudson",
                             IsVip = true,
-                            MemberId = 27
                         },
                         new Contact
                         {
@@ -2572,7 +2445,6 @@ namespace NIA_CRM.Data
                             Phone = "5551122334",
                             LinkedInUrl = "https://www.linkedin.com/in/ethanpeters",
                             IsVip = false,
-                            MemberId = 28
                         },
                         new Contact
                         {
@@ -2585,7 +2457,6 @@ namespace NIA_CRM.Data
                             Phone = "5556677889",
                             LinkedInUrl = "https://www.linkedin.com/in/avawilliams",
                             IsVip = true,
-                            MemberId = 29
                         },
                         new Contact
                         {
@@ -2598,7 +2469,6 @@ namespace NIA_CRM.Data
                             Phone = "5554455667",
                             LinkedInUrl = "https://www.linkedin.com/in/masonjames",
                             IsVip = false,
-                            MemberId = 30
                         },
                         new Contact
                         {
@@ -2611,7 +2481,6 @@ namespace NIA_CRM.Data
                             Phone = "5552334455",
                             LinkedInUrl = "https://www.linkedin.com/in/sophiaking",
                             IsVip = true,
-                            MemberId = 31
                         },
                         new Contact
                         {
@@ -2624,7 +2493,6 @@ namespace NIA_CRM.Data
                             Phone = "5555555555",
                             LinkedInUrl = "https://www.linkedin.com/in/jacksontaylor",
                             IsVip = true,
-                            MemberId = 32
                         },
                         new Contact
                         {
@@ -2637,7 +2505,6 @@ namespace NIA_CRM.Data
                             Phone = "5552233446",
                             LinkedInUrl = "https://www.linkedin.com/in/charlottelarson",
                             IsVip = false,
-                            MemberId = 33
                         },
                         new Contact
                         {
@@ -2650,7 +2517,6 @@ namespace NIA_CRM.Data
                             Phone = "5556677880",
                             LinkedInUrl = "https://www.linkedin.com/in/lucasbrown",
                             IsVip = true,
-                            MemberId = 34
                         },
                         new Contact
                         {
@@ -2663,7 +2529,6 @@ namespace NIA_CRM.Data
                             Phone = "5553334446",
                             LinkedInUrl = "https://www.linkedin.com/in/miacarter",
                             IsVip = true,
-                            MemberId = 35
                         },
                         new Contact
                         {
@@ -2676,7 +2541,6 @@ namespace NIA_CRM.Data
                             Phone = "5553344556",
                             LinkedInUrl = "https://www.linkedin.com/in/logandavis",
                             IsVip = false,
-                            MemberId = 36
                         },
                         new Contact
                         {
@@ -2689,7 +2553,6 @@ namespace NIA_CRM.Data
                             Phone = "5555566778",
                             LinkedInUrl = "https://www.linkedin.com/in/harpermorris",
                             IsVip = true,
-                            MemberId = 37
                         },
                         new Contact
                         {
@@ -2702,7 +2565,6 @@ namespace NIA_CRM.Data
                             Phone = "5551223344",
                             LinkedInUrl = "https://www.linkedin.com/in/benjaminnelson",
                             IsVip = true,
-                            MemberId = 38
                         },
                         new Contact
                         {
@@ -2715,7 +2577,6 @@ namespace NIA_CRM.Data
                             Phone = "5554455668",
                             LinkedInUrl = "https://www.linkedin.com/in/ellaolson",
                             IsVip = false,
-                            MemberId = 39
                         },
                         new Contact
                         {
@@ -2728,7 +2589,6 @@ namespace NIA_CRM.Data
                             Phone = "5557768999",
                             LinkedInUrl = "https://www.linkedin.com/in/jamesphillips",
                             IsVip = true,
-                            MemberId = 40
                         },
                         new Contact
                         {
@@ -2741,7 +2601,6 @@ namespace NIA_CRM.Data
                             Phone = "7077077777",
                             LinkedInUrl = "https://www.linkedin.com/in/johndoe",
                             IsVip = false,
-                            MemberId = 41
                         },
                         new Contact
                         {
@@ -2754,7 +2613,6 @@ namespace NIA_CRM.Data
                             Phone = "1234567890",
                             LinkedInUrl = "https://www.linkedin.com/in/johndoe",
                             IsVip = true,
-                            MemberId = 42
                         },
 
                             new Contact
@@ -2768,7 +2626,6 @@ namespace NIA_CRM.Data
                                 Phone = "9876543210",
                                 LinkedInUrl = "https://www.linkedin.com/in/janesmith",
                                 IsVip = false,
-                                MemberId = 43
                             },
                             new Contact
                             {
@@ -2781,7 +2638,6 @@ namespace NIA_CRM.Data
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/alicejohnson",
                                 IsVip = true,
-                                MemberId = 44
                             },
                             new Contact
                             {
@@ -2794,7 +2650,6 @@ namespace NIA_CRM.Data
                                 Phone = "5557654321",
                                 LinkedInUrl = "https://www.linkedin.com/in/bobbrown",
                                 IsVip = true,
-                                MemberId = 45
                             },
                             new Contact
                             {
@@ -2807,7 +2662,6 @@ namespace NIA_CRM.Data
                                 Phone = "5557890123",
                                 LinkedInUrl = "https://www.linkedin.com/in/charliedavis",
                                 IsVip = false,
-                                MemberId = 46
                             },
                             new Contact
                             {
@@ -2820,7 +2674,6 @@ namespace NIA_CRM.Data
                                 Phone = "5552345678",
                                 LinkedInUrl = "https://www.linkedin.com/in/deborahwilliams",
                                 IsVip = true,
-                                MemberId = 47
                             },
                             new Contact
                             {
@@ -2833,7 +2686,6 @@ namespace NIA_CRM.Data
                                 Phone = "5553456789",
                                 LinkedInUrl = "https://www.linkedin.com/in/evetaylor",
                                 IsVip = false,
-                                MemberId = 48
                             },
                             new Contact
                             {
@@ -2846,7 +2698,6 @@ namespace NIA_CRM.Data
                                 Phone = "5554567890",
                                 LinkedInUrl = "https://www.linkedin.com/in/frankharris",
                                 IsVip = true,
-                                MemberId = 49
                             },
                             new Contact
                             {
@@ -2859,7 +2710,6 @@ namespace NIA_CRM.Data
                                 Phone = "5555678901",
                                 LinkedInUrl = "https://www.linkedin.com/in/graceking",
                                 IsVip = false,
-                                MemberId = 50
                             },
                             new Contact
                             {
@@ -2872,7 +2722,6 @@ namespace NIA_CRM.Data
                                 Phone = "5556789012",
                                 LinkedInUrl = "https://www.linkedin.com/in/hanklee",
                                 IsVip = true,
-                                MemberId = 51
                             },
                             new Contact
                             {
@@ -2885,7 +2734,6 @@ namespace NIA_CRM.Data
                                 Phone = "5557890123",
                                 LinkedInUrl = "https://www.linkedin.com/in/ivyadams",
                                 IsVip = false,
-                                MemberId = 52
                             },
                             new Contact
                             {
@@ -2898,7 +2746,6 @@ namespace NIA_CRM.Data
                                 Phone = "5558901234",
                                 LinkedInUrl = "https://www.linkedin.com/in/jackscott",
                                 IsVip = true,
-                                MemberId = 53
                             },
                             new Contact
                             {
@@ -2911,7 +2758,6 @@ namespace NIA_CRM.Data
                                 Phone = "5559012345",
                                 LinkedInUrl = "https://www.linkedin.com/in/kathymorris",
                                 IsVip = false,
-                                MemberId = 54
                             },
                             new Contact
                             {
@@ -2924,7 +2770,6 @@ namespace NIA_CRM.Data
                                 Phone = "5550123456",
                                 LinkedInUrl = "https://www.linkedin.com/in/louiswalker",
                                 IsVip = true,
-                                MemberId = 55
                             },
                             new Contact
                             {
@@ -2937,7 +2782,6 @@ namespace NIA_CRM.Data
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/monawhite",
                                 IsVip = false,
-                                MemberId = 56
                             },
                             new Contact
                             {
@@ -2950,7 +2794,6 @@ namespace NIA_CRM.Data
                                 Phone = "5559876543",
                                 LinkedInUrl = "https://www.linkedin.com/in/jamessmith",
                                 IsVip = false,
-                                MemberId = 57
                             },
                             new Contact
                             {
@@ -2963,7 +2806,6 @@ namespace NIA_CRM.Data
                                 Phone = "5551122334",
                                 LinkedInUrl = "https://www.linkedin.com/in/sarahjohnson",
                                 IsVip = false,
-                                MemberId = 58
                             },
                             new Contact
                             {
@@ -2976,7 +2818,6 @@ namespace NIA_CRM.Data
                                 Phone = "5552233445",
                                 LinkedInUrl = "https://www.linkedin.com/in/davIdbrown",
                                 IsVip = true,
-                                MemberId = 59
                             },
                             new Contact
                             {
@@ -2989,7 +2830,6 @@ namespace NIA_CRM.Data
                                 Phone = "5556677889",
                                 LinkedInUrl = "https://www.linkedin.com/in/emilywilliams",
                                 IsVip = false,
-                                MemberId = 60
                             },
                             new Contact
                             {
@@ -3002,7 +2842,6 @@ namespace NIA_CRM.Data
                                 Phone = "5558899001",
                                 LinkedInUrl = "https://www.linkedin.com/in/michaeldavis",
                                 IsVip = false,
-                                MemberId = 61
                             },
                             new Contact
                             {
@@ -3015,7 +2854,6 @@ namespace NIA_CRM.Data
                                 Phone = "5553456789",
                                 LinkedInUrl = "https://www.linkedin.com/in/oliviamartinez",
                                 IsVip = true,
-                                MemberId = 62
                             },
                             new Contact
                             {
@@ -3028,7 +2866,6 @@ namespace NIA_CRM.Data
                                 Phone = "5552345678",
                                 LinkedInUrl = "https://www.linkedin.com/in/ethantaylor",
                                 IsVip = false,
-                                MemberId = 63
                             },
                             new Contact
                             {
@@ -3041,7 +2878,6 @@ namespace NIA_CRM.Data
                                 Phone = "5556781234",
                                 LinkedInUrl = "https://www.linkedin.com/in/sophiawilson",
                                 IsVip = false,
-                                MemberId = 64
                             },
                             new Contact
                             {
@@ -3054,7 +2890,6 @@ namespace NIA_CRM.Data
                                 Phone = "5559988776",
                                 LinkedInUrl = "https://www.linkedin.com/in/danielmoore",
                                 IsVip = false,
-                                MemberId = 65
                             },
                         new Contact
                         {
@@ -3067,7 +2902,6 @@ namespace NIA_CRM.Data
                             Phone = "5557766554",
                             LinkedInUrl = "https://www.linkedin.com/in/chloemartin",
                             IsVip = true,
-                            MemberId = 66
                         },
                         new Contact
                         {
@@ -3080,7 +2914,6 @@ namespace NIA_CRM.Data
                             Phone = "5554433221",
                             LinkedInUrl = "https://www.linkedin.com/in/liamgreen",
                             IsVip = false,
-                            MemberId = 67
                         },
                         new Contact
                         {
@@ -3093,7 +2926,6 @@ namespace NIA_CRM.Data
                             Phone = "5559988776",
                             LinkedInUrl = "https://www.linkedin.com/in/isabellahudson",
                             IsVip = true,
-                            MemberId = 68
                         },
                         new Contact
                         {
@@ -3106,7 +2938,6 @@ namespace NIA_CRM.Data
                             Phone = "5551122334",
                             LinkedInUrl = "https://www.linkedin.com/in/ethanpeters",
                             IsVip = false,
-                            MemberId = 69
                         },
                         new Contact
                         {
@@ -3119,7 +2950,6 @@ namespace NIA_CRM.Data
                             Phone = "5556677889",
                             LinkedInUrl = "https://www.linkedin.com/in/avawilliams",
                             IsVip = true,
-                            MemberId = 70
                         },
                         new Contact
                         {
@@ -3132,7 +2962,6 @@ namespace NIA_CRM.Data
                             Phone = "5554455667",
                             LinkedInUrl = "https://www.linkedin.com/in/masonjames",
                             IsVip = false,
-                            MemberId = 71
                         },
                         new Contact
                         {
@@ -3145,7 +2974,6 @@ namespace NIA_CRM.Data
                             Phone = "5552334455",
                             LinkedInUrl = "https://www.linkedin.com/in/sophiaking",
                             IsVip = true,
-                            MemberId = 72
                         },
                         new Contact
                         {
@@ -3158,7 +2986,6 @@ namespace NIA_CRM.Data
                             Phone = "5555555555",
                             LinkedInUrl = "https://www.linkedin.com/in/jacksontaylor",
                             IsVip = true,
-                            MemberId = 73
                         },
                         new Contact
                         {
@@ -3171,7 +2998,6 @@ namespace NIA_CRM.Data
                             Phone = "5552233446",
                             LinkedInUrl = "https://www.linkedin.com/in/charlottelarson",
                             IsVip = false,
-                            MemberId = 74
                         },
                         new Contact
                         {
@@ -3184,7 +3010,6 @@ namespace NIA_CRM.Data
                             Phone = "5556677880",
                             LinkedInUrl = "https://www.linkedin.com/in/lucasbrown",
                             IsVip = true,
-                            MemberId = 75
                         },
                         new Contact
                         {
@@ -3197,7 +3022,6 @@ namespace NIA_CRM.Data
                             Phone = "5553334446",
                             LinkedInUrl = "https://www.linkedin.com/in/miacarter",
                             IsVip = true,
-                            MemberId = 76
                         },
                         new Contact
                         {
@@ -3210,7 +3034,6 @@ namespace NIA_CRM.Data
                             Phone = "5553344556",
                             LinkedInUrl = "https://www.linkedin.com/in/logandavis",
                             IsVip = false,
-                            MemberId = 77
                         },
                         new Contact
                         {
@@ -3223,7 +3046,6 @@ namespace NIA_CRM.Data
                             Phone = "5555566778",
                             LinkedInUrl = "https://www.linkedin.com/in/harpermorris",
                             IsVip = true,
-                            MemberId = 78
                         },
                         new Contact
                         {
@@ -3236,7 +3058,6 @@ namespace NIA_CRM.Data
                             Phone = "5551223344",
                             LinkedInUrl = "https://www.linkedin.com/in/benjaminnelson",
                             IsVip = true,
-                            MemberId = 79
                         },
                         new Contact
                         {
@@ -3249,7 +3070,6 @@ namespace NIA_CRM.Data
                             Phone = "5554455668",
                             LinkedInUrl = "https://www.linkedin.com/in/ellaolson",
                             IsVip = false,
-                            MemberId = 80
                         },
                         new Contact
                         {
@@ -3262,7 +3082,6 @@ namespace NIA_CRM.Data
                             Phone = "5557768999",
                             LinkedInUrl = "https://www.linkedin.com/in/jamesphillips",
                             IsVip = true,
-                            MemberId = 81
                         },
                         new Contact
                         {
@@ -3275,7 +3094,6 @@ namespace NIA_CRM.Data
                             Phone = "1234567890",
                             LinkedInUrl = "https://www.linkedin.com/in/johndoe",
                             IsVip = true,
-                            MemberId = 82
                         },
 
                             new Contact
@@ -3289,7 +3107,6 @@ namespace NIA_CRM.Data
                                 Phone = "9876543210",
                                 LinkedInUrl = "https://www.linkedin.com/in/janesmith",
                                 IsVip = false,
-                                MemberId = 83
                             },
                             new Contact
                             {
@@ -3302,7 +3119,6 @@ namespace NIA_CRM.Data
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/alicejohnson",
                                 IsVip = true,
-                                MemberId = 84
                             },
                             new Contact
                             {
@@ -3315,7 +3131,6 @@ namespace NIA_CRM.Data
                                 Phone = "5557654321",
                                 LinkedInUrl = "https://www.linkedin.com/in/bobbrown",
                                 IsVip = true,
-                                MemberId = 85
                             },
                             new Contact
                             {
@@ -3328,7 +3143,6 @@ namespace NIA_CRM.Data
                                 Phone = "5557890123",
                                 LinkedInUrl = "https://www.linkedin.com/in/charliedavis",
                                 IsVip = false,
-                                MemberId = 86
                             },
                             new Contact
                             {
@@ -3341,7 +3155,6 @@ namespace NIA_CRM.Data
                                 Phone = "5552345678",
                                 LinkedInUrl = "https://www.linkedin.com/in/deborahwilliams",
                                 IsVip = true,
-                                MemberId = 87
                             },
                             new Contact
                             {
@@ -3354,7 +3167,6 @@ namespace NIA_CRM.Data
                                 Phone = "5553456789",
                                 LinkedInUrl = "https://www.linkedin.com/in/evetaylor",
                                 IsVip = false,
-                                MemberId = 88
                             },
                             new Contact
                             {
@@ -3367,7 +3179,6 @@ namespace NIA_CRM.Data
                                 Phone = "5554567890",
                                 LinkedInUrl = "https://www.linkedin.com/in/frankharris",
                                 IsVip = true,
-                                MemberId = 89
                             },
                             new Contact
                             {
@@ -3380,7 +3191,6 @@ namespace NIA_CRM.Data
                                 Phone = "5555678901",
                                 LinkedInUrl = "https://www.linkedin.com/in/graceking",
                                 IsVip = false,
-                                MemberId = 90
                             },
                             new Contact
                             {
@@ -3393,7 +3203,6 @@ namespace NIA_CRM.Data
                                 Phone = "5556789012",
                                 LinkedInUrl = "https://www.linkedin.com/in/hanklee",
                                 IsVip = true,
-                                MemberId = 91
                             },
                             new Contact
                             {
@@ -3406,7 +3215,6 @@ namespace NIA_CRM.Data
                                 Phone = "5557890123",
                                 LinkedInUrl = "https://www.linkedin.com/in/ivyadams",
                                 IsVip = false,
-                                MemberId = 92
                             },
                             new Contact
                             {
@@ -3419,7 +3227,6 @@ namespace NIA_CRM.Data
                                 Phone = "5558901234",
                                 LinkedInUrl = "https://www.linkedin.com/in/jackscott",
                                 IsVip = true,
-                                MemberId = 93
                             },
                             new Contact
                             {
@@ -3432,7 +3239,6 @@ namespace NIA_CRM.Data
                                 Phone = "5559012345",
                                 LinkedInUrl = "https://www.linkedin.com/in/kathymorris",
                                 IsVip = false,
-                                MemberId = 94
                             },
                             new Contact
                             {
@@ -3445,7 +3251,6 @@ namespace NIA_CRM.Data
                                 Phone = "5550123456",
                                 LinkedInUrl = "https://www.linkedin.com/in/louiswalker",
                                 IsVip = true,
-                                MemberId = 95
                             },
                             new Contact
                             {
@@ -3458,7 +3263,6 @@ namespace NIA_CRM.Data
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/monawhite",
                                 IsVip = false,
-                                MemberId = 96
                             },
                             new Contact
                             {
@@ -3471,7 +3275,6 @@ namespace NIA_CRM.Data
                                 Phone = "5559876543",
                                 LinkedInUrl = "https://www.linkedin.com/in/jamessmith",
                                 IsVip = false,
-                                MemberId = 97
                             },
                             new Contact
                             {
@@ -3484,7 +3287,6 @@ namespace NIA_CRM.Data
                                 Phone = "5551122334",
                                 LinkedInUrl = "https://www.linkedin.com/in/sarahjohnson",
                                 IsVip = false,
-                                MemberId = 98
                             },
                             new Contact
                             {
@@ -3497,7 +3299,6 @@ namespace NIA_CRM.Data
                                 Phone = "5552233445",
                                 LinkedInUrl = "https://www.linkedin.com/in/davIdbrown",
                                 IsVip = true,
-                                MemberId = 99
                             },
                             new Contact
                             {
@@ -3510,9 +3311,284 @@ namespace NIA_CRM.Data
                                 Phone = "5556677889",
                                 LinkedInUrl = "https://www.linkedin.com/in/emilywilliams",
                                 IsVip = false,
-                                MemberId = 100
                             }
                         );
+                        context.SaveChanges();
+
+                        if (!context.MemberContacts.Any())
+                        {
+                            var memberContacts = new List<MemberContact>
+    {
+        new MemberContact { MemberId = 1, ContactId = 1 },
+        new MemberContact { MemberId = 2, ContactId = 1 },
+        new MemberContact { MemberId = 3, ContactId = 2 },
+        new MemberContact { MemberId = 2, ContactId = 2 },
+        new MemberContact { MemberId = 4, ContactId = 2 },
+        new MemberContact { MemberId = 5, ContactId = 3 },
+        new MemberContact { MemberId = 6, ContactId = 3 },
+        new MemberContact { MemberId = 5, ContactId = 3 },
+        new MemberContact { MemberId = 7, ContactId = 4 },
+        new MemberContact { MemberId = 8, ContactId = 4 },
+        new MemberContact { MemberId = 9, ContactId = 5 },
+        new MemberContact { MemberId = 8, ContactId = 5 },
+        new MemberContact { MemberId = 10, ContactId = 5 },
+        new MemberContact { MemberId = 11, ContactId = 6 },
+        new MemberContact { MemberId = 12, ContactId = 6 },
+        new MemberContact { MemberId = 11, ContactId = 6 },
+        new MemberContact { MemberId = 13, ContactId = 7 },
+        new MemberContact { MemberId = 14, ContactId = 7 },
+        new MemberContact { MemberId = 15, ContactId = 8 },
+        new MemberContact { MemberId = 14, ContactId = 8 },
+        new MemberContact { MemberId = 16, ContactId = 8 },
+        new MemberContact { MemberId = 17, ContactId = 9 },
+        new MemberContact { MemberId = 18, ContactId = 9 },
+        new MemberContact { MemberId = 17, ContactId = 9 },
+        new MemberContact { MemberId = 19, ContactId = 10 },
+        new MemberContact { MemberId = 20, ContactId = 10 },
+        new MemberContact { MemberId = 21, ContactId = 11 },
+        new MemberContact { MemberId = 20, ContactId = 11 },
+        new MemberContact { MemberId = 22, ContactId = 11 },
+        new MemberContact { MemberId = 23, ContactId = 12 },
+        new MemberContact { MemberId = 24, ContactId = 12 },
+        new MemberContact { MemberId = 23, ContactId = 12 },
+        new MemberContact { MemberId = 25, ContactId = 13 },
+        new MemberContact { MemberId = 26, ContactId = 13 },
+        new MemberContact { MemberId = 27, ContactId = 14 },
+        new MemberContact { MemberId = 26, ContactId = 14 },
+        new MemberContact { MemberId = 28, ContactId = 14 },
+        new MemberContact { MemberId = 29, ContactId = 15 },
+        new MemberContact { MemberId = 30, ContactId = 15 },
+        new MemberContact { MemberId = 29, ContactId = 15 },
+        new MemberContact { MemberId = 31, ContactId = 16 },
+        new MemberContact { MemberId = 32, ContactId = 16 },
+        new MemberContact { MemberId = 33, ContactId = 17 },
+        new MemberContact { MemberId = 32, ContactId = 17 },
+        new MemberContact { MemberId = 34, ContactId = 17 },
+        new MemberContact { MemberId = 35, ContactId = 18 },
+        new MemberContact { MemberId = 36, ContactId = 18 },
+        new MemberContact { MemberId = 35, ContactId = 18 },
+        new MemberContact { MemberId = 37, ContactId = 19 },
+        new MemberContact { MemberId = 38, ContactId = 19 },
+        new MemberContact { MemberId = 39, ContactId = 20 },
+        new MemberContact { MemberId = 38, ContactId = 20 },
+        new MemberContact { MemberId = 40, ContactId = 20 },
+        new MemberContact { MemberId = 41, ContactId = 21 },
+        new MemberContact { MemberId = 42, ContactId = 21 },
+        new MemberContact { MemberId = 41, ContactId = 21 },
+        new MemberContact { MemberId = 43, ContactId = 22 },
+        new MemberContact { MemberId = 44, ContactId = 22 },
+        new MemberContact { MemberId = 45, ContactId = 23 },
+        new MemberContact { MemberId = 44, ContactId = 23 },
+        new MemberContact { MemberId = 46, ContactId = 23 },
+        new MemberContact { MemberId = 47, ContactId = 24 },
+        new MemberContact { MemberId = 48, ContactId = 24 },
+        new MemberContact { MemberId = 47, ContactId = 24 },
+        new MemberContact { MemberId = 49, ContactId = 25 },
+        new MemberContact { MemberId = 50, ContactId = 25 },
+        new MemberContact { MemberId = 51, ContactId = 26 },
+        new MemberContact { MemberId = 50, ContactId = 26 },
+        new MemberContact { MemberId = 52, ContactId = 26 },
+        new MemberContact { MemberId = 53, ContactId = 27 },
+        new MemberContact { MemberId = 54, ContactId = 27 },
+        new MemberContact { MemberId = 53, ContactId = 27 },
+        new MemberContact { MemberId = 55, ContactId = 28 },
+        new MemberContact { MemberId = 56, ContactId = 28 },
+        new MemberContact { MemberId = 57, ContactId = 29 },
+        new MemberContact { MemberId = 56, ContactId = 29 },
+        new MemberContact { MemberId = 58, ContactId = 29 },
+        new MemberContact { MemberId = 59, ContactId = 30 },
+        new MemberContact { MemberId = 60, ContactId = 30 },
+        new MemberContact { MemberId = 59, ContactId = 30 },
+        new MemberContact { MemberId = 61, ContactId = 31 },
+        new MemberContact { MemberId = 62, ContactId = 31 },
+        new MemberContact { MemberId = 63, ContactId = 32 },
+        new MemberContact { MemberId = 62, ContactId = 32 },
+        new MemberContact { MemberId = 64, ContactId = 32 },
+        new MemberContact { MemberId = 65, ContactId = 33 },
+        new MemberContact { MemberId = 66, ContactId = 33 },
+        new MemberContact { MemberId = 65, ContactId = 33 },
+        new MemberContact { MemberId = 67, ContactId = 34 },
+        new MemberContact { MemberId = 68, ContactId = 34 },
+        new MemberContact { MemberId = 69, ContactId = 35 },
+        new MemberContact { MemberId = 68, ContactId = 35 },
+        new MemberContact { MemberId = 70, ContactId = 35 },
+        new MemberContact { MemberId = 71, ContactId = 36 },
+        new MemberContact { MemberId = 72, ContactId = 36 },
+        new MemberContact { MemberId = 71, ContactId = 36 },
+        new MemberContact { MemberId = 73, ContactId = 37 },
+        new MemberContact { MemberId = 74, ContactId = 37 },
+        new MemberContact { MemberId = 75, ContactId = 38 },
+        new MemberContact { MemberId = 74, ContactId = 38 },
+        new MemberContact { MemberId = 76, ContactId = 38 },
+        new MemberContact { MemberId = 77, ContactId = 39 },
+        new MemberContact { MemberId = 78, ContactId = 39 },
+        new MemberContact { MemberId = 77, ContactId = 39 },
+        new MemberContact { MemberId = 79, ContactId = 40 },
+        new MemberContact { MemberId = 80, ContactId = 40 },
+        new MemberContact { MemberId = 81, ContactId = 41 },
+        new MemberContact { MemberId = 80, ContactId = 41 },
+        new MemberContact { MemberId = 82, ContactId = 41 },
+        new MemberContact { MemberId = 83, ContactId = 42 },
+        new MemberContact { MemberId = 84, ContactId = 42 },
+        new MemberContact { MemberId = 83, ContactId = 42 },
+        new MemberContact { MemberId = 85, ContactId = 43 },
+        new MemberContact { MemberId = 86, ContactId = 43 },
+        new MemberContact { MemberId = 87, ContactId = 44 },
+        new MemberContact { MemberId = 86, ContactId = 44 },
+        new MemberContact { MemberId = 88, ContactId = 44 },
+        new MemberContact { MemberId = 89, ContactId = 45 },
+        new MemberContact { MemberId = 90, ContactId = 45 },
+        new MemberContact { MemberId = 89, ContactId = 45 },
+        new MemberContact { MemberId = 91, ContactId = 46 },
+        new MemberContact { MemberId = 92, ContactId = 46 },
+        new MemberContact { MemberId = 93, ContactId = 47 },
+        new MemberContact { MemberId = 92, ContactId = 47 },
+        new MemberContact { MemberId = 94, ContactId = 47 },
+        new MemberContact { MemberId = 95, ContactId = 48 },
+        new MemberContact { MemberId = 96, ContactId = 48 },
+        new MemberContact { MemberId = 95, ContactId = 48 },
+        new MemberContact { MemberId = 97, ContactId = 49 },
+        new MemberContact { MemberId = 98, ContactId = 49 },
+        new MemberContact { MemberId = 99, ContactId = 50 },
+        new MemberContact { MemberId = 98, ContactId = 50 },
+        new MemberContact { MemberId = 100, ContactId = 50 },
+        new MemberContact { MemberId = 101, ContactId = 51 },
+        new MemberContact { MemberId = 102, ContactId = 51 },
+        new MemberContact { MemberId = 101, ContactId = 51 },
+        new MemberContact { MemberId = 103, ContactId = 52 },
+        new MemberContact { MemberId = 104, ContactId = 52 },
+        new MemberContact { MemberId = 105, ContactId = 53 },
+        new MemberContact { MemberId = 104, ContactId = 53 },
+        new MemberContact { MemberId = 106, ContactId = 53 },
+        new MemberContact { MemberId = 107, ContactId = 54 },
+        new MemberContact { MemberId = 108, ContactId = 54 },
+        new MemberContact { MemberId = 107, ContactId = 54 },
+        new MemberContact { MemberId = 109, ContactId = 55 },
+        new MemberContact { MemberId = 110, ContactId = 55 },
+        new MemberContact { MemberId = 111, ContactId = 56 },
+        new MemberContact { MemberId = 110, ContactId = 56 },
+        new MemberContact { MemberId = 112, ContactId = 56 },
+        new MemberContact { MemberId = 113, ContactId = 57 },
+        new MemberContact { MemberId = 114, ContactId = 57 },
+        new MemberContact { MemberId = 113, ContactId = 57 },
+        new MemberContact { MemberId = 115, ContactId = 58 },
+        new MemberContact { MemberId = 116, ContactId = 58 },
+        new MemberContact { MemberId = 117, ContactId = 59 },
+        new MemberContact { MemberId = 116, ContactId = 59 },
+        new MemberContact { MemberId = 118, ContactId = 59 },
+        new MemberContact { MemberId = 119, ContactId = 60 },
+        new MemberContact { MemberId = 120, ContactId = 60 },
+        new MemberContact { MemberId = 119, ContactId = 60 },
+        new MemberContact { MemberId = 121, ContactId = 61 },
+        new MemberContact { MemberId = 122, ContactId = 61 },
+        new MemberContact { MemberId = 123, ContactId = 62 },
+        new MemberContact { MemberId = 122, ContactId = 62 },
+        new MemberContact { MemberId = 124, ContactId = 62 },
+        new MemberContact { MemberId = 125, ContactId = 63 },
+        new MemberContact { MemberId = 126, ContactId = 63 },
+        new MemberContact { MemberId = 125, ContactId = 63 },
+        new MemberContact { MemberId = 127, ContactId = 64 },
+        new MemberContact { MemberId = 128, ContactId = 64 },
+        new MemberContact { MemberId = 129, ContactId = 65 },
+        new MemberContact { MemberId = 128, ContactId = 65 },
+        new MemberContact { MemberId = 130, ContactId = 65 },
+        new MemberContact { MemberId = 131, ContactId = 66 },
+        new MemberContact { MemberId = 132, ContactId = 66 },
+        new MemberContact { MemberId = 131, ContactId = 66 },
+        new MemberContact { MemberId = 133, ContactId = 67 },
+        new MemberContact { MemberId = 134, ContactId = 67 },
+        new MemberContact { MemberId = 135, ContactId = 68 },
+        new MemberContact { MemberId = 134, ContactId = 68 },
+        new MemberContact { MemberId = 136, ContactId = 68 },
+        new MemberContact { MemberId = 137, ContactId = 69 },
+        new MemberContact { MemberId = 138, ContactId = 69 },
+        new MemberContact { MemberId = 137, ContactId = 69 },
+        new MemberContact { MemberId = 139, ContactId = 70 },
+        new MemberContact { MemberId = 140, ContactId = 70 },
+        new MemberContact { MemberId = 141, ContactId = 71 },
+        new MemberContact { MemberId = 140, ContactId = 71 },
+        new MemberContact { MemberId = 142, ContactId = 71 },
+        new MemberContact { MemberId = 143, ContactId = 72 },
+        new MemberContact { MemberId = 144, ContactId = 72 },
+        new MemberContact { MemberId = 143, ContactId = 72 },
+        new MemberContact { MemberId = 145, ContactId = 73 },
+        new MemberContact { MemberId = 146, ContactId = 73 },
+        new MemberContact { MemberId = 147, ContactId = 74 },
+        new MemberContact { MemberId = 146, ContactId = 74 },
+        new MemberContact { MemberId = 148, ContactId = 74 },
+        new MemberContact { MemberId = 149, ContactId = 75 },
+        new MemberContact { MemberId = 150, ContactId = 75 },
+        new MemberContact { MemberId = 149, ContactId = 75 },
+        new MemberContact { MemberId = 151, ContactId = 76 },
+        new MemberContact { MemberId = 152, ContactId = 76 },
+        new MemberContact { MemberId = 153, ContactId = 77 },
+        new MemberContact { MemberId = 152, ContactId = 77 },
+        new MemberContact { MemberId = 154, ContactId = 77 },
+        new MemberContact { MemberId = 155, ContactId = 78 },
+        new MemberContact { MemberId = 156, ContactId = 78 },
+        new MemberContact { MemberId = 155, ContactId = 78 },
+        new MemberContact { MemberId = 157, ContactId = 79 },
+        new MemberContact { MemberId = 158, ContactId = 79 },
+        new MemberContact { MemberId = 159, ContactId = 80 },
+        new MemberContact { MemberId = 158, ContactId = 80 },
+        new MemberContact { MemberId = 160, ContactId = 80 },
+        new MemberContact { MemberId = 161, ContactId = 81 },
+        new MemberContact { MemberId = 162, ContactId = 81 },
+        new MemberContact { MemberId = 161, ContactId = 81 },
+        new MemberContact { MemberId = 163, ContactId = 82 },
+        new MemberContact { MemberId = 164, ContactId = 82 },
+        new MemberContact { MemberId = 165, ContactId = 83 },
+        new MemberContact { MemberId = 164, ContactId = 83 },
+        new MemberContact { MemberId = 166, ContactId = 83 },
+        new MemberContact { MemberId = 167, ContactId = 84 },
+        new MemberContact { MemberId = 168, ContactId = 84 },
+        new MemberContact { MemberId = 167, ContactId = 84 },
+        new MemberContact { MemberId = 169, ContactId = 85 },
+        new MemberContact { MemberId = 170, ContactId = 85 },
+        new MemberContact { MemberId = 171, ContactId = 86 },
+        new MemberContact { MemberId = 170, ContactId = 86 },
+        new MemberContact { MemberId = 172, ContactId = 86 },
+        new MemberContact { MemberId = 173, ContactId = 87 },
+        new MemberContact { MemberId = 174, ContactId = 87 },
+        new MemberContact { MemberId = 173, ContactId = 87 },
+        new MemberContact { MemberId = 175, ContactId = 88 },
+        new MemberContact { MemberId = 176, ContactId = 88 },
+        new MemberContact { MemberId = 177, ContactId = 89 },
+        new MemberContact { MemberId = 176, ContactId = 89 },
+        new MemberContact { MemberId = 178, ContactId = 89 },
+        new MemberContact { MemberId = 179, ContactId = 90 },
+        new MemberContact { MemberId = 180, ContactId = 90 },
+        new MemberContact { MemberId = 179, ContactId = 90 },
+        new MemberContact { MemberId = 181, ContactId = 91 },
+        new MemberContact { MemberId = 182, ContactId = 91 },
+        new MemberContact { MemberId = 183, ContactId = 92 },
+        new MemberContact { MemberId = 182, ContactId = 92 },
+        new MemberContact { MemberId = 184, ContactId = 92 },
+        new MemberContact { MemberId = 185, ContactId = 93 },
+        new MemberContact { MemberId = 186, ContactId = 93 },
+        new MemberContact { MemberId = 185, ContactId = 93 },
+        new MemberContact { MemberId = 187, ContactId = 94 },
+        new MemberContact { MemberId = 188, ContactId = 94 },
+        new MemberContact { MemberId = 189, ContactId = 95 },
+        new MemberContact { MemberId = 188, ContactId = 95 },
+        new MemberContact { MemberId = 190, ContactId = 95 },
+        new MemberContact { MemberId = 191, ContactId = 96 },
+        new MemberContact { MemberId = 192, ContactId = 96 },
+        new MemberContact { MemberId = 191, ContactId = 96 },
+        new MemberContact { MemberId = 193, ContactId = 97 },
+        new MemberContact { MemberId = 194, ContactId = 97 },
+        new MemberContact { MemberId = 195, ContactId = 98 },
+        new MemberContact { MemberId = 194, ContactId = 98 },
+        new MemberContact { MemberId = 196, ContactId = 98 },
+        new MemberContact { MemberId = 197, ContactId = 99 },
+        new MemberContact { MemberId = 198, ContactId = 99 },
+        new MemberContact { MemberId = 197, ContactId = 99 },
+        new MemberContact { MemberId = 199, ContactId = 100 },
+        new MemberContact { MemberId = 200, ContactId = 100 }
+    };
+                            context.MemberContacts.AddRange(memberContacts);
+                            context.SaveChanges();
+                        }
                         context.SaveChanges();
                     }
 
@@ -3524,14 +3600,14 @@ namespace NIA_CRM.Data
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 5),
-                                Canceled = true,
+                                IsCancelled = true,
                                 CancellationNote = "Member requested cancellation due to personal reasons.",
                                 MemberID = 1  // Assuming Member with Id 1 exists
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 15),
-                                Canceled = true,
+                                IsCancelled = true,
                                 CancellationNote = "Member canceled their subscription after failing to make payments.",
                                 MemberID = 2  // Assuming Member with Id 2 exists
                             },
@@ -3540,91 +3616,91 @@ namespace NIA_CRM.Data
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 10),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 3
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 12),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 4
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 18),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 5
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 20),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 6
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 22),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 7
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 25),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 8
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 27),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 9
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 30),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 10
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 1),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 11
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 5),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 12
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 10),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 13
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 15),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 14
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 18),
-                                Canceled = false,
+                                IsCancelled = false,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 15
                             }
@@ -3636,25 +3712,25 @@ namespace NIA_CRM.Data
                     if (!context.NAICSCodes.Any())
                     {
                         context.NAICSCodes.AddRange(
-                            new NAICSCode { Id = 1, Label = "Agriculture", Code = "1111", Description = "Oilseed and Grain Farming" },
-                            new NAICSCode { Id = 2, Label = "Mining", Code = "2111", Description = "Oil and Gas Extraction" },
-                            new NAICSCode { Id = 3, Label = "Utilities", Code = "2211", Description = "Electric Power Generation, Transmission, and Distribution" },
-                            new NAICSCode { Id = 4, Label = "Construction", Code = "2361", Description = "Residential Building Construction" },
-                            new NAICSCode { Id = 5, Label = "Manufacturing", Code = "3111", Description = "Animal Food Manufacturing" },
-                            new NAICSCode { Id = 6, Label = "Wholesale Trade", Code = "4231", Description = "Motor Vehicle and Motor Vehicle Parts and Supplies Wholesalers" },
-                            new NAICSCode { Id = 7, Label = "Retail Trade", Code = "4411", Description = "Automobile Dealers" },
-                            new NAICSCode { Id = 8, Label = "Transportation", Code = "4811", Description = "Scheduled Air Transportation" },
-                            new NAICSCode { Id = 9, Label = "Information", Code = "5111", Description = "Newspaper, Periodical, Book, and Directory Publishers" },
-                            new NAICSCode { Id = 10, Label = "Finance", Code = "5221", Description = "Depository Credit Intermediation" },
-                            new NAICSCode { Id = 11, Label = "Real Estate", Code = "5311", Description = "Lessors of Real Estate" },
-                            new NAICSCode { Id = 12, Label = "Professional Services", Code = "5411", Description = "Legal Services" },
-                            new NAICSCode { Id = 13, Label = "Administrative Support", Code = "5611", Description = "Office Administrative Services" },
-                            new NAICSCode { Id = 14, Label = "Education", Code = "6111", Description = "Elementary and Secondary Schools" },
-                            new NAICSCode { Id = 15, Label = "Health Care", Code = "6211", Description = "Offices of Physicians" },
-                            new NAICSCode { Id = 16, Label = "Arts & Entertainment", Code = "7111", Description = "Performing Arts Companies" },
-                            new NAICSCode { Id = 17, Label = "Accommodation", Code = "7211", Description = "Traveler Accommodation" },
-                            new NAICSCode { Id = 18, Label = "Automotive", Code = "8111", Description = "Automotive Repair and Maintenance" },
-                            new NAICSCode { Id = 19, Label = "Public Administration", Code = "9211", Description = "Executive Offices" }
+                            new NAICSCode { Id = 1, Code = "1111", Description = "Oilseed and Grain Farming" },
+                            new NAICSCode { Id = 2, Code = "2111", Description = "Oil and Gas Extraction" },
+                            new NAICSCode { Id = 3,  Code = "2211", Description = "Electric Power Generation, Transmission, and Distribution" },
+                            new NAICSCode { Id = 4, Code = "2361", Description = "Residential Building Construction" },
+                            new NAICSCode { Id = 5, Code = "3111", Description = "Animal Food Manufacturing" },
+                            new NAICSCode { Id = 6, Code = "4231", Description = "Motor Vehicle and Motor Vehicle Parts and Supplies Wholesalers" },
+                            new NAICSCode { Id = 7, Code = "4411", Description = "Automobile Dealers" },
+                            new NAICSCode { Id = 8, Code = "4811", Description = "Scheduled Air Transportation" },
+                            new NAICSCode { Id = 9, Code = "5111", Description = "Newspaper, Periodical, Book, and Directory Publishers" },
+                            new NAICSCode { Id = 10, Code = "5221", Description = "Depository Credit Intermediation" },
+                            new NAICSCode { Id = 11, Code = "5311", Description = "Lessors of Real Estate" },
+                            new NAICSCode { Id = 12, Code = "5411", Description = "Legal Services" },
+                            new NAICSCode { Id = 13, Code = "5611", Description = "Office Administrative Services" },
+                            new NAICSCode { Id = 14, Code = "6111", Description = "Elementary and Secondary Schools" },
+                            new NAICSCode { Id = 15, Code = "6211", Description = "Offices of Physicians" },
+                            new NAICSCode { Id = 16, Code = "7111", Description = "Performing Arts Companies" },
+                            new NAICSCode { Id = 17, Code = "7211", Description = "Traveler Accommodation" },
+                            new NAICSCode { Id = 18, Code = "8111", Description = "Automotive Repair and Maintenance" },
+                            new NAICSCode { Id = 19, Code = "9211", Description = "Executive Offices" }
                         );
 
                         // Save changes to persist the data
@@ -3824,114 +3900,7 @@ namespace NIA_CRM.Data
                         context.SaveChanges();
                     }
 
-                    if (!context.MemberNotes.Any())
-                    {
-                        context.MemberNotes.AddRange(
-                        new MemberNote { Id = 1, MemberId = 1, Note = "Initial onboarding discussion with the client about the new CRM implementation project.", CreatedAt = DateTime.Now.AddDays(-30) },
-                        new MemberNote { Id = 2, MemberId = 2, Note = "Client follow-up meeting to discuss the status of the CRM project.", CreatedAt = DateTime.Now.AddDays(-28) },
-                        new MemberNote { Id = 3, MemberId = 3, Note = "Reviewed the feedback provided by the client regarding the CRM customization.", CreatedAt = DateTime.Now.AddDays(-25) },
-                        new MemberNote { Id = 4, MemberId = 4, Note = "Final meeting to present the completed CRM project and gather client feedback.", CreatedAt = DateTime.Now.AddDays(-20) },
-                        new MemberNote { Id = 5, MemberId = 5, Note = "Discussed potential upgrades to the CRM system and next steps for implementation.", CreatedAt = DateTime.Now.AddDays(-15) },
-                        new MemberNote { Id = 6, MemberId = 6, Note = "Follow-up meeting on CRM feedback and next implementation steps.", CreatedAt = DateTime.Now.AddDays(-14) },
-                        new MemberNote { Id = 7, MemberId = 7, Note = "Presentation of CRM reports and how they impact client operations.", CreatedAt = DateTime.Now.AddDays(-13) },
-                        new MemberNote { Id = 8, MemberId = 8, Note = "Discussed additional CRM modules with the client.", CreatedAt = DateTime.Now.AddDays(-12) },
-                        new MemberNote { Id = 9, MemberId = 9, Note = "Client requested further training on CRM features.", CreatedAt = DateTime.Now.AddDays(-10) },
-                        new MemberNote { Id = 10, MemberId = 10, Note = "Assessed CRM performance and discussed any issues with the client.", CreatedAt = DateTime.Now.AddDays(-9) },
-                        new MemberNote { Id = 11, MemberId = 11, Note = "Discussed CRM data integration challenges with client.", CreatedAt = DateTime.Now.AddDays(-8) },
-                        new MemberNote { Id = 12, MemberId = 12, Note = "Client praised CRM's data accuracy and reporting tools.", CreatedAt = DateTime.Now.AddDays(-7) },
-                        new MemberNote { Id = 13, MemberId = 13, Note = "Discussed CRM security enhancements and data privacy concerns.", CreatedAt = DateTime.Now.AddDays(-6) },
-                        new MemberNote { Id = 14, MemberId = 14, Note = "Review of CRM system uptime and performance metrics.", CreatedAt = DateTime.Now.AddDays(-5) },
-                        new MemberNote { Id = 15, MemberId = 15, Note = "Final meeting to present CRM system's success and discuss potential upgrades.", CreatedAt = DateTime.Now.AddDays(-4) },
-                        new MemberNote { Id = 16, MemberId = 16, Note = "Client follow-up on CRM project post-implementation.", CreatedAt = DateTime.Now.AddDays(-3) },
-                        new MemberNote { Id = 17, MemberId = 17, Note = "CRM update meeting scheduled for next month.", CreatedAt = DateTime.Now.AddDays(-2) },
-                        new MemberNote { Id = 18, MemberId = 18, Note = "Client expressed satisfaction with CRM customization.", CreatedAt = DateTime.Now.AddDays(-1) },
-                        new MemberNote { Id = 19, MemberId = 19, Note = "Discussed the CRM's future roadmap with the client.", CreatedAt = DateTime.Now.AddDays(-30) },
-                        new MemberNote { Id = 20, MemberId = 20, Note = "Explained the new CRM reporting features to the client.", CreatedAt = DateTime.Now.AddDays(-29) },
-                        new MemberNote { Id = 21, MemberId = 21, Note = "Meeting to review CRM's feature requests and client requirements.", CreatedAt = DateTime.Now.AddDays(-28) },
-                        new MemberNote { Id = 22, MemberId = 22, Note = "CRM performance review meeting with the client team.", CreatedAt = DateTime.Now.AddDays(-27) },
-                        new MemberNote { Id = 23, MemberId = 23, Note = "Discussions on improving CRM speed and scalability.", CreatedAt = DateTime.Now.AddDays(-26) },
-                        new MemberNote { Id = 24, MemberId = 24, Note = "Client feedback session on CRM user interface improvements.", CreatedAt = DateTime.Now.AddDays(-25) },
-                        new MemberNote { Id = 25, MemberId = 25, Note = "Client to provide feedback on the newly integrated CRM modules.", CreatedAt = DateTime.Now.AddDays(-24) },
-                        new MemberNote { Id = 26, MemberId = 26, Note = "Final training session on CRM features for the client team.", CreatedAt = DateTime.Now.AddDays(-23) },
-                        new MemberNote { Id = 27, MemberId = 27, Note = "Discussed potential issues with CRM's third-party integration.", CreatedAt = DateTime.Now.AddDays(-22) },
-                        new MemberNote { Id = 28, MemberId = 28, Note = "Client inquired about additional CRM customization options.", CreatedAt = DateTime.Now.AddDays(-21) },
-                        new MemberNote { Id = 29, MemberId = 29, Note = "Debrief on CRM deployment and initial reactions from the client team.", CreatedAt = DateTime.Now.AddDays(-20) },
-                        new MemberNote { Id = 30, MemberId = 30, Note = "Scheduled CRM review call for next week with the client.", CreatedAt = DateTime.Now.AddDays(-19) },
-                        new MemberNote { Id = 31, MemberId = 31, Note = "Client requested demo on advanced CRM reporting capabilities.", CreatedAt = DateTime.Now.AddDays(-18) },
-                        new MemberNote { Id = 32, MemberId = 32, Note = "Client shared feedback on CRM's mobile interface and app.", CreatedAt = DateTime.Now.AddDays(-17) },
-                        new MemberNote { Id = 33, MemberId = 33, Note = "Discussed client satisfaction and future CRM upgrades.", CreatedAt = DateTime.Now.AddDays(-16) },
-                        new MemberNote { Id = 34, MemberId = 34, Note = "Followed up with the client regarding CRM bug fixes.", CreatedAt = DateTime.Now.AddDays(-15) },
-                        new MemberNote { Id = 35, MemberId = 35, Note = "Revisited CRM's customization options for the client.", CreatedAt = DateTime.Now.AddDays(-14) },
-                        new MemberNote { Id = 36, MemberId = 36, Note = "Review meeting with the client about CRM's current status.", CreatedAt = DateTime.Now.AddDays(-13) },
-                        new MemberNote { Id = 37, MemberId = 37, Note = "Client requested documentation for CRM integration with existing systems.", CreatedAt = DateTime.Now.AddDays(-12) },
-                        new MemberNote { Id = 38, MemberId = 38, Note = "Explained CRM's data storage architecture to the client.", CreatedAt = DateTime.Now.AddDays(-11) },
-                        new MemberNote { Id = 39, MemberId = 39, Note = "Client follow-up regarding CRM's email marketing tools.", CreatedAt = DateTime.Now.AddDays(-10) },
-                        new MemberNote { Id = 40, MemberId = 40, Note = "Discussed CRM's scalability and future-proofing with the client.", CreatedAt = DateTime.Now.AddDays(-9) },
-                        new MemberNote { Id = 41, MemberId = 41, Note = "Client inquiry regarding CRM customization options for reporting.", CreatedAt = DateTime.Now.AddDays(-8) },
-                        new MemberNote { Id = 42, MemberId = 42, Note = "Initial CRM implementation discussion, defining project scope.", CreatedAt = DateTime.Now.AddDays(-7) },
-                        new MemberNote { Id = 43, MemberId = 43, Note = "Follow-up meeting to address client concerns about data integration.", CreatedAt = DateTime.Now.AddDays(-6) },
-                        new MemberNote { Id = 44, MemberId = 44, Note = "Demonstration of new CRM features for enhanced data reporting.", CreatedAt = DateTime.Now.AddDays(-5) },
-                        new MemberNote { Id = 45, MemberId = 45, Note = "CRM scalability discussion to accommodate the client's growing business.", CreatedAt = DateTime.Now.AddDays(-4) },
-                        new MemberNote { Id = 46, MemberId = 46, Note = "Presentation of CRM's mobile app functionalities.", CreatedAt = DateTime.Now.AddDays(-3) },
-                        new MemberNote { Id = 47, MemberId = 47, Note = "Client feedback session on CRM's user interface and navigation.", CreatedAt = DateTime.Now.AddDays(-2) },
-                        new MemberNote { Id = 48, MemberId = 48, Note = "Assessed the CRM's integration with the client's existing software.", CreatedAt = DateTime.Now.AddDays(-1) },
-                        new MemberNote { Id = 49, MemberId = 49, Note = "CRM performance review based on client feedback and usage data.", CreatedAt = DateTime.Now.AddDays(-30) },
-                        new MemberNote { Id = 50, MemberId = 50, Note = "Client requested further customization on CRM's reporting tools.", CreatedAt = DateTime.Now.AddDays(-29) },
-                        new MemberNote { Id = 51, MemberId = 51, Note = "Follow-up meeting to discuss CRM's impact on operational efficiency.", CreatedAt = DateTime.Now.AddDays(-28) },
-                        new MemberNote { Id = 52, MemberId = 52, Note = "Scheduled a training session on CRM's advanced data analytics features.", CreatedAt = DateTime.Now.AddDays(-27) },
-                        new MemberNote { Id = 53, MemberId = 53, Note = "Client requests integration with third-party tools for CRM.", CreatedAt = DateTime.Now.AddDays(-26) },
-                        new MemberNote { Id = 54, MemberId = 54, Note = "Discussion on enhancing CRM's data security protocols.", CreatedAt = DateTime.Now.AddDays(-25) },
-                        new MemberNote { Id = 55, MemberId = 55, Note = "Reviewed CRM performance metrics with the client.", CreatedAt = DateTime.Now.AddDays(-24) },
-                        new MemberNote { Id = 56, MemberId = 56, Note = "Client shared feedback on CRM's data privacy features.", CreatedAt = DateTime.Now.AddDays(-23) },
-                        new MemberNote { Id = 57, MemberId = 57, Note = "Explained upcoming CRM software updates to the client.", CreatedAt = DateTime.Now.AddDays(-22) },
-                        new MemberNote { Id = 58, MemberId = 58, Note = "Final meeting to review CRM's impact and gather client feedback.", CreatedAt = DateTime.Now.AddDays(-21) },
-                        new MemberNote { Id = 59, MemberId = 59, Note = "Client requested a demo for advanced CRM user roles and permissions.", CreatedAt = DateTime.Now.AddDays(-20) },
-                        new MemberNote { Id = 60, MemberId = 60, Note = "Follow-up on CRM feature requests and prioritization for next update.", CreatedAt = DateTime.Now.AddDays(-19) },
-                        new MemberNote { Id = 61, MemberId = 61, Note = "Discussed data integration challenges and next steps with the client.", CreatedAt = DateTime.Now.AddDays(-18) },
-                        new MemberNote { Id = 62, MemberId = 62, Note = "Client's feedback on CRM's mobile app interface and usability.", CreatedAt = DateTime.Now.AddDays(-17) },
-                        new MemberNote { Id = 63, MemberId = 63, Note = "Clarified CRM's data storage solutions for the client's needs.", CreatedAt = DateTime.Now.AddDays(-16) },
-                        new MemberNote { Id = 64, MemberId = 64, Note = "Client inquired about CRM's scalability to handle future growth.", CreatedAt = DateTime.Now.AddDays(-15) },
-                        new MemberNote { Id = 65, MemberId = 65, Note = "Reviewed CRM's feature requests and the roadmap for next year.", CreatedAt = DateTime.Now.AddDays(-14) },
-                        new MemberNote { Id = 66, MemberId = 66, Note = "Presentation of CRM's new features to senior management.", CreatedAt = DateTime.Now.AddDays(-13) },
-                        new MemberNote { Id = 67, MemberId = 67, Note = "Explained CRM's data reporting tools and their benefits to the client.", CreatedAt = DateTime.Now.AddDays(-12) },
-                        new MemberNote { Id = 68, MemberId = 68, Note = "Client expressed satisfaction with CRM's customization options.", CreatedAt = DateTime.Now.AddDays(-11) },
-                        new MemberNote { Id = 69, MemberId = 69, Note = "Client feedback on CRM's real-time reporting features.", CreatedAt = DateTime.Now.AddDays(-10) },
-                        new MemberNote { Id = 70, MemberId = 70, Note = "Discussions on CRM's advanced data analytics capabilities.", CreatedAt = DateTime.Now.AddDays(-9) },
-                        new MemberNote { Id = 71, MemberId = 71, Note = "CRM integration discussion with the client's external systems.", CreatedAt = DateTime.Now.AddDays(-8) },
-                        new MemberNote { Id = 72, MemberId = 72, Note = "Client requested additional support for CRM deployment.", CreatedAt = DateTime.Now.AddDays(-7) },
-                        new MemberNote { Id = 73, MemberId = 73, Note = "Follow-up on client feedback regarding CRM user interface.", CreatedAt = DateTime.Now.AddDays(-6) },
-                        new MemberNote { Id = 74, MemberId = 74, Note = "Explained CRM's security features and data protection protocols.", CreatedAt = DateTime.Now.AddDays(-5) },
-                        new MemberNote { Id = 75, MemberId = 75, Note = "Final review of CRM system before go-live.", CreatedAt = DateTime.Now.AddDays(-4) },
-                        new MemberNote { Id = 76, MemberId = 76, Note = "Client inquired about CRM's future updates and new features.", CreatedAt = DateTime.Now.AddDays(-3) },
-                        new MemberNote { Id = 77, MemberId = 77, Note = "Client requested assistance with CRM's third-party integrations.", CreatedAt = DateTime.Now.AddDays(-2) },
-                        new MemberNote { Id = 78, MemberId = 78, Note = "CRM performance review and feedback collection from the client.", CreatedAt = DateTime.Now.AddDays(-1) },
-                        new MemberNote { Id = 79, MemberId = 79, Note = "Client follow-up on CRM features and system performance.", CreatedAt = DateTime.Now.AddDays(-30) },
-                        new MemberNote { Id = 80, MemberId = 80, Note = "Scheduled a meeting to discuss future CRM feature enhancements.", CreatedAt = DateTime.Now.AddDays(-29) },
-                        new MemberNote { Id = 81, MemberId = 81, Note = "Client's feedback on CRM's usability and user-friendliness.", CreatedAt = DateTime.Now.AddDays(-28) },
-                        new MemberNote { Id = 82, MemberId = 82, Note = "Discussed CRM customization options for enhanced client reporting.", CreatedAt = DateTime.Now.AddDays(-27) },
-                        new MemberNote { Id = 83, MemberId = 83, Note = "Client requested new CRM functionalities to improve workflow.", CreatedAt = DateTime.Now.AddDays(-26) },
-                        new MemberNote { Id = 84, MemberId = 84, Note = "Meeting to review CRM's features and potential improvements.", CreatedAt = DateTime.Now.AddDays(-25) },
-                        new MemberNote { Id = 85, MemberId = 85, Note = "Client requested additional training on CRM's advanced features.", CreatedAt = DateTime.Now.AddDays(-24) },
-                        new MemberNote { Id = 86, MemberId = 86, Note = "Follow-up on CRM deployment success and initial feedback.", CreatedAt = DateTime.Now.AddDays(-23) },
-                        new MemberNote { Id = 87, MemberId = 87, Note = "Discussion on CRM's data backup and disaster recovery strategies.", CreatedAt = DateTime.Now.AddDays(-22) },
-                        new MemberNote { Id = 88, MemberId = 88, Note = "Review of CRM's data reporting accuracy and client feedback.", CreatedAt = DateTime.Now.AddDays(-21) },
-                        new MemberNote { Id = 89, MemberId = 89, Note = "Client follow-up to discuss CRM user training and ongoing support.", CreatedAt = DateTime.Now.AddDays(-20) },
-                        new MemberNote { Id = 90, MemberId = 90, Note = "Client feedback session on CRM's workflow automation features.", CreatedAt = DateTime.Now.AddDays(-19) },
-                        new MemberNote { Id = 91, MemberId = 91, Note = "Discussions on improving CRM's data processing speed.", CreatedAt = DateTime.Now.AddDays(-18) },
-                        new MemberNote { Id = 92, MemberId = 92, Note = "Meeting to discuss CRM's future roadmap and client requirements.", CreatedAt = DateTime.Now.AddDays(-17) },
-                        new MemberNote { Id = 93, MemberId = 93, Note = "Client requested additional features for CRM's user reporting.", CreatedAt = DateTime.Now.AddDays(-16) },
-                        new MemberNote { Id = 94, MemberId = 94, Note = "Follow-up on CRM's post-implementation success and feedback.", CreatedAt = DateTime.Now.AddDays(-15) },
-                        new MemberNote { Id = 95, MemberId = 95, Note = "Discussion on the upcoming CRM version and new functionalities.", CreatedAt = DateTime.Now.AddDays(-14) },
-                        new MemberNote { Id = 96, MemberId = 96, Note = "Explained CRM's new security features and improvements.", CreatedAt = DateTime.Now.AddDays(-13) },
-                        new MemberNote { Id = 97, MemberId = 97, Note = "Client requested CRM customization to better fit their reporting needs.", CreatedAt = DateTime.Now.AddDays(-12) },
-                        new MemberNote { Id = 98, MemberId = 98, Note = "Scheduled follow-up to review CRM's impact on client workflow.", CreatedAt = DateTime.Now.AddDays(-11) },
-                        new MemberNote { Id = 99, MemberId = 99, Note = "Explained CRM's data encryption and privacy policies to the client.", CreatedAt = DateTime.Now.AddDays(-10) },
-                        new MemberNote { Id = 100, MemberId = 100, Note = "Final meeting to discuss CRM's performance and next steps.", CreatedAt = DateTime.Now.AddDays(-9) }
-                        );
-
-                        context.SaveChanges();
-
-                    }
+                    
                 }
 
 

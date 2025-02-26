@@ -61,9 +61,9 @@
                             <span asp-validation-for="Member.WebsiteUrl" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="MemberNote.Note" class="control-label"></label>
-                            <textarea asp-for="MemberNote.Note" class="form-control"></textarea>
-                            <span asp-validation-for="MemberNote.Note" class="text-danger"></span>
+                            <label asp-for="Member.MemberNote" class="control-label"></label>
+                            <textarea asp-for="Member.MemberNote" class="form-control"></textarea>
+                            <span asp-validation-for="Member.MemberNote" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -93,11 +93,6 @@
                             <label asp-for="Address.PostalCode" class="control-label"></label>
                             <input asp-for="Address.PostalCode" class="form-control" />
                             <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Address.Country" class="control-label"></label>
-                            <input asp-for="Address.Country" class="form-control" />
-                            <span asp-validation-for="Address.Country" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -156,14 +151,9 @@
                                 <span asp-validation-for="Contact.IsVip" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="ContactNote.CreatedAt" class="control-label"></label>
-                                <input asp-for="ContactNote.CreatedAt" class="form-control" />
-                                <span asp-validation-for="ContactNote.CreatedAt" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="ContactNote.Note" class="control-label"></label>
-                                <textarea asp-for="ContactNote.Note" class="form-control"></textarea>
-                                <span asp-validation-for="ContactNote.Note" class="text-danger"></span>
+                                <label asp-for="Contact.ContactNote" class="control-label"></label>
+                                <textarea asp-for="Contact.ContactNote" class="form-control"></textarea>
+                                <span asp-validation-for="Contact.ContactNote" class="text-danger"></span>
                             </div>
                         </div>
                     </div>

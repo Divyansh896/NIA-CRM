@@ -34,11 +34,9 @@ namespace NIA_CRM.Controllers
                 .Include(m => m.MemberThumbnail)
                 .Include(m => m.Addresses)
                 .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
-                .Include(m => m.MemberNotes)
-                .Include(m => m.Contacts)
+                .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                 .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
                 .Include(m => m.Addresses) //new added for addresses
-                .Include(m => m.Contacts) // new added for contacts
             .AsNoTracking();
 
 
@@ -131,10 +129,8 @@ namespace NIA_CRM.Controllers
             var member = await _context.Members
                 .Include(m => m.Addresses)
                 .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
-                .Include(m => m.MemberNotes)
-                .Include(m => m.Contacts)
+                .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                 .Include(m => m.MemberLogo)
-                .Include(m => m.Contacts)
                 .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
@@ -342,7 +338,7 @@ namespace NIA_CRM.Controllers
                 .Include(m => m.MemberThumbnail)
                 .Include(m => m.MemberMembershipTypes)
                 .ThenInclude(mm => mm.MembershipType)
-                .Include(m => m.Contacts)
+                .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                 .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
                 .FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
 

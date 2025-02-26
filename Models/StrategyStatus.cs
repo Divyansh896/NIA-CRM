@@ -1,4 +1,6 @@
-﻿namespace NIA_CRM.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NIA_CRM.Models
 {
     public enum StrategyStatus
     {

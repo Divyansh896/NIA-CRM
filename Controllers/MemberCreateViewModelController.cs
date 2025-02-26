@@ -25,8 +25,7 @@ namespace NIA_CRM.Controllers
                 .Include(m => m.MemberThumbnail)
                 .Include(m => m.Addresses)
                 .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
-                .Include(m => m.MemberNotes)
-                .Include(m => m.Contacts)
+                .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                 .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
                 .ToListAsync(); // Use await here
 
@@ -63,10 +62,8 @@ namespace NIA_CRM.Controllers
             {
                 // Initialize single objects
                 Member = new Member(),
-                MemberNote = new MemberNote(),
                 Address = new Address(),
                 Contact = new Contact(),
-                ContactNote = new ContactNote(),
 
                 // Initialize lists to handle multiple selections
                 IndustryNAICSCode = new List<IndustryNAICSCode>(),
@@ -97,13 +94,6 @@ namespace NIA_CRM.Controllers
 
                 int memberId = memberCreateViewModel.Member.ID;
 
-                // Save MemberNote if it exists
-                if (memberCreateViewModel.MemberNote != null)
-                {
-                    memberCreateViewModel.MemberNote.MemberId = memberId;
-                    _context.MemberNotes.Add(memberCreateViewModel.MemberNote);
-                }
-
                 // Save Address if it exists
                 if (memberCreateViewModel.Address != null)
                 {
@@ -117,13 +107,6 @@ namespace NIA_CRM.Controllers
                     memberCreateViewModel.Contact.MemberId = memberId;
                     _context.Contacts.Add(memberCreateViewModel.Contact);
                     await _context.SaveChangesAsync(); // Ensure Contact ID is available
-                }
-
-                // Save Contact Note if it exists
-                if (memberCreateViewModel.ContactNote != null && memberCreateViewModel.Contact != null)
-                {
-                    memberCreateViewModel.ContactNote.ContactId = memberCreateViewModel.Contact.Id;
-                    _context.ContactNotes.Add(memberCreateViewModel.ContactNote);
                 }
 
                 // Save multiple Industry NAICS Codes
@@ -195,8 +178,7 @@ namespace NIA_CRM.Controllers
                                         .Include(m => m.MemberThumbnail)
                                         .Include(m => m.Addresses)
                                         .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
-                                        .Include(m => m.MemberNotes)
-                                        .Include(m => m.Contacts).ThenInclude(m => m.ContactNotes)
+                                        .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                                         .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
                                         .FirstOrDefaultAsync(m => m.ID == id);
 
@@ -208,10 +190,8 @@ namespace NIA_CRM.Controllers
             var memberEditViewModel = new MemberCreateViewModel
             {
                 Member = member,
-                MemberNote = member.MemberNotes.FirstOrDefault(),
                 Address = member.Addresses.FirstOrDefault(),
                 Contact = member.Contacts.FirstOrDefault(),
-                ContactNote = member.Contacts.FirstOrDefault()?.ContactNotes.FirstOrDefault(),
                 IndustryNAICSCode = member.IndustryNAICSCodes?.ToList() ?? new List<IndustryNAICSCode>(),
                 MemberMembershipTypes = member.MemberMembershipTypes?.ToList() ?? new List<MemberMembershipType>(),
                 SelectedNAICSCodeIds = member.IndustryNAICSCodes?.Select(i => i.NAICSCodeId).ToList() ?? new List<int>(),
@@ -241,8 +221,7 @@ namespace NIA_CRM.Controllers
                 .Include(m => m.MemberThumbnail)
                 .Include(m => m.Addresses)
                 .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
-                .Include(m => m.MemberNotes)
-                .Include(m => m.Contacts).ThenInclude(m => m.ContactNotes)
+                .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                 .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
@@ -314,7 +293,6 @@ namespace NIA_CRM.Controllers
                             existingAddress.AddressLine2 = model.Address.AddressLine2;
                             existingAddress.City = model.Address.City;
                             existingAddress.StateProvince = model.Address.StateProvince;
-                            existingAddress.Country = model.Address.Country;
                             existingAddress.PostalCode = model.Address.PostalCode;
                             _context.Entry(existingAddress).CurrentValues.SetValues(model.Address); // This updates the existing contact with new values.
 
@@ -352,53 +330,6 @@ namespace NIA_CRM.Controllers
                             // Add new contact if none exists
                             model.Contact.MemberId = memberToUpdate.ID; // Ensure the contact is associated with the member
                             memberToUpdate.Contacts.Add(model.Contact);
-                        }
-                    }
-
-
-                    // Handle single Note
-                    // Handle single MemberNote
-                    if (model.MemberNote != null)
-                    {
-                        var existingNote = memberToUpdate.MemberNotes.FirstOrDefault(n => n.Id == model.MemberNote.Id);
-                        if (existingNote != null)
-                        {
-                            // Update the existing note
-                            existingNote.Note = model.MemberNote.Note;
-                            existingNote.CreatedAt = model.MemberNote.CreatedAt;
-
-                            // You can set additional properties if needed
-                            _context.Entry(existingNote).CurrentValues.SetValues(model.MemberNote); // This updates the existing note with new values.
-                        }
-                        else
-                        {
-                            // Add new note if none exists
-                            model.MemberNote.MemberId = memberToUpdate.ID; // Ensure the note is associated with the member
-                            memberToUpdate.MemberNotes.Add(model.MemberNote);
-                        }
-                    }
-
-                    // Handle single ContactNote
-                    if (model.ContactNote != null)
-                    {
-                        var existingContactNote = memberToUpdate.Contacts
-                            .SelectMany(c => c.ContactNotes) // Flatten the ContactNotes collection from all Contacts
-                            .FirstOrDefault(n => n.Id == model.ContactNote.Id);
-
-                        if (existingContactNote != null)
-                        {
-                            // Update the existing contact note
-                            existingContactNote.Note = model.ContactNote.Note;
-                            existingContactNote.CreatedAt = model.ContactNote.CreatedAt;
-
-                            // You can set additional properties if needed
-                            _context.Entry(existingContactNote).CurrentValues.SetValues(model.ContactNote);
-                        }
-                        else
-                        {
-                            // Add new contact note if none exists
-                            model.ContactNote.ContactId = model.Contact.Id; // Associate the note with the correct contact
-                            memberToUpdate.Contacts.FirstOrDefault(c => c.Id == model.Contact.Id)?.ContactNotes.Add(model.ContactNote);
                         }
                     }
 

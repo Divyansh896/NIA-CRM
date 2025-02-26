@@ -34,7 +34,7 @@ namespace NIA_CRM.Controllers
 
 
 
-            var contacts = _context.Contacts.Include(c => c.Member).AsQueryable();
+            var contacts = _context.Contacts.Include(c => c.MemberContacts).ThenInclude(c => c.Member).AsQueryable();
             if (Departments != null)
             {
                 contacts = contacts.Where(c => c.Department == Departments);
@@ -187,7 +187,7 @@ namespace NIA_CRM.Controllers
             }
 
             var contact = await _context.Contacts
-                .Include(c => c.Member)
+                .Include(c => c.MemberContacts).ThenInclude(c=>c.Member)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contact == null)
             {
@@ -298,7 +298,7 @@ namespace NIA_CRM.Controllers
             }
 
             var contact = await _context.Contacts
-                .Include(c => c.Member)
+                .Include(c => c.MemberContacts).ThenInclude(c => c.Member)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contact == null)
             {
@@ -349,7 +349,7 @@ namespace NIA_CRM.Controllers
         {
             // Fetch the contact by id, including related industries through ContactIndustries
             var contact = _context.Contacts
-                .Include(c => c.Member)
+                .Include(c => c.MemberContacts).ThenInclude(c => c.Member)
                 .Where(c => c.Id == id)  // Filter the contact by id
                 .FirstOrDefault();  // Return the first result or null if not found
 

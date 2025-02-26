@@ -7,10 +7,8 @@ namespace NIA_CRM.ViewModels
     {
         // Member related properties
         public Member? Member { get; set; }
-        public MemberNote? MemberNote { get; set; }
         public Address? Address { get; set; }
         public Contact? Contact { get; set; }
-        public ContactNote? ContactNote { get; set; }
 
         // Industry NAICS Code for the member
         public List<IndustryNAICSCode>? IndustryNAICSCode { get; set; }  // Change to List<IndustryNAICSCode>
