@@ -4,18 +4,19 @@ namespace NIA_CRM.Models
 {
     public class Member
     {
-        public string? TimeSinceJoined
+        public string TimeSinceJoined
         {
             get
             {
-                if (JoinDate == null) { return null; }
                 DateTime today = DateTime.Today;
-                int? years = today.Year - JoinDate?.Year
-                    - ((today.Month < JoinDate?.Month ||
-                        (today.Month == JoinDate?.Month && today.Day < JoinDate?.Day) ? 1 : 0));
-                return years?.ToString() + " year(s) ago";
+                int years = today.Year - JoinDate.Year
+                    - ((today.Month < JoinDate.Month ||
+                        (today.Month == JoinDate.Month && today.Day < JoinDate.Day)) ? 1 : 0);
+
+                return years.ToString() + " year(s) ago";
             }
         }
+
 
         [Key]
         public int ID { get; set; }

@@ -144,7 +144,7 @@
                     <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Phone)</th>
                     <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
                     <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.IsVip)</th>
-                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Member)</th>
+                    <th scope="col" class="table-head">Member</th>
 
                 </tr>
             </thead>
@@ -163,7 +163,7 @@
                             <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.IsVip)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Member.MemberName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MemberContacts.FirstOrDefault().Member.MemberName)</td>
 
                     </tr>
                 }

@@ -30,6 +30,6 @@ namespace NIA_CRM.Models
         public bool IsCancelled { get; set; }
 
         public int MemberID { get; set; }
-        public Member Member { get; set; }
+        public Member? Member { get; set; }
     }
 }

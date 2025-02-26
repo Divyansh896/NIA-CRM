@@ -22,7 +22,7 @@
     <div class="card card-body bg-light text-black">
         <h5>Industry:</h5>
         @{
-            var industry = Model.Member; // Single industry object
+            var industry = Model.MemberContacts.FirstOrDefault()?.Member; // Single industry object
 
             if (industry != null)
             {

@@ -62,16 +62,16 @@ namespace NIA_CRM.Controllers
                 .ToArrayAsync();
 
             var memberJoinDates = await _context.Members
-                                                .Where(m => m.JoinDate.HasValue)  // Ensure that JoinDate is not null
-                                                .GroupBy(m => new { Year = m.JoinDate.Value.Year, Month = m.JoinDate.Value.Month })  // Access Year and Month safely
-                                                .Select(g => new
-                                                {
-                                                    Year = g.Key.Year,
-                                                    Month = g.Key.Month,
-                                                    MonthName = new DateTime(g.Key.Year, g.Key.Month, 1).ToString("MMMM"),
-                                                    Count = g.Count()
-                                                })
-                                                .ToListAsync();  // Execute the query asynchronously
+                                                 .GroupBy(m => new { m.JoinDate.Year, m.JoinDate.Month })  // No need to check for null
+                                                 .Select(g => new
+                                                 {
+                                                     Year = g.Key.Year,
+                                                     Month = g.Key.Month,
+                                                     MonthName = new DateTime(g.Key.Year, g.Key.Month, 1).ToString("MMMM"),
+                                                     Count = g.Count()
+                                                 })
+     .ToListAsync();
+            // Execute the query asynchronously
             var memberAddress = await _context.Members
                                                 .Include(m => m.Addresses)  // Include the Addresses navigation property
                                                 .SelectMany(m => m.Addresses)  // Flatten the Addresses collection

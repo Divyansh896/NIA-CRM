@@ -160,7 +160,7 @@ namespace NIA_CRM.Controllers
                 worksheet.Cells[row, 5].Value = contact.PhoneFormatted;
                 worksheet.Cells[row, 6].Value = contact.LinkedInUrl;
                 worksheet.Cells[row, 7].Value = contact.IsVip ? "Yes" : "No";
-                worksheet.Cells[row, 8].Value = contact.Member?.MemberName;
+                //worksheet.Cells[row, 8].Value = contact.Member?.MemberName;
                 row++;
             }
 
@@ -236,7 +236,7 @@ namespace NIA_CRM.Controllers
             {
                 return NotFound();
             }
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
+            //ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.);
             return View(contact);
         }
 
@@ -256,9 +256,13 @@ namespace NIA_CRM.Controllers
             }
 
             // Try update model approach
-            if (await TryUpdateModelAsync<Contact>(ContactToUpdate, "",
-                c => c.FirstName, c => c.MiddleName, c => c.LastName, c => c.Title, c => c.Department,
-                c => c.Email, c => c.Phone, c => c.LinkedInUrl, c => c.IsVip, c => c.MemberId))
+            // Try updating the model with user input
+            if (await TryUpdateModelAsync(
+                ContactToUpdate, // Ensure this is the model instance, not metadata
+                "",
+                c => c.FirstName, c => c.MiddleName, c => c.LastName,
+                c => c.Title, c => c.Department, c => c.Email,
+                c => c.Phone, c => c.LinkedInUrl, c => c.IsVip, c => c.IsArchieved))
             {
                 try
                 {

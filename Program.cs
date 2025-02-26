@@ -52,7 +52,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
 
-    NIACRMInitializer.Initialize(serviceProvider: services, DeleteDatabase: false,
+    NIACRMInitializer.Initialize(serviceProvider: services, DeleteDatabase: true,
         UseMigrations: true, SeedSampleData: true);
 }
 app.Run();
