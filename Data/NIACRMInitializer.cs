@@ -3266,49 +3266,49 @@ namespace NIA_CRM.Data
 
                     }
 
-                    if (!context.MemberContacts.Any())
-                    {
-                        var memberContacts = new List<MemberContact>
-                            {
-                                new MemberContact { MemberId = 1, ContactId = 1 },
-                                new MemberContact { MemberId = 2, ContactId = 2 },
-                                new MemberContact { MemberId = 3, ContactId = 3 },
-                                new MemberContact { MemberId = 4, ContactId = 4 },
-                                new MemberContact { MemberId = 5, ContactId = 5 },
-                                new MemberContact { MemberId = 6, ContactId = 6 },
-                                new MemberContact { MemberId = 7, ContactId = 7 },
-                                new MemberContact { MemberId = 8, ContactId = 8 },
-                                new MemberContact { MemberId = 9, ContactId = 9 },
-                                new MemberContact { MemberId = 10, ContactId = 10 }
+                    //if (!context.MemberContacts.Any())
+                    //{
+                    //    var memberContacts = new List<MemberContact>
+                    //        {
+                    //            //new MemberContact { MemberId = 1, ContactId = 1 },
+                    //            //new MemberContact { MemberId = 2, ContactId = 2 },
+                    //            //new MemberContact { MemberId = 3, ContactId = 3 },
+                    //            //new MemberContact { MemberId = 4, ContactId = 4 },
+                    //            //new MemberContact { MemberId = 5, ContactId = 5 },
+                    //            //new MemberContact { MemberId = 6, ContactId = 6 },
+                    //            //new MemberContact { MemberId = 7, ContactId = 7 },
+                    //            //new MemberContact { MemberId = 8, ContactId = 8 },
+                    //            //new MemberContact { MemberId = 9, ContactId = 9 },
+                    //            //new MemberContact { MemberId = 10, ContactId = 10 }
 
-                                // Additional many-to-many relationships
-                                //new MemberContact { MemberId = 1, ContactId = 5 },
-                                //new MemberContact { MemberId = 2, ContactId = 6 },
-                                //new MemberContact { MemberId = 3, ContactId = 7 },
-                                //new MemberContact { MemberId = 4, ContactId = 8 },
-                                //new MemberContact { MemberId = 5, ContactId = 9 },
-                                //new MemberContact { MemberId = 6, ContactId = 10 },
-                                //new MemberContact { MemberId = 7, ContactId = 1 },
-                                //new MemberContact { MemberId = 8, ContactId = 2 },
-                                //new MemberContact { MemberId = 9, ContactId = 3 },
-                                //new MemberContact { MemberId = 10, ContactId = 4 },
+                    //            // Additional many-to-many relationships
+                    //            //new MemberContact { MemberId = 1, ContactId = 5 },
+                    //            //new MemberContact { MemberId = 2, ContactId = 6 },
+                    //            //new MemberContact { MemberId = 3, ContactId = 7 },
+                    //            //new MemberContact { MemberId = 4, ContactId = 8 },
+                    //            //new MemberContact { MemberId = 5, ContactId = 9 },
+                    //            //new MemberContact { MemberId = 6, ContactId = 10 },
+                    //            //new MemberContact { MemberId = 7, ContactId = 1 },
+                    //            //new MemberContact { MemberId = 8, ContactId = 2 },
+                    //            //new MemberContact { MemberId = 9, ContactId = 3 },
+                    //            //new MemberContact { MemberId = 10, ContactId = 4 },
 
-                                // Expanding relationships further
-                                //new MemberContact { MemberId = 1, ContactId = 10 },
-                                //new MemberContact { MemberId = 2, ContactId = 9 },
-                                //new MemberContact { MemberId = 3, ContactId = 8 },
-                                //new MemberContact { MemberId = 4, ContactId = 7 },
-                                //new MemberContact { MemberId = 5, ContactId = 6 },
-                                //new MemberContact { MemberId = 6, ContactId = 5 },
-                                //new MemberContact { MemberId = 7, ContactId = 4 },
-                                //new MemberContact { MemberId = 8, ContactId = 3 },
-                                //new MemberContact { MemberId = 9, ContactId = 2 },
-                                //new MemberContact { MemberId = 10, ContactId = 1 }
-                            };
+                    //            // Expanding relationships further
+                    //            //new MemberContact { MemberId = 1, ContactId = 10 },
+                    //            //new MemberContact { MemberId = 2, ContactId = 9 },
+                    //            //new MemberContact { MemberId = 3, ContactId = 8 },
+                    //            //new MemberContact { MemberId = 4, ContactId = 7 },
+                    //            //new MemberContact { MemberId = 5, ContactId = 6 },
+                    //            //new MemberContact { MemberId = 6, ContactId = 5 },
+                    //            //new MemberContact { MemberId = 7, ContactId = 4 },
+                    //            //new MemberContact { MemberId = 8, ContactId = 3 },
+                    //            //new MemberContact { MemberId = 9, ContactId = 2 },
+                    //            //new MemberContact { MemberId = 10, ContactId = 1 }
+                    //        };
 
-                        context.MemberContacts.AddRange(memberContacts);
-                        context.SaveChanges();
-                    }
+                    //    context.MemberContacts.AddRange(memberContacts);
+                    //    context.SaveChanges();
+                    //}
 
 
                     if (!context.Cancellations.Any())
@@ -3525,7 +3525,184 @@ namespace NIA_CRM.Data
                              });
                         context.SaveChanges();
                     }
+
+                    if (!context.Opportunities.Any())
+                    {
+                        context.Opportunities.AddRange(
+                            new Opportunity { ID = 1, OpportunityName = "Gym Equipment Upgrade", OpportunityAction = "Follow up with vendor", POC = "John Doe", Account = "ABC Fitness", Interaction = "Email Inquiry", LastContact = DateTime.Parse("2024-01-15"), OpportunityStatus = OpportunityStatus.Qualification, OpportunityPriority = OpportunityPriority.High },
+                            new Opportunity { ID = 2, OpportunityName = "New Membership Plan", OpportunityAction = "Schedule demo", POC = "Jane Smith", Account = "XYZ Gym", Interaction = "Phone Call", LastContact = DateTime.Parse("2024-02-10"), OpportunityStatus = OpportunityStatus.Negotiating, OpportunityPriority = OpportunityPriority.ExtremelyHigh },
+                            new Opportunity { ID = 3, OpportunityName = "Corporate Wellness Program", OpportunityAction = "Prepare proposal", POC = "Mike Johnson", Account = "FitCorp", Interaction = "Meeting", LastContact = DateTime.Parse("2024-03-05"), OpportunityStatus = OpportunityStatus.Qualification, OpportunityPriority = OpportunityPriority.Medium },
+                            new Opportunity { ID = 4, OpportunityName = "Fitness App Partnership", OpportunityAction = "Negotiate terms", POC = "Emily Davis", Account = "HealthTech", Interaction = "Conference", LastContact = DateTime.Parse("2024-04-01"), OpportunityStatus = OpportunityStatus.Negotiating, OpportunityPriority = OpportunityPriority.High },
+                            new Opportunity { ID = 5, OpportunityName = "Gym Refurbishment", OpportunityAction = "Send quote", POC = "Chris Brown", Account = "Wellness Hub", Interaction = "Email", LastContact = DateTime.Parse("2024-05-20"), OpportunityStatus = OpportunityStatus.Qualification, OpportunityPriority = OpportunityPriority.Medium },
+                            new Opportunity { ID = 6, OpportunityName = "Personal Training Expansion", OpportunityAction = "Confirm trainer availability", POC = "Sarah Wilson", Account = "Elite Gym", Interaction = "Phone Call", LastContact = DateTime.Parse("2024-06-12"), OpportunityStatus = OpportunityStatus.Negotiating, OpportunityPriority = OpportunityPriority.ExtremelyHigh },
+                            new Opportunity { ID = 7, OpportunityName = "Equipment Maintenance Contract", OpportunityAction = "Finalize pricing", POC = "David Martinez", Account = "Pro Fitness", Interaction = "Meeting", LastContact = DateTime.Parse("2024-07-08"), OpportunityStatus = OpportunityStatus.Qualification, OpportunityPriority = OpportunityPriority.High },
+                            new Opportunity { ID = 8, OpportunityName = "Yoga Studio Collaboration", OpportunityAction = "Discuss revenue share", POC = "Lisa White", Account = "Zen Studio", Interaction = "Video Call", LastContact = DateTime.Parse("2024-08-05"), OpportunityStatus = OpportunityStatus.Negotiating, OpportunityPriority = OpportunityPriority.Medium },
+                            new Opportunity { ID = 9, OpportunityName = "Corporate Gym Memberships", OpportunityAction = "Send contract draft", POC = "Paul Roberts", Account = "BigCorp Ltd.", Interaction = "Email", LastContact = DateTime.Parse("2024-09-02"), OpportunityStatus = OpportunityStatus.ClosedNewMember, OpportunityPriority = OpportunityPriority.Low },
+                            new Opportunity { ID = 10, OpportunityName = "Franchise Expansion", OpportunityAction = "Set up site visit", POC = "Olivia Scott", Account = "Global Gym", Interaction = "Phone Call", LastContact = DateTime.Parse("2024-10-10"), OpportunityStatus = OpportunityStatus.Qualification, OpportunityPriority = OpportunityPriority.High },
+                            new Opportunity { ID = 11, OpportunityName = "Summer Bootcamp Program", OpportunityAction = "Confirm venue", POC = "James Walker", Account = "FitLife", Interaction = "Meeting", LastContact = DateTime.Parse("2024-11-15"), OpportunityStatus = OpportunityStatus.Negotiating, OpportunityPriority = OpportunityPriority.Medium },
+                            new Opportunity { ID = 12, OpportunityName = "Senior Fitness Program", OpportunityAction = "Arrange trial session", POC = "Emma Hall", Account = "Golden Years", Interaction = "Phone Call", LastContact = DateTime.Parse("2024-12-01"), OpportunityStatus = OpportunityStatus.ClosedNotInterested, OpportunityPriority = OpportunityPriority.Low },
+                            new Opportunity { ID = 13, OpportunityName = "Sports Nutrition Collaboration", OpportunityAction = "Discuss product bundling", POC = "Daniel Lewis", Account = "NutriMax", Interaction = "Conference", LastContact = DateTime.Parse("2025-01-18"), OpportunityStatus = OpportunityStatus.Qualification, OpportunityPriority = OpportunityPriority.High },
+                            new Opportunity { ID = 14, OpportunityName = "Online Coaching Program", OpportunityAction = "Develop course content", POC = "Sophia Harris", Account = "eFit", Interaction = "Video Call", LastContact = DateTime.Parse("2025-02-05"), OpportunityStatus = OpportunityStatus.Negotiating, OpportunityPriority = OpportunityPriority.ExtremelyHigh },
+                            new Opportunity { ID = 15, OpportunityName = "Gym Management Software", OpportunityAction = "Schedule software demo", POC = "Ethan Clark", Account = "TechFit", Interaction = "Email", LastContact = DateTime.Parse("2025-03-07"), OpportunityStatus = OpportunityStatus.Qualification, OpportunityPriority = OpportunityPriority.Medium },
+                            new Opportunity { ID = 16, OpportunityName = "Athletic Sponsorship", OpportunityAction = "Finalize sponsorship deal", POC = "Mia Young", Account = "Pro Athletes", Interaction = "Meeting", LastContact = DateTime.Parse("2025-04-12"), OpportunityStatus = OpportunityStatus.Negotiating, OpportunityPriority = OpportunityPriority.High },
+                            new Opportunity { ID = 17, OpportunityName = "Crossfit Affiliate Program", OpportunityAction = "Complete registration", POC = "Benjamin Wright", Account = "Crossfit Nation", Interaction = "Email", LastContact = DateTime.Parse("2025-05-30"), OpportunityStatus = OpportunityStatus.ClosedNewMember, OpportunityPriority = OpportunityPriority.Low },
+                            new Opportunity { ID = 18, OpportunityName = "Healthy Office Initiative", OpportunityAction = "Submit proposal", POC = "Isabella King", Account = "Office Wellness", Interaction = "Phone Call", LastContact = DateTime.Parse("2025-06-10"), OpportunityStatus = OpportunityStatus.Qualification, OpportunityPriority = OpportunityPriority.High },
+                            new Opportunity { ID = 19, OpportunityName = "Home Gym Equipment Sales", OpportunityAction = "Negotiate bulk pricing", POC = "Liam Allen", Account = "HomeFit", Interaction = "Video Call", LastContact = DateTime.Parse("2025-07-15"), OpportunityStatus = OpportunityStatus.Negotiating, OpportunityPriority = OpportunityPriority.Medium },
+                            new Opportunity { ID = 20, OpportunityName = "University Partnership", OpportunityAction = "Develop joint fitness program", POC = "Charlotte Turner", Account = "State University", Interaction = "Meeting", LastContact = DateTime.Parse("2025-08-25"), OpportunityStatus = OpportunityStatus.Qualification, OpportunityPriority = OpportunityPriority.High }
+                        );
+
+                        // Save changes to persist the data
+                        context.SaveChanges();
+                    }
+
+                    if (!context.MEvents.Any())
+                    {
+                        context.MEvents.AddRange(
+                            new MEvent { Id = 1, EventName = "Fitness Expo", EventDescription = "Annual fitness and wellness event", EventLocation = "Convention Center", EventDate = DateTime.Parse("2024-09-15") },
+                            new MEvent { Id = 2, EventName = "Yoga Retreat", EventDescription = "A weekend of yoga and mindfulness", EventLocation = "Mountain Resort", EventDate = DateTime.Parse("2024-07-10") },
+                            new MEvent { Id = 3, EventName = "Health & Wellness Seminar", EventDescription = "Expert talks on nutrition and fitness", EventLocation = "Downtown Hall", EventDate = DateTime.Parse("2024-06-22") },
+                            new MEvent { Id = 4, EventName = "Marathon Training Camp", EventDescription = "Coaching and preparation for marathon runners", EventLocation = "City Stadium", EventDate = DateTime.Parse("2024-05-18") },
+                            new MEvent { Id = 5, EventName = "Strength Training Workshop", EventDescription = "Hands-on weightlifting techniques", EventLocation = "Fitness Gym", EventDate = DateTime.Parse("2024-08-05") }
+                        );
+
+                        context.SaveChanges();
+                    }
+
+                    if (!context.MemberEvents.Any())
+                    {
+                        context.MemberEvents.AddRange(
+                            new MemberEvent { Id = 1, MemberId = 1, MEventID = 1 },
+                            new MemberEvent { Id = 2, MemberId = 1, MEventID = 3 },
+                            new MemberEvent { Id = 3, MemberId = 2, MEventID = 1 },
+                            new MemberEvent { Id = 4, MemberId = 2, MEventID = 2 },
+                            new MemberEvent { Id = 5, MemberId = 3, MEventID = 4 },
+                            new MemberEvent { Id = 6, MemberId = 3, MEventID = 5 },
+                            new MemberEvent { Id = 7, MemberId = 4, MEventID = 2 },
+                            new MemberEvent { Id = 8, MemberId = 4, MEventID = 3 },
+                            new MemberEvent { Id = 9, MemberId = 5, MEventID = 1 },
+                            new MemberEvent { Id = 10, MemberId = 5, MEventID = 4 },
+                            new MemberEvent { Id = 11, MemberId = 1, MEventID = 5 },
+                            new MemberEvent { Id = 12, MemberId = 2, MEventID = 3 },
+                            new MemberEvent { Id = 13, MemberId = 3, MEventID = 1 },
+                            new MemberEvent { Id = 14, MemberId = 4, MEventID = 4 },
+                            new MemberEvent { Id = 15, MemberId = 5, MEventID = 2 },
+                            new MemberEvent { Id = 16, MemberId = 1, MEventID = 4 },
+                            new MemberEvent { Id = 17, MemberId = 2, MEventID = 5 },
+                            new MemberEvent { Id = 18, MemberId = 3, MEventID = 3 },
+                            new MemberEvent { Id = 19, MemberId = 4, MEventID = 1 },
+                            new MemberEvent { Id = 20, MemberId = 5, MEventID = 3 },
+                            new MemberEvent { Id = 21, MemberId = 1, MEventID = 2 },
+                            new MemberEvent { Id = 22, MemberId = 2, MEventID = 1 },
+                            new MemberEvent { Id = 23, MemberId = 3, MEventID = 5 },
+                            new MemberEvent { Id = 24, MemberId = 4, MEventID = 2 },
+                            new MemberEvent { Id = 25, MemberId = 5, MEventID = 4 }
+                        );
+
+                        context.SaveChanges();
+                    }
+
+                    if (!context.ContactCancellations.Any())
+                    {
+                        context.ContactCancellations.AddRange(
+                            new ContactCancellation { ID = 1, ContactID = 1, CancellationDate = DateTime.Parse("2023-05-15"), CancellationNote = "Left company", IsCancelled = true },
+                            new ContactCancellation { ID = 2, ContactID = 2, CancellationDate = DateTime.Parse("2022-07-20"), CancellationNote = "Retired", IsCancelled = true },
+                            new ContactCancellation { ID = 3, ContactID = 3, CancellationDate = DateTime.Parse("2024-01-10"), CancellationNote = "No longer working with us", IsCancelled = true },
+                            new ContactCancellation { ID = 4, ContactID = 4, CancellationDate = DateTime.Parse("2021-11-30"), CancellationNote = "Moved to a different industry", IsCancelled = true },
+                            new ContactCancellation { ID = 5, ContactID = 5, CancellationDate = DateTime.Parse("2023-09-18"), CancellationNote = "Project completed", IsCancelled = true },
+                            new ContactCancellation { ID = 6, ContactID = 1, CancellationDate = DateTime.Parse("2020-12-05"), CancellationNote = "No response to emails", IsCancelled = true },
+                            new ContactCancellation { ID = 7, ContactID = 2, CancellationDate = DateTime.Parse("2023-02-14"), CancellationNote = "Switched to competitor", IsCancelled = true },
+                            new ContactCancellation { ID = 8, ContactID = 3, CancellationDate = DateTime.Parse("2021-06-22"), CancellationNote = "No longer interested in services", IsCancelled = true },
+                            new ContactCancellation { ID = 9, ContactID = 4, CancellationDate = DateTime.Parse("2022-09-07"), CancellationNote = "Business shutdown", IsCancelled = true },
+                            new ContactCancellation { ID = 10, ContactID = 5, CancellationDate = DateTime.Parse("2024-02-01"), CancellationNote = "Contract expired", IsCancelled = true },
+                            new ContactCancellation { ID = 11, ContactID = 1, CancellationDate = DateTime.Parse("2023-03-12"), CancellationNote = "Company acquisition", IsCancelled = true },
+                            new ContactCancellation { ID = 12, ContactID = 2, CancellationDate = DateTime.Parse("2022-05-30"), CancellationNote = "No longer in the role", IsCancelled = true },
+                            new ContactCancellation { ID = 13, ContactID = 3, CancellationDate = DateTime.Parse("2020-09-10"), CancellationNote = "Repeated complaints", IsCancelled = true },
+                            new ContactCancellation { ID = 14, ContactID = 4, CancellationDate = DateTime.Parse("2023-07-25"), CancellationNote = "Moved to a competitor", IsCancelled = true },
+                            new ContactCancellation { ID = 15, ContactID = 5, CancellationDate = DateTime.Parse("2021-08-17"), CancellationNote = "Fraudulent activity detected", IsCancelled = true },
+                            new ContactCancellation { ID = 16, ContactID = 1, CancellationDate = DateTime.Parse("2023-10-05"), CancellationNote = "Personal reasons", IsCancelled = true },
+                            new ContactCancellation { ID = 17, ContactID = 2, CancellationDate = DateTime.Parse("2022-12-19"), CancellationNote = "Health issues", IsCancelled = true },
+                            new ContactCancellation { ID = 18, ContactID = 3, CancellationDate = DateTime.Parse("2024-04-02"), CancellationNote = "No engagement in past year", IsCancelled = true },
+                            new ContactCancellation { ID = 19, ContactID = 4, CancellationDate = DateTime.Parse("2021-03-14"), CancellationNote = "Company restructured", IsCancelled = true },
+                            new ContactCancellation { ID = 20, ContactID = 5, CancellationDate = DateTime.Parse("2023-11-09"), CancellationNote = "Non-payment of dues", IsCancelled = true },
+                            new ContactCancellation { ID = 21, ContactID = 1, CancellationDate = DateTime.Parse("2023-06-21"), CancellationNote = "Left the country", IsCancelled = true },
+                            new ContactCancellation { ID = 22, ContactID = 2, CancellationDate = DateTime.Parse("2022-10-28"), CancellationNote = "Not responding to calls", IsCancelled = true },
+                            new ContactCancellation { ID = 23, ContactID = 3, CancellationDate = DateTime.Parse("2020-05-06"), CancellationNote = "Discontinued service", IsCancelled = true },
+                            new ContactCancellation { ID = 24, ContactID = 4, CancellationDate = DateTime.Parse("2022-08-23"), CancellationNote = "Dissatisfied with service", IsCancelled = true },
+                            new ContactCancellation { ID = 25, ContactID = 5, CancellationDate = DateTime.Parse("2024-01-15"), CancellationNote = "Merged with another company", IsCancelled = true }
+                        );
+
+                        context.SaveChanges();
+                    }
+
+                    if (!context.AnnualActions.Any())
+                    {
+                        context.AnnualActions.AddRange(
+                            new AnnualAction { ID = 1, Name = "Budget Planning", Note = "Finalize annual budget", Date = DateTime.Parse("2025-01-10"), Asignee = "John Doe", AnnualStatus = AnnualStatus.ToDo },
+                            new AnnualAction { ID = 2, Name = "Team Meeting", Note = "Kickoff meeting for new year", Date = DateTime.Parse("2025-01-15"), Asignee = "Jane Smith", AnnualStatus = AnnualStatus.InProgress },
+                            new AnnualAction { ID = 3, Name = "Client Outreach", Note = "Send holiday greetings", Date = DateTime.Parse("2024-12-20"), Asignee = "Michael Johnson", AnnualStatus = AnnualStatus.Done },
+                            new AnnualAction { ID = 4, Name = "System Maintenance", Note = "Upgrade CRM software", Date = DateTime.Parse("2025-02-01"), Asignee = "Emily Davis", AnnualStatus = AnnualStatus.Cancelled },
+                            new AnnualAction { ID = 5, Name = "Annual Report", Note = "Prepare financial report", Date = DateTime.Parse("2025-03-05"), Asignee = "David Martinez", AnnualStatus = AnnualStatus.ToDo },
+                            new AnnualAction { ID = 6, Name = "Employee Training", Note = "Conduct compliance training", Date = DateTime.Parse("2025-04-10"), Asignee = "Sarah Wilson", AnnualStatus = AnnualStatus.InProgress },
+                            new AnnualAction { ID = 7, Name = "Product Launch", Note = "Launch new software version", Date = DateTime.Parse("2025-05-15"), Asignee = "Robert Brown", AnnualStatus = AnnualStatus.ToDo },
+                            new AnnualAction { ID = 8, Name = "Security Audit", Note = "Perform yearly security review", Date = DateTime.Parse("2025-06-20"), Asignee = "Jessica Lee", AnnualStatus = AnnualStatus.Cancelled },
+                            new AnnualAction { ID = 9, Name = "Client Feedback", Note = "Gather customer reviews", Date = DateTime.Parse("2025-07-10"), Asignee = "Daniel White", AnnualStatus = AnnualStatus.Done },
+                            new AnnualAction { ID = 10, Name = "Marketing Strategy", Note = "Plan Q3 campaigns", Date = DateTime.Parse("2025-08-05"), Asignee = "Olivia Harris", AnnualStatus = AnnualStatus.InProgress },
+                            new AnnualAction { ID = 11, Name = "IT Infrastructure", Note = "Upgrade cloud servers", Date = DateTime.Parse("2025-09-12"), Asignee = "Liam Scott", AnnualStatus = AnnualStatus.ToDo },
+                            new AnnualAction { ID = 12, Name = "Year-End Review", Note = "Assess team performance", Date = DateTime.Parse("2025-10-25"), Asignee = "Sophia Nelson", AnnualStatus = AnnualStatus.Cancelled },
+                            new AnnualAction { ID = 13, Name = "Partnership Meeting", Note = "Discuss collaboration", Date = DateTime.Parse("2025-11-07"), Asignee = "Benjamin Carter", AnnualStatus = AnnualStatus.Done },
+                            new AnnualAction { ID = 14, Name = "Recruitment Drive", Note = "Hire new developers", Date = DateTime.Parse("2025-12-15"), Asignee = "Charlotte Adams", AnnualStatus = AnnualStatus.InProgress },
+                            new AnnualAction { ID = 15, Name = "Office Renovation", Note = "Upgrade workspace", Date = DateTime.Parse("2026-01-10"), Asignee = "Ethan Walker", AnnualStatus = AnnualStatus.Cancelled },
+                            new AnnualAction { ID = 16, Name = "Customer Support Training", Note = "Improve service quality", Date = DateTime.Parse("2026-02-20"), Asignee = "Mia Rodriguez", AnnualStatus = AnnualStatus.ToDo },
+                            new AnnualAction { ID = 17, Name = "Industry Conference", Note = "Attend and network", Date = DateTime.Parse("2026-03-05"), Asignee = "Noah Stewart", AnnualStatus = AnnualStatus.Done },
+                            new AnnualAction { ID = 18, Name = "Legal Compliance", Note = "Update contracts", Date = DateTime.Parse("2026-04-15"), Asignee = "Ava Perez", AnnualStatus = AnnualStatus.ToDo },
+                            new AnnualAction { ID = 19, Name = "Server Migration", Note = "Move to new data center", Date = DateTime.Parse("2026-05-10"), Asignee = "James Mitchell", AnnualStatus = AnnualStatus.InProgress },
+                            new AnnualAction { ID = 20, Name = "Policy Update", Note = "Revise HR policies", Date = DateTime.Parse("2026-06-18"), Asignee = "Isabella Turner", AnnualStatus = AnnualStatus.Done },
+                            new AnnualAction { ID = 21, Name = "Product Testing", Note = "QA for new release", Date = DateTime.Parse("2026-07-22"), Asignee = "Mason Hill", AnnualStatus = AnnualStatus.Cancelled },
+                            new AnnualAction { ID = 22, Name = "Social Media Campaign", Note = "Boost brand awareness", Date = DateTime.Parse("2026-08-30"), Asignee = "Harper Green", AnnualStatus = AnnualStatus.InProgress },
+                            new AnnualAction { ID = 23, Name = "Inventory Check", Note = "Verify stock levels", Date = DateTime.Parse("2026-09-14"), Asignee = "Alexander Young", AnnualStatus = AnnualStatus.Done },
+                            new AnnualAction { ID = 24, Name = "Client Contracts", Note = "Renew key contracts", Date = DateTime.Parse("2026-10-10"), Asignee = "Ella Baker", AnnualStatus = AnnualStatus.ToDo },
+                            new AnnualAction { ID = 25, Name = "Sustainability Report", Note = "Prepare environmental report", Date = DateTime.Parse("2026-11-05"), Asignee = "Lucas Evans", AnnualStatus = AnnualStatus.Done }
+                        );
+
+                        context.SaveChanges();
+                    }
+
+                    if (!context.Strategies.Any())
+                    {
+                        context.Strategies.AddRange(
+                            new Strategy { ID = 1, StrategyName = "Market Expansion", StrategyAssignee = "John Doe", StrategyNote = "Expand into new regions", CreatedDate = DateTime.Parse("2025-01-10"), StrategyTerm = StrategyTerm.LongTerm, StrategyStatus = StrategyStatus.ToDo },
+                            new Strategy { ID = 2, StrategyName = "Cost Reduction", StrategyAssignee = "Jane Smith", StrategyNote = "Optimize supply chain", CreatedDate = DateTime.Parse("2025-02-15"), StrategyTerm = StrategyTerm.MediumTerm, StrategyStatus = StrategyStatus.InProgress },
+                            new Strategy { ID = 3, StrategyName = "Product Innovation", StrategyAssignee = "Michael Johnson", StrategyNote = "Develop new features", CreatedDate = DateTime.Parse("2025-03-20"), StrategyTerm = StrategyTerm.ShortTerm, StrategyStatus = StrategyStatus.Done },
+                            new Strategy { ID = 4, StrategyName = "Employee Wellness", StrategyAssignee = "Emily Davis", StrategyNote = "Enhance benefits package", CreatedDate = DateTime.Parse("2025-04-01"), StrategyTerm = StrategyTerm.LongTerm, StrategyStatus = StrategyStatus.Cancelled },
+                            new Strategy { ID = 5, StrategyName = "Sustainability Initiative", StrategyAssignee = "David Martinez", StrategyNote = "Reduce carbon footprint", CreatedDate = DateTime.Parse("2025-05-05"), StrategyTerm = StrategyTerm.Seasonal, StrategyStatus = StrategyStatus.ToDo },
+                            new Strategy { ID = 6, StrategyName = "Cybersecurity Upgrade", StrategyAssignee = "Sarah Wilson", StrategyNote = "Implement MFA & encryption", CreatedDate = DateTime.Parse("2025-06-10"), StrategyTerm = StrategyTerm.LongTerm, StrategyStatus = StrategyStatus.InProgress },
+                            new Strategy { ID = 7, StrategyName = "Customer Retention", StrategyAssignee = "Robert Brown", StrategyNote = "Loyalty program launch", CreatedDate = DateTime.Parse("2025-07-15"), StrategyTerm = StrategyTerm.MediumTerm, StrategyStatus = StrategyStatus.ToDo },
+                            new Strategy { ID = 8, StrategyName = "Digital Marketing Expansion", StrategyAssignee = "Jessica Lee", StrategyNote = "Increase social media ads", CreatedDate = DateTime.Parse("2025-08-20"), StrategyTerm = StrategyTerm.ShortTerm, StrategyStatus = StrategyStatus.Cancelled },
+                            new Strategy { ID = 9, StrategyName = "Workforce Upskilling", StrategyAssignee = "Daniel White", StrategyNote = "Train employees on AI tools", CreatedDate = DateTime.Parse("2025-09-10"), StrategyTerm = StrategyTerm.Cyclical, StrategyStatus = StrategyStatus.Done },
+                            new Strategy { ID = 10, StrategyName = "AI Integration", StrategyAssignee = "Olivia Harris", StrategyNote = "Enhance automation", CreatedDate = DateTime.Parse("2025-10-05"), StrategyTerm = StrategyTerm.LongTerm, StrategyStatus = StrategyStatus.InProgress },
+                            new Strategy { ID = 11, StrategyName = "Brand Repositioning", StrategyAssignee = "Liam Scott", StrategyNote = "Redefine brand image", CreatedDate = DateTime.Parse("2025-11-12"), StrategyTerm = StrategyTerm.NotStated, StrategyStatus = StrategyStatus.ToDo },
+                            new Strategy { ID = 12, StrategyName = "Community Engagement", StrategyAssignee = "Sophia Nelson", StrategyNote = "Increase local partnerships", CreatedDate = DateTime.Parse("2025-12-25"), StrategyTerm = StrategyTerm.Seasonal, StrategyStatus = StrategyStatus.Cancelled },
+                            new Strategy { ID = 13, StrategyName = "Research & Development", StrategyAssignee = "Benjamin Carter", StrategyNote = "Explore emerging technologies", CreatedDate = DateTime.Parse("2026-01-07"), StrategyTerm = StrategyTerm.LongTerm, StrategyStatus = StrategyStatus.Done },
+                            new Strategy { ID = 14, StrategyName = "Subscription Model", StrategyAssignee = "Charlotte Adams", StrategyNote = "Introduce tiered pricing", CreatedDate = DateTime.Parse("2026-02-15"), StrategyTerm = StrategyTerm.MediumTerm, StrategyStatus = StrategyStatus.InProgress },
+                            new Strategy { ID = 15, StrategyName = "Remote Work Policy", StrategyAssignee = "Ethan Walker", StrategyNote = "Hybrid work approach", CreatedDate = DateTime.Parse("2026-03-10"), StrategyTerm = StrategyTerm.ShortTerm, StrategyStatus = StrategyStatus.Cancelled },
+                            new Strategy { ID = 16, StrategyName = "E-commerce Expansion", StrategyAssignee = "Mia Rodriguez", StrategyNote = "Launch direct-to-consumer site", CreatedDate = DateTime.Parse("2026-04-20"), StrategyTerm = StrategyTerm.Cyclical, StrategyStatus = StrategyStatus.ToDo },
+                            new Strategy { ID = 17, StrategyName = "Supplier Diversification", StrategyAssignee = "Noah Stewart", StrategyNote = "Reduce dependency on single supplier", CreatedDate = DateTime.Parse("2026-05-05"), StrategyTerm = StrategyTerm.MediumTerm, StrategyStatus = StrategyStatus.Done },
+                            new Strategy { ID = 18, StrategyName = "Partnership Development", StrategyAssignee = "Ava Perez", StrategyNote = "Form strategic alliances", CreatedDate = DateTime.Parse("2026-06-15"), StrategyTerm = StrategyTerm.LongTerm, StrategyStatus = StrategyStatus.ToDo },
+                            new Strategy { ID = 19, StrategyName = "Retail Store Optimization", StrategyAssignee = "James Mitchell", StrategyNote = "Increase in-store sales", CreatedDate = DateTime.Parse("2026-07-10"), StrategyTerm = StrategyTerm.ShortTerm, StrategyStatus = StrategyStatus.InProgress },
+                            new Strategy { ID = 20, StrategyName = "Omnichannel Strategy", StrategyAssignee = "Isabella Turner", StrategyNote = "Integrate offline & online sales", CreatedDate = DateTime.Parse("2026-08-18"), StrategyTerm = StrategyTerm.Seasonal, StrategyStatus = StrategyStatus.Done },
+                            new Strategy { ID = 21, StrategyName = "Warehouse Automation", StrategyAssignee = "Mason Hill", StrategyNote = "Use AI-driven logistics", CreatedDate = DateTime.Parse("2026-09-22"), StrategyTerm = StrategyTerm.Cyclical, StrategyStatus = StrategyStatus.Cancelled },
+                            new Strategy { ID = 22, StrategyName = "Expansion to New Markets", StrategyAssignee = "Harper Green", StrategyNote = "Target Asia-Pacific region", CreatedDate = DateTime.Parse("2026-10-30"), StrategyTerm = StrategyTerm.LongTerm, StrategyStatus = StrategyStatus.InProgress },
+                            new Strategy { ID = 23, StrategyName = "Influencer Marketing", StrategyAssignee = "Alexander Young", StrategyNote = "Partner with key influencers", CreatedDate = DateTime.Parse("2026-11-14"), StrategyTerm = StrategyTerm.ShortTerm, StrategyStatus = StrategyStatus.Done },
+                            new Strategy { ID = 24, StrategyName = "Customer Data Analytics", StrategyAssignee = "Ella Baker", StrategyNote = "Leverage insights for marketing", CreatedDate = DateTime.Parse("2026-12-10"), StrategyTerm = StrategyTerm.NotStated, StrategyStatus = StrategyStatus.ToDo },
+                            new Strategy { ID = 25, StrategyName = "Financial Restructuring", StrategyAssignee = "Lucas Evans", StrategyNote = "Optimize revenue streams", CreatedDate = DateTime.Parse("2027-01-05"), StrategyTerm = StrategyTerm.MediumTerm, StrategyStatus = StrategyStatus.Done }
+                        );
+
+                        context.SaveChanges();
+                    }
+
+
                 }
+
 
 
 

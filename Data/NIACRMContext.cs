@@ -50,7 +50,8 @@ namespace NIA_CRM.Data
         public DbSet<Sector> Sector { get; set; }
         public DbSet<ContactCancellation> ContactCancellations { get; set; }
         public DbSet<WidgetLayout> WidgetLayouts { get; set; }
-
+        public DbSet<AnnualAction> AnnualActions { get; set; }
+        public DbSet<Strategy> Strategies  { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

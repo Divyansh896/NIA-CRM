@@ -183,7 +183,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "Strategys",
+                name: "Strategy",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -197,7 +197,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Strategys", x => x.ID);
+                    table.PrimaryKey("PK_Strategy", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -636,7 +636,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "ProductionEmails");
 
             migrationBuilder.DropTable(
-                name: "Strategys");
+                name: "Strategy");
 
             migrationBuilder.DropTable(
                 name: "WidgetLayouts");

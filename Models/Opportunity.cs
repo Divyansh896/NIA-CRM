@@ -34,6 +34,6 @@ namespace NIA_CRM.Models
         public OpportunityStatus OpportunityStatus { get; set; }
 
         [Required(ErrorMessage = "You must select the opportunity priority.")]
-        public OpportunityStatus OpportunityPriority { get; set; }
+        public OpportunityPriority OpportunityPriority { get; set; }
     }
 }

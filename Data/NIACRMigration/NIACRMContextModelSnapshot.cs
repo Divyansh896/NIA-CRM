@@ -633,7 +633,7 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("ID");
 
-                    b.ToTable("Strategys");
+                    b.ToTable("Strategy");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.WidgetLayout", b =>
