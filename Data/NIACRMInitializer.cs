@@ -3458,20 +3458,24 @@ namespace NIA_CRM.Data
                     if (!context.IndustryNAICSCodes.Any())
                     {
                         var industryNAICSCodes = new List<IndustryNAICSCode>();
+                        var random = new Random();
+                        int maxMembers = context.Members.Count();
 
-                        for (int i = 1; i <= 100; i++) // Assuming there are 100 members and NAICS codes
+                        for (int i = 1; i <= 100; i++) // Create 100 IndustryNAICSCode records
                         {
                             industryNAICSCodes.Add(new IndustryNAICSCode
                             {
-                                Id = i,
-                                MemberId = i,
-                                NAICSCodeId = i
+                                // Remove Id = i if it's auto-generated
+                                MemberId = (i <= maxMembers) ? i : random.Next(1, maxMembers + 1), // Ensures valid MemberId
+                                NAICSCodeId = random.Next(1, 20) // Randomly selects a NAICSCodeId between 1 and 19
                             });
                         }
 
                         context.IndustryNAICSCodes.AddRange(industryNAICSCodes);
                         context.SaveChanges();
                     }
+
+
 
                     if (!context.ProductionEmails.Any())
                     {
@@ -3568,38 +3572,38 @@ namespace NIA_CRM.Data
                         context.SaveChanges();
                     }
 
-                    if (!context.MemberEvents.Any())
-                    {
-                        context.MemberEvents.AddRange(
-                            new MemberEvent { Id = 1, MemberId = 1, MEventID = 1 },
-                            new MemberEvent { Id = 2, MemberId = 1, MEventID = 3 },
-                            new MemberEvent { Id = 3, MemberId = 2, MEventID = 1 },
-                            new MemberEvent { Id = 4, MemberId = 2, MEventID = 2 },
-                            new MemberEvent { Id = 5, MemberId = 3, MEventID = 4 },
-                            new MemberEvent { Id = 6, MemberId = 3, MEventID = 5 },
-                            new MemberEvent { Id = 7, MemberId = 4, MEventID = 2 },
-                            new MemberEvent { Id = 8, MemberId = 4, MEventID = 3 },
-                            new MemberEvent { Id = 9, MemberId = 5, MEventID = 1 },
-                            new MemberEvent { Id = 10, MemberId = 5, MEventID = 4 },
-                            new MemberEvent { Id = 11, MemberId = 1, MEventID = 5 },
-                            new MemberEvent { Id = 12, MemberId = 2, MEventID = 3 },
-                            new MemberEvent { Id = 13, MemberId = 3, MEventID = 1 },
-                            new MemberEvent { Id = 14, MemberId = 4, MEventID = 4 },
-                            new MemberEvent { Id = 15, MemberId = 5, MEventID = 2 },
-                            new MemberEvent { Id = 16, MemberId = 1, MEventID = 4 },
-                            new MemberEvent { Id = 17, MemberId = 2, MEventID = 5 },
-                            new MemberEvent { Id = 18, MemberId = 3, MEventID = 3 },
-                            new MemberEvent { Id = 19, MemberId = 4, MEventID = 1 },
-                            new MemberEvent { Id = 20, MemberId = 5, MEventID = 3 },
-                            new MemberEvent { Id = 21, MemberId = 1, MEventID = 2 },
-                            new MemberEvent { Id = 22, MemberId = 2, MEventID = 1 },
-                            new MemberEvent { Id = 23, MemberId = 3, MEventID = 5 },
-                            new MemberEvent { Id = 24, MemberId = 4, MEventID = 2 },
-                            new MemberEvent { Id = 25, MemberId = 5, MEventID = 4 }
-                        );
+                    //if (!context.MemberEvents.Any())
+                    //{
+                    //    context.MemberEvents.AddRange(
+                    //        new MemberEvent { Id = 1, MemberId = 1, MEventID = 1 },
+                    //        new MemberEvent { Id = 2, MemberId = 1, MEventID = 3 },
+                    //        new MemberEvent { Id = 3, MemberId = 2, MEventID = 1 },
+                    //        new MemberEvent { Id = 4, MemberId = 2, MEventID = 2 },
+                    //        new MemberEvent { Id = 5, MemberId = 3, MEventID = 4 },
+                    //        new MemberEvent { Id = 6, MemberId = 3, MEventID = 5 },
+                    //        new MemberEvent { Id = 7, MemberId = 4, MEventID = 2 },
+                    //        new MemberEvent { Id = 8, MemberId = 4, MEventID = 3 },
+                    //        new MemberEvent { Id = 9, MemberId = 5, MEventID = 1 },
+                    //        new MemberEvent { Id = 10, MemberId = 5, MEventID = 4 },
+                    //        new MemberEvent { Id = 11, MemberId = 1, MEventID = 5 },
+                    //        new MemberEvent { Id = 12, MemberId = 2, MEventID = 3 },
+                    //        new MemberEvent { Id = 13, MemberId = 3, MEventID = 1 },
+                    //        new MemberEvent { Id = 14, MemberId = 4, MEventID = 4 },
+                    //        new MemberEvent { Id = 15, MemberId = 5, MEventID = 2 },
+                    //        new MemberEvent { Id = 16, MemberId = 1, MEventID = 4 },
+                    //        new MemberEvent { Id = 17, MemberId = 2, MEventID = 5 },
+                    //        new MemberEvent { Id = 18, MemberId = 3, MEventID = 3 },
+                    //        new MemberEvent { Id = 19, MemberId = 4, MEventID = 1 },
+                    //        new MemberEvent { Id = 20, MemberId = 5, MEventID = 3 },
+                    //        new MemberEvent { Id = 21, MemberId = 1, MEventID = 2 },
+                    //        new MemberEvent { Id = 22, MemberId = 2, MEventID = 1 },
+                    //        new MemberEvent { Id = 23, MemberId = 3, MEventID = 5 },
+                    //        new MemberEvent { Id = 24, MemberId = 4, MEventID = 2 },
+                    //        new MemberEvent { Id = 25, MemberId = 5, MEventID = 4 }
+                    //    );
 
-                        context.SaveChanges();
-                    }
+                    //    context.SaveChanges();
+                    //}
 
                     if (!context.ContactCancellations.Any())
                     {
