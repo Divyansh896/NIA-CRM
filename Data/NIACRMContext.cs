@@ -47,12 +47,12 @@ namespace NIA_CRM.Data
         public DbSet<AnnualAction> AnnualAction { get; set; }
         public DbSet<Strategy> Strategys { get; set; }
         public DbSet<MemberSector> MemberSectors { get; set; }
-        public DbSet<Sector> Sector { get; set; }
+        public DbSet<Sector> Sectors { get; set; }
         public DbSet<ContactCancellation> ContactCancellations { get; set; }
         public DbSet<WidgetLayout> WidgetLayouts { get; set; }
         public DbSet<AnnualAction> AnnualActions { get; set; }
         public DbSet<Strategy> Strategies  { get; set; }
-
+        public DbSet<MTag> MTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
