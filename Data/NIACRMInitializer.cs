@@ -3268,111 +3268,46 @@ namespace NIA_CRM.Data
 
                     if (!context.MemberContacts.Any())
                     {
-                        context.MemberContacts.AddRange(
+                        var memberContacts = new List<MemberContact>
+                            {
+                                new MemberContact { MemberId = 1, ContactId = 1 },
+                                new MemberContact { MemberId = 2, ContactId = 2 },
+                                new MemberContact { MemberId = 3, ContactId = 3 },
+                                new MemberContact { MemberId = 4, ContactId = 4 },
+                                new MemberContact { MemberId = 5, ContactId = 5 },
+                                new MemberContact { MemberId = 6, ContactId = 6 },
+                                new MemberContact { MemberId = 7, ContactId = 7 },
+                                new MemberContact { MemberId = 8, ContactId = 8 },
+                                new MemberContact { MemberId = 9, ContactId = 9 },
+                                new MemberContact { MemberId = 10, ContactId = 10 }
 
-                                   new MemberContact { Id = 1, MemberId = 1, ContactId = 1 },
-                                    new MemberContact { Id = 2, MemberId = 2, ContactId = 1 },
-                                    new MemberContact { Id = 3, MemberId = 3, ContactId = 2 },
-                                    new MemberContact { Id = 4, MemberId = 2, ContactId = 2 },
-                                    new MemberContact { Id = 5, MemberId = 4, ContactId = 2 },
-                                    new MemberContact { Id = 6, MemberId = 5, ContactId = 3 },
-                                    new MemberContact { Id = 7, MemberId = 6, ContactId = 3 },
-                                    new MemberContact { Id = 8, MemberId = 5, ContactId = 3 },
-                                    new MemberContact { Id = 9, MemberId = 7, ContactId = 4 },
-                                    new MemberContact { Id = 10, MemberId = 8, ContactId = 4 },
-                                    new MemberContact { Id = 11, MemberId = 9, ContactId = 5 },
-                                    new MemberContact { Id = 12, MemberId = 8, ContactId = 5 },
-                                    new MemberContact { Id = 13, MemberId = 10, ContactId = 5 },
-                                    new MemberContact { Id = 14, MemberId = 11, ContactId = 6 },
-                                    new MemberContact { Id = 15, MemberId = 12, ContactId = 6 },
-                                    new MemberContact { Id = 16, MemberId = 11, ContactId = 6 },
-                                    new MemberContact { Id = 17, MemberId = 13, ContactId = 7 },
-                                    new MemberContact { Id = 18, MemberId = 14, ContactId = 7 },
-                                    new MemberContact { Id = 19, MemberId = 15, ContactId = 8 },
-                                    new MemberContact { Id = 20, MemberId = 14, ContactId = 8 },
-                                    new MemberContact { Id = 21, MemberId = 16, ContactId = 8 },
-                                    new MemberContact { Id = 22, MemberId = 17, ContactId = 9 },
-                                    new MemberContact { Id = 23, MemberId = 18, ContactId = 9 },
-                                    new MemberContact { Id = 24, MemberId = 17, ContactId = 9 },
-                                    new MemberContact { Id = 25, MemberId = 19, ContactId = 10 },
-                                    new MemberContact { Id = 26, MemberId = 20, ContactId = 10 },
-                                    new MemberContact { Id = 27, MemberId = 21, ContactId = 11 },
-                                    new MemberContact { Id = 28, MemberId = 20, ContactId = 11 },
-                                    new MemberContact { Id = 29, MemberId = 22, ContactId = 11 },
-                                    new MemberContact { Id = 30, MemberId = 23, ContactId = 12 },
-                                    new MemberContact { Id = 31, MemberId = 24, ContactId = 12 },
-                                    new MemberContact { Id = 32, MemberId = 23, ContactId = 12 },
-                                    new MemberContact { Id = 33, MemberId = 25, ContactId = 13 },
-                                    new MemberContact { Id = 34, MemberId = 26, ContactId = 13 },
-                                    new MemberContact { Id = 35, MemberId = 27, ContactId = 14 },
-                                    new MemberContact { Id = 36, MemberId = 26, ContactId = 14 },
-                                    new MemberContact { Id = 37, MemberId = 28, ContactId = 14 },
-                                    new MemberContact { Id = 38, MemberId = 29, ContactId = 15 },
-                                    new MemberContact { Id = 39, MemberId = 30, ContactId = 15 },
-                                    new MemberContact { Id = 40, MemberId = 29, ContactId = 15 },
-                                    new MemberContact { Id = 41, MemberId = 31, ContactId = 16 },
-                                    new MemberContact { Id = 42, MemberId = 32, ContactId = 16 },
-                                    new MemberContact { Id = 43, MemberId = 33, ContactId = 17 },
-                                    new MemberContact { Id = 44, MemberId = 32, ContactId = 17 },
-                                    new MemberContact { Id = 45, MemberId = 34, ContactId = 17 },
-                                    new MemberContact { Id = 46, MemberId = 35, ContactId = 18 },
-                                    new MemberContact { Id = 47, MemberId = 36, ContactId = 18 },
-                                    new MemberContact { Id = 48, MemberId = 35, ContactId = 18 },
-                                    new MemberContact { Id = 49, MemberId = 37, ContactId = 19 },
-                                    new MemberContact { Id = 50, MemberId = 38, ContactId = 19 },
-                                    new MemberContact { Id = 51, MemberId = 39, ContactId = 20 },
-                                    new MemberContact { Id = 52, MemberId = 38, ContactId = 20 },
-                                    new MemberContact { Id = 53, MemberId = 40, ContactId = 20 },
-                                    new MemberContact { Id = 54, MemberId = 41, ContactId = 21 },
-                                    new MemberContact { Id = 55, MemberId = 42, ContactId = 21 },
-                                    new MemberContact { Id = 56, MemberId = 41, ContactId = 21 },
-                                    new MemberContact { Id = 57, MemberId = 43, ContactId = 22 },
-                                    new MemberContact { Id = 58, MemberId = 44, ContactId = 22 },
-                                    new MemberContact { Id = 59, MemberId = 45, ContactId = 23 },
-                                    new MemberContact { Id = 60, MemberId = 44, ContactId = 23 },
-                                    new MemberContact { Id = 61, MemberId = 46, ContactId = 23 },
-                                    new MemberContact { Id = 62, MemberId = 47, ContactId = 24 },
-                                    new MemberContact { Id = 63, MemberId = 48, ContactId = 24 },
-                                    new MemberContact { Id = 64, MemberId = 47, ContactId = 24 },
-                                    new MemberContact { Id = 65, MemberId = 49, ContactId = 25 },
-                                    new MemberContact { Id = 66, MemberId = 50, ContactId = 25 },
-                                    new MemberContact { Id = 67, MemberId = 51, ContactId = 26 },
-                                    new MemberContact { Id = 68, MemberId = 50, ContactId = 26 },
-                                    new MemberContact { Id = 69, MemberId = 52, ContactId = 26 },
-                                    new MemberContact { Id = 70, MemberId = 53, ContactId = 27 },
-                                    new MemberContact { Id = 71, MemberId = 54, ContactId = 27 },
-                                    new MemberContact { Id = 72, MemberId = 53, ContactId = 27 },
-                                    new MemberContact { Id = 73, MemberId = 55, ContactId = 28 },
-                                    new MemberContact { Id = 74, MemberId = 56, ContactId = 28 },
-                                    new MemberContact { Id = 75, MemberId = 57, ContactId = 29 },
-                                    new MemberContact { Id = 76, MemberId = 56, ContactId = 29 },
-                                    new MemberContact { Id = 77, MemberId = 58, ContactId = 29 },
-                                    new MemberContact { Id = 78, MemberId = 59, ContactId = 30 },
-                                    new MemberContact { Id = 79, MemberId = 60, ContactId = 30 },
-                                    new MemberContact { Id = 80, MemberId = 59, ContactId = 30 },
-                                    new MemberContact { Id = 81, MemberId = 61, ContactId = 31 },
-                                    new MemberContact { Id = 82, MemberId = 62, ContactId = 31 },
-                                    new MemberContact { Id = 83, MemberId = 63, ContactId = 32 },
-                                    new MemberContact { Id = 84, MemberId = 62, ContactId = 32 },
-                                    new MemberContact { Id = 85, MemberId = 64, ContactId = 32 },
-                                    new MemberContact { Id = 86, MemberId = 65, ContactId = 33 },
-                                    new MemberContact { Id = 87, MemberId = 66, ContactId = 33 },
-                                    new MemberContact { Id = 88, MemberId = 65, ContactId = 33 },
-                                    new MemberContact { Id = 89, MemberId = 67, ContactId = 34 },
-                                    new MemberContact { Id = 90, MemberId = 68, ContactId = 34 },
-                                    new MemberContact { Id = 91, MemberId = 69, ContactId = 35 },
-                                    new MemberContact { Id = 92, MemberId = 68, ContactId = 35 },
-                                    new MemberContact { Id = 93, MemberId = 70, ContactId = 35 },
-                                    new MemberContact { Id = 94, MemberId = 71, ContactId = 36 },
-                                    new MemberContact { Id = 95, MemberId = 72, ContactId = 36 },
-                                    new MemberContact { Id = 96, MemberId = 71, ContactId = 36 },
-                                    new MemberContact { Id = 97, MemberId = 73, ContactId = 37 },
-                                    new MemberContact { Id = 98, MemberId = 74, ContactId = 37 },
-                                    new MemberContact { Id = 99, MemberId = 75, ContactId = 38 },
-                                    new MemberContact { Id = 100, MemberId = 74, ContactId = 38 }
-                                );
+                                // Additional many-to-many relationships
+                                //new MemberContact { MemberId = 1, ContactId = 5 },
+                                //new MemberContact { MemberId = 2, ContactId = 6 },
+                                //new MemberContact { MemberId = 3, ContactId = 7 },
+                                //new MemberContact { MemberId = 4, ContactId = 8 },
+                                //new MemberContact { MemberId = 5, ContactId = 9 },
+                                //new MemberContact { MemberId = 6, ContactId = 10 },
+                                //new MemberContact { MemberId = 7, ContactId = 1 },
+                                //new MemberContact { MemberId = 8, ContactId = 2 },
+                                //new MemberContact { MemberId = 9, ContactId = 3 },
+                                //new MemberContact { MemberId = 10, ContactId = 4 },
+
+                                // Expanding relationships further
+                                //new MemberContact { MemberId = 1, ContactId = 10 },
+                                //new MemberContact { MemberId = 2, ContactId = 9 },
+                                //new MemberContact { MemberId = 3, ContactId = 8 },
+                                //new MemberContact { MemberId = 4, ContactId = 7 },
+                                //new MemberContact { MemberId = 5, ContactId = 6 },
+                                //new MemberContact { MemberId = 6, ContactId = 5 },
+                                //new MemberContact { MemberId = 7, ContactId = 4 },
+                                //new MemberContact { MemberId = 8, ContactId = 3 },
+                                //new MemberContact { MemberId = 9, ContactId = 2 },
+                                //new MemberContact { MemberId = 10, ContactId = 1 }
+                            };
+
+                        context.MemberContacts.AddRange(memberContacts);
                         context.SaveChanges();
-
                     }
 
 
@@ -3522,113 +3457,21 @@ namespace NIA_CRM.Data
 
                     if (!context.IndustryNAICSCodes.Any())
                     {
-                        context.IndustryNAICSCodes.AddRange(
-                            new IndustryNAICSCode { Id = 1, MemberId = 1, NAICSCodeId = 1 },  // Member 1, NAICS Code 1
-                            new IndustryNAICSCode { Id = 2, MemberId = 2, NAICSCodeId = 2 },  // Member 2, NAICS Code 2
-                            new IndustryNAICSCode { Id = 3, MemberId = 3, NAICSCodeId = 3 },  // Member 3, NAICS Code 3
-                            new IndustryNAICSCode { Id = 4, MemberId = 4, NAICSCodeId = 4 },  // Member 4, NAICS Code 4
-                            new IndustryNAICSCode { Id = 5, MemberId = 5, NAICSCodeId = 5 },  // Member 5, NAICS Code 5
-                            new IndustryNAICSCode { Id = 6, MemberId = 6, NAICSCodeId = 6 },  // Member 6, NAICS Code 6
-                            new IndustryNAICSCode { Id = 7, MemberId = 7, NAICSCodeId = 7 },  // Member 7, NAICS Code 7
-                            new IndustryNAICSCode { Id = 8, MemberId = 8, NAICSCodeId = 8 },  // Member 8, NAICS Code 8
-                            new IndustryNAICSCode { Id = 9, MemberId = 9, NAICSCodeId = 9 },  // Member 9, NAICS Code 9
-                            new IndustryNAICSCode { Id = 10, MemberId = 10, NAICSCodeId = 10 },  // Member 10, NAICS Code 10
-                            new IndustryNAICSCode { Id = 11, MemberId = 11, NAICSCodeId = 11 },  // Member 11, NAICS Code 11
-                            new IndustryNAICSCode { Id = 12, MemberId = 12, NAICSCodeId = 12 },  // Member 12, NAICS Code 12
-                            new IndustryNAICSCode { Id = 13, MemberId = 13, NAICSCodeId = 13 },  // Member 13, NAICS Code 13
-                            new IndustryNAICSCode { Id = 14, MemberId = 14, NAICSCodeId = 14 },  // Member 14, NAICS Code 14
-                            new IndustryNAICSCode { Id = 15, MemberId = 15, NAICSCodeId = 15 },  // Member 15, NAICS Code 15
-                            new IndustryNAICSCode { Id = 16, MemberId = 16, NAICSCodeId = 16 },  // Member 16, NAICS Code 16
-                            new IndustryNAICSCode { Id = 17, MemberId = 17, NAICSCodeId = 17 },  // Member 17, NAICS Code 17
-                            new IndustryNAICSCode { Id = 18, MemberId = 18, NAICSCodeId = 18 },  // Member 18, NAICS Code 18
-                            new IndustryNAICSCode { Id = 19, MemberId = 19, NAICSCodeId = 19 },  // Member 19, NAICS Code 19
-                            new IndustryNAICSCode { Id = 20, MemberId = 20, NAICSCodeId = 1 },  // Member 20, NAICS Code 1
-                            new IndustryNAICSCode { Id = 21, MemberId = 21, NAICSCodeId = 2 },  // Member 21, NAICS Code 2
-                            new IndustryNAICSCode { Id = 22, MemberId = 22, NAICSCodeId = 3 },  // Member 22, NAICS Code 3
-                            new IndustryNAICSCode { Id = 23, MemberId = 23, NAICSCodeId = 4 },  // Member 23, NAICS Code 4
-                            new IndustryNAICSCode { Id = 24, MemberId = 24, NAICSCodeId = 5 },  // Member 24, NAICS Code 5
-                            new IndustryNAICSCode { Id = 25, MemberId = 25, NAICSCodeId = 6 },  // Member 25, NAICS Code 6
-                            new IndustryNAICSCode { Id = 26, MemberId = 26, NAICSCodeId = 7 },  // Member 26, NAICS Code 7
-                            new IndustryNAICSCode { Id = 27, MemberId = 27, NAICSCodeId = 8 },  // Member 27, NAICS Code 8
-                            new IndustryNAICSCode { Id = 28, MemberId = 28, NAICSCodeId = 9 },  // Member 28, NAICS Code 9
-                            new IndustryNAICSCode { Id = 29, MemberId = 29, NAICSCodeId = 10 },  // Member 29, NAICS Code 10
-                            new IndustryNAICSCode { Id = 30, MemberId = 30, NAICSCodeId = 11 },  // Member 30, NAICS Code 11
-                            new IndustryNAICSCode { Id = 31, MemberId = 31, NAICSCodeId = 12 },  // Member 31, NAICS Code 12
-                            new IndustryNAICSCode { Id = 32, MemberId = 32, NAICSCodeId = 13 },  // Member 32, NAICS Code 13
-                            new IndustryNAICSCode { Id = 33, MemberId = 33, NAICSCodeId = 14 },  // Member 33, NAICS Code 14
-                            new IndustryNAICSCode { Id = 34, MemberId = 34, NAICSCodeId = 15 },  // Member 34, NAICS Code 15
-                            new IndustryNAICSCode { Id = 35, MemberId = 35, NAICSCodeId = 16 },  // Member 35, NAICS Code 16
-                            new IndustryNAICSCode { Id = 36, MemberId = 36, NAICSCodeId = 17 },  // Member 36, NAICS Code 17
-                            new IndustryNAICSCode { Id = 37, MemberId = 37, NAICSCodeId = 18 },  // Member 37, NAICS Code 18
-                            new IndustryNAICSCode { Id = 38, MemberId = 38, NAICSCodeId = 19 },  // Member 38, NAICS Code 19
-                            new IndustryNAICSCode { Id = 39, MemberId = 39, NAICSCodeId = 1 },  // Member 39, NAICS Code 1
-                            new IndustryNAICSCode { Id = 40, MemberId = 40, NAICSCodeId = 2 },
-                            new IndustryNAICSCode { Id = 41, MemberId = 41, NAICSCodeId = 1 },  // Member 1, NAICS Code 1
-                            new IndustryNAICSCode { Id = 42, MemberId = 42, NAICSCodeId = 2 },  // Member 2, NAICS Code 2
-                            new IndustryNAICSCode { Id = 43, MemberId = 43, NAICSCodeId = 3 },  // Member 3, NAICS Code 3
-                            new IndustryNAICSCode { Id = 44, MemberId = 44, NAICSCodeId = 4 },  // Member 4, NAICS Code 4
-                            new IndustryNAICSCode { Id = 45, MemberId = 45, NAICSCodeId = 5 },  // Member 5, NAICS Code 5
-                            new IndustryNAICSCode { Id = 46, MemberId = 46, NAICSCodeId = 6 },  // Member 6, NAICS Code 6
-                            new IndustryNAICSCode { Id = 47, MemberId = 47, NAICSCodeId = 7 },  // Member 7, NAICS Code 7
-                            new IndustryNAICSCode { Id = 48, MemberId = 48, NAICSCodeId = 8 },  // Member 8, NAICS Code 8
-                            new IndustryNAICSCode { Id = 49, MemberId = 49, NAICSCodeId = 9 },  // Member 9, NAICS Code 9
-                            new IndustryNAICSCode { Id = 50, MemberId = 50, NAICSCodeId = 10 },  // Member 10, NAICS Code 10
-                            new IndustryNAICSCode { Id = 51, MemberId = 51, NAICSCodeId = 11 },  // Member 11, NAICS Code 11
-                            new IndustryNAICSCode { Id = 52, MemberId = 52, NAICSCodeId = 12 },  // Member 12, NAICS Code 12
-                            new IndustryNAICSCode { Id = 53, MemberId = 53, NAICSCodeId = 13 },  // Member 13, NAICS Code 13
-                            new IndustryNAICSCode { Id = 54, MemberId = 54, NAICSCodeId = 14 },  // Member 14, NAICS Code 14
-                            new IndustryNAICSCode { Id = 55, MemberId = 55, NAICSCodeId = 15 },  // Member 15, NAICS Code 15
-                            new IndustryNAICSCode { Id = 56, MemberId = 56, NAICSCodeId = 16 },  // Member 16, NAICS Code 16
-                            new IndustryNAICSCode { Id = 57, MemberId = 57, NAICSCodeId = 17 },  // Member 17, NAICS Code 17
-                            new IndustryNAICSCode { Id = 58, MemberId = 58, NAICSCodeId = 18 },  // Member 18, NAICS Code 18
-                            new IndustryNAICSCode { Id = 59, MemberId = 59, NAICSCodeId = 19 },  // Member 19, NAICS Code 19
-                            new IndustryNAICSCode { Id = 60, MemberId = 60, NAICSCodeId = 1 },  // Member 20, NAICS Code 1
-                            new IndustryNAICSCode { Id = 61, MemberId = 61, NAICSCodeId = 2 },  // Member 21, NAICS Code 2
-                            new IndustryNAICSCode { Id = 62, MemberId = 62, NAICSCodeId = 3 },  // Member 22, NAICS Code 3
-                            new IndustryNAICSCode { Id = 63, MemberId = 63, NAICSCodeId = 4 },  // Member 23, NAICS Code 4
-                            new IndustryNAICSCode { Id = 64, MemberId = 64, NAICSCodeId = 5 },  // Member 24, NAICS Code 5
-                            new IndustryNAICSCode { Id = 65, MemberId = 65, NAICSCodeId = 6 },  // Member 25, NAICS Code 6
-                            new IndustryNAICSCode { Id = 66, MemberId = 66, NAICSCodeId = 7 },  // Member 26, NAICS Code 7
-                            new IndustryNAICSCode { Id = 67, MemberId = 67, NAICSCodeId = 8 },  // Member 27, NAICS Code 8
-                            new IndustryNAICSCode { Id = 68, MemberId = 68, NAICSCodeId = 9 },  // Member 28, NAICS Code 9
-                            new IndustryNAICSCode { Id = 69, MemberId = 69, NAICSCodeId = 10 },  // Member 29, NAICS Code 10
-                            new IndustryNAICSCode { Id = 70, MemberId = 70, NAICSCodeId = 11 },  // Member 30, NAICS Code 11
-                            new IndustryNAICSCode { Id = 71, MemberId = 71, NAICSCodeId = 12 },  // Member 31, NAICS Code 12
-                            new IndustryNAICSCode { Id = 72, MemberId = 72, NAICSCodeId = 13 },  // Member 32, NAICS Code 13
-                            new IndustryNAICSCode { Id = 73, MemberId = 73, NAICSCodeId = 14 },  // Member 33, NAICS Code 14
-                            new IndustryNAICSCode { Id = 74, MemberId = 74, NAICSCodeId = 15 },  // Member 34, NAICS Code 15
-                            new IndustryNAICSCode { Id = 75, MemberId = 75, NAICSCodeId = 16 },  // Member 35, NAICS Code 16
-                            new IndustryNAICSCode { Id = 76, MemberId = 76, NAICSCodeId = 17 },  // Member 36, NAICS Code 17
-                            new IndustryNAICSCode { Id = 77, MemberId = 77, NAICSCodeId = 18 },  // Member 37, NAICS Code 18
-                            new IndustryNAICSCode { Id = 78, MemberId = 78, NAICSCodeId = 19 },  // Member 38, NAICS Code 19
-                            new IndustryNAICSCode { Id = 79, MemberId = 79, NAICSCodeId = 1 },  // Member 39, NAICS Code 1
-                            new IndustryNAICSCode { Id = 80, MemberId = 80, NAICSCodeId = 2 },
-                            new IndustryNAICSCode { Id = 81, MemberId = 81, NAICSCodeId = 2 },  // Member 21, NAICS Code 2
-                            new IndustryNAICSCode { Id = 82, MemberId = 82, NAICSCodeId = 3 },  // Member 22, NAICS Code 3
-                            new IndustryNAICSCode { Id = 83, MemberId = 83, NAICSCodeId = 4 },  // Member 23, NAICS Code 4
-                            new IndustryNAICSCode { Id = 84, MemberId = 84, NAICSCodeId = 5 },  // Member 24, NAICS Code 5
-                            new IndustryNAICSCode { Id = 85, MemberId = 85, NAICSCodeId = 6 },  // Member 25, NAICS Code 6
-                            new IndustryNAICSCode { Id = 86, MemberId = 86, NAICSCodeId = 7 },  // Member 26, NAICS Code 7
-                            new IndustryNAICSCode { Id = 87, MemberId = 87, NAICSCodeId = 8 },  // Member 27, NAICS Code 8
-                            new IndustryNAICSCode { Id = 88, MemberId = 88, NAICSCodeId = 9 },  // Member 28, NAICS Code 9
-                            new IndustryNAICSCode { Id = 89, MemberId = 89, NAICSCodeId = 10 },  // Member 29, NAICS Code 10
-                            new IndustryNAICSCode { Id = 90, MemberId = 90, NAICSCodeId = 11 },  // Member 30, NAICS Code 11
-                            new IndustryNAICSCode { Id = 91, MemberId = 91, NAICSCodeId = 12 },  // Member 31, NAICS Code 12
-                            new IndustryNAICSCode { Id = 92, MemberId = 92, NAICSCodeId = 13 },  // Member 32, NAICS Code 13
-                            new IndustryNAICSCode { Id = 93, MemberId = 93, NAICSCodeId = 14 },  // Member 33, NAICS Code 14
-                            new IndustryNAICSCode { Id = 94, MemberId = 94, NAICSCodeId = 15 },  // Member 34, NAICS Code 15
-                            new IndustryNAICSCode { Id = 95, MemberId = 95, NAICSCodeId = 16 },  // Member 35, NAICS Code 16
-                            new IndustryNAICSCode { Id = 96, MemberId = 96, NAICSCodeId = 17 },  // Member 36, NAICS Code 17
-                            new IndustryNAICSCode { Id = 97, MemberId = 97, NAICSCodeId = 18 },  // Member 37, NAICS Code 18
-                            new IndustryNAICSCode { Id = 98, MemberId = 98, NAICSCodeId = 19 },  // Member 38, NAICS Code 19
-                            new IndustryNAICSCode { Id = 99, MemberId = 99, NAICSCodeId = 1 },  // Member 39, NAICS Code 1
-                            new IndustryNAICSCode { Id = 100, MemberId = 100, NAICSCodeId = 2 }// Member 40, NAICS Code 2
-                        );
+                        var industryNAICSCodes = new List<IndustryNAICSCode>();
 
-                        // Save changes to persist the data
+                        for (int i = 1; i <= 100; i++) // Assuming there are 100 members and NAICS codes
+                        {
+                            industryNAICSCodes.Add(new IndustryNAICSCode
+                            {
+                                Id = i,
+                                MemberId = i,
+                                NAICSCodeId = i
+                            });
+                        }
+
+                        context.IndustryNAICSCodes.AddRange(industryNAICSCodes);
                         context.SaveChanges();
                     }
-
 
                     if (!context.ProductionEmails.Any())
                     {

@@ -55,6 +55,7 @@ namespace NIA_CRM.Models
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
         public ICollection<MemberContact> MemberContacts { get; set; } = new List<MemberContact>();
         public ICollection<ContactCancellation> ContactCancellations { get; set; } = new List<ContactCancellation>();
+
         [Display(Name = "Contact Name")]
         public string Summary
         {

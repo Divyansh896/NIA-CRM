@@ -54,7 +54,7 @@ namespace NIA_CRM.Models
         public ICollection<Address> Addresses { get; set; } = new List<Address>();
         public ICollection<Cancellation> Cancellations { get; set; } = new List<Cancellation>();
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
-        public ICollection<MemberContact> MemberContacts { get; set; } = new HashSet<MemberContact>();
+        public ICollection<MemberContact> MemberContacts { get; set; } = new List<MemberContact>();
         public ICollection<MemberSector> MemberSectors { get; set; } = new List<MemberSector>();
         public ICollection<MemberTag> MemberTags { get; set; } = new List<MemberTag>();
         public ICollection<MemberEvent> MemberEvents { get; set; } = new List<MemberEvent>();
