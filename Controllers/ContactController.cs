@@ -34,7 +34,7 @@ namespace NIA_CRM.Controllers
 
 
 
-            var contacts = _context.Contacts.Include(c => c.Member).AsQueryable();
+            var contacts = _context.Contacts.Include(c => c.MemberContacts).ThenInclude(c => c.Member).AsQueryable();
             if (Departments != null)
             {
                 contacts = contacts.Where(c => c.Department == Departments);
@@ -160,7 +160,7 @@ namespace NIA_CRM.Controllers
                 worksheet.Cells[row, 5].Value = contact.PhoneFormatted;
                 worksheet.Cells[row, 6].Value = contact.LinkedInUrl;
                 worksheet.Cells[row, 7].Value = contact.IsVip ? "Yes" : "No";
-                worksheet.Cells[row, 8].Value = contact.Member?.MemberName;
+                //worksheet.Cells[row, 8].Value = contact.Member?.MemberName;
                 row++;
             }
 
@@ -187,7 +187,7 @@ namespace NIA_CRM.Controllers
             }
 
             var contact = await _context.Contacts
-                .Include(c => c.Member)
+                .Include(c => c.MemberContacts).ThenInclude(c=>c.Member)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contact == null)
             {
@@ -236,7 +236,7 @@ namespace NIA_CRM.Controllers
             {
                 return NotFound();
             }
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
+            //ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.);
             return View(contact);
         }
 
@@ -256,9 +256,13 @@ namespace NIA_CRM.Controllers
             }
 
             // Try update model approach
-            if (await TryUpdateModelAsync<Contact>(ContactToUpdate, "",
-                c => c.FirstName, c => c.MiddleName, c => c.LastName, c => c.Title, c => c.Department,
-                c => c.Email, c => c.Phone, c => c.LinkedInUrl, c => c.IsVip, c => c.MemberId))
+            // Try updating the model with user input
+            if (await TryUpdateModelAsync(
+                ContactToUpdate, // Ensure this is the model instance, not metadata
+                "",
+                c => c.FirstName, c => c.MiddleName, c => c.LastName,
+                c => c.Title, c => c.Department, c => c.Email,
+                c => c.Phone, c => c.LinkedInUrl, c => c.IsVip, c => c.IsArchieved))
             {
                 try
                 {
@@ -298,7 +302,7 @@ namespace NIA_CRM.Controllers
             }
 
             var contact = await _context.Contacts
-                .Include(c => c.Member)
+                .Include(c => c.MemberContacts).ThenInclude(c => c.Member)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contact == null)
             {
@@ -349,7 +353,7 @@ namespace NIA_CRM.Controllers
         {
             // Fetch the contact by id, including related industries through ContactIndustries
             var contact = _context.Contacts
-                .Include(c => c.Member)
+                .Include(c => c.MemberContacts).ThenInclude(c => c.Member)
                 .Where(c => c.Id == id)  // Filter the contact by id
                 .FirstOrDefault();  // Return the first result or null if not found
 

@@ -43,7 +43,7 @@ namespace NIA_CRM.Controllers
             }
             if (cancelled)
             {
-                cancellations = cancellations.Where(c => c.Canceled);
+                cancellations = cancellations.Where(c => c.IsCancelled);
                 numberFilters++;
                 ViewData["cancelledFilter"] = "Applied";
 
@@ -268,7 +268,7 @@ namespace NIA_CRM.Controllers
                 .Include(m => m.MemberThumbnail)
                 .Include(m => m.MemberMembershipTypes)
                 .ThenInclude(mm => mm.MembershipType)
-                .Include(m => m.Contacts)
+                .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                 .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
                 .FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
 

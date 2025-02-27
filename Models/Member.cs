@@ -4,18 +4,19 @@ namespace NIA_CRM.Models
 {
     public class Member
     {
-        public string? TimeSinceJoined
+        public string TimeSinceJoined
         {
             get
             {
-                if (JoinDate == null) { return null; }
                 DateTime today = DateTime.Today;
-                int? years = today.Year - JoinDate?.Year
-                    - ((today.Month < JoinDate?.Month ||
-                        (today.Month == JoinDate?.Month && today.Day < JoinDate?.Day) ? 1 : 0));
-                return years?.ToString() + " year(s) ago";
+                int years = today.Year - JoinDate.Year
+                    - ((today.Month < JoinDate.Month ||
+                        (today.Month == JoinDate.Month && today.Day < JoinDate.Day)) ? 1 : 0);
+
+                return years.ToString() + " year(s) ago";
             }
         }
+
 
         [Key]
         public int ID { get; set; }
@@ -35,8 +36,16 @@ namespace NIA_CRM.Models
         [Display(Name = "Join Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime? JoinDate { get; set; }
+        public DateTime JoinDate { get; set; } = DateTime.Now;
 
+        [Display(Name = "Member Note")]
+        public string? MemberNote { get; set; }
+
+        [Display(Name = "VIP")]
+        public bool IsVIP { get; set; }
+
+        [Display(Name = "Paid")]
+        public bool IsPaid { get; set; }
         public MemberLogo? MemberLogo { get; set; }
         public MemberThumbnail? MemberThumbnail { get; set; }
 
@@ -44,14 +53,10 @@ namespace NIA_CRM.Models
         public ICollection<IndustryNAICSCode> IndustryNAICSCodes { get; set; } = new List<IndustryNAICSCode>();
         public ICollection<Address> Addresses { get; set; } = new List<Address>();
         public ICollection<Cancellation> Cancellations { get; set; } = new List<Cancellation>();
-        public ICollection<MemberNote> MemberNotes { get; set; } = new List<MemberNote>();
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
-        public ICollection<Contact> Contacts { get; set; } = new HashSet<Contact>();
-        public ICollection<Opportunity> Opportunities { get; set; } = new List<Opportunity>();
-
-        
-        public bool IsVIP { get; set; }
-
-
+        public ICollection<MemberContact> MemberContacts { get; set; } = new List<MemberContact>();
+        public ICollection<MemberSector> MemberSectors { get; set; } = new List<MemberSector>();
+        public ICollection<MemberTag> MemberTags { get; set; } = new List<MemberTag>();
+        public ICollection<MemberEvent> MemberEvents { get; set; } = new List<MemberEvent>();
     }
 }

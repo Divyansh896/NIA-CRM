@@ -12,6 +12,46 @@ namespace NIA_CRM.Data.NIACRMigration
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AnnualAction",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Note = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Asignee = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    AnnualStatus = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnnualAction", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Contacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    MiddleName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
+                    Department = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
+                    LinkedInUrl = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    ContactNote = table.Column<string>(type: "TEXT", nullable: true),
+                    IsVip = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsArchieved = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Members",
                 columns: table => new
                 {
@@ -21,7 +61,9 @@ namespace NIA_CRM.Data.NIACRMigration
                     MemberSize = table.Column<int>(type: "INTEGER", nullable: false),
                     WebsiteUrl = table.Column<string>(type: "TEXT", nullable: true),
                     JoinDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IsVIP = table.Column<bool>(type: "INTEGER", nullable: false)
+                    MemberNote = table.Column<string>(type: "TEXT", nullable: true),
+                    IsVIP = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsPaid = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,18 +85,67 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
+                name: "MEvents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    EventName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    EventDescription = table.Column<string>(type: "TEXT", nullable: true),
+                    EventLocation = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    EventDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MEvents", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MTag",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    MTagName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    MTagDescription = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MTag", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NAICSCodes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Label = table.Column<string>(type: "TEXT", nullable: true),
                     Code = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NAICSCodes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Opportunities",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OpportunityName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    OpportunityAction = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    POC = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    Account = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    Interaction = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    LastContact = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    OpportunityStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    OpportunityPriority = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Opportunities", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,6 +169,81 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sector",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    SectorName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    SectorDescription = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sector", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Strategys",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    StrategyName = table.Column<string>(type: "TEXT", nullable: false),
+                    StrategyAssignee = table.Column<string>(type: "TEXT", nullable: true),
+                    StrategyNote = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    StrategyTerm = table.Column<int>(type: "INTEGER", nullable: false),
+                    StrategyStatus = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Strategys", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WidgetLayouts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    WidgetId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PositionX = table.Column<int>(type: "INTEGER", nullable: false),
+                    PositionY = table.Column<int>(type: "INTEGER", nullable: false),
+                    Width = table.Column<int>(type: "INTEGER", nullable: false),
+                    Height = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsOnDashboard = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WidgetLayouts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContactCancellations",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CancellationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CancellationNote = table.Column<string>(type: "TEXT", nullable: true),
+                    IsCancelled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ContactID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContactCancellations", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_ContactCancellations_Contacts_ContactID",
+                        column: x => x.ContactID,
+                        principalTable: "Contacts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Addresses",
                 columns: table => new
                 {
@@ -87,9 +253,8 @@ namespace NIA_CRM.Data.NIACRMigration
                     AddressLine1 = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     AddressLine2 = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     City = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    StateProvince = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    PostalCode = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
-                    Country = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
+                    StateProvince = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    PostalCode = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,8 +274,8 @@ namespace NIA_CRM.Data.NIACRMigration
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CancellationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Canceled = table.Column<bool>(type: "INTEGER", nullable: false),
                     CancellationNote = table.Column<string>(type: "TEXT", nullable: true),
+                    IsCancelled = table.Column<bool>(type: "INTEGER", nullable: false),
                     MemberID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -125,31 +290,28 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "Contacts",
+                name: "MemberContacts",
                 columns: table => new
                 {
+                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ContactId = table.Column<int>(type: "INTEGER", nullable: false),
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    MiddleName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Title = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
-                    Department = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    Phone = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
-                    LinkedInUrl = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    IsVip = table.Column<bool>(type: "INTEGER", nullable: false),
-                    MemberId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                    table.PrimaryKey("PK_MemberContacts", x => new { x.MemberId, x.ContactId });
                     table.ForeignKey(
-                        name: "FK_Contacts_Members_MemberId",
+                        name: "FK_MemberContacts_Contacts_ContactId",
+                        column: x => x.ContactId,
+                        principalTable: "Contacts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MemberContacts_Members_MemberId",
                         column: x => x.MemberId,
                         principalTable: "Members",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,27 +336,6 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "MemberNotes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Note = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MemberNotes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MemberNotes_Members_MemberId",
-                        column: x => x.MemberId,
-                        principalTable: "Members",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "MemebrThumbnails",
                 columns: table => new
                 {
@@ -213,28 +354,6 @@ namespace NIA_CRM.Data.NIACRMigration
                         principalTable: "Members",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Opportunities",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OpportunityName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    OpportunityDescr = table.Column<string>(type: "TEXT", nullable: true),
-                    OpportunityStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    MemberId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Opportunities", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Opportunities_Members_MemberId",
-                        column: x => x.MemberId,
-                        principalTable: "Members",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -263,6 +382,56 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
+                name: "MemberEvents",
+                columns: table => new
+                {
+                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
+                    MEventID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MemberEvents", x => new { x.MemberId, x.MEventID });
+                    table.ForeignKey(
+                        name: "FK_MemberEvents_MEvents_MEventID",
+                        column: x => x.MEventID,
+                        principalTable: "MEvents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MemberEvents_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MemberTags",
+                columns: table => new
+                {
+                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
+                    MTagID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MemberTags", x => new { x.MemberId, x.MTagID });
+                    table.ForeignKey(
+                        name: "FK_MemberTags_MTag_MTagID",
+                        column: x => x.MTagID,
+                        principalTable: "MTag",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MemberTags_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "IndustryNAICSCodes",
                 columns: table => new
                 {
@@ -285,27 +454,6 @@ namespace NIA_CRM.Data.NIACRMigration
                         principalTable: "NAICSCodes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ContactNotes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ContactId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Note = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContactNotes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ContactNotes_Contacts_ContactId",
-                        column: x => x.ContactId,
-                        principalTable: "Contacts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -341,8 +489,32 @@ namespace NIA_CRM.Data.NIACRMigration
                         name: "FK_Interactions_Opportunities_OpportunityId",
                         column: x => x.OpportunityId,
                         principalTable: "Opportunities",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MemberSectors",
+                columns: table => new
+                {
+                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SectorId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MemberSectors", x => new { x.MemberId, x.SectorId });
+                    table.ForeignKey(
+                        name: "FK_MemberSectors_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MemberSectors_Sector_SectorId",
+                        column: x => x.SectorId,
+                        principalTable: "Sector",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -356,14 +528,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "MemberID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContactNotes_ContactId",
-                table: "ContactNotes",
-                column: "ContactId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contacts_MemberId",
-                table: "Contacts",
-                column: "MemberId");
+                name: "IX_ContactCancellations_ContactID",
+                table: "ContactCancellations",
+                column: "ContactID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustryNAICSCodes_NAICSCodeId",
@@ -386,6 +553,16 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "OpportunityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MemberContacts_ContactId",
+                table: "MemberContacts",
+                column: "ContactId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MemberEvents_MEventID",
+                table: "MemberEvents",
+                column: "MEventID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MemberLogos_MemberID",
                 table: "MemberLogos",
                 column: "MemberID",
@@ -397,20 +574,20 @@ namespace NIA_CRM.Data.NIACRMigration
                 column: "MembershipTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MemberNotes_MemberId",
-                table: "MemberNotes",
-                column: "MemberId");
+                name: "IX_MemberSectors_SectorId",
+                table: "MemberSectors",
+                column: "SectorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MemberTags_MTagID",
+                table: "MemberTags",
+                column: "MTagID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MemebrThumbnails_MemberID",
                 table: "MemebrThumbnails",
                 column: "MemberID",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Opportunities_MemberId",
-                table: "Opportunities",
-                column: "MemberId");
         }
 
         /// <inheritdoc />
@@ -420,10 +597,13 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "Addresses");
 
             migrationBuilder.DropTable(
+                name: "AnnualAction");
+
+            migrationBuilder.DropTable(
                 name: "Cancellations");
 
             migrationBuilder.DropTable(
-                name: "ContactNotes");
+                name: "ContactCancellations");
 
             migrationBuilder.DropTable(
                 name: "IndustryNAICSCodes");
@@ -432,13 +612,22 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "Interactions");
 
             migrationBuilder.DropTable(
+                name: "MemberContacts");
+
+            migrationBuilder.DropTable(
+                name: "MemberEvents");
+
+            migrationBuilder.DropTable(
                 name: "MemberLogos");
 
             migrationBuilder.DropTable(
                 name: "MemberMembershipTypes");
 
             migrationBuilder.DropTable(
-                name: "MemberNotes");
+                name: "MemberSectors");
+
+            migrationBuilder.DropTable(
+                name: "MemberTags");
 
             migrationBuilder.DropTable(
                 name: "MemebrThumbnails");
@@ -447,16 +636,31 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "ProductionEmails");
 
             migrationBuilder.DropTable(
-                name: "NAICSCodes");
+                name: "Strategys");
 
             migrationBuilder.DropTable(
-                name: "Contacts");
+                name: "WidgetLayouts");
+
+            migrationBuilder.DropTable(
+                name: "NAICSCodes");
 
             migrationBuilder.DropTable(
                 name: "Opportunities");
 
             migrationBuilder.DropTable(
+                name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "MEvents");
+
+            migrationBuilder.DropTable(
                 name: "MembershipTypes");
+
+            migrationBuilder.DropTable(
+                name: "Sector");
+
+            migrationBuilder.DropTable(
+                name: "MTag");
 
             migrationBuilder.DropTable(
                 name: "Members");

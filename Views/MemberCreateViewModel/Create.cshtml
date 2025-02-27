@@ -64,9 +64,9 @@
                             <span asp-validation-for="Member.WebsiteUrl" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="MemberNote.Note" class="control-label"></label>
-                            <textarea asp-for="MemberNote.Note" class="form-control"></textarea>
-                            <span asp-validation-for="MemberNote.Note" class="text-danger"></span>
+                            <label asp-for="Member.MemberNote" class="control-label"></label>
+                            <textarea asp-for="Member.MemberNote" class="form-control"></textarea>
+                            <span asp-validation-for="Member.MemberNote" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -97,11 +97,6 @@
                             <input asp-for="Address.PostalCode" class="form-control" />
                             <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="Address.Country" class="control-label"></label>
-                            <input asp-for="Address.Country" class="form-control" />
-                            <span asp-validation-for="Address.Country" class="text-danger"></span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -113,73 +108,78 @@
                     <div class="row">
                         <!-- Column 1 -->
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="Contact.FirstName" class="control-label"></label>
-                                <input asp-for="Contact.FirstName" class="form-control" />
-                                <span asp-validation-for="Contact.FirstName" class="text-danger"></span>
-                            </div>
+                            @foreach (var memberContact in Model.MemberContacts)
+                            {
+                                <div class="form-group">
+                                    <label asp-for="@Model.MemberContacts[0].Contact.FirstName" class="control-label"></label>
+                                    <input asp-for="@Model.MemberContacts[0].Contact.FirstName" class="form-control" />
+                                    <span asp-validation-for="@Model.MemberContacts[0].Contact.FirstName" class="text-danger"></span>
+                                </div>
 
-                            <div class="form-group">
-                                <label asp-for="Contact.MiddleName" class="control-label"></label>
-                                <input asp-for="Contact.MiddleName" class="form-control" />
-                                <span asp-validation-for="Contact.MiddleName" class="text-danger"></span>
-                            </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.MemberContacts[0].Contact.MiddleName" class="control-label"></label>
+                                    <input asp-for="@Model.MemberContacts[0].Contact.MiddleName" class="form-control" />
+                                    <span asp-validation-for="@Model.MemberContacts[0].Contact.MiddleName" class="text-danger"></span>
+                                </div>
 
-                            <div class="form-group">
-                                <label asp-for="Contact.LastName" class="control-label"></label>
-                                <input asp-for="Contact.LastName" class="form-control" />
-                                <span asp-validation-for="Contact.LastName" class="text-danger"></span>
-                            </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.MemberContacts[0].Contact.LastName" class="control-label"></label>
+                                    <input asp-for="@Model.MemberContacts[0].Contact.LastName" class="form-control" />
+                                    <span asp-validation-for="@Model.MemberContacts[0].Contact.LastName" class="text-danger"></span>
+                                </div>
+                            }
                         </div>
 
                         <!-- Column 2 -->
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="Contact.Email" class="control-label"></label>
-                                <input asp-for="Contact.Email" class="form-control" />
-                                <span asp-validation-for="Contact.Email" class="text-danger"></span>
-                            </div>
+                            @foreach (var memberContact in Model.MemberContacts)
+                            {
+                                <div class="form-group">
+                                    <label asp-for="@Model.MemberContacts[0].Contact.Email" class="control-label"></label>
+                                    <input asp-for="@Model.MemberContacts[0].Contact.Email" class="form-control" />
+                                    <span asp-validation-for="@Model.MemberContacts[0].Contact.Email" class="text-danger"></span>
+                                </div>
 
-                            <div class="form-group">
-                                <label asp-for="Contact.Phone" class="control-label"></label>
-                                <input asp-for="Contact.Phone" class="form-control" />
-                                <span asp-validation-for="Contact.Phone" class="text-danger"></span>
-                            </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.MemberContacts[0].Contact.Phone" class="control-label"></label>
+                                    <input asp-for="@Model.MemberContacts[0].Contact.Phone" class="form-control" />
+                                    <span asp-validation-for="@Model.MemberContacts[0].Contact.Phone" class="text-danger"></span>
+                                </div>
 
-                            <div class="form-group">
-                                <label asp-for="Contact.LinkedInUrl" class="control-label"></label>
-                                <input asp-for="Contact.LinkedInUrl" class="form-control" />
-                                <span asp-validation-for="Contact.LinkedInUrl" class="text-danger"></span>
-                            </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.MemberContacts[0].Contact.LinkedInUrl" class="control-label"></label>
+                                    <input asp-for="@Model.MemberContacts[0].Contact.LinkedInUrl" class="form-control" />
+                                    <span asp-validation-for="@Model.MemberContacts[0].Contact.LinkedInUrl" class="text-danger"></span>
+                                </div>
+                            }
                         </div>
 
                         <!-- Column 3 -->
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="Contact.Department" class="control-label"></label>
-                                <input asp-for="Contact.Department" class="form-control" />
-                                <span asp-validation-for="Contact.Department" class="text-danger"></span>
-                            </div>
+                            @foreach (var memberContact in Model.MemberContacts)
+                            {
+                                <div class="form-group">
+                                    <label asp-for="@Model.MemberContacts[0].Contact.Department" class="control-label"></label>
+                                    <input asp-for="@Model.MemberContacts[0].Contact.Department" class="form-control" />
+                                    <span asp-validation-for="@Model.MemberContacts[0].Contact.Department" class="text-danger"></span>
+                                </div>
 
-                            <div class="form-group">
-                                <label asp-for="Contact.IsVip" class="control-label"></label>
-                                <input class="form-check-input" asp-for="Contact.IsVip" />
-                                <span asp-validation-for="Contact.IsVip" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="ContactNote.CreatedAt" class="control-label"></label>
-                                <input asp-for="ContactNote.CreatedAt" class="form-control" />
-                                <span asp-validation-for="ContactNote.CreatedAt" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="ContactNote.Note" class="control-label"></label>
-                                <textarea asp-for="ContactNote.Note" class="form-control"></textarea>
-                                <span asp-validation-for="ContactNote.Note" class="text-danger"></span>
-                            </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.MemberContacts[0].Contact.IsVip" class="control-label"></label>
+                                    <input class="form-check-input" asp-for="@Model.MemberContacts[0].Contact.IsVip" />
+                                    <span asp-validation-for="@Model.MemberContacts[0].Contact.IsVip" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.MemberContacts[0].Contact.ContactNote" class="control-label"></label>
+                                    <textarea asp-for="@Model.MemberContacts[0].Contact.ContactNote" class="form-control"></textarea>
+                                    <span asp-validation-for="@Model.MemberContacts[0].Contact.ContactNote" class="text-danger"></span>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- Submit Button -->
             <div class="position-bottom-left">
                 <a class="btn btn-dark me-2" asp-controller="Member" asp-action="Index">Cancel</a>

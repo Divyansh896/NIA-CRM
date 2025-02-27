@@ -207,12 +207,16 @@
 
 
                     <td>
-                        @if (item.Contacts != null && item.Contacts.Any())
+                        @if (item.MemberContacts != null && item.MemberContacts.Any())
                         {
-                            foreach (var contact in item.Contacts)
+                            foreach (var memberContact in item.MemberContacts)
                             {
-                                @($"{contact.Phone} | {contact.Email}")
-                                <br />
+                                var contact = memberContact.Contact; // Get the actual Contact object
+                                if (contact != null)
+                                {
+                                    @($"{contact.Phone} | {contact.Email}")
+                                    <br />
+                                }
                             }
                         }
                         else
@@ -220,6 +224,7 @@
                             <span class="text-muted">No Contacts Available</span>
                         }
                     </td>
+
                     <td>
                         @if (item.IsVIP)
                         {

@@ -114,7 +114,7 @@
                 
 
                 <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.CancellationDate)</th>
-                <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Canceled)</th>
+                <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.IsCancelled)</th>
                 <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.CancellationNote)</th>
             </tr>
         </thead>
@@ -125,7 +125,7 @@
                     <td>@Html.DisplayFor(modelItem => item.Member.MemberName)</td>
 
                     <td>@Html.DisplayFor(modelItem => item.CancellationDate)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Canceled)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IsCancelled)</td>
                     <td>@Html.DisplayFor(modelItem => item.CancellationNote)</td>
                 </tr>
             }

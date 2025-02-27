@@ -11,14 +11,29 @@ namespace NIA_CRM.Models
         [StringLength(255, ErrorMessage = "Opportunity name cannot be more than 255 characters long.")]
         public string OpportunityName { get; set; } = "";
 
-        [Display(Name = "Opportunity Description")]
-        public string? OpportunityDescr { get; set; }
+        [Display(Name = "Action Item/Next Steps")]
+        [Required(ErrorMessage = "You cannot leave the opportunity Action Item/Next Steps blank.")]
+        [StringLength(255, ErrorMessage = "Opportunity Action Item/Next Steps cannot be more than 255 characters long.")]
+        public string OpportunityAction { get; set; } = "";
+
+        [StringLength(255, ErrorMessage = "POC cannot be more than 255 characters long.")]
+        public string? POC { get; set; }
+
+        [StringLength(255, ErrorMessage = "Account cannot be more than 255 characters long.")]
+        public string? Account { get; set; }
+
+        [StringLength(255, ErrorMessage = "Interaction cannot be more than 255 characters long.")]
+        public string? Interaction { get; set; }
+
+        [Display(Name = "Last Contact")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? LastContact { get; set; }
 
         [Required(ErrorMessage = "You must select the opportunity status.")]
         public OpportunityStatus OpportunityStatus { get; set; }
-        public int MemberId { get; set; }
 
-        public Member Member { get; set; }
-        public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
+        [Required(ErrorMessage = "You must select the opportunity priority.")]
+        public OpportunityStatus OpportunityPriority { get; set; }
     }
 }

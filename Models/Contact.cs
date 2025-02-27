@@ -11,16 +11,19 @@ namespace NIA_CRM.Models
         [Key]
         public int Id { get; set; }
 
+        [Display(Name = "First Name")]
         [Required(ErrorMessage = "First Name is required.")]
         [StringLength(50, ErrorMessage = "First Name cannot be longer than 50 characters.")]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = "";
 
+        [Display(Name = "Middle Name")]
         [StringLength(50, ErrorMessage = "Middle Name cannot be longer than 50 characters.")]
         public string? MiddleName { get; set; }
 
+        [Display(Name = "Last Name")]
         [Required(ErrorMessage = "Last Name is required.")]
         [StringLength(50, ErrorMessage = "Last Name cannot be longer than 50 characters.")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = "";
 
         [StringLength(10, ErrorMessage = "Title cannot be longer than 10 characters.")]
         public string? Title { get; set; }
@@ -40,16 +43,18 @@ namespace NIA_CRM.Models
         [StringLength(200, ErrorMessage = "LinkedIn URL cannot be longer than 200 characters.")]
         public string? LinkedInUrl { get; set; }
 
+        [Display(Name = "Contact Note")]
+        public string? ContactNote { get; set; }
+
+        [Display(Name = "VIP")]
         public bool IsVip { get; set; } = false;
-        
-        public ICollection<ContactNote> ContactNotes { get; set; } = new List<ContactNote>();
+
+        [Display(Name = "Archieved")]
+        public bool IsArchieved { get; set; } = false;
+
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
-
-        public int MemberId { get; set; }  // Foreign key to Member
-        public Member? Member { get; set; } // Navigation property to Member
-
-      
-        
+        public ICollection<MemberContact> MemberContacts { get; set; } = new List<MemberContact>();
+        public ICollection<ContactCancellation> ContactCancellations { get; set; } = new List<ContactCancellation>();
 
         [Display(Name = "Contact Name")]
         public string Summary

@@ -58,12 +58,6 @@
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="MemberId" class="control-label"></label>
-                @Html.DropDownList("Members", null, "All Members", htmlAttributes: new { @class = "form-control" })
-
-                @* <select asp-for="MemberId" class ="form-control" asp-items="ViewBag.MemberId"></select> *@
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

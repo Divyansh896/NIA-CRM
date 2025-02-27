@@ -2,7 +2,7 @@
 
 namespace NIA_CRM.Models
 {
-    public class Cancellation
+    public class ContactCancellation
     {
         [Display(Name = "Time Since Cancellation")]
         public string? TimeSinceCancelled
@@ -29,7 +29,7 @@ namespace NIA_CRM.Models
         [Display(Name = "Cancelled")]
         public bool IsCancelled { get; set; }
 
-        public int MemberID { get; set; }
-        public Member? Member { get; set; }
+        public int ContactID { get; set; }
+        public Contact Contact { get; set; }
     }
 }

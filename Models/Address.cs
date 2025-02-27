@@ -15,8 +15,7 @@ public class Address
                 AddressLine2,
                 City,
                 StateProvince,
-                PostalCode,
-                Country
+                PostalCode
             }.Where(p => !string.IsNullOrWhiteSpace(p));
 
             return string.Join(", ", parts);
@@ -35,7 +34,7 @@ public class Address
     [Required(ErrorMessage = "Address Line 1 is required.")]
     [MaxLength(255, ErrorMessage = "Address Line 1 cannot exceed 255 characters.")]
     [Display(Name = "Address Line 1")]
-    public string AddressLine1 { get; set; }
+    public string AddressLine1 { get; set; } = "";
 
     [MaxLength(255, ErrorMessage = "Address Line 2 cannot exceed 255 characters.")]
     [Display(Name = "Address Line 2")]
@@ -44,20 +43,16 @@ public class Address
     [Required(ErrorMessage = "City is required.")]
     [MaxLength(100, ErrorMessage = "City cannot exceed 100 characters.")]
     [Display(Name = "City")]
-    public string City { get; set; }
+    public string City { get; set; } = "";
 
+    [Required(ErrorMessage = "State/Province is required.")]
     [MaxLength(100, ErrorMessage = "State/Province cannot exceed 100 characters.")]
     [Display(Name = "State/Province")]
-    public string? StateProvince { get; set; }
+    public string StateProvince { get; set; } = "";
 
     [MaxLength(20, ErrorMessage = "Postal Code cannot exceed 20 characters.")]
     [Display(Name = "Postal Code")]
     public string? PostalCode { get; set; }
-
-    [Required(ErrorMessage = "Country is required.")]
-    [MaxLength(100, ErrorMessage = "Country cannot exceed 100 characters.")]
-    [Display(Name = "Country")]
-    public string Country { get; set; }
 
     // Navigation Property
     [Display(Name = "Member")]

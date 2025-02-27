@@ -144,7 +144,7 @@
                     <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Phone)</th>
                     <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
                     <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.IsVip)</th>
-                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Member)</th>
+                    <th scope="col" class="table-head">Member</th>
 
                 </tr>
             </thead>
@@ -157,13 +157,13 @@
                         <td>@Html.DisplayFor(modelItem => item.Department)</td>
                         <td>@Html.DisplayFor(modelItem => item.Email)</td>
                         <td>
-                            <a href="tel:(905) 325-5148" id="phoneNumber">(905) 325-5148</a>
+                            <a href="tel:@item.PhoneFormatted" id="phoneNumber">@item.PhoneFormatted</a>
                         </td>
                         <td>
                             <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.IsVip)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Member.MemberName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MemberContacts.FirstOrDefault().Member.MemberName)</td>
 
                     </tr>
                 }
@@ -187,7 +187,7 @@
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="~/js/PhoneNumber.js"></script>
     <script>
               $(document).ready(function () {
             // Initially hide the preview content
