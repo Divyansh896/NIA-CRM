@@ -3576,6 +3576,7 @@ namespace NIA_CRM.Data
                         {
                             memberTags.Add(new MemberTag
                             {
+                                Id = i,
                                 MemberId = random.Next(1, maxMembers + 1), // Randomly assign to existing members
                                 MTagID = random.Next(1, 26) // Assign random tag from 1 to 25
                             });
@@ -3630,6 +3631,7 @@ namespace NIA_CRM.Data
                         {
                             memberSectors.Add(new MemberSector
                             {
+                                Id = i,
                                 MemberId = random.Next(1, maxMembers + 1), // Randomly assign to existing members
                                 SectorId = random.Next(1, 26) // Assign random sector from 1 to 25
                             });
