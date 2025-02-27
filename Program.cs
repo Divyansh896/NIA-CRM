@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
+using NIA_CRM.ViewModels;
+using static NIA_CRM.Utilities.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +24,16 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+//For email service configuration
+//builder.Services.AddSingleton<IEmailConfiguration>(builder.Configuration
+//    .GetSection("EmailConfiguration").Get<EmailConfiguration>());
+//For the Identity System
+//builder.Services.AddTransient<IEmailSender, EmailSender>();
+////Email with methods for production use.
+//builder.Services.AddTransient<IMyEmailSender, MyEmailSender>();
+
+builder.Services.AddTransient<EmailService>();
+
 
 //To give access to IHttpContextAccessor for Audit Data with IAuditable
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

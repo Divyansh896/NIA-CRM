@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 using NIA_CRM.ViewModels;
 
 namespace NIA_CRM.Controllers
@@ -12,10 +13,14 @@ namespace NIA_CRM.Controllers
     public class MemberCreateViewModelController : ElephantController
     {
         private readonly NIACRMContext _context;
+        private readonly EmailService _emailService;
 
-        public MemberCreateViewModelController(NIACRMContext context)
+
+        public MemberCreateViewModelController(NIACRMContext context, EmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
+
         }
 
         // GET: MemberCreateViewModel
@@ -227,7 +232,16 @@ namespace NIA_CRM.Controllers
         }
 
 
-
+        [HttpGet]
+        public IActionResult SendEmail() { return View(); }
+        //Email sender
+        [HttpPost]
+        public async Task<IActionResult> SendEmail(string recipient, string subject, string message)
+        {
+            await _emailService.SendEmailAsync(recipient, subject, message);
+            ViewBag.Message = "Email Sent Successfully!";
+            return View("SendEmail"); // Redirect to home page
+        }
 
 
         // POST: MemberCreateViewModel/Edit/5
@@ -476,4 +490,5 @@ namespace NIA_CRM.Controllers
         }
 
     }
+
 }
