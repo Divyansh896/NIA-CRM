@@ -58,12 +58,7 @@
                             <span class="text-white ms-2">Contacts</span>
                         </a>
                     </li>
-                    <li class="nav-item" role="menuitem">
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "MemberNote")" aria-label="View Notes for members" title="Notes">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-sticky-note"></i></span>
-                            <span class="text-white ms-2">Member Notes</span>
-                        </a>
-                    </li>
+                    
                     <li class="nav-item" role="menuitem">
                         <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")" aria-label="Manage Archivings" title="Archivings">
                             <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
@@ -71,17 +66,44 @@
                         </a>
                     </li>
                     <li class="nav-item" role="menuitem">
+
                         <a class="nav-link text-dark" href="@Url.Action("SendEmail", "MemberCreateViewModel")" aria-label="Sending Emails" title="Sending Emails">
                             <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
                             <span class="text-white ms-2">Send Email</span>
                         </a>
                     </li>
-                    @* <li class="nav-item" role="menuitem"> *@
-                    @*     <a class="nav-link text-dark" href="@Url.Action("Index", "NAICSCode")" aria-label="Show NIACS Codes" title="NIACS Codes"> *@
-                    @*         <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span> *@
-                    @*         <span class="text-black ms-2">NIACS Codes</span> *@
-                    @*     </a> *@
-                    @* </li> *@
+                    <li>
+                        <a class="nav-link text-dark" href="@Url.Action("Index", "Opportunity")" aria-label="Manage Opportunities" title="Opportunities">
+                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
+                            <span class="text-white ms-2">Opportunities</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="menuitem">
+                        <a class="nav-link text-dark" href="@Url.Action("Index", "MEvent")" aria-label="Manage Events" title="Events">
+                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
+                            <span class="text-white ms-2">Events</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="menuitem">
+                        <a class="nav-link text-dark" href="@Url.Action("Index", "ContactCancellation")" aria-label="Manage Contact Cancellation" title="Contact Cancellations">
+                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
+                            <span class="text-white ms-2">Contact Cancellation</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="menuitem">
+                        <a class="nav-link text-dark" href="@Url.Action("Index", "AnnualAction")" aria-label="Manage Annual Actions" title="Annual Actions">
+                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
+                            <span class="text-white ms-2">Annual Actions</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="menuitem">
+                        <a class="nav-link text-dark" href="@Url.Action("Index", "Stratergy")" aria-label="Manage Stratergy" title="Stratergies">
+                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
+                            <span class="text-white ms-2">Stratergy</span>
+                        </a>
+                    </li>
+                    
+>>>>>>> origin/master
                 </ul>
                 <!--<partial name="_LoginPartial" />-->
             </div>

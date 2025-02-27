@@ -16,13 +16,13 @@ namespace NIA_CRM.Controllers
     public class ProductionEmailController : LookupsController
     {
         //for sending email
-        private readonly IMyEmailSender _emailSender;
+        //private readonly IMyEmailSender _emailSender;
         private readonly NIACRMContext _context;
 
-        public ProductionEmailController(NIACRMContext context, IMyEmailSender emailSender)
+        public ProductionEmailController(NIACRMContext context/*, IMyEmailSender emailSender*/)
         {
             _context = context;
-            _emailSender = emailSender;
+            //_emailSender = emailSender;
         }
 
         // GET: ProductionEmail
@@ -274,64 +274,64 @@ namespace NIA_CRM.Controllers
         }
 
         // GET/POST: MedicalTrial/Notification/5
-        public async Task<IActionResult> Notification(int? id, string Subject, string emailContent)
-        {
-            if (id == null)
-                return NotFound();
+        //public async Task<IActionResult> Notification(int? id, string Subject, string emailContent)
+        //{
+        //    if (id == null)
+        //        return NotFound();
 
-            ProductionEmail? t = await _context.ProductionEmails.FindAsync(id);
-            ViewData["id"] = id;
-            ViewData["EmailType"] = t?.EmailType;
+        //    ProductionEmail? t = await _context.ProductionEmails.FindAsync(id);
+        //    ViewData["id"] = id;
+        //    ViewData["EmailType"] = t?.EmailType;
 
-            if (string.IsNullOrEmpty(Subject) || string.IsNullOrEmpty(emailContent))
-            {
-                ViewData["Message"] = "Enter both a Subject and Content before sending.";
-            }
-            else
-            {
-                int recipientCount = 0;
-                try
-                {
-                    List<EmailAddress> recipients = _context.Members
-                        .Include(m => m.Contacts)
-                        .Include(m => m.Cancellations)
-                        .Where(m => !m.Cancellations.Any(c => c.Canceled)) // Select members without active cancellations
-                        .Select(m => new EmailAddress
-                        {
-                            Name = m.MemberName,
-                            Address = m.Contacts.FirstOrDefault(c => !string.IsNullOrEmpty(c.Email))!.Email
-                        })
-                        .Where(e => !string.IsNullOrEmpty(e.Address)) // Only include valid emails
-                        .ToList();
+        //    if (string.IsNullOrEmpty(Subject) || string.IsNullOrEmpty(emailContent))
+        //    {
+        //        ViewData["Message"] = "Enter both a Subject and Content before sending.";
+        //    }
+        //    else
+        //    {
+        //        int recipientCount = 0;
+        //        try
+        //        {
+        //            List<EmailAddress> recipients = _context.Members
+        //                .Include(m => m.Contacts)
+        //                .Include(m => m.Cancellations)
+        //                .Where(m => !m.Cancellations.Any(c => c.Canceled)) // Select members without active cancellations
+        //                .Select(m => new EmailAddress
+        //                {
+        //                    Name = m.MemberName,
+        //                    Address = m.Contacts.FirstOrDefault(c => !string.IsNullOrEmpty(c.Email))!.Email
+        //                })
+        //                .Where(e => !string.IsNullOrEmpty(e.Address)) // Only include valid emails
+        //                .ToList();
 
-                    recipientCount = recipients.Count;
+        //            recipientCount = recipients.Count;
 
-                    if (recipientCount > 0)
-                    {
-                        var emailTemplate = await _context.ProductionEmails
-                                                          .Where(e => e.EmailType == "Reminder")
-                                                          .Select(e => new { e.Subject, e.Body })
-                                                          .FirstOrDefaultAsync();
+        //            if (recipientCount > 0)
+        //            {
+        //                var emailTemplate = await _context.ProductionEmails
+        //                                                  .Where(e => e.EmailType == "Reminder")
+        //                                                  .Select(e => new { e.Subject, e.Body })
+        //                                                  .FirstOrDefaultAsync();
 
-                        if (emailTemplate != null)
-                        {
-                            await _emailSender.SendToManyAsync(new EmailMessage
-                            {
-                                ToAddresses = recipients,
-                                Subject = emailTemplate.Subject,
-                                Content = $"<p>{emailTemplate.Body}</p><p>Please visit the Niagara College website.</p>"
-                            });
-                            ViewData["Message"] = $"Message sent to {recipientCount} recipient(s).";
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    ViewData["Message"] = $"Error sending email.";
-                }
-            }
-            return View();
-        }
+        //                if (emailTemplate != null)
+        //                {
+        //                    await _emailSender.SendToManyAsync(new EmailMessage
+        //                    {
+        //                        ToAddresses = recipients,
+        //                        Subject = emailTemplate.Subject,
+        //                        Content = $"<p>{emailTemplate.Body}</p><p>Please visit the Niagara College website.</p>"
+        //                    });
+        //                    ViewData["Message"] = $"Message sent to {recipientCount} recipient(s).";
+        //                }
+        //            }
+        //        }
+        //        catch (Exception)
+        //        {
+        //            ViewData["Message"] = $"Error sending email.";
+        //        }
+        //    }
+        //    return View();
+        //}
         private bool ProductionEmailExists(int id)
         {
             return _context.ProductionEmails.Any(e => e.Id == id);
