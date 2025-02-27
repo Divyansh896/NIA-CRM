@@ -20,7 +20,6 @@
     };
 
     // Function to dynamically create and return a canvas inside a div
-    // Function to dynamically create and return a canvas inside a div
     function createChartContainer(chartId) {
         let container = document.createElement("div");
         container.classList.add("grid-stack-item-content");

@@ -636,6 +636,44 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.ToTable("Strategys");
                 });
 
+            modelBuilder.Entity("NIA_CRM.Models.WidgetLayout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Height")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsOnDashboard")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PositionX")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PositionY")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("WidgetId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Width")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WidgetLayouts");
+                });
+
             modelBuilder.Entity("Address", b =>
                 {
                     b.HasOne("NIA_CRM.Models.Member", "Member")

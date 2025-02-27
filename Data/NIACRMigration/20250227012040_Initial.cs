@@ -201,6 +201,27 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
+                name: "WidgetLayouts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    WidgetId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PositionX = table.Column<int>(type: "INTEGER", nullable: false),
+                    PositionY = table.Column<int>(type: "INTEGER", nullable: false),
+                    Width = table.Column<int>(type: "INTEGER", nullable: false),
+                    Height = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsOnDashboard = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WidgetLayouts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ContactCancellations",
                 columns: table => new
                 {
@@ -616,6 +637,9 @@ namespace NIA_CRM.Data.NIACRMigration
 
             migrationBuilder.DropTable(
                 name: "Strategys");
+
+            migrationBuilder.DropTable(
+                name: "WidgetLayouts");
 
             migrationBuilder.DropTable(
                 name: "NAICSCodes");

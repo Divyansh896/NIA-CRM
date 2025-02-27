@@ -49,6 +49,7 @@ namespace NIA_CRM.Data
         public DbSet<MemberSector> MemberSectors { get; set; }
         public DbSet<Sector> Sector { get; set; }
         public DbSet<ContactCancellation> ContactCancellations { get; set; }
+        public DbSet<WidgetLayout> WidgetLayouts { get; set; }
 
 
 
