@@ -1,0 +1,58 @@
+﻿@model NIA_CRM.Models.Strategy
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Strategy</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StrategyName" class="control-label"></label>
+                <input asp-for="StrategyName" class="form-control" />
+                <span asp-validation-for="StrategyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StrategyAssignee" class="control-label"></label>
+                <input asp-for="StrategyAssignee" class="form-control" />
+                <span asp-validation-for="StrategyAssignee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StrategyNote" class="control-label"></label>
+                <input asp-for="StrategyNote" class="form-control" />
+                <span asp-validation-for="StrategyNote" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StrategyTerm" class="control-label"></label>
+                <select asp-for="StrategyTerm" class="form-control"></select>
+                <span asp-validation-for="StrategyTerm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StrategyStatus" class="control-label"></label>
+                <select asp-for="StrategyStatus" class="form-control"></select>
+                <span asp-validation-for="StrategyStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
