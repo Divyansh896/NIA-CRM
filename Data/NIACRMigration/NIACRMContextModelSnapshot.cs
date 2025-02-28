@@ -733,7 +733,7 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sector");
+                    b.ToTable("Sectors");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.Strategy", b =>

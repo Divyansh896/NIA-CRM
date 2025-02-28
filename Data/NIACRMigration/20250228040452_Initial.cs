@@ -193,7 +193,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sector",
+                name: "Sectors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -203,7 +203,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sector", x => x.Id);
+                    table.PrimaryKey("PK_Sectors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -549,9 +549,9 @@ namespace NIA_CRM.Data.NIACRMigration
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_MemberSectors_Sector_SectorId",
+                        name: "FK_MemberSectors_Sectors_SectorId",
                         column: x => x.SectorId,
-                        principalTable: "Sector",
+                        principalTable: "Sectors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -696,7 +696,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "MembershipTypes");
 
             migrationBuilder.DropTable(
-                name: "Sector");
+                name: "Sectors");
 
             migrationBuilder.DropTable(
                 name: "MTag");

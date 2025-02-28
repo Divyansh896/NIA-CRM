@@ -3724,6 +3724,118 @@ namespace NIA_CRM.Data
                         context.SaveChanges();
                     }
 
+                    if (!context.MTags.Any())
+                    {
+                        var mTags = new List<MTag>
+                        {
+                            new MTag { Id = 1, MTagName = "Premium", MTagDescription = "Premium membership tag" },
+                            new MTag { Id = 2, MTagName = "New Member", MTagDescription = "Recently joined members" },
+                            new MTag { Id = 3, MTagName = "VIP", MTagDescription = "High-priority clients" },
+                            new MTag { Id = 4, MTagName = "Enterprise", MTagDescription = "Enterprise-level members" },
+                            new MTag { Id = 5, MTagName = "Small Business", MTagDescription = "Small business clients" },
+                            new MTag { Id = 6, MTagName = "Non-Profit", MTagDescription = "Non-profit organizations" },
+                            new MTag { Id = 7, MTagName = "Gold", MTagDescription = "Gold-tier members" },
+                            new MTag { Id = 8, MTagName = "Silver", MTagDescription = "Silver-tier members" },
+                            new MTag { Id = 9, MTagName = "Bronze", MTagDescription = "Bronze-tier members" },
+                            new MTag { Id = 10, MTagName = "Annual", MTagDescription = "Annual subscription members" },
+                            new MTag { Id = 11, MTagName = "Quarterly", MTagDescription = "Quarterly subscription members" },
+                            new MTag { Id = 12, MTagName = "Monthly", MTagDescription = "Monthly subscription members" },
+                            new MTag { Id = 13, MTagName = "Government", MTagDescription = "Government contracts" },
+                            new MTag { Id = 14, MTagName = "Retail", MTagDescription = "Retail clients" },
+                            new MTag { Id = 15, MTagName = "Wholesale", MTagDescription = "Wholesale clients" },
+                            new MTag { Id = 16, MTagName = "Education", MTagDescription = "Educational institutions" },
+                            new MTag { Id = 17, MTagName = "Healthcare", MTagDescription = "Healthcare organizations" },
+                            new MTag { Id = 18, MTagName = "Technology", MTagDescription = "Tech industry members" },
+                            new MTag { Id = 19, MTagName = "Finance", MTagDescription = "Financial sector clients" },
+                            new MTag { Id = 20, MTagName = "Legal", MTagDescription = "Law firms and legal advisors" },
+                            new MTag { Id = 21, MTagName = "Real Estate", MTagDescription = "Real estate businesses" },
+                            new MTag { Id = 22, MTagName = "Construction", MTagDescription = "Construction companies" },
+                            new MTag { Id = 23, MTagName = "Freelancer", MTagDescription = "Independent contractors" },
+                            new MTag { Id = 24, MTagName = "Startup", MTagDescription = "New startup businesses" },
+                            new MTag { Id = 25, MTagName = "Non-Active", MTagDescription = "Inactive or dormant members" }
+                        };
+
+                        context.MTags.AddRange(mTags);
+                        context.SaveChanges();
+                    }
+
+                    if (!context.MemberTags.Any())
+                    {
+                        var random = new Random();
+                        var memberTags = new List<MemberTag>();
+
+                        int maxMembers = context.Members.Count(); // Ensure we assign tags to valid members
+
+                        for (int i = 1; i <= 25; i++) // Create 25 MemberTag records
+                        {
+                            memberTags.Add(new MemberTag
+                            {
+                                Id = i,
+                                MemberId = random.Next(1, maxMembers + 1), // Randomly assign to existing members
+                                MTagID = random.Next(1, 26) // Assign random tag from 1 to 25
+                            });
+                        }
+
+                        context.MemberTags.AddRange(memberTags);
+                        context.SaveChanges();
+                    }
+
+                    if (!context.Sectors.Any())
+                    {
+                        var sectors = new List<Sector>
+                        {
+                            new Sector { Id = 1, SectorName = "Technology", SectorDescription = "Tech companies and startups" },
+                            new Sector { Id = 2, SectorName = "Healthcare", SectorDescription = "Hospitals and medical services" },
+                            new Sector { Id = 3, SectorName = "Finance", SectorDescription = "Banks, insurance, and financial institutions" },
+                            new Sector { Id = 4, SectorName = "Retail", SectorDescription = "Retail stores and e-commerce" },
+                            new Sector { Id = 5, SectorName = "Education", SectorDescription = "Schools, universities, and training centers" },
+                            new Sector { Id = 6, SectorName = "Manufacturing", SectorDescription = "Industrial and production companies" },
+                            new Sector { Id = 7, SectorName = "Government", SectorDescription = "Public sector organizations" },
+                            new Sector { Id = 8, SectorName = "Energy", SectorDescription = "Oil, gas, and renewable energy companies" },
+                            new Sector { Id = 9, SectorName = "Real Estate", SectorDescription = "Property management and real estate firms" },
+                            new Sector { Id = 10, SectorName = "Legal", SectorDescription = "Law firms and legal consultants" },
+                            new Sector { Id = 11, SectorName = "Hospitality", SectorDescription = "Hotels, restaurants, and tourism" },
+                            new Sector { Id = 12, SectorName = "Non-Profit", SectorDescription = "Non-profit organizations and charities" },
+                            new Sector { Id = 13, SectorName = "Construction", SectorDescription = "Builders and infrastructure companies" },
+                            new Sector { Id = 14, SectorName = "Media", SectorDescription = "Broadcasting, journalism, and digital media" },
+                            new Sector { Id = 15, SectorName = "Transportation", SectorDescription = "Logistics, shipping, and travel" },
+                            new Sector { Id = 16, SectorName = "Telecommunications", SectorDescription = "Telecom and internet service providers" },
+                            new Sector { Id = 17, SectorName = "Agriculture", SectorDescription = "Farming, food production, and agribusiness" },
+                            new Sector { Id = 18, SectorName = "Automotive", SectorDescription = "Car manufacturers and dealerships" },
+                            new Sector { Id = 19, SectorName = "Entertainment", SectorDescription = "Film, music, and gaming industries" },
+                            new Sector { Id = 20, SectorName = "Aerospace", SectorDescription = "Aviation and space exploration companies" },
+                            new Sector { Id = 21, SectorName = "Pharmaceuticals", SectorDescription = "Drug manufacturers and biotech firms" },
+                            new Sector { Id = 22, SectorName = "Cybersecurity", SectorDescription = "Security firms and ethical hacking services" },
+                            new Sector { Id = 23, SectorName = "E-commerce", SectorDescription = "Online marketplaces and digital sales" },
+                            new Sector { Id = 24, SectorName = "HR & Recruitment", SectorDescription = "Talent acquisition and HR firms" },
+                            new Sector { Id = 25, SectorName = "Sports & Fitness", SectorDescription = "Gyms, sports clubs, and athletic organizations" }
+                        };
+
+                        context.Sectors.AddRange(sectors);
+                        context.SaveChanges();
+                    }
+                    if (!context.MemberSectors.Any())
+                    {
+                        var random = new Random();
+                        var memberSectors = new List<MemberSector>();
+
+                        int maxMembers = context.Members.Count(); // Ensure valid member IDs exist
+
+                        for (int i = 1; i <= 25; i++) // Create 25 MemberSector records
+                        {
+                            memberSectors.Add(new MemberSector
+                            {
+                                Id = i,
+                                MemberId = random.Next(1, maxMembers + 1), // Randomly assign to existing members
+                                SectorId = random.Next(1, 26) // Assign random sector from 1 to 25
+                            });
+                        }
+
+                        context.MemberSectors.AddRange(memberSectors);
+                        context.SaveChanges();
+                    }
+
+
                     if (!context.Opportunities.Any())
                     {
                         context.Opportunities.AddRange(
