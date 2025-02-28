@@ -3659,7 +3659,7 @@ namespace NIA_CRM.Data
                         {
                             industryNAICSCodes.Add(new IndustryNAICSCode
                             {
-                                // Remove Id = i if it's auto-generated
+                                Id = i,
                                 MemberId = (i <= maxMembers) ? i : random.Next(1, maxMembers + 1), // Ensures valid MemberId
                                 NAICSCodeId = random.Next(1, 20) // Randomly selects a NAICSCodeId between 1 and 19
                             });
