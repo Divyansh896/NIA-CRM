@@ -194,35 +194,81 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,OpportunityName,OpportunityAction,POC,Account,Interaction,LastContact,OpportunityStatus,OpportunityPriority")] Opportunity opportunity)
+        public async Task<IActionResult> Edit(int id, byte[] RowVersion)
         {
-            if (id != opportunity.ID)
+            var opportunityToUpdate = await _context.Opportunities
+                .FirstOrDefaultAsync(o => o.ID == id);
+
+            if (opportunityToUpdate == null)
             {
                 return NotFound();
             }
 
+            // Attach RowVersion for concurrency tracking
+            _context.Entry(opportunityToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+
+            // Try updating the model with user input
             if (ModelState.IsValid)
             {
-                try
+                if (await TryUpdateModelAsync<Opportunity>(
+                    opportunityToUpdate, "",
+                    o => o.OpportunityName, o => o.OpportunityAction, o => o.POC, o => o.Account,
+                    o => o.Interaction, o => o.LastContact, o => o.OpportunityStatus, o => o.OpportunityPriority))
                 {
-                    _context.Update(opportunity);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OpportunityExists(opportunity.ID))
+                    try
                     {
-                        return NotFound();
+                        // Update the opportunity record in the database
+                        _context.Update(opportunityToUpdate);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
                     }
-                    else
+                    catch (DbUpdateConcurrencyException ex)
                     {
-                        throw;
+                        var exceptionEntry = ex.Entries.Single();
+                        var clientValues = (Opportunity)exceptionEntry.Entity;
+                        var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+                        if (databaseEntry == null)
+                        {
+                            ModelState.AddModelError("", "The opportunity was deleted by another user.");
+                        }
+                        else
+                        {
+                            var databaseValues = (Opportunity)databaseEntry.ToObject();
+                            // Compare each field and provide feedback on changes
+                            if (databaseValues.OpportunityName != clientValues.OpportunityName)
+                                ModelState.AddModelError("OpportunityName", $"Current value: {databaseValues.OpportunityName}");
+                            if (databaseValues.OpportunityAction != clientValues.OpportunityAction)
+                                ModelState.AddModelError("OpportunityAction", $"Current value: {databaseValues.OpportunityAction}");
+                            if (databaseValues.POC != clientValues.POC)
+                                ModelState.AddModelError("POC", $"Current value: {databaseValues.POC}");
+                            if (databaseValues.Account != clientValues.Account)
+                                ModelState.AddModelError("Account", $"Current value: {databaseValues.Account}");
+                            if (databaseValues.Interaction != clientValues.Interaction)
+                                ModelState.AddModelError("Interaction", $"Current value: {databaseValues.Interaction}");
+                            if (databaseValues.LastContact != clientValues.LastContact)
+                                ModelState.AddModelError("LastContact", $"Current value: {databaseValues.LastContact}");
+                            if (databaseValues.OpportunityStatus != clientValues.OpportunityStatus)
+                                ModelState.AddModelError("OpportunityStatus", $"Current value: {databaseValues.OpportunityStatus}");
+                            if (databaseValues.OpportunityPriority != clientValues.OpportunityPriority)
+                                ModelState.AddModelError("OpportunityPriority", $"Current value: {databaseValues.OpportunityPriority}");
+
+                            ModelState.AddModelError("", "The record was modified by another user after you started editing. If you still want to save your changes, click the Save button again.");
+                            opportunityToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+                            ModelState.Remove("RowVersion");
+                        }
+                    }
+                    catch (DbUpdateException dex)
+                    {
+                        string message = dex.GetBaseException().Message;
+                        ModelState.AddModelError("", $"Unable to save changes: {message}");
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(opportunity);
+
+            return View(opportunityToUpdate);
         }
+
 
         // GET: Opportunity/Delete/5
         public async Task<IActionResult> Delete(int? id)

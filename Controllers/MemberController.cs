@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
@@ -332,63 +333,98 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, string? chkRemoveImage, IFormFile? thePicture)
+        public async Task<IActionResult> Edit(int id, Byte[] RowVersion, string? chkRemoveImage, IFormFile? thePicture)
         {
             var memberToUpdate = await _context.Members
                 .Include(m => m.MemberLogo)
+                .Include(m => m.MemberThumbnail)  // Ensure we include the MemberThumbnail as well
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (memberToUpdate == null)
-
             {
                 return NotFound();
             }
 
-            // Try update model approach
-            if (await TryUpdateModelAsync<Member>(memberToUpdate, "", m => m.MemberName, m => m.MemberSize, m => m.WebsiteUrl, m => m.JoinDate, m => m.MemberLogo))
+            // Attach the RowVersion for concurrency tracking
+            _context.Entry(memberToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+
+            // Try updating the model with user input
+            if (await TryUpdateModelAsync<Member>(memberToUpdate, "",
+                m => m.MemberName, m => m.MemberSize, m => m.WebsiteUrl, m => m.JoinDate, m => m.IsPaid, m => m.MemberLogo))
             {
                 try
                 {
                     if (chkRemoveImage != null)
                     {
-                        //If we are just deleting the two versions of the photo, we need to make sure the Change Tracker knows
-                        //about them both so go get the Thumbnail since we did not include it.
-                        memberToUpdate.MemberThumbnail = _context.MemebrThumbnails.Where(p => p.MemberID == memberToUpdate.ID).FirstOrDefault();
-                        //Then, setting them to null will cause them to be deleted from the database.
+                        // If we are deleting the image and thumbnail, make sure to notify the Change Tracker
+                        memberToUpdate.MemberThumbnail = _context.MemebrThumbnails.FirstOrDefault(p => p.MemberID == memberToUpdate.ID);
+                        // Set the image fields to null to delete them
                         memberToUpdate.MemberLogo = null;
                         memberToUpdate.MemberThumbnail = null;
                     }
                     else
                     {
+                        // Add or update the picture if one is provided
                         await AddPicture(memberToUpdate, thePicture);
                     }
 
-                    _context.Update(memberToUpdate);
-
+                    // Save changes
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Index", "Home");
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (RetryLimitExceededException)
                 {
-                    if (!MemberExists(memberToUpdate.ID))
+                    ModelState.AddModelError("", "Unable to save changes after multiple attempts. Please try again later.");
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    var exceptionEntry = ex.Entries.Single();
+                    var clientValues = (Member)exceptionEntry.Entity;
+                    var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+                    if (databaseEntry == null)
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record was deleted by another user.");
                     }
                     else
                     {
-                        throw;
+                        var databaseValues = (Member)databaseEntry.ToObject();
+
+                        // Compare each field to provide specific feedback
+                        if (databaseValues.MemberName != clientValues.MemberName)
+                            ModelState.AddModelError("MemberName", $"Current value: {databaseValues.MemberName}");
+                        if (databaseValues.MemberSize != clientValues.MemberSize)
+                            ModelState.AddModelError("MemberSize", $"Current value: {databaseValues.MemberSize}");
+                        if (databaseValues.WebsiteUrl != clientValues.WebsiteUrl)
+                            ModelState.AddModelError("WebsiteUrl", $"Current value: {databaseValues.WebsiteUrl}");
+                        if (databaseValues.JoinDate != clientValues.JoinDate)
+                            ModelState.AddModelError("JoinDate", $"Current value: {databaseValues.JoinDate}");
+                        if (databaseValues.IsPaid != clientValues.IsPaid)
+                            ModelState.AddModelError("IsPaid", $"Current value: {databaseValues.IsPaid}");
+
+                        // Handle MemberLogo and MemberThumbnail separately since they are related to the image
+                        //if (databaseValues.MemberLogo != clientValues.MemberLogo)
+                        //    ModelState.AddModelError("MemberLogo", $"Current value: {databaseValues.MemberLogo?.Content ?? "No logo"}");
+                        //if (databaseValues.MemberThumbnail != clientValues.MemberThumbnail)
+                        //    ModelState.AddModelError("MemberThumbnail", $"Current value: {databaseValues.MemberThumbnail?.FileName ?? "No thumbnail"}");
+
+                        ModelState.AddModelError("", "The record was modified by another user after you started editing. If you still want to save your changes, click the Save button again.");
+
+                        // Update RowVersion for the next attempt
+                        memberToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+                        ModelState.Remove("RowVersion");
                     }
                 }
                 catch (DbUpdateException dex)
                 {
                     string message = dex.GetBaseException().Message;
-
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-
+                    ModelState.AddModelError("", $"Unable to save changes: {message}");
                 }
             }
+
             return View(memberToUpdate);
         }
+
 
         // GET: Member/Delete/5
         public async Task<IActionResult> Delete(int? id)

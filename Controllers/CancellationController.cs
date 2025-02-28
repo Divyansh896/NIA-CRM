@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
@@ -182,36 +183,78 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,CancellationDate,Canceled,CancellationNote,MemberID")] Cancellation cancellation)
+        public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
-            if (id != cancellation.ID)
+            
+            // Fetch the existing cancellation record from the database
+            var cancellationToUpdate = await _context.Cancellations.FirstOrDefaultAsync(c => c.ID == id);
+
+            if (cancellationToUpdate == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            // Attach the RowVersion for concurrency tracking
+            _context.Entry(cancellationToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+
+            if (await TryUpdateModelAsync<Cancellation>(cancellationToUpdate, "",
+                c => c.CancellationDate, c => c.IsCancelled, c => c.CancellationNote, c => c.MemberID))
             {
                 try
                 {
-                    _context.Update(cancellation);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (RetryLimitExceededException)
                 {
-                    if (!CancellationExists(cancellation.ID))
+                    ModelState.AddModelError("", "Unable to save changes after multiple attempts. Try again later.");
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    var exceptionEntry = ex.Entries.Single();
+                    var clientValues = (Cancellation)exceptionEntry.Entity;
+                    var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+                    if (databaseEntry == null)
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record was deleted by another user.");
                     }
                     else
                     {
-                        throw;
+                        var databaseValues = (Cancellation)databaseEntry.ToObject();
+
+                        if (databaseValues.CancellationDate != clientValues.CancellationDate)
+                            ModelState.AddModelError("CancellationDate", $"Current value: {databaseValues.CancellationDate:d}");
+                        if (databaseValues.IsCancelled != clientValues.IsCancelled)
+                            ModelState.AddModelError("Canceled", $"Current value: {databaseValues.IsCancelled}");
+                        if (databaseValues.CancellationNote != clientValues.CancellationNote)
+                            ModelState.AddModelError("CancellationNote", $"Current value: {databaseValues.CancellationNote}");
+                        if (databaseValues.MemberID != clientValues.MemberID)
+                        {
+                            var databaseMember = await _context.Members
+                                .FirstOrDefaultAsync(m => m.ID == databaseValues.MemberID);
+                            ModelState.AddModelError("MemberID", $"Current value: {databaseMember?.MemberName}");
+                        }
+
+                        ModelState.AddModelError("", "The record was modified by another user after you started editing. " +
+                            "If you still want to save your changes, click the Save button again.");
+
+                        // Update RowVersion for the next attempt
+                        cancellationToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+                        ModelState.Remove("RowVersion");
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                catch (DbUpdateException dex)
+                {
+                    string message = dex.GetBaseException().Message;
+                    ModelState.AddModelError("", $"Unable to save changes: {message}");
+                }
             }
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", cancellation.MemberID);
-            return View(cancellation);
+
+            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", cancellationToUpdate.MemberID);
+            return View(cancellationToUpdate);
         }
+
 
         // GET: Cancellation/Delete/5
         public async Task<IActionResult> Delete(int? id)

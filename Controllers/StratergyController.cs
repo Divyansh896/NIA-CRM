@@ -170,35 +170,77 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,StrategyName,StrategyAssignee,StrategyNote,CreatedDate,StrategyTerm,StrategyStatus")] Strategy strategy)
+        public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
-            if (id != strategy.ID)
+            var strategyToUpdate = await _context.Strategies
+                .FirstOrDefaultAsync(s => s.ID == id);
+
+            if (strategyToUpdate == null)
             {
                 return NotFound();
             }
 
+            // Attach RowVersion for concurrency tracking
+            _context.Entry(strategyToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+
+            // Try updating the model with user input
             if (ModelState.IsValid)
             {
-                try
+                if (await TryUpdateModelAsync<Strategy>(
+                    strategyToUpdate, "",
+                    s => s.StrategyName, s => s.StrategyAssignee, s => s.StrategyNote,
+                    s => s.CreatedDate, s => s.StrategyTerm, s => s.StrategyStatus))
                 {
-                    _context.Update(strategy);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!StrategyExists(strategy.ID))
+                    try
                     {
-                        return NotFound();
+                        // Update the strategy record in the database
+                        _context.Update(strategyToUpdate);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
                     }
-                    else
+                    catch (DbUpdateConcurrencyException ex)
                     {
-                        throw;
+                        var exceptionEntry = ex.Entries.Single();
+                        var clientValues = (Strategy)exceptionEntry.Entity;
+                        var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+                        if (databaseEntry == null)
+                        {
+                            ModelState.AddModelError("", "The strategy was deleted by another user.");
+                        }
+                        else
+                        {
+                            var databaseValues = (Strategy)databaseEntry.ToObject();
+                            // Compare each field and provide feedback on changes
+                            if (databaseValues.StrategyName != clientValues.StrategyName)
+                                ModelState.AddModelError("StrategyName", $"Current value: {databaseValues.StrategyName}");
+                            if (databaseValues.StrategyAssignee != clientValues.StrategyAssignee)
+                                ModelState.AddModelError("StrategyAssignee", $"Current value: {databaseValues.StrategyAssignee}");
+                            if (databaseValues.StrategyNote != clientValues.StrategyNote)
+                                ModelState.AddModelError("StrategyNote", $"Current value: {databaseValues.StrategyNote}");
+                            if (databaseValues.CreatedDate != clientValues.CreatedDate)
+                                ModelState.AddModelError("CreatedDate", $"Current value: {databaseValues.CreatedDate}");
+                            if (databaseValues.StrategyTerm != clientValues.StrategyTerm)
+                                ModelState.AddModelError("StrategyTerm", $"Current value: {databaseValues.StrategyTerm}");
+                            if (databaseValues.StrategyStatus != clientValues.StrategyStatus)
+                                ModelState.AddModelError("StrategyStatus", $"Current value: {databaseValues.StrategyStatus}");
+
+                            ModelState.AddModelError("", "The record was modified by another user after you started editing. If you still want to save your changes, click the Save button again.");
+                            strategyToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+                            ModelState.Remove("RowVersion");
+                        }
+                    }
+                    catch (DbUpdateException dex)
+                    {
+                        string message = dex.GetBaseException().Message;
+                        ModelState.AddModelError("", $"Unable to save changes: {message}");
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(strategy);
+
+            return View(strategyToUpdate);
         }
+
 
         // GET: Stratergy/Delete/5
         public async Task<IActionResult> Delete(int? id)

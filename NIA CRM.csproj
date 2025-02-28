@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Remove="Data\Migrations\**" />
     <Content Remove="Data\Migrations\**" />
     <EmbeddedResource Remove="Data\Migrations\**" />
@@ -17,6 +18,9 @@
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="7.6.0" />
+=======
+    <PackageReference Include="EPPlus" Version="4.5.3.3" />
+>>>>>>> origin/master
     <PackageReference Include="MailKit" Version="4.10.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11" />
