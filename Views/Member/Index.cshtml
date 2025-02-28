@@ -132,7 +132,6 @@
                 <th scope="col" class="table-head">Membership Type</th>
                 <th scope="col" class="table-head">Address</th>
                 <th scope="col" class="table-head">Contacts</th>
-                <th scope="col" class="table-head">VIP Status</th>
         </tr>
     </thead>
     <tbody>
@@ -225,16 +224,7 @@
                         }
                     </td>
 
-                    <td>
-                        @if (item.IsVIP)
-                        {
-                            <span class="badge bg-success">VIP</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">Regular</span>
-                        }
-                    </td>
+                    
         </tr>
 }
     </tbody>

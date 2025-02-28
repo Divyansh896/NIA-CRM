@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
@@ -245,53 +246,88 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
-            var ContactToUpdate = await _context.Contacts.FirstOrDefaultAsync(m => m.Id == id);
+            
+            // Fetch the existing Contact record from the database
+            var contactToUpdate = await _context.Contacts
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-
-            if (ContactToUpdate == null)
+            if (contactToUpdate == null)
             {
                 return NotFound();
             }
 
-            // Try update model approach
+            // Attach the RowVersion for concurrency tracking
+            _context.Entry(contactToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+
             // Try updating the model with user input
-            if (await TryUpdateModelAsync(
-                ContactToUpdate, // Ensure this is the model instance, not metadata
-                "",
+            if (await TryUpdateModelAsync<Contact>(contactToUpdate, "",
                 c => c.FirstName, c => c.MiddleName, c => c.LastName,
                 c => c.Title, c => c.Department, c => c.Email,
                 c => c.Phone, c => c.LinkedInUrl, c => c.IsVip, c => c.IsArchieved))
             {
                 try
                 {
-                    _context.Update(ContactToUpdate);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
-
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (RetryLimitExceededException)
                 {
-                    if (!ContactExists(ContactToUpdate.Id))
+                    ModelState.AddModelError("", "Unable to save changes after multiple attempts. Please try again later.");
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    var exceptionEntry = ex.Entries.Single();
+                    var clientValues = (Contact)exceptionEntry.Entity;
+                    var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+                    if (databaseEntry == null)
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record was deleted by another user.");
                     }
                     else
                     {
-                        throw;
+                        var databaseValues = (Contact)databaseEntry.ToObject();
+
+                        if (databaseValues.FirstName != clientValues.FirstName)
+                            ModelState.AddModelError("FirstName", $"Current value: {databaseValues.FirstName}");
+                        if (databaseValues.MiddleName != clientValues.MiddleName)
+                            ModelState.AddModelError("MiddleName", $"Current value: {databaseValues.MiddleName}");
+                        if (databaseValues.LastName != clientValues.LastName)
+                            ModelState.AddModelError("LastName", $"Current value: {databaseValues.LastName}");
+                        if (databaseValues.Title != clientValues.Title)
+                            ModelState.AddModelError("Title", $"Current value: {databaseValues.Title}");
+                        if (databaseValues.Department != clientValues.Department)
+                            ModelState.AddModelError("Department", $"Current value: {databaseValues.Department}");
+                        if (databaseValues.Email != clientValues.Email)
+                            ModelState.AddModelError("Email", $"Current value: {databaseValues.Email}");
+                        if (databaseValues.Phone != clientValues.Phone)
+                            ModelState.AddModelError("Phone", $"Current value: {databaseValues.Phone}");
+                        if (databaseValues.LinkedInUrl != clientValues.LinkedInUrl)
+                            ModelState.AddModelError("LinkedInUrl", $"Current value: {databaseValues.LinkedInUrl}");
+                        if (databaseValues.IsVip != clientValues.IsVip)
+                            ModelState.AddModelError("IsVip", $"Current value: {databaseValues.IsVip}");
+                        if (databaseValues.IsArchieved != clientValues.IsArchieved)
+                            ModelState.AddModelError("IsArchieved", $"Current value: {databaseValues.IsArchieved}");
+
+                        ModelState.AddModelError("", "The record was modified by another user after you started editing. If you still want to save your changes, click the Save button again.");
+
+                        // Update RowVersion for the next attempt
+                        contactToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+                        ModelState.Remove("RowVersion");
                     }
                 }
                 catch (DbUpdateException dex)
                 {
                     string message = dex.GetBaseException().Message;
-
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-
+                    ModelState.AddModelError("", $"Unable to save changes: {message}");
                 }
             }
-            return View(ContactToUpdate);
+
+            return View(contactToUpdate);
         }
+
 
         // GET: Contact/Delete/5
         public async Task<IActionResult> Delete(int? id)

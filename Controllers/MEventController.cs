@@ -86,34 +86,71 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EventName,EventDescription,EventLocation,EventDate")] MEvent mEvent)
+        public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
-            if (id != mEvent.Id)
+            var mEventToUpdate = await _context.MEvents
+                                                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if(mEventToUpdate == null)
             {
                 return NotFound();
             }
 
+            // Attach RowVersion for concurrency tracking
+            _context.Entry(mEventToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+
             if (ModelState.IsValid)
             {
-                try
+                // Try updating the model with user input
+                if (await TryUpdateModelAsync<MEvent>(
+                    mEventToUpdate, "",
+                    m => m.EventName, m => m.EventDescription, m => m.EventLocation, m => m.EventDate))
                 {
-                    _context.Update(mEvent);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MEventExists(mEvent.Id))
+                    try
                     {
-                        return NotFound();
+                       
+                        // Update the event record in the database
+                        _context.Update(mEventToUpdate);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
                     }
-                    else
+                    catch (DbUpdateConcurrencyException ex)
                     {
-                        throw;
+                        var exceptionEntry = ex.Entries.Single();
+                        var clientValues = (MEvent)exceptionEntry.Entity;
+                        var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+                        if (databaseEntry == null)
+                        {
+                            ModelState.AddModelError("", "The event was deleted by another user.");
+                        }
+                        else
+                        {
+                            var databaseValues = (MEvent)databaseEntry.ToObject();
+                            // Compare each field and provide feedback on changes
+                            if (databaseValues.EventName != clientValues.EventName)
+                                ModelState.AddModelError("EventName", $"Current value: {databaseValues.EventName}");
+                            if (databaseValues.EventDescription != clientValues.EventDescription)
+                                ModelState.AddModelError("EventDescription", $"Current value: {databaseValues.EventDescription}");
+                            if (databaseValues.EventLocation != clientValues.EventLocation)
+                                ModelState.AddModelError("EventLocation", $"Current value: {databaseValues.EventLocation}");
+                            if (databaseValues.EventDate != clientValues.EventDate)
+                                ModelState.AddModelError("EventDate", $"Current value: {databaseValues.EventDate}");
+
+                            ModelState.AddModelError("", "The record was modified by another user after you started editing. If you still want to save your changes, click the Save button again.");
+                            mEventToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+                            ModelState.Remove("RowVersion");
+                        }
+                    }
+                    catch (DbUpdateException dex)
+                    {
+                        string message = dex.GetBaseException().Message;
+                        ModelState.AddModelError("", $"Unable to save changes: {message}");
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(mEvent);
+
+            return View(mEventToUpdate);
         }
 
         // GET: MEvent/Delete/5

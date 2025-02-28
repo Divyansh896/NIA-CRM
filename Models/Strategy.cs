@@ -2,7 +2,7 @@
 
 namespace NIA_CRM.Models
 {
-    public class Strategy
+    public class Strategy : Auditable
     {
         [Key]
         public int ID { get; set; }
@@ -24,5 +24,9 @@ namespace NIA_CRM.Models
 
         [Required(ErrorMessage = "You must select the opportunity priority.")]
         public StrategyStatus StrategyStatus { get; set; }
+
+        [ScaffoldColumn(false)]
+        [Timestamp]
+        public Byte[]? RowVersion { get; set; }//Added for concurrency
     }
 }

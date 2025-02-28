@@ -56,9 +56,200 @@ namespace NIA_CRM.Data
                                 UPDATE ProductionEmails
                                 SET RowVersion = randomblob(8)
                                 WHERE rowid = NEW.rowid;
-                            END
+                            END;
                         ";
                         context.Database.ExecuteSqlRaw(sqlCmd);
+
+                        // Trigger for annual actions
+                        string AnnualActionsqlCmd = @"
+                            CREATE TRIGGER SetAnnualActionTimestampOnUpdate
+                            AFTER UPDATE ON AnnualAction
+                            BEGIN
+                                UPDATE AnnualAction
+                                SET RowVersion = randomblob(8)
+                                WHERE rowid = NEW.rowid;
+                            END;
+                        ";
+                        context.Database.ExecuteSqlRaw(AnnualActionsqlCmd);
+
+                        AnnualActionsqlCmd = @"
+                            CREATE TRIGGER SetAnnualActionTimestampOnInsert
+                            AFTER INSERT ON AnnualAction
+                            BEGIN
+                                UPDATE AnnualAction
+                                SET RowVersion = randomblob(8)
+                                WHERE rowid = NEW.rowid;
+                            END;
+                        ";
+                        context.Database.ExecuteSqlRaw(AnnualActionsqlCmd);
+
+                        // Trigger for Cancellations
+                        string CancellationsqlCmd = @"
+                                CREATE TRIGGER SetCancellationTimestampOnUpdate
+                                AFTER UPDATE ON Cancellations
+                                BEGIN
+                                    UPDATE Cancellations
+                                    SET RowVersion = randomblob(8)
+                                    WHERE rowid = NEW.rowid;
+                                END;
+                            ";
+                        context.Database.ExecuteSqlRaw(CancellationsqlCmd);
+
+                        CancellationsqlCmd = @"
+                                CREATE TRIGGER SetCancellationTimestampOnInsert
+                                AFTER INSERT ON Cancellations
+                                BEGIN
+                                    UPDATE Cancellations
+                                    SET RowVersion = randomblob(8)
+                                    WHERE rowid = NEW.rowid;
+                                END;
+                            ";
+                        context.Database.ExecuteSqlRaw(CancellationsqlCmd);
+
+                        // Trigger for ContactCancellations - Update
+                        string ContactCancellationsqlCmd = @"
+                                    CREATE TRIGGER SetContactCancellationTimestampOnUpdate
+                                    AFTER UPDATE ON ContactCancellations
+                                    BEGIN
+                                        UPDATE ContactCancellations
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(ContactCancellationsqlCmd);
+
+                        // Trigger for ContactCancellations - Insert
+                        ContactCancellationsqlCmd = @"
+                                    CREATE TRIGGER SetContactCancellationTimestampOnInsert
+                                    AFTER INSERT ON ContactCancellations
+                                    BEGIN
+                                        UPDATE ContactCancellations
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(ContactCancellationsqlCmd);
+
+                        // Trigger for Contact - Update
+                        string ContactsqlCmd = @"
+                                    CREATE TRIGGER SetContactTimestampOnUpdate
+                                    AFTER UPDATE ON Contacts
+                                    BEGIN
+                                        UPDATE Contacts
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(ContactsqlCmd);
+
+                        // Trigger for Contact - Insert
+                        ContactsqlCmd = @"
+                                    CREATE TRIGGER SetContactTimestampOnInsert
+                                    AFTER INSERT ON Contacts
+                                    BEGIN
+                                        UPDATE Contacts
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(ContactsqlCmd);
+
+                        // Trigger for Members - Update
+                        string MembersqlCmd = @"
+                                    CREATE TRIGGER SetMemberTimestampOnUpdate
+                                    AFTER UPDATE ON Members
+                                    BEGIN
+                                        UPDATE Members
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MembersqlCmd);
+
+                        // Trigger for Members - Insert
+                        MembersqlCmd = @"
+                                CREATE TRIGGER SetMemberTimestampOnInsert
+                                AFTER INSERT ON Members
+                                BEGIN
+                                    UPDATE Members
+                                    SET RowVersion = randomblob(8)
+                                    WHERE rowid = NEW.rowid;
+                                END;
+                            ";
+                        context.Database.ExecuteSqlRaw(MembersqlCmd);
+
+                        // Trigger for MEvents - Update
+                        string MEventssqlCmd = @"
+                                    CREATE TRIGGER SetMEventTimestampOnUpdate
+                                    AFTER UPDATE ON MEvents
+                                    BEGIN
+                                        UPDATE MEvents
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MEventssqlCmd);
+
+                        // Trigger for MEvents - Insert
+                        MEventssqlCmd = @"
+                                    CREATE TRIGGER SetMEventTimestampOnInsert
+                                    AFTER INSERT ON MEvents
+                                    BEGIN
+                                        UPDATE MEvents
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MEventssqlCmd);
+
+                        // Trigger for Opportunities - Update
+                        string OpportunitiesqlCmd = @"
+                                    CREATE TRIGGER SetOpportunityTimestampOnUpdate
+                                    AFTER UPDATE ON Opportunities
+                                    BEGIN
+                                        UPDATE Opportunities
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(OpportunitiesqlCmd);
+
+                        // Trigger for Opportunities - Insert
+                        OpportunitiesqlCmd = @"
+                                    CREATE TRIGGER SetOpportunityTimestampOnInsert
+                                    AFTER INSERT ON Opportunities
+                                    BEGIN
+                                        UPDATE Opportunities
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(OpportunitiesqlCmd);
+
+                        // Trigger for Strategy - Update
+                        string StrategySqlCmd = @"
+                                    CREATE TRIGGER SetStrategyTimestampOnUpdate
+                                    AFTER UPDATE ON Strategy
+                                    BEGIN
+                                        UPDATE Strategy
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(StrategySqlCmd);
+
+                        // Trigger for Strategy - Insert
+                        StrategySqlCmd = @"
+                                    CREATE TRIGGER SetStrategyTimestampOnInsert
+                                    AFTER INSERT ON Strategy
+                                    BEGIN
+                                        UPDATE Strategy
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(StrategySqlCmd);
+
                     }
                     else //The database is already created
                     {
@@ -70,10 +261,13 @@ namespace NIA_CRM.Data
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.GetBaseException().Message);
+                    Console.WriteLine($"Database setup error: {ex.GetBaseException().Message}");
+                    throw;
                 }
 
+                #endregion
 
+                #region Seed Sample Data
                 try
                 {
                     //Add some Class Start times
