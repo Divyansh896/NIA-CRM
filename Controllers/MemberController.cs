@@ -163,8 +163,6 @@ namespace NIA_CRM.Controllers
                     ? $"{member.MemberContacts.FirstOrDefault().Contact.Phone} | {member.MemberContacts.FirstOrDefault().Contact.Email}"
                     : "No Contacts Available";
 
-                worksheet.Cells[row, 8].Value = member.IsVIP ? "VIP" : "Regular";
-
                 row++;
             }
 
@@ -237,7 +235,6 @@ namespace NIA_CRM.Controllers
                             }
                         }
                     },
-                        IsVIP = worksheet.Cells[row, 8].Value?.ToString() == "VIP" // VIP Status
                     };
 
                     members.Add(member);

@@ -400,8 +400,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 columns: table => new
                 {
                     MemberId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MembershipTypeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    MembershipTypeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -425,8 +424,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 columns: table => new
                 {
                     MemberId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MEventID = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    MEventID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

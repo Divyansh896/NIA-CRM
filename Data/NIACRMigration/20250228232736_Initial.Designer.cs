@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250228040452_Initial")]
+    [Migration("20250228232736_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -467,9 +467,6 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<int>("MEventID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("MemberId", "MEventID");
 
                     b.HasIndex("MEventID");
@@ -507,9 +504,6 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("MembershipTypeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Id")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("MemberId", "MembershipTypeId");

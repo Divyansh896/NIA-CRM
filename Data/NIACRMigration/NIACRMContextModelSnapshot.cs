@@ -464,9 +464,6 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<int>("MEventID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("MemberId", "MEventID");
 
                     b.HasIndex("MEventID");
@@ -504,9 +501,6 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("MembershipTypeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Id")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("MemberId", "MembershipTypeId");
