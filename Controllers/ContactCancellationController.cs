@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
@@ -24,6 +25,41 @@ namespace NIA_CRM.Controllers
         {
             var nIACRMContext = _context.ContactCancellations.Include(c => c.Contact);
             return View(await nIACRMContext.ToListAsync());
+        }
+
+        public IActionResult ExportToExcel()
+        {
+            // Get the data you want to export
+            var cancellations = _context.ContactCancellations
+                .Include(c => c.Contact) // Ensure related Contact data is included
+                .ToList();
+
+            // Create a new Excel package
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Contact Cancellations");
+
+                // Add the header row
+                worksheet.Cells[1, 1].Value = "Cancellation Date";
+                worksheet.Cells[1, 2].Value = "Cancellation Note";
+                worksheet.Cells[1, 3].Value = "Is Cancelled";
+                worksheet.Cells[1, 4].Value = "Contact First Name";
+                worksheet.Cells[1, 5].Value = "Contact Last Name";
+
+                // Add data rows
+                for (int i = 0; i < cancellations.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = cancellations[i].CancellationDate.ToString("yyyy-MM-dd");
+                    worksheet.Cells[i + 2, 2].Value = cancellations[i].CancellationNote;
+                    worksheet.Cells[i + 2, 3].Value = cancellations[i].IsCancelled;
+                    worksheet.Cells[i + 2, 4].Value = cancellations[i].Contact.FirstName;
+                    worksheet.Cells[i + 2, 5].Value = cancellations[i].Contact.LastName;
+                }
+
+                // Set the response headers for the Excel file
+                var fileContents = package.GetAsByteArray();
+                return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ContactCancellations.xlsx");
+            }
         }
 
         // GET: ContactCancellation/Details/5

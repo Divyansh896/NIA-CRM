@@ -4,6 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
+<form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
+    <div class="d-flex align-items-center">
+        <input type="file" name="file" class="form-control me-2" required />
+        <button type="submit" class="btn btn-success">
+            <i class="fa fa-file-import"></i> Import from Excel
+        </button>
+    </div>
+</form>
 
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
@@ -75,6 +83,16 @@
 
 
             }
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
 
         </div>
         <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">

@@ -176,6 +176,7 @@ namespace NIA_CRM.Controllers
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
 
+           
 
 
         // GET: Contact/Details/5
@@ -365,6 +366,56 @@ namespace NIA_CRM.Controllers
 
             // Return the partial view with the contact data
             return PartialView("_ContactPreview", contact);  // Ensure the partial view name is correct
+        }
+
+        public IActionResult ImportExcel(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                TempData["Error"] = "Please upload a valid Excel file.";
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    file.CopyTo(stream);
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                        int rowCount = worksheet.Dimension.Rows;
+
+                        List<Contact> contacts = new List<Contact>();
+
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            var contact = new Contact
+                            {
+                                FirstName = worksheet.Cells[row, 1].Value?.ToString(),
+                                Title = worksheet.Cells[row, 2].Value?.ToString(),
+                                Department = worksheet.Cells[row, 3].Value?.ToString(),
+                                Email = worksheet.Cells[row, 4].Value?.ToString(),
+                                Phone = worksheet.Cells[row, 5].Value?.ToString(),
+                                LinkedInUrl = worksheet.Cells[row, 6].Value?.ToString(),
+                                IsVip = worksheet.Cells[row, 7].Value?.ToString() == "Yes"
+                            };
+
+                            contacts.Add(contact);
+                        }
+
+                        _context.Contacts.AddRange(contacts);
+                        _context.SaveChanges();
+                        TempData["Success"] = "Contacts imported successfully!";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"Error importing contacts: {ex.Message}";
+            }
+
+            return RedirectToAction("Index");
         }
 
 

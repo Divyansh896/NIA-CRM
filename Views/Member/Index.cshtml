@@ -5,6 +5,14 @@
 }
 
 
+<form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="fileUpload">Import Members (Excel File):</label>
+        <input type="file" name="fileUpload" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Import Excel</button>
+</form>
+
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="member-title">Members</h1>
 </div>
@@ -24,9 +32,27 @@
                 aria-controls="collapseFilter">
             Filter/Search @ViewData["numberFilters"]
         </button>
+            <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-success">Export to Excel</button>
             <a asp-controller="MemberCreateViewModel" asp-action="Create" class="btn btn-primary">+ Add Members</a>
     </div>
 
+        
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+       
 
         @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
         {

@@ -9,6 +9,8 @@ using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
 using NIA_CRM.Utilities;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
@@ -38,6 +40,13 @@ namespace NIA_CRM.Controllers
                 .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
                 .Include(m => m.Addresses) //new added for addresses
             .AsNoTracking();
+
+
+            if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
+            {
+                var exportData = await members.AsNoTracking().ToListAsync();
+                return ExportMembersToExcel(exportData);
+            }
 
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
@@ -117,6 +126,141 @@ namespace NIA_CRM.Controllers
 
             return View(pagedData);
         }
+
+
+
+        private IActionResult ExportMembersToExcel(List<Member> members)
+        {
+            var package = new ExcelPackage(); // No 'using' block to avoid disposal
+            var worksheet = package.Workbook.Worksheets.Add("Members");
+
+            // Adding headers
+            worksheet.Cells[1, 1].Value = "Member ID";
+            worksheet.Cells[1, 2].Value = "Member Name";
+            worksheet.Cells[1, 3].Value = "City";
+            worksheet.Cells[1, 4].Value = "Join Date";
+            worksheet.Cells[1, 5].Value = "Membership Type";
+            worksheet.Cells[1, 6].Value = "Address";
+            worksheet.Cells[1, 7].Value = "Contact";
+            worksheet.Cells[1, 8].Value = "VIP Status";
+
+            // Populating data
+            int row = 2;
+            foreach (var member in members)
+            {
+                worksheet.Cells[row, 1].Value = member.ID;
+                worksheet.Cells[row, 2].Value = member.MemberName;
+                worksheet.Cells[row, 3].Value = member.Addresses.FirstOrDefault()?.City ?? "N/A";
+                worksheet.Cells[row, 4].Value = member.JoinDate.ToString("yyyy-MM-dd") ?? "N/A"; // Format date
+                worksheet.Cells[row, 5].Value = member.MemberMembershipTypes.FirstOrDefault()?.MembershipType?.TypeName ?? "N/A";
+
+                worksheet.Cells[row, 6].Value = member.Addresses.FirstOrDefault() != null
+                    ? $"{member.Addresses.FirstOrDefault().AddressLine2}, {member.Addresses.FirstOrDefault().City}, {member.Addresses.FirstOrDefault().StateProvince}, {member.Addresses.FirstOrDefault().PostalCode}"
+                    : "No Address Available";
+
+                worksheet.Cells[row, 7].Value = member.MemberContacts.FirstOrDefault() != null
+                    ? $"{member.MemberContacts.FirstOrDefault().Contact.Phone} | {member.MemberContacts.FirstOrDefault().Contact.Email}"
+                    : "No Contacts Available";
+
+                worksheet.Cells[row, 8].Value = member.IsVIP ? "VIP" : "Regular";
+
+                row++;
+            }
+
+            // Auto-fit columns for better readability
+            worksheet.Cells.AutoFitColumns();
+
+            var stream = new MemoryStream();
+            package.SaveAs(stream);
+            stream.Position = 0; // Reset position before returning
+
+            string excelName = $"Members.xlsx";
+
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        }
+
+        //IMPORTING TO EXCEL
+
+
+        public IActionResult ImportMembersFromExcel(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return Content("No file uploaded.");
+
+            var members = new List<Member>();
+
+            using (var package = new ExcelPackage(file.OpenReadStream()))
+            {
+                var worksheet = package.Workbook.Worksheets[0]; // Get the first worksheet
+                var rowCount = worksheet.Dimension.Rows; // Get the total number of rows
+
+                for (int row = 2; row <= rowCount; row++) // Start from row 2 (skip header)
+                {
+                    var member = new Member
+                    {
+                        ID = Convert.ToInt32(worksheet.Cells[row, 1].Value), // Member ID
+                        MemberName = worksheet.Cells[row, 2].Value?.ToString(), // Member Name
+                        //City = worksheet.Cells[row, 3].Value?.ToString(), // City
+                        JoinDate = DateTime.TryParse(worksheet.Cells[row, 4].Value?.ToString(), out var joinDate)
+                            ? joinDate : default(DateTime), // Join Date
+                       
+
+                        MemberMembershipTypes = new List<MemberMembershipType>
+                    {
+                        new MemberMembershipType
+                        {
+                            // Ensure you map the correct membership type. 
+                            // Assuming that the type is stored as a name or code
+                            MembershipType = new MembershipType
+                            {
+                                TypeName = worksheet.Cells[row, 5].Value?.ToString() // Membership Type
+                            }
+                        }
+                    },
+                        Addresses = new List<Address>
+                    {
+                        new Address
+                        {
+                            City = worksheet.Cells[row, 3].Value?.ToString(),
+                            AddressLine2 = worksheet.Cells[row, 6].Value?.ToString()
+                        }
+                    },
+                        MemberContacts = new List<MemberContact>
+                    {
+                        new MemberContact
+                        {
+                            Contact = new Contact
+                            {
+                                Phone = worksheet.Cells[row, 7].Value?.ToString().Split('|')[0]?.Trim(),
+                                Email = worksheet.Cells[row, 7].Value?.ToString().Split('|')[1]?.Trim()
+                            }
+                        }
+                    },
+                        IsVIP = worksheet.Cells[row, 8].Value?.ToString() == "VIP" // VIP Status
+                    };
+
+                    members.Add(member);
+                }
+            }
+
+            
+            _context.Members.AddRange(members); 
+            _context.SaveChanges(); 
+
+            // Optionally, you could return a success message or the updated list of members
+            return RedirectToAction("MembersList"); // Redirect to a view that displays the members
+        }
+
+        // Optionally, this action will show the list of members
+        public IActionResult MembersList()
+        {
+            var members = _context.Members.ToList(); // Fetch the list of members from the database
+            return View(members); // Pass members to the view
+        }
+    
+
+
+
 
         // GET: Member/Details/5
         public async Task<IActionResult> Details(int? id)
