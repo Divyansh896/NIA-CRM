@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
-    public class ContactCancellationController : Controller
+    public class ContactCancellationController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -20,11 +22,52 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: ContactCancellation
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, DateTime? dateFrom, DateTime? dateTo)
         {
-            var nIACRMContext = _context.ContactCancellations.Include(c => c.Contact);
-            return View(await nIACRMContext.ToListAsync());
+            int numberFilters = 0;
+            var contactCancellations = _context.ContactCancellations.AsQueryable();
+
+            // Filtering by date range (CancellationDate between dateFrom and dateTo)
+            if (dateFrom.HasValue && dateTo.HasValue)
+            {
+                contactCancellations = contactCancellations
+                    .Where(c => c.CancellationDate.Date >= dateFrom.Value.Date && c.CancellationDate.Date <= dateTo.Value.Date);
+                numberFilters++;
+                ViewData["DateFilterFrom"] = dateFrom.Value.ToString("yyyy-MM-dd");
+                ViewData["DateFilterTo"] = dateTo.Value.ToString("yyyy-MM-dd");
+            }
+            else if (dateFrom.HasValue) // If only 'From' date is selected
+            {
+                contactCancellations = contactCancellations.Where(c => c.CancellationDate.Date >= dateFrom.Value.Date);
+                numberFilters++;
+                ViewData["DateFilterFrom"] = dateFrom.Value.ToString("yyyy-MM-dd");
+            }
+            else if (dateTo.HasValue) // If only 'To' date is selected
+            {
+                contactCancellations = contactCancellations.Where(c => c.CancellationDate.Date <= dateTo.Value.Date);
+                numberFilters++;
+                ViewData["DateFilterTo"] = dateTo.Value.ToString("yyyy-MM-dd");
+            }
+
+            // Give feedback about applied filters
+            if (numberFilters != 0)
+            {
+                ViewData["Filtering"] = " btn-danger";
+                ViewData["numberFilters"] = $"({numberFilters} Filter{(numberFilters > 1 ? "s" : "")} Applied)";
+                ViewData["ShowFilter"] = " show";
+            }
+
+            ViewData["numberFilters"] = numberFilters;
+            ViewData["records"] = $"Records Found: {contactCancellations.Count()}";
+
+            // Handle paging
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
+            var pagedData = await PaginatedList<ContactCancellation>.CreateAsync(contactCancellations.AsNoTracking(), page ?? 1, pageSize);
+
+            return View(pagedData);
         }
+
 
         // GET: ContactCancellation/Details/5
         public async Task<IActionResult> Details(int? id)

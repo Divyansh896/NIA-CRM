@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
-    public class OpportunityController : Controller
+    public class OpportunityController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -20,10 +22,92 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Opportunity
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? status, string? priority, string? SearchString, string? actionButton,
+                                              string sortDirection = "asc", string sortField = "Opportunity Name")
         {
-            return View(await _context.Opportunities.ToListAsync());
+            string[] sortOptions = new[] { "Opportunity Name" };  // You can add more sort options if needed
+
+            int numberFilters = 0;
+
+
+
+            var opportunities = _context.Opportunities.AsQueryable();
+            if (!string.IsNullOrEmpty(status) && Enum.TryParse(status, out OpportunityStatus selectedStatus))
+            {
+                opportunities = opportunities.Where(c => c.OpportunityStatus == selectedStatus);
+                numberFilters++;
+                ViewData["StatusFilter"] = selectedStatus;
+            }
+            if (!string.IsNullOrEmpty(priority) && Enum.TryParse(priority, out OpportunityPriority selectedPriority))
+            {
+                opportunities = opportunities.Where(c => c.OpportunityPriority == selectedPriority);
+                numberFilters++;
+                ViewData["PriorityFilter"] = selectedPriority;
+            }
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                opportunities = opportunities.Where(p => p.OpportunityName.ToUpper().Contains(SearchString.ToUpper()));
+                numberFilters++;
+                ViewData["SearchString"] = SearchString;
+
+            }
+
+            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
+            {
+                page = 1;//Reset page to start
+
+                if (sortOptions.Contains(actionButton))//Change of sort is requested
+                {
+                    if (actionButton == sortField) //Reverse order on same field
+                    {
+                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    sortField = actionButton;//Sort by the button clicked
+                }
+            }
+
+            if (sortField == "Opportunity Name")
+            {
+                if (sortDirection == "desc")
+                {
+                    opportunities = opportunities
+                        .OrderByDescending(p => p.OpportunityName);
+                }
+                else
+                {
+                    opportunities = opportunities
+                        .OrderBy(p => p.OpportunityName);
+
+                }
+            }
+
+
+            //Give feedback about the state of the filters
+            if (numberFilters != 0)
+            {
+                //Toggle the Open/Closed state of the collapse depending on if we are filtering
+                ViewData["Filtering"] = " btn-danger";
+                //Show how many filters have been applied
+                ViewData["numberFilters"] = "(" + numberFilters.ToString()
+                    + " Filter" + (numberFilters > 1 ? "s" : "") + " Applied)";
+                //Keep the Bootstrap collapse open
+                @ViewData["ShowFilter"] = " show";
+            }
+
+            ViewData["SortDirection"] = sortDirection;
+            ViewData["SortField"] = sortField;
+            ViewData["numberFilters"] = numberFilters;
+            ViewData["records"] = $"Records Found: {opportunities.Count()}";
+
+            // Handle paging
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
+            var pagedData = await PaginatedList<Opportunity>.CreateAsync(opportunities.AsNoTracking(), page ?? 1, pageSize);
+
+            return View(pagedData);
         }
+
 
         // GET: Opportunity/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -153,5 +237,6 @@ namespace NIA_CRM.Controllers
         {
             return _context.Opportunities.Any(e => e.ID == id);
         }
+
     }
 }
