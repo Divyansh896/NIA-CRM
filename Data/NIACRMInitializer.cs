@@ -250,6 +250,79 @@ namespace NIA_CRM.Data
                                 ";
                         context.Database.ExecuteSqlRaw(StrategySqlCmd);
 
+                        // Trigger for Sector - Update
+                        string SectorSqlCmd = @"
+                                    CREATE TRIGGER SetSectorTimestampOnUpdate
+                                    AFTER UPDATE ON Sectors
+                                    BEGIN
+                                        UPDATE Sectors
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(SectorSqlCmd);
+
+                        // Trigger for Sector - Insert
+                        SectorSqlCmd = @"
+                                    CREATE TRIGGER SetSectorTimestampOnInsert
+                                    AFTER INSERT ON Sectors
+                                    BEGIN
+                                        UPDATE Sectors
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(SectorSqlCmd);
+
+
+                        // Trigger for MTag - Update
+                        string MTagSqlCmd = @"
+                                    CREATE TRIGGER SetMTagTimestampOnUpdate
+                                    AFTER UPDATE ON MTag
+                                    BEGIN
+                                        UPDATE MTag
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MTagSqlCmd);
+
+                        // Trigger for MTag - Insert
+                        MTagSqlCmd = @"
+                                    CREATE TRIGGER SetMTagTimestampOnInsert
+                                    AFTER INSERT ON MTag
+                                    BEGIN
+                                        UPDATE MTag
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MTagSqlCmd);
+
+                        // Trigger for MembershipTypes - Update
+                        string MembershipTypesSqlCmd = @"
+                                    CREATE TRIGGER SetMembershipTypeTimestampOnUpdate
+                                    AFTER UPDATE ON MembershipTypes
+                                    BEGIN
+                                        UPDATE MembershipTypes
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MembershipTypesSqlCmd);
+
+                        // Trigger for MembershipTypes - Insert
+                        MembershipTypesSqlCmd = @"
+                                    CREATE TRIGGER SetMembershipTypeTimestampOnInsert
+                                    AFTER INSERT ON MembershipTypes
+                                    BEGIN
+                                        UPDATE MembershipTypes
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MembershipTypesSqlCmd);
+
                     }
                     else //The database is already created
                     {
@@ -277,31 +350,31 @@ namespace NIA_CRM.Data
                         context.MembershipTypes.AddRange(
                             new MembershipType
                             {
-                                ID = 1,
+                                Id = 1,
                                 TypeName = "Associate",
                                 TypeDescr = "Access to gym equipment and locker room facilities."
                             },
                             new MembershipType
                             {
-                                ID = 2,
+                                Id = 2,
                                 TypeName = "Chamber,Associate",
                                 TypeDescr = "Includes Basic Membership benefits plus access to group classes and pool."
                             },
                             new MembershipType
                             {
-                                ID = 3,
+                                Id = 3,
                                 TypeName = "Government & Education,Associate",
                                 TypeDescr = "Includes Premium Membership benefits for up to 4 family members."
                             },
                             new MembershipType
                             {
-                                ID = 4,
+                                Id = 4,
                                 TypeName = "Local Industrial",
                                 TypeDescr = "Discounted membership for students with valId Id."
                             },
                             new MembershipType
                             {
-                                ID = 5,
+                                Id = 5,
                                 TypeName = "Non-Local Industrial",
                                 TypeDescr = "Special membership for employees of partner organizations."
                             }

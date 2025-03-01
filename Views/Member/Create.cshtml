@@ -10,8 +10,8 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post" enctype="multipart/form-data"> 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label custom-file-label">Picture File:</label>
                 <div class="input-group mb-3">
@@ -53,7 +53,104 @@
 
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Tag Accredited</label>
+                        <button type="button" id="btnRightTag" class="btn btn-danger btn-sm">
+                            <strong>-</strong>
+                        </button>
+                        @Html.ListBox("selectedOptionsTag", (MultiSelectList)ViewData["selOptsTag"], new { @size = 10, @class = "form-control", id = "selectedOptionsTag" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Choose Tag</label>
+                        <button type="button" id="btnLeftTag" class="btn btn-success btn-sm">
+                            <strong>+</strong>
+                        </button>
+                        @Html.ListBox("availOptionsTag", (MultiSelectList)ViewData["availOptsTag"], new { @size = 10, @class = "form-control", id = "availOptionsTag" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Sector Accredited</label>
+                        <button type="button" id="btnRightSector" class="btn btn-danger btn-sm">
+                            <strong>-</strong>
+                        </button>
+                        @Html.ListBox("selectedOptionsSector", (MultiSelectList)ViewData["selOptsSector"], new { @size = 10, @class = "form-control", id = "selectedOptionsSector" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Choose Sector</label>
+                        <button type="button" id="btnLeftSector" class="btn btn-success btn-sm">
+                            <strong>+</strong>
+                        </button>
+                        @Html.ListBox("availOptionsSector", (MultiSelectList)ViewData["availOptsSector"], new { @size = 10, @class = "form-control", id = "availOptionsSector" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Membership Accredited</label>
+                        <button type="button"  id="btnRightMembership" class="btn btn-danger btn-sm">
+                            <strong>-</strong>
+                        </button>
+                        @Html.ListBox("selectedOptionsMembership", (MultiSelectList)ViewData["selOptsMembership"], new { @size = 10, @class = "form-control", id = "selectedOptionsMembership" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Choose Membership</label>
+                        <button type="button" id="btnLeftMembership" class="btn btn-success btn-sm">
+                            <strong>+</strong>
+                        </button>
+                        @Html.ListBox("availOptionsMembership", (MultiSelectList)ViewData["availOptsMembership"], new { @size = 10, @class = "form-control", id = "availOptionsMembership" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="control-label">NAICS Code Accredited</label>
+                        <button type="button" id="btnRightNaicsCode" class="btn btn-danger btn-sm">
+                            <strong>-</strong>
+                        </button>
+                        @Html.ListBox("selectedOptionsNaicsCode", (MultiSelectList)ViewData["selOptsNaiceCode"], new { @size = 10, @class = "form-control", id = "selectedOptionsNaicsCode" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Choose NAICS Code</label>
+                        <button type="button"  id="btnLeftNaicsCode" class="btn btn-success btn-sm">
+                            <strong>+</strong>
+                        </button>
+                        @Html.ListBox("availOptionsNaicsCode", (MultiSelectList)ViewData["availOptsNaicsCode"], new { @size = 10, @class = "form-control", id = "availOptionsNaicsCode" })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Address Fields -->
+            <h3>Address</h3>
+            <div id="address-container">
+                
+                <partial name="_MemberAddressCreate" />
+                @* <button type="button" id="addAddress" class="btn btn-secondary">Add Another Address</button> *@
+
+            </div>
+
+            <!-- Address Fields -->
+            <h3>Contact</h3>
+            <div id="Contact-container">
+
+                <partial name="_MemberContactCreate" />
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" id="btnSubmit" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -64,5 +161,8 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/multiselect.js"></script>
 }
