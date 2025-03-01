@@ -10,7 +10,7 @@
         <label for="fileUpload">Import Members (Excel File):</label>
         <input type="file" name="fileUpload" class="form-control" />
     </div>
-    <button type="submit" class="btn btn-success">Import Excel</button>
+    
 </form>
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
@@ -23,6 +23,7 @@
     <!-- Filter/Search Toggle Button -->
     <div class="form-horizontal mb-3">
     <div class="d-flex justify-content-between align-items-center">
+        <div>
         <button class="btn btn-dark @ViewData["Filtering"]"
                 type="button"
                 id="filterToggle"
@@ -32,7 +33,10 @@
                 aria-controls="collapseFilter">
             Filter/Search @ViewData["numberFilters"]
         </button>
-            <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-success">Export to Excel</button>
+                <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2"> <i class="fa fa-file-excel text-white"></i>
+                    Export to Excel</button>
+                <button type="submit" class="btn btn-dark me-2"> <i class="fa fa-file-import"></i> Import Excel</button>
+            </div>
             <a asp-controller="MemberCreateViewModel" asp-action="Create" class="btn btn-primary">+ Add Members</a>
     </div>
 
@@ -147,11 +151,6 @@
     <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
         <thead>
             <tr>
-                <th class="table-head">
-
-                    <!--Empty column for logo-->
-                </th>
-
                 <th scope="col" class="table-head">Member Name</th>
                 <th scope="col" class="table-head">City</th>
                 <th scope="col" class="table-head">Join Date</th>
@@ -165,24 +164,6 @@
             @foreach (var item in Model)
             {
                 <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
-                    <td class="table-row-static">
-                        @{
-                            if (item.MemberThumbnail?.Content != null)
-                            {
-                                string imageBase64 = Convert.ToBase64String(item.MemberThumbnail.Content);
-                                string imageSrc = string.Format("data:" + item.MemberThumbnail.MimeType + ";base64,{0}", imageBase64);
-                                <img src="@imageSrc" alt="Profile Picture of @item?.MemberName"
-                                     title="Profile Picture of @item?.MemberName" class="img-fluid rounded" />
-                            }
-                            else
-                            {
-
-                                <img src="images/blankProfile.jpg" alt="blank profile picture"
-                                     title="blank profile picture" class="img-fluid rounded" />
-                            }
-                        }
-                    </td>
-
                     <td>
                         @Html.DisplayFor(modelItem => item.MemberName)
                     </td>

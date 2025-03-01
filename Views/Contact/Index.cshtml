@@ -7,9 +7,7 @@
 <form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
     <div class="d-flex align-items-center">
         <input type="file" name="file" class="form-control me-2" required />
-        <button type="submit" class="btn btn-success">
-            <i class="fa fa-file-import"></i> Import from Excel
-        </button>
+        
     </div>
 </form>
 
@@ -43,7 +41,10 @@
                         Filter/Search @ViewData["numberFilters"]
                     </button>
                     <button type="submit" class="btn btn-dark me-2" name="actionButton" value="ExportExcel">
-                        <i class="fa fa-file-excel text-white"></i> Export to Excel
+                        <i class="fa fa-file-excel text-white"></i> Export Excel
+                    </button>
+                    <button type="submit" class="btn btn-dark me-2">
+                        <i class="fa fa-file-import"></i> Import Excel
                     </button>
                 </div>
                 <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
