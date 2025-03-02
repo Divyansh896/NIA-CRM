@@ -13,7 +13,6 @@ namespace NIA_CRM.Models
 
         [Display(Name = "Action Item/Next Steps")]
         [Required(ErrorMessage = "You cannot leave the opportunity Action Item/Next Steps blank.")]
-        [StringLength(255, ErrorMessage = "Opportunity Action Item/Next Steps cannot be more than 255 characters long.")]
         public string OpportunityAction { get; set; } = "";
 
         [StringLength(255, ErrorMessage = "POC cannot be more than 255 characters long.")]
@@ -22,7 +21,6 @@ namespace NIA_CRM.Models
         [StringLength(255, ErrorMessage = "Account cannot be more than 255 characters long.")]
         public string? Account { get; set; }
 
-        [StringLength(255, ErrorMessage = "Interaction cannot be more than 255 characters long.")]
         public string? Interaction { get; set; }
 
         [Display(Name = "Last Contact")]
