@@ -5,6 +5,7 @@
 }
 
 
+<partial name="_addArchiveModal" />
 
 <form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
     <div class="form-group">
@@ -244,6 +245,7 @@
 
 <div id="previewContainer" class="preview-content hidden"></div>
 
+
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
@@ -277,6 +279,8 @@
                             $('#previewContainer').removeClass('visible').addClass('hidden');
                         });
 
+                         
+
                         // Assign the save event to the save button inside the loaded preview
                         $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
                             e.preventDefault(); // Prevent default button behavior
@@ -306,6 +310,8 @@
                                 }
                             });
                         });
+
+
                     },
                     error: function () {
                         alert('An error occurred while loading the preview.');
@@ -336,6 +342,62 @@
 
             // Reload the page with the updated query string (filters removed)
             window.location.href = url + '?' + params.toString();
+        }
+    </script>
+    <script type="text/javascript">
+        $('#previewContainer').on('click', '#memberArchive', function (event) {
+            console.log("clicked");
+            event.preventDefault();
+            ClearErrors();
+            var form = $('#createSpecialtyForm');
+            console.log(form);
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        $('#addSpecialtyModal').modal('hide');
+                    },
+                    error: function (xhr) { //Note: xhr is the XMLHttpRequest
+                        var errorMessages = [];
+                        switch (xhr.status) {
+                            case 401:
+                                errorMessages.push("You must be logged in first.");
+                                break;
+                            case 403:
+                                errorMessages.push("You are not authorized for this action.");
+                                break;
+                            default:
+                                //Messages coming from the Model State Errors
+                                //We split on the | delimeter and the .slice removes the last one
+                                errorMessages = xhr.responseText.split("|").slice(0, -1);
+                        }
+                        //This checks if there are any elements with some content
+                        //and if not then it provides a default feedback message.
+                        if (!errorMessages.some((str) => str !== "")) {
+                            errorMessages.push("Error: Unable to complete operation");
+                        }
+                        //Put the messages in the ErrorList ul contained in the 'ValidaitonSummary' div.
+                        var ul = document.getElementById("ErrorList");
+                        for (var i = 0; i < errorMessages.length; i++) {
+                            var errorMessage = errorMessages[i];
+                            var li = document.createElement("li");
+                            li.innerHTML = errorMessage;
+                            ul.appendChild(li);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+        
+        function ClearErrors() {
+            //Empty out the list of validation errors if there are any
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
         }
     </script>
 

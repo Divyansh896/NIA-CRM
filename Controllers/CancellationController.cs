@@ -161,6 +161,33 @@ namespace NIA_CRM.Controllers
             return View(cancellation);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Archive(int id)
+        {
+            var member = await _context.Members.FindAsync(id);
+
+            if (member == null)
+            {
+                return NotFound(); // Return 404 if member not found
+            }
+
+            var cancellation = new Cancellation
+            {
+                MemberID = member.ID,
+                CancellationDate = DateTime.UtcNow, // Set default cancellation date
+                IsCancelled = true, // Mark as canceled
+                CancellationNote = "Archived via system." // Optional note
+            };
+
+            _context.Cancellations.Add(cancellation);
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Member archived successfully!" });
+        }
+
+
+
         // GET: Cancellation/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
