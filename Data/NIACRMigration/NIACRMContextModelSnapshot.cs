@@ -697,6 +697,11 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("TemplateName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");

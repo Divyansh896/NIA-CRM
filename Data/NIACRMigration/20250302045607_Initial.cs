@@ -178,6 +178,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    TemplateName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Subject = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Body = table.Column<string>(type: "TEXT", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),

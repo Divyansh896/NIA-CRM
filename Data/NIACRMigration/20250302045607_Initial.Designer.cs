@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250301210921_Initial")]
+    [Migration("20250302045607_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -696,6 +696,11 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("BLOB");
 
                     b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TemplateName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");

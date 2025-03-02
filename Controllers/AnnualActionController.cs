@@ -304,5 +304,24 @@ namespace NIA_CRM.Controllers
         {
             return _context.AnnualAction.Any(e => e.ID == id);
         }
+
+        public async Task<IActionResult> GetAnnualActionPreview(int id)
+        {
+            var member = await _context.AnnualAction
+                .Include(m => m.Name) // Include the related Address
+                .Include(m => m.Asignee)
+                .Include(m => m.AnnualStatus)
+                .Include(m => m.Note)
+                .Include(m => m.Date)
+                .FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
+
+            if (member == null)
+            {
+                return NotFound(); // Return 404 if the member doesn't exist
+            }
+
+            return PartialView("_AnnualActionPreview", member); // Ensure the partial view name matches
+        }
+
     }
 }
