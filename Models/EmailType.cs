@@ -12,6 +12,7 @@ namespace NIA_CRM.Models
         EventInvitation,
         [Display(Name = "Product Updates")]
         ProductUpdates,
+        Cancellation,
         Other
     }
 }

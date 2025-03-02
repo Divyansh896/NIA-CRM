@@ -156,10 +156,10 @@ namespace NIA_CRM.Data.NIACRMigration
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OpportunityName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    OpportunityAction = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    OpportunityAction = table.Column<string>(type: "TEXT", nullable: false),
                     POC = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     Account = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
-                    Interaction = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    Interaction = table.Column<string>(type: "TEXT", nullable: true),
                     LastContact = table.Column<DateTime>(type: "TEXT", nullable: true),
                     OpportunityStatus = table.Column<int>(type: "INTEGER", nullable: false),
                     OpportunityPriority = table.Column<int>(type: "INTEGER", nullable: false),
@@ -180,6 +180,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    TemplateName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Subject = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Body = table.Column<string>(type: "TEXT", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),

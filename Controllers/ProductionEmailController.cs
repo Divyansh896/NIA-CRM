@@ -132,7 +132,7 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmailType,Subject,Body")] ProductionEmail productionEmail)
+        public async Task<IActionResult> Create([Bind("Id,TemplateName,EmailType,Subject,Body")] ProductionEmail productionEmail)
         {
             if (ModelState.IsValid)
             {
@@ -175,7 +175,7 @@ namespace NIA_CRM.Controllers
             _context.Entry(EmailToUpdate).Property("RowVersion").OriginalValue = RowVersion;
 
 
-            if (await TryUpdateModelAsync<ProductionEmail>(EmailToUpdate, "", e => e.EmailType, e => e.Subject, e => e.Body))
+            if (await TryUpdateModelAsync<ProductionEmail>(EmailToUpdate, "", e => e.TemplateName,  e => e.EmailType, e => e.Subject, e => e.Body))
             {
                 try
                 {

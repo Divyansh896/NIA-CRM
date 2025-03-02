@@ -635,7 +635,6 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Interaction")
-                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("LastContact")
@@ -643,7 +642,6 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.Property<string>("OpportunityAction")
                         .IsRequired()
-                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OpportunityName")
@@ -704,6 +702,11 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("BLOB");
 
                     b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TemplateName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
