@@ -154,10 +154,10 @@ namespace NIA_CRM.Data.NIACRMigration
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OpportunityName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    OpportunityAction = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    OpportunityAction = table.Column<string>(type: "TEXT", nullable: false),
                     POC = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     Account = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
-                    Interaction = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    Interaction = table.Column<string>(type: "TEXT", nullable: true),
                     LastContact = table.Column<DateTime>(type: "TEXT", nullable: true),
                     OpportunityStatus = table.Column<int>(type: "INTEGER", nullable: false),
                     OpportunityPriority = table.Column<int>(type: "INTEGER", nullable: false),

@@ -49,6 +49,9 @@
             <th scope="col" class="table-head">
                 @Html.DisplayNameFor(model => model.EventDate)
             </th>
+            <th scope="col" class="table-head">
+                Participants
+            </th>
             <th scope="col" class="table-head"></th>
         </tr>
     </thead>
@@ -67,6 +70,35 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EventDate)
             </td>
+                <td class="d-none d-lg-table-cell">
+                    @{
+                        int specCount = item.MemberEvents.Count;
+                        if (specCount > 0)
+                        {
+                            string firstSpec = item.MemberEvents.FirstOrDefault().Member.MemberName;
+                            if (specCount > 1)
+                            {
+                                string specList = "";//Html string of specialty names separated by <br /> tags
+                                var s = item.MemberEvents.ToList();
+                                for (int i = 1; i < specCount; i++)//Skip the first because we have it already
+                                {
+                                    specList += s[i].Member.MemberName + " <br />";
+                                }
+                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseSpecalty@(item.Id)"
+                                   aria-expanded="false" aria-controls="collapseSpecalty@(item.Id)">
+                                    @firstSpec <span class="badge bg-info">@specCount</span>
+                                </a>
+                                <div class="collapse" id="collapseSpecalty@(item.Id)">
+                                    @Html.Raw(specList)
+                                </div>
+                            }
+                            else
+                            {
+                                @firstSpec
+                            }
+                        }
+                    }
+                </td>
                 <td class ="d-flex flex-column">
                     <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a class="btn btn-light" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
