@@ -31,9 +31,11 @@ namespace NIA_CRM.Models
         public DateTime? LastContact { get; set; }
 
         [Required(ErrorMessage = "You must select the opportunity status.")]
+        [Display(Name = "Opportunity Status")]
         public OpportunityStatus OpportunityStatus { get; set; }
 
         [Required(ErrorMessage = "You must select the opportunity priority.")]
+        [Display(Name = "Opportunity Priority")]
         public OpportunityPriority OpportunityPriority { get; set; }
 
         [ScaffoldColumn(false)]
