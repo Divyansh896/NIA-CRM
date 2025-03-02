@@ -237,6 +237,36 @@
                         $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
                             $('#previewContainer').removeClass('visible').addClass('hidden');
                         });
+
+                        // Assign the save event to the save button inside the loaded preview
+                        $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
+                            e.preventDefault(); // Prevent default button behavior
+
+                            var contactId = $("#ContactId").val();
+                            var note = $("#Note").val();
+
+                            if (!contactId || !note.trim()) {
+                                $("#responseMessage").text("Note cannot be empty!").addClass("text-danger").removeClass("text-success").show();
+                                return;
+                            }
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/Contact/SaveContactNote",
+                                data: { id: contactId, note: note },
+                                dataType: "json",
+                                success: function (response) {
+                                    if (response.success) {
+                                        $("#responseMessage").text(response.message).addClass("text-success").removeClass("text-danger").show();
+                                    } else {
+                                        $("#responseMessage").text(response.message).addClass("text-danger").removeClass("text-success").show();
+                                    }
+                                },
+                                error: function () {
+                                    $("#responseMessage").text("An unexpected error occurred.").addClass("text-danger").removeClass("text-success").show();
+                                }
+                            });
+                        });
                     },
                     error: function () {
                         alert('An error occurred while loading the preview.');

@@ -51,12 +51,14 @@
 
 
 
-        <div class="mt-3">
-            <label for="contactNote"><strong>Additional Notes:</strong></label><br />
-            <label id="test"></label>
+        <div id="responseMessage"></div>
 
-            <textarea id="contactNote" name="contactNote" class="form-control" rows="4" placeholder="Add notes here..." data-id="@Model.Id"></textarea>
-        </div>
+        <form id="saveNoteForm" asp-action="SaveMemberNote" asp-controller="Member" method="post">
+            <input type="hidden" id="ContactId" name="id" value="@Model.Id" />
+            <label for="Note">Contact Note</label>
+            <textarea id="Note" name="note" placeholder="Enter your note..." class="form-control">@Model.ContactNote</textarea>
+            <input type="button" id="saveNoteBtn" value="Save Note" class="btn btn-primary mt-2" />
+        </form>
     </div>
     <div class="sticky-buttons">
         <div class="sticky-buttons-container">

@@ -249,7 +249,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
     <script>
-              $(document).ready(function () {
+        $(document).ready(function () {
             // Initially hide the preview content
             $('#previewContainer').addClass('hidden');
 
@@ -271,9 +271,40 @@
                         // Insert the result (partial view) into the preview container
                         $('#previewContainer').html(result);
                         $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+
                         // Assign the close event to the button inside the loaded preview
                         $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
                             $('#previewContainer').removeClass('visible').addClass('hidden');
+                        });
+
+                        // Assign the save event to the save button inside the loaded preview
+                        $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
+                            e.preventDefault(); // Prevent default button behavior
+
+                            var memberId = $("#MemberId").val();
+                            var note = $("#Note").val();
+
+                            if (!memberId || !note.trim()) {
+                                $("#responseMessage").text("Note cannot be empty!").addClass("text-danger").removeClass("text-success").show();
+                                return;
+                            }
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/Member/SaveMemberNote",
+                                data: { id: memberId, note: note },
+                                dataType: "json",
+                                success: function (response) {
+                                    if (response.success) {
+                                        $("#responseMessage").text(response.message).addClass("text-success").removeClass("text-danger").show();
+                                    } else {
+                                        $("#responseMessage").text(response.message).addClass("text-danger").removeClass("text-success").show();
+                                    }
+                                },
+                                error: function () {
+                                    $("#responseMessage").text("An unexpected error occurred.").addClass("text-danger").removeClass("text-success").show();
+                                }
+                            });
                         });
                     },
                     error: function () {
@@ -295,19 +326,19 @@
             });
         });
 
-        function clearFilter(filterName){
+        function clearFilter(filterName) {
             // Get the current URL
             var url = window.location.href.split('?')[0]; // Current URL without query string
 
             // Get the query parameters from the URL
             var params = new URLSearchParams(window.location.search);
-            params.delete(filterName)
+            params.delete(filterName);
 
             // Reload the page with the updated query string (filters removed)
             window.location.href = url + '?' + params.toString();
-            
         }
     </script>
+
 
     
 }

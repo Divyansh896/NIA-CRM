@@ -368,6 +368,33 @@ namespace NIA_CRM.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveContactNote(int id, string note)
+        {
+            var contactToUpdate = await _context.Contacts.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (contactToUpdate == null)
+            {
+                return Json(new { success = false, message = "Contact not found." });
+            }
+
+            // Update MemberNote
+            contactToUpdate.ContactNote = note;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Json(new { success = true, message = "Note saved successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+
+
         private bool ContactExists(int id)
         {
             return _context.Contacts.Any(e => e.Id == id);
