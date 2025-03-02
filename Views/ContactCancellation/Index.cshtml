@@ -41,7 +41,7 @@
                 @Html.DisplayFor(modelItem => item.IsCancelled)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Contact.FirstName)
+                @Html.DisplayFor(modelItem => item.Contact.Summary)
             </td>
                 <td class="d-flex flex-column">
                     <a class="btn btn-secondary mb-2" asp-action="Details" asp-route-id="@item.ID">Details</a>

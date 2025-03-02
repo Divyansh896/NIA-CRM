@@ -8,11 +8,6 @@ namespace NIA_CRM.Models
         [Key] // Marks the Id property as the primary key
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Email type is required")]
-        [MaxLength(255, ErrorMessage = "Email type cannot be longer than 255 characters")]
-        [DisplayName("Email Type")]
-        public string? EmailType { get; set; } // The type of email (e.g., "Welcome," "Cancellation")
-
         [Required(ErrorMessage = "Subject is required")]
         [MaxLength(255, ErrorMessage = "Subject cannot be longer than 255 characters")]
         [DisplayName("Subject")]
@@ -26,6 +21,10 @@ namespace NIA_CRM.Models
         [ScaffoldColumn(false)]
         [Timestamp]
         public Byte[]? RowVersion { get; set; }//Added for concurrency
+
+        [Required(ErrorMessage = "Email type is required")]
+        [DisplayName("Email Type")]
+        public EmailType EmailType { get; set; }
 
         //[Required]
         //[DisplayName("Is Active")]
