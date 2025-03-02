@@ -6,12 +6,17 @@ using NIA_CRM.Data;
 using NIA_CRM.Models;
 using NIA_CRM.Utilities;
 using NIA_CRM.ViewModels;
+using OfficeOpenXml;
 using static NIA_CRM.Utilities.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("NIACRMContext") ?? throw new InvalidOperationException("Connection string 'NIACRMContext' not found.");
+
+
+// Set the EPPlus LicenseContext globally for the application
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Change to Commercial if using it for commercial purposes
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));

@@ -54,11 +54,31 @@ body {
     border-color: #A61C1C !important;
 }
 
-.page-item.active .page-link {
-    background-color: #A61C1C !important;
-    
-    border-color: #A61C1C;
+.btn-light {
+    border-width: 2px;
+    border-color: #434343 !important;
 }
+
+.btn-light:hover {
+    background-color: lightgray !important;
+}
+
+.btn-secondary {
+    border-width: 2px;
+    border-color: #A61C1C !important;
+    color:black;
+    background-color: white;
+}
+
+    .btn-secondary:hover {
+        background-color: #EE9191 !important;
+        color:black;
+    }
+
+    .page-item.active .page-link {
+        background-color: #A61C1C !important;
+        border-color: #A61C1C;
+    }
 .position-bottom-left {
     display: flex;
     justify-content: flex-end;

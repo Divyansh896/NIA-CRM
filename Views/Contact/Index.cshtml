@@ -4,6 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
+<form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
+    <div class="d-flex align-items-center">
+        <input type="file" name="file" class="form-control me-2" required />
+        
+    </div>
+</form>
 
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
@@ -35,7 +41,10 @@
                         Filter/Search @ViewData["numberFilters"]
                     </button>
                     <button type="submit" class="btn btn-dark me-2" name="actionButton" value="ExportExcel">
-                        <i class="fa fa-file-excel text-white"></i> Export to Excel
+                        <i class="fa fa-file-excel text-white"></i> Export Excel
+                    </button>
+                    <button type="submit" class="btn btn-dark me-2">
+                        <i class="fa fa-file-import"></i> Import Excel
                     </button>
                 </div>
                 <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
@@ -75,6 +84,16 @@
 
 
             }
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
 
         </div>
         <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
@@ -137,9 +156,6 @@
                             <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
                         }
                     </th>
-
-                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Title)</th>
-                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Department)</th>
                     <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Email)</th>
                     <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Phone)</th>
                     <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
@@ -153,8 +169,6 @@
                 {
                     <tr class="clickable-row" data-id="@item.Id" title="Click on row to get preview">
                         <td>@Html.DisplayFor(modelItem => item.Summary)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Department)</td>
                         <td>@Html.DisplayFor(modelItem => item.Email)</td>
                         <td>
                             <a href="tel:@item.PhoneFormatted" id="phoneNumber">@item.PhoneFormatted</a>
@@ -163,7 +177,15 @@
                             <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.IsVip)</td>
-                        <td>@Html.DisplayFor(modelItem => item.MemberContacts.FirstOrDefault().Member.MemberName)</td>
+                        <td>
+                            @if (item.MemberContacts != null && item.MemberContacts.Any())
+                            {
+                                @string.Join(", ", item.MemberContacts
+                                         .Where(mc => mc.Member != null)
+                                         .Select(mc => mc.Member.MemberName))
+                            }
+                        </td>
+
 
                     </tr>
                 }

@@ -2336,7 +2336,7 @@ namespace NIA_CRM.Data
                                 Email = "john.doe@example.com",
                                 Phone = "1234567890",
                                 LinkedInUrl = "https://www.linkedin.com/in/johndoe",
-                                IsVip = true,
+                                IsVip = true
                             },
                             new Contact
                             {
@@ -2348,7 +2348,7 @@ namespace NIA_CRM.Data
                                 Email = "jane.smith@example.com",
                                 Phone = "9876543210",
                                 LinkedInUrl = "https://www.linkedin.com/in/janesmith",
-                                IsVip = false,
+                                IsVip = false
                             },
                             new Contact
                             {
@@ -2360,7 +2360,7 @@ namespace NIA_CRM.Data
                                 Email = "alice.johnson@example.com",
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/alicejohnson",
-                                IsVip = true,
+                                IsVip = true
                             },
                             new Contact
                             {
@@ -2372,7 +2372,7 @@ namespace NIA_CRM.Data
                                 Email = "bob.brown@example.com",
                                 Phone = "5557654321",
                                 LinkedInUrl = "https://www.linkedin.com/in/bobbrown",
-                                IsVip = true,
+                                IsVip = true
                             },
                             new Contact
                             {
@@ -3533,49 +3533,30 @@ namespace NIA_CRM.Data
 
                     }
 
-                    //if (!context.MemberContacts.Any())
-                    //{
-                    //    var memberContacts = new List<MemberContact>
-                    //        {
-                    //            //new MemberContact { MemberId = 1, ContactId = 1 },
-                    //            //new MemberContact { MemberId = 2, ContactId = 2 },
-                    //            //new MemberContact { MemberId = 3, ContactId = 3 },
-                    //            //new MemberContact { MemberId = 4, ContactId = 4 },
-                    //            //new MemberContact { MemberId = 5, ContactId = 5 },
-                    //            //new MemberContact { MemberId = 6, ContactId = 6 },
-                    //            //new MemberContact { MemberId = 7, ContactId = 7 },
-                    //            //new MemberContact { MemberId = 8, ContactId = 8 },
-                    //            //new MemberContact { MemberId = 9, ContactId = 9 },
-                    //            //new MemberContact { MemberId = 10, ContactId = 10 }
+                   try
+{
+    if (!context.MemberContacts.Any())
+    {
+        var memberContacts = new List<MemberContact>
+        {
+            new MemberContact { MemberId = 1, ContactId = 1 },
+            new MemberContact { MemberId = 2, ContactId = 2 },
+            new MemberContact { MemberId = 2, ContactId = 1 },
+            new MemberContact { MemberId = 1, ContactId = 6 },
+            new MemberContact { MemberId = 3, ContactId = 3 },
+            new MemberContact { MemberId = 4, ContactId = 4 },
+            new MemberContact { MemberId = 5, ContactId = 5 },
+            new MemberContact { MemberId = 6, ContactId = 6 }
+        };
 
-                    //            // Additional many-to-many relationships
-                    //            //new MemberContact { MemberId = 1, ContactId = 5 },
-                    //            //new MemberContact { MemberId = 2, ContactId = 6 },
-                    //            //new MemberContact { MemberId = 3, ContactId = 7 },
-                    //            //new MemberContact { MemberId = 4, ContactId = 8 },
-                    //            //new MemberContact { MemberId = 5, ContactId = 9 },
-                    //            //new MemberContact { MemberId = 6, ContactId = 10 },
-                    //            //new MemberContact { MemberId = 7, ContactId = 1 },
-                    //            //new MemberContact { MemberId = 8, ContactId = 2 },
-                    //            //new MemberContact { MemberId = 9, ContactId = 3 },
-                    //            //new MemberContact { MemberId = 10, ContactId = 4 },
-
-                    //            // Expanding relationships further
-                    //            //new MemberContact { MemberId = 1, ContactId = 10 },
-                    //            //new MemberContact { MemberId = 2, ContactId = 9 },
-                    //            //new MemberContact { MemberId = 3, ContactId = 8 },
-                    //            //new MemberContact { MemberId = 4, ContactId = 7 },
-                    //            //new MemberContact { MemberId = 5, ContactId = 6 },
-                    //            //new MemberContact { MemberId = 6, ContactId = 5 },
-                    //            //new MemberContact { MemberId = 7, ContactId = 4 },
-                    //            //new MemberContact { MemberId = 8, ContactId = 3 },
-                    //            //new MemberContact { MemberId = 9, ContactId = 2 },
-                    //            //new MemberContact { MemberId = 10, ContactId = 1 }
-                    //        };
-
-                    //    context.MemberContacts.AddRange(memberContacts);
-                    //    context.SaveChanges();
-                    //}
+        context.MemberContacts.AddRange(memberContacts);
+        context.SaveChanges();
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Seeding failed: {ex.Message}");
+}
 
 
                     if (!context.Cancellations.Any())
@@ -3949,6 +3930,30 @@ namespace NIA_CRM.Data
                         );
 
                         context.SaveChanges();
+                    }
+
+                    try
+                    {
+                        if (!context.MemberEvents.Any())
+                        {
+                            var memberEvents = new List<MemberEvent>
+        {
+            new MemberEvent { MemberId = 1, MEventID = 1 },
+            new MemberEvent { MemberId = 2, MEventID = 2 },
+            new MemberEvent { MemberId = 2, MEventID = 1 },
+            new MemberEvent { MemberId = 3, MEventID = 3 },
+            new MemberEvent { MemberId = 4, MEventID = 4 },
+            new MemberEvent { MemberId = 5, MEventID = 5 }
+        };
+
+                            context.MemberEvents.AddRange(memberEvents);
+                            context.SaveChanges();
+                        
+                    }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Seeding failed: {ex.Message}");
                     }
 
                     //if (!context.MemberEvents.Any())

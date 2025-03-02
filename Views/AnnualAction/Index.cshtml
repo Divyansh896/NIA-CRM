@@ -4,30 +4,57 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Annual Actions</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+   
+    <input type="file" name="file" class="form-control me-2" required />
 </p>
+
+
+<form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <a class="btn btn-dark" asp-action="ExportToExcel"> <i class="fa fa-file-excel text-white"></i>
+                Export Excel</a>
+        <button type="submit" class="btn btn-dark">
+            <i class="fa fa-file-import"></i> Import Excel
+        </button>
+        </div>
+         <a class="btn btn-primary" asp-action="Create">Create New</a>
+    </div>
+</form>
+
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th scope="col" class="table-head">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th scope="col" class="table-head">
                 @Html.DisplayNameFor(model => model.Note)
-            </th>
-            <th>
+            </th >
+            <th scope="col" class="table-head">
                 @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
+            </th scope="col" class="table-head">
+            <th scope="col" class="table-head">
                 @Html.DisplayNameFor(model => model.Asignee)
-            </th>
-            <th>
+            </th >
+            <th scope="col" class="table-head"> 
                 @Html.DisplayNameFor(model => model.AnnualStatus)
             </th>
-            <th></th>
+            <th scope="col" class="table-head"> Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -48,10 +75,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AnnualStatus)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+
+            <td class="d-flex flex-column">
+                <a class="btn btn-secondary mb-2" asp-action="Details" asp-route-id="@item.ID">Details</a>
+                <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                <a class="btn btn-light mb-2" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
 }
