@@ -26,6 +26,7 @@
 </form>
 
 
+
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
@@ -36,55 +37,65 @@
     <div class="alert alert-danger">@TempData["Error"]</div>
 }
 
-<table table class="table table-bordered table-striped" id="myTable" aria-label="Annual Actions Table">
-    <thead>
-        <tr>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.Note)
-            </th >
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.Date)
-            </th scope="col" class="table-head">
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.Asignee)
-            </th >
-            <th scope="col" class="table-head"> 
-                @Html.DisplayNameFor(model => model.AnnualStatus)
-            </th>
-            <th scope="col" class="table-head"> Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Asignee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnnualStatus)
-            </td>
+<form asp-action="Index" method="get">
 
-            <td class="d-flex flex-column">
-                <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.ID">Edit</a>
-                <a class="btn btn-light" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table table class="table table-bordered table-striped" id="myTable" aria-label="Annual Actions Table">
+        <thead>
+            <tr>
+                <th scope="col" class="table-head">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th scope="col" class="table-head">
+                    @Html.DisplayNameFor(model => model.Note)
+                </th >
+                <th scope="col" class="table-head">
+                    @Html.DisplayNameFor(model => model.Date)
+                </th scope="col" class="table-head">
+                <th scope="col" class="table-head">
+                    @Html.DisplayNameFor(model => model.Asignee)
+                </th >
+                <th scope="col" class="table-head"> 
+                    @Html.DisplayNameFor(model => model.AnnualStatus)
+                </th>
+                <th scope="col" class="table-head"> Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Asignee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnnualStatus)
+                </td>
 
+                <td class="d-flex flex-column">
+                    <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                    <a class="btn btn-light" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+
+    <!-- Preview Container -->
+        <div id="previewContainer" class="preview-content hidden" role="region" aria-labelledby="previewTitle">
+            <h2 id="previewTitle" class="sr-only">Preview Section</h2>
+            <!-- Preview content will be dynamically injected here -->
+        </div>
+            <partial name="_PagingNavBar" />
+
+</form>
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
@@ -114,6 +125,36 @@
                         // Assign the close event to the button inside the loaded preview
                         $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
                             $('#previewContainer').removeClass('visible').addClass('hidden');
+                        });
+
+                         // Assign the save event to the save button inside the loaded preview
+                        $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
+                            e.preventDefault(); // Prevent default button behavior
+
+                            var contactId = $("#ContactId").val();
+                            var note = $("#Note").val();
+
+                            if (!contactId || !note.trim()) {
+                                $("#responseMessage").text("Note cannot be empty!").addClass("text-danger").removeClass("text-success").show();
+                                return;
+                            }
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/AnnualAction/SaveAnnualActionNote",
+                                data: { id: contactId, note: note },
+                                dataType: "json",
+                                success: function (response) {
+                                    if (response.success) {
+                                        $("#responseMessage").text(response.message).addClass("text-success").removeClass("text-danger").show();
+                                    } else {
+                                        $("#responseMessage").text(response.message).addClass("text-danger").removeClass("text-success").show();
+                                    }
+                                },
+                                error: function () {
+                                    $("#responseMessage").text("An unexpected error occurred.").addClass("text-danger").removeClass("text-success").show();
+                                }
+                            });
                         });
                     },
                     error: function () {

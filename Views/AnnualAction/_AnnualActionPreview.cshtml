@@ -20,7 +20,7 @@
                 @Html.DisplayFor(model => model.AnnualStatus)
             </dd>
 
-            <dt class="col-sm-4">Action Type:</dt>
+            <dt class="col-sm-4">Assignee:</dt>
             <dd class="col-sm-8">
                 @Html.DisplayFor(model => model.Asignee)
             </dd>
@@ -30,11 +30,23 @@
                 @Html.DisplayFor(model => model.Date)
             </dd>
 
-            <dt class="col-sm-4">Note:</dt>
+           @*  <dt class="col-sm-4">Note:</dt>
             <dd class="col-sm-8">
                 @Html.DisplayFor(model => model.Note)
-            </dd>
+            </dd> *@
         </div>
+        <div>
+
+            <div id="responseMessage"></div>
+
+            <form id="saveNoteForm" asp-action="SaveMemberNote" asp-controller="Member" method="post">
+                <input type="hidden" id="ContactId" name="id" value="@Model.ID" />
+                <label for="Note">Contact Note</label>
+                <textarea id="Note" name="note" placeholder="Enter your note..." class="form-control">@Model.Note</textarea>
+                <input type="button" id="saveNoteBtn" value="Save Note" class="btn btn-primary mt-2" />
+            </form>
+        </div>
+
     </div>
     <div class="sticky-buttons mt-3">
         <div class="sticky-buttons-container">

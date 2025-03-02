@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
-    public class AnnualActionController : Controller
+    public class AnnualActionController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -22,9 +24,16 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: AnnualAction
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, int? pageSizeID)
         {
-            return View(await _context.AnnualAction.ToListAsync());
+            var annualActions = _context.AnnualAction.AsNoTracking();
+
+            // Handle paging
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
+            var pagedData = await PaginatedList<AnnualAction>.CreateAsync(annualActions, page ?? 1, pageSize);
+
+            return View(pagedData);
         }
 
         // New action to export to Excel
@@ -308,12 +317,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> GetAnnualActionPreview(int id)
         {
             var member = await _context.AnnualAction
-                .Include(m => m.Name) // Include the related Address
-                .Include(m => m.Asignee)
-                .Include(m => m.AnnualStatus)
-                .Include(m => m.Note)
-                .Include(m => m.Date)
-                .FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
+                .FirstOrDefaultAsync(m => m.ID == id); // No .Include() needed
 
             if (member == null)
             {
@@ -321,6 +325,32 @@ namespace NIA_CRM.Controllers
             }
 
             return PartialView("_AnnualActionPreview", member); // Ensure the partial view name matches
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveAnnualActionNote(int id, string note)
+        {
+            var annualActionToUpdate = await _context.AnnualActions.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (annualActionToUpdate == null)
+            {
+                return Json(new { success = false, message = "Annual Action not found." });
+            }
+
+            // Update MemberNote
+            annualActionToUpdate.Note = note;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Json(new { success = true, message = "Note saved successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+
         }
 
     }
