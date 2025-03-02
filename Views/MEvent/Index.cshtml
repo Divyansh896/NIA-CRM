@@ -7,23 +7,22 @@
 <h1>Events</h1>
 
 <p>
-    
     <input type="file" name="file" class="form-control me-2" required />
 </p>
 
 <form asp-action="ImportOpportunitiesFromExcel" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken() <!-- Ensure Anti-Forgery Token is included -->
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <a class="btn btn-dark" asp-action="ExportToExcel"><i class="fa fa-file-excel text-white"></i> 
-                Export Excel</a>
-        
+            <a class="btn btn-dark" asp-action="ExportToExcel"><i class="fa fa-file-excel text-white"></i> Export Excel</a>
             <button type="submit" class="btn btn-dark">
-            <i class="fa fa-file-import"></i> Import Excel
-        </button>
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
         </div>
         <a class="btn btn-primary" asp-action="Create">Create New</a>
     </div>
 </form>
+
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
@@ -37,39 +36,22 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.EventName)
-            </th>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.EventDescription)
-            </th>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.EventLocation)
-            </th>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.EventDate)
-            </th>
-            <th scope="col" class="table-head">
-                Participants
-            </th>
+            <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.EventName)</th>
+            <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.EventDescription)</th>
+            <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.EventLocation)</th>
+            <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.EventDate)</th>
+            <th scope="col" class="table-head">Participants</th>
             <th scope="col" class="table-head"></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDate)
-            </td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.EventName)</td>
+                <td>@Html.DisplayFor(modelItem => item.EventDescription)</td>
+                <td>@Html.DisplayFor(modelItem => item.EventLocation)</td>
+                <td>@Html.DisplayFor(modelItem => item.EventDate)</td>
                 <td class="d-none d-lg-table-cell">
                     @{
                         int specCount = item.MemberEvents.Count;
@@ -78,15 +60,10 @@
                             string firstSpec = item.MemberEvents.FirstOrDefault().Member.MemberName;
                             if (specCount > 1)
                             {
-                                string specList = "";//Html string of specialty names separated by <br /> tags
-                                var s = item.MemberEvents.ToList();
-                                for (int i = 1; i < specCount; i++)//Skip the first because we have it already
-                                {
-                                    specList += s[i].Member.MemberName + " <br />";
-                                }
-                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseSpecalty@(item.Id)"
+                                string specList = string.Join("<br />", item.MemberEvents.Skip(1).Select(s => s.Member.MemberName));
+                                <a class="member-toggle" role="button" data-bs-toggle="collapse" href="#collapseSpecalty@(item.Id)"
                                    aria-expanded="false" aria-controls="collapseSpecalty@(item.Id)">
-                                    @firstSpec <span class="badge bg-info">@specCount</span>
+                                    @firstSpec <span class="participant-badge">@specCount</span>
                                 </a>
                                 <div class="collapse" id="collapseSpecalty@(item.Id)">
                                     @Html.Raw(specList)
@@ -99,11 +76,73 @@
                         }
                     }
                 </td>
-                <td class ="d-flex flex-column">
+                <td class="d-flex flex-column">
                     <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-light" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                    <button class="btn btn-danger delete-btn" data-id="@item.Id">Delete</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this record?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ensure jQuery is loaded first -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var deleteId = 0;
+
+        // Open delete confirmation modal
+        $(".delete-btn").click(function () {
+            deleteId = $(this).data("id");
+            $("#deleteConfirmationModal").modal("show");
+        });
+
+        // Confirm Delete action
+        $("#confirmDelete").click(function () {
+            var token = $('input[name="__RequestVerificationToken"]').val(); // Get Anti-Forgery Token
+
+            $.ajax({
+                url: '@Url.Action("DeleteConfirmed", "MEvent")', // Ensure correct URL
+                type: 'POST',
+                data: {
+                    id: deleteId,
+                    __RequestVerificationToken: token // Send anti-forgery token
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload(); // Refresh the page after deletion
+                    } else {
+                        alert("Error: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", xhr.responseText);
+                    alert("Something went wrong. Check the console.");
+                }
+            });
+
+            $("#deleteConfirmationModal").modal("hide");
+        });
+    });
+</script>

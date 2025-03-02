@@ -10,8 +10,9 @@
 <hr />
 <div class="row">
     <div class="col-md-8 offset-md-2">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
         <div class="card card-body bg-light text-black">
-            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <input type="hidden" asp-for="ID" />
                 <input type="hidden" asp-for="RowVersion" />
@@ -52,16 +53,18 @@
                     <textarea asp-for="Note" class="form-control" rows="4"></textarea>
                     <span asp-validation-for="Note" class="text-danger"></span>
                 </div>
-            </form>
+            
         </div>
+            <div class="position-bottom-left">
+                <a class="btn btn-dark me-2" asp-action="Index">Back to List</a>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+        </form>
     </div>
 </div>
 
 
-<div class="position-bottom-left">
-    <a class="btn btn-dark me-2" asp-action="Index">Back to List</a>
-    <input type="submit" value="Create" class="btn btn-primary"  />
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

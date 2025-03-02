@@ -289,26 +289,36 @@ namespace NIA_CRM.Controllers
         }
 
         // POST: Opportunity/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var opportunity = await _context.Opportunities.FindAsync(id);
-            if (opportunity != null)
+            try
             {
-                _context.Opportunities.Remove(opportunity);
+                var mEvent = await _context.Opportunities.FindAsync(id);
+
+                if (mEvent == null)
+                {
+                    return Json(new { success = false, message = "Event not found!" });
+                }
+
+                _context.Opportunities.Remove(mEvent);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Opportunity deleted successfully!" });
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting event: {ex.Message}");
+                return Json(new { success = false, message = "An error occurred while deleting the event." });
+            }
         }
-
-
-
 
         private bool OpportunityExists(int id)
         {
             return _context.Opportunities.Any(e => e.ID == id);
         }
+
+
     }
 }

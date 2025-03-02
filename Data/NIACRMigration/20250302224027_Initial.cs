@@ -88,14 +88,15 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "MembershipTypes",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     TypeName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    TypeDescr = table.Column<string>(type: "TEXT", nullable: true)
+                    TypeDescr = table.Column<string>(type: "TEXT", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MembershipTypes", x => x.ID);
+                    table.PrimaryKey("PK_MembershipTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,7 +127,8 @@ namespace NIA_CRM.Data.NIACRMigration
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     MTagName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    MTagDescription = table.Column<string>(type: "TEXT", nullable: true)
+                    MTagDescription = table.Column<string>(type: "TEXT", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -200,7 +202,8 @@ namespace NIA_CRM.Data.NIACRMigration
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     SectorName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    SectorDescription = table.Column<string>(type: "TEXT", nullable: true)
+                    SectorDescription = table.Column<string>(type: "TEXT", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -289,7 +292,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     AddressLine2 = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     City = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     StateProvince = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    PostalCode = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true)
+                    PostalCode = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -416,7 +419,7 @@ namespace NIA_CRM.Data.NIACRMigration
                         name: "FK_MemberMembershipTypes_MembershipTypes_MembershipTypeId",
                         column: x => x.MembershipTypeId,
                         principalTable: "MembershipTypes",
-                        principalColumn: "ID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -435,13 +438,13 @@ namespace NIA_CRM.Data.NIACRMigration
                         column: x => x.MEventID,
                         principalTable: "MEvents",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MemberEvents_Members_MemberId",
                         column: x => x.MemberId,
                         principalTable: "Members",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

@@ -11,11 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-<<<<<<<< HEAD:Data/NIACRMigration/20250302174626_Initial.Designer.cs
-    [Migration("20250302174626_Initial")]
-========
-    [Migration("20250302161402_Initial")]
->>>>>>>> Eliza:Data/NIACRMigration/20250302161402_Initial.Designer.cs
+    [Migration("20250302224027_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -942,13 +938,13 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasOne("NIA_CRM.Models.MEvent", "MEvent")
                         .WithMany("MemberEvents")
                         .HasForeignKey("MEventID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NIA_CRM.Models.Member", "Member")
                         .WithMany("MemberEvents")
                         .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("MEvent");

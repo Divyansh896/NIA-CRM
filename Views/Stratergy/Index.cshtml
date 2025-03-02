@@ -37,6 +37,7 @@
 {
     <div class="alert alert-danger">@TempData["Error"]</div>
 }
+
 <table class="table">
     <thead>
         <tr>
@@ -63,7 +64,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+            <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
             <td>
                 @Html.DisplayFor(modelItem => item.StrategyName)
             </td>
@@ -90,3 +91,4 @@
 }
     </tbody>
 </table>
+

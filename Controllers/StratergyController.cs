@@ -279,5 +279,18 @@ namespace NIA_CRM.Controllers
         {
             return _context.Strategys.Any(e => e.ID == id);
         }
+
+        public async Task<IActionResult> GetStrategyPreview(int id)
+        {
+            var strategy = await _context.Strategies
+                .FirstOrDefaultAsync(m => m.ID == id); // No .Include() needed
+
+            if (strategy == null)
+            {
+                return NotFound(); // Return 404 if the member doesn't exist
+            }
+
+            return PartialView("_StrategyPreview", strategy); // Ensure the partial view name matches
+        }
     }
 }
