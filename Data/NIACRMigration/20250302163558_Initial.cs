@@ -180,10 +180,10 @@ namespace NIA_CRM.Data.NIACRMigration
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    EmailType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Subject = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Body = table.Column<string>(type: "TEXT", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    EmailType = table.Column<int>(type: "INTEGER", nullable: false),
                     CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
                     UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),

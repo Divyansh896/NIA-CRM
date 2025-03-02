@@ -571,14 +571,9 @@ namespace NIA_CRM.Controllers
 
         private void PopulateDropdowns()
         {
-
-
-
             var membershipTypes = _context.MembershipTypes.ToList();
 
             ViewData["MembershipTypes"] = new SelectList(membershipTypes, "Id", "TypeName");
-
-
 
         }
 
@@ -904,6 +899,32 @@ namespace NIA_CRM.Controllers
                 }
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveMemberNote(int id, string note)
+        {
+            var memberToUpdate = await _context.Members.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (memberToUpdate == null)
+            {
+                return Json(new { success = false, message = "Member not found." });
+            }
+
+            // Update MemberNote
+            memberToUpdate.MemberNote = note;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Json(new { success = true, message = "Note saved successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+
 
     }
 

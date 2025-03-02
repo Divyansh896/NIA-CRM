@@ -231,7 +231,12 @@ h2 {
     padding: 0;
     position: inherit;
 }
+/* Icons*/
 
+.fas.fa-lightbulb {
+    font-size: 20px;
+    color: white;
+}
 
 /* Main Content */
 
@@ -365,6 +370,22 @@ td, th {
     text-decoration: none;
     border-width: 0;
     margin-top: 5px;
+}
+
+/* Ensure the Archived Contacts and Archived Members are on separate lines */
+#archivedCollapse .ms-3 {
+    display: block;
+    margin-bottom: 5px; /* Space between the items */
+}
+
+/* Arrow rotation for collapsible */
+.arrow-indicator {
+    transition: transform 0.3s ease;
+}
+
+/* Rotate the arrow when the dropdown is open */
+.collapse.show + a .arrow-indicator {
+    transform: rotate(180deg);
 }
 
 

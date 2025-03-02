@@ -6,16 +6,17 @@
 
 <h1>Opportunities</h1>
 
+<input type="file" name="file" class="form-control me-2" required />
 <form asp-action="ImportOpportunitiesFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
         <div>
-            <a asp-action="ExportOpportunitiesToExcel">Export Excel</a>
-            <input type="file" name="file" class="form-control me-2" required />
-            <button type="submit" class="btn btn-success">
+            <a class="btn btn-dark"  asp-action="ExportOpportunitiesToExcel">Export Excel</a>
+
+            <button type="submit" class="btn btn-dark">
                 <i class="fa fa-file-import"></i> Import Excel
             </button>
         </div>
-        <a asp-action="Create">Create New</a>
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
     </div>
 </form>
 
