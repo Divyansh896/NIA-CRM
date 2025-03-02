@@ -11,11 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-<<<<<<<< HEAD:Data/NIACRMigration/20250302174626_Initial.Designer.cs
-    [Migration("20250302174626_Initial")]
-========
-    [Migration("20250302161402_Initial")]
->>>>>>>> Eliza:Data/NIACRMigration/20250302161402_Initial.Designer.cs
+    [Migration("20250302190624_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -24,7 +20,7 @@ namespace NIA_CRM.Data.NIACRMigration
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
 
-            modelBuilder.Entity("NIA_CRM.Models.Address", b =>
+            modelBuilder.Entity("Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +44,6 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
@@ -391,11 +386,6 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
-
                     b.HasKey("Id");
 
                     b.ToTable("MTag");
@@ -585,14 +575,9 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.MembershipType", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
 
                     b.Property<string>("TypeDescr")
                         .HasColumnType("TEXT");
@@ -602,7 +587,7 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.ToTable("MembershipTypes");
                 });
@@ -736,11 +721,6 @@ namespace NIA_CRM.Data.NIACRMigration
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
-
                     b.Property<string>("SectorDescription")
                         .HasColumnType("TEXT");
 
@@ -841,7 +821,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.ToTable("WidgetLayouts");
                 });
 
-            modelBuilder.Entity("NIA_CRM.Models.Address", b =>
+            modelBuilder.Entity("Address", b =>
                 {
                     b.HasOne("NIA_CRM.Models.Member", "Member")
                         .WithMany("Addresses")
