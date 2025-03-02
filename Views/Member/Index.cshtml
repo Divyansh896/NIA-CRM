@@ -14,7 +14,11 @@
     </div>
     
 </form>
-
+<button class="btn btn-sm btn-outline-secondary" id="nowAddSpecialty"
+        data-bs-toggle="modal" data-id="1" data-bs-target="#addSpecialtyModal"
+        type="button">
+    <strong>Member Archive</strong>
+</button>
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="member-title">Members</h1>
 </div>
@@ -344,22 +348,32 @@
             window.location.href = url + '?' + params.toString();
         }
     </script>
-    <script type="text/javascript">
-        $('#previewContainer').on('click', '#memberArchive', function (event) {
-            console.log("clicked");
+   <script type="text/javascript">
+               $('#submitSpecialtyCreate').click(function (event) {
             event.preventDefault();
             ClearErrors();
+
             var form = $('#createSpecialtyForm');
-            console.log(form);
+            var memberId = $(this).data('id'); // Get member ID from the button
+            console.log(memberId)
+            // Set the memberId value into the hidden input field inside the modal
+            $('#MemberIdInModal').val("hrllo");
+
+            console.log(form);  // Check if form is populated with data
+
             if (form.valid()) {
                 $.ajax({
                     type: "POST",
-                    url: form.attr('action'),
-                    data: form.serialize(),
-                    success: function () {
-                        $('#addSpecialtyModal').modal('hide');
+                    url: form.attr('action'),  // The action URL for the form
+                    data: form.serialize(),    // Serialize form data including MemberID
+                    success: function (response) {
+                        if (response.success) {
+                            $('#addSpecialtyModal').modal('hide');
+                            // Optionally, show a success message or reload the page
+                            alert(response.message);
+                        }
                     },
-                    error: function (xhr) { //Note: xhr is the XMLHttpRequest
+                    error: function (xhr) {
                         var errorMessages = [];
                         switch (xhr.status) {
                             case 401:
@@ -369,16 +383,13 @@
                                 errorMessages.push("You are not authorized for this action.");
                                 break;
                             default:
-                                //Messages coming from the Model State Errors
-                                //We split on the | delimeter and the .slice removes the last one
                                 errorMessages = xhr.responseText.split("|").slice(0, -1);
                         }
-                        //This checks if there are any elements with some content
-                        //and if not then it provides a default feedback message.
+
                         if (!errorMessages.some((str) => str !== "")) {
                             errorMessages.push("Error: Unable to complete operation");
                         }
-                        //Put the messages in the ErrorList ul contained in the 'ValidaitonSummary' div.
+
                         var ul = document.getElementById("ErrorList");
                         for (var i = 0; i < errorMessages.length; i++) {
                             var errorMessage = errorMessages[i];
@@ -389,18 +400,17 @@
                     }
                 });
             }
-            return false;
+
+            return false; // Prevent the default form submission behavior
         });
-        
+
         function ClearErrors() {
-            //Empty out the list of validation errors if there are any
             var ul = document.getElementById("ErrorList");
             while (ul.firstChild) {
                 ul.removeChild(ul.firstChild);
             }
         }
-    </script>
 
-
+   </script>
     
 }

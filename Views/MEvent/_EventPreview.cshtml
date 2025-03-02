@@ -1,0 +1,44 @@
+﻿@model NIA_CRM.Models.MEvent
+
+<div>
+    <div class="d-flex justify-content-between align-items-center px-2 mb-3">
+        <h3>Opportunity Preview</h3>
+        <input type="button" name="btnClose" value="X" id="btnClose" class="btn btn-danger" />
+    </div>
+
+
+    <div class="card card-body bg-light text-black">
+        <div>
+            <dt>Event Name:</dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.EventName)
+            </dd>
+
+            
+            <dt class="col-sm-4">Members:</dt>
+            <dd class="col-sm-8">
+                @{
+                    var events = Model.MemberEvents.ToList();
+                    int specCount = events.Count;
+                }
+
+                @for (int i = 0; i < specCount; i++) 
+                {
+                    @events[i].Member.MemberName <br />
+                }
+            </dd>
+
+
+           
+           
+        </div>
+
+    </div>
+
+    <div class="sticky-buttons mt-3">
+        <div class="sticky-buttons-container">
+            <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <a class="btn btn-primary" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+        </div>
+    </div>
+</div>

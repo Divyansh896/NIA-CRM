@@ -7,8 +7,10 @@
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="MemberIdInModal" name="MemberID" />
+
                 @{
-                    var s = new NIA_CRM.Models.Cancellation();
+                    var s = new Cancellation ();
                     <partial name="_MemberCancellation" model="s" />
                 }
             </div>

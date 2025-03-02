@@ -1,0 +1,70 @@
+﻿@model NIA_CRM.Models.ContactCancellation
+
+<div>
+    <div class="d-flex justify-content-between align-items-center px-2 mb-3">
+        <h3>Contact Preview</h3>
+        <input type="button" name="btnClose" value="X" id="btnClose" class="btn btn-danger" />
+    </div>
+
+    <div class="d-flex">
+        <img src="~/images/preview.jpg" alt="Profile Picture of Summary"
+             title="Profile Picture of Summary" class="img-fluid rounded me-3" style="max-width: 150px;" />
+        <div>
+            <p><strong>Contact Name:</strong> <br />@Model.Contact.Summary</p>
+            <p><strong>Contact Email:</strong> <br /> @Model.Contact.Email</p>
+            <p><strong>Phone:</strong> <br /> @Model.Contact.PhoneFormatted</p>
+            <p><a href="@Model.Contact.LinkedInUrl" target="_blank">View LinkedIn</a></p>
+        </div>
+    </div>
+
+
+
+    <div class="card card-body bg-light text-black">
+        <h5>Industry:</h5>
+        @{
+            var industry = Model.Contact.MemberContacts.FirstOrDefault()?.Member; // Single industry object
+
+            if (industry != null)
+            {
+                string industryName = industry.MemberName; // Industry Name
+                string industrySize = industry.MemberSize.ToString(); // Industry Size
+                string? industryWebsite = industry.WebsiteUrl; // Website URL
+
+                <strong>Industry Name:</strong> @industryName <br />
+                <strong>Industry Size:</strong> @industrySize <br />
+                <strong>Website:</strong>
+                @if (!string.IsNullOrEmpty(industryWebsite))
+                {
+                    <a href="@industryWebsite" target="_blank">@industryWebsite</a>
+                }
+                else
+                {
+                    <span>N/A</span>
+                }
+            }
+            else
+            {
+                <p>No industry data available.</p>
+            }
+        }
+
+
+
+
+        <div id="responseMessage"></div>
+
+        <form id="saveNoteForm" asp-action="SaveCancellationNote" asp-controller="ContactCancellation" method="post">
+            <input type="hidden" id="ContactId" name="id" value="@Model.ID" />
+            <label for="Note">Cancellation Note</label>
+            <textarea id="Note" name="note" placeholder="Enter your note..." class="form-control">@Model.CancellationNote</textarea>
+            <input type="button" id="saveNoteBtn" value="Save Note" class="btn btn-primary mt-2" />
+        </form>
+    </div>
+    <div class="sticky-buttons">
+        <div class="sticky-buttons-container">
+            <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+            <a class="btn btn-dark" asp-action="Details" asp-route-id="@Model.ID">Details</a>
+            <a class="btn btn-primary" asp-action="Delete" asp-route-id="@Model.ID">Delete</a>
+        </div>
+    </div>
+</div>

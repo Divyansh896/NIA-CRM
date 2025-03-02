@@ -43,7 +43,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+            <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
             <td>
                 @Html.DisplayFor(modelItem => item.CancellationDate)
             </td>
@@ -57,3 +57,111 @@
 }
     </tbody>
 </table>
+
+<!-- Preview Container -->
+<div id="previewContainer" class="preview-content hidden" role="region" aria-labelledby="previewTitle">
+    <h2 id="previewTitle" class="sr-only">Preview Section</h2>
+    <!-- Preview content will be dynamically injected here -->
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/PhoneNumber.js"></script>
+    <script>
+              $(document).ready(function () {
+            // Initially hide the preview content
+            $('#previewContainer').addClass('hidden');
+
+            // Handle click event on rows with the "clickable-row" class
+            $(document).on('click', '.clickable-row', function () {
+                var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+
+                if (!contactId) {
+                    console.error('No contact ID found for this row.');
+                    return;
+                }
+
+                // Make an AJAX request to get the partial view for the selected contact
+                $.ajax({
+                    url: '/ContactCancellation/GetCancellationPreview', // Adjust the URL to match your routing
+                    type: 'GET',
+                    data: { id: contactId },
+                    success: function (result) {
+                        // Insert the result (partial view) into the preview container
+                        $('#previewContainer').html(result);
+                        $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+                        // Assign the close event to the button inside the loaded preview
+                        $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
+                            $('#previewContainer').removeClass('visible').addClass('hidden');
+                        });
+
+                        // Assign the save event to the save button inside the loaded preview
+                        $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
+                            e.preventDefault(); // Prevent default button behavior
+
+                            var contactId = $("#ContactId").val();
+                            var note = $("#Note").val();
+
+                            if (!contactId || !note.trim()) {
+                                $("#responseMessage").text("Note cannot be empty!").addClass("text-danger").removeClass("text-success").show();
+                                return;
+                            }
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/ContactCancellation/SaveCancellationNote",
+                                data: { id: contactId, note: note },
+                                dataType: "json",
+                                success: function (response) {
+                                    if (response.success) {
+                                        $("#responseMessage").text(response.message).addClass("text-success").removeClass("text-danger").show();
+                                    } else {
+                                        $("#responseMessage").text(response.message).addClass("text-danger").removeClass("text-success").show();
+                                    }
+                                },
+                                error: function () {
+                                    $("#responseMessage").text("An unexpected error occurred.").addClass("text-danger").removeClass("text-success").show();
+                                }
+                            });
+                        });
+                    },
+                    error: function () {
+                        alert('An error occurred while loading the preview.');
+                    }
+                });
+            });
+
+            // Window click listener to collapse preview when clicked outside
+            $(window).click(function (event) {
+                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                    $('#previewContainer').removeClass('visible').addClass('hidden');
+                }
+            });
+
+            // Prevent the preview container from closing when clicked inside
+            $('#previewContainer').click(function (event) {
+                event.stopPropagation(); // Stop the event from propagating to the window
+            });
+        });
+
+        function clearFilter(filterName){
+            // Get the current URL
+            var url = window.location.href.split('?')[0]; // Current URL without query string
+
+            // Get the query parameters from the URL
+            var params = new URLSearchParams(window.location.search);
+            params.delete(filterName)
+
+            // Reload the page with the updated query string (filters removed)
+            window.location.href = url + '?' + params.toString();
+
+        }
+    </script>
+    <script type="text/javascript">
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}

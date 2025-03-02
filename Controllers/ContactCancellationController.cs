@@ -239,6 +239,46 @@ namespace NIA_CRM.Controllers
         private bool ContactCancellationExists(int id)
         {
             return _context.ContactCancellations.Any(e => e.ID == id);
+            
         }
+
+        public async Task<IActionResult> GetCancellationPreview(int id)
+        {
+            var member = await _context.ContactCancellations
+                .Include(m => m.Contact).ThenInclude(m => m.MemberContacts).ThenInclude(m => m.Member).FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
+
+            if (member == null)
+            {
+                return NotFound(); // Return 404 if the member doesn't exist
+            }
+
+            return PartialView("_ContactCancellationPreview", member); // Ensure the partial view name matches
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveCancellationNote(int id, string note)
+        {
+            var memberToUpdate = await _context.ContactCancellations.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (memberToUpdate == null)
+            {
+                return Json(new { success = false, message = "Cancellation Contact not found." });
+            }
+
+            // Update MemberNote
+            memberToUpdate.CancellationNote = note;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Json(new { success = true, message = "Note saved successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+
+
     }
 }

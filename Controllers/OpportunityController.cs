@@ -304,6 +304,17 @@ namespace NIA_CRM.Controllers
         }
 
 
+        public async Task<IActionResult> GetOpportunityPreview(int id)
+        {
+            var opportunity = await _context.Opportunities.FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
+
+            if (opportunity == null)
+            {
+                return NotFound(); // Return 404 if the member doesn't exist
+            }
+
+            return PartialView("_OpportunityPreview", opportunity); // Ensure the partial view name matches
+        }
 
 
         private bool OpportunityExists(int id)

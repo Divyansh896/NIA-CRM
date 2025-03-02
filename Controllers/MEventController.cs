@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 using OfficeOpenXml;
+using static Microsoft.IO.RecyclableMemoryStreamManager;
 
 namespace NIA_CRM.Controllers
 {
-    public class MEventController : Controller
+    public class MEventController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -21,9 +25,18 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: MEvent
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, int? pageSizeID)
         {
-            return View(await _context.MEvents.ToListAsync());
+            var events = _context.MEvents
+                .Include(d => d.MemberEvents).ThenInclude(d => d.Member)
+                .AsNoTracking();
+
+            //Handle Paging
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
+            var pagedData = await PaginatedList<MEvent>.CreateAsync(events.AsNoTracking(), page ?? 1, pageSize);
+
+            return View(pagedData);
         }
         // Export to Excel Action
         public IActionResult ExportToExcel()
@@ -85,10 +98,10 @@ namespace NIA_CRM.Controllers
                                 EventName = worksheet.Cells[row, 1].Value?.ToString(),
                                 EventDescription = worksheet.Cells[row, 2].Value?.ToString(),
                                 EventLocation = worksheet.Cells[row, 3].Value?.ToString(),
-                                EventDate = worksheet.Cells[row, 4].Value != null && DateTime.TryParse(worksheet.Cells[row, 4].Value?.ToString(), out DateTime date)  ? date
+                                EventDate = worksheet.Cells[row, 4].Value != null && DateTime.TryParse(worksheet.Cells[row, 4].Value?.ToString(), out DateTime date) ? date
                                  : DateTime.MinValue// Default value if invalid or empty
 
-                        });
+                            });
                         }
 
                         _context.MEvents.AddRange(events);
@@ -148,32 +161,42 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: MEvent/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
+            var eventModel = await _context.MEvents
+                .Include(e => e.MemberEvents)
+                .ThenInclude(me => me.Member)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (eventModel == null)
             {
                 return NotFound();
             }
 
-            var mEvent = await _context.MEvents.FindAsync(id);
-            if (mEvent == null)
-            {
-                return NotFound();
-            }
-            return View(mEvent);
+            // Fetch all members
+            ViewBag.Members = await _context.Members
+                .Select(m => new { Id = m.ID, m.MemberName })
+                .ToListAsync();
+
+            // Pre-select members assigned to this event
+            ViewBag.SelectedMembers = eventModel.MemberEvents
+                .Select(me => me.MemberId)
+                .ToList();
+
+            return View(eventModel);
         }
 
-        // POST: MEvent/Edit/5
+        // POST: MEvent/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
+        public async Task<IActionResult> Edit(int id, Byte[] RowVersion, List<int> SelectedMembers)
         {
             var mEventToUpdate = await _context.MEvents
-                                                .FirstOrDefaultAsync(m => m.Id == id);
+                                               .Include(e => e.MemberEvents)
+                                               .FirstOrDefaultAsync(e => e.Id == id);
 
-            if(mEventToUpdate == null)
+            if (mEventToUpdate == null)
             {
                 return NotFound();
             }
@@ -183,17 +206,26 @@ namespace NIA_CRM.Controllers
 
             if (ModelState.IsValid)
             {
-                // Try updating the model with user input
                 if (await TryUpdateModelAsync<MEvent>(
                     mEventToUpdate, "",
                     m => m.EventName, m => m.EventDescription, m => m.EventLocation, m => m.EventDate))
                 {
                     try
                     {
-                       
-                        // Update the event record in the database
-                        _context.Update(mEventToUpdate);
-                        await _context.SaveChangesAsync();
+                        // ✅ Remove existing Member-Event relations before adding new ones
+                        _context.MemberEvents.RemoveRange(mEventToUpdate.MemberEvents);
+                        await _context.SaveChangesAsync();  // ✅ Save first to ensure clean state
+
+                        // ✅ Add new selections only if `SelectedMembers` is not empty
+                        if (SelectedMembers != null && SelectedMembers.Any())
+                        {
+                            foreach (var memberId in SelectedMembers)
+                            {
+                                _context.MemberEvents.Add(new MemberEvent { MEventID = mEventToUpdate.Id, MemberId = memberId });
+                            }
+                        }
+
+                        await _context.SaveChangesAsync(); // ✅ Save after adding new members
                         return RedirectToAction(nameof(Index));
                     }
                     catch (DbUpdateConcurrencyException ex)
@@ -209,7 +241,7 @@ namespace NIA_CRM.Controllers
                         else
                         {
                             var databaseValues = (MEvent)databaseEntry.ToObject();
-                            // Compare each field and provide feedback on changes
+
                             if (databaseValues.EventName != clientValues.EventName)
                                 ModelState.AddModelError("EventName", $"Current value: {databaseValues.EventName}");
                             if (databaseValues.EventDescription != clientValues.EventDescription)
@@ -234,6 +266,8 @@ namespace NIA_CRM.Controllers
 
             return View(mEventToUpdate);
         }
+
+
 
         // GET: MEvent/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -272,5 +306,20 @@ namespace NIA_CRM.Controllers
         {
             return _context.MEvents.Any(e => e.Id == id);
         }
+
+
+
+        public async Task<IActionResult> GetEventPreview(int id)
+        {
+            var opportunity = await _context.MEvents.Include(m => m.MemberEvents).ThenInclude(m => m.Member).FirstOrDefaultAsync(m => m.Id == id); // Use async version for better performance
+
+            if (opportunity == null)
+            {
+                return NotFound(); // Return 404 if the member doesn't exist
+            }
+
+            return PartialView("_EventPreview", opportunity); // Ensure the partial view name matches
+        }
+
     }
 }

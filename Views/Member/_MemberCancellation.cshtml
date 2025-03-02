@@ -1,14 +1,13 @@
 ﻿@model NIA_CRM.Models.Cancellation
 
-<form asp-controller="Cancellation" asp-action="Archive" method="post" id="createSpecialtyForm">
+<form asp-controller="Cancellation" asp-action="Create" method="post" id="createSpecialtyForm">
     <div class="row">
         <div class="col-md-12">
             <div class="text-danger validation-summary-errors"><ul id="ErrorList"></ul></div>
             <!-- Hidden field to store MemberId -->
-            <input type="hidden" asp-for="MemberID" />
-
+            <input type="text"  id="MemberIdInModal" />  <!-- Ensure that the value will be set dynamically by JavaScript -->
             <!-- Display Member Name (Prevent Null Errors) -->
-            <label>@(Model.Member != null ? Model.Member.MemberName : "Unknown Member")</label>
+            @* <label>@(Model.Member != null ? Model.Member.MemberName : "Unknown Member")</label> *@
 
             <div class="form-group">
                 <label asp-for="CancellationDate" class="control-label"></label>
