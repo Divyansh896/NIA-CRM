@@ -12,7 +12,7 @@
         <label for="fileUpload">Import Members (Excel File):</label>
         <input type="file" name="fileUpload" class="form-control" />
     </div>
-    
+    <button type="submit" class="btn btn-dark"> <i class="fa fa-file-import"></i> Import Excel</button>
 </form>
 <button class="btn btn-sm btn-outline-secondary" id="nowAddSpecialty"
         data-bs-toggle="modal" data-id="1" data-bs-target="#addSpecialtyModal"
@@ -41,7 +41,7 @@
         </button>
                 <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark"> <i class="fa fa-file-excel text-white"></i>
                     Export to Excel</button>
-                <button type="submit" class="btn btn-dark"> <i class="fa fa-file-import"></i> Import Excel</button>
+               
             </div>
             <a asp-controller="Member" asp-action="Create" class="btn btn-primary">+ Add Members</a>
     </div>

@@ -388,6 +388,29 @@ td, th {
     transform: rotate(180deg);
 }
 
+/*Index Event*/
+.participant-badge {
+    background-color: white !important;
+    color: #434343 !important;
+    border: 2px solid #434343 !important;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.member-toggle {
+    text-decoration: none;
+    border-bottom: 1px solid #434343;
+    color: #434343;
+    font-weight: bold;
+}
+
+    .member-toggle:hover {
+        text-decoration: none;
+        border-bottom: 1px solid #434343;
+        color: black;
+    }
+
 
 @media (max-width: 768px) {
     body {

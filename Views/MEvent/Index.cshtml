@@ -7,23 +7,22 @@
 <h1>Events</h1>
 
 <p>
-    
     <input type="file" name="file" class="form-control me-2" required />
 </p>
 
 <form asp-action="ImportOpportunitiesFromExcel" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken() <!-- Ensure Anti-Forgery Token is included -->
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <a class="btn btn-dark" asp-action="ExportToExcel"><i class="fa fa-file-excel text-white"></i> 
-                Export Excel</a>
-        
+            <a class="btn btn-dark" asp-action="ExportToExcel"><i class="fa fa-file-excel text-white"></i> Export Excel</a>
             <button type="submit" class="btn btn-dark">
-            <i class="fa fa-file-import"></i> Import Excel
-        </button>
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
         </div>
         <a class="btn btn-primary" asp-action="Create">Create New</a>
     </div>
 </form>
+
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
@@ -78,15 +77,10 @@
                             string firstSpec = item.MemberEvents.FirstOrDefault().Member.MemberName;
                             if (specCount > 1)
                             {
-                                string specList = "";//Html string of specialty names separated by <br /> tags
-                                var s = item.MemberEvents.ToList();
-                                for (int i = 1; i < specCount; i++)//Skip the first because we have it already
-                                {
-                                    specList += s[i].Member.MemberName + " <br />";
-                                }
-                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseSpecalty@(item.Id)"
+                                string specList = string.Join("<br />", item.MemberEvents.Skip(1).Select(s => s.Member.MemberName));
+                                <a class="member-toggle" role="button" data-bs-toggle="collapse" href="#collapseSpecalty@(item.Id)"
                                    aria-expanded="false" aria-controls="collapseSpecalty@(item.Id)">
-                                    @firstSpec <span class="badge bg-info">@specCount</span>
+                                    @firstSpec <span class="participant-badge">@specCount</span>
                                 </a>
                                 <div class="collapse" id="collapseSpecalty@(item.Id)">
                                     @Html.Raw(specList)

@@ -73,14 +73,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="position-bottom-left">
+                    <a class="btn btn-dark me-2" asp-action="Index">Back to List</a>
+                    <input type="submit" value="Save" class="btn btn-primary px-4" />
+                </div>
             </form>
         </div>
     </div>
 </div>
- <div class="position-bottom-left">
-    <a class="btn btn-dark me-2" asp-action="Index">Back to List</a>
-        <input type="submit" value="Save" class="btn btn-primary px-4" />
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

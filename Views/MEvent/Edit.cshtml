@@ -12,8 +12,9 @@
 <hr />
 <div class="row">
     <div class="col-md-8 offset-md-2">
+        <form asp-action="Edit">
         <div class="card card-body bg-light text-black">
-            <form asp-action="Edit">
+            
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <input type="hidden" asp-for="RowVersion" />
@@ -92,16 +93,20 @@
                     <textarea asp-for="EventDescription" class="form-control" rows="4"></textarea>
                     <span asp-validation-for="EventDescription" class="text-danger"></span>
                 </div>
-            </form>
-        </div>
+
+                
+
+            
+                </div>
+                <div class="position-bottom-left">
+                <a class="btn btn-dark me-2" asp-action="Index">Back to List</a>
+                <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+        </form>
     </div>
 </div>
 
 
-<div class="position-bottom-left">
-    <a class="btn btn-dark me-2" asp-action="Index">Back to List</a>
-    <input type="submit" value="Save" class="btn btn-primary" />
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

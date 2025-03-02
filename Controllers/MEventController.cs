@@ -139,26 +139,51 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: MEvent/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            // Fetch all members for selection
+            ViewBag.Members = await _context.Members
+                .Select(m => new { Id = m.ID, m.MemberName })
+                .ToListAsync();
+
+            ViewBag.SelectedMembers = new List<int>(); // No pre-selected members
+
             return View();
         }
+
 
         // POST: MEvent/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EventName,EventDescription,EventLocation,EventDate")] MEvent mEvent)
+        public async Task<IActionResult> Create([Bind("EventName,EventDescription,EventLocation,EventDate")] MEvent mEvent, List<int> SelectedMembers)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(mEvent);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); // ✅ Save event first to get ID
+
+                // ✅ Add selected members to the junction table
+                if (SelectedMembers != null && SelectedMembers.Any())
+                {
+                    foreach (var memberId in SelectedMembers)
+                    {
+                        _context.MemberEvents.Add(new MemberEvent { MEventID = mEvent.Id, MemberId = memberId });
+                    }
+                    await _context.SaveChangesAsync(); // ✅ Save after adding members
+                }
+
                 return RedirectToAction(nameof(Index));
             }
+
+            // Repopulate ViewBag in case of validation errors
+            ViewBag.Members = await _context.Members.Select(m => new { Id = m.ID, m.MemberName }).ToListAsync();
+            ViewBag.SelectedMembers = SelectedMembers ?? new List<int>();
+
             return View(mEvent);
         }
+
 
         // GET: MEvent/Edit/5
         public async Task<IActionResult> Edit(int id)
@@ -186,7 +211,7 @@ namespace NIA_CRM.Controllers
             return View(eventModel);
         }
 
-        // POST: MEvent/Create
+        // POST: MEvent/Edit
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -212,11 +237,11 @@ namespace NIA_CRM.Controllers
                 {
                     try
                     {
-                        // ✅ Remove existing Member-Event relations before adding new ones
+                        // Remove existing Member-Event relations before adding new ones
                         _context.MemberEvents.RemoveRange(mEventToUpdate.MemberEvents);
                         await _context.SaveChangesAsync();  // ✅ Save first to ensure clean state
 
-                        // ✅ Add new selections only if `SelectedMembers` is not empty
+                        // Add new selections only if `SelectedMembers` is not empty
                         if (SelectedMembers != null && SelectedMembers.Any())
                         {
                             foreach (var memberId in SelectedMembers)
@@ -225,7 +250,7 @@ namespace NIA_CRM.Controllers
                             }
                         }
 
-                        await _context.SaveChangesAsync(); // ✅ Save after adding new members
+                        await _context.SaveChangesAsync(); // Save after adding new members
                         return RedirectToAction(nameof(Index));
                     }
                     catch (DbUpdateConcurrencyException ex)
@@ -288,18 +313,29 @@ namespace NIA_CRM.Controllers
         }
 
         // POST: MEvent/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var mEvent = await _context.MEvents.FindAsync(id);
-            if (mEvent != null)
+            try
             {
-                _context.MEvents.Remove(mEvent);
-            }
+                var mEvent = await _context.MEvents.FindAsync(id);
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                if (mEvent == null)
+                {
+                    return Json(new { success = false, message = "Event not found!" });
+                }
+
+                _context.MEvents.Remove(mEvent);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Event deleted successfully!" });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting event: {ex.Message}");
+                return Json(new { success = false, message = "An error occurred while deleting the event." });
+            }
         }
 
         private bool MEventExists(int id)

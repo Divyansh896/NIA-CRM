@@ -295,18 +295,29 @@ namespace NIA_CRM.Controllers
         }
 
         // POST: AnnualAction/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var annualAction = await _context.AnnualAction.FindAsync(id);
-            if (annualAction != null)
+            try
             {
-                _context.AnnualAction.Remove(annualAction);
-            }
+                var mEvent = await _context.AnnualAction.FindAsync(id);
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                if (mEvent == null)
+                {
+                    return Json(new { success = false, message = "Event not found!" });
+                }
+
+                _context.AnnualActions.Remove(mEvent);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Annual Action deleted successfully!" });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting event: {ex.Message}");
+                return Json(new { success = false, message = "An error occurred while deleting the event." });
+            }
         }
 
         private bool AnnualActionExists(int id)
