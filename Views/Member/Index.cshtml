@@ -5,6 +5,7 @@
 }
 
 
+
 <form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="fileUpload">Import Members (Excel File):</label>
@@ -234,9 +235,9 @@
                     
         </tr>
 }
-    </tbody>
+        </tbody>
+
 </table>
-                
     <partial name="_PagingNavBar" />
 
 </form>
@@ -245,6 +246,7 @@
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
     <script>
               $(document).ready(function () {
@@ -306,4 +308,6 @@
             
         }
     </script>
+
+    
 }
