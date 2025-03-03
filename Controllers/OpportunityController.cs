@@ -417,9 +417,5 @@ namespace NIA_CRM.Controllers
             return _context.Opportunities.Any(e => e.ID == id);
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     }
 }

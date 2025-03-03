@@ -26,7 +26,7 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: MEvent
-<<<<<<< HEAD
+
         public async Task<IActionResult> Index(int? page, int? pageSizeID, DateTime? date, string? SearchString, string? actionButton,
                                               string sortDirection = "asc", string sortField = "Event Name")
         {
@@ -102,21 +102,10 @@ namespace NIA_CRM.Controllers
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
             ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
             var pagedData = await PaginatedList<MEvent>.CreateAsync(MEvents.AsNoTracking(), page ?? 1, pageSize);
-=======
-        public async Task<IActionResult> Index(int? page, int? pageSizeID)
-        {
-            var events = _context.MEvents
-                .Include(d => d.MemberEvents).ThenInclude(d => d.Member)
-                .AsNoTracking();
-
-            //Handle Paging
-            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
-            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
-            var pagedData = await PaginatedList<MEvent>.CreateAsync(events.AsNoTracking(), page ?? 1, pageSize);
->>>>>>> origin/master
 
             return View(pagedData);
         }
+
         // Export to Excel Action
         public IActionResult ExportToExcel()
         {
