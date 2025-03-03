@@ -250,6 +250,79 @@ namespace NIA_CRM.Data
                                 ";
                         context.Database.ExecuteSqlRaw(StrategySqlCmd);
 
+                        // Trigger for Sector - Update
+                        string SectorSqlCmd = @"
+                                    CREATE TRIGGER SetSectorTimestampOnUpdate
+                                    AFTER UPDATE ON Sectors
+                                    BEGIN
+                                        UPDATE Sectors
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(SectorSqlCmd);
+
+                        // Trigger for Sector - Insert
+                        SectorSqlCmd = @"
+                                    CREATE TRIGGER SetSectorTimestampOnInsert
+                                    AFTER INSERT ON Sectors
+                                    BEGIN
+                                        UPDATE Sectors
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(SectorSqlCmd);
+
+
+                        // Trigger for MTag - Update
+                        string MTagSqlCmd = @"
+                                    CREATE TRIGGER SetMTagTimestampOnUpdate
+                                    AFTER UPDATE ON MTag
+                                    BEGIN
+                                        UPDATE MTag
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MTagSqlCmd);
+
+                        // Trigger for MTag - Insert
+                        MTagSqlCmd = @"
+                                    CREATE TRIGGER SetMTagTimestampOnInsert
+                                    AFTER INSERT ON MTag
+                                    BEGIN
+                                        UPDATE MTag
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MTagSqlCmd);
+
+                        // Trigger for MembershipTypes - Update
+                        string MembershipTypesSqlCmd = @"
+                                    CREATE TRIGGER SetMembershipTypeTimestampOnUpdate
+                                    AFTER UPDATE ON MembershipTypes
+                                    BEGIN
+                                        UPDATE MembershipTypes
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MembershipTypesSqlCmd);
+
+                        // Trigger for MembershipTypes - Insert
+                        MembershipTypesSqlCmd = @"
+                                    CREATE TRIGGER SetMembershipTypeTimestampOnInsert
+                                    AFTER INSERT ON MembershipTypes
+                                    BEGIN
+                                        UPDATE MembershipTypes
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MembershipTypesSqlCmd);
+
                     }
                     else //The database is already created
                     {
@@ -277,31 +350,31 @@ namespace NIA_CRM.Data
                         context.MembershipTypes.AddRange(
                             new MembershipType
                             {
-                                ID = 1,
+                                Id = 1,
                                 TypeName = "Associate",
                                 TypeDescr = "Access to gym equipment and locker room facilities."
                             },
                             new MembershipType
                             {
-                                ID = 2,
+                                Id = 2,
                                 TypeName = "Chamber,Associate",
                                 TypeDescr = "Includes Basic Membership benefits plus access to group classes and pool."
                             },
                             new MembershipType
                             {
-                                ID = 3,
+                                Id = 3,
                                 TypeName = "Government & Education,Associate",
                                 TypeDescr = "Includes Premium Membership benefits for up to 4 family members."
                             },
                             new MembershipType
                             {
-                                ID = 4,
+                                Id = 4,
                                 TypeName = "Local Industrial",
                                 TypeDescr = "Discounted membership for students with valId Id."
                             },
                             new MembershipType
                             {
-                                ID = 5,
+                                Id = 5,
                                 TypeName = "Non-Local Industrial",
                                 TypeDescr = "Special membership for employees of partner organizations."
                             }
@@ -3665,7 +3738,8 @@ catch (Exception ex)
                              new ProductionEmail
                              {
                                  Id = 1,
-                                 EmailType = "Welcome Email",
+                                 TemplateName = "Primary Welcome",
+                                 EmailType = EmailType.Welcome,
                                  Subject = "Welcome to NIA!",
                                  Body = $"Dear {randomNames[0]},\n\nWelcome to the NIA community! We are thrilled to have you onboard. Please let us know if you need any assistance.\n\nBest regards,\nNIA Team",
                                  //IsGood = true
@@ -3673,7 +3747,8 @@ catch (Exception ex)
                              new ProductionEmail
                              {
                                  Id = 2,
-                                 EmailType = "Renewal Reminder",
+                                 TemplateName = "Subscription Reminder",
+                                 EmailType = EmailType.Reminder,
                                  Subject = "Membership Renewal Reminder",
                                  Body = $"Dear {randomNames[1]},\n\nYour membership with NIA is about to expire on 2025-02-15. Please renew your membership to continue enjoying all the benefits.\n\nBest regards,\nNIA Team",
                                  //IsGood = true
@@ -3681,7 +3756,8 @@ catch (Exception ex)
                              new ProductionEmail
                              {
                                  Id = 3,
-                                 EmailType = "Cancellation Notice",
+                                 TemplateName = "Cancellation Clarify",
+                                 EmailType = EmailType.Cancellation,
                                  Subject = "Membership Cancellation Confirmation",
                                  Body = $"Dear {randomNames[2]},\n\nWe are sorry to see you go. Your membership has been successfully canceled. If you change your mind in the future, we’d love to have you back.\n\nBest regards,\nNIA Team",
                                  //IsGood = true
@@ -3689,7 +3765,8 @@ catch (Exception ex)
                              new ProductionEmail
                              {
                                  Id = 4,
-                                 EmailType = "Membership Update",
+                                 TemplateName = "Membership Update",
+                                 EmailType = EmailType.ProductUpdates,
                                  Subject = "Important Membership Update",
                                  Body = $"Dear {randomNames[3]},\n\nWe would like to inform you of an important update regarding your membership status. Please log in to your account for more details.\n\nBest regards,\nNIA Team",
                                  //IsGood = true
@@ -3697,7 +3774,8 @@ catch (Exception ex)
                              new ProductionEmail
                              {
                                  Id = 5,
-                                 EmailType = "General Notification",
+                                 TemplateName = "Maintance Update",
+                                 EmailType = EmailType.Other,
                                  Subject = "NIA System Update",
                                  Body = $"Dear {randomNames[4]},\n\nThis is a notification regarding a recent update to the NIA system. We encourage you to check out the new features and improvements.\n\nBest regards,\nNIA Team",
                                  //IsGood = true

@@ -21,11 +21,12 @@
             <i class="fa fa-file-import"></i> Import Excel
         </button>
         </div>
-         <a class="btn btn-primary" asp-action="Create">Create New</a>
+        
     </div>
 </form>
 
 
+ <a class="btn btn-primary" asp-action="Create">Create New</a>
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
@@ -36,52 +37,160 @@
     <div class="alert alert-danger">@TempData["Error"]</div>
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.Note)
-            </th >
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.Date)
-            </th scope="col" class="table-head">
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.Asignee)
-            </th >
-            <th scope="col" class="table-head"> 
-                @Html.DisplayNameFor(model => model.AnnualStatus)
-            </th>
-            <th scope="col" class="table-head"> Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Asignee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnnualStatus)
-            </td>
+<form asp-action="Index" method="get">
 
-            <td class="d-flex flex-column">
-                <a class="btn btn-secondary mb-2" asp-action="Details" asp-route-id="@item.ID">Details</a>
-                <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.ID">Edit</a>
-                <a class="btn btn-light mb-2" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+    <!-- Preview Container -->
+        <div id="previewContainer" class="preview-content hidden" role="region" aria-labelledby="previewTitle">
+            <h2 id="previewTitle" class="sr-only">Preview Section</h2>
+            <!-- Preview content will be dynamically injected here -->
+        </div>
+            <partial name="_PagingNavBar" />
+
+            <!-- Delete Confirmation Modal -->
+            </form>
+    <table table class="table table-bordered table-striped" id="myTable" aria-label="Annual Actions Table">
+        <thead>
+            <tr>
+                <th scope="col" class="table-head">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th scope="col" class="table-head">
+                    @Html.DisplayNameFor(model => model.Note)
+                </th >
+                <th scope="col" class="table-head">
+                    @Html.DisplayNameFor(model => model.Date)
+                </th scope="col" class="table-head">
+                <th scope="col" class="table-head">
+                    @Html.DisplayNameFor(model => model.Asignee)
+                </th >
+                <th scope="col" class="table-head"> 
+                    @Html.DisplayNameFor(model => model.AnnualStatus)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Asignee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnnualStatus)
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+
+    
+
+
+
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+              $(document).ready(function () {
+            // Initially hide the preview content
+            $('#previewContainer').addClass('hidden');
+
+            // Handle click event on rows with the "clickable-row" class
+            $(document).on('click', '.clickable-row', function () {
+                var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+
+                if (!contactId) {
+                    console.error('No contact ID found for this row.');
+                    return;
+                }
+
+                // Make an AJAX request to get the partial view for the selected contact
+                $.ajax({
+                    url: '/AnnualAction/GetAnnualActionPreview', // Adjust the URL to match your routing
+                    type: 'GET',
+                    data: { id: contactId },
+                    success: function (result) {
+                        // Insert the result (partial view) into the preview container
+                        $('#previewContainer').html(result);
+                        $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+                        // Assign the close event to the button inside the loaded preview
+                        $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
+                            $('#previewContainer').removeClass('visible').addClass('hidden');
+                        });
+
+                         // Assign the save event to the save button inside the loaded preview
+                        $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
+                            e.preventDefault(); // Prevent default button behavior
+
+                            var contactId = $("#ContactId").val();
+                            var note = $("#Note").val();
+
+                            if (!contactId || !note.trim()) {
+                                $("#responseMessage").text("Note cannot be empty!").addClass("text-danger").removeClass("text-success").show();
+                                return;
+                            }
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/AnnualAction/SaveAnnualActionNote",
+                                data: { id: contactId, note: note },
+                                dataType: "json",
+                                success: function (response) {
+                                    if (response.success) {
+                                        $("#responseMessage").text(response.message).addClass("text-success").removeClass("text-danger").show();
+                                    } else {
+                                        $("#responseMessage").text(response.message).addClass("text-danger").removeClass("text-success").show();
+                                    }
+                                },
+                                error: function () {
+                                    $("#responseMessage").text("An unexpected error occurred.").addClass("text-danger").removeClass("text-success").show();
+                                }
+                            });
+                        });
+                    },
+                    error: function () {
+                        alert('An error occurred while loading the preview.');
+                    }
+                });
+            });
+
+            // Window click listener to collapse preview when clicked outside
+            $(window).click(function (event) {
+                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                    $('#previewContainer').removeClass('visible').addClass('hidden');
+                }
+            });
+
+            // Prevent the preview container from closing when clicked inside
+            $('#previewContainer').click(function (event) {
+                event.stopPropagation(); // Stop the event from propagating to the window
+            });
+        });
+
+        function clearFilter(filterName){
+            // Get the current URL
+            var url = window.location.href.split('?')[0]; // Current URL without query string
+
+            // Get the query parameters from the URL
+            var params = new URLSearchParams(window.location.search);
+            params.delete(filterName)
+
+            // Reload the page with the updated query string (filters removed)
+            window.location.href = url + '?' + params.toString();
+            
+        }
+
+
+    </script>
 }
-    </tbody>
-</table>

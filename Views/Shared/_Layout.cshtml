@@ -13,6 +13,7 @@
 
 
 
+
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,81 +29,117 @@
                 <button id="toggleSidebar" class="btn btn-black">☰</button>
                 <div class="logo-container">
                     <a href="~/">
-                        <img src="~/images/NIA-Logo.jpg" alt="Logo" class="logo" />
+                        <img src="~/images/NIA_Logo.png" alt="Logo" class="logo" />
                     </a>
                 </div>
             </div>
             <div class="position-sticky p-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item" role="menuitem">
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Home page" title="Home">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-home"></i></span>
-                            <span class="text-white ms-2">Home</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="menuitem">
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
-                            <span class="text-white ms-2">Members</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="menuitem">
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email" title="Email">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
-                            <span class="text-white ms-2">Email Patterns</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="menuitem">
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
-                            <span class="text-white ms-2">Contacts</span>
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item" role="menuitem">
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")" aria-label="Manage Archivings" title="Archivings">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
-                            <span class="text-white ms-2">Archived Members</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="menuitem">
+            <ul>
+                <!-- Home Menu Item -->
+                <li class="nav-item" role="menuitem">
+                    <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Home page" title="Home">
+                        <span class="icon" aria-hidden="true"><i class="fas fa-home"></i></span>
+                        <span class="text-white ms-2">Home</span>
+                    </a>
+                </li>
 
+                <!-- Members Menu Item -->
+                <li class="nav-item" role="menuitem">
+                    <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
+                        <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
+                        <span class="text-white ms-2">Members</span>
+                    </a>
+                </li>
+
+                <!-- Email Patterns Menu Item -->
+                <li class="nav-item" role="menuitem">
+                    <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email" title="Email">
+                        <span class="icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
+                        <span class="text-white ms-2">Email Patterns</span>
+                    </a>
+                </li>
+
+                <!-- Contacts Menu Item -->
+                <li class="nav-item" role="menuitem">
+                    <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
+                        <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
+                        <span class="text-white ms-2">Contacts</span>
+                    </a>
+                </li>
+
+                <!-- Collapsible Archived Menu Item -->
+                <li class="nav-item" role="menuitem">
+                    <a class="nav-link text-dark" data-bs-toggle="collapse" href="#archivedCollapse" aria-expanded="false" aria-controls="archivedCollapse" title="Archived">
+                        <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
+                        <span class="text-white ms-2">Archived</span>
+                        <!-- Arrow Indicator -->
+                        <span class="ms-2"><i class="fas fa-chevron-down text-white arrow-indicator" id="archivedArrow"></i></span>
+                    </a>
+                    <div id="archivedCollapse" class="collapse">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "ContactCancellation")">
+                                    <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
+                                    <span class="text-white ms-2">Archived Contacts</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")">
+                                    <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
+                                    <span class="text-white ms-2">Archived Members</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Collapsible Notes Menu Item -->
+                <li class="nav-item" role="menuitem">
+                    <a class="nav-link text-dark" data-bs-toggle="collapse" href="#notesCollapse" aria-expanded="false" aria-controls="notesCollapse" title="Notes">
+                            <span class="icon" aria-hidden="true">
+                                <i class="fas fa-pen"></i>
+                                </i>
+                            </span>
+                        <span class="text-white ms-2">Notes</span>
+                        <!-- Arrow Indicator -->
+                        <span class="ms-2"><i class="fas fa-chevron-down text-white arrow-indicator" id="notesArrow"></i></span>
+                    </a>
+                    <div id="notesCollapse" class="collapse">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "Opportunity")">
+                                    <span class="icon" aria-hidden="true"><i class="fas fa-briefcase"></i></span>
+                                    <span class="text-white ms-2">Opportunities</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "Stratergy")">
+                                    <span class="icon" aria-hidden="true"><i class="fas fa-lightbulb"></i></span>
+                                    <span class="text-white ms-2">Strategies</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "AnnualAction")">
+                                    <span class="icon" aria-hidden="true"><i class="fas fa-calendar-check"></i></span>
+                                    <span class="text-white ms-2">Annual Actions</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "MEvent")">
+                                    <span class="icon" aria-hidden="true"><i class="fas fa-calendar-alt"></i></span>
+                                    <span class="text-white ms-2">Events</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                    <!-- Send Email Menu Item -->
+                    <li class="nav-item" role="menuitem">
                         <a class="nav-link text-dark" href="@Url.Action("SendEmail", "MemberCreateViewModel")" aria-label="Sending Emails" title="Sending Emails">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
                             <span class="text-white ms-2">Send Email</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "Opportunity")" aria-label="Manage Opportunities" title="Opportunities">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
-                            <span class="text-white ms-2">Opportunities</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="menuitem">
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "MEvent")" aria-label="Manage Events" title="Events">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
-                            <span class="text-white ms-2">Events</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="menuitem">
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "ContactCancellation")" aria-label="Manage Contact Cancellation" title="Contact Cancellations">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
-                            <span class="text-white ms-2">Archivied Contacts</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="menuitem">
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "AnnualAction")" aria-label="Manage Annual Actions" title="Annual Actions">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
-                            <span class="text-white ms-2">Annual Actions</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="menuitem">
-                        <a class="nav-link text-dark" href="@Url.Action("Index", "Stratergy")" aria-label="Manage Stratergy" title="Stratergies">
-                            <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
-                            <span class="text-white ms-2">Strategies</span>
-                        </a>
-                    </li>
-                    
+
                 </ul>
                 <!--<partial name="_LoginPartial" />-->
             </div>
@@ -189,10 +226,24 @@
                 }
             });
 
-            
+            // Handle the arrow direction change for Archived dropdown
+            $('#archivedCollapse').on('show.bs.collapse', function () {
+                $('#archivedArrow').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            });
+
+            $('#archivedCollapse').on('hidden.bs.collapse', function () {
+                $('#archivedArrow').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            });
+
+            // Handle the arrow direction change for Notes dropdown
+            $('#notesCollapse').on('show.bs.collapse', function () {
+                $('#notesArrow').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            });
+
+            $('#notesCollapse').on('hidden.bs.collapse', function () {
+                $('#notesArrow').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            });
         });
-
-
     </script>
     <script type="text/javascript">
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))

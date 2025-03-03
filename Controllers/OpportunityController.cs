@@ -374,21 +374,42 @@ namespace NIA_CRM.Controllers
         }
 
         // POST: Opportunity/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var opportunity = await _context.Opportunities.FindAsync(id);
-            if (opportunity != null)
+            try
             {
-                _context.Opportunities.Remove(opportunity);
-            }
+                var mEvent = await _context.Opportunities.FindAsync(id);
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                if (mEvent == null)
+                {
+                    return Json(new { success = false, message = "Event not found!" });
+                }
+
+                _context.Opportunities.Remove(mEvent);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Opportunity deleted successfully!" });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting event: {ex.Message}");
+                return Json(new { success = false, message = "An error occurred while deleting the event." });
+            }
         }
 
+        public async Task<IActionResult> GetOpportunityPreview(int id)
+        {
+            var opportunity = await _context.Opportunities.FirstOrDefaultAsync(m => m.ID == id); // Use async version for better performance
 
+            if (opportunity == null)
+            {
+                return NotFound(); // Return 404 if the member doesn't exist
+            }
+
+            return PartialView("_OpportunityPreview", opportunity); // Ensure the partial view name matches
+        }
 
 
         private bool OpportunityExists(int id)
@@ -396,5 +417,9 @@ namespace NIA_CRM.Controllers
             return _context.Opportunities.Any(e => e.ID == id);
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     }
 }

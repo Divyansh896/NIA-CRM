@@ -117,23 +117,22 @@
 =======
 
 <p>
-    
     <input type="file" name="file" class="form-control me-2" required />
 </p>
 
 <form asp-action="ImportOpportunitiesFromExcel" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken() <!-- Ensure Anti-Forgery Token is included -->
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <a class="btn btn-dark" asp-action="ExportToExcel"><i class="fa fa-file-excel text-white"></i> 
-                Export Excel</a>
-        
+            <a class="btn btn-dark" asp-action="ExportToExcel"><i class="fa fa-file-excel text-white"></i> Export Excel</a>
             <button type="submit" class="btn btn-dark">
-            <i class="fa fa-file-import"></i> Import Excel
-        </button>
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
         </div>
         <a class="btn btn-primary" asp-action="Create">Create New</a>
     </div>
 </form>
+
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
@@ -160,12 +159,15 @@
 >>>>>>> origin/master
                 @Html.DisplayNameFor(model => model.EventDate)
             </th>
-            <th scope="col" class="table-head"></th>
+            <th scope="col" class="table-head">
+                Participants
+            </th>
+            @* <th scope="col" class="table-head"></th> *@
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+            <tr class="clickable-row" data-id="@item.Id" title="Click on row to get preview">
             <td>
                 @Html.DisplayFor(modelItem => item.EventName)
             </td>
@@ -178,15 +180,39 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EventDate)
             </td>
-                <td class ="d-flex flex-column">
-                    <a class="btn btn-secondary mb-2" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <td class="d-none d-lg-table-cell">
+                    @{
+                        int specCount = item.MemberEvents.Count;
+                        if (specCount > 0)
+                        {
+                            string firstSpec = item.MemberEvents.FirstOrDefault().Member.MemberName;
+                            if (specCount > 1)
+                            {
+                                string specList = string.Join("<br />", item.MemberEvents.Skip(1).Select(s => s.Member.MemberName));
+                                <a class="member-toggle" role="button" data-bs-toggle="collapse" href="#collapseSpecalty@(item.Id)"
+                                   aria-expanded="false" aria-controls="collapseSpecalty@(item.Id)">
+                                    @firstSpec <span class="participant-badge">@specCount</span>
+                                </a>
+                                <div class="collapse" id="collapseSpecalty@(item.Id)">
+                                    @Html.Raw(specList)
+                                </div>
+                            }
+                            else
+                            {
+                                @firstSpec
+                            }
+                        }
+                    }
+                </td>
+                @* <td class ="d-flex flex-column">
                     <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-light mb-2" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+                    <a class="btn btn-light" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td> *@
         </tr>
 }
     </tbody>
 </table>
+<<<<<<< HEAD
 		<partial name="_PagingNavBar" />
 </form>
 
@@ -194,11 +220,71 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function clearFilter(filterName){
+=======
+
+<div id="previewContainer" class="preview-content hidden"></div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Initially hide the preview content
+            $('#previewContainer').addClass('hidden');
+
+            // Handle click event on rows with the "clickable-row" class
+            $(document).on('click', '.clickable-row', function () {
+                var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+
+                if (!contactId) {
+                    console.error('No contact ID found for this row.');
+                    return;
+                }
+
+                // Make an AJAX request to get the partial view for the selected contact
+                $.ajax({
+                    url: '/MEvent/GetEventPreview', // Adjust the URL to match your routing
+                    type: 'GET',
+                    data: { id: contactId },
+                    success: function (result) {
+                        // Insert the result (partial view) into the preview container
+                        $('#previewContainer').html(result);
+                        $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+
+                        // Assign the close event to the button inside the loaded preview
+                        $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
+                            $('#previewContainer').removeClass('visible').addClass('hidden');
+                        });
+
+                    },
+                    error: function () {
+                        alert('An error occurred while loading the preview.');
+                    }
+                });
+            });
+
+            // Window click listener to collapse preview when clicked outside
+            $(window).click(function (event) {
+                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                    $('#previewContainer').removeClass('visible').addClass('hidden');
+                }
+            });
+
+            // Prevent the preview container from closing when clicked inside
+            $('#previewContainer').click(function (event) {
+                event.stopPropagation(); // Stop the event from propagating to the window
+            });
+        });
+
+        function clearFilter(filterName) {
+>>>>>>> origin/master
             // Get the current URL
             var url = window.location.href.split('?')[0]; // Current URL without query string
 
             // Get the query parameters from the URL
             var params = new URLSearchParams(window.location.search);
+<<<<<<< HEAD
             params.delete(filterName)
 
             // Reload the page with the updated query string (filters removed)
@@ -214,3 +300,13 @@
     </script>
 }
 
+=======
+            params.delete(filterName);
+
+            // Reload the page with the updated query string (filters removed)
+            window.location.href = url + '?' + params.toString();
+        }
+    </script>
+
+}
+>>>>>>> origin/master

@@ -231,7 +231,12 @@ h2 {
     padding: 0;
     position: inherit;
 }
+/* Icons*/
 
+.fas.fa-lightbulb {
+    font-size: 20px;
+    color: white;
+}
 
 /* Main Content */
 
@@ -366,6 +371,45 @@ td, th {
     border-width: 0;
     margin-top: 5px;
 }
+
+/* Ensure the Archived Contacts and Archived Members are on separate lines */
+#archivedCollapse .ms-3 {
+    display: block;
+    margin-bottom: 5px; /* Space between the items */
+}
+
+/* Arrow rotation for collapsible */
+.arrow-indicator {
+    transition: transform 0.3s ease;
+}
+
+/* Rotate the arrow when the dropdown is open */
+.collapse.show + a .arrow-indicator {
+    transform: rotate(180deg);
+}
+
+/*Index Event*/
+.participant-badge {
+    background-color: white !important;
+    color: #434343 !important;
+    border: 2px solid #434343 !important;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.member-toggle {
+    text-decoration: none;
+    border-bottom: 1px solid #434343;
+    color: #434343;
+    font-weight: bold;
+}
+
+    .member-toggle:hover {
+        text-decoration: none;
+        border-bottom: 1px solid #434343;
+        color: black;
+    }
 
 
 @media (max-width: 768px) {

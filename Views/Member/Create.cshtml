@@ -8,61 +8,149 @@
 
 <h4>Member</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" method="post" enctype="multipart/form-data"> 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label class="control-label custom-file-label">Picture File:</label>
-                <div class="input-group mb-3">
-                    <input type="file" class="form-control" name="thePicture" id="thePicture">
+<div class="card card-body bg-light text-black">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        
+
+        <div class="row">
+            <!-- First Column (Membership & Tag) -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label custom-file-label">Picture File:</label>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" name="thePicture" id="thePicture">
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="MemberName" class="control-label"></label>
+                    <input asp-for="MemberName" class="form-control" />
+                    <span asp-validation-for="MemberName" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label asp-for="JoinDate" class="control-label"></label>
+                    <input asp-for="JoinDate" class="form-control" />
+                    <span asp-validation-for="JoinDate" class="text-danger"></span>
+                </div>
+                <!-- Membership Selection -->
+                <div class="form-group mb-3">
+                    <label class="control-label">Membership Accredited</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" id="btnRightMembership" class="btn btn-light btn-sm w-100">
+                                <strong>-</strong>
+                            </button>
+                            @Html.ListBox("selectedOptionsMembership", (MultiSelectList)ViewData["selOptsMembership"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsMembership" })
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" id="btnLeftMembership" class="btn btn-secondary btn-sm w-100">
+                                <strong>+</strong>
+                            </button>
+                            @Html.ListBox("availOptionsMembership", (MultiSelectList)ViewData["availOptsMembership"], new { @size = 10, @class = "form-control w-100", id = "availOptionsMembership" })
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tag Selection -->
+                <div class="form-group mb-3">
+                    <label class="control-label">Tag Accredited</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" id="btnRightTag" class="btn btn-light btn-sm w-100">
+                                <strong>-</strong>
+                            </button>
+                            @Html.ListBox("selectedOptionsTag", (MultiSelectList)ViewData["selOptsTag"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsTag" })
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" id="btnLeftTag" class="btn btn-secondary btn-sm w-100">
+                                <strong>+</strong>
+                            </button>
+                            @Html.ListBox("availOptionsTag", (MultiSelectList)ViewData["availOptsTag"], new { @size = 10, @class = "form-control w-100", id = "availOptionsTag" })
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="MemberName" class="control-label"></label>
-                <input asp-for="MemberName" class="form-control" />
-                <span asp-validation-for="MemberName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberSize" class="control-label"></label>
-                <input asp-for="MemberSize" class="form-control" />
-                <span asp-validation-for="MemberSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WebsiteUrl" class="control-label"></label>
-                <input asp-for="WebsiteUrl" class="form-control" />
-                <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="JoinDate" class="control-label"></label>
-                <input asp-for="JoinDate" class="form-control" />
-                <span asp-validation-for="JoinDate" class="text-danger"></span>
-            </div>
+            <!-- Second Column (Sector) -->
+            <div class="col-md-6">
+                <div class="form-group form-check mb-3">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsPaid" /> @Html.DisplayNameFor(model => model.IsPaid)
+                    </label>
+                    <span asp-validation-for="IsPaid" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="MemberSize" class="control-label"></label>
+                    <input asp-for="MemberSize" class="form-control" />
+                    <span asp-validation-for="MemberSize" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="WebsiteUrl" class="control-label"></label>
+                    <input asp-for="WebsiteUrl" class="form-control" />
+                    <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
+                </div>
+                
 
-            <div class="form-group">
-                <label asp-for="MemberNote" class="control-label"></label>
-                <input asp-for="MemberNote" class="form-control" />
-                <span asp-validation-for="MemberNote" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPaid" /> @Html.DisplayNameFor(model => model.IsPaid)
-                </label>
-                <span asp-validation-for="IsPaid" class="text-danger"></span>
+                <!-- Sector Selection -->
+                <div class="form-group mb-3">
+                    <label class="control-label">Sector Accredited</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" id="btnRightSector" class="btn btn-light btn-sm w-100">
+                                <strong>-</strong>
+                            </button>
+                            @Html.ListBox("selectedOptionsSector", (MultiSelectList)ViewData["selOptsSector"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsSector" })
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" id="btnLeftSector" class="btn btn-secondary btn-sm w-100">
+                                <strong>+</strong>
+                            </button>
+                            @Html.ListBox("availOptionsSector", (MultiSelectList)ViewData["availOptsSector"], new { @size = 10, @class = "form-control w-100", id = "availOptionsSector" })
+                        </div>
+                    </div>
+                </div>
 
+                <!-- NAICS Code Selection -->
+                <div class="form-group mb-3">
+                    <label class="control-label">NAICS Code Accredited</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" id="btnRightNaicsCode" class="btn btn-light btn-sm w-100">
+                                <strong>-</strong>
+                            </button>
+                            @Html.ListBox("selectedOptionsNaicsCode", (MultiSelectList)ViewData["selOptsNaiceCode"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsNaicsCode" })
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" id="btnLeftNaicsCode" class="btn btn-secondary btn-sm w-100">
+                                <strong>+</strong>
+                            </button>
+                            @Html.ListBox("availOptionsNaicsCode", (MultiSelectList)ViewData["availOptsNaicsCode"], new { @size = 10, @class = "form-control w-100", id = "availOptionsNaicsCode" })
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+        </div>
+        <!-- Notes Section at the Bottom -->
+        <div class="form-group mt-3">
+            <label asp-for="MemberNote" class="control-label"></label>
+            <textarea asp-for="MemberNote" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="MemberNote" class="text-danger"></span>
+        </div>
+    </form>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<!-- Buttons outside the card -->
+<div class="position-bottom-left mt-3">
+    <a asp-action="Index" class="btn btn-dark me-2">Back to List</a>
+    <input type="submit" value="Create" id="btnSubmit" class="btn btn-primary" form="CreateForm" />
+    
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/multiselect.js"></script>
 }

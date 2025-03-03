@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -149,7 +150,7 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,CancellationDate,Canceled,CancellationNote,MemberID")] Cancellation cancellation)
+        public async Task<IActionResult> Create([Bind("ID,CancellationDate,IsCancelled,CancellationNote,MemberID")] Cancellation cancellation)
         {
             if (ModelState.IsValid)
             {
@@ -157,9 +158,69 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            //Decide if we need to send the Validaiton Errors directly to the client
+            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                //Was an AJAX request so build a message with all validation errors
+                string errorMessage = "";
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errorMessage += error.ErrorMessage + "|";
+                    }
+                }
+                //Note: returning a BadRequest results in HTTP Status code 400
+                return BadRequest(errorMessage);
+            }
             ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", cancellation.MemberID);
             return View(cancellation);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Archive(Cancellation cancellation)
+        {
+            if (cancellation.MemberID == 0)
+            {
+                return BadRequest("Member ID is required.");
+            }
+
+            var member = await _context.Members.FindAsync(cancellation.MemberID);
+
+            if (member == null)
+            {
+                return NotFound(); // Return 404 if member not found
+            }
+            //Decide if we need to send the Validaiton Errors directly to the client
+            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                //Was an AJAX request so build a message with all validation errors
+                string errorMessage = "";
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errorMessage += error.ErrorMessage + "|";
+                    }
+                }
+                //Note: returning a BadRequest results in HTTP Status code 400
+                return BadRequest(errorMessage);
+            }
+            // Proceed with cancellation
+            cancellation.CancellationDate = DateTime.UtcNow;
+            cancellation.IsCancelled = true;
+            cancellation.CancellationNote = "Archived via system.";
+
+            _context.Cancellations.Add(cancellation);
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Member archived successfully!" });
+        }
+
+
+
+
 
         // GET: Cancellation/Edit/5
         public async Task<IActionResult> Edit(int? id)

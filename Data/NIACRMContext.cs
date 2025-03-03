@@ -135,13 +135,13 @@ namespace NIA_CRM.Data
                 .HasOne(mmt => mmt.Member)
                 .WithMany(m => m.MemberEvents)
                 .HasForeignKey(mmt => mmt.MemberId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<MemberEvent>()
                 .HasOne(mmt => mmt.MEvent)
                 .WithMany(m => m.MemberEvents)
                 .HasForeignKey(mmt => mmt.MEventID)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Member -> Sector (Many-to-Many)
             modelBuilder.Entity<MemberSector>()

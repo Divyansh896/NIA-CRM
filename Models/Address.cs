@@ -2,14 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class Address
+namespace NIA_CRM.Models
 {
-    [Display(Name = "Address")]
-    public string FormattedAddress
+    public class Address
     {
-        get
+        [Display(Name = "Address")]
+        public string FormattedAddress
         {
-            var parts = new List<string>
+            get
+            {
+                var parts = new List<string>
             {
                 AddressLine1,
                 AddressLine2,
@@ -18,46 +20,48 @@ public class Address
                 PostalCode
             }.Where(p => !string.IsNullOrWhiteSpace(p));
 
-            return string.Join(", ", parts);
+                return string.Join(", ", parts);
+            }
         }
+
+
+        [Key]
+        public int Id { get; set; } // Primary Key
+
+        [ForeignKey(nameof(Member))]
+        [Required(ErrorMessage = "Member is required.")]
+        [Display(Name = "Member")]
+        public int MemberId { get; set; }
+
+        [Required(ErrorMessage = "Address Line 1 is required.")]
+        [MaxLength(255, ErrorMessage = "Address Line 1 cannot exceed 255 characters.")]
+        [Display(Name = "Address Line 1")]
+        public string AddressLine1 { get; set; } = "";
+
+        [MaxLength(255, ErrorMessage = "Address Line 2 cannot exceed 255 characters.")]
+        [Display(Name = "Address Line 2")]
+        public string? AddressLine2 { get; set; }
+
+        [Required(ErrorMessage = "City is required.")]
+        [MaxLength(100, ErrorMessage = "City cannot exceed 100 characters.")]
+        [Display(Name = "City")]
+        public string City { get; set; } = "";
+
+        [Required(ErrorMessage = "State/Province is required.")]
+        [MaxLength(100, ErrorMessage = "State/Province cannot exceed 100 characters.")]
+        [Display(Name = "State/Province")]
+        public string StateProvince { get; set; } = "";
+
+        [Required(ErrorMessage = "Postal Code is required.")]
+        [MaxLength(20, ErrorMessage = "Postal Code cannot exceed 20 characters.")]
+        [Display(Name = "Postal Code")]
+        public string? PostalCode { get; set; }
+
+        // Navigation Property
+        [Display(Name = "Member")]
+        public Member? Member { get; set; }
+
+
+
     }
-
-
-    [Key]
-    public int Id { get; set; } // Primary Key
-
-    [ForeignKey(nameof(Member))]
-    [Required(ErrorMessage = "Member is required.")]
-    [Display(Name = "Member")]
-    public int MemberId { get; set; }
-
-    [Required(ErrorMessage = "Address Line 1 is required.")]
-    [MaxLength(255, ErrorMessage = "Address Line 1 cannot exceed 255 characters.")]
-    [Display(Name = "Address Line 1")]
-    public string AddressLine1 { get; set; } = "";
-
-    [MaxLength(255, ErrorMessage = "Address Line 2 cannot exceed 255 characters.")]
-    [Display(Name = "Address Line 2")]
-    public string? AddressLine2 { get; set; }
-
-    [Required(ErrorMessage = "City is required.")]
-    [MaxLength(100, ErrorMessage = "City cannot exceed 100 characters.")]
-    [Display(Name = "City")]
-    public string City { get; set; } = "";
-
-    [Required(ErrorMessage = "State/Province is required.")]
-    [MaxLength(100, ErrorMessage = "State/Province cannot exceed 100 characters.")]
-    [Display(Name = "State/Province")]
-    public string StateProvince { get; set; } = "";
-
-    [MaxLength(20, ErrorMessage = "Postal Code cannot exceed 20 characters.")]
-    [Display(Name = "Postal Code")]
-    public string? PostalCode { get; set; }
-
-    // Navigation Property
-    [Display(Name = "Member")]
-    public Member? Member { get; set; }
-
-
-   
 }

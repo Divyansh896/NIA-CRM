@@ -17,7 +17,7 @@ namespace NIA_CRM.Data.NIACRMigration
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
 
-            modelBuilder.Entity("Address", b =>
+            modelBuilder.Entity("NIA_CRM.Models.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,6 +41,7 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PostalCode")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
@@ -383,6 +384,11 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
+
                     b.HasKey("Id");
 
                     b.ToTable("MTag");
@@ -572,9 +578,14 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.MembershipType", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("TypeDescr")
                         .HasColumnType("TEXT");
@@ -584,7 +595,7 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("MembershipTypes");
                 });
@@ -624,7 +635,6 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Interaction")
-                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("LastContact")
@@ -632,7 +642,6 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.Property<string>("OpportunityAction")
                         .IsRequired()
-                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OpportunityName")
@@ -684,10 +693,8 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EmailType")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("TEXT");
+                    b.Property<int>("EmailType")
+                        .HasColumnType("INTEGER");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -695,6 +702,11 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("BLOB");
 
                     b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TemplateName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
@@ -716,6 +728,11 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("SectorDescription")
                         .HasColumnType("TEXT");
@@ -817,7 +834,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.ToTable("WidgetLayouts");
                 });
 
-            modelBuilder.Entity("Address", b =>
+            modelBuilder.Entity("NIA_CRM.Models.Address", b =>
                 {
                     b.HasOne("NIA_CRM.Models.Member", "Member")
                         .WithMany("Addresses")
@@ -918,13 +935,13 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasOne("NIA_CRM.Models.MEvent", "MEvent")
                         .WithMany("MemberEvents")
                         .HasForeignKey("MEventID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NIA_CRM.Models.Member", "Member")
                         .WithMany("MemberEvents")
                         .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("MEvent");

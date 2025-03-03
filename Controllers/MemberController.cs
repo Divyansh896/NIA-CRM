@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using NIA_CRM.Models;
 using NIA_CRM.Utilities;
 using OfficeOpenXml.Style;
 using OfficeOpenXml;
+using NIA_CRM.ViewModels;
 
 namespace NIA_CRM.Controllers
 {
@@ -87,7 +89,7 @@ namespace NIA_CRM.Controllers
             {
                 // Retrieve the MembershipType object from the database using the ID
                 var membershipType = _context.MembershipTypes
-                                             .FirstOrDefault(m => m.ID == MembershipTypes.Value);
+                                             .FirstOrDefault(m => m.Id == MembershipTypes.Value);
 
                 if (membershipType != null)
                 {
@@ -286,6 +288,15 @@ namespace NIA_CRM.Controllers
         // GET: Member/Create
         public IActionResult Create()
         {
+            Member member = new Member
+            {
+                Addresses = new List<Address> { new Address() },  // Initializing with one empty address
+                MemberContacts = new List<MemberContact> { new MemberContact() }  // Initializing with one empty contact
+            };
+            PopulateAssignedMTagData(member);
+            PopulateAssignedSectorData(member);
+            PopulateAssignedMembershipTypeData(member);
+            PopulateAssignedNaicsCodeData(member);
             return View();
         }
 
@@ -294,18 +305,49 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MemberFirstName,MemberMiddleName,MemberLastName,JoinDate,StandingStatus")]
-        Member member, IFormFile? thePicture)
+        public async Task<IActionResult> Create([Bind("ID,MemberName,MemberSize,WebsiteUrl,JoinDate,IsPaid,Addresses,MemberContacts")]
+                                                Member member, IFormFile? thePicture, string[] selectedOptionsTag, 
+                                                string[] selectedOptionsSector, string[] selectedOptionsMembership, string[] selectedOptionsNaicsCode)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await AddPicture(member, thePicture);
-                _context.Add(member);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Update Member Tags (MTag)
+                UpdateMemberMTag(selectedOptionsTag, member);
+
+                // Update Member Sectors
+                UpdateMemberSector(selectedOptionsSector, member);
+
+                // Update Member Membership Types
+                UpdateMemberMembershipType(selectedOptionsMembership, member);
+                UpdateMemberNaicsCode(selectedOptionsNaicsCode, member);
+
+                if (ModelState.IsValid)
+                {
+                    // Handle file upload for picture
+                    await AddPicture(member, thePicture);
+
+                    // Add the member to the context and save changes
+                    _context.Add(member);
+                    await _context.SaveChangesAsync();
+
+                    // Redirect to the index view
+                    return RedirectToAction(nameof(Index));
+                }
             }
+            catch (RetryLimitExceededException)
+            {
+                ModelState.AddModelError("", "Unable to save changes after multiple attempts. Try again, and if the problem persists, see your system administrator.");
+            }
+
+            // Populate assigned data if the model state is invalid
+            PopulateAssignedMTagData(member);
+            PopulateAssignedSectorData(member);
+            PopulateAssignedMembershipTypeData(member);  // New method to populate membership type data
+            PopulateAssignedNaicsCodeData(member);
+
             return View(member);
         }
+
 
         // GET: Member/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -316,7 +358,7 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
-                .Include(m => m.MemberLogo)
+                .Include(m => m.MemberThumbnail)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -333,8 +375,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Edit(int id, Byte[] RowVersion, string? chkRemoveImage, IFormFile? thePicture)
         {
             var memberToUpdate = await _context.Members
-                .Include(m => m.MemberLogo)
-                .Include(m => m.MemberThumbnail)  // Ensure we include the MemberThumbnail as well
+                .Include(m => m.MemberThumbnail)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (memberToUpdate == null)
@@ -432,7 +473,7 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
-                .Include(m => m.MemberLogo)
+                .Include(m => m.MemberThumbnail)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -529,18 +570,363 @@ namespace NIA_CRM.Controllers
 
         private void PopulateDropdowns()
         {
-
-
-
             var membershipTypes = _context.MembershipTypes.ToList();
 
-            ViewData["MembershipTypes"] = new SelectList(membershipTypes, "ID", "TypeName");
-
-
+            ViewData["MembershipTypes"] = new SelectList(membershipTypes, "Id", "TypeName");
 
         }
 
-        
+        private void PopulateAssignedMTagData(Member member)
+        {
+            // Get all available MTags
+            var allTags = _context.MTags.ToList();
+            // Get the set of currently selected MTag IDs for the member
+            var currentTagsHS = new HashSet<int>(member.MemberTags.Select(mt => mt.MTagID));
+
+            // Lists for selected and available tags
+            var selected = new List<ListOptionVM>();
+            var available = new List<ListOptionVM>();
+
+            // Populate selected and available lists based on whether the tag is selected
+            foreach (var tag in allTags)
+            {
+                var option = new ListOptionVM
+                {
+                    ID = tag.Id,
+                    DisplayText = tag.MTagName
+                };
+
+                if (currentTagsHS.Contains(tag.Id))
+                {
+                    selected.Add(option);
+                }
+                else
+                {
+                    available.Add(option);
+                }
+            }
+
+            // Sort and assign to ViewData for use in the view
+            ViewData["selOptsTag"] = new MultiSelectList(selected.OrderBy(s => s.DisplayText), "ID", "DisplayText");
+            ViewData["availOptsTag"] = new MultiSelectList(available.OrderBy(s => s.DisplayText), "ID", "DisplayText");
+        }
+
+        private void PopulateAssignedSectorData(Member member)
+        {
+            // Get all available MTags
+            var allTags = _context.Sectors.ToList();
+            // Get the set of currently selected MTag IDs for the member
+            var currentTagsHS = new HashSet<int>(member.MemberSectors.Select(mt => mt.SectorId));
+
+            // Lists for selected and available tags
+            var selected = new List<ListOptionVM>();
+            var available = new List<ListOptionVM>();
+
+            // Populate selected and available lists based on whether the tag is selected
+            foreach (var tag in allTags)
+            {
+                var option = new ListOptionVM
+                {
+                    ID = tag.Id,
+                    DisplayText = tag.SectorName
+                };
+
+                if (currentTagsHS.Contains(tag.Id))
+                {
+                    selected.Add(option);
+                }
+                else
+                {
+                    available.Add(option);
+                }
+            }
+
+            // Sort and assign to ViewData for use in the view
+            ViewData["selOptsSector"] = new MultiSelectList(selected.OrderBy(s => s.DisplayText), "ID", "DisplayText");
+            ViewData["availOptsSector"] = new MultiSelectList(available.OrderBy(s => s.DisplayText), "ID", "DisplayText");
+        }
+
+        private void PopulateAssignedMembershipTypeData(Member member)
+        {
+            // Get all available MembershipTypes
+            var allMembershipTypes = _context.MembershipTypes.ToList();
+            // Get the set of currently selected MembershipType IDs for the member
+            var currentMembershipTypesHS = new HashSet<int>(member.MemberMembershipTypes.Select(mt => mt.MembershipTypeId));
+
+            // Lists for selected and available membership types
+            var selected = new List<ListOptionVM>();
+            var available = new List<ListOptionVM>();
+
+            // Populate selected and available lists based on whether the membership type is selected
+            foreach (var membershipType in allMembershipTypes)
+            {
+                var option = new ListOptionVM
+                {
+                    ID = membershipType.Id,
+                    DisplayText = membershipType.TypeName
+                };
+
+                if (currentMembershipTypesHS.Contains(membershipType.Id))
+                {
+                    selected.Add(option);
+                }
+                else
+                {
+                    available.Add(option);
+                }
+            }
+
+            // Sort and assign to ViewData for use in the view
+            ViewData["selOptsMembership"] = new MultiSelectList(selected.OrderBy(s => s.DisplayText), "ID", "DisplayText");
+            ViewData["availOptsMembership"] = new MultiSelectList(available.OrderBy(s => s.DisplayText), "ID", "DisplayText");
+        }
+
+        private void PopulateAssignedNaicsCodeData(Member member)
+        {
+            // Get all available NAICS Codes
+            var allNaicsCode = _context.NAICSCodes.ToList();
+
+            // Get the set of currently selected NAICS Code IDs for the member
+            var currentNaicsCodesHS = new HashSet<int>(member.IndustryNAICSCodes.Select(nc => nc.NAICSCodeId));
+
+            // Lists for selected and available NAICS codes
+            var selected = new List<ListOptionVM>();
+            var available = new List<ListOptionVM>();
+
+            // Populate selected and available lists based on whether the NAICS code is selected
+            foreach (var naicsCode in allNaicsCode)
+            {
+                var option = new ListOptionVM
+                {
+                    ID = naicsCode.Id,  // Ensure "Id" exists in the NAICSCodes entity
+                    DisplayText = naicsCode.Code // Adjust this based on your model property
+                };
+
+                if (currentNaicsCodesHS.Contains(naicsCode.Id))
+                {
+                    selected.Add(option);
+                }
+                else
+                {
+                    available.Add(option);
+                }
+            }
+
+            // Sort and assign to ViewData for use in the view
+            ViewData["selOptsNaiceCode"] = new MultiSelectList(selected.OrderBy(s => s.DisplayText), "ID", "DisplayText");
+            ViewData["availOptsNaicsCode"] = new MultiSelectList(available.OrderBy(s => s.DisplayText), "ID", "DisplayText");
+        }
+
+
+
+        private void UpdateMemberMTag(string[] selectedOptions, Member memberToUpdate)
+        {
+            // If no specialties (MTags) are selected, clear the existing collection
+            if (selectedOptions == null)
+            {
+                memberToUpdate.MemberTags = new List<MemberTag>();
+                return;
+            }
+
+            // Create a HashSet for the selected options (IDs as strings)
+            var selectedOptionsHS = new HashSet<string>(selectedOptions);
+            // Get the current MTag IDs of the member as a HashSet
+            var currentTagsHS = new HashSet<int>(memberToUpdate.MemberTags.Select(mt => mt.MTagID));
+
+            // Iterate over all available MTags
+            foreach (var tag in _context.MTags)
+            {
+                // Check if the MTag is selected
+                if (selectedOptionsHS.Contains(tag.Id.ToString())) // It's selected
+                {
+                    if (!currentTagsHS.Contains(tag.Id)) // It's not already in the member's tags list
+                    {
+                        // Add the tag to the member's tags
+                        memberToUpdate.MemberTags.Add(new MemberTag
+                        {
+                            MTagID = tag.Id,
+                            MemberId = memberToUpdate.ID
+                        });
+                    }
+                }
+                else // It's not selected
+                {
+                    if (currentTagsHS.Contains(tag.Id)) // But it is in the member's current list
+                    {
+                        // Remove the tag from the member's tags
+                        var tagToRemove = memberToUpdate.MemberTags
+                            .FirstOrDefault(mt => mt.MTagID == tag.Id);
+                        if (tagToRemove != null)
+                        {
+                            memberToUpdate.MemberTags.Remove(tagToRemove);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void UpdateMemberSector(string[] selectedOptions, Member memberToUpdate)
+        {
+            // If no specialties (MTags) are selected, clear the existing collection
+            if (selectedOptions == null)
+            {
+                memberToUpdate.MemberSectors = new List<MemberSector>();
+                return;
+            }
+
+            // Create a HashSet for the selected options (IDs as strings)
+            var selectedOptionsHS = new HashSet<string>(selectedOptions);
+            // Get the current MTag IDs of the member as a HashSet
+            var currentTagsHS = new HashSet<int>(memberToUpdate.MemberSectors.Select(mt => mt.SectorId));
+
+            // Iterate over all available MTags
+            foreach (var tag in _context.Sectors)
+            {
+                // Check if the MTag is selected
+                if (selectedOptionsHS.Contains(tag.Id.ToString())) // It's selected
+                {
+                    if (!currentTagsHS.Contains(tag.Id)) // It's not already in the member's tags list
+                    {
+                        // Add the tag to the member's tags
+                        memberToUpdate.MemberSectors.Add(new MemberSector
+                        {
+                            SectorId = tag.Id,
+                            MemberId = memberToUpdate.ID
+                        });
+                    }
+                }
+                else // It's not selected
+                {
+                    if (currentTagsHS.Contains(tag.Id)) // But it is in the member's current list
+                    {
+                        // Remove the tag from the member's tags
+                        var tagToRemove = memberToUpdate.MemberSectors
+                            .FirstOrDefault(mt => mt.SectorId == tag.Id);
+                        if (tagToRemove != null)
+                        {
+                            memberToUpdate.MemberSectors.Remove(tagToRemove);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void UpdateMemberMembershipType(string[] selectedOptions, Member memberToUpdate)
+        {
+            // If no membership types are selected, clear the existing collection
+            if (selectedOptions == null)
+            {
+                memberToUpdate.MemberMembershipTypes = new List<MemberMembershipType>();
+                return;
+            }
+
+            // Create a HashSet for the selected options (IDs as strings)
+            var selectedOptionsHS = new HashSet<string>(selectedOptions);
+            // Get the current MembershipType IDs of the member as a HashSet
+            var currentMembershipTypesHS = new HashSet<int>(memberToUpdate.MemberMembershipTypes.Select(mt => mt.MembershipTypeId));
+
+            // Iterate over all available MembershipTypes
+            foreach (var membershipType in _context.MembershipTypes)
+            {
+                // Check if the MembershipType is selected
+                if (selectedOptionsHS.Contains(membershipType.Id.ToString())) // It's selected
+                {
+                    if (!currentMembershipTypesHS.Contains(membershipType.Id)) // It's not already in the member's membership types list
+                    {
+                        // Add the membership type to the member's list
+                        memberToUpdate.MemberMembershipTypes.Add(new MemberMembershipType
+                        {
+                            MembershipTypeId = membershipType.Id,
+                            MemberId = memberToUpdate.ID
+                        });
+                    }
+                }
+                else // It's not selected
+                {
+                    if (currentMembershipTypesHS.Contains(membershipType.Id)) // But it is in the member's current list
+                    {
+                        // Remove the membership type from the member's list
+                        var membershipTypeToRemove = memberToUpdate.MemberMembershipTypes
+                            .FirstOrDefault(mt => mt.MembershipTypeId == membershipType.Id);
+                        if (membershipTypeToRemove != null)
+                        {
+                            memberToUpdate.MemberMembershipTypes.Remove(membershipTypeToRemove);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private void UpdateMemberNaicsCode(string[] selectedOptions, Member memberToUpdate)
+        {
+            if (selectedOptions == null)
+            {
+                // If no NAICS codes are selected, clear the existing collection
+                memberToUpdate.IndustryNAICSCodes = new List<IndustryNAICSCode>();
+                return;
+            }
+
+            var selectedOptionsHS = new HashSet<int>(selectedOptions.Select(int.Parse));
+            var currentNaicsCodeHS = new HashSet<int>(memberToUpdate.IndustryNAICSCodes.Select(naics => naics.NAICSCodeId));
+
+            // Iterate over all available NAICS Codes
+            foreach (var naicsCode in _context.NAICSCodes)
+            {
+                if (selectedOptionsHS.Contains(naicsCode.Id))  // Selected in UI
+                {
+                    if (!currentNaicsCodeHS.Contains(naicsCode.Id))  // Not already added
+                    {
+                        memberToUpdate.IndustryNAICSCodes.Add(new IndustryNAICSCode
+                        {
+                            NAICSCodeId = naicsCode.Id,
+                            MemberId = memberToUpdate.ID
+                        });
+                    }
+                }
+                else  // Not selected in UI
+                {
+                    if (currentNaicsCodeHS.Contains(naicsCode.Id))  // But exists in DB
+                    {
+                        var naicsToRemove = memberToUpdate.IndustryNAICSCodes
+                            .FirstOrDefault(nc => nc.NAICSCodeId == naicsCode.Id);
+                        if (naicsToRemove != null)
+                        {
+                            memberToUpdate.IndustryNAICSCodes.Remove(naicsToRemove);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveMemberNote(int id, string note)
+        {
+            var memberToUpdate = await _context.Members.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (memberToUpdate == null)
+            {
+                return Json(new { success = false, message = "Member not found." });
+            }
+
+            // Update MemberNote
+            memberToUpdate.MemberNote = note;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Json(new { success = true, message = "Note saved successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+
 
     }
+
+
+
 }

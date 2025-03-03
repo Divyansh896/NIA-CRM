@@ -16,5 +16,10 @@ namespace NIA_CRM.Models
 
         public ICollection<MemberSector> MemberSectors { get; set; } = new List<MemberSector>();
 
+        [ScaffoldColumn(false)]
+        [Timestamp]
+        public Byte[]? RowVersion { get; set; }//Added for concurrency
+
+
     }
 }

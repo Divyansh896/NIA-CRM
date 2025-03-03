@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
-    public class AnnualActionController : Controller
+    public class AnnualActionController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -22,9 +24,16 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: AnnualAction
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, int? pageSizeID)
         {
-            return View(await _context.AnnualAction.ToListAsync());
+            var annualActions = _context.AnnualAction.AsNoTracking();
+
+            // Handle paging
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
+            var pagedData = await PaginatedList<AnnualAction>.CreateAsync(annualActions, page ?? 1, pageSize);
+
+            return View(pagedData);
         }
 
         // New action to export to Excel
@@ -286,23 +295,79 @@ namespace NIA_CRM.Controllers
         }
 
         // POST: AnnualAction/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var annualAction = await _context.AnnualAction.FindAsync(id);
-            if (annualAction != null)
-            {
-                _context.AnnualAction.Remove(annualAction);
-            }
+            Console.WriteLine($"🔥 DeleteConfirmed Triggered from Partial View - ID: {id}");
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var action = await _context.AnnualActions.FindAsync(id);
+
+                if (action == null)
+                {
+                    Console.WriteLine($"❌ Annual Action Not Found - ID: {id}");
+                    return Json(new { success = false, message = "Annual Action not found!" });
+                }
+
+                _context.AnnualActions.Remove(action);
+                await _context.SaveChangesAsync();
+
+                Console.WriteLine("✅ Annual Action Deleted Successfully from Partial View");
+
+                return Json(new { success = true, message = "Annual Action deleted successfully!" });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"⚠️ Error deleting annual action: {ex.Message}");
+                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
         }
 
         private bool AnnualActionExists(int id)
         {
             return _context.AnnualAction.Any(e => e.ID == id);
         }
+
+        public async Task<IActionResult> GetAnnualActionPreview(int id)
+        {
+            var member = await _context.AnnualAction
+                .FirstOrDefaultAsync(m => m.ID == id); // No .Include() needed
+
+            if (member == null)
+            {
+                return NotFound(); // Return 404 if the member doesn't exist
+            }
+
+            return PartialView("_AnnualActionPreview", member); // Ensure the partial view name matches
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveAnnualActionNote(int id, string note)
+        {
+            var annualActionToUpdate = await _context.AnnualActions.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (annualActionToUpdate == null)
+            {
+                return Json(new { success = false, message = "Annual Action not found." });
+            }
+
+            // Update MemberNote
+            annualActionToUpdate.Note = note;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Json(new { success = true, message = "Note saved successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+
+        }
+
     }
 }

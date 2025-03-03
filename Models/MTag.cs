@@ -15,5 +15,10 @@ namespace NIA_CRM.Models
         public string? MTagDescription { get; set; }
 
         public ICollection<MemberTag> MemberTags { get; set; } = new List<MemberTag>();
+
+        [ScaffoldColumn(false)]
+        [Timestamp]
+        public Byte[]? RowVersion { get; set; }//Added for concurrency
+
     }
 }
