@@ -10,8 +10,9 @@
 <hr />
 <div class="row">
     <div class="col-md-8 offset-md-2">
-        <div class="card card-body bg-light text-black">
+        
             <form asp-action="Edit">
+            <div class="card card-body bg-light text-black">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="ID" />
                 <input type="hidden" asp-for="RowVersion" />
@@ -73,12 +74,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="position-bottom-left">
-                    <a class="btn btn-dark me-2" asp-action="Index">Back to List</a>
-                    <input type="submit" value="Save" class="btn btn-primary px-4" />
-                </div>
+                
+            </div>
+            <div class="position-bottom-left">
+                <a class="btn btn-dark me-2" asp-action="Index">Back to Opportunities</a>
+                <input type="submit" value="Save" class="btn btn-primary px-4" />
+            </div>
             </form>
-        </div>
+        
     </div>
 </div>
 

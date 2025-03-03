@@ -295,24 +295,24 @@ namespace NIA_CRM.Controllers
         {
             try
             {
-                var mEvent = await _context.Opportunities.FindAsync(id);
+                var opportunity = await _context.Opportunities.FindAsync(id);
 
-                if (mEvent == null)
+                if (opportunity == null)
                 {
-                    return Json(new { success = false, message = "Event not found!" });
+                    return Json(new { success = false, message = "Opportunity not found!" });
                 }
 
-                _context.Opportunities.Remove(mEvent);
+                _context.Opportunities.Remove(opportunity);
                 await _context.SaveChangesAsync();
 
                 return Json(new { success = true, message = "Opportunity deleted successfully!" });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting event: {ex.Message}");
-                return Json(new { success = false, message = "An error occurred while deleting the event." });
+                return Json(new { success = false, message = "An error occurred while deleting the opportunity." });
             }
         }
+
 
         public async Task<IActionResult> GetOpportunityPreview(int id)
         {

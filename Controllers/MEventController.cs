@@ -333,10 +333,10 @@ namespace NIA_CRM.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting event: {ex.Message}");
                 return Json(new { success = false, message = "An error occurred while deleting the event." });
             }
         }
+
 
         private bool MEventExists(int id)
         {
