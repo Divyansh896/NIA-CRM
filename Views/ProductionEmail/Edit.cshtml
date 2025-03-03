@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Email Template</h1>
+<h1>Edit Email Pattern</h1>
 
 <hr />
 <form asp-action="Edit" method="post" enctype="multipart/form-data">
@@ -13,37 +13,51 @@
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="RowVersion" />
     <div class="card card-body bg-light text-black">
-    <div class="row">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="col-md-6">
-            <div class="form-group">
-                <label asp-for="EmailType" class="control-label"></label>
-                <input asp-for="EmailType" class="form-control" />
-                <span asp-validation-for="EmailType" class="text-danger"></span>
-            </div>
-            </div>
-            <div class="col-md-6">
-            <div class="form-group">
-                <label asp-for="Subject" class="control-label"></label>
-                <input asp-for="Subject" class="form-control" />
-                <span asp-validation-for="Subject" class="text-danger"></span>
-            </div>
-            </div>
-    </div>
         <div class="row mt-3">
-        <div class="col-12">
-            <div class="form-group w-100">
-                <label asp-for="Body" class="control-label"></label>
-                <textarea asp-for="Body" class="form-control w-100"></textarea>
-                <span asp-validation-for="Body" class="text-danger"></span>
+            <div class="col-12">
+                <div class="form-group">
+                    <label asp-for="TemplateName" class="control-label"></label>
+                    <input asp-for="TemplateName" class="form-control w-100" rows="4"></input>
+                    <span asp-validation-for="TemplateName" class="text-danger"></span>
+                </div>
             </div>
         </div>
+        <div class="row">
+            <!-- Email Type -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="EmailType" class="control-label"></label>
+                    <input asp-for="EmailType" class="form-control" />
+                    <span asp-validation-for="EmailType" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- Subject -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <input asp-for="Subject" class="form-control" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body (Textarea) -->
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="form-group">
+                    <label asp-for="Body" class="control-label"></label>
+                    <textarea asp-for="Body" class="form-control w-100" rows="4"></textarea>
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+            </div>
         </div>
     </div>
+
+
     <div class="position-bottom-left">
-        <a class="btn btn-dark me-2" asp-action="Index">Back to List</a>
-        <input type="submit" value="Save" class="btn btn-primary" />
+        <a class="btn btn-dark me-2" asp-action="Index">Back to Email Patterns</a>
+        <input type="submit" value="Create" class="btn btn-primary" />
+
     </div>
 </form>
 

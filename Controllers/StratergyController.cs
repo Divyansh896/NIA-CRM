@@ -344,19 +344,22 @@ namespace NIA_CRM.Controllers
         }
 
         // POST: Stratergy/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var strategy = await _context.Strategys.FindAsync(id);
-            if (strategy != null)
+            if (strategy == null)
             {
-                _context.Strategys.Remove(strategy);
+                return Json(new { success = false, message = "Strategy not found." });
             }
 
+            _context.Strategys.Remove(strategy);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return Json(new { success = true });
         }
+
 
         private bool StrategyExists(int id)
         {

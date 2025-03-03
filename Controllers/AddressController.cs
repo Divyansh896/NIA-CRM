@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
 
 namespace NIA_CRM.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AddressController : ControllerBase
+    public class AddressController : Controller
     {
         private readonly NIACRMContext _context;
 
@@ -21,83 +19,142 @@ namespace NIA_CRM.Controllers
             _context = context;
         }
 
-        // GET: api/Address
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Address>>> GetAddresses()
+        // GET: Address
+        public async Task<IActionResult> Index()
         {
-            return await _context.Addresses.ToListAsync();
+            var nIACRMContext = _context.Addresses.Include(a => a.Member);
+            return View(await nIACRMContext.ToListAsync());
         }
 
-        // GET: api/Address/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Address>> GetAddress(int id)
+        // GET: Address/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var address = await _context.Addresses.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var address = await _context.Addresses
+                .Include(a => a.Member)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (address == null)
             {
                 return NotFound();
             }
 
-            return address;
+            return View(address);
         }
 
-        // PUT: api/Address/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAddress(int id, Address address)
+        // GET: Address/Create
+        public IActionResult Create()
+        {
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName");
+            return View();
+        }
+
+        // POST: Address/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,MemberId,AddressLine1,AddressLine2,City,StateProvince,PostalCode")] Address address)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(address);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Create), "Contact");
+
+            }
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName", address.MemberId);
+            return View(address);
+        }
+
+        // GET: Address/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var address = await _context.Addresses.FindAsync(id);
+            if (address == null)
+            {
+                return NotFound();
+            }
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName", address.MemberId);
+            return View(address);
+        }
+
+        // POST: Address/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MemberId,AddressLine1,AddressLine2,City,StateProvince,PostalCode")] Address address)
         {
             if (id != address.Id)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(address).State = EntityState.Modified;
-
-            try
+            if (ModelState.IsValid)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AddressExists(id))
+                try
                 {
-                    return NotFound();
+                    _context.Update(address);
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!AddressExists(address.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-
-            return NoContent();
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName", address.MemberId);
+            return View(address);
         }
 
-        // POST: api/Address
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Address>> PostAddress(Address address)
+        // GET: Address/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            _context.Addresses.Add(address);
-            await _context.SaveChangesAsync();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            return CreatedAtAction("GetAddress", new { id = address.Id }, address);
-        }
-
-        // DELETE: api/Address/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAddress(int id)
-        {
-            var address = await _context.Addresses.FindAsync(id);
+            var address = await _context.Addresses
+                .Include(a => a.Member)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (address == null)
             {
                 return NotFound();
             }
 
-            _context.Addresses.Remove(address);
-            await _context.SaveChangesAsync();
+            return View(address);
+        }
 
-            return NoContent();
+        // POST: Address/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var address = await _context.Addresses.FindAsync(id);
+            if (address != null)
+            {
+                _context.Addresses.Remove(address);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool AddressExists(int id)

@@ -25,7 +25,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Index(int? page, int? pageSizeID, DateTime? dateFrom, DateTime? dateTo)
         {
             int numberFilters = 0;
-            var contactCancellations = _context.ContactCancellations.AsQueryable();
+            var contactCancellations = _context.ContactCancellations.Include(c => c.Contact).AsQueryable();
 
             // Filtering by date range (CancellationDate between dateFrom and dateTo)
             if (dateFrom.HasValue && dateTo.HasValue)

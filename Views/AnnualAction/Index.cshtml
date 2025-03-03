@@ -20,7 +20,7 @@
         
     </div>
 </form>
-@*  <a class="btn btn-primary" asp-action="Create">Create New</a> *@
+
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
@@ -149,6 +149,7 @@
     </table>
             <partial name="_PagingNavBar" />
     </form>
+
 
     
 

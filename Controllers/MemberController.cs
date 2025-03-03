@@ -305,7 +305,7 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MemberName,MemberSize,WebsiteUrl,JoinDate,IsPaid,Addresses,MemberContacts")]
+        public async Task<IActionResult> Create([Bind("ID,MemberName,MemberSize,WebsiteUrl,JoinDate,IsPaid,MemberNote")]
                                                 Member member, IFormFile? thePicture, string[] selectedOptionsTag, 
                                                 string[] selectedOptionsSector, string[] selectedOptionsMembership, string[] selectedOptionsNaicsCode)
         {
@@ -331,7 +331,13 @@ namespace NIA_CRM.Controllers
                     await _context.SaveChangesAsync();
 
                     // Redirect to the index view
-                    return RedirectToAction(nameof(Index));
+                    // Assuming you have a list of addresses and you want to pass the MemberId of the first address
+                    
+                        return RedirectToAction(nameof(Create), "Address");
+                    
+
+                    // If no address found, handle it appropriately (e.g., show an error or return to a list page)
+                    //return RedirectToAction("Index", "Address");
                 }
             }
             catch (RetryLimitExceededException)

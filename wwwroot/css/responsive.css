@@ -84,6 +84,7 @@ body {
     justify-content: flex-end;
     align-items: flex-end;
     height: 100%;
+    margin-top: 10px;
 }
 
 .otherPic {
@@ -326,6 +327,7 @@ h2 {
 table {
     table-layout: auto;
     width: 100%; /* Ensure it adapts to available space */
+    margin-top: 10px;
 }
 
 td, th {

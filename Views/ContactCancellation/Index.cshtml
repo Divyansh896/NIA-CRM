@@ -4,7 +4,8 @@
     ViewData["Title"] = "Contact Cancellation";
 }
 
-<h1>Contact Cancellation</h1>
+
+<h1>Archived Contacts</h1>
 
 <form>
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
@@ -57,20 +58,24 @@
 <table class="table">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.CancellationDate)</th>
-            <th>@Html.DisplayNameFor(model => model.CancellationNote)</th>
-            <th>@Html.DisplayNameFor(model => model.IsCancelled)</th>
-            <th>@Html.DisplayNameFor(model => model.Contact)</th>
+            <th scope="col" class="table-head">Contact</th>
+            <th scope="col" class="table-head">Archiving Date</th>
+            <th scope="col" class="table-head">Archiving Note</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
-                <td>@Html.DisplayFor(modelItem => item.CancellationDate)</td>
-                <td>@Html.DisplayFor(modelItem => item.CancellationNote)</td>
-                <td>@Html.DisplayFor(modelItem => item.IsCancelled)</td>
-                <td>@Html.DisplayFor(modelItem => item.Contact.Summary)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact.Summary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CancellationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CancellationNote)
+                </td>
             </tr>
         }
     </tbody>
