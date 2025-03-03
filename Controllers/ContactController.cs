@@ -77,7 +77,7 @@ namespace NIA_CRM.Controllers
                 return ExportContactsToExcel(exportData);
             }
 
-            if (!String.IsNullOrEmpty(actionButton) ) //Form Submitted!
+            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
             {
                 page = 1;//Reset page to start
 
@@ -134,7 +134,7 @@ namespace NIA_CRM.Controllers
 
             return View(pagedData);
 
-            
+
 
         }
         private IActionResult ExportContactsToExcel(List<Contact> contacts)
@@ -181,7 +181,7 @@ namespace NIA_CRM.Controllers
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
 
-           
+
 
 
         // GET: Contact/Details/5
@@ -193,7 +193,7 @@ namespace NIA_CRM.Controllers
             }
 
             var contact = await _context.Contacts
-                .Include(c => c.MemberContacts).ThenInclude(c=>c.Member)
+                .Include(c => c.MemberContacts).ThenInclude(c => c.Member)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contact == null)
             {
@@ -216,18 +216,35 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,MiddleName,LastName,Title,Department,Email,Phone,LinkedInUrl,IsVip,MemberId")] Contact contact)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,MiddleName,LastName,Title,Department,Email,Phone,LinkedInUrl,IsVip,ContactNote")] Contact contact, int? memberId)
         {
             if (ModelState.IsValid)
             {
+                // Add the Contact to the database
                 _context.Add(contact);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync(); // Save the contact first to get its ID
+
+                if (memberId.HasValue)
+                {
+                    // Create a MemberContact relationship between the Contact and the selected Member
+                    var memberContact = new MemberContact
+                    {
+                        ContactId = contact.Id,  // Assign the newly created ContactId to the MemberContact
+                        MemberId = memberId.Value // Use the MemberId passed from the form
+                    };
+
+                    _context.MemberContacts.Add(memberContact); // Add the relationship to the context
+                    await _context.SaveChangesAsync();  // Save the relationship
+                }
+
+                return RedirectToAction(nameof(Index), "Member");
             }
+
+            // Populate dropdowns for the view
             PopulateDropdowns();
-            //ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.MemberId);
             return View(contact);
         }
+
 
         // GET: Contact/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -253,7 +270,7 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
-            
+
             // Fetch the existing Contact record from the database
             var contactToUpdate = await _context.Contacts
                 .FirstOrDefaultAsync(m => m.Id == id);

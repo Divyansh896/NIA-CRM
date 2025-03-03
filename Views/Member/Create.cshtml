@@ -138,15 +138,18 @@
             <textarea asp-for="MemberNote" class="form-control" rows="3"></textarea>
             <span asp-validation-for="MemberNote" class="text-danger"></span>
         </div>
-    </form>
-</div>
+        <!-- Buttons outside the card -->
+        <div class="position-bottom-left mt-3">
+            <a asp-action="Index" class="btn btn-dark me-2">Back to List</a>
+            <input type="submit" value="Create" id="btnSubmit" class="btn btn-primary" />
 
-<!-- Buttons outside the card -->
-<div class="position-bottom-left mt-3">
-    <a asp-action="Index" class="btn btn-dark me-2">Back to List</a>
-    <input type="submit" value="Create" id="btnSubmit" class="btn btn-primary" form="CreateForm" />
+        </div>
+    </form>
+
     
 </div>
+
+
 
 @section Scripts {
     @{
