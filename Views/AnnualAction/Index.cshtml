@@ -26,7 +26,6 @@
 </form>
 
 
- <a class="btn btn-primary" asp-action="Create">Create New</a>
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
@@ -44,7 +43,7 @@
             <h2 id="previewTitle" class="sr-only">Preview Section</h2>
             <!-- Preview content will be dynamically injected here -->
         </div>
-            <partial name="_PagingNavBar" />
+            
 
             <!-- Delete Confirmation Modal -->
             </form>
@@ -90,6 +89,7 @@
     }
         </tbody>
     </table>
+    <partial name="_PagingNavBar" />
 
     
 
