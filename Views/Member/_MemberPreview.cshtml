@@ -89,7 +89,7 @@
 
     <div class="sticky-buttons mt-3">
         <div class="sticky-buttons-container">
-            <a class="btn btn-dark" id="memberArchive" data-bs-toggle="modal" data-bs-target="#addArchiveModal" data-id="@Model.ID">Archive</a>
+            <a class="btn btn-dark" asp-controller="Member" asp-action="Delete" asp-route-id="@Model.ID">Archive</a>
             <a class="btn btn-dark" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
             <a class="btn btn-primary" asp-controller="Member" asp-action="Details" asp-route-id="@Model.ID">Details</a>
         </div>
