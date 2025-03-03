@@ -24,17 +24,91 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: AnnualAction
-        public async Task<IActionResult> Index(int? page, int? pageSizeID)
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? createdDate, string? SearchString, string? actionButton,
+                                                string sortDirection = "asc", string sortField = "Annual Actions Name")
         {
-            var annualActions = _context.AnnualAction.AsNoTracking();
+
+            string[] sortOptions = new[] { "Annual Actions Name", "StrategyAssignee", "CreatedDate", "SearchString" }; // Add other fields if needed
+            int numberFilters = 0;
+
+            var actions = _context.AnnualActions.AsQueryable();
+
+            // Filter by Created Date
+            if (!string.IsNullOrEmpty(createdDate))
+            {
+                DateTime filterDate;
+                if (DateTime.TryParse(createdDate, out filterDate))
+                {
+                    actions = actions.Where(s => s.Date == filterDate.Date);
+                    numberFilters++;
+                    ViewData["DateFilter"] = createdDate; // Retain the selected filter in the view
+                }
+            }
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                actions = actions.Where(p => p.Name.ToString().ToUpper().Contains(SearchString.ToUpper()));
+                numberFilters++;
+                ViewData["SearchString"] = SearchString;
+            }
+
+
+            // Handle sorting
+            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
+            {
+                page = 1;//Reset page to start
+
+                if (sortOptions.Contains(actionButton))//Change of sort is requested
+                {
+                    if (actionButton == sortField) //Reverse order on same field
+                    {
+                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    sortField = actionButton;//Sort by the button clicked
+                }
+            }
+
+            if (sortField == "Strategy Name")
+            {
+                if (sortDirection == "desc")
+                {
+                    actions =  actions
+                        .OrderByDescending(p => p.Name);
+                }
+                else
+                {
+                    actions = actions
+                        .OrderBy(p => p.Name);
+                }
+            }
+
+
+
+            // Apply filters and sorting feedback to the view
+            if (numberFilters != 0)
+            {
+                //Toggle the Open/Closed state of the collapse depending on if we are filtering
+                ViewData["Filtering"] = " btn-danger";
+                //Show how many filters have been applied
+                ViewData["numberFilters"] = "(" + numberFilters.ToString()
+                    + " Filter" + (numberFilters > 1 ? "s" : "") + " Applied)";
+                //Keep the Bootstrap collapse open
+                @ViewData["ShowFilter"] = " show";
+            }
+
+            ViewData["SortDirection"] = sortDirection;
+            ViewData["SortField"] = sortField;
+            ViewData["numberFilters"] = numberFilters;
+            ViewData["records"] = $"Records Found: {actions.Count()}";
 
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
             ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
-            var pagedData = await PaginatedList<AnnualAction>.CreateAsync(annualActions, page ?? 1, pageSize);
+            var pagedData = await PaginatedList<AnnualAction>.CreateAsync(actions.AsNoTracking(), page ?? 1, pageSize);
 
             return View(pagedData);
         }
+
 
         // New action to export to Excel
         public IActionResult ExportToExcel()

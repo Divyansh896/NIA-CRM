@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
+using NIA_CRM.Utilities;
 using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
-    public class StratergyController : Controller
+    public class StratergyController : ElephantController
     {
         private readonly NIACRMContext _context;
 
@@ -21,10 +23,91 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Stratergy
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? createdDate, string? SearchString, string? actionButton,
+                                                string sortDirection = "asc", string sortField = "Strategy Name")
         {
-            return View(await _context.Strategys.ToListAsync());
+
+            string[] sortOptions = new[] { "Strategy Name", "StrategyAssignee", "CreatedDate", "SearchString" }; // Add other fields if needed
+            int numberFilters = 0;
+
+            var strategies = _context.Strategies.AsQueryable();
+
+            // Filter by Created Date
+            if (!string.IsNullOrEmpty(createdDate))
+            {
+                DateTime filterDate;
+                if (DateTime.TryParse(createdDate, out filterDate))
+                {
+                    strategies = strategies.Where(s => s.CreatedDate.Date == filterDate.Date);
+                    numberFilters++;
+                    ViewData["DateFilter"] = createdDate; // Retain the selected filter in the view
+                }
+            }
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                strategies = strategies.Where(p => p.StrategyTerm.ToString().ToUpper().Contains(SearchString.ToUpper()));
+                numberFilters++;
+                ViewData["SearchString"] = SearchString;
+            }
+
+
+            // Handle sorting
+            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
+            {
+                page = 1;//Reset page to start
+
+                if (sortOptions.Contains(actionButton))//Change of sort is requested
+                {
+                    if (actionButton == sortField) //Reverse order on same field
+                    {
+                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    sortField = actionButton;//Sort by the button clicked
+                }
+            }
+
+            if (sortField == "Strategy Name")
+            {
+                if (sortDirection == "desc")
+                {
+                    strategies = strategies
+                        .OrderByDescending(p => p.StrategyName);
+                }
+                else
+                {
+                    strategies = strategies
+                        .OrderBy(p => p.StrategyName);
+                }
+            }
+
+
+
+            // Apply filters and sorting feedback to the view
+            if (numberFilters != 0)
+            {
+                //Toggle the Open/Closed state of the collapse depending on if we are filtering
+                ViewData["Filtering"] = " btn-danger";
+                //Show how many filters have been applied
+                ViewData["numberFilters"] = "(" + numberFilters.ToString()
+                    + " Filter" + (numberFilters > 1 ? "s" : "") + " Applied)";
+                //Keep the Bootstrap collapse open
+                @ViewData["ShowFilter"] = " show";
+            }
+
+            ViewData["SortDirection"] = sortDirection;
+            ViewData["SortField"] = sortField;
+            ViewData["numberFilters"] = numberFilters;
+            ViewData["records"] = $"Records Found: {strategies.Count()}";
+
+            // Handle paging
+            int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
+            ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
+            var pagedData = await PaginatedList<Strategy>.CreateAsync(strategies.AsNoTracking(), page ?? 1, pageSize);
+
+            return View(pagedData);
         }
+
 
         // Export to Excel Action
         public IActionResult ExportToExcel()
