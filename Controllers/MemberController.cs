@@ -358,7 +358,7 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
-                .Include(m => m.MemberLogo)
+                .Include(m => m.MemberThumbnail)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -375,8 +375,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Edit(int id, Byte[] RowVersion, string? chkRemoveImage, IFormFile? thePicture)
         {
             var memberToUpdate = await _context.Members
-                .Include(m => m.MemberLogo)
-                .Include(m => m.MemberThumbnail)  // Ensure we include the MemberThumbnail as well
+                .Include(m => m.MemberThumbnail)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (memberToUpdate == null)
@@ -474,7 +473,7 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
-                .Include(m => m.MemberLogo)
+                .Include(m => m.MemberThumbnail)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {

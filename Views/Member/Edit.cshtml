@@ -4,93 +4,132 @@
     ViewData["Title"] = "Edit";
 }
 
+
+
 <h1>Edit</h1>
 
-<h4>Member</h4>
-<hr />
-@{
-    var hasPicture = (Model.MemberLogo?.Content != null);
-    if (hasPicture)
-    {
-        @:<div>
-            string imageBase64 = Convert.ToBase64String(Model.MemberLogo.Content);
-            string imageSrc = string.Format("data:" + Model.MemberLogo.MimeType + ";base64,{0}", imageBase64);
-            <img src="@imageSrc" alt="Profile Picture of @Model.MemberName" 
-                title="Profile Picture of @Model.MemberName" class="img-fluid rounded" />
-        @:</div><hr />
+<div class="row align-items-center">
+    @{
+        var hasPicture = Model.MemberThumbnail?.Content != null && Model.MemberThumbnail.Content.Length > 0;
     }
-}
-<div>
-        @{
-            if (hasPicture)
-            {
-                <div class="row">
-                    <div class="form-check m-3">
-                        <input class="form-check-input" type="checkbox" id="chkRemoveImage" name="chkRemoveImage">
-                        <label class="form-check-label" for="chkRemoveImage">
-                        <strong>Check to remove Image</strong>
-                        </label>
+    <div class="col-auto">
+    @if (hasPicture)
+    {
+        <div>
+            @{
+                string imageBase64 = Convert.ToBase64String(Model.MemberThumbnail.Content);
+                string imageSrc = $"data:{Model.MemberThumbnail.MimeType};base64,{imageBase64}";
+            }
+            <img src="@imageSrc" alt="Profile Picture of @Model.MemberName"
+                 title="Profile Picture of @Model.MemberName" class="img-fluid rounded"
+                 style="height: 70px; width: 70px; object-fit: cover;"
+                 onerror="this.onerror=null; this.src='/images/blankProfile.jpg';" />
+        </div>
+    }
+    else
+    {
+        <div>
+            <img src="/images/blankProfile.jpg" alt="No Image Available"
+                 title="No Image Available" class="img-fluid rounded"
+                 style="height: 90px; width: 90px; object-fit: cover;" />
+        </div>
+    }
+    </div>
+    <div class="col">
+<h4>Member</h4>
+    </div>
+</div>
+<hr />
+
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="card card-body bg-light text-black">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="RowVersion" />
+
+        <!-- Member Details Form -->
+        <div class="row mt-3">
+            <!-- Left Column -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="MemberName" class="control-label"></label>
+                    <input asp-for="MemberName" class="form-control" />
+                    <span asp-validation-for="MemberName" class="text-danger"></span>
+                </div>
+
+                
+                <div class="form-group">
+                    <label class="control-label custom-file-label">Picture File:</label>
+                    <div class="input-group">
+                        <input type="file" class="form-control" name="thePicture" id="thePicture">
                     </div>
                 </div>
-            }
-        }
-    </div>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
-            <input type="hidden" asp-for="RowVersion" />
-            <div class="form-group">
-                <label class="control-label custom-file-label">Picture File:</label>
-                <div class="input-group mb-3">
-                    <input type="file" class="form-control" name="thePicture" id="thePicture">
+
+                <!-- Remove Image Checkbox -->
+                @if (hasPicture)
+                {
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" id="chkRemoveImage" name="chkRemoveImage">
+                        <label class="form-check-label" for="chkRemoveImage">
+                            <strong>Remove Image</strong>
+                        </label>
+                    </div>
+                }
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-md-6">
+                <!-- Picture Upload -->
+                <div class="form-group">
+                    <label asp-for="JoinDate" class="control-label"></label>
+                    <input asp-for="JoinDate" class="form-control" />
+                    <span asp-validation-for="JoinDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="MemberSize" class="control-label"></label>
+                    <input asp-for="MemberSize" class="form-control" />
+                    <span asp-validation-for="MemberSize" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="WebsiteUrl" class="control-label"></label>
+                    <input asp-for="WebsiteUrl" class="form-control" />
+                    <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsPaid" /> @Html.DisplayNameFor(model => model.IsPaid)
+                    </label>
+                    <span asp-validation-for="IsPaid" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="MemberName" class="control-label"></label>
-                <input asp-for="MemberName" class="form-control" />
-                <span asp-validation-for="MemberName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberSize" class="control-label"></label>
-                <input asp-for="MemberSize" class="form-control" />
-                <span asp-validation-for="MemberSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WebsiteUrl" class="control-label"></label>
-                <input asp-for="WebsiteUrl" class="form-control" />
-                <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="JoinDate" class="control-label"></label>
-                <input asp-for="JoinDate" class="form-control" />
-                <span asp-validation-for="JoinDate" class="text-danger"></span>
-            </div>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="MemberNote" class="control-label"></label>
-                <input asp-for="MemberNote" class="form-control" />
-                <span asp-validation-for="MemberNote" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPaid" /> @Html.DisplayNameFor(model => model.IsPaid)
-                </label>
-                <span asp-validation-for="IsPaid" class="text-danger"></span>
 
+        <!-- Notes Section -->
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="MemberNote" class="control-label"></label>
+                    <textarea asp-for="MemberNote" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="MemberNote" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <!-- Buttons outside the card -->
+    <div class="position-bottom-left mt-3">
+        <a class="btn btn-dark me-2" asp-action="Index">Back to List</a>
+        <input class="btn btn-primary me-2" type="submit" value="Save" />
+    </div>
+</form>
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -299,24 +299,29 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            Console.WriteLine($"🔥 DeleteConfirmed Triggered from Partial View - ID: {id}");
+
             try
             {
-                var mEvent = await _context.AnnualAction.FindAsync(id);
+                var action = await _context.AnnualActions.FindAsync(id);
 
-                if (mEvent == null)
+                if (action == null)
                 {
-                    return Json(new { success = false, message = "Event not found!" });
+                    Console.WriteLine($"❌ Annual Action Not Found - ID: {id}");
+                    return Json(new { success = false, message = "Annual Action not found!" });
                 }
 
-                _context.AnnualActions.Remove(mEvent);
+                _context.AnnualActions.Remove(action);
                 await _context.SaveChangesAsync();
+
+                Console.WriteLine("✅ Annual Action Deleted Successfully from Partial View");
 
                 return Json(new { success = true, message = "Annual Action deleted successfully!" });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting event: {ex.Message}");
-                return Json(new { success = false, message = "An error occurred while deleting the event." });
+                Console.WriteLine($"⚠️ Error deleting annual action: {ex.Message}");
+                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
             }
         }
 
