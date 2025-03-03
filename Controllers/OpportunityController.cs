@@ -9,6 +9,8 @@ using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
 using NIA_CRM.Utilities;
+using OfficeOpenXml;
+
 
 namespace NIA_CRM.Controllers
 {
@@ -109,6 +111,113 @@ namespace NIA_CRM.Controllers
         }
 
 
+        // Export Opportunities to Excel
+        public IActionResult ExportOpportunitiesToExcel()
+        {
+            // Set the license context for EPPlus
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var opportunities = _context.Opportunities.ToList();
+
+            // Initialize the Excel package
+            var package = new ExcelPackage();
+
+            // Add a worksheet to the package
+            var worksheet = package.Workbook.Worksheets.Add("Opportunities");
+
+            // Add headers to the worksheet
+            worksheet.Cells[1, 1].Value = "Opportunity Name";
+            worksheet.Cells[1, 2].Value = "Opportunity Action";
+            worksheet.Cells[1, 3].Value = "POC";
+            worksheet.Cells[1, 4].Value = "Account";
+            worksheet.Cells[1, 5].Value = "Interaction";
+            worksheet.Cells[1, 6].Value = "Last Contact";
+            worksheet.Cells[1, 7].Value = "Opportunity Status";
+            worksheet.Cells[1, 8].Value = "Opportunity Priority";
+
+            // Populate data in the worksheet
+            int row = 2;
+            foreach (var opportunity in opportunities)
+            {
+                worksheet.Cells[row, 1].Value = opportunity.OpportunityName;
+                worksheet.Cells[row, 2].Value = opportunity.OpportunityAction;
+                worksheet.Cells[row, 3].Value = opportunity.POC;
+                worksheet.Cells[row, 4].Value = opportunity.Account;
+                worksheet.Cells[row, 5].Value = opportunity.Interaction;
+                worksheet.Cells[row, 6].Value = opportunity.LastContact?.ToString("yyyy-MM-dd"); // Format the date
+                worksheet.Cells[row, 7].Value = opportunity.OpportunityStatus;
+                worksheet.Cells[row, 8].Value = opportunity.OpportunityPriority;
+                row++;
+            }
+
+            // Auto-fit columns for better readability
+            worksheet.Cells.AutoFitColumns();
+
+            // Save the package to a memory stream
+            var stream = new MemoryStream();
+            package.SaveAs(stream);
+            stream.Position = 0; // Reset the stream position before returning it
+
+            // Define the Excel file name
+            string excelName = "Opportunities.xlsx";
+
+            // Return the file as a download
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        }
+
+        [HttpPost]
+        public IActionResult ImportOpportunitiesFromExcel(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                TempData["Error"] = "Please upload a valid Excel file.";
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    file.CopyTo(stream);
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                        int rowCount = worksheet.Dimension.Rows;
+
+                        List<Opportunity> opportunities = new List<Opportunity>();
+
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            var opportunity = new Opportunity
+                            {
+                                OpportunityName = worksheet.Cells[row, 1].Value?.ToString(),
+                                OpportunityAction = worksheet.Cells[row, 2].Value?.ToString(),
+                                POC = worksheet.Cells[row, 3].Value?.ToString(),
+                                Account = worksheet.Cells[row, 4].Value?.ToString(),
+                                Interaction = worksheet.Cells[row, 5].Value?.ToString(),
+                                LastContact = DateTime.TryParse(worksheet.Cells[row, 6].Value?.ToString(), out DateTime lastContact) ? lastContact : (DateTime?)null,
+                                OpportunityStatus = Enum.TryParse(worksheet.Cells[row, 7].Value?.ToString(), true, out OpportunityStatus status) ? status : OpportunityStatus.Qualification,
+                                OpportunityPriority = Enum.TryParse(worksheet.Cells[row, 8].Value?.ToString(), true, out OpportunityPriority priority) ? priority : OpportunityPriority.Low
+                            };
+
+                            opportunities.Add(opportunity);
+                        }
+
+                        _context.Opportunities.AddRange(opportunities);
+                        _context.SaveChanges();
+                        TempData["Success"] = "Opportunities imported successfully!";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"Error importing opportunities: {ex.Message}";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
         // GET: Opportunity/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -170,35 +279,81 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,OpportunityName,OpportunityAction,POC,Account,Interaction,LastContact,OpportunityStatus,OpportunityPriority")] Opportunity opportunity)
+        public async Task<IActionResult> Edit(int id, byte[] RowVersion)
         {
-            if (id != opportunity.ID)
+            var opportunityToUpdate = await _context.Opportunities
+                .FirstOrDefaultAsync(o => o.ID == id);
+
+            if (opportunityToUpdate == null)
             {
                 return NotFound();
             }
 
+            // Attach RowVersion for concurrency tracking
+            _context.Entry(opportunityToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+
+            // Try updating the model with user input
             if (ModelState.IsValid)
             {
-                try
+                if (await TryUpdateModelAsync<Opportunity>(
+                    opportunityToUpdate, "",
+                    o => o.OpportunityName, o => o.OpportunityAction, o => o.POC, o => o.Account,
+                    o => o.Interaction, o => o.LastContact, o => o.OpportunityStatus, o => o.OpportunityPriority))
                 {
-                    _context.Update(opportunity);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OpportunityExists(opportunity.ID))
+                    try
                     {
-                        return NotFound();
+                        // Update the opportunity record in the database
+                        _context.Update(opportunityToUpdate);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
                     }
-                    else
+                    catch (DbUpdateConcurrencyException ex)
                     {
-                        throw;
+                        var exceptionEntry = ex.Entries.Single();
+                        var clientValues = (Opportunity)exceptionEntry.Entity;
+                        var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+                        if (databaseEntry == null)
+                        {
+                            ModelState.AddModelError("", "The opportunity was deleted by another user.");
+                        }
+                        else
+                        {
+                            var databaseValues = (Opportunity)databaseEntry.ToObject();
+                            // Compare each field and provide feedback on changes
+                            if (databaseValues.OpportunityName != clientValues.OpportunityName)
+                                ModelState.AddModelError("OpportunityName", $"Current value: {databaseValues.OpportunityName}");
+                            if (databaseValues.OpportunityAction != clientValues.OpportunityAction)
+                                ModelState.AddModelError("OpportunityAction", $"Current value: {databaseValues.OpportunityAction}");
+                            if (databaseValues.POC != clientValues.POC)
+                                ModelState.AddModelError("POC", $"Current value: {databaseValues.POC}");
+                            if (databaseValues.Account != clientValues.Account)
+                                ModelState.AddModelError("Account", $"Current value: {databaseValues.Account}");
+                            if (databaseValues.Interaction != clientValues.Interaction)
+                                ModelState.AddModelError("Interaction", $"Current value: {databaseValues.Interaction}");
+                            if (databaseValues.LastContact != clientValues.LastContact)
+                                ModelState.AddModelError("LastContact", $"Current value: {databaseValues.LastContact}");
+                            if (databaseValues.OpportunityStatus != clientValues.OpportunityStatus)
+                                ModelState.AddModelError("OpportunityStatus", $"Current value: {databaseValues.OpportunityStatus}");
+                            if (databaseValues.OpportunityPriority != clientValues.OpportunityPriority)
+                                ModelState.AddModelError("OpportunityPriority", $"Current value: {databaseValues.OpportunityPriority}");
+
+                            ModelState.AddModelError("", "The record was modified by another user after you started editing. If you still want to save your changes, click the Save button again.");
+                            opportunityToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+                            ModelState.Remove("RowVersion");
+                        }
+                    }
+                    catch (DbUpdateException dex)
+                    {
+                        string message = dex.GetBaseException().Message;
+                        ModelState.AddModelError("", $"Unable to save changes: {message}");
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(opportunity);
+
+            return View(opportunityToUpdate);
         }
+
 
         // GET: Opportunity/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -232,6 +387,9 @@ namespace NIA_CRM.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+
 
         private bool OpportunityExists(int id)
         {

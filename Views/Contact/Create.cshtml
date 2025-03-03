@@ -56,6 +56,22 @@
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsVip" /> @Html.DisplayNameFor(model => model.IsVip)
                 </label>
+                <span asp-validation-for="IsVip" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ContactNote" class="control-label"></label>
+                <input asp-for="ContactNote" class="form-control" />
+                <span asp-validation-for="ContactNote" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsArchieved" /> @Html.DisplayNameFor(model => model.IsArchieved)
+                </label>
+                <span asp-validation-for="IsArchieved" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

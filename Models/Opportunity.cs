@@ -2,7 +2,7 @@
 
 namespace NIA_CRM.Models
 {
-    public class Opportunity
+    public class Opportunity : Auditable
     {
         public int ID { get; set; }
 
@@ -35,5 +35,9 @@ namespace NIA_CRM.Models
 
         [Required(ErrorMessage = "You must select the opportunity priority.")]
         public OpportunityPriority OpportunityPriority { get; set; }
+
+        [ScaffoldColumn(false)]
+        [Timestamp]
+        public Byte[]? RowVersion { get; set; }//Added for concurrency
     }
 }

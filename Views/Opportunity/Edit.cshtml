@@ -13,6 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="RowVersion" />
             <div class="form-group">
                 <label asp-for="OpportunityName" class="control-label"></label>
                 <input asp-for="OpportunityName" class="form-control" />
@@ -45,12 +46,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="OpportunityStatus" class="control-label"></label>
-                <select asp-for="OpportunityStatus" class="form-control"></select>
+                <select asp-for="OpportunityStatus" asp-items="Html.GetEnumSelectList<OpportunityStatus>()" class="form-control"></select>
                 <span asp-validation-for="OpportunityStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="OpportunityPriority" class="control-label"></label>
-                <select asp-for="OpportunityPriority" class="form-control"></select>
+                <select asp-for="OpportunityPriority" asp-items="Html.GetEnumSelectList<OpportunityPriority>()" class="form-control"></select>
                 <span asp-validation-for="OpportunityPriority" class="text-danger"></span>
             </div>
             <div class="form-group">

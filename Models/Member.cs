@@ -2,7 +2,7 @@
 
 namespace NIA_CRM.Models
 {
-    public class Member
+    public class Member : Auditable
     {
         public string TimeSinceJoined
         {
@@ -41,13 +41,16 @@ namespace NIA_CRM.Models
         [Display(Name = "Member Note")]
         public string? MemberNote { get; set; }
 
-        [Display(Name = "VIP")]
-        public bool IsVIP { get; set; }
+       
 
         [Display(Name = "Paid")]
         public bool IsPaid { get; set; }
         public MemberLogo? MemberLogo { get; set; }
         public MemberThumbnail? MemberThumbnail { get; set; }
+
+        [ScaffoldColumn(false)]
+        [Timestamp]
+        public Byte[]? RowVersion { get; set; }//Added for concurrency
 
         public ICollection<MemberMembershipType> MemberMembershipTypes { get; set; } = new List<MemberMembershipType>();
         public ICollection<IndustryNAICSCode> IndustryNAICSCodes { get; set; } = new List<IndustryNAICSCode>();

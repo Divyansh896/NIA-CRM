@@ -4,6 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
+<<<<<<< HEAD
 <h1>Contact Cancellation</h1>
 
 <form>
@@ -85,6 +86,30 @@
                 @Html.DisplayNameFor(model => model.Contact)
             </th>
                     <th scope="col" class="table-head"></th>
+=======
+<h1>Archivied Contacts</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+    <a asp-action="ExportToExcel">Export to Excel</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" class="table-head">
+                @Html.DisplayNameFor(model => model.CancellationDate)
+            </th>
+            <th scope="col" class="table-head">
+                @Html.DisplayNameFor(model => model.CancellationNote)
+            </th>
+            <th scope="col" class="table-head">
+                @Html.DisplayNameFor(model => model.IsCancelled)
+            </th>
+            <th scope="col" class="table-head">
+                @Html.DisplayNameFor(model => model.Contact)
+            </th>
+            <th scope="col" class="table-head"></th>
+>>>>>>> origin/master
         </tr>
     </thead>
     <tbody>
@@ -102,10 +127,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Contact.FirstName)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <td class="d-flex flex-column">
+                    <a class="btn btn-secondary mb-2" asp-action="Details" asp-route-id="@item.ID">Details</a>
+                    <a class ="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                    <a class="btn btn-light mb-2" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
 }

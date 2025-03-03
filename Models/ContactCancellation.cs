@@ -2,7 +2,7 @@
 
 namespace NIA_CRM.Models
 {
-    public class ContactCancellation
+    public class ContactCancellation : Auditable
     {
         [Display(Name = "Time Since Cancellation")]
         public string? TimeSinceCancelled
@@ -31,5 +31,9 @@ namespace NIA_CRM.Models
 
         public int ContactID { get; set; }
         public Contact? Contact { get; set; }
+
+        [ScaffoldColumn(false)]
+        [Timestamp]
+        public Byte[]? RowVersion { get; set; }//Added for concurrency
     }
 }

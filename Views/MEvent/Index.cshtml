@@ -5,6 +5,7 @@
 }
 
 <h1>Events</h1>
+<<<<<<< HEAD
 <form>
 	<input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
 	<input type="hidden" name="sortField" value="@ViewData["sortField"]" />
@@ -113,9 +114,53 @@
                 @Html.DisplayNameFor(model => model.EventLocation)
             </th>
 					<th scope="col" class="table-head">
+=======
+
+<p>
+    
+    <input type="file" name="file" class="form-control me-2" required />
+</p>
+
+<form asp-action="ImportOpportunitiesFromExcel" method="post" enctype="multipart/form-data">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <a class="btn btn-dark" asp-action="ExportToExcel"><i class="fa fa-file-excel text-white"></i> 
+                Export Excel</a>
+        
+            <button type="submit" class="btn btn-dark">
+            <i class="fa fa-file-import"></i> Import Excel
+        </button>
+        </div>
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+    </div>
+</form>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" class="table-head">
+                @Html.DisplayNameFor(model => model.EventName)
+            </th>
+            <th scope="col" class="table-head">
+                @Html.DisplayNameFor(model => model.EventDescription)
+            </th>
+            <th scope="col" class="table-head">
+                @Html.DisplayNameFor(model => model.EventLocation)
+            </th>
+            <th scope="col" class="table-head">
+>>>>>>> origin/master
                 @Html.DisplayNameFor(model => model.EventDate)
             </th>
-            <th></th>
+            <th scope="col" class="table-head"></th>
         </tr>
     </thead>
     <tbody>
@@ -133,10 +178,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EventDate)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <td class ="d-flex flex-column">
+                    <a class="btn btn-secondary mb-2" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-light mb-2" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

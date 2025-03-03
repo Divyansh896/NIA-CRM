@@ -56,9 +56,200 @@ namespace NIA_CRM.Data
                                 UPDATE ProductionEmails
                                 SET RowVersion = randomblob(8)
                                 WHERE rowid = NEW.rowid;
-                            END
+                            END;
                         ";
                         context.Database.ExecuteSqlRaw(sqlCmd);
+
+                        // Trigger for annual actions
+                        string AnnualActionsqlCmd = @"
+                            CREATE TRIGGER SetAnnualActionTimestampOnUpdate
+                            AFTER UPDATE ON AnnualAction
+                            BEGIN
+                                UPDATE AnnualAction
+                                SET RowVersion = randomblob(8)
+                                WHERE rowid = NEW.rowid;
+                            END;
+                        ";
+                        context.Database.ExecuteSqlRaw(AnnualActionsqlCmd);
+
+                        AnnualActionsqlCmd = @"
+                            CREATE TRIGGER SetAnnualActionTimestampOnInsert
+                            AFTER INSERT ON AnnualAction
+                            BEGIN
+                                UPDATE AnnualAction
+                                SET RowVersion = randomblob(8)
+                                WHERE rowid = NEW.rowid;
+                            END;
+                        ";
+                        context.Database.ExecuteSqlRaw(AnnualActionsqlCmd);
+
+                        // Trigger for Cancellations
+                        string CancellationsqlCmd = @"
+                                CREATE TRIGGER SetCancellationTimestampOnUpdate
+                                AFTER UPDATE ON Cancellations
+                                BEGIN
+                                    UPDATE Cancellations
+                                    SET RowVersion = randomblob(8)
+                                    WHERE rowid = NEW.rowid;
+                                END;
+                            ";
+                        context.Database.ExecuteSqlRaw(CancellationsqlCmd);
+
+                        CancellationsqlCmd = @"
+                                CREATE TRIGGER SetCancellationTimestampOnInsert
+                                AFTER INSERT ON Cancellations
+                                BEGIN
+                                    UPDATE Cancellations
+                                    SET RowVersion = randomblob(8)
+                                    WHERE rowid = NEW.rowid;
+                                END;
+                            ";
+                        context.Database.ExecuteSqlRaw(CancellationsqlCmd);
+
+                        // Trigger for ContactCancellations - Update
+                        string ContactCancellationsqlCmd = @"
+                                    CREATE TRIGGER SetContactCancellationTimestampOnUpdate
+                                    AFTER UPDATE ON ContactCancellations
+                                    BEGIN
+                                        UPDATE ContactCancellations
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(ContactCancellationsqlCmd);
+
+                        // Trigger for ContactCancellations - Insert
+                        ContactCancellationsqlCmd = @"
+                                    CREATE TRIGGER SetContactCancellationTimestampOnInsert
+                                    AFTER INSERT ON ContactCancellations
+                                    BEGIN
+                                        UPDATE ContactCancellations
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(ContactCancellationsqlCmd);
+
+                        // Trigger for Contact - Update
+                        string ContactsqlCmd = @"
+                                    CREATE TRIGGER SetContactTimestampOnUpdate
+                                    AFTER UPDATE ON Contacts
+                                    BEGIN
+                                        UPDATE Contacts
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(ContactsqlCmd);
+
+                        // Trigger for Contact - Insert
+                        ContactsqlCmd = @"
+                                    CREATE TRIGGER SetContactTimestampOnInsert
+                                    AFTER INSERT ON Contacts
+                                    BEGIN
+                                        UPDATE Contacts
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(ContactsqlCmd);
+
+                        // Trigger for Members - Update
+                        string MembersqlCmd = @"
+                                    CREATE TRIGGER SetMemberTimestampOnUpdate
+                                    AFTER UPDATE ON Members
+                                    BEGIN
+                                        UPDATE Members
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MembersqlCmd);
+
+                        // Trigger for Members - Insert
+                        MembersqlCmd = @"
+                                CREATE TRIGGER SetMemberTimestampOnInsert
+                                AFTER INSERT ON Members
+                                BEGIN
+                                    UPDATE Members
+                                    SET RowVersion = randomblob(8)
+                                    WHERE rowid = NEW.rowid;
+                                END;
+                            ";
+                        context.Database.ExecuteSqlRaw(MembersqlCmd);
+
+                        // Trigger for MEvents - Update
+                        string MEventssqlCmd = @"
+                                    CREATE TRIGGER SetMEventTimestampOnUpdate
+                                    AFTER UPDATE ON MEvents
+                                    BEGIN
+                                        UPDATE MEvents
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MEventssqlCmd);
+
+                        // Trigger for MEvents - Insert
+                        MEventssqlCmd = @"
+                                    CREATE TRIGGER SetMEventTimestampOnInsert
+                                    AFTER INSERT ON MEvents
+                                    BEGIN
+                                        UPDATE MEvents
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(MEventssqlCmd);
+
+                        // Trigger for Opportunities - Update
+                        string OpportunitiesqlCmd = @"
+                                    CREATE TRIGGER SetOpportunityTimestampOnUpdate
+                                    AFTER UPDATE ON Opportunities
+                                    BEGIN
+                                        UPDATE Opportunities
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(OpportunitiesqlCmd);
+
+                        // Trigger for Opportunities - Insert
+                        OpportunitiesqlCmd = @"
+                                    CREATE TRIGGER SetOpportunityTimestampOnInsert
+                                    AFTER INSERT ON Opportunities
+                                    BEGIN
+                                        UPDATE Opportunities
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(OpportunitiesqlCmd);
+
+                        // Trigger for Strategy - Update
+                        string StrategySqlCmd = @"
+                                    CREATE TRIGGER SetStrategyTimestampOnUpdate
+                                    AFTER UPDATE ON Strategy
+                                    BEGIN
+                                        UPDATE Strategy
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(StrategySqlCmd);
+
+                        // Trigger for Strategy - Insert
+                        StrategySqlCmd = @"
+                                    CREATE TRIGGER SetStrategyTimestampOnInsert
+                                    AFTER INSERT ON Strategy
+                                    BEGIN
+                                        UPDATE Strategy
+                                        SET RowVersion = randomblob(8)
+                                        WHERE rowid = NEW.rowid;
+                                    END;
+                                ";
+                        context.Database.ExecuteSqlRaw(StrategySqlCmd);
+
                     }
                     else //The database is already created
                     {
@@ -70,10 +261,13 @@ namespace NIA_CRM.Data
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.GetBaseException().Message);
+                    Console.WriteLine($"Database setup error: {ex.GetBaseException().Message}");
+                    throw;
                 }
 
+                #endregion
 
+                #region Seed Sample Data
                 try
                 {
                     //Add some Class Start times
@@ -2069,7 +2263,7 @@ namespace NIA_CRM.Data
                                 Email = "john.doe@example.com",
                                 Phone = "1234567890",
                                 LinkedInUrl = "https://www.linkedin.com/in/johndoe",
-                                IsVip = true,
+                                IsVip = true
                             },
                             new Contact
                             {
@@ -2081,7 +2275,7 @@ namespace NIA_CRM.Data
                                 Email = "jane.smith@example.com",
                                 Phone = "9876543210",
                                 LinkedInUrl = "https://www.linkedin.com/in/janesmith",
-                                IsVip = false,
+                                IsVip = false
                             },
                             new Contact
                             {
@@ -2093,7 +2287,7 @@ namespace NIA_CRM.Data
                                 Email = "alice.johnson@example.com",
                                 Phone = "5551234567",
                                 LinkedInUrl = "https://www.linkedin.com/in/alicejohnson",
-                                IsVip = true,
+                                IsVip = true
                             },
                             new Contact
                             {
@@ -2105,7 +2299,7 @@ namespace NIA_CRM.Data
                                 Email = "bob.brown@example.com",
                                 Phone = "5557654321",
                                 LinkedInUrl = "https://www.linkedin.com/in/bobbrown",
-                                IsVip = true,
+                                IsVip = true
                             },
                             new Contact
                             {
@@ -3266,49 +3460,30 @@ namespace NIA_CRM.Data
 
                     }
 
-                    //if (!context.MemberContacts.Any())
-                    //{
-                    //    var memberContacts = new List<MemberContact>
-                    //        {
-                    //            //new MemberContact { MemberId = 1, ContactId = 1 },
-                    //            //new MemberContact { MemberId = 2, ContactId = 2 },
-                    //            //new MemberContact { MemberId = 3, ContactId = 3 },
-                    //            //new MemberContact { MemberId = 4, ContactId = 4 },
-                    //            //new MemberContact { MemberId = 5, ContactId = 5 },
-                    //            //new MemberContact { MemberId = 6, ContactId = 6 },
-                    //            //new MemberContact { MemberId = 7, ContactId = 7 },
-                    //            //new MemberContact { MemberId = 8, ContactId = 8 },
-                    //            //new MemberContact { MemberId = 9, ContactId = 9 },
-                    //            //new MemberContact { MemberId = 10, ContactId = 10 }
+                   try
+{
+    if (!context.MemberContacts.Any())
+    {
+        var memberContacts = new List<MemberContact>
+        {
+            new MemberContact { MemberId = 1, ContactId = 1 },
+            new MemberContact { MemberId = 2, ContactId = 2 },
+            new MemberContact { MemberId = 2, ContactId = 1 },
+            new MemberContact { MemberId = 1, ContactId = 6 },
+            new MemberContact { MemberId = 3, ContactId = 3 },
+            new MemberContact { MemberId = 4, ContactId = 4 },
+            new MemberContact { MemberId = 5, ContactId = 5 },
+            new MemberContact { MemberId = 6, ContactId = 6 }
+        };
 
-                    //            // Additional many-to-many relationships
-                    //            //new MemberContact { MemberId = 1, ContactId = 5 },
-                    //            //new MemberContact { MemberId = 2, ContactId = 6 },
-                    //            //new MemberContact { MemberId = 3, ContactId = 7 },
-                    //            //new MemberContact { MemberId = 4, ContactId = 8 },
-                    //            //new MemberContact { MemberId = 5, ContactId = 9 },
-                    //            //new MemberContact { MemberId = 6, ContactId = 10 },
-                    //            //new MemberContact { MemberId = 7, ContactId = 1 },
-                    //            //new MemberContact { MemberId = 8, ContactId = 2 },
-                    //            //new MemberContact { MemberId = 9, ContactId = 3 },
-                    //            //new MemberContact { MemberId = 10, ContactId = 4 },
-
-                    //            // Expanding relationships further
-                    //            //new MemberContact { MemberId = 1, ContactId = 10 },
-                    //            //new MemberContact { MemberId = 2, ContactId = 9 },
-                    //            //new MemberContact { MemberId = 3, ContactId = 8 },
-                    //            //new MemberContact { MemberId = 4, ContactId = 7 },
-                    //            //new MemberContact { MemberId = 5, ContactId = 6 },
-                    //            //new MemberContact { MemberId = 6, ContactId = 5 },
-                    //            //new MemberContact { MemberId = 7, ContactId = 4 },
-                    //            //new MemberContact { MemberId = 8, ContactId = 3 },
-                    //            //new MemberContact { MemberId = 9, ContactId = 2 },
-                    //            //new MemberContact { MemberId = 10, ContactId = 1 }
-                    //        };
-
-                    //    context.MemberContacts.AddRange(memberContacts);
-                    //    context.SaveChanges();
-                    //}
+        context.MemberContacts.AddRange(memberContacts);
+        context.SaveChanges();
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Seeding failed: {ex.Message}");
+}
 
 
                     if (!context.Cancellations.Any())
@@ -3465,7 +3640,7 @@ namespace NIA_CRM.Data
                         {
                             industryNAICSCodes.Add(new IndustryNAICSCode
                             {
-                                // Remove Id = i if it's auto-generated
+                                Id = i,
                                 MemberId = (i <= maxMembers) ? i : random.Next(1, maxMembers + 1), // Ensures valid MemberId
                                 NAICSCodeId = random.Next(1, 20) // Randomly selects a NAICSCodeId between 1 and 19
                             });
@@ -3682,6 +3857,30 @@ namespace NIA_CRM.Data
                         );
 
                         context.SaveChanges();
+                    }
+
+                    try
+                    {
+                        if (!context.MemberEvents.Any())
+                        {
+                            var memberEvents = new List<MemberEvent>
+        {
+            new MemberEvent { MemberId = 1, MEventID = 1 },
+            new MemberEvent { MemberId = 2, MEventID = 2 },
+            new MemberEvent { MemberId = 2, MEventID = 1 },
+            new MemberEvent { MemberId = 3, MEventID = 3 },
+            new MemberEvent { MemberId = 4, MEventID = 4 },
+            new MemberEvent { MemberId = 5, MEventID = 5 }
+        };
+
+                            context.MemberEvents.AddRange(memberEvents);
+                            context.SaveChanges();
+                        
+                    }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Seeding failed: {ex.Message}");
                     }
 
                     //if (!context.MemberEvents.Any())

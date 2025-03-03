@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
@@ -34,7 +35,11 @@ namespace NIA_CRM.Controllers
 
 
 
-            var contacts = _context.Contacts.Include(c => c.MemberContacts).ThenInclude(c => c.Member).AsQueryable();
+            var contacts = _context.Contacts
+     .Include(c => c.MemberContacts)
+     .ThenInclude(mc => mc.Member)
+     .Distinct() // Ensures only unique contacts are selected
+     .AsQueryable();
             if (Departments != null)
             {
                 contacts = contacts.Where(c => c.Department == Departments);
@@ -176,6 +181,7 @@ namespace NIA_CRM.Controllers
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
 
+           
 
 
         // GET: Contact/Details/5
@@ -245,53 +251,88 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
-            var ContactToUpdate = await _context.Contacts.FirstOrDefaultAsync(m => m.Id == id);
+            
+            // Fetch the existing Contact record from the database
+            var contactToUpdate = await _context.Contacts
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-
-            if (ContactToUpdate == null)
+            if (contactToUpdate == null)
             {
                 return NotFound();
             }
 
-            // Try update model approach
+            // Attach the RowVersion for concurrency tracking
+            _context.Entry(contactToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+
             // Try updating the model with user input
-            if (await TryUpdateModelAsync(
-                ContactToUpdate, // Ensure this is the model instance, not metadata
-                "",
+            if (await TryUpdateModelAsync<Contact>(contactToUpdate, "",
                 c => c.FirstName, c => c.MiddleName, c => c.LastName,
                 c => c.Title, c => c.Department, c => c.Email,
                 c => c.Phone, c => c.LinkedInUrl, c => c.IsVip, c => c.IsArchieved))
             {
                 try
                 {
-                    _context.Update(ContactToUpdate);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
-
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (RetryLimitExceededException)
                 {
-                    if (!ContactExists(ContactToUpdate.Id))
+                    ModelState.AddModelError("", "Unable to save changes after multiple attempts. Please try again later.");
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    var exceptionEntry = ex.Entries.Single();
+                    var clientValues = (Contact)exceptionEntry.Entity;
+                    var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+                    if (databaseEntry == null)
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record was deleted by another user.");
                     }
                     else
                     {
-                        throw;
+                        var databaseValues = (Contact)databaseEntry.ToObject();
+
+                        if (databaseValues.FirstName != clientValues.FirstName)
+                            ModelState.AddModelError("FirstName", $"Current value: {databaseValues.FirstName}");
+                        if (databaseValues.MiddleName != clientValues.MiddleName)
+                            ModelState.AddModelError("MiddleName", $"Current value: {databaseValues.MiddleName}");
+                        if (databaseValues.LastName != clientValues.LastName)
+                            ModelState.AddModelError("LastName", $"Current value: {databaseValues.LastName}");
+                        if (databaseValues.Title != clientValues.Title)
+                            ModelState.AddModelError("Title", $"Current value: {databaseValues.Title}");
+                        if (databaseValues.Department != clientValues.Department)
+                            ModelState.AddModelError("Department", $"Current value: {databaseValues.Department}");
+                        if (databaseValues.Email != clientValues.Email)
+                            ModelState.AddModelError("Email", $"Current value: {databaseValues.Email}");
+                        if (databaseValues.Phone != clientValues.Phone)
+                            ModelState.AddModelError("Phone", $"Current value: {databaseValues.Phone}");
+                        if (databaseValues.LinkedInUrl != clientValues.LinkedInUrl)
+                            ModelState.AddModelError("LinkedInUrl", $"Current value: {databaseValues.LinkedInUrl}");
+                        if (databaseValues.IsVip != clientValues.IsVip)
+                            ModelState.AddModelError("IsVip", $"Current value: {databaseValues.IsVip}");
+                        if (databaseValues.IsArchieved != clientValues.IsArchieved)
+                            ModelState.AddModelError("IsArchieved", $"Current value: {databaseValues.IsArchieved}");
+
+                        ModelState.AddModelError("", "The record was modified by another user after you started editing. If you still want to save your changes, click the Save button again.");
+
+                        // Update RowVersion for the next attempt
+                        contactToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+                        ModelState.Remove("RowVersion");
                     }
                 }
                 catch (DbUpdateException dex)
                 {
                     string message = dex.GetBaseException().Message;
-
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-
+                    ModelState.AddModelError("", $"Unable to save changes: {message}");
                 }
             }
-            return View(ContactToUpdate);
+
+            return View(contactToUpdate);
         }
+
 
         // GET: Contact/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -365,6 +406,56 @@ namespace NIA_CRM.Controllers
 
             // Return the partial view with the contact data
             return PartialView("_ContactPreview", contact);  // Ensure the partial view name is correct
+        }
+
+        public IActionResult ImportExcel(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                TempData["Error"] = "Please upload a valid Excel file.";
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    file.CopyTo(stream);
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                        int rowCount = worksheet.Dimension.Rows;
+
+                        List<Contact> contacts = new List<Contact>();
+
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            var contact = new Contact
+                            {
+                                FirstName = worksheet.Cells[row, 1].Value?.ToString(),
+                                Title = worksheet.Cells[row, 2].Value?.ToString(),
+                                Department = worksheet.Cells[row, 3].Value?.ToString(),
+                                Email = worksheet.Cells[row, 4].Value?.ToString(),
+                                Phone = worksheet.Cells[row, 5].Value?.ToString(),
+                                LinkedInUrl = worksheet.Cells[row, 6].Value?.ToString(),
+                                IsVip = worksheet.Cells[row, 7].Value?.ToString() == "Yes"
+                            };
+
+                            contacts.Add(contact);
+                        }
+
+                        _context.Contacts.AddRange(contacts);
+                        _context.SaveChanges();
+                        TempData["Success"] = "Contacts imported successfully!";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"Error importing contacts: {ex.Message}";
+            }
+
+            return RedirectToAction("Index");
         }
 
 

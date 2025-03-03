@@ -21,7 +21,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     Note = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Asignee = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
-                    AnnualStatus = table.Column<int>(type: "INTEGER", nullable: false)
+                    AnnualStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,7 +49,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     LinkedInUrl = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     ContactNote = table.Column<string>(type: "TEXT", nullable: true),
                     IsVip = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsArchieved = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsArchieved = table.Column<bool>(type: "INTEGER", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,8 +72,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     WebsiteUrl = table.Column<string>(type: "TEXT", nullable: true),
                     JoinDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     MemberNote = table.Column<string>(type: "TEXT", nullable: true),
-                    IsVIP = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsPaid = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsPaid = table.Column<bool>(type: "INTEGER", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,7 +107,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     EventName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     EventDescription = table.Column<string>(type: "TEXT", nullable: true),
                     EventLocation = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
-                    EventDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    EventDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -141,7 +160,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     Interaction = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     LastContact = table.Column<DateTime>(type: "TEXT", nullable: true),
                     OpportunityStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    OpportunityPriority = table.Column<int>(type: "INTEGER", nullable: false)
+                    OpportunityPriority = table.Column<int>(type: "INTEGER", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -193,7 +217,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     StrategyNote = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     StrategyTerm = table.Column<int>(type: "INTEGER", nullable: false),
-                    StrategyStatus = table.Column<int>(type: "INTEGER", nullable: false)
+                    StrategyStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -230,7 +259,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     CancellationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CancellationNote = table.Column<string>(type: "TEXT", nullable: true),
                     IsCancelled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ContactID = table.Column<int>(type: "INTEGER", nullable: false)
+                    ContactID = table.Column<int>(type: "INTEGER", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -276,7 +310,12 @@ namespace NIA_CRM.Data.NIACRMigration
                     CancellationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CancellationNote = table.Column<string>(type: "TEXT", nullable: true),
                     IsCancelled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    MemberID = table.Column<int>(type: "INTEGER", nullable: false)
+                    MemberID = table.Column<int>(type: "INTEGER", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -361,8 +400,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 columns: table => new
                 {
                     MemberId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MembershipTypeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    MembershipTypeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -386,8 +424,7 @@ namespace NIA_CRM.Data.NIACRMigration
                 columns: table => new
                 {
                     MemberId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MEventID = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    MEventID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

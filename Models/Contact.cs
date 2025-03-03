@@ -2,7 +2,7 @@
 
 namespace NIA_CRM.Models
 {
-    public class Contact
+    public class Contact : Auditable
     {
         [Display(Name = "Phone")]
         public string PhoneFormatted => "(" + Phone?.Substring(0, 3) + ") "
@@ -55,6 +55,11 @@ namespace NIA_CRM.Models
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
         public ICollection<MemberContact> MemberContacts { get; set; } = new List<MemberContact>();
         public ICollection<ContactCancellation> ContactCancellations { get; set; } = new List<ContactCancellation>();
+
+
+        [ScaffoldColumn(false)]
+        [Timestamp]
+        public Byte[]? RowVersion { get; set; }//Added for concurrency
 
         [Display(Name = "Contact Name")]
         public string Summary

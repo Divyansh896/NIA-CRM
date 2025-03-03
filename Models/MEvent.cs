@@ -2,7 +2,7 @@
 
 namespace NIA_CRM.Models
 {
-    public class MEvent
+    public class MEvent : Auditable
     {
         public int Id { get; set; }
 
@@ -22,8 +22,12 @@ namespace NIA_CRM.Models
         [Display(Name = "Event Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+
         public DateTime EventDate { get; set; } = DateTime.Now;
 
+        [ScaffoldColumn(false)]
+        [Timestamp]
+        public Byte[]? RowVersion { get; set; }//Added for concurrency
         public ICollection<MemberEvent> MemberEvents { get; set; } = new List<MemberEvent>();
     }
 }
