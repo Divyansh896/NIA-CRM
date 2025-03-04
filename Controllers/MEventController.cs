@@ -33,7 +33,7 @@ namespace NIA_CRM.Controllers
             string[] sortOptions = new[] { "Event Name" };  // You can add more sort options if needed
             int numberFilters = 0;
 
-            var MEvents = _context.MEvents.AsQueryable();
+            var MEvents = _context.MEvents.Include(m => m.MemberEvents).ThenInclude(m => m.Member).AsQueryable();
 
             if (date.HasValue) // Check if date has a value instead of using TryParse
             {

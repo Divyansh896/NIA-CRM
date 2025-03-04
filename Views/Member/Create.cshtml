@@ -12,7 +12,7 @@
     <form asp-action="Create" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
 
-        
+
 
         <div class="row">
             <!-- First Column (Membership & Tag) -->
@@ -28,7 +28,7 @@
                     <input asp-for="MemberName" class="form-control" />
                     <span asp-validation-for="MemberName" class="text-danger"></span>
                 </div>
-                
+
                 <div class="form-group mb-3">
                     <label asp-for="JoinDate" class="control-label"></label>
                     <input asp-for="JoinDate" class="form-control" />
@@ -91,7 +91,7 @@
                     <input asp-for="WebsiteUrl" class="form-control" />
                     <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
                 </div>
-                
+
 
                 <!-- Sector Selection -->
                 <div class="form-group mb-3">
@@ -145,14 +145,9 @@
 
         </div>
     </form>
-
-
-<!-- Buttons outside the card -->
-<div class="position-bottom-left mt-3">
-    <a asp-action="Index" class="btn btn-dark me-2">Back to Members</a>
-    <input type="submit" value="Create" id="btnSubmit" class="btn btn-primary" form="CreateForm" />
-    
 </div>
+
+
 
 
 

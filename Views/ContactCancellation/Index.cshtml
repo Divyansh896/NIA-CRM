@@ -53,36 +53,36 @@
             </div>
         </div>
     </div>
-</form>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col" class="table-head">Contact</th>
-            <th scope="col" class="table-head">Archiving Date</th>
-            <th scope="col" class="table-head">Archiving Note</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Contact.Summary)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CancellationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CancellationNote)
-                </td>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" class="table-head">Contact</th>
+                <th scope="col" class="table-head">Archiving Date</th>
+                <th scope="col" class="table-head">Archiving Note</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contact.Summary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CancellationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CancellationNote)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<partial name="_PagingNavBar" />
-
+    <partial name="_PagingNavBar" />
+</form>
 <div id="previewContainer" class="preview-content hidden" role="region" aria-labelledby="previewTitle">
     <h2 id="previewTitle" class="sr-only">Preview Section</h2>
 </div>

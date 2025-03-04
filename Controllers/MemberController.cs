@@ -332,9 +332,9 @@ namespace NIA_CRM.Controllers
 
                     // Redirect to the index view
                     // Assuming you have a list of addresses and you want to pass the MemberId of the first address
-                    
-                        return RedirectToAction(nameof(Create), "Address");
-                    
+
+                    return RedirectToAction(nameof(Create), "Address", new { MemberId = member.ID });
+
 
                     // If no address found, handle it appropriately (e.g., show an error or return to a list page)
                     //return RedirectToAction("Index", "Address");

@@ -46,11 +46,28 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Address/Create
-        public IActionResult Create()
+        public IActionResult Create(int? memberId)
         {
-            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName");
+            if (memberId.HasValue)
+            {
+                var member = _context.Members
+                    .Where(m => m.ID == memberId.Value)
+                    .Select(m => new { m.ID, m.MemberName })
+                    .FirstOrDefault();
+
+                if (member != null)
+                {
+                    ViewBag.MemberName = member.MemberName;  // Store MemberName in ViewBag
+                    ViewBag.MemberId = member.ID;  // Store MemberID for hidden input
+                }
+            }
+
+            // If no member is preselected, show a dropdown for selecting a member
+            ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName", memberId);
+
             return View();
         }
+
 
         // POST: Address/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -63,12 +80,27 @@ namespace NIA_CRM.Controllers
             {
                 _context.Add(address);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Create), "Contact");
-
+                return RedirectToAction(nameof(Create), "Contact", new { memberId = address.MemberId });
             }
+
+            // Retrieve member info again to display banner if necessary
+            var member = _context.Members
+                .Where(m => m.ID == address.MemberId)
+                .Select(m => new { m.ID, m.MemberName })
+                .FirstOrDefault();
+
+            if (member != null)
+            {
+                ViewBag.MemberName = member.MemberName;
+                ViewBag.MemberId = member.ID;
+            }
+
+            // If no member is preselected, show a dropdown for selecting a member
             ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName", address.MemberId);
+
             return View(address);
         }
+
 
         // GET: Address/Edit/5
         public async Task<IActionResult> Edit(int? id)

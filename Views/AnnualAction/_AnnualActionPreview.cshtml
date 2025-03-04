@@ -29,7 +29,7 @@
                 @Html.DisplayFor(model => model.Date)
             </dd>
 
-           @*  <dt class="col-sm-4">Note:</dt>
+            @*  <dt class="col-sm-4">Note:</dt>
             <dd class="col-sm-8">
                 @Html.DisplayFor(model => model.Note)
             </dd> *@
@@ -78,34 +78,40 @@
     </div>
 </div>
 
+@section script {
 
-<script>
-    let deleteId = null;
+    @* Delete COnfirmed Script  *@
+    <script>
+        let deleteId = null;
 
-    function confirmDelete(id) {
-        deleteId = id;
-        $("#deleteConfirmationModal").modal("show");
-    }
-
-    document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
-        if (deleteId) {
-            $.ajax({
-                url: '/AnnualAction/DeleteConfirmed',
-                type: 'POST',
-                data: { id: deleteId, __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() },
-                success: function (response) {
-                    if (response.success) {
-                        alert(response.message);
-                        location.reload(); // Reload the page or redirect as needed
-                    } else {
-                        alert("Error: " + response.message);
-                    }
-                },
-                error: function () {
-                    alert("An error occurred while deleting.");
-                }
-            });
-            $("#deleteConfirmationModal").modal("hide");
+        function confirmDelete(id) {
+            deleteId = id;
+            $("#deleteConfirmationModal").modal("show");
         }
-    });
-</script>
+
+        document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
+            if (deleteId) {
+                $.ajax({
+                    url: '/AnnualAction/DeleteConfirmed',
+                    type: 'POST',
+                    data: { id: deleteId, __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            location.reload(); // Reload the page or redirect as needed
+                        } else {
+                            alert("Error: " + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while deleting.");
+                    }
+                });
+                $("#deleteConfirmationModal").modal("hide");
+            }
+        });
+    </script>
+
+
+
+}

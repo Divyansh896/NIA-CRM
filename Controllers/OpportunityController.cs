@@ -410,8 +410,7 @@ namespace NIA_CRM.Controllers
 
             return PartialView("_OpportunityPreview", opportunity); // Ensure the partial view name matches
         }
-
-
+        
         private bool OpportunityExists(int id)
         {
             return _context.Opportunities.Any(e => e.ID == id);

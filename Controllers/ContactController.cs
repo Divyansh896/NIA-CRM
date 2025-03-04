@@ -204,19 +204,37 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Contact/Create
-        public IActionResult Create()
+        public IActionResult Create(int? memberId)
         {
-            PopulateDropdowns();
-            //ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName");
+            if (memberId.HasValue)
+            {
+                var member = _context.Members
+                    .Where(m => m.ID == memberId.Value)
+                    .Select(m => new { m.ID, m.MemberName })
+                    .FirstOrDefault();
+
+                if (member != null)
+                {
+                    ViewBag.MemberName = member.MemberName; // Store MemberName in ViewBag
+                    ViewBag.MemberId = member.ID; // Store MemberId for hidden input
+                }
+            }
+
+            // If no member is preselected, show a dropdown for selecting a member
+            ViewData["Members"] = new SelectList(_context.Members, "ID", "MemberName", memberId);
+
             return View();
         }
+
 
         // POST: Contact/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,MiddleName,LastName,Title,Department,Email,Phone,LinkedInUrl,IsVip,ContactNote")] Contact contact, int? memberId)
+        public async Task<IActionResult> Create(
+    [Bind("Id,FirstName,MiddleName,LastName,Title,Department,Email,Phone,LinkedInUrl,IsVip,ContactNote")] Contact contact,
+    int? memberId)
         {
             if (ModelState.IsValid)
             {
@@ -226,24 +244,38 @@ namespace NIA_CRM.Controllers
 
                 if (memberId.HasValue)
                 {
-                    // Create a MemberContact relationship between the Contact and the selected Member
+                    // Create a MemberContact relationship
                     var memberContact = new MemberContact
                     {
-                        ContactId = contact.Id,  // Assign the newly created ContactId to the MemberContact
-                        MemberId = memberId.Value // Use the MemberId passed from the form
+                        ContactId = contact.Id,
+                        MemberId = memberId.Value
                     };
 
-                    _context.MemberContacts.Add(memberContact); // Add the relationship to the context
-                    await _context.SaveChangesAsync();  // Save the relationship
+                    _context.MemberContacts.Add(memberContact);
+                    await _context.SaveChangesAsync();
                 }
 
                 return RedirectToAction(nameof(Index), "Member");
             }
 
-            // Populate dropdowns for the view
-            PopulateDropdowns();
+            // Retrieve member info again to display banner if necessary
+            var member = _context.Members
+                .Where(m => m.ID == memberId)
+                .Select(m => new { m.ID, m.MemberName })
+                .FirstOrDefault();
+
+            if (member != null)
+            {
+                ViewBag.MemberName = member.MemberName;
+                ViewBag.MemberId = member.ID;
+            }
+
+            // If no member is preselected, show a dropdown for selecting a member
+            ViewData["Members"] = new SelectList(_context.Members, "ID", "MemberName", memberId);
+
             return View(contact);
         }
+
 
 
         // GET: Contact/Edit/5
@@ -503,13 +535,6 @@ namespace NIA_CRM.Controllers
         }
 
 
-        private void PopulateDropdowns()
-        {
-            // Fetch Members for dropdown
-            var members = _context.Members.ToList();
-            ViewData["Members"] = new SelectList(members, "ID", "MemberName");
 
-
-        }
     }
 }
