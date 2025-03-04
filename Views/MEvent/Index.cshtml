@@ -141,32 +141,66 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+            // Initially hide the preview content
             $('#previewContainer').addClass('hidden');
 
+            // Handle click event on rows with the "clickable-row" class
             $(document).on('click', '.clickable-row', function () {
-                var contactId = $(this).data('id');
+                var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+
                 if (!contactId) {
                     console.error('No contact ID found for this row.');
                     return;
                 }
+
+                // Make an AJAX request to get the partial view for the selected contact
                 $.ajax({
-                    url: '/MEvent/GetEventPreview',
+                    url: '/MEvent/GetEventPreview', // Adjust the URL to match your routing
                     type: 'GET',
                     data: { id: contactId },
                     success: function (result) {
-                        $('#previewContainer').html(result).removeClass('hidden').addClass('visible');
+                        // Insert the result (partial view) into the preview container
+                        $('#previewContainer').html(result);
+                        $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+
+                        // Assign the close event to the button inside the loaded preview
+                        $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
+                            $('#previewContainer').removeClass('visible').addClass('hidden');
+                        });
+
+
+
+
+
                     },
                     error: function () {
                         alert('An error occurred while loading the preview.');
                     }
                 });
             });
+
+            // Window click listener to collapse preview when clicked outside
+            $(window).click(function (event) {
+                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                    $('#previewContainer').removeClass('visible').addClass('hidden');
+                }
+            });
+
+            // Prevent the preview container from closing when clicked inside
+            $('#previewContainer').click(function (event) {
+                event.stopPropagation(); // Stop the event from propagating to the window
+            });
         });
 
         function clearFilter(filterName) {
-            var url = window.location.href.split('?')[0];
+            // Get the current URL
+            var url = window.location.href.split('?')[0]; // Current URL without query string
+
+            // Get the query parameters from the URL
             var params = new URLSearchParams(window.location.search);
             params.delete(filterName);
+
+            // Reload the page with the updated query string (filters removed)
             window.location.href = url + '?' + params.toString();
         }
     </script>

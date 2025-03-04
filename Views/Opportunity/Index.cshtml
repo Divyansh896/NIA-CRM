@@ -8,7 +8,7 @@
 
 <h1>Opportunities</h1>
 
-<form>
+<form asp-action="Index" method="get" aria-labelledby="form-title">
     <input type="hidden" name="sortDirection" value="@sortDirection" />
     <input type="hidden" name="sortField" value="@sortField" />
 
@@ -69,43 +69,46 @@
             </div>
         </div>
     </div>
+
+
+    <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
+        <thead>
+            <tr>
+                <th scope="col" class="table-head">Opportunity Name</th>
+                <th scope="col" class="table-head">Action</th>
+                <th scope="col" class="table-head">POC</th>
+                <th scope="col" class="table-head">Account</th>
+                <th scope="col" class="table-head">Interaction</th>
+                <th scope="col" class="table-head">Last Contact</th>
+                <th scope="col" class="table-head">Status</th>
+                <th scope="col" class="table-head">Priority</th>
+                <th scope ="col" class="table-head">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
+                    <td>@item.OpportunityName</td>
+                    <td>@item.OpportunityAction</td>
+                    <td>@item.POC</td>
+                    <td>@item.Account</td>
+                    <td>@item.Interaction</td>
+                    <td>@item.LastContact</td>
+                    <td>@item.OpportunityStatus</td>
+                    <td>@item.OpportunityPriority</td>
+                    @* <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td> *@
+                </tr>
+            }
+        </tbody>
+    </table>
 </form>
 
-<table class="table table-bordered table-striped mt-3">
-    <thead>
-        <tr>
-            <th>Opportunity Name</th>
-            <th>Action</th>
-            <th>POC</th>
-            <th>Account</th>
-            <th>Interaction</th>
-            <th>Last Contact</th>
-            <th>Status</th>
-            <th>Priority</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.OpportunityName</td>
-                <td>@item.OpportunityAction</td>
-                <td>@item.POC</td>
-                <td>@item.Account</td>
-                <td>@item.Interaction</td>
-                <td>@item.LastContact</td>
-                <td>@item.OpportunityStatus</td>
-                <td>@item.OpportunityPriority</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div id="previewContainer" class="preview-content hidden"></div>
 
 @section Scripts {
     <script>
@@ -113,6 +116,72 @@
             var url = window.location.href.split('?')[0];
             var params = new URLSearchParams(window.location.search);
             params.delete(filterName);
+            window.location.href = url + '?' + params.toString();
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Initially hide the preview content
+            $('#previewContainer').addClass('hidden');
+
+            // Handle click event on rows with the "clickable-row" class
+            $(document).on('click', '.clickable-row', function () {
+                var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+
+                if (!contactId) {
+                    console.error('No contact ID found for this row.');
+                    return;
+                }
+
+                // Make an AJAX request to get the partial view for the selected contact
+                $.ajax({
+                    url: '/Opportunity/GetOpportunityPreview', // Adjust the URL to match your routing
+                    type: 'GET',
+                    data: { id: contactId },
+                    success: function (result) {
+                        // Insert the result (partial view) into the preview container
+                        $('#previewContainer').html(result);
+                        $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+
+                        // Assign the close event to the button inside the loaded preview
+                        $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
+                            $('#previewContainer').removeClass('visible').addClass('hidden');
+                        });
+
+
+
+                        
+
+                    },
+                    error: function () {
+                        alert('An error occurred while loading the preview.');
+                    }
+                });
+            });
+
+            // Window click listener to collapse preview when clicked outside
+            $(window).click(function (event) {
+                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                    $('#previewContainer').removeClass('visible').addClass('hidden');
+                }
+            });
+
+            // Prevent the preview container from closing when clicked inside
+            $('#previewContainer').click(function (event) {
+                event.stopPropagation(); // Stop the event from propagating to the window
+            });
+        });
+
+        function clearFilter(filterName) {
+            // Get the current URL
+            var url = window.location.href.split('?')[0]; // Current URL without query string
+
+            // Get the query parameters from the URL
+            var params = new URLSearchParams(window.location.search);
+            params.delete(filterName);
+
+            // Reload the page with the updated query string (filters removed)
             window.location.href = url + '?' + params.toString();
         }
     </script>
