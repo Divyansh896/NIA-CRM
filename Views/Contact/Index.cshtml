@@ -3,11 +3,12 @@
 @{
     ViewData["Title"] = "Index";
 }
+<partial name="_addArchiveModal" />
 
 <form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
     <div class="d-flex align-items-center">
         <input type="file" name="file" class="form-control me-2" required />
-        
+
     </div>
 </form>
 
@@ -209,6 +210,8 @@
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
     <script src="~/js/PhoneNumber.js"></script>
     <script>
               $(document).ready(function () {
@@ -306,4 +309,118 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = document.getElementById('addCancellationModal'); // Fixed modal ID
+
+            // When the modal is about to be shown
+            modal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;  // Button that triggered the modal
+                var ContactId = button.getAttribute('data-id');  // Get Member ID from button
+
+                console.log("Contact ID received:", ContactId); // Debugging log
+
+                
+                // Make AJAX GET request to fetch member data and fill the form dynamically
+                $.ajax({
+                    type: "GET",
+                    url: '/ContactCancellation/Create',  // Ensure this points to the correct action URL
+                    data: { ContactId: ContactId },
+                    success: function (response) {
+                        console.log(response.contactName);
+                        if (response.success) {
+                            // Populate the form with the received data
+                            $('#createCancellationForm').find('input[name="ContactID"]').val(response.contactId);
+                           // $('#MemberID').val(response.memberId);  // Set MemberID in the form field
+                            $('#ContactName').text(response.contactName);  // Optionally display MemberName in the modal header or form
+                        } else {
+                            console.error("Failed to fetch member data:", response.message);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching member data:", xhr);
+                    }
+                });
+            });
+
+            // Handle form submission with AJAX
+            $('#submitCancellationCreate').click(function (event) {
+            event.preventDefault();  // Prevent default form submission
+            clearErrors();  // Clear previous error messages
+
+            var form = $('#createCancellationForm'); // Fixed form ID
+            var ContactId = $('#ContactID').val(); // Get Member ID from hidden input field
+            ContactId = parseInt(ContactId);
+            console.log("Submitting form for Contact ID:", ContactId); // Debugging log
+
+            // Validate the form
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),  // The form's action URL
+                    data: form.serialize() + "&ContactID=" + ContactID, // Ensure MemberID is included
+                    success: function (response) {
+                        if (response.success) {
+                            $('#addCancellationModal').modal('hide');
+                            alert(response.message); // Optionally show success message
+                            location.reload(); // Refresh page to reflect changes
+                        } else {
+                            console.error("Error: " + response.message);
+                            showErrorMessage(response.message); // Show error messages
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error: ", xhr);
+                        showErrorMessage("An unexpected error occurred."); // General error message
+                    }
+                });
+            }
+
+            return false; // Prevent default form submission
+        });
+
+        // Function to show error messages in the modal
+        function showErrorMessage(message) {
+            var ul = document.getElementById("ErrorList");
+            ul.innerHTML = "";  // Clear previous errors
+
+            // Split and display each error message
+            var errors = message.split("|");
+            errors.forEach(function (error) {
+                var li = document.createElement("li");
+                li.innerHTML = error;
+                ul.appendChild(li);
+            });
+        }
+
+            // Function to handle error messages from AJAX response
+            function handleAjaxErrors(xhr) {
+                var errorMessages = [];
+                switch (xhr.status) {
+                    case 401:
+                        errorMessages.push("You must be logged in first.");
+                        break;
+                    case 403:
+                        errorMessages.push("You are not authorized for this action.");
+                        break;
+                    default:
+                        errorMessages = xhr.responseText.split("|").slice(0, -1);
+                }
+
+                if (!errorMessages.some((str) => str !== "")) {
+                    errorMessages.push("Error: Unable to complete operation");
+                }
+
+
+            }
+
+            // Function to clear previous error messages
+            function clearErrors() {
+                var ul = document.getElementById("ErrorList");
+                ul.innerHTML = "";  // Clear previous error messages
+            }
+        });
+    </script>
+
 }

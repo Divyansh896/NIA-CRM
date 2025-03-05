@@ -6,7 +6,7 @@
 
 <h1>Edit</h1>
 
-<h4>ContactCancellation</h4>
+<h4>Contact Cancellation</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,6 +14,20 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <input type="hidden" asp-for="RowVersion" />
+            @if (ViewBag.MemberName != null)
+            {
+                <div class="alert alert-info">
+                    <strong>Contact Name: </strong> @ViewBag.MemberName
+                </div>
+                <input type="hidden" asp-for="ContactID" value="@ViewBag.ContactID" />
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="ContactID" class="control-label"></label>
+                    <select asp-for="ContactID" class="form-control" asp-items="ViewBag.ContactID"></select>
+                </div>
+            }
             <div class="form-group">
                 <label asp-for="CancellationDate" class="control-label"></label>
                 <input asp-for="CancellationDate" class="form-control" />
@@ -31,11 +45,11 @@
                 <span asp-validation-for="IsCancelled" class="text-danger"></span>
 
             </div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="ContactID" class="control-label"></label>
                 <select asp-for="ContactID" class="form-control" asp-items="ViewBag.ContactID"></select>
                 <span asp-validation-for="ContactID" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

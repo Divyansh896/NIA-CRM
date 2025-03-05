@@ -36,13 +36,14 @@ namespace NIA_CRM.Controllers
             int numberFilters = 0;
 
             var members = _context.Members
-                .Include(m => m.MemberThumbnail)
-                .Include(m => m.Addresses)
-                .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
-                .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
-                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
-                .Include(m => m.Addresses) //new added for addresses
-            .AsNoTracking();
+                                    .Include(m => m.MemberThumbnail)
+                                    .Include(m => m.Addresses)
+                                    .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+                                    .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
+                                    .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                                    .Where(m => !m.Cancellations.Any())  // Exclude members with cancellations
+                                    .AsNoTracking();
+
 
 
             if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
