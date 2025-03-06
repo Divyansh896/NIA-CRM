@@ -148,57 +148,60 @@ namespace NIA_CRM.Controllers
         [HttpPost]
         public IActionResult ImportFromExcel(IFormFile file)
         {
-            if (file != null && file.Length > 0)
+            if (file == null || file.Length == 0)
             {
-                try
-                {
-                    using (var stream = new MemoryStream())
-                    {
-                        file.CopyTo(stream);
-                        using (var package = new ExcelPackage(stream))
-                        {
-                            var worksheet = package.Workbook.Worksheets[0]; // Assume data is on the first worksheet
-                            var rowCount = worksheet.Dimension.Rows;
-
-                            for (int row = 2; row <= rowCount; row++) // Start at 2 to skip header row
-                            {
-                                var name = worksheet.Cells[row, 1].Text;
-                                var note = worksheet.Cells[row, 2].Text;
-                                var date = DateTime.TryParse(worksheet.Cells[row, 3].Text, out DateTime parsedDate) ? parsedDate : (DateTime?)null;
-                                var assignee = worksheet.Cells[row, 4].Text;
-                                var status = worksheet.Cells[row, 5].Text;
-
-                                // Create a new AnnualAction object and populate it
-                                var annualAction = new AnnualAction
-                                {
-                                    Name = name,
-                                    Note = note,
-                                    Date = date,
-                                    Asignee = assignee,
-                                    AnnualStatus = Enum.TryParse(worksheet.Cells[row, 5].Value?.ToString(), true, out AnnualStatus annualStatus) ? annualStatus : AnnualStatus.ToDo
-
-
-                                };
-
-                                // Save the new object to the database (your db context logic here)
-                                _context.AnnualActions.Add(annualAction);
-                            }
-
-                            _context.SaveChanges(); // Save the changes to the database
-                        }
-                    }
-
-                    return RedirectToAction("Index"); // Redirect back to the Index page after successful import
-                }
-                catch (Exception ex)
-                {
-                    // Handle the error (e.g., log it, show a message to the user, etc.)
-                    ModelState.AddModelError("", "An error occurred while importing the file: " + ex.Message);
-                }
+                TempData["Error"] = "Please upload a valid Excel file.";
+                return RedirectToAction("Index");
             }
 
-            return View("Index"); // If no file was uploaded, return to the index page
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    file.CopyTo(stream);
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0]; // Accessing the first worksheet
+                        int rowCount = worksheet.Dimension.Rows; // Get the number of rows in the worksheet
+
+                        List<AnnualAction> annualActions = new List<AnnualAction>();
+
+                        for (int row = 2; row <= rowCount; row++) // Start from row 2 to skip header
+                        {
+                            var name = worksheet.Cells[row, 1].Text; // Assuming data is in the first column
+                            var note = worksheet.Cells[row, 2].Text; // Second column
+                            var date = DateTime.TryParse(worksheet.Cells[row, 3].Text, out DateTime parsedDate) ? parsedDate : (DateTime?)null; // Third column
+                            var assignee = worksheet.Cells[row, 4].Text; // Fourth column
+                            var status = worksheet.Cells[row, 5].Text; // Fifth column
+
+                            // Create a new AnnualAction object and populate it with the data from the worksheet
+                            var annualAction = new AnnualAction
+                            {
+                                Name = name,
+                                Note = note,
+                                Date = date,
+                                Asignee = assignee,
+                                AnnualStatus = Enum.TryParse(worksheet.Cells[row, 5].Value?.ToString(), true, out AnnualStatus annualStatus) ? annualStatus : AnnualStatus.ToDo
+                            };
+
+                            annualActions.Add(annualAction); // Add the object to the list
+                        }
+
+                        _context.AnnualActions.AddRange(annualActions); // Add the list of annual actions to the database context
+                        _context.SaveChanges(); // Save the changes to the database
+
+                        TempData["Success"] = "Annual actions imported successfully!"; // Success message
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"An error occurred while importing the file: {ex.Message}"; // Error message
+            }
+
+            return RedirectToAction("Index"); // Redirect back to the Index page after import
         }
+
 
         // GET: AnnualAction/Details/5
         public async Task<IActionResult> Details(int? id)

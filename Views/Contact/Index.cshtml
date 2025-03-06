@@ -4,12 +4,24 @@
     ViewData["Title"] = "Index";
 }
 
-<form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
+@* <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
     <div class="d-flex align-items-center">
         <input type="file" name="file" class="form-control me-2" required />
         
     </div>
+</form> *@
+<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
+    <div class="d-flex align-items-center">
+        <div>
+            <input type="file" name="file" class="form-control me-2" required />
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
+        </div>
+
+    </div>
 </form>
+
 
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
@@ -43,9 +55,9 @@
                     <button type="submit" class="btn btn-dark" name="actionButton" value="ExportExcel">
                         <i class="fa fa-file-excel text-white"></i> Export Excel
                     </button>
-                    <button type="submit" class="btn btn-dark">
+                   @*  <button type="submit" class="btn btn-dark">
                         <i class="fa fa-file-import"></i> Import Excel
-                    </button>
+                    </button> *@
                 </div>
                 <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
             </div>

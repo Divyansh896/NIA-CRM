@@ -137,7 +137,6 @@ namespace NIA_CRM.Controllers
                 return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Events.xlsx");
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> ImportFromExcel(IFormFile file)
         {
@@ -186,6 +185,7 @@ namespace NIA_CRM.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
 
 
 
