@@ -138,44 +138,90 @@ namespace NIA_CRM.Controllers
             return View(cancellation);
         }
 
+      
         // GET: Cancellation/Create
-        public IActionResult Create()
+        public IActionResult Create(int? memberId)
         {
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName");
-            return View();
+            if (memberId.HasValue)
+            {
+                var member = _context.Members
+                    .Where(m => m.ID == memberId.Value)
+                    .Select(m => new { m.ID, m.MemberName })
+                    .FirstOrDefault();
+
+                if (member != null)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        memberId = member.ID,
+                        memberName = member.MemberName
+                    });
+                }
+            }
+
+            return Json(new { success = false, message = "Member not found." });
         }
+
+
 
         // POST: Cancellation/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Cancellation/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,CancellationDate,IsCancelled,CancellationNote,MemberID")] Cancellation cancellation)
         {
+            // Check if the request is an AJAX request
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                // If MemberID is not valid, return a JSON error message
+                if (cancellation.MemberID == 0)
+                {
+                    return Json(new { success = false, message = "MemberID is not valid." });
+                }
+
+                // Check if the Member exists
+                var member = await _context.Members.FindAsync(cancellation.MemberID);
+                if (member == null)
+                {
+                    return Json(new { success = false, message = "Member not found." });
+                }
+
+                // Proceed if the model state is valid
+                if (ModelState.IsValid)
+                {
+                    _context.Add(cancellation); // Add the cancellation
+                    await _context.SaveChangesAsync(); // Save changes to the database
+
+                    // Return success response in JSON format
+                    return Json(new { success = true, message = "Cancellation created successfully!" });
+                }
+
+                // Return validation error messages if the model is invalid
+                string errorMessage = string.Join("|", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage));
+                return Json(new { success = false, message = errorMessage });
+            }
+
+            // If the request is not AJAX, proceed with the standard form post flow
             if (ModelState.IsValid)
             {
-                _context.Add(cancellation);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.Add(cancellation); // Add the cancellation to the context
+                await _context.SaveChangesAsync(); // Save changes to the database
+
+                return RedirectToAction(nameof(Index)); // Redirect to Index page
             }
-            //Decide if we need to send the Validaiton Errors directly to the client
-            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-            {
-                //Was an AJAX request so build a message with all validation errors
-                string errorMessage = "";
-                foreach (var modelState in ViewData.ModelState.Values)
-                {
-                    foreach (ModelError error in modelState.Errors)
-                    {
-                        errorMessage += error.ErrorMessage + "|";
-                    }
-                }
-                //Note: returning a BadRequest results in HTTP Status code 400
-                return BadRequest(errorMessage);
-            }
-            ViewData["MemberID"] = new SelectList(_context.Members, "ID", "MemberName", cancellation.MemberID);
+
+            // If the model is not valid, return to the view with the invalid model
             return View(cancellation);
         }
+
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

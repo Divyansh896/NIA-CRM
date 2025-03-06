@@ -36,10 +36,13 @@ namespace NIA_CRM.Controllers
 
 
             var contacts = _context.Contacts
-     .Include(c => c.MemberContacts)
-     .ThenInclude(mc => mc.Member)
-     .Distinct() // Ensures only unique contacts are selected
-     .AsQueryable();
+                                     .Include(c => c.MemberContacts)
+                                     .ThenInclude(mc => mc.Member)
+                                     .Include(m => m.ContactCancellations)
+                                     .Where(c => !c.ContactCancellations.Any(cc => cc.IsCancelled))  // Only include contacts with no cancellations or cancellations that are not cancelled
+                                     .Distinct() // Ensures only unique contacts are selected
+
+                                     .AsQueryable();
             if (Departments != null)
             {
                 contacts = contacts.Where(c => c.Department == Departments);

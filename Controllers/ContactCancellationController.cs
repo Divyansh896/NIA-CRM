@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
@@ -89,28 +90,97 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: ContactCancellation/Create
-        public IActionResult Create()
+        public IActionResult Create(int? ContactID)
         {
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "Id", "FirstName");
-            return View();
+            if (ContactID.HasValue)
+            {
+                // Find the contact based on the ContactID
+                var contact = _context.Contacts
+                    .Where(c => c.Id == ContactID.Value)
+                    .Select(c => new { c.Id, c.FirstName, c.LastName })
+                    .FirstOrDefault();
+
+                // If contact is found, return success with member data
+                if (contact != null)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        contactId = contact.Id,
+                        contactName = $"{contact.FirstName} {contact.LastName}"  // Concatenate First and Last Name
+                    });
+                }
+
+                // If no contact is found, return failure
+                return Json(new { success = false, message = "Contact not found." });
+            }
+            else
+            {
+                // If ContactID is not provided, show the select list of contacts
+                ViewData["ContactID"] = new SelectList(_context.Contacts, "Id", "FirstName");
+                return View();
+            }
         }
+
 
         // POST: ContactCancellation/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: ContactCancellation/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,CancellationDate,CancellationNote,IsCancelled,ContactID")] ContactCancellation contactCancellation)
         {
+            // If the request is an AJAX request (check for the presence of X-Requested-With header)
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                // Check if ContactID is valid
+                if (contactCancellation.ContactID == 0)
+                {
+                    return Json(new { success = false, message = "ContactID is not valid." });
+                }
+
+                // Retrieve the Contact by ContactID
+                var contact = await _context.Contacts.FindAsync(contactCancellation.ContactID);
+                if (contact == null)
+                {
+                    return Json(new { success = false, message = "Contact not found." });
+                }
+
+                // Proceed if the model is valid
+                if (ModelState.IsValid)
+                {
+                    // Add the ContactCancellation to the database
+                    _context.Add(contactCancellation);
+                    await _context.SaveChangesAsync();
+
+                    // Return success message as JSON
+                    return Json(new { success = true, message = "Cancellation created successfully!" });
+                }
+
+                // Return error messages if the model is invalid (for AJAX requests)
+                string errorMessage = string.Join("|", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage));
+                return Json(new { success = false, message = errorMessage });
+            }
+
+            // If the request is not AJAX, process the form normally (standard post request)
             if (ModelState.IsValid)
             {
+                // Add the ContactCancellation to the database
                 _context.Add(contactCancellation);
                 await _context.SaveChangesAsync();
+
+                // Redirect to the index page
                 return RedirectToAction(nameof(Index));
             }
+
+            // If the model is invalid, re-populate the select list and return the view
             ViewData["ContactID"] = new SelectList(_context.Contacts, "Id", "FirstName", contactCancellation.ContactID);
             return View(contactCancellation);
         }
+
 
         // GET: ContactCancellation/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -120,12 +190,24 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var contactCancellation = await _context.ContactCancellations.FindAsync(id);
+            var contactCancellation = await _context.ContactCancellations.Include(c => c.Contact).FirstOrDefaultAsync(c => c.ID == id);
             if (contactCancellation == null)
             {
                 return NotFound();
             }
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "Id", "FirstName", contactCancellation.ContactID);
+
+            var Contact = _context.Contacts.Include(c => c.ContactCancellations)
+               .Where(m => m.Id == contactCancellation.ContactID)
+               .Select(m => new { m.Id, m.FirstName, m.LastName })
+               .FirstOrDefault();
+
+            if (Contact != null)
+            {
+                ViewBag.MemberName = Contact.FirstName + " " + Contact.LastName;
+                ViewBag.ContactID = Contact.Id;
+            }
+
+            ViewData["ContactID"] = new SelectList(_context.Contacts, "Id", "FirstName", contactCancellation);
             return View(contactCancellation);
         }
 
@@ -134,36 +216,83 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,CancellationDate,CancellationNote,IsCancelled,ContactID")] ContactCancellation contactCancellation)
+        public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
-            if (id != contactCancellation.ID)
+
+            // Fetch the existing ContactCancellation record from the database
+            var contactCancellationToUpdate = await _context.ContactCancellations.Include(c => c.Contact)
+                .FirstOrDefaultAsync(c => c.ID == id);
+
+            if (contactCancellationToUpdate == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+
+            // Attach the RowVersion for concurrency tracking
+            _context.Entry(contactCancellationToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+
+            if (await TryUpdateModelAsync<ContactCancellation>(contactCancellationToUpdate, "",
+                c => c.CancellationDate, c => c.CancellationNote, c => c.IsCancelled, c => c.ContactID))
             {
                 try
                 {
-                    _context.Update(contactCancellation);
+                    
+                    _context.Update(contactCancellationToUpdate);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (RetryLimitExceededException)
                 {
-                    if (!ContactCancellationExists(contactCancellation.ID))
+                    ModelState.AddModelError("", "Unable to save changes after multiple attempts. Please try again later.");
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    var exceptionEntry = ex.Entries.Single();
+                    var clientValues = (ContactCancellation)exceptionEntry.Entity;
+                    var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+                    if (databaseEntry == null)
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record was deleted by another user.");
                     }
                     else
                     {
-                        throw;
+                        var databaseValues = (ContactCancellation)databaseEntry.ToObject();
+
+                        if (databaseValues.CancellationDate != clientValues.CancellationDate)
+                            ModelState.AddModelError("CancellationDate", $"Current value: {databaseValues.CancellationDate:d}");
+                        if (databaseValues.CancellationNote != clientValues.CancellationNote)
+                            ModelState.AddModelError("CancellationNote", $"Current value: {databaseValues.CancellationNote}");
+                        if (databaseValues.IsCancelled != clientValues.IsCancelled)
+                            ModelState.AddModelError("IsCancelled", $"Current value: {databaseValues.IsCancelled}");
+                        if (databaseValues.ContactID != clientValues.ContactID)
+                        {
+                            var databaseContact = await _context.Contacts
+                                .FirstOrDefaultAsync(c => c.Id == databaseValues.ContactID);
+                            ModelState.AddModelError("ContactID", $"Current value: {databaseContact?.FirstName}");
+                        }
+
+                        ModelState.AddModelError("", "The record was modified by another user after you started editing. " +
+                            "If you still want to save your changes, click the Save button again.");
+
+                        // Update RowVersion for the next attempt
+                        contactCancellationToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+                        ModelState.Remove("RowVersion");
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                catch (DbUpdateException dex)
+                {
+                    string message = dex.GetBaseException().Message;
+                    ModelState.AddModelError("", $"Unable to save changes: {message}");
+                }
             }
-            ViewData["ContactID"] = new SelectList(_context.Contacts, "Id", "FirstName", contactCancellation.ContactID);
-            return View(contactCancellation);
+
+            ViewData["ContactID"] = new SelectList(_context.Contacts, "Id", "FirstName", contactCancellationToUpdate);
+            return View(contactCancellationToUpdate);
         }
+
+
 
         // GET: ContactCancellation/Delete/5
         public async Task<IActionResult> Delete(int? id)
