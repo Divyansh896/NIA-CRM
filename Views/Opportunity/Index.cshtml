@@ -7,6 +7,29 @@
 }
 
 <h1>Opportunities</h1>
+<a asp-action="ExportOpportunitiesToExcel">Export Excel</a>
+
+<form asp-action="ImportOpportunitiesFromExcel" method="post" enctype="multipart/form-data">
+    <div class="d-flex align-items-center">
+        <div>
+            <input type="file" name="file" class="form-control me-2" required />
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
+        </div>
+    </div>
+</form>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
 
 <form asp-action="Index" method="get" aria-labelledby="form-title">
     <input type="hidden" name="sortDirection" value="@sortDirection" />

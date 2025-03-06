@@ -7,13 +7,13 @@
 
 <partial name="_addArchiveModal" />
 
-<form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
+@* <form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="fileUpload">Import Members (Excel File):</label>
         <input type="file" name="fileUpload" class="form-control" />
     </div>
     <button type="submit" class="btn btn-dark"> <i class="fa fa-file-import"></i> Import Excel</button>
-</form>
+</form> *@
 @* <button class="btn btn-sm btn-outline-secondary" id="nowAddSpecialty" *@
 @*         data-bs-toggle="modal" data-id="1" data-bs-target="#addSpecialtyModal" *@
 @*         type="button"> *@
@@ -22,6 +22,34 @@
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="member-title">Members</h1>
 </div>
+
+<form asp-action="ImportMembersFromExcel" method="post" enctype="multipart/form-data">
+    <div class="d-flex align-items-center">
+        <div>
+            <input type="file" name="file" class="form-control me-2" required />
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
+        </div>
+    </div>
+</form>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+
+
 <form asp-action="Index" method="get" aria-labelledby="form-title">
     <h2 id="form-title" class="sr-only">Filter and Search Form</h2>
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
@@ -39,6 +67,7 @@
                         aria-controls="collapseFilter">
                     Filter/Search @ViewData["numberFilters"]
                 </button>
+
                 <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
                     <i class="fa fa-file-excel text-white"></i>
                     Export to Excel
@@ -50,21 +79,7 @@
 
 
 
-        @if (TempData["SuccessMessage"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["SuccessMessage"]
-            </div>
-        }
-
-        @if (TempData["ErrorMessage"] != null)
-        {
-            <div class="alert alert-danger">
-                @TempData["ErrorMessage"]
-            </div>
-        }
-
-
+       
 
         @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
         {

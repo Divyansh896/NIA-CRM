@@ -133,6 +133,54 @@ namespace NIA_CRM.Controllers
 
 
 
+        //private IActionResult ExportMembersToExcel(List<Member> members)
+        //{
+        //    var package = new ExcelPackage(); // No 'using' block to avoid disposal
+        //    var worksheet = package.Workbook.Worksheets.Add("Members");
+
+        //    // Adding headers
+        //    worksheet.Cells[1, 1].Value = "Member ID";
+        //    worksheet.Cells[1, 2].Value = "Member Name";
+        //    worksheet.Cells[1, 3].Value = "City";
+        //    worksheet.Cells[1, 4].Value = "Join Date";
+        //    worksheet.Cells[1, 5].Value = "Membership Type";
+        //    worksheet.Cells[1, 6].Value = "Address";
+        //    worksheet.Cells[1, 7].Value = "Contact";
+        //    worksheet.Cells[1, 8].Value = "VIP Status";
+
+        //    // Populating data
+        //    int row = 2;
+        //    foreach (var member in members)
+        //    {
+        //        worksheet.Cells[row, 1].Value = member.ID;
+        //        worksheet.Cells[row, 2].Value = member.MemberName;
+        //        worksheet.Cells[row, 3].Value = member.Addresses.FirstOrDefault()?.City ?? "N/A";
+        //        worksheet.Cells[row, 4].Value = member.JoinDate.ToString("yyyy-MM-dd") ?? "N/A"; // Format date
+        //        worksheet.Cells[row, 5].Value = member.MemberMembershipTypes.FirstOrDefault()?.MembershipType?.TypeName ?? "N/A";
+
+        //        worksheet.Cells[row, 6].Value = member.Addresses.FirstOrDefault() != null
+        //            ? $"{member.Addresses.FirstOrDefault().AddressLine2}, {member.Addresses.FirstOrDefault().City}, {member.Addresses.FirstOrDefault().StateProvince}, {member.Addresses.FirstOrDefault().PostalCode}"
+        //            : "No Address Available";
+
+        //        worksheet.Cells[row, 7].Value = member.MemberContacts.FirstOrDefault() != null
+        //            ? $"{member.MemberContacts.FirstOrDefault().Contact.Phone} | {member.MemberContacts.FirstOrDefault().Contact.Email}"
+        //            : "No Contacts Available";
+
+        //        row++;
+        //    }
+
+        //    // Auto-fit columns for better readability
+        //    worksheet.Cells.AutoFitColumns();
+
+        //    var stream = new MemoryStream();
+        //    package.SaveAs(stream);
+        //    stream.Position = 0; // Reset position before returning
+
+        //    string excelName = $"Members.xlsx";
+
+        //    return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        //}
+
         private IActionResult ExportMembersToExcel(List<Member> members)
         {
             var package = new ExcelPackage(); // No 'using' block to avoid disposal
@@ -144,9 +192,14 @@ namespace NIA_CRM.Controllers
             worksheet.Cells[1, 3].Value = "City";
             worksheet.Cells[1, 4].Value = "Join Date";
             worksheet.Cells[1, 5].Value = "Membership Type";
-            worksheet.Cells[1, 6].Value = "Address";
-            worksheet.Cells[1, 7].Value = "Contact";
-            worksheet.Cells[1, 8].Value = "VIP Status";
+            worksheet.Cells[1, 6].Value = "Address Line 1";
+            worksheet.Cells[1, 7].Value = "Address Line 2";
+            worksheet.Cells[1, 8].Value = "City";
+            worksheet.Cells[1, 9].Value = "State/Province";
+            worksheet.Cells[1, 10].Value = "Postal Code";
+            worksheet.Cells[1, 11].Value = "Phone Number";
+            worksheet.Cells[1, 12].Value = "Email Address";
+            //worksheet.Cells[1, 13].Value = "VIP Status";
 
             // Populating data
             int row = 2;
@@ -158,13 +211,39 @@ namespace NIA_CRM.Controllers
                 worksheet.Cells[row, 4].Value = member.JoinDate.ToString("yyyy-MM-dd") ?? "N/A"; // Format date
                 worksheet.Cells[row, 5].Value = member.MemberMembershipTypes.FirstOrDefault()?.MembershipType?.TypeName ?? "N/A";
 
-                worksheet.Cells[row, 6].Value = member.Addresses.FirstOrDefault() != null
-                    ? $"{member.Addresses.FirstOrDefault().AddressLine2}, {member.Addresses.FirstOrDefault().City}, {member.Addresses.FirstOrDefault().StateProvince}, {member.Addresses.FirstOrDefault().PostalCode}"
-                    : "No Address Available";
+                // Separating address components
+                var address = member.Addresses.FirstOrDefault();
+                if (address != null)
+                {
+                    worksheet.Cells[row, 6].Value = address.AddressLine1;
+                    worksheet.Cells[row, 7].Value = address.AddressLine2;
+                    worksheet.Cells[row, 8].Value = address.City;
+                    worksheet.Cells[row, 9].Value = address.StateProvince;
+                    worksheet.Cells[row, 10].Value = address.PostalCode;
+                }
+                else
+                {
+                    worksheet.Cells[row, 6].Value = "No Address Available";
+                    worksheet.Cells[row, 7].Value = "N/A";
+                    worksheet.Cells[row, 8].Value = "N/A";
+                    worksheet.Cells[row, 9].Value = "N/A";
+                    worksheet.Cells[row, 10].Value = "N/A";
+                }
 
-                worksheet.Cells[row, 7].Value = member.MemberContacts.FirstOrDefault() != null
-                    ? $"{member.MemberContacts.FirstOrDefault().Contact.Phone} | {member.MemberContacts.FirstOrDefault().Contact.Email}"
-                    : "No Contacts Available";
+                // Separating contact information
+                var contact = member.MemberContacts.FirstOrDefault();
+                if (contact != null)
+                {
+                    worksheet.Cells[row, 11].Value = contact.Contact.Phone;
+                    worksheet.Cells[row, 12].Value = contact.Contact.Email;
+                }
+                else
+                {
+                    worksheet.Cells[row, 11].Value = "No Contact Available";
+                    worksheet.Cells[row, 12].Value = "N/A";
+                }
+
+                //worksheet.Cells[row, 13].Value = member.IsVip ? "Yes" : "No";
 
                 row++;
             }
@@ -181,84 +260,118 @@ namespace NIA_CRM.Controllers
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
 
-        //IMPORTING TO EXCEL
-
 
         public IActionResult ImportMembersFromExcel(IFormFile file)
         {
             if (file == null || file.Length == 0)
-                return Content("No file uploaded.");
-
-            var members = new List<Member>();
-
-            using (var package = new ExcelPackage(file.OpenReadStream()))
             {
-                var worksheet = package.Workbook.Worksheets[0]; // Get the first worksheet
-                var rowCount = worksheet.Dimension.Rows; // Get the total number of rows
-
-                for (int row = 2; row <= rowCount; row++) // Start from row 2 (skip header)
-                {
-                    var member = new Member
-                    {
-                        ID = Convert.ToInt32(worksheet.Cells[row, 1].Value), // Member ID
-                        MemberName = worksheet.Cells[row, 2].Value?.ToString(), // Member Name
-                        //City = worksheet.Cells[row, 3].Value?.ToString(), // City
-                        JoinDate = DateTime.TryParse(worksheet.Cells[row, 4].Value?.ToString(), out var joinDate)
-                            ? joinDate : default(DateTime), // Join Date
-                       
-
-                        MemberMembershipTypes = new List<MemberMembershipType>
-                    {
-                        new MemberMembershipType
-                        {
-                            // Ensure you map the correct membership type. 
-                            // Assuming that the type is stored as a name or code
-                            MembershipType = new MembershipType
-                            {
-                                TypeName = worksheet.Cells[row, 5].Value?.ToString() // Membership Type
-                            }
-                        }
-                    },
-                        Addresses = new List<Address>
-                    {
-                        new Address
-                        {
-                            City = worksheet.Cells[row, 3].Value?.ToString(),
-                            AddressLine2 = worksheet.Cells[row, 6].Value?.ToString()
-                        }
-                    },
-                        MemberContacts = new List<MemberContact>
-                    {
-                        new MemberContact
-                        {
-                            Contact = new Contact
-                            {
-                                Phone = worksheet.Cells[row, 7].Value?.ToString().Split('|')[0]?.Trim(),
-                                Email = worksheet.Cells[row, 7].Value?.ToString().Split('|')[1]?.Trim()
-                            }
-                        }
-                    },
-                    };
-
-                    members.Add(member);
-                }
+                TempData["Error"] = "Please upload a valid Excel file.";
+                return RedirectToAction("Index");
             }
 
-            
-            _context.Members.AddRange(members); 
-            _context.SaveChanges(); 
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    file.CopyTo(stream);
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
 
-            // Optionally, you could return a success message or the updated list of members
-            return RedirectToAction("MembersList"); // Redirect to a view that displays the members
-        }
+                        if (worksheet == null || worksheet.Dimension == null)
+                        {
+                            TempData["Error"] = "The Excel file is empty or not formatted correctly.";
+                            return RedirectToAction("Index");
+                        }
 
-        // Optionally, this action will show the list of members
-        public IActionResult MembersList()
-        {
-            var members = _context.Members.ToList(); // Fetch the list of members from the database
-            return View(members); // Pass members to the view
+                        int rowCount = worksheet.Dimension.Rows;
+                        int colCount = worksheet.Dimension.Columns;
+
+                        // Ensure the required columns exist (minimum 7 columns based on the import logic)
+                        if (colCount < 7)
+                        {
+                            TempData["Error"] = "The Excel file is missing required columns.";
+                            return RedirectToAction("Index");
+                        }
+
+                        List<Member> members = new List<Member>();
+
+                        for (int row = 2; row <= rowCount; row++) // Start from row 2 to skip headers
+                        {
+                            if (worksheet.Cells[row, 1].Value == null) // Skip empty rows
+                                continue;
+
+                            var member = new Member
+                            {
+                                ID = int.TryParse(worksheet.Cells[row, 1].Value?.ToString(), out var id) ? id : 0,
+                                MemberName = worksheet.Cells[row, 2].Value?.ToString()?.Trim() ?? "Unknown",
+
+                                JoinDate = DateTime.TryParse(worksheet.Cells[row, 4].Value?.ToString(), out var joinDate)
+                              ? joinDate : default(DateTime), // Join Date
+
+                                // Membership Type
+                                MemberMembershipTypes = new List<MemberMembershipType>
+                        {
+                            new MemberMembershipType
+                            {
+                                MembershipType = new MembershipType
+                                {
+                                    TypeName = worksheet.Cells[row, 5].Value?.ToString()?.Trim() ?? "Unknown"
+                                }
+                            }
+                        },
+
+                                // Address - Check for missing fields
+                                Addresses = new List<Address>
+                        {
+                            new Address
+                            {
+                                City = worksheet.Cells[row, 3]?.Value?.ToString()?.Trim() ?? "N/A",
+                                AddressLine2 = worksheet.Cells[row, 6]?.Value?.ToString()?.Trim() ?? "N/A"
+                            }
+                        },
+
+                                // Contact Information
+                                MemberContacts = new List<MemberContact>()
+                            };
+
+                            // Handle contact information safely
+                            string contactInfo = worksheet.Cells[row, 7]?.Value?.ToString() ?? "";
+                            string[] contactParts = contactInfo.Split('|');
+
+                            member.MemberContacts.Add(new MemberContact
+                            {
+                                Contact = new Contact
+                                {
+                                    Phone = contactParts.Length > 0 ? contactParts[0].Trim() : "No Phone",
+                                    Email = contactParts.Length > 1 ? contactParts[1].Trim() : "No Email"
+                                }
+                            });
+
+                            members.Add(member);
+                        }
+
+                        // Save to database
+                        if (members.Any())
+                        {
+                            _context.Members.AddRange(members);
+                            _context.SaveChanges();
+                            TempData["Success"] = "Members imported successfully!";
+                        }
+                        else
+                        {
+                            TempData["Error"] = "No valid data found in the Excel file.";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"Error importing members: {ex.Message}";
+            }
+
+            return RedirectToAction("Index");
         }
-    
 
 
 
