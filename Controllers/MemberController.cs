@@ -331,10 +331,14 @@ namespace NIA_CRM.Controllers
                     _context.Add(member);
                     await _context.SaveChangesAsync();
 
+                    // Success message
+                    TempData["SuccessMessage"] = $"Member: {member.MemberName} added successfully!";
                     // Redirect to the index view
                     // Assuming you have a list of addresses and you want to pass the MemberId of the first address
 
                     return RedirectToAction(nameof(Create), "Address", new { MemberId = member.ID });
+                    //return View(member);
+
 
 
                     // If no address found, handle it appropriately (e.g., show an error or return to a list page)
@@ -415,7 +419,9 @@ namespace NIA_CRM.Controllers
 
                     // Save changes
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Index", "Home");
+                    TempData["SuccessMessage"] = $"Member: {memberToUpdate.MemberName} updated successfully!";
+
+                    return RedirectToAction("Details", new { id = memberToUpdate.ID });
                 }
                 catch (RetryLimitExceededException)
                 {
@@ -502,6 +508,8 @@ namespace NIA_CRM.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = $"Member: {member.MemberName} archived successfully!";
+
             return RedirectToAction(nameof(Index));
         }
 

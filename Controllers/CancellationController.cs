@@ -158,6 +158,7 @@ namespace NIA_CRM.Controllers
                         memberName = member.MemberName
                     });
                 }
+
             }
 
             return Json(new { success = false, message = "Member not found." });
@@ -194,6 +195,7 @@ namespace NIA_CRM.Controllers
                 {
                     _context.Add(cancellation); // Add the cancellation
                     await _context.SaveChangesAsync(); // Save changes to the database
+                    TempData["SuccessMessage"] = $"Member: {member.MemberName} Archived Successfully!";
 
                     // Return success response in JSON format
                     return Json(new { success = true, message = "Cancellation created successfully!" });
@@ -211,6 +213,7 @@ namespace NIA_CRM.Controllers
             {
                 _context.Add(cancellation); // Add the cancellation to the context
                 await _context.SaveChangesAsync(); // Save changes to the database
+                TempData["SuccessMessage"] = $"Member: {cancellation.Member.MemberName} Archived Successfully!";
 
                 return RedirectToAction(nameof(Index)); // Redirect to Index page
             }
@@ -259,6 +262,8 @@ namespace NIA_CRM.Controllers
             cancellation.CancellationNote = "Archived via system.";
 
             _context.Cancellations.Add(cancellation);
+            TempData["SuccessMessage"] = $"Member: {member.MemberName} Archived Successfully!";
+
             await _context.SaveChangesAsync();
 
             return Json(new { success = true, message = "Member archived successfully!" });
@@ -310,7 +315,11 @@ namespace NIA_CRM.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    //return RedirectToAction(nameof(Index));
+                    TempData["SuccessMessage"] = $"Archived Member: {cancellationToUpdate.Member.MemberName} Updated Successfully!";
+
+                    return RedirectToAction("Details", new { id = cancellationToUpdate.ID });
+
                 }
                 catch (RetryLimitExceededException)
                 {

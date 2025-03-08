@@ -80,6 +80,8 @@ namespace NIA_CRM.Controllers
             {
                 _context.Add(address);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = $"Member Address Added Successfully!";
+
                 return RedirectToAction(nameof(Create), "Contact", new { memberId = address.MemberId });
             }
 
@@ -136,6 +138,8 @@ namespace NIA_CRM.Controllers
                 try
                 {
                     _context.Update(address);
+                    TempData["SuccessMessage"] = $"Member Address Updated Successfully!";
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

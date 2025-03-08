@@ -153,6 +153,7 @@ namespace NIA_CRM.Controllers
                     // Add the ContactCancellation to the database
                     _context.Add(contactCancellation);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} Created Successfully!";
 
                     // Return success message as JSON
                     return Json(new { success = true, message = "Cancellation created successfully!" });
@@ -240,7 +241,11 @@ namespace NIA_CRM.Controllers
                     
                     _context.Update(contactCancellationToUpdate);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    //return RedirectToAction(nameof(Index));
+                    TempData["SuccessMessage"] = $"Contact: {contactCancellationToUpdate.Contact.FirstName} {contactCancellationToUpdate.Contact.LastName} Updated Successfully!";
+
+                    return RedirectToAction("Details", new { id = contactCancellationToUpdate.ID });
+
                 }
                 catch (RetryLimitExceededException)
                 {

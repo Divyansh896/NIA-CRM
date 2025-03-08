@@ -181,7 +181,9 @@ namespace NIA_CRM.Controllers
                 {
                     _context.Update(EmailToUpdate);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    //return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Details", new { id = EmailToUpdate.Id});
+
 
 
 

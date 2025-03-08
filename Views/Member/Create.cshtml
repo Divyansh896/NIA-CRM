@@ -8,6 +8,9 @@
 
 <h4>Member</h4>
 <hr />
+
+<partial name="_Notification"/>
+
 <div class="card card-body bg-light text-black">
     <form asp-action="Create" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -31,7 +34,7 @@
 
                 <div class="form-group mb-3">
                     <label asp-for="JoinDate" class="control-label"></label>
-                    <input asp-for="JoinDate" class="form-control" />
+                    <input asp-for="JoinDate" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                     <span asp-validation-for="JoinDate" class="text-danger"></span>
                 </div>
                 <!-- Membership Selection -->
@@ -156,4 +159,8 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script src="~/js/multiselect.js"></script>
+
+    
+    
+
 }
