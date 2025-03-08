@@ -149,47 +149,52 @@ namespace NIA_CRM.Controllers
         [HttpPost]
         public IActionResult ImportData(IFormFile file)
         {
-            if (file != null && file.Length > 0)
+            if (file == null || file.Length == 0)
             {
-                using (var package = new ExcelPackage(file.OpenReadStream()))
-                {
-                    var worksheet = package.Workbook.Worksheets[0]; // Get first worksheet
-                    var rowCount = worksheet.Dimension.Rows; // Get row count
-
-                    // Create a list to hold the imported data
-                    List<Strategy> strategies = new List<Strategy>();
-
-                    for (int row = 2; row <= rowCount; row++)  // Assuming first row is headers
-                    {
-                        var strategy = new Strategy
-                        {
-                            StrategyName = worksheet.Cells[row, 1].Text,  // Column 1: StrategyName
-                            StrategyAssignee = worksheet.Cells[row, 2].Text,  // Column 2: StrategyAssignee
-                            StrategyNote = worksheet.Cells[row, 3].Text,  // Column 3: StrategyNote
-                            CreatedDate = DateTime.Parse(worksheet.Cells[row, 4].Text),  // Column 4: CreatedDate
-                            StrategyTerm = Enum.TryParse(worksheet.Cells[row, 5].Text, true, out StrategyTerm term) ? term : StrategyTerm.ShortTerm,  // Column 5: StrategyTerm
-                            StrategyStatus = Enum.TryParse(worksheet.Cells[row, 6].Text, true, out StrategyStatus status) ? status : StrategyStatus.ToDo // Column 6: StrategyStatus
-                        };
-
-                        strategies.Add(strategy);
-                    }
-
-                    // Now you can save these strategies to the database
-                    foreach (var strategy in strategies)
-                    {
-                        // Add your database saving logic here, e.g., _context.Strategies.Add(strategy);
-                    }
-
-                    // Optional: Show a success message
-                    TempData["SuccessMessage"] = "Data imported successfully!";
-
-                    return RedirectToAction("Index");
-                }
+                TempData["Error"] = "Please upload a valid Excel file.";
+                return RedirectToAction("Index");
             }
 
-            // If the file wasn't uploaded, show an error
-            TempData["ErrorMessage"] = "Please upload a valid file.";
-            return RedirectToAction("Index");
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    file.CopyTo(stream);
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0]; // Access the first worksheet
+                        int rowCount = worksheet.Dimension.Rows; // Get the number of rows in the worksheet
+
+                        List<Strategy> strategies = new List<Strategy>();
+
+                        for (int row = 2; row <= rowCount; row++) // Start from row 2 to skip header row
+                        {
+                            var strategy = new Strategy
+                            {
+                                StrategyName = worksheet.Cells[row, 1].Text, // First column: StrategyName
+                                StrategyAssignee = worksheet.Cells[row, 2].Text, // Second column: StrategyAssignee
+                                StrategyNote = worksheet.Cells[row, 3].Text, // Third column: StrategyNote
+                                CreatedDate = DateTime.Parse(worksheet.Cells[row, 4].Text), // Fourth column: CreatedDate
+                                StrategyTerm = Enum.TryParse(worksheet.Cells[row, 5].Text, true, out StrategyTerm term) ? term : StrategyTerm.ShortTerm, // Fifth column: StrategyTerm
+                                StrategyStatus = Enum.TryParse(worksheet.Cells[row, 6].Text, true, out StrategyStatus status) ? status : StrategyStatus.ToDo // Sixth column: StrategyStatus
+                            };
+
+                            strategies.Add(strategy); // Add the strategy object to the list
+                        }
+
+                        _context.Strategies.AddRange(strategies); // Add all strategies to the database context
+                        _context.SaveChanges(); // Save the changes to the database
+
+                        TempData["Success"] = "Data imported successfully!"; // Success message
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"An error occurred while importing the file: {ex.Message}"; // Error message
+            }
+
+            return RedirectToAction("Index"); // Redirect back to the Index page after import
         }
 
         // GET: Stratergy/Details/5

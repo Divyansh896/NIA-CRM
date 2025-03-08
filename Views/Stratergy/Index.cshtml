@@ -8,20 +8,28 @@
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="contacts-title">Strategies</h1>
 </div>
-<form asp-action="ImportOpportunitiesFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex justify-content-between align-items-center">
+
+
+
+<form asp-action="ImportData" method="post" enctype="multipart/form-data">
+    <div class="d-flex align-items-center">
         <div>
-            <a class="btn btn-dark" asp-action="ExportToExcel">
-                <i class="fa fa-file-excel text-white"></i>
-                Export Excel
-            </a>
-            <button type="submit" class="btn btn-dark">
+            <input type="file" name="file" class="form-control me-2" required />
+            <button type="submit" class="btn btn-success">
                 <i class="fa fa-file-import"></i> Import Excel
             </button>
         </div>
-        <a class="btn btn-primary" asp-action="Create">Create New</a>
     </div>
 </form>
+
+
+<form method="post" asp-action="ExportToExcel">
+    <button type="submit" class="btn btn-dark me-2" name="actionButton" value="ExportToExcel">
+        <i class="fa fa-file-excel text-white"></i> Export Excel
+    </button>
+</form>
+
+
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
@@ -32,9 +40,7 @@
     <div class="alert alert-danger">@TempData["Error"]</div>
 }
 
-<p>
-    <input type="file" name="file" class="form-control me-2" required />
-</p>
+
 
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
@@ -59,6 +65,7 @@
                     </button>
                 </div>
                 <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add Event</a>
+
             </div>
 
             @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")

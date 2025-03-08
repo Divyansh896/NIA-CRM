@@ -218,6 +218,8 @@ namespace NIA_CRM.Controllers
         }
 
 
+
+
         // GET: Opportunity/Details/5
         public async Task<IActionResult> Details(int? id)
         {

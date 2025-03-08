@@ -6,6 +6,34 @@
 
 <h1>Events</h1>
 
+<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
+    <div class="d-flex align-items-center">
+        <input type="file" name="file" class="form-control me-2" required />
+        <button type="submit" class="btn btn-success">
+            <i class="fa fa-file-import"></i> Import from Excel
+        </button>
+    </div>
+</form>
+
+
+<form asp-action="ExportToExcel" method="get">
+    <button type="submit" class="btn btn-dark me-2">
+        <i class="fa fa-file-excel text-white"></i> Export to Excel
+    </button>
+</form>
+
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+
 <form>
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />

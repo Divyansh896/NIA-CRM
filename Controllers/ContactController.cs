@@ -495,7 +495,7 @@ namespace NIA_CRM.Controllers
             return PartialView("_ContactPreview", contact);  // Ensure the partial view name is correct
         }
 
-        public IActionResult ImportExcel(IFormFile file)
+        public IActionResult ImportFromExcel(IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -545,7 +545,6 @@ namespace NIA_CRM.Controllers
             return RedirectToAction("Index");
         }
 
-
-
     }
+
 }
