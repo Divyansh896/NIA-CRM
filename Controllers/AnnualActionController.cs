@@ -25,7 +25,7 @@ namespace NIA_CRM.Controllers
 
         // GET: AnnualAction
         public async Task<IActionResult> Index(int? page, int? pageSizeID, string? createdDate, string? SearchString, string? actionButton,
-                                                string sortDirection = "asc", string sortField = "Annual Actions Name")
+                                                string sortDirection = "desc", string sortField = "Annual Actions Name")
         {
 
             string[] sortOptions = new[] { "Annual Actions Name", "StrategyAssignee", "CreatedDate", "SearchString" }; // Add other fields if needed
@@ -63,6 +63,10 @@ namespace NIA_CRM.Controllers
                     if (actionButton == sortField) //Reverse order on same field
                     {
                         sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    else
+                    {
+                        sortDirection = "desc"; // Default new sort fields to descending
                     }
                     sortField = actionButton;//Sort by the button clicked
                 }
