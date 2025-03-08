@@ -153,7 +153,7 @@ namespace NIA_CRM.Controllers
                     // Add the ContactCancellation to the database
                     _context.Add(contactCancellation);
                     await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} Created Successfully!";
+                    TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} Archived Successfully!";
 
                     // Return success message as JSON
                     return Json(new { success = true, message = "Cancellation created successfully!" });
