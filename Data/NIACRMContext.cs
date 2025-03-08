@@ -107,10 +107,11 @@ namespace NIA_CRM.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Address -> Member (One-to-Many)
-            modelBuilder.Entity<Member>()
-        .HasOne(p => p.Address) // A person has one address
-        .WithOne(a => a.Member) // An address has one person
-        .HasForeignKey<Address>(a => a.MemberId);
+            modelBuilder.Entity<Address>()
+                .HasOne(a => a.Member)
+                .WithMany(m => m.Addresses)
+                .HasForeignKey(a => a.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Member -> Cancellation (One-to-Many)
             modelBuilder.Entity<Cancellation>()

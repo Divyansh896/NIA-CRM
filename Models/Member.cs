@@ -54,7 +54,7 @@ namespace NIA_CRM.Models
 
         public ICollection<MemberMembershipType> MemberMembershipTypes { get; set; } = new List<MemberMembershipType>();
         public ICollection<IndustryNAICSCode> IndustryNAICSCodes { get; set; } = new List<IndustryNAICSCode>();
-        public Address? Address { get; set; }
+        public ICollection<Address> Addresses { get; set; } = new List<Address>();
         public ICollection<Cancellation> Cancellations { get; set; } = new List<Cancellation>();
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
         public ICollection<MemberContact> MemberContacts { get; set; } = new List<MemberContact>();
