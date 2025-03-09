@@ -34,7 +34,7 @@
 
 
                 <div class="form-group">
-                    <label asp-for="FirstName" class="control-label"></label>
+                    <label asp-for="FirstName" class="control-label"></label> (required)
                     <input asp-for="FirstName" class="form-control" />
                     <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
@@ -44,7 +44,7 @@
                     <span asp-validation-for="MiddleName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="LastName" class="control-label"></label>
+                    <label asp-for="LastName" class="control-label"></label> (required)
                     <input asp-for="LastName" class="form-control" />
                     <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
@@ -82,12 +82,6 @@
                         <input class="form-check-input" asp-for="IsVip" /> @Html.DisplayNameFor(model => model.IsVip)
                     </label>
                     <span asp-validation-for="IsVip" class="text-danger"></span>
-                </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="IsArchieved" /> @Html.DisplayNameFor(model => model.IsArchieved)
-                    </label>
-                    <span asp-validation-for="IsArchieved" class="text-danger"></span>
                 </div>
             </div>
         </div>

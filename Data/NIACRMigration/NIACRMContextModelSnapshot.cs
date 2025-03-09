@@ -45,10 +45,8 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StateProvince")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                    b.Property<int>("StateProvince")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

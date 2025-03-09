@@ -16,14 +16,13 @@ namespace NIA_CRM.Models
                 AddressLine1,
                 AddressLine2,
                 City,
-                StateProvince,
+                StateProvince.ToString(),
                 PostalCode
             }.Where(p => !string.IsNullOrWhiteSpace(p));
 
                 return string.Join(", ", parts);
             }
         }
-
 
         [Key]
         public int Id { get; set; } // Primary Key

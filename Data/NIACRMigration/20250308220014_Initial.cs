@@ -287,12 +287,12 @@ namespace NIA_CRM.Data.NIACRMigration
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    MemberId = table.Column<int>(type: "INTEGER", nullable: false),
                     AddressLine1 = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     AddressLine2 = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     City = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    StateProvince = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    PostalCode = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
+                    StateProvince = table.Column<int>(type: "INTEGER", nullable: false),
+                    PostalCode = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    MemberId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

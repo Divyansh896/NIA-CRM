@@ -24,13 +24,14 @@
                     </div>
                 </div>
                 <div class="form-group mb-3">
-                    <label asp-for="MemberName" class="control-label"></label>
+                    <label asp-for="MemberName" class="control-label"></label> (required)
+
                     <input asp-for="MemberName" class="form-control" />
                     <span asp-validation-for="MemberName" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="JoinDate" class="control-label"></label>
+                    <label asp-for="JoinDate" class="control-label"></label> (required)
                     <input asp-for="JoinDate" class="form-control" />
                     <span asp-validation-for="JoinDate" class="text-danger"></span>
                 </div>
@@ -82,7 +83,7 @@
                     <span asp-validation-for="IsPaid" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">
-                    <label asp-for="MemberSize" class="control-label"></label>
+                    <label asp-for="MemberSize" class="control-label"></label> (required)
                     <input asp-for="MemberSize" class="form-control" />
                     <span asp-validation-for="MemberSize" class="text-danger"></span>
                 </div>
@@ -141,7 +142,7 @@
         <!-- Buttons outside the card -->
         <div class="position-bottom-left mt-3">
             <a asp-action="Index" class="btn btn-dark me-2">Back to List</a>
-            <input type="submit" value="Create" id="btnSubmit" class="btn btn-primary" />
+            <input type="submit" value="Next" id="btnSubmit" class="btn btn-primary" />
 
         </div>
     </form>
