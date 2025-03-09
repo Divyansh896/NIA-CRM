@@ -311,7 +311,9 @@ namespace NIA_CRM.Controllers
                         // Update the opportunity record in the database
                         _context.Update(opportunityToUpdate);
                         await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
+                        //return RedirectToAction(nameof(Index));
+                        return RedirectToAction("Details", new { id = opportunityToUpdate.ID });
+
                     }
                     catch (DbUpdateConcurrencyException ex)
                     {

@@ -307,7 +307,9 @@ namespace NIA_CRM.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    //return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Details", new { id = actionToUpdate.ID });
+
                 }
                 catch (RetryLimitExceededException)
                 {

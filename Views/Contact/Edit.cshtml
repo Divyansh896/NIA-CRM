@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<partial name="_Notification" />
 
 <h1>Edit</h1>
 
@@ -12,7 +13,8 @@
     <form asp-action="Edit">
     <div class="card card-body bg-light text-black">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="RowVersion" />
         <div class="row">
             <!-- First Column -->
             <div class="col-md-6">

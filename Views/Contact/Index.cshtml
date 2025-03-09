@@ -4,6 +4,7 @@
     ViewData["Title"] = "Index";
 }
 <partial name="_addArchiveModal" />
+<partial name="_Notification" />
 
 @* <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
     <div class="d-flex align-items-center">
@@ -375,7 +376,7 @@
                     success: function (response) {
                         if (response.success) {
                             $('#addCancellationModal').modal('hide');
-                            alert(response.message); // Optionally show success message
+                            //alert(response.message); // Optionally show success message
                             location.reload(); // Refresh page to reflect changes
                         } else {
                             console.error("Error: " + response.message);
