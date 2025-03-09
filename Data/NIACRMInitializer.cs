@@ -399,7 +399,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "123 Main St",
                                 AddressLine2 = "Apt 1B",
                                 City = "Niagara Falls",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2G 3Y7"
                             }
                                                }
@@ -418,7 +418,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "456 Oak Ave",
                                 AddressLine2 = "Unit 2A",
                                 City = "Niagara Falls",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2H 1H4"
                             }
                                                }
@@ -437,7 +437,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "789 Pine Rd",
                                 AddressLine2 = "Suite 3C",
                                 City = "Niagara Falls",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2E 6S5"
                             }
                                                }
@@ -456,7 +456,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "101 Maple St",
                                 AddressLine2 = "Apt 4D",
                                 City = "Niagara Falls",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2E 1B1"
                             }
                                                }
@@ -475,7 +475,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "555 Birch Blvd",
                                 AddressLine2 = "Unit 7B",
                                 City = "Niagara Falls",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2G 7M7"
                             }
                                                }
@@ -494,7 +494,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "888 Cedar St",
                                 AddressLine2 = "Apt 10E",
                                 City = "St. Catharines",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2M 3Y3"
                             }
                                                }
@@ -513,7 +513,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "222 Elm St",
                                 AddressLine2 = "Suite 5A",
                                 City = "St. Catharines",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2P 3H2"
                             }
                                                }
@@ -532,7 +532,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "333 Ash Ave",
                                 AddressLine2 = "Unit 2C",
                                 City = "St. Catharines",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2N 5V4"
                             }
                                                }
@@ -551,7 +551,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "444 Birch Rd",
                                 AddressLine2 = "Suite 5B",
                                 City = "St. Catharines",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2T 2P3"
                             }
                                                }
@@ -570,7 +570,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "555 Oak Blvd",
                                 AddressLine2 = "Unit 1A",
                                 City = "St. Catharines",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2S 1P9"
                             }
                                                }
@@ -589,7 +589,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "111 Maple Rd",
                                 AddressLine2 = "Apt 2C",
                                 City = "Welland",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3B 1A1"
                             }
                                                }
@@ -608,7 +608,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "333 Pine Blvd",
                                 AddressLine2 = "Apt 1F",
                                 City = "Welland",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3B 5N9"
                             }
                                                }
@@ -627,7 +627,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "777 Oak Rd",
                                 AddressLine2 = "Suite 5B",
                                 City = "Welland",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3C 7C1"
                             }
                                                }
@@ -646,7 +646,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "555 Birch St",
                                 AddressLine2 = "Unit 4A",
                                 City = "Welland",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3C 4T6"
                             }
                                                }
@@ -665,7 +665,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "200 Maple Rd",
                                 AddressLine2 = "Unit 6D",
                                 City = "Welland",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3C 2A9"
                             }
                                                }
@@ -684,7 +684,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "965 Elm St",
                                 AddressLine2 = "Apt 7A",
                                 City = "Thorold",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2V 4Y6"
                             }
                                                }
@@ -703,7 +703,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "124 Maple Blvd",
                                 AddressLine2 = "Unit 6",
                                 City = "Thorold",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2V 1H1"
                             }
                                                }
@@ -722,7 +722,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "481 Cedar Ave",
                                 AddressLine2 = "Apt 12B",
                                 City = "Thorold",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2V 3P2"
                             }
                                                }
@@ -741,7 +741,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "187 Birch Rd",
                                 AddressLine2 = "Suite 4",
                                 City = "Thorold",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2V 5Z8"
                             }
                                                }
@@ -760,7 +760,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "922 Cedar St",
                                 AddressLine2 = "Unit 5A",
                                 City = "Thorold",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2V 4K9"
                             }
                                                }
@@ -779,7 +779,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "643 Cedar Blvd",
                                 AddressLine2 = "Apt 9D",
                                 City = "Port Colborne",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3K 2W9"
                             }
                                                }
@@ -798,7 +798,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "876 Maple Rd",
                                 AddressLine2 = "Unit 1B",
                                 City = "Port Colborne",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3K 3V2"
                             }
                                                }
@@ -817,7 +817,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "134 Pine St",
                                 AddressLine2 = "Apt 6A",
                                 City = "Port Colborne",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3K 6A9"
                             }
                                                }
@@ -836,7 +836,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "789 Oak St",
                                 AddressLine2 = "Suite 4B",
                                 City = "Port Colborne",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3K 5E8"
                             }
                                                }
@@ -855,7 +855,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "233 Cedar St",
                                 AddressLine2 = "Unit 7C",
                                 City = "Port Colborne",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3K 7X5"
                             }
                                                }
@@ -874,7 +874,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "111 Birch Blvd",
                                 AddressLine2 = "Apt 4D",
                                 City = "Grimsby",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3M 1R2"
                             }
                                                }
@@ -893,7 +893,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "533 Cedar Rd",
                                 AddressLine2 = "Unit 2B",
                                 City = "Grimsby",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3M 4N6"
                             }
                                                }
@@ -912,7 +912,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "987 Maple St",
                                 AddressLine2 = "Apt 3A",
                                 City = "Grimsby",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3M 3J5"
                             }
                                                }
@@ -931,7 +931,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "444 Oak Blvd",
                                 AddressLine2 = "Suite 8B",
                                  City = "Grimsby",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3M 2A8"
                             }
                                                }
@@ -950,7 +950,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "872 Cedar Rd",
                                 AddressLine2 = "Apt 9C",
                                 City = "Grimsby",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L3M 5K9"
                             }
                                                }
@@ -969,7 +969,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "1234 Oak Blvd",
                                 AddressLine2 = "Apt 2C",
                                 City = "Fort Erie",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2A 5R1"
                             }
                                                }
@@ -988,7 +988,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "990 Pine Rd",
                                 AddressLine2 = "Unit 7",
                                 City = "Fort Erie",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2A 7B9"
                             }
                                                }
@@ -1007,7 +1007,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "522 Cedar Rd",
                                 AddressLine2 = "Suite 6A",
                                   City = "Fort Erie",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2A 2T6"
                             }
                                                }
@@ -1026,7 +1026,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "690 Birch St",
                                 AddressLine2 = "Unit 3A",
                                 City = "Fort Erie",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2A 9W8"
                             }
                                                }
@@ -1045,7 +1045,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "123 Birch Rd",
                                 AddressLine2 = "Apt 7C",
                                 City = "Fort Erie",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L2A 4K3"
                             }
                                                }
@@ -1064,7 +1064,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "987 Birch Rd",
                                 AddressLine2 = "Unit 4A",
                                 City = "Lincoln",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L0R 1B1"
                             }
                                                }
@@ -1083,7 +1083,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "456 Oak Rd",
                                 AddressLine2 = "Suite 2B",
                                 City = "Lincoln",
-                                StateProvince = "ON",
+                               StateProvince = Province.Ontario,
                                 PostalCode = "L0R 2C0"
                             }
                                                }
@@ -1102,7 +1102,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "890 Cedar Blvd",
                                 AddressLine2 = "Suite 2B",
                                 City = "Pelham",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L0S 1C0"
                             }
                                                }
@@ -1121,7 +1121,7 @@ namespace NIA_CRM.Data
                                 AddressLine1 = "800 Maple Blvd",
                                 AddressLine2 = "Unit 5A",
                                 City = "Pelham",
-                                StateProvince = "ON",
+                                StateProvince = Province.Ontario,
                                 PostalCode = "L0S 1E0"
                             }
                                                }
@@ -1140,7 +1140,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "354 Cedar St",
                                                     AddressLine2 = "Apt 6D",
                                                     City = "Fort Erie",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2A 1M7"
                                                 }
                                                 }
@@ -1160,7 +1160,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "123 Power Ave",
                                                     AddressLine2 = "Suite 1B",
                                                     City = "Niagara Falls",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2E 3P2"
                                                 }
                                             }
@@ -1179,7 +1179,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "500 Glenridge Ave",
                                                     AddressLine2 = "Building C",
                                                     City = "St. Catharines",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2S 3A1"
                                                 }
                                             }
@@ -1198,7 +1198,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "45 Welland Ave",
                                                     AddressLine2 = "Unit 7B",
                                                     City = "Welland",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L3C 1V8"
                                                 }
                                             }
@@ -1217,7 +1217,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "2500 South Service Rd",
                                                     AddressLine2 = "Suite 11A",
                                                     City = "Grimsby",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,   
                                                     PostalCode = "L3M 2R7"
                                                 }
                                             }
@@ -1236,7 +1236,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "1234 Vine St",
                                                     AddressLine2 = "Winery Rd",
                                                     City = "Niagara-on-the-Lake",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L0S 1J0"
                                                 }
                                             }
@@ -1255,7 +1255,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "29 Queen St",
                                                     AddressLine2 = "Brewery Lane",
                                                     City = "St. Catharines",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2R 5A9"
                                                 }
                                             }
@@ -1274,7 +1274,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "55 Industrial Dr",
                                                     AddressLine2 = "Unit 3",
                                                     City = "Thorold",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2V 2P9"
                                                 }
                                             }
@@ -1293,7 +1293,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "2141 Mewburn Rd",
                                                     AddressLine2 = "Suite 10",
                                                     City = "Niagara Falls",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2G 7V6"
                                                 }
                                             }
@@ -1312,7 +1312,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "1500 Elm St",
                                                     AddressLine2 = "Unit 4",
                                                     City = "Port Colborne",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L3K 5Y5"
                                                 }
                                             }
@@ -1331,7 +1331,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "123 Sunset Blvd",
                                                     AddressLine2 = "Car Sales",
                                                     City = "Niagara Falls",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2E 6X5"
                                                 }
                                             }
@@ -1350,7 +1350,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "7893 South Niagara Pkwy",
                                                     AddressLine2 = "Recycling Plant",
                                                     City = "Niagara Falls",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2E 6V8"
                                                 }
                                             }
@@ -1369,7 +1369,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "123 Rosewood Ave",
                                                     AddressLine2 = "Winery Rd",
                                                     City = "Niagara-on-the-Lake",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L0S 1J1"
                                                 }
                                             }
@@ -1388,7 +1388,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "6815 Stanley Ave",
                                                     AddressLine2 = "Convention Centre",
                                                     City = "Niagara Falls",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2G 3Y9"
                                                 }
                                             }
@@ -1407,7 +1407,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "7600 Montrose Rd",
                                                     AddressLine2 = "Furniture Store",
                                                     City = "Niagara Falls",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2H 2T7"
                                                 }
                                             }
@@ -1426,7 +1426,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "1550 Ontario St",
                                                     AddressLine2 = "Unit 9",
                                                     City = "St. Catharines",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2N 7Y4"
                                                 }
                                             }
@@ -1445,7 +1445,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "9800 Lundy's Lane",
                                                     AddressLine2 = "Unit 12",
                                                     City = "Niagara Falls",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2H 1H7"
                                                 }
                                             }
@@ -1464,7 +1464,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "1500 Montrose Rd",
                                                     AddressLine2 = "Golf Club",
                                                     City = "Niagara Falls",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2H 3N6"
                                                 }
                                             }
@@ -1483,7 +1483,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "6347 Stanley Ave",
                                                     AddressLine2 = "Unit 20",
                                                     City = "Niagara Falls",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2G 3Z6"
                                                 }
                                             }
@@ -1502,7 +1502,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "123 Victoria Ave",
                                                     AddressLine2 = "Hospitality Suite",
                                                     City = "Niagara Falls",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L2E 4Y3"
                                                 }
                                             }
@@ -1521,7 +1521,7 @@ namespace NIA_CRM.Data
                                                     AddressLine1 = "8255 Greenhill Ave",
                                                     AddressLine2 = "Grocery Store",
                                                     City = "Pelham",
-                                                    StateProvince = "ON",
+                                                    StateProvince = Province.Ontario,
                                                     PostalCode = "L0S 1E2"
                                                 }
                                             }
@@ -1540,7 +1540,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "1904 Niagara Stone Rd",
                                                 AddressLine2 = "Distillery Lane",
                                                 City = "Niagara-on-the-Lake",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L0S 1J0"
                                             }
                                         }
@@ -1559,7 +1559,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "120 Main St E",
                                                 AddressLine2 = "Unit 3",
                                                 City = "Grimsby",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L3M 1P3"
                                             }
                                         }
@@ -1578,7 +1578,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "500 Port Rd",
                                                 AddressLine2 = "Warehouse 4",
                                                 City = "Port Colborne",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L3K 3T2"
                                             }
                                         }
@@ -1597,7 +1597,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "8200 Park Rd",
                                                 AddressLine2 = "Steelworks Building",
                                                 City = "Stoney Creek",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L8E 5R2"
                                             }
                                         }
@@ -1616,7 +1616,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "2173 Merrittville Hwy",
                                                 AddressLine2 = "Freight Office",
                                                 City = "Thorold",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L2V 1A1"
                                             }
                                         }
@@ -1635,7 +1635,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "2567 Dominion Rd",
                                                 AddressLine2 = "Building A",
                                                 City = "Fort Erie",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L2A 1E5"
                                             }
                                         }
@@ -1654,7 +1654,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "7600 South Service Rd",
                                                 AddressLine2 = "Water Distribution Centre",
                                                 City = "Grimsby",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L3M 2Z1"
                                             }
                                         }
@@ -1673,7 +1673,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "1450 Mountain Rd",
                                                 AddressLine2 = "Sporting Goods Store",
                                                 City = "Niagara Falls",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L2G 1X9"
                                             }
                                         }
@@ -1692,7 +1692,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "2001 Park Rd",
                                                 AddressLine2 = "Waterpark Entrance",
                                                 City = "Niagara Falls",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L2E 6T1"
                                             }
                                         }
@@ -1711,7 +1711,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "1786 Falls Ave",
                                                 AddressLine2 = "Tour Operator HQ",
                                                 City = "Niagara Falls",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L2E 6V9"
                                             }
                                         }
@@ -1730,7 +1730,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "8459 Creek Rd",
                                                 AddressLine2 = "Logistics Centre",
                                                 City = "Niagara-on-the-Lake",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L0S 1J0"
                                             }
                                         }
@@ -1749,7 +1749,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "3125 Highway 20",
                                                 AddressLine2 = "Woodworking Shop",
                                                 City = "Thorold",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L2V 3M4"
                                             }
                                         }
@@ -1768,7 +1768,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "1349 Greenstone Rd",
                                                 AddressLine2 = "Landscaping Services",
                                                 City = "St. Catharines",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L2M 3W3"
                                             }
                                         }
@@ -1787,7 +1787,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "1550 King St",
                                                 AddressLine2 = "Marketing Agency",
                                                 City = "Niagara Falls",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L2G 1J7"
                                             }
                                         }
@@ -1806,7 +1806,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "500 Elmwood Ave",
                                                 AddressLine2 = "Construction Office",
                                                 City = "Welland",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L3C 1W1"
                                             }
                                         }
@@ -1825,7 +1825,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "5100 Lakeshore Rd",
                                                 AddressLine2 = "Cafe Front",
                                                 City = "Port Colborne",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L3K 5V3"
                                             }
                                         }
@@ -1844,7 +1844,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "123 Niagara Pkwy",
                                                 AddressLine2 = "Cruise Dock",
                                                 City = "Niagara-on-the-Lake",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L0S 1J0"
                                             }
                                         }
@@ -1863,7 +1863,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "435 Main St",
                                                 AddressLine2 = "Bistro Shop",
                                                 City = "Grimsby",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L3M 1P1"
                                             }
                                         }
@@ -1882,7 +1882,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "2252 Lakeshore Rd",
                                                 AddressLine2 = "Lodge Entrance",
                                                 City = "Fort Erie",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L2A 1G2"
                                             }
                                         }
@@ -1901,7 +1901,7 @@ namespace NIA_CRM.Data
                                                 AddressLine1 = "100 Main St",
                                                 AddressLine2 = "Bakery Front",
                                                 City = "Niagara-on-the-Lake",
-                                                StateProvince = "ON",
+                                                StateProvince = Province.Ontario,
                                                 PostalCode = "L0S 1J0"
                                             }
                                         }
@@ -1920,7 +1920,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "1234 Golden Rd",
                                             AddressLine2 = "Tasting Room",
                                             City = "Niagara-on-the-Lake",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L0S 1J0"
                                         }
                                     }
@@ -1939,7 +1939,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "1000 Ridge Rd",
                                             AddressLine2 = "Rental Office",
                                             City = "St. Catharines",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L2P 3R3"
                                         }
                                     }
@@ -1958,7 +1958,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "500 Silverstone Dr",
                                             AddressLine2 = "Clubhouse",
                                             City = "Niagara Falls",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L2E 6V1"
                                         }
                                     }
@@ -1977,7 +1977,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "222 Art St",
                                             AddressLine2 = "Gallery Showroom",
                                             City = "Niagara-on-the-Lake",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L0S 1J0"
                                         }
                                     }
@@ -1996,7 +1996,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "345 Lake Rd",
                                             AddressLine2 = "Restaurant Dining",
                                             City = "Port Colborne",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L3K 3Y6"
                                         }
                                     }
@@ -2015,7 +2015,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "2200 Main St",
                                             AddressLine2 = "Cinema Entrance",
                                             City = "Niagara Falls",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L2G 1J4"
                                         }
                                     }
@@ -2034,7 +2034,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "1585 Fitness Rd",
                                             AddressLine2 = "Gym Entrance",
                                             City = "St. Catharines",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L2R 1C9"
                                         }
                                     }
@@ -2053,7 +2053,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "1196 Rolling Hills Rd",
                                             AddressLine2 = "Construction Site",
                                             City = "Welland",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L3B 4K9"
                                         }
                                     }
@@ -2072,7 +2072,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "789 Tech Rd",
                                             AddressLine2 = "Electronics HQ",
                                             City = "Grimsby",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L3M 4R2"
                                         }
                                     }
@@ -2091,7 +2091,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "1200 Crystal Blvd",
                                             AddressLine2 = "Pool Services",
                                             City = "Niagara Falls",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L2E 1P8"
                                         }
                                     }
@@ -2110,7 +2110,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "234 Soap Rd",
                                             AddressLine2 = "Soap Factory",
                                             City = "Niagara-on-the-Lake",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L0S 1J0"
                                         }
                                     }
@@ -2129,7 +2129,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "567 Pinehurst Rd",
                                             AddressLine2 = "Brewery Entrance",
                                             City = "Thorold",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L2V 1A9"
                                         }
                                     }
@@ -2148,7 +2148,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "1346 Creamery Rd",
                                             AddressLine2 = "Ice Cream Shop",
                                             City = "Niagara Falls",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L2E 6T3"
                                         }
                                     }
@@ -2167,7 +2167,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "2345 Green Valley Rd",
                                             AddressLine2 = "Farm Shop",
                                             City = "St. Catharines",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L2P 3J5"
                                         }
                                     }
@@ -2186,7 +2186,7 @@ namespace NIA_CRM.Data
                                             AddressLine1 = "665 Lakeview Rd",
                                             AddressLine2 = "Tasting Room",
                                             City = "Niagara-on-the-Lake",
-                                            StateProvince = "ON",
+                                            StateProvince = Province.Ontario,
                                             PostalCode = "L0S 1J0"
                                         }
                                     }
@@ -2205,7 +2205,7 @@ namespace NIA_CRM.Data
                                         AddressLine1 = "888 Vineyard Dr",
                                         AddressLine2 = "Winery Entrance",
                                         City = "Niagara-on-the-Lake",
-                                        StateProvince = "ON",
+                                        StateProvince = Province.Ontario,
                                         PostalCode = "L0S 1J0"
                                     }
                                 }
@@ -2224,7 +2224,7 @@ namespace NIA_CRM.Data
                                         AddressLine1 = "1420 Pinewood Ln",
                                         AddressLine2 = "Resort Main Office",
                                         City = "Welland",
-                                        StateProvince = "ON",
+                                        StateProvince = Province.Ontario,
                                         PostalCode = "L3B 2H6"
                                     }
                                 }
@@ -2243,7 +2243,7 @@ namespace NIA_CRM.Data
                                         AddressLine1 = "750 Riverside Dr",
                                         AddressLine2 = "Marina Office",
                                         City = "Port Colborne",
-                                        StateProvince = "ON",
+                                        StateProvince = Province.Ontario,
                                         PostalCode = "L3K 5C3"
                                     }
                                 }
@@ -2262,7 +2262,7 @@ namespace NIA_CRM.Data
                                         AddressLine1 = "346 Distillery Rd",
                                         AddressLine2 = "Distillery Shop",
                                         City = "Niagara-on-the-Lake",
-                                        StateProvince = "ON",
+                                        StateProvince = Province.Ontario,
                                         PostalCode = "L0S 1J0"
                                     }
                                 }
@@ -2281,7 +2281,7 @@ namespace NIA_CRM.Data
                                         AddressLine1 = "200 Heritage Ln",
                                         AddressLine2 = "Hotel Main Entrance",
                                         City = "Niagara Falls",
-                                        StateProvince = "ON",
+                                        StateProvince = Province.Ontario,
                                         PostalCode = "L2G 1P8"
                                     }
                                 }
