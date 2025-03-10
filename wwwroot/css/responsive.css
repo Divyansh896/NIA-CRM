@@ -57,6 +57,7 @@ body {
 .btn-light {
     border-width: 2px;
     border-color: #434343 !important;
+    margin-bottom: 10px;
 }
 
 .btn-light:hover {
@@ -412,6 +413,45 @@ td, th {
         border-bottom: 1px solid #434343;
         color: black;
     }
+
+/*Drag and drop for member edit and create view*/
+
+.drag-drop-area {
+    width: 100%;
+    height: 150px;
+    border: 2px dashed #ccc;
+    text-align: center;
+    line-height: 150px;
+    color: #ccc;
+    position: relative; /* Allows button to be positioned inside the area */
+}
+
+#selectImageButton {
+    position: absolute;
+    bottom: 10px; /* Position button near the bottom of the area */
+    left: 50%;
+    transform: translateX(-50%); /* Center the button horizontally */
+}
+
+#imagePreviewContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#imagePreview {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+#previewControls, #editControls {
+    margin-top: 10px;
+    text-align: center;
+}
+
+    #previewControls button, #editControls button {
+        margin: 5px;
+    }
+
 
 
 @media (max-width: 768px) {

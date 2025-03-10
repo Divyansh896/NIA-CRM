@@ -17,7 +17,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="row">
-            <!-- First Row -->
+            <!-- First Column -->
             <div class="col-md-6">
                 @if (ViewBag.MemberName != null)
                 {
@@ -33,44 +33,34 @@
                         <select asp-for="MemberId" class="form-control" asp-items="ViewBag.MemberId"></select>
                     </div>
                 }
-            </div>
-            <div class="col-md-6">
+
                 <div class="form-group">
                     <label asp-for="AddressLine1" class="control-label"></label> (required)
                     <input asp-for="AddressLine1" class="form-control" />
                     <span asp-validation-for="AddressLine1" class="text-danger"></span>
                 </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <!-- Second Row -->
-            <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="AddressLine2" class="control-label"></label>
                     <input asp-for="AddressLine2" class="form-control" />
                     <span asp-validation-for="AddressLine2" class="text-danger"></span>
                 </div>
             </div>
+
+            <!-- Second Column -->
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="City" class="control-label"></label> (required)
                     <input asp-for="City" class="form-control" />
                     <span asp-validation-for="City" class="text-danger"></span>
                 </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <!-- Third Row -->
-            <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="StateProvince" class="control-label"></label> (required)
                     <select asp-for="StateProvince" class="form-control" asp-items="Html.GetEnumSelectList<Province>()"></select>
                     <span asp-validation-for="StateProvince" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="col-md-6">
+
                 <div class="form-group">
                     <label asp-for="PostalCode" class="control-label"></label> (required)
                     <input asp-for="PostalCode" class="form-control" />
@@ -79,6 +69,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="position-bottom-left mt-3">
         <a asp-action="Index" class="btn btn-dark me-2">Back to List</a>
