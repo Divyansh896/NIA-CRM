@@ -262,8 +262,9 @@ namespace NIA_CRM.Controllers
                     _context.MemberContacts.Add(memberContact);
                     await _context.SaveChangesAsync();
                 }
+                TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} added successfully!";
 
-                return RedirectToAction(nameof(Index), "Member");
+                return RedirectToAction(nameof(Details), "Member", new { id = memberId });
             }
 
             // Retrieve member info again to display banner if necessary
@@ -332,7 +333,11 @@ namespace NIA_CRM.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    //return RedirectToAction(nameof(Index));
+                    TempData["SuccessMessage"] = $"Contact: {contactToUpdate.FirstName} {contactToUpdate.LastName} Updated Successfully!";
+
+                    return RedirectToAction("Details", new { id = contactToUpdate.Id });
+
                 }
                 catch (RetryLimitExceededException)
                 {
@@ -422,6 +427,9 @@ namespace NIA_CRM.Controllers
             }
 
             await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} Deleted Successfully!";
+
             return RedirectToAction(nameof(Index));
         }
 

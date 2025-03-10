@@ -16,7 +16,7 @@ namespace NIA_CRM.Models
                 AddressLine1,
                 AddressLine2,
                 City,
-                StateProvince,
+                StateProvince.ToString(),
                 PostalCode
             }.Where(p => !string.IsNullOrWhiteSpace(p));
 
@@ -24,14 +24,10 @@ namespace NIA_CRM.Models
             }
         }
 
-
         [Key]
         public int Id { get; set; } // Primary Key
 
-        [ForeignKey(nameof(Member))]
-        [Required(ErrorMessage = "Member is required.")]
-        [Display(Name = "Member")]
-        public int MemberId { get; set; }
+        
 
         [Required(ErrorMessage = "Address Line 1 is required.")]
         [MaxLength(255, ErrorMessage = "Address Line 1 cannot exceed 255 characters.")]
@@ -47,10 +43,9 @@ namespace NIA_CRM.Models
         [Display(Name = "City")]
         public string City { get; set; } = "";
 
-        [Required(ErrorMessage = "State/Province is required.")]
-        [MaxLength(100, ErrorMessage = "State/Province cannot exceed 100 characters.")]
-        [Display(Name = "State/Province")]
-        public string StateProvince { get; set; } = "";
+        [Required(ErrorMessage = "Province is required.")]
+        [Display(Name = "Province")]
+        public Province StateProvince { get; set; }
 
         [Required(ErrorMessage = "Postal Code is required.")]
         [MaxLength(20, ErrorMessage = "Postal Code cannot exceed 20 characters.")]
@@ -58,6 +53,11 @@ namespace NIA_CRM.Models
         public string? PostalCode { get; set; }
 
         // Navigation Property
+        [ForeignKey(nameof(Member))]
+        [Required(ErrorMessage = "Member is required.")]
+        [Display(Name = "Member")]
+        public int MemberId { get; set; }
+
         [Display(Name = "Member")]
         public Member? Member { get; set; }
 

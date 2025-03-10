@@ -32,7 +32,7 @@ namespace NIA_CRM.Controllers
         {
 
             PopulateDropdowns();
-            string[] sortOptions = { "Member Name", "Industry" };
+            string[] sortOptions = { "Member Name", "City", "Membership Type", "Sector", "NAICS Code", "Contacts" };
             int numberFilters = 0;
 
             var members = _context.Members
@@ -53,19 +53,50 @@ namespace NIA_CRM.Controllers
             }
 
 
-            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
-            {
-                page = 1;//Reset page to start
+            if (!String.IsNullOrEmpty(actionButton)) // Form Submitted!
+    {
+        page = 1; // Reset page to start
 
-                if (sortOptions.Contains(actionButton))//Change of sort is requested
-                {
-                    if (actionButton == sortField) //Reverse order on same field
-                    {
-                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
-                    }
-                    sortField = actionButton;//Sort by the button clicked
-                }
+        if (sortOptions.Contains(actionButton)) // Change of sort is requested
+        {
+            if (actionButton == sortField) // Reverse order on same field
+            {
+                sortDirection = sortDirection == "asc" ? "desc" : "asc";
             }
+            sortField = actionButton; // Sort by the button clicked
+        }
+    }
+
+            members = sortField switch
+            {
+                "Member Name" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberName)
+                    : members.OrderByDescending(e => e.MemberName),
+
+                "City" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.Address.City) // Assuming Address has City
+                    : members.OrderByDescending(e => e.Address.City),
+
+                "Membership Type" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName) // Assuming the MembershipType has a Name
+                    : members.OrderByDescending(e => e.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName),
+
+                "Sector" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberSectors.FirstOrDefault().Sector.SectorName) // Assuming NAICSCode has Sector
+                    : members.OrderByDescending(e => e.MemberSectors.FirstOrDefault().Sector.SectorName),
+
+                "NAICS Code" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code) // Assuming NAICSCode has Code
+                    : members.OrderByDescending(e => e.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code),
+
+                "Contacts" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberContacts.FirstOrDefault().Contact.Summary) // Assuming Contact has Name
+                    : members.OrderByDescending(e => e.MemberContacts.FirstOrDefault().Contact.Summary),
+
+                _ => members
+            };
+
+
             if (!string.IsNullOrEmpty(SearchString))
             {
                 members = members.Where(m =>
@@ -444,10 +475,14 @@ namespace NIA_CRM.Controllers
                     _context.Add(member);
                     await _context.SaveChangesAsync();
 
+                    // Success message
+                    TempData["SuccessMessage"] = $"Member: {member.MemberName} added successfully!";
                     // Redirect to the index view
                     // Assuming you have a list of addresses and you want to pass the MemberId of the first address
 
                     return RedirectToAction(nameof(Create), "Address", new { MemberId = member.ID });
+                    //return View(member);
+
 
 
                     // If no address found, handle it appropriately (e.g., show an error or return to a list page)
@@ -528,7 +563,9 @@ namespace NIA_CRM.Controllers
 
                     // Save changes
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Index", "Home");
+                    TempData["SuccessMessage"] = $"Member: {memberToUpdate.MemberName} updated successfully!";
+
+                    return RedirectToAction("Details", new { id = memberToUpdate.ID });
                 }
                 catch (RetryLimitExceededException)
                 {
@@ -615,6 +652,8 @@ namespace NIA_CRM.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = $"Member: {member.MemberName} archived successfully!";
+
             return RedirectToAction(nameof(Index));
         }
 

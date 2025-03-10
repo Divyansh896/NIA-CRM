@@ -4,10 +4,7 @@
     ViewData["Title"] = "Contact Cancellation";
 }
 
-<div class="d-flex flex-row align-items-center justify-content-between mb-4">
-    <h1 class="mb-0" id="contacts-title">Archived Contacts</h1>
-</div>
-
+ <partial name="_Notification" />
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     @{
         var sortField = ViewData["sortField"]?.ToString();
@@ -22,7 +19,6 @@
                 <button class="btn btn-dark @ViewData["Filtering"]" type="button" id="filterToggle" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                     Filter/Search @ViewData["numberFilters"]
                 </button>
-                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new Contact Cancellation">+ Add Contact Cancellation</a>
             </div>
 
             @if (ViewData["numberFilters"]?.ToString() != "0 Filters Applied")

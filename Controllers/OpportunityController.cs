@@ -25,7 +25,7 @@ namespace NIA_CRM.Controllers
 
         // GET: Opportunity
         public async Task<IActionResult> Index(int? page, int? pageSizeID, string? status, string? priority, string? SearchString, string? actionButton,
-                                              string sortDirection = "asc", string sortField = "Opportunity Name")
+                                              string sortDirection = "desc", string sortField = "Opportunity Name")
         {
             string[] sortOptions = new[] { "Opportunity Name" };  // You can add more sort options if needed
 
@@ -64,6 +64,10 @@ namespace NIA_CRM.Controllers
                     if (actionButton == sortField) //Reverse order on same field
                     {
                         sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    else
+                    {
+                        sortDirection = "desc"; // Default new sort fields to descending
                     }
                     sortField = actionButton;//Sort by the button clicked
                 }
@@ -307,7 +311,9 @@ namespace NIA_CRM.Controllers
                         // Update the opportunity record in the database
                         _context.Update(opportunityToUpdate);
                         await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
+                        //return RedirectToAction(nameof(Index));
+                        return RedirectToAction("Details", new { id = opportunityToUpdate.ID });
+
                     }
                     catch (DbUpdateConcurrencyException ex)
                     {

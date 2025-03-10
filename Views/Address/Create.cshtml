@@ -5,65 +5,80 @@
 }
 
 <h1>Create</h1>
+<partial name="_Notification" />
 
 <h4>Address</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <input type="hidden" asp-for="MemberId" />
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @if (ViewBag.MemberName != null)
-            {
-                <div class="alert alert-info">
-                    <strong>Member: </strong> @ViewBag.MemberName
-                </div>
-                <input type="hidden" asp-for="MemberId" value="@ViewBag.MemberId" />
-            }
-            else
-            {
+<form asp-action="Create">
+    <div class="card card-body bg-light text-black">
+        <input type="hidden" asp-for="MemberId" />
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <!-- First Column -->
+            <div class="col-md-6">
+                @if (ViewBag.MemberName != null)
+                {
+                    <div class="alert alert-info">
+                        <strong>Member: </strong> @ViewBag.MemberName
+                    </div>
+                    <input type="hidden" asp-for="MemberId" value="@ViewBag.MemberId" />
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label asp-for="MemberId" class="control-label"></label>
+                        <select asp-for="MemberId" class="form-control" asp-items="ViewBag.MemberId"></select>
+                    </div>
+                }
+
                 <div class="form-group">
-                    <label asp-for="MemberId" class="control-label"></label>
-                    <select asp-for="MemberId" class="form-control" asp-items="ViewBag.MemberId"></select>
+                    <label asp-for="AddressLine1" class="control-label"></label> (required)
+                    <input asp-for="AddressLine1" class="form-control" />
+                    <span asp-validation-for="AddressLine1" class="text-danger"></span>
                 </div>
-            }
 
-            <div class="form-group">
-                <label asp-for="AddressLine1" class="control-label"></label>
-                <input asp-for="AddressLine1" class="form-control" />
-                <span asp-validation-for="AddressLine1" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="AddressLine2" class="control-label"></label>
+                    <input asp-for="AddressLine2" class="form-control" />
+                    <span asp-validation-for="AddressLine2" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="AddressLine2" class="control-label"></label>
-                <input asp-for="AddressLine2" class="form-control" />
-                <span asp-validation-for="AddressLine2" class="text-danger"></span>
+
+            <!-- Second Column -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="City" class="control-label"></label> (required)
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="StateProvince" class="control-label"></label> (required)
+                    <select asp-for="StateProvince" class="form-control" asp-items="Html.GetEnumSelectList<Province>()"></select>
+                    <span asp-validation-for="StateProvince" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PostalCode" class="control-label"></label> (required)
+                    <input asp-for="PostalCode" class="form-control" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StateProvince" class="control-label"></label>
-                <input asp-for="StateProvince" class="form-control" />
-                <span asp-validation-for="StateProvince" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PostalCode" class="control-label"></label>
-                <input asp-for="PostalCode" class="form-control" />
-                <span asp-validation-for="PostalCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+    <div class="position-bottom-left mt-3">
+        <a asp-action="Index" class="btn btn-dark me-2">Back to List</a>
+        <input type="submit" value="Next" class="btn btn-primary" />
+    </div>
+</form>
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

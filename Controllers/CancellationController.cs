@@ -158,6 +158,7 @@ namespace NIA_CRM.Controllers
                         memberName = member.MemberName
                     });
                 }
+
             }
 
             return Json(new { success = false, message = "Member not found." });
@@ -173,51 +174,104 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,CancellationDate,IsCancelled,CancellationNote,MemberID")] Cancellation cancellation)
         {
-            // Check if the request is an AJAX request
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-                // If MemberID is not valid, return a JSON error message
                 if (cancellation.MemberID == 0)
                 {
                     return Json(new { success = false, message = "MemberID is not valid." });
                 }
 
-                // Check if the Member exists
-                var member = await _context.Members.FindAsync(cancellation.MemberID);
+                var member = await _context.Members.Include(m => m.MemberContacts)
+                    .ThenInclude(mc => mc.Contact)
+                    .FirstOrDefaultAsync(m => m.ID == cancellation.MemberID);
                 if (member == null)
                 {
                     return Json(new { success = false, message = "Member not found." });
                 }
 
-                // Proceed if the model state is valid
                 if (ModelState.IsValid)
                 {
                     _context.Add(cancellation); // Add the cancellation
                     await _context.SaveChangesAsync(); // Save changes to the database
+                    TempData["SuccessMessage"] = $"Member: {member.MemberName} Archived Successfully!";
 
-                    // Return success response in JSON format
-                    return Json(new { success = true, message = "Cancellation created successfully!" });
+
+                    // Automatically cancel the related contact(s) and archive them
+                    //foreach (var memberContact in member.MemberContacts)
+                    //{
+                    //    var contactCancellation = await _context.Contacts
+                    //        .FirstOrDefaultAsync(cc => cc.MemberContacts. == memberContact.ContactId);
+
+                    //    if (contactCancellation != null)
+                    //    {
+                    //        contactCancellation.IsCancelled = true;
+                    //        contactCancellation.CancellationDate = cancellation.CancellationDate;
+                    //        contactCancellation.CancellationNote = "Cancelled due to member cancellation.";
+                    //        _context.Update(contactCancellation);
+                    //    }
+
+                    //    // Archive the contact
+                    //    var contact = await _context.Contacts.FindAsync(memberContact.ContactId);
+                    //    if (contact != null)
+                    //    {
+                    //        contact.IsArchieved = true;
+                    //        _context.Update(contact);
+                    //    }
+                    //}
+                    //await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Cancellation archiving completed successfully!" });
                 }
 
-                // Return validation error messages if the model is invalid
                 string errorMessage = string.Join("|", ModelState.Values
                     .SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage));
                 return Json(new { success = false, message = errorMessage });
             }
 
-            // If the request is not AJAX, proceed with the standard form post flow
             if (ModelState.IsValid)
             {
                 _context.Add(cancellation); // Add the cancellation to the context
                 await _context.SaveChangesAsync(); // Save changes to the database
+                TempData["SuccessMessage"] = $"Member: {cancellation.Member.MemberName} Archived Successfully!";
 
-                return RedirectToAction(nameof(Index)); // Redirect to Index page
+                var member = await _context.Members.Include(m => m.MemberContacts)
+                    .ThenInclude(mc => mc.Contact)
+                    .FirstOrDefaultAsync(m => m.ID == cancellation.MemberID);
+
+                if (member != null)
+                {
+                    foreach (var memberContact in member.MemberContacts)
+                    {
+                        var contactCancellation = await _context.ContactCancellations
+                            .FirstOrDefaultAsync(cc => cc.ContactID == memberContact.ContactId);
+
+                        if (contactCancellation != null)
+                        {
+                            contactCancellation.IsCancelled = true;
+                            contactCancellation.CancellationDate = cancellation.CancellationDate;
+                            contactCancellation.CancellationNote = "Cancelled due to member cancellation.";
+                            _context.Update(contactCancellation);
+                        }
+
+                        // Archive the contact
+                        var contact = await _context.Contacts.FindAsync(memberContact.ContactId);
+                        if (contact != null)
+                        {
+                            contact.IsArchieved = true;
+                            _context.Update(contact);
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+                }
+
+                return RedirectToAction(nameof(Index));
             }
 
-            // If the model is not valid, return to the view with the invalid model
             return View(cancellation);
         }
+
+
 
 
 
@@ -259,6 +313,8 @@ namespace NIA_CRM.Controllers
             cancellation.CancellationNote = "Archived via system.";
 
             _context.Cancellations.Add(cancellation);
+            TempData["SuccessMessage"] = $"Member: {member.MemberName} Archived Successfully!";
+
             await _context.SaveChangesAsync();
 
             return Json(new { success = true, message = "Member archived successfully!" });
@@ -310,7 +366,11 @@ namespace NIA_CRM.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    //return RedirectToAction(nameof(Index));
+                    TempData["SuccessMessage"] = $"Archived Member: {cancellationToUpdate.Member.MemberName} Updated Successfully!";
+
+                    return RedirectToAction("Details", new { id = cancellationToUpdate.ID });
+
                 }
                 catch (RetryLimitExceededException)
                 {
@@ -387,13 +447,15 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cancellation = await _context.Cancellations.FindAsync(id);
+            var cancellation = await _context.Cancellations.Include(m => m.Member).FirstOrDefaultAsync(a => a.ID == id);
             if (cancellation != null)
             {
                 _context.Cancellations.Remove(cancellation);
             }
 
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = $"Member: {cancellation.Member.MemberName} Activated Successfully!";
+
             return RedirectToAction(nameof(Index));
         }
 

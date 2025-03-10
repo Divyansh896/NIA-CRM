@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack/dist/gridstack.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
 
 
@@ -37,9 +38,9 @@
             <ul>
                 <!-- Home Menu Item -->
                 <li class="nav-item" role="menuitem">
-                    <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Home page" title="Home">
+                        <a class="nav-link text-dark" href="@Url.Action("Index", "Home")" aria-label="Go to Dashboard page" title="Dashboard">
                         <span class="icon" aria-hidden="true"><i class="fas fa-home"></i></span>
-                        <span class="text-white ms-2">Home</span>
+                        <span class="text-white ms-2">Dashboard</span>
                     </a>
                 </li>
 
@@ -134,11 +135,11 @@
                 </li>
 
                     <!-- Send Email Menu Item -->
-                     <li class="nav-item" role="menuitem">
+                     @* <li class="nav-item" role="menuitem">
                         <a class="nav-link text-dark" href="@Url.Action("Index", "Address")" aria-label="Addresses " title="Addresses">
                             <span class="text-white ms-2">Address</span>
                         </a>
-                    </li> 
+                    </li>  *@
 
                 </ul>
                 <!--<partial name="_LoginPartial" />-->

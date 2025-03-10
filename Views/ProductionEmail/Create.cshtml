@@ -14,7 +14,7 @@
                 <div class="row mt-3">
                     <div class="col-12">
                         <div class="form-group">
-                            <label asp-for="TemplateName" class="control-label"></label>
+                            <label asp-for="TemplateName" class="control-label"></label> (required)
                             <input asp-for="TemplateName" class="form-control w-100" rows="4"></input>
                             <span asp-validation-for="TemplateName" class="text-danger"></span>
                         </div>
@@ -23,16 +23,17 @@
         <div class="row">
             <!-- Email Type -->
             <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="EmailType" class="control-label"></label>
-                    <input asp-for="EmailType" class="form-control" />
-                    <span asp-validation-for="EmailType" class="text-danger"></span>
-                </div>
+                        <div class="form-group">
+                            <label asp-for="EmailType" class="control-label"></label> (required)
+                            <select asp-for="EmailType" class="form-control" asp-items="Html.GetEnumSelectList<EmailType>()"></select>
+                            <span asp-validation-for="EmailType" class="text-danger"></span>
+                        </div>
+
             </div>
             <!-- Subject -->
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="Subject" class="control-label"></label>
+                            <label asp-for="Subject" class="control-label"></label> (required)
                     <input asp-for="Subject" class="form-control" />
                     <span asp-validation-for="Subject" class="text-danger"></span>
                 </div>
@@ -43,7 +44,7 @@
         <div class="row mt-3">
             <div class="col-12">
                 <div class="form-group">
-                    <label asp-for="Body" class="control-label"></label>
+                            <label asp-for="Body" class="control-label"></label> (required)
                     <textarea asp-for="Body" class="form-control w-100" rows="4"></textarea>
                     <span asp-validation-for="Body" class="text-danger"></span>
                 </div>

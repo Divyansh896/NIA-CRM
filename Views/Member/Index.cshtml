@@ -6,6 +6,7 @@
 
 
 <partial name="_addArchiveModal" />
+<partial name="_Notification" />
 
 @* <form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
     <div class="form-group">
@@ -24,15 +25,16 @@
 </div>
 
 <form asp-action="ImportMembersFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
-        <div>
-            <input type="file" name="file" class="form-control me-2" required />
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-file-import"></i> Import Excel
-            </button>
-        </div>
+    <div class="d-flex align-items-center" style="padding-bottom: 10px;">
+        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+            <i class="fa fa-file-import"></i> Import Excel
+        </button>
+        <input type="file" name="file" class="form-control" required />
+        
     </div>
 </form>
+
+
 
 @if (TempData["Success"] != null)
 {
@@ -52,8 +54,13 @@
 
 <form asp-action="Index" method="get" aria-labelledby="form-title">
     <h2 id="form-title" class="sr-only">Filter and Search Form</h2>
-    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
-    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+    <input type="hidden" name="sortDirection" value="@ViewData["SortDirection"]" />
+    <input type="hidden" name="sortField" value="@ViewData["SortField"]" />
+
+    @{
+        var sortField = ViewData["sortField"]?.ToString();
+        var sortDirection = ViewData["sortDirection"]?.ToString();
+    }
     <!-- Filter/Search Toggle Button -->
     <div class="form-horizontal mb-3">
         <div class="d-flex justify-content-between align-items-center">
@@ -79,7 +86,17 @@
 
 
 
-       
+        
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+
+
 
         @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
         {
@@ -174,14 +191,105 @@
     <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
         <thead>
             <tr>
-                <th scope="col" class="table-head">Member Name</th>
-                <th scope="col" class="table-head">City</th>
-                <th scope="col" class="table-head">Join Date</th>
-                <th scope="col" class="table-head">Membership Type</th>
-                <th scope="col" class="table-head">Address</th>
-                <th scope="col" class="table-head">Contacts</th>
+                <th scope="col" class="table-head">
+                    @{
+                        var isMemberNameSortField = sortField == "Member Name";
+                        var memberNameSortIndicator = isMemberNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isMemberNameSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member Name" />
+                        <span class="SortIndicator">@memberNameSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member Name" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isCitySortField = sortField == "City";
+                        var citySortIndicator = isCitySortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isCitySortField)
+                    {
+                        <input type="submit" name="actionButton" value="City" class="btn btn-link" aria-label="Sort by City" />
+                        <span class="SortIndicator">@citySortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="City" class="btn btn-link" aria-label="Sort by City" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isMembershipTypeSortField = sortField == "Membership Type";
+                        var membershipTypeSortIndicator = isMembershipTypeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isMembershipTypeSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Membership Type" class="btn btn-link" aria-label="Sort by Membership Type" />
+                        <span class="SortIndicator">@membershipTypeSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Membership Type" class="btn btn-link" aria-label="Sort by Membership Type" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isSectorSortField = sortField == "Sector";
+                        var sectorSortIndicator = isSectorSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isSectorSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Sector" class="btn btn-link" aria-label="Sort by Sector" />
+                        <span class="SortIndicator">@sectorSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Sector" class="btn btn-link" aria-label="Sort by Sector" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isNAICSCodeSortField = sortField == "NAICS Code";
+                        var naicsCodeSortIndicator = isNAICSCodeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isNAICSCodeSortField)
+                    {
+                        <input type="submit" name="actionButton" value="NAICS Code" class="btn btn-link" aria-label="Sort by NAICS Code" />
+                        <span class="SortIndicator">@naicsCodeSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="NAICS Code" class="btn btn-link" aria-label="Sort by NAICS Code" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isContactsSortField = sortField == "Contacts";
+                        var contactsSortIndicator = isContactsSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isContactsSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Contacts" class="btn btn-link" aria-label="Sort by Contacts" />
+                        <span class="SortIndicator">@contactsSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Contacts" class="btn btn-link" aria-label="Sort by Contacts" />
+                    }
+                </th>
             </tr>
         </thead>
+
+
         <tbody>
 
             @foreach (var item in Model)
@@ -197,9 +305,7 @@
                         }
                     </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.JoinDate)
-                    </td>
+                   
 
                     <td>
                         @if (item.MemberMembershipTypes != null)
@@ -212,17 +318,23 @@
                         }
                     </td>
 
-
-
-                    <!-- New Columns -->
                     <td>
-                        @if (item.Address != null)
-                        {
-                            @($"{item.Address.AddressLine2}, {item.Address.City}, {item.Address.StateProvince}, {item.Address.PostalCode}")
+
                         }
                         else
                         {
-                            <span class="text-muted">No Address Available</span>
+                            <span class="text-muted">No Sectors Available</span>
+                        }
+                    </td>
+                    <!-- New Columns -->
+                    <td>
+                        @if (item.IndustryNAICSCodes != null)
+                        {
+                            foreach (var industry in item.IndustryNAICSCodes)
+                            {
+                                @industry.NAICSCode.Code
+                                <br />
+                            }
                         }
                     </td>
 
@@ -413,7 +525,7 @@
                     success: function (response) {
                         if (response.success) {
                             $('#addCancellationModal').modal('hide');
-                            alert(response.message); // Optionally show success message
+                            //alert(response.message); // Optionally show success message
                             location.reload(); // Refresh page to reflect changes
                         } else {
                             console.error("Error: " + response.message);

@@ -28,7 +28,7 @@ namespace NIA_CRM.Controllers
         // GET: MEvent
 
         public async Task<IActionResult> Index(int? page, int? pageSizeID, DateTime? date, string? SearchString, string? actionButton,
-                                              string sortDirection = "asc", string sortField = "Event Name")
+                                              string sortDirection = "desc", string sortField = "Event Name")
         {
             string[] sortOptions = new[] { "Event Name" };  // You can add more sort options if needed
             int numberFilters = 0;
@@ -60,6 +60,10 @@ namespace NIA_CRM.Controllers
                     if (actionButton == sortField) //Reverse order on same field
                     {
                         sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    else
+                    {
+                        sortDirection = "desc"; // Default new sort fields to descending
                     }
                     sortField = actionButton;//Sort by the button clicked
                 }

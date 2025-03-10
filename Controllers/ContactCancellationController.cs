@@ -181,6 +181,7 @@ namespace NIA_CRM.Controllers
                     // Add the ContactCancellation to the database
                     _context.Add(contactCancellation);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} Archived Successfully!";
 
                     // Return success message as JSON
                     return Json(new { success = true, message = "Cancellation created successfully!" });
@@ -268,7 +269,11 @@ namespace NIA_CRM.Controllers
 
                     _context.Update(contactCancellationToUpdate);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    //return RedirectToAction(nameof(Index));
+                    TempData["SuccessMessage"] = $"Contact: {contactCancellationToUpdate.Contact.FirstName} {contactCancellationToUpdate.Contact.LastName} Updated Successfully!";
+
+                    return RedirectToAction("Details", new { id = contactCancellationToUpdate.ID });
+
                 }
                 catch (RetryLimitExceededException)
                 {
@@ -346,13 +351,15 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var contactCancellation = await _context.ContactCancellations.FindAsync(id);
+            var contactCancellation = await _context.ContactCancellations.Include(m => m.Contact).FirstOrDefaultAsync(a => a.ID == id);
             if (contactCancellation != null)
             {
                 _context.ContactCancellations.Remove(contactCancellation);
             }
 
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = $"Contact: {contactCancellation.Contact.FirstName} Activated Successfully!";
+
             return RedirectToAction(nameof(Index));
         }
 
