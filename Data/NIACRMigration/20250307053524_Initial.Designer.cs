@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250305083251_Initial")]
+    [Migration("20250307053524_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -55,7 +55,8 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MemberId");
+                    b.HasIndex("MemberId")
+                        .IsUnique();
 
                     b.ToTable("Addresses");
                 });
@@ -401,6 +402,9 @@ namespace NIA_CRM.Data.NIACRMigration
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AddressID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CreatedBy")
@@ -840,8 +844,8 @@ namespace NIA_CRM.Data.NIACRMigration
             modelBuilder.Entity("NIA_CRM.Models.Address", b =>
                 {
                     b.HasOne("NIA_CRM.Models.Member", "Member")
-                        .WithMany("Addresses")
-                        .HasForeignKey("MemberId")
+                        .WithOne("Address")
+                        .HasForeignKey("NIA_CRM.Models.Address", "MemberId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -919,13 +923,13 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasOne("NIA_CRM.Models.Contact", "Contact")
                         .WithMany("MemberContacts")
                         .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NIA_CRM.Models.Member", "Member")
                         .WithMany("MemberContacts")
                         .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Contact");
@@ -1052,7 +1056,7 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.Member", b =>
                 {
-                    b.Navigation("Addresses");
+                    b.Navigation("Address");
 
                     b.Navigation("Cancellations");
 

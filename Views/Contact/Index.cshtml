@@ -62,6 +62,10 @@
                 </div>
                 <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
             </div>
+@*             <div>
+                <a asp-controller="Contact" asp-action="Notification" class="linkClick">Send Email Notification</a>
+
+            </div> *@
             @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
             {
                 <div class="filters-container mt-2">

@@ -23,8 +23,11 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: ContactCancellation
-        public async Task<IActionResult> Index(int? page, int? pageSizeID, DateTime? dateFrom, DateTime? dateTo)
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, DateTime? dateFrom, DateTime? dateTo, string? actionButton,
+                                              string sortDirection = "asc", string sortField = "Contact")
         {
+            string[] sortOptions = new[] { "Contact" };  // You can add more sort options if needed
+
             int numberFilters = 0;
             var contactCancellations = _context.ContactCancellations.Include(c => c.Contact).AsQueryable();
 
@@ -49,6 +52,31 @@ namespace NIA_CRM.Controllers
                 numberFilters++;
                 ViewData["DateFilterTo"] = dateTo.Value.ToString("yyyy-MM-dd");
             }
+
+            if (sortOptions.Contains(actionButton))//Change of sort is requested
+            {
+                if (actionButton == sortField) //Reverse order on same field
+                {
+                    sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                }
+                sortField = actionButton;//Sort by the button clicked
+            }
+
+            if (sortField == "Contact")
+            {
+                if (sortDirection == "desc")
+                {
+                    contactCancellations = contactCancellations
+                        .OrderByDescending(p => p.Contact);
+                }
+                else
+                {
+                    contactCancellations = contactCancellations
+                        .OrderBy(p => p.Contact);
+
+                }
+            }
+
 
             // Give feedback about applied filters
             if (numberFilters != 0)
@@ -237,7 +265,7 @@ namespace NIA_CRM.Controllers
             {
                 try
                 {
-                    
+
                     _context.Update(contactCancellationToUpdate);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -331,7 +359,7 @@ namespace NIA_CRM.Controllers
         private bool ContactCancellationExists(int id)
         {
             return _context.ContactCancellations.Any(e => e.ID == id);
-            
+
         }
 
         public async Task<IActionResult> GetCancellationPreview(int id)

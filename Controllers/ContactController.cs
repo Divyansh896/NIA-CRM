@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,17 +12,21 @@ using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
 using NIA_CRM.Utilities;
+using NIA_CRM.ViewModels;
 using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
     public class ContactController : ElephantController
     {
+        //for sending email
+        private readonly IMyEmailSender _emailSender;
         private readonly NIACRMContext _context;
 
-        public ContactController(NIACRMContext context)
+        public ContactController(NIACRMContext context, IMyEmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
 
         // GET: Contact
@@ -420,8 +425,6 @@ namespace NIA_CRM.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
         [HttpPost]
         public async Task<IActionResult> SaveContactNote(int id, string note)
         {
@@ -446,6 +449,64 @@ namespace NIA_CRM.Controllers
             }
         }
 
+            // GET/POST: MedicalTrial/Notification/5
+            public async Task<IActionResult> Notification(int? id, string Subject, string emailContent)
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                Contact? t = await _context.Contacts.FindAsync(id);
+
+                ViewData["id"] = id;
+                ViewData["ContactCancellations"] = t?.ContactCancellations;
+
+                if (string.IsNullOrEmpty(Subject) || string.IsNullOrEmpty(emailContent))
+                {
+                    ViewData["Message"] = "You must enter both a Subject and some message Content before sending the message.";
+                }
+                else
+                {
+                    int folksCount = 0;
+                    try
+                    {
+                        //Send a Notice.
+                        List<EmailAddress> folks = (from p in _context.Contacts
+                                                    where p.Id == id
+                                                    where p.Email != null
+                                                    select new EmailAddress
+                                                    {
+                                                        Name = p.Summary,
+                                                        Address = p.Email
+                                                    }).ToList();
+                        folksCount = folks.Count;
+                        if (folksCount > 0)
+                        {
+                            var msg = new EmailMessage()
+                            {
+                                ToAddresses = folks,
+                                Subject = Subject,
+                                Content = "<p>" + emailContent + "</p><p>Please access the <strong>Niagara College</strong> web site to review.</p>"
+
+                            };
+                            await _emailSender.SendToManyAsync(msg);
+                            ViewData["Message"] = "Message sent to " + folksCount + " Patient"
+                                + ((folksCount == 1) ? "." : "s.");
+                        }
+                        else
+                        {
+                            ViewData["Message"] = "Message NOT sent!  No Patients in medical trial.";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        string errMsg = ex.GetBaseException().Message;
+                        ViewData["Message"] = "Error: Could not send email message to the " + folksCount + " Patient"
+                            + ((folksCount == 1) ? "" : "s") + " in the trial.";
+                    }
+                }
+                return View();
+            }
 
         private bool ContactExists(int id)
         {

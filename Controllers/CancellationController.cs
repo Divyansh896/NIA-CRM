@@ -31,7 +31,7 @@ namespace NIA_CRM.Controllers
             PopulateDropdowns();
             string[] sortOptions = new[] { "Member" };
 
-            var cancellations = _context.Cancellations.Include(c => c.Member).AsQueryable();
+            var cancellations = _context.Cancellations.Include(c => c.Member).Where( c => c.IsCancelled).AsQueryable();
 
             int numberFilters = 0;
 
@@ -414,7 +414,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> GetMemberPreview(int id)
         {
             var member = await _context.Members
-                .Include(m => m.Addresses) // Include the related Address
+                .Include(m => m.Address) // Include the related Address
                 .Include(m => m.MemberThumbnail)
                 .Include(m => m.MemberMembershipTypes)
                 .ThenInclude(mm => mm.MembershipType)

@@ -25,20 +25,16 @@
             @Html.DisplayFor(model => model.MemberName)
         </dd>
     <dt><strong>Address:</strong></dt>
-    @if (Model.Addresses != null && Model.Addresses.Any())
-    {
-        foreach (var address in Model.Addresses)
+        @if (Model.Address != null)
         {
             <dd>
-                @if (!string.IsNullOrEmpty(address.AddressLine2))
+                @if (!string.IsNullOrEmpty(Model.Address.AddressLine2))
                 {
-                        @address.FormattedAddress
-
+                    @Model.Address.FormattedAddress
                     <br />
                 }
             </dd>
         }
-    }
     else
     {
         <p>No addresses available.</p>

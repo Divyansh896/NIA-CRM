@@ -4,12 +4,17 @@
     ViewData["Title"] = "Contact Cancellation";
 }
 
+<div class="d-flex flex-row align-items-center justify-content-between mb-4">
+    <h1 class="mb-0" id="contacts-title">Archived Contacts</h1>
+</div>
 
-<h1>Archived Contacts</h1>
-
-<form>
-    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
-    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+<form asp-action="Index" method="get" aria-labelledby="contacts-title">
+    @{
+        var sortField = ViewData["sortField"]?.ToString();
+        var sortDirection = ViewData["sortDirection"]?.ToString();
+    }
+    <input type="hidden" name="sortField" value="@sortField" />
+    <input type="hidden" name="sortDirection" value="@sortDirection" />
 
     <div class="m-auto flex-grow-1">
         <div class="form-horizontal mb-3">
@@ -54,11 +59,24 @@
         </div>
     </div>
 
-
-    <table class="table">
-        <thead>
+    <table class="table table-bordered table-striped" id="contacts-table" aria-labelledby="contacts-title">
+        <caption class="sr-only">Archieve Contacts table showing filtered results</caption>
+        <thead class="thead-dark">
             <tr>
-                <th scope="col" class="table-head">Contact</th>
+                <th scope="col" class="table-head">
+                    @{
+                        var isCurrentSortField = sortField == "Contact";
+                        var newSortDirection = (isCurrentSortField && sortDirection == "asc") ? "desc" : "asc";
+                        var sortOrderIndicator = isCurrentSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+
+                    <button type="submit" name="sortField" value="Contact" class="btn btn-link" aria-label="Sort by Contact">
+                        Contact <span class="SortIndicator">@sortOrderIndicator</span>
+                    </button>
+
+                    <input type="hidden" name="sortDirection" value="@newSortDirection" />
+                </th>
+
                 <th scope="col" class="table-head">Archiving Date</th>
                 <th scope="col" class="table-head">Archiving Note</th>
             </tr>
@@ -83,6 +101,7 @@
 
     <partial name="_PagingNavBar" />
 </form>
+
 <div id="previewContainer" class="preview-content hidden" role="region" aria-labelledby="previewTitle">
     <h2 id="previewTitle" class="sr-only">Preview Section</h2>
 </div>
@@ -138,5 +157,4 @@
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
     </script>
-    
 }

@@ -51,12 +51,11 @@
                             <dl>
                                 <dt>Address:</dt>
                                 <dd>
-                                    @if (Model.Addresses != null && Model.Addresses.Any())
+                                    @if (Model.Address != null)
                                     {
-                                        @foreach (var address in Model.Addresses)
-                                        {
-                                            <p>@address.FormattedAddress</p>
-                                        }
+                                    <dd>
+                                        <p>@Model.Address.FormattedAddress</p>
+                                    </dd>
                                     }
                                     else
                                     {

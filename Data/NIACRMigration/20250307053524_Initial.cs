@@ -74,6 +74,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     MemberNote = table.Column<string>(type: "TEXT", nullable: true),
                     IsPaid = table.Column<bool>(type: "INTEGER", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    AddressID = table.Column<int>(type: "INTEGER", nullable: false),
                     CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
                     UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -348,13 +349,13 @@ namespace NIA_CRM.Data.NIACRMigration
                         column: x => x.ContactId,
                         principalTable: "Contacts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MemberContacts_Members_MemberId",
                         column: x => x.MemberId,
                         principalTable: "Members",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -561,7 +562,8 @@ namespace NIA_CRM.Data.NIACRMigration
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_MemberId",
                 table: "Addresses",
-                column: "MemberId");
+                column: "MemberId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cancellations_MemberID",

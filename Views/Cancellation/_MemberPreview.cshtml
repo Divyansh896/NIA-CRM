@@ -30,20 +30,17 @@
             </dd>
 
             <dt><strong>Address:</strong></dt>
-            @if (Model.Addresses != null && Model.Addresses.Any())
+            @if (Model.Address != null)
             {
-                foreach (var address in Model.Addresses)
-                {
-                    <dd>
-                        @address.AddressLine1<br />
-                        @if (!string.IsNullOrEmpty(address.AddressLine2))
-                        {
-                            @address.AddressLine2
-                            <br />
-                        }
-                        @address.City, @address.StateProvince, @address.PostalCode<br />
-                    </dd>
-                }
+                <dd>
+                    @Model.Address.AddressLine1<br />
+                    @if (!string.IsNullOrEmpty(Model.Address.AddressLine2))
+                    {
+                        @Model.Address.AddressLine2
+                        <br />
+                    }
+                    @($"{Model.Address.City}, {Model.Address.StateProvince}, {Model.Address.PostalCode}")<br />
+                </dd>
             }
             else
             {

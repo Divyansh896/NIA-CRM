@@ -37,11 +37,11 @@ namespace NIA_CRM.Controllers
 
             var members = _context.Members
                                     .Include(m => m.MemberThumbnail)
-                                    .Include(m => m.Addresses)
+                                    .Include(m => m.Address)
                                     .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
                                     .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                                     .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
-                                    .Where(m => !m.Cancellations.Any())  // Exclude members with cancellations
+                                    //.Where(m => !m.Cancellations.Any())  // Exclude members with cancellations
                                     .AsNoTracking();
 
 
@@ -207,12 +207,13 @@ namespace NIA_CRM.Controllers
             {
                 worksheet.Cells[row, 1].Value = member.ID;
                 worksheet.Cells[row, 2].Value = member.MemberName;
-                worksheet.Cells[row, 3].Value = member.Addresses.FirstOrDefault()?.City ?? "N/A";
+                worksheet.Cells[row, 3].Value = member.Address?.City ?? "N/A"; // Access City directly in one-to-one relation
                 worksheet.Cells[row, 4].Value = member.JoinDate.ToString("yyyy-MM-dd") ?? "N/A"; // Format date
                 worksheet.Cells[row, 5].Value = member.MemberMembershipTypes.FirstOrDefault()?.MembershipType?.TypeName ?? "N/A";
 
+
                 // Separating address components
-                var address = member.Addresses.FirstOrDefault();
+                var address = member.Address;
                 if (address != null)
                 {
                     worksheet.Cells[row, 6].Value = address.AddressLine1;
@@ -322,13 +323,11 @@ namespace NIA_CRM.Controllers
                         },
 
                                 // Address - Check for missing fields
-                                Addresses = new List<Address>
+                                Address = new Address
                         {
-                            new Address
-                            {
+
                                 City = worksheet.Cells[row, 3]?.Value?.ToString()?.Trim() ?? "N/A",
                                 AddressLine2 = worksheet.Cells[row, 6]?.Value?.ToString()?.Trim() ?? "N/A"
-                            }
                         },
 
                                 // Contact Information
@@ -385,7 +384,7 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
-                .Include(m => m.Addresses)
+                .Include(m => m.Address)
                 .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
                 .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                 .Include(m => m.MemberLogo)
@@ -404,9 +403,10 @@ namespace NIA_CRM.Controllers
         {
             Member member = new Member
             {
-                Addresses = new List<Address> { new Address() },  // Initializing with one empty address
+                Address = new Address(),  // Initializing with one empty address (instead of a list)
                 MemberContacts = new List<MemberContact> { new MemberContact() }  // Initializing with one empty contact
             };
+
             PopulateAssignedMTagData(member);
             PopulateAssignedSectorData(member);
             PopulateAssignedMembershipTypeData(member);
@@ -672,7 +672,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> GetMemberPreview(int id)
         {
             var member = await _context.Members
-                .Include(m => m.Addresses) // Include the related Address
+                .Include(m => m.Address) // Include the related Address
                 .Include(m => m.MemberThumbnail)
                 .Include(m => m.MemberMembershipTypes)
                 .ThenInclude(mm => mm.MembershipType)
