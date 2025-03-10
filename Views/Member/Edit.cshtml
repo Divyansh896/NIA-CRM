@@ -4,134 +4,626 @@
     ViewData["Title"] = "Edit";
 }
 
-<partial name="_Notification" />
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
 <h1>Edit</h1>
 
-<div class="row align-items-center">
-    @{
-        var hasPicture = Model.MemberThumbnail?.Content != null && Model.MemberThumbnail.Content.Length > 0;
-    }
-    <div class="col-auto">
-    @if (hasPicture)
-    {
-        <div>
-            @{
-                string imageBase64 = Convert.ToBase64String(Model.MemberThumbnail.Content);
-                string imageSrc = $"data:{Model.MemberThumbnail.MimeType};base64,{imageBase64}";
-            }
-            <img src="@imageSrc" alt="Profile Picture of @Model.MemberName"
-                 title="Profile Picture of @Model.MemberName" class="img-fluid rounded"
-                 style="height: 70px; width: 70px; object-fit: cover;"
-                 onerror="this.onerror=null; this.src='/images/blankProfile.jpg';" />
-        </div>
-    }
-    else
-    {
-        <div>
-            <img src="/images/blankProfile.jpg" alt="No Image Available"
-                 title="No Image Available" class="img-fluid rounded"
-                 style="height: 90px; width: 90px; object-fit: cover;" />
-        </div>
-    }
-    </div>
-    <div class="col">
-<h4>Member</h4>
-    </div>
-</div>
+<h4>@Model.MemberName</h4>
 <hr />
 
+<div class="card card-body bg-light text-black">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
 
-<form asp-action="Edit" method="post" enctype="multipart/form-data">
-    <div class="card card-body bg-light text-black">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="ID" />
-        <input type="hidden" asp-for="RowVersion" />
-
-        <!-- Member Details Form -->
-        <div class="row mt-3">
-            <!-- Left Column -->
-            <div class="col-md-6">
+        <!-- First Row: Logo and Basic Information -->
+        <div class="row">
+            <!-- First Column (Logo) -->
+            <div class="col-md-4">
                 <div class="form-group">
+                    <label class="control-label custom-file-label">Picture File:</label>
+                    <div id="drag-drop-area" class="drag-drop-area" ondrop="dropImage(event)" ondragover="allowDrop(event)">
+                        <p>Drag & Drop your image here</p>
+                        <button type="button" onclick="triggerFileSelect()" class="btn btn-primary" id="selectImageButton">Select Image</button>
+                        <input type="file" class="form-control" name="thePicture" id="thePicture" onchange="previewImage(event)" style="display: none;" />
+                    </div>
+                    <div id="imagePreviewContainer" style="display: none;">
+                        <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 300px; max-height: 300px;" />
+                    </div>
+                    <div id="previewControls" style="display: none;">
+                        <button class="btn btn-light me-2" type="button" onclick="removeImage()">Remove</button>
+                        <button class="btn btn-light me-2" type="button" onclick="reselectLogo()">Reselect Logo</button>
+                        <button class="btn btn-secondary" type="button" onclick="startEditing()">Edit</button>
+                    </div>
+                    <div id="editControls" style="display: none;">
+                        <button class="btn btn-light me-2" type="button" onclick="cancelEditing()">Cancel</button>
+                        <button class="btn btn-secondary" type="button" onclick="saveCroppedImage()">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Column (Member Info) -->
+            <div class="col-md-4">
+                <div class="form-group mb-3">
                     <label asp-for="MemberName" class="control-label"></label> (required)
                     <input asp-for="MemberName" class="form-control" />
                     <span asp-validation-for="MemberName" class="text-danger"></span>
                 </div>
 
-                
-                <div class="form-group">
-                    <label class="control-label custom-file-label">Picture File:</label>
-                    <div class="input-group">
-                        <input type="file" class="form-control" name="thePicture" id="thePicture">
-                    </div>
-                </div>
-
-                <!-- Remove Image Checkbox -->
-                @if (hasPicture)
-                {
-                    <div class="form-check mt-2">
-                        <input class="form-check-input" type="checkbox" id="chkRemoveImage" name="chkRemoveImage">
-                        <label class="form-check-label" for="chkRemoveImage">
-                            <strong>Remove Image</strong>
-                        </label>
-                    </div>
-                }
-            </div>
-
-            <!-- Right Column -->
-            <div class="col-md-6">
-                <!-- Picture Upload -->
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <label asp-for="JoinDate" class="control-label"></label> (required)
-                    <input asp-for="JoinDate" class="form-control" />
+                    <input asp-for="JoinDate" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                     <span asp-validation-for="JoinDate" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="MemberSize" class="control-label"></label> (required)
-                    <input asp-for="MemberSize" class="form-control" />
-                    <span asp-validation-for="MemberSize" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="WebsiteUrl" class="control-label"></label>
-                    <input asp-for="WebsiteUrl" class="form-control" />
-                    <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
-                </div>
-
-                <div class="form-group form-check">
+                <div class="form-group form-check mb-3">
                     <label class="form-check-label">
                         <input class="form-check-input" asp-for="IsPaid" /> @Html.DisplayNameFor(model => model.IsPaid)
                     </label>
                     <span asp-validation-for="IsPaid" class="text-danger"></span>
                 </div>
-            </div>
-        </div>
+                <div class="form-group mb-3">
+                    <label asp-for="MemberSize" class="control-label"></label> (required)
+                    <input asp-for="MemberSize" class="form-control" />
+                    <span asp-validation-for="MemberSize" class="text-danger"></span>
+                </div>
 
-
-        <!-- Notes Section -->
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label asp-for="MemberNote" class="control-label"></label>
-                    <textarea asp-for="MemberNote" class="form-control" rows="3"></textarea>
-                    <span asp-validation-for="MemberNote" class="text-danger"></span>
+                <div class="form-group mb-3">
+                    <label asp-for="WebsiteUrl" class="control-label"></label>
+                    <input asp-for="WebsiteUrl" class="form-control" />
+                    <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
                 </div>
             </div>
+
+            <!-- Third Column (Size, Website) -->
+            <div class="col-md-4">
+                <label asp-for="MemberNote" class="control-label"></label>
+                <textarea asp-for="MemberNote" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="MemberNote" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Multi-selection Fields in One Row with Equal Width and Vertical Separation -->
+        <div class="row justify-content-center">
+            <div class="col-md-2">
+                <label class="control-label">Membership Accredited</label>
+                <button type="button" id="btnRightMembership" class="btn btn-light btn-sm w-100">
+                    <strong>-</strong>
+                </button>
+                @Html.ListBox("selectedOptionsMembership", (MultiSelectList)ViewData["selOptsMembership"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsMembership" })
+                <button type="button" id="btnLeftMembership" class="btn btn-secondary btn-sm w-100">
+                    <strong>+</strong>
+                </button>
+                @Html.ListBox("availOptionsMembership", (MultiSelectList)ViewData["availOptsMembership"], new { @size = 10, @class = "form-control w-100", id = "availOptionsMembership" })
+                <div class="w-100">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#membershipModal">
+                        Add New Membership
+                    </button>
+                    <button type="button" class="btn btn-light w-100" data-bs-toggle="modal" data-bs-target="#deleteMembershipModal">
+                        Delete Membership
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label class="control-label">Tag Accredited</label>
+                <button type="button" id="btnRightTag" class="btn btn-light btn-sm w-100">
+                    <strong>-</strong>
+                </button>
+                @Html.ListBox("selectedOptionsTag", (MultiSelectList)ViewData["selOptsTag"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsTag" })
+                <button type="button" id="btnLeftTag" class="btn btn-secondary btn-sm w-100">
+                    <strong>+</strong>
+                </button>
+                @Html.ListBox("availOptionsTag", (MultiSelectList)ViewData["availOptsTag"], new { @size = 10, @class = "form-control w-100", id = "availOptionsTag" })
+                <div class="w-100">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#tagModal">
+                        Add New Tag
+                    </button>
+                    <button type="button" class="btn btn-light w-100" data-bs-toggle="modal" data-bs-target="#deleteTagModal">
+                        Delete Tag
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label class="control-label">Sector Accredited</label>
+                <button type="button" id="btnRightSector" class="btn btn-light btn-sm w-100">
+                    <strong>-</strong>
+                </button>
+                @Html.ListBox("selectedOptionsSector", (MultiSelectList)ViewData["selOptsSector"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsSector" })
+                <button type="button" id="btnLeftSector" class="btn btn-secondary btn-sm w-100">
+                    <strong>+</strong>
+                </button>
+                @Html.ListBox("availOptionsSector", (MultiSelectList)ViewData["availOptsSector"], new { @size = 10, @class = "form-control w-100", id = "availOptionsSector" })
+                <div class="w-100">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#sectorModal">
+                        Add New Sector
+                    </button>
+                    <button type="button" class="btn btn-light w-100" data-bs-toggle="modal" data-bs-target="#deleteSectorModal">
+                        Delete Sector
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label class="control-label">NAICS Code Accredited</label>
+
+                <button type="button" id="btnRightNaicsCode" class="btn btn-light btn-sm w-100">
+                    <strong>-</strong>
+                </button>
+
+                @Html.ListBox("selectedOptionsNaicsCode", (MultiSelectList)ViewData["selOptsNaiceCode"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsNaicsCode" })
+
+                <button type="button" id="btnLeftNaicsCode" class="btn btn-secondary btn-sm w-100">
+                    <strong>+</strong>
+                </button>
+
+                @Html.ListBox("availOptionsNaicsCode", (MultiSelectList)ViewData["availOptsNaicsCode"], new { @size = 10, @class = "form-control w-100", id = "availOptionsNaicsCode" })
+
+                <div class="w-100">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#naicsCodeModal">
+                        Add New NAICS Code
+                    </button>
+                    <button type="button" class="btn btn-light w-100" data-bs-toggle="modal" data-bs-target="#deleteNaicsCodeModal">
+                        Delete NAICS Code
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- Buttons outside the card -->
+        <div class="position-bottom-left mt-3">
+            <a asp-action="Index" class="btn btn-dark me-2">Back to List</a>
+            <input type="submit" value="Next" id="btnSubmit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+<!-- Membership Modal -->
+<div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="membershipModalLabel">Add New Membership Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="newMembership" class="form-control" placeholder="Enter new membership" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveMembership">Save</button>
+            </div>
         </div>
     </div>
-
-    <!-- Buttons outside the card -->
-    <div class="position-bottom-left mt-3">
-        <a class="btn btn-dark me-2" asp-action="Index">Back to Members</a>
-        <input class="btn btn-primary me-2" type="submit" value="Save" />
+</div>
+<!-- Tag Modal -->
+<div class="modal fade" id="tagModal" tabindex="-1" aria-labelledby="tagModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tagModalLabel">Add New Tag Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="newTag" class="form-control" placeholder="Enter new tag" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveTag">Save</button>
+            </div>
+        </div>
     </div>
-</form>
+</div>
+
+<!-- Sector Modal -->
+<div class="modal fade" id="sectorModal" tabindex="-1" aria-labelledby="sectorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sectorModalLabel">Add New Sector Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="newSector" class="form-control" placeholder="Enter new sector" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveSector">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- NAICS Code Modal -->
+<div class="modal fade" id="naicsCodeModal" tabindex="-1" aria-labelledby="naicsCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="naicsCodeModalLabel">Add New NAICS Code Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="newNaicsCode" class="form-control" placeholder="Enter new NAICS code" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveNaicsCode">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
+<!-- Membership Delete Modal -->
+<div class="modal fade" id="deleteMembershipModal" tabindex="-1" aria-labelledby="deleteMembershipModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMembershipModalLabel">Delete Membership Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select id="deleteMembershipSelect" class="form-control">
+                    <!-- Options will be populated by JS -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="deleteMembership">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tag Delete Modal -->
+<div class="modal fade" id="deleteTagModal" tabindex="-1" aria-labelledby="deleteTagModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteTagModalLabel">Delete Tag Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select id="deleteTagSelect" class="form-control">
+                    <!-- Options will be populated by JS -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="deleteTag">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sector Delete Modal -->
+<div class="modal fade" id="deleteSectorModal" tabindex="-1" aria-labelledby="deleteSectorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteSectorModalLabel">Delete Sector Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select id="deleteSectorSelect" class="form-control">
+                    <!-- Options will be populated by JS -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="deleteSector">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- NAICS Code Delete Modal -->
+<div class="modal fade" id="deleteNaicsCodeModal" tabindex="-1" aria-labelledby="deleteNaicsCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteNaicsCodeModalLabel">Delete NAICS Code Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select id="deleteNaicsCodeSelect" class="form-control">
+                    <!-- Options will be populated by JS -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="deleteNaicsCode">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        var cropper;
+        var originalImageData = null;
+
+        // Trigger file select input
+        function triggerFileSelect() {
+            document.getElementById('thePicture').click();
+        }
+
+        // Prevent default behavior for dragging over
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        // Handle file drop
+        function dropImage(event) {
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+            document.getElementById('thePicture').files = event.dataTransfer.files;
+            displayImage(file);
+        }
+
+        // Preview the selected image
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                displayImage(file);
+            }
+        }
+
+        // Function to display the selected image as a preview
+        function displayImage(file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imgElement = document.getElementById('imagePreview');
+                imgElement.style.display = 'block';
+                imgElement.src = e.target.result;
+
+                originalImageData = e.target.result;
+
+                document.getElementById('previewControls').style.display = 'block';
+                document.getElementById('editControls').style.display = 'none';
+
+                document.getElementById('imagePreviewContainer').style.display = 'block';
+                document.getElementById('drag-drop-area').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Start editing (initialize cropper)
+        function startEditing() {
+            const imagePreview = document.getElementById('imagePreview');
+            const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+
+            const imgWidth = imagePreview.naturalWidth;
+            const imgHeight = imagePreview.naturalHeight;
+
+            const maxWidth = 300;
+            const maxHeight = 300;
+            const containerWidth = Math.min(imgWidth, maxWidth);
+            const containerHeight = Math.min(imgHeight, maxHeight);
+
+            imagePreviewContainer.style.width = `${containerWidth}px`;
+            imagePreviewContainer.style.height = `${containerHeight}px`;
+
+            if (!cropper) {
+                cropper = new Cropper(imagePreview, {
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    autoCropArea: 0.65,
+                    responsive: true,
+                    background: true,
+                    cropBoxResizable: true,
+                    cropBoxMovable: true,
+                    dragMode: 'move',
+                    minContainerWidth: 100,
+                    minContainerHeight: 100,
+                    maxWidth: maxWidth,
+                    maxHeight: maxHeight,
+                });
+            }
+
+            document.getElementById('previewControls').style.display = 'none';
+            document.getElementById('editControls').style.display = 'block';
+
+            imagePreview.style.display = 'none';
+        }
+
+        // Save the cropped image
+        function saveCroppedImage() {
+            if (cropper) {
+                var canvas = cropper.getCroppedCanvas({
+                    width: 200,
+                    height: 200
+                });
+
+                var imagePreview = document.getElementById('imagePreview');
+                if (imagePreview) {
+                    imagePreview.src = canvas.toDataURL();
+                    imagePreview.style.display = 'block';
+
+                    document.getElementById('editControls').style.display = 'none';
+                    document.getElementById('previewControls').style.display = 'block';
+                }
+
+                cropper.destroy();
+                cropper = null;
+            }
+        }
+
+        // Cancel editing and revert back to the original image
+        function cancelEditing() {
+            const imagePreview = document.getElementById('imagePreview');
+            if (imagePreview && originalImageData) {
+                imagePreview.src = originalImageData;
+                imagePreview.style.display = 'block';
+            }
+
+            document.getElementById('editControls').style.display = 'none';
+            document.getElementById('previewControls').style.display = 'block';
+
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+        }
+
+        // Remove the image (reset everything)
+        function removeImage() {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = '';
+            imagePreview.style.display = 'none';
+            document.getElementById('previewControls').style.display = 'none';
+            document.getElementById('imagePreviewContainer').style.display = 'none';
+
+            document.getElementById('drag-drop-area').style.display = 'block';
+        }
+
+        // Reselect Logo
+        function reselectLogo() {
+            const inputFile = document.getElementById('thePicture');
+            inputFile.value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('previewControls').style.display = 'none';
+            document.getElementById('imagePreviewContainer').style.display = 'none';
+            document.getElementById('drag-drop-area').style.display = 'block';
+            inputFile.click();
+        }
+
+
+
+
+
+
+
+
+
+        //script for adding tags, sector exc on a go
+        $(document).ready(function () {
+            // Handle save action for Membership
+            $('#saveMembership').on('click', function () {
+                var newMembership = $('#newMembership').val();
+                if (newMembership) {
+                    var newOption = new Option(newMembership, newMembership);
+                    $('#availOptionsMembership').append(newOption);
+                    $('#membershipModal').modal('hide');
+                    $('#newMembership').val(''); // Clear the input field
+                }
+            });
+
+            // Handle save action for Tag
+            $('#saveTag').on('click', function () {
+                var newTag = $('#newTag').val();
+                if (newTag) {
+                    var newOption = new Option(newTag, newTag);
+                    $('#availOptionsTag').append(newOption);
+                    $('#tagModal').modal('hide');
+                    $('#newTag').val(''); // Clear the input field
+                }
+            });
+
+            // Handle save action for Sector
+            $('#saveSector').on('click', function () {
+                var newSector = $('#newSector').val();
+                if (newSector) {
+                    var newOption = new Option(newSector, newSector);
+                    $('#availOptionsSector').append(newOption);
+                    $('#sectorModal').modal('hide');
+                    $('#newSector').val(''); // Clear the input field
+                }
+            });
+
+            // Handle save action for NAICS Code
+            $('#saveNaicsCode').on('click', function () {
+                var newNaicsCode = $('#newNaicsCode').val();
+                if (newNaicsCode) {
+                    var newOption = new Option(newNaicsCode, newNaicsCode);
+                    $('#availOptionsNaicsCode').append(newOption);
+                    $('#naicsCodeModal').modal('hide');
+                    $('#newNaicsCode').val(''); // Clear the input field
+                }
+            });
+        });
+
+
+        //script for deleting pop up
+        $(document).ready(function () {
+            // Function to populate delete options
+            function populateDeleteSelect(listId, selectId) {
+                $(selectId).empty();
+                var options = $(listId).children('option');
+                options.each(function () {
+                    var option = new Option($(this).text(), $(this).val());
+                    $(selectId).append(option);
+                });
+            }
+
+            // Populate Membership options for delete
+            $('#deleteMembershipModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsMembership', '#deleteMembershipSelect');
+            });
+
+            // Populate Tag options for delete
+            $('#deleteTagModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsTag', '#deleteTagSelect');
+            });
+
+            // Populate Sector options for delete
+            $('#deleteSectorModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsSector', '#deleteSectorSelect');
+            });
+
+            // Populate NAICS Code options for delete
+            $('#deleteNaicsCodeModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsNaicsCode', '#deleteNaicsCodeSelect');
+            });
+
+            // Delete Membership
+            $('#deleteMembership').on('click', function () {
+                var selectedMembership = $('#deleteMembershipSelect').val();
+                if (selectedMembership) {
+                    $('#availOptionsMembership option[value="' + selectedMembership + '"]').remove();
+                    $('#deleteMembershipModal').modal('hide');
+                }
+            });
+
+            // Delete Tag
+            $('#deleteTag').on('click', function () {
+                var selectedTag = $('#deleteTagSelect').val();
+                if (selectedTag) {
+                    $('#availOptionsTag option[value="' + selectedTag + '"]').remove();
+                    $('#deleteTagModal').modal('hide');
+                }
+            });
+
+            // Delete Sector
+            $('#deleteSector').on('click', function () {
+                var selectedSector = $('#deleteSectorSelect').val();
+                if (selectedSector) {
+                    $('#availOptionsSector option[value="' + selectedSector + '"]').remove();
+                    $('#deleteSectorModal').modal('hide');
+                }
+            });
+
+            // Delete NAICS Code
+            $('#deleteNaicsCode').on('click', function () {
+                var selectedNaicsCode = $('#deleteNaicsCodeSelect').val();
+                if (selectedNaicsCode) {
+                    $('#availOptionsNaicsCode option[value="' + selectedNaicsCode + '"]').remove();
+                    $('#deleteNaicsCodeModal').modal('hide');
+                }
+            });
+        });
+
+    </script>
+
+
+
 }
+
