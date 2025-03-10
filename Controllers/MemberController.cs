@@ -32,7 +32,7 @@ namespace NIA_CRM.Controllers
         {
 
             PopulateDropdowns();
-            string[] sortOptions = { "Member Name"};
+            string[] sortOptions = { "Member Name", "City", "Membership Type", "Sector", "NAICS Code", "Contacts" };
             int numberFilters = 0;
 
             var members = _context.Members
@@ -53,28 +53,49 @@ namespace NIA_CRM.Controllers
             }
 
 
-            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
-            {
-                page = 1;//Reset page to start
+            if (!String.IsNullOrEmpty(actionButton)) // Form Submitted!
+    {
+        page = 1; // Reset page to start
 
-                if (sortOptions.Contains(actionButton))//Change of sort is requested
-                {
-                    if (actionButton == sortField) //Reverse order on same field
-                    {
-                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
-                    }
-                    sortField = actionButton;//Sort by the button clicked
-                }
+        if (sortOptions.Contains(actionButton)) // Change of sort is requested
+        {
+            if (actionButton == sortField) // Reverse order on same field
+            {
+                sortDirection = sortDirection == "asc" ? "desc" : "asc";
             }
+            sortField = actionButton; // Sort by the button clicked
+        }
+    }
 
             members = sortField switch
             {
                 "Member Name" => sortDirection == "asc"
                     ? members.OrderBy(e => e.MemberName)
                     : members.OrderByDescending(e => e.MemberName),
-                
+
+                "City" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.Addresses.FirstOrDefault().City) // Assuming Address has City
+                    : members.OrderByDescending(e => e.Addresses.FirstOrDefault().City),
+
+                "Membership Type" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName) // Assuming the MembershipType has a Name
+                    : members.OrderByDescending(e => e.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName),
+
+                "Sector" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberSectors.FirstOrDefault().Sector.SectorName) // Assuming NAICSCode has Sector
+                    : members.OrderByDescending(e => e.MemberSectors.FirstOrDefault().Sector.SectorName),
+
+                "NAICS Code" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code) // Assuming NAICSCode has Code
+                    : members.OrderByDescending(e => e.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code),
+
+                "Contacts" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberContacts.FirstOrDefault().Contact.Summary) // Assuming Contact has Name
+                    : members.OrderByDescending(e => e.MemberContacts.FirstOrDefault().Contact.Summary),
+
                 _ => members
             };
+
 
             if (!string.IsNullOrEmpty(SearchString))
             {

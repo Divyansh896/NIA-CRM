@@ -54,8 +54,13 @@
 
 <form asp-action="Index" method="get" aria-labelledby="form-title">
     <h2 id="form-title" class="sr-only">Filter and Search Form</h2>
-    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
-    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+    <input type="hidden" name="sortDirection" value="@ViewData["SortDirection"]" />
+    <input type="hidden" name="sortField" value="@ViewData["SortField"]" />
+
+    @{
+        var sortField = ViewData["sortField"]?.ToString();
+        var sortDirection = ViewData["sortDirection"]?.ToString();
+    }
     <!-- Filter/Search Toggle Button -->
     <div class="form-horizontal mb-3">
         <div class="d-flex justify-content-between align-items-center">
@@ -186,14 +191,105 @@
     <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
         <thead>
             <tr>
-                <th scope="col" class="table-head">Member Name</th>
-                <th scope="col" class="table-head">City</th>
-                <th scope="col" class="table-head">Membership Type</th>
-                <th scope="col" class="table-head">Sector</th>
-                <th scope="col" class="table-head">NAICS Code</th>
-                <th scope="col" class="table-head">Contacts</th>
+                <th scope="col" class="table-head">
+                    @{
+                        var isMemberNameSortField = sortField == "Member Name";
+                        var memberNameSortIndicator = isMemberNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isMemberNameSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member Name" />
+                        <span class="SortIndicator">@memberNameSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member Name" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isCitySortField = sortField == "City";
+                        var citySortIndicator = isCitySortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isCitySortField)
+                    {
+                        <input type="submit" name="actionButton" value="City" class="btn btn-link" aria-label="Sort by City" />
+                        <span class="SortIndicator">@citySortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="City" class="btn btn-link" aria-label="Sort by City" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isMembershipTypeSortField = sortField == "Membership Type";
+                        var membershipTypeSortIndicator = isMembershipTypeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isMembershipTypeSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Membership Type" class="btn btn-link" aria-label="Sort by Membership Type" />
+                        <span class="SortIndicator">@membershipTypeSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Membership Type" class="btn btn-link" aria-label="Sort by Membership Type" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isSectorSortField = sortField == "Sector";
+                        var sectorSortIndicator = isSectorSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isSectorSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Sector" class="btn btn-link" aria-label="Sort by Sector" />
+                        <span class="SortIndicator">@sectorSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Sector" class="btn btn-link" aria-label="Sort by Sector" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isNAICSCodeSortField = sortField == "NAICS Code";
+                        var naicsCodeSortIndicator = isNAICSCodeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isNAICSCodeSortField)
+                    {
+                        <input type="submit" name="actionButton" value="NAICS Code" class="btn btn-link" aria-label="Sort by NAICS Code" />
+                        <span class="SortIndicator">@naicsCodeSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="NAICS Code" class="btn btn-link" aria-label="Sort by NAICS Code" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isContactsSortField = sortField == "Contacts";
+                        var contactsSortIndicator = isContactsSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isContactsSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Contacts" class="btn btn-link" aria-label="Sort by Contacts" />
+                        <span class="SortIndicator">@contactsSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Contacts" class="btn btn-link" aria-label="Sort by Contacts" />
+                    }
+                </th>
             </tr>
         </thead>
+
+
         <tbody>
 
             @foreach (var item in Model)
