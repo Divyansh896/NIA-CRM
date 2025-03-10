@@ -447,13 +447,15 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cancellation = await _context.Cancellations.FindAsync(id);
+            var cancellation = await _context.Cancellations.Include(m => m.Member).FirstOrDefaultAsync(a => a.ID == id);
             if (cancellation != null)
             {
                 _context.Cancellations.Remove(cancellation);
             }
 
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = $"Member: {cancellation.Member.MemberName} Activated Successfully!";
+
             return RedirectToAction(nameof(Index));
         }
 
