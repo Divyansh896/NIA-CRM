@@ -32,7 +32,7 @@ namespace NIA_CRM.Controllers
         {
 
             PopulateDropdowns();
-            string[] sortOptions = { "Member Name", "Industry" };
+            string[] sortOptions = { "Member Name"};
             int numberFilters = 0;
 
             var members = _context.Members
@@ -66,6 +66,16 @@ namespace NIA_CRM.Controllers
                     sortField = actionButton;//Sort by the button clicked
                 }
             }
+
+            members = sortField switch
+            {
+                "Member Name" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberName)
+                    : members.OrderByDescending(e => e.MemberName),
+                
+                _ => members
+            };
+
             if (!string.IsNullOrEmpty(SearchString))
             {
                 members = members.Where(m =>

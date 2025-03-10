@@ -12,23 +12,23 @@
 
     </div>
 </form> *@
-<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
-        <div>
-            <input type="file" name="file" class="form-control me-2" required />
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-file-import"></i> Import Excel
-            </button>
-        </div>
 
-    </div>
-</form>
 
 
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="contacts-title">Contacts</h1>
 </div>
+
+<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
+    <div class="d-flex align-items-center" style="padding-bottom: 10px;">
+        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+            <i class="fa fa-file-import"></i> Import Excel
+        </button>
+            <input type="file" name="file" class="form-control me-2" required />
+            
+    </div>
+</form>
 
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />

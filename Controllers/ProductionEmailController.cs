@@ -26,13 +26,13 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: ProductionEmail
-        public async Task<IActionResult> Index(int? page, int? pageSizeID, int? EmailTypeID, string? actionButton, string sortDirection = "asc", string sortField = "Email Type")
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, int? EmailTypeID, string? actionButton, string sortDirection = "asc", string sortField = "Template Name")
         {
             // Populate the dropdown list
             ViewData["EmailTypeID"] = ProductionEmailTypeSelectList(EmailTypeID);
             int numberFilters = 0;
 
-            string[] sortOptions = new[] { "Email Type", "Subject" };
+            string[] sortOptions = new[] { "Template Name", "Email Type", "Subject" };
 
             // Declare the email list to be used in the view
             var emailsQuery = _context.ProductionEmails.AsQueryable();
@@ -69,6 +69,9 @@ namespace NIA_CRM.Controllers
             // Apply sorting
             emailsQuery = sortField switch
             {
+                "Template Name" => sortDirection == "asc"
+                    ? emailsQuery.OrderBy(e => e.TemplateName)
+                    : emailsQuery.OrderByDescending(e => e.TemplateName),
                 "Email Type" => sortDirection == "asc"
                     ? emailsQuery.OrderBy(e => e.EmailType)
                     : emailsQuery.OrderByDescending(e => e.EmailType),

@@ -25,15 +25,16 @@
 </div>
 
 <form asp-action="ImportMembersFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
-        <div>
-            <input type="file" name="file" class="form-control me-2" required />
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-file-import"></i> Import Excel
-            </button>
-        </div>
+    <div class="d-flex align-items-center" style="padding-bottom: 10px;">
+        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+            <i class="fa fa-file-import"></i> Import Excel
+        </button>
+        <input type="file" name="file" class="form-control" required />
+        
     </div>
 </form>
+
+
 
 @if (TempData["Success"] != null)
 {
@@ -188,7 +189,8 @@
                 <th scope="col" class="table-head">Member Name</th>
                 <th scope="col" class="table-head">City</th>
                 <th scope="col" class="table-head">Membership Type</th>
-                <th scope="col" class="table-head">Address</th>
+                <th scope="col" class="table-head">Sector</th>
+                <th scope="col" class="table-head">NAICS Code</th>
                 <th scope="col" class="table-head">Contacts</th>
             </tr>
         </thead>
@@ -224,21 +226,29 @@
                         }
                     </td>
 
-
-
-                    <!-- New Columns -->
                     <td>
-                        @if (item.Addresses != null && item.Addresses.Any())
+                        @if (item.MemberSectors != null)
                         {
-                            foreach (var address in item.Addresses)
+                            foreach (var industry in item.MemberSectors)
                             {
-                                @($"{address.AddressLine2}, {address.City}, {address.StateProvince}, {address.PostalCode}")
+                                @industry.Sector.SectorName
                                 <br />
                             }
                         }
                         else
                         {
-                            <span class="text-muted">No Address Available</span>
+                            <span class="text-muted">No Sectors Available</span>
+                        }
+                    </td>
+                    <!-- New Columns -->
+                    <td>
+                        @if (item.IndustryNAICSCodes != null)
+                        {
+                            foreach (var industry in item.IndustryNAICSCodes)
+                            {
+                                @industry.NAICSCode.Code
+                                <br />
+                            }
                         }
                     </td>
 

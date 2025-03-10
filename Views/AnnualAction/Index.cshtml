@@ -8,21 +8,21 @@
     <h1 class="mb-0" id="contacts-title">Annual Actions</h1>
 </div>
 
-<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
-        <input type="file" name="file" class="form-control me-2" required />
-        <button type="submit" class="btn btn-success">
-            <i class="fa fa-file-import"></i> Import from Excel
-        </button>
-    </div>
-</form>
-
-
-<form asp-action="ExportToExcel" method="get">
+<div class="d-flex align-items-center" style="padding-bottom: 10px;">
+    <form asp-action="ExportToExcel" method="get">
     <button type="submit" class="btn btn-dark me-2">
-        <i class="fa fa-file-excel text-white"></i> Export to Excel
+        <i class="fa fa-file-excel text-white"></i> Export Excel
     </button>
 </form>
+
+<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data" class="d-flex">
+    <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+            <i class="fa fa-file-import"></i> Import Excel
+        </button>
+        <input type="file" name="file" class="form-control me-2 w-100" required />
+        
+</form>
+</div>
 @* <form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
     <div class="d-flex justify-content-between align-items-center">
         <div>
