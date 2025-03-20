@@ -30,7 +30,7 @@
             <i class="fa fa-file-import"></i> Import Excel
         </button>
         <input type="file" name="file" class="form-control" required />
-        
+
     </div>
 </form>
 
@@ -86,7 +86,7 @@
 
 
 
-        
+
 
         @if (TempData["ErrorMessage"] != null)
         {
@@ -305,7 +305,7 @@
                         }
                     </td>
 
-                   
+
 
                     <td>
                         @if (item.MemberMembershipTypes != null)
@@ -323,7 +323,7 @@
                         }
                         else
                         {
-                            <span class="text-muted">No Sectors Available</span>
+                        <span class="text-muted">No Sectors Available</span>
                         }
                     </td>
                     <!-- New Columns -->
@@ -347,11 +347,14 @@
                                 var contact = memberContact.Contact; // Get the actual Contact object
                                 if (contact != null)
                                 {
-                                    @($"{contact.Phone} | {contact.Email}")
+                                    <a href="tel:@contact.Phone" id="phoneNumber">@contact.Phone</a>
+                                    @: |
+                                    <a href="mailto:@contact.Email">@contact.Email</a>
                                     <br />
                                 }
                             }
                         }
+
 
                         else
                         {

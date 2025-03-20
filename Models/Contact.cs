@@ -57,6 +57,9 @@ namespace NIA_CRM.Models
         public ICollection<ContactCancellation> ContactCancellations { get; set; } = new List<ContactCancellation>();
 
 
+        public ContactLogo? ContactLogo { get; set; }
+        public ContactThumbnail? ContactThumbnail { get; set; }
+
         [ScaffoldColumn(false)]
         [Timestamp]
         public Byte[]? RowVersion { get; set; }//Added for concurrency

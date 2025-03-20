@@ -140,7 +140,11 @@
                                 <dd>@Html.DisplayFor(model => model.JoinDate)</dd>
 
                                 <dt>Website:</dt>
-                                <dd>@Html.DisplayFor(model => model.WebsiteUrl)</dd>
+                                <dd>
+                                    <a href="@Model.WebsiteUrl" target="_blank">
+                                        @Html.DisplayFor(model => model.WebsiteUrl)
+                                    </a>
+                                </dd>
 
                                 <dt>Size:</dt>
                                 <dd>@Html.DisplayFor(model => model.MemberSize)</dd>
@@ -149,7 +153,7 @@
                     </div>
                     <div class="position-bottom-left">
                         <a class="btn btn-secondary me-2" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit General Info</a>
-                        <a class="btn btn-secondary me-2" asp-controller="Address" asp-action="Edit" asp-route-id="@addres.Id">Edit Address</a>
+                        <a class="btn btn-secondary me-2" asp-controller="Address" asp-action="Edit" asp-route-id="@addres.Id" asp-route-memberid="@addres.MemberId" asp-route-membername="@addres.Member.MemberName">Edit Address</a>
                     </div>
                 </div>
             </div>
@@ -186,10 +190,10 @@
                             <div class="col-md-6">
                                 <dl>
                                     <dt>Email:</dt>
-                                    <dd>@primaryContact.Email</dd>
+                                    <dd><a href="mailto:@primaryContact.Email">@primaryContact.Email</a></dd>
 
                                     <dt>Phone:</dt>
-                                    <dd>@primaryContact.PhoneFormatted</dd>
+                                    <dd><a href="tel:@primaryContact.PhoneFormatted" id="phoneNumber">@primaryContact.PhoneFormatted</a></dd>
 
                                     @if (!string.IsNullOrEmpty(primaryContact.LinkedInUrl))
                                     {
@@ -244,11 +248,11 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <dt>Email:</dt>
-                                            <dd>@contact.Email</dd>
+                                            <dd><a href="mailto:@contact.Email">@contact.Email</a></dd>
                                         </div>
                                         <div class="col-sm-4">
                                             <dt>Phone:</dt>
-                                            <dd>@contact.PhoneFormatted</dd>
+                                            <dd><a href="tel:@contact.PhoneFormatted" id="phoneNumber">@contact.PhoneFormatted</a></dd>
                                         </div>
                                         @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
                                         {

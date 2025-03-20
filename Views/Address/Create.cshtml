@@ -36,13 +36,13 @@
 
                 <div class="form-group">
                     <label asp-for="AddressLine1" class="control-label"></label> (required)
-                    <input asp-for="AddressLine1" class="form-control" />
+                    <input asp-for="AddressLine1" class="form-control" placeholder="Enter Address Line 1" />
                     <span asp-validation-for="AddressLine1" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="AddressLine2" class="control-label"></label>
-                    <input asp-for="AddressLine2" class="form-control" />
+                    <input asp-for="AddressLine2" class="form-control" placeholder="Enter Address Line 2 (Optional)" />
                     <span asp-validation-for="AddressLine2" class="text-danger"></span>
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="City" class="control-label"></label> (required)
-                    <input asp-for="City" class="form-control" />
+                    <input asp-for="City" class="form-control" placeholder="Enter City" />
                     <span asp-validation-for="City" class="text-danger"></span>
                 </div>
 
@@ -63,13 +63,12 @@
 
                 <div class="form-group">
                     <label asp-for="PostalCode" class="control-label"></label> (required)
-                    <input asp-for="PostalCode" class="form-control" />
+                    <input asp-for="PostalCode" name="PostalCode" class="form-control" placeholder="Enter Postal Code (e.g., A1A 1A1)" />
                     <span asp-validation-for="PostalCode" class="text-danger"></span>
                 </div>
             </div>
         </div>
     </div>
-
 
     <div class="position-bottom-left mt-3">
         <a asp-action="Index" class="btn btn-dark me-2">Back to List</a>
@@ -77,9 +76,33 @@
     </div>
 </form>
 
-
-
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Postal Code Validation (Canadian format)
+        const postalCodeInput = document.querySelector('input[name="PostalCode"]');
+
+        postalCodeInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\s/g, '').toUpperCase(); // Remove spaces and convert to uppercase
+
+            // Canadian Postal Code Format: A1A 1A1
+            const postalCodePattern = /^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$/;
+
+            // Apply formatting
+            if (value.length <= 3) {
+                e.target.value = value.slice(0, 3);
+            } else if (value.length <= 6) {
+                e.target.value = `${value.slice(0, 3)} ${value.slice(3, 6)}`;
+            }
+
+            // Validate the format
+            if (!postalCodePattern.test(value)) {
+                postalCodeInput.setCustomValidity('Postal code must be in the format "A1A 1A1"');
+            } else {
+                postalCodeInput.setCustomValidity('');
+            }
+        });
+    </script>
 }

@@ -61,7 +61,9 @@
 
             <dt class="col-sm-4">Website:</dt>
             <dd class="col-sm-8">
-                @Html.DisplayFor(model => model.WebsiteUrl)
+                <a href="@Model.WebsiteUrl" target="_blank">
+                    @Html.DisplayFor(model => model.WebsiteUrl)
+                </a>
             </dd>
 
             <dt class="col-sm-4">Join Date:</dt>

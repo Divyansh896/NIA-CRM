@@ -64,8 +64,18 @@
 
             <dt class="col-sm-4">Website:</dt>
             <dd class="col-sm-8">
-                @Html.DisplayFor(model => model.WebsiteUrl)
+                @if (!string.IsNullOrEmpty(Model.WebsiteUrl))
+                {
+                    <a href="@Model.WebsiteUrl" target="_blank" rel="noopener noreferrer">
+                        @Model.WebsiteUrl
+                    </a>
+                }
+                else
+                {
+                    <span>No website available</span>
+                }
             </dd>
+
 
             <dt class="col-sm-4">Join Date:</dt>
             <dd class="col-sm-8">

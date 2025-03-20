@@ -117,9 +117,24 @@ namespace NIA_CRM.Controllers
             {
                 return NotFound();
             }
+
+            // Set the SelectList for MemberId dropdown
             ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName", address.MemberId);
+
+            // Get the member name based on the address's MemberId
+            var member = await _context.Members.FindAsync(address.MemberId);
+            if (member != null)
+            {
+                ViewBag.MemberName = member.MemberName; // Set the member's name
+            }
+            else
+            {
+                ViewBag.MemberName = "No member name provided"; // Handle null or missing member
+            }
+
             return View(address);
         }
+
 
         // POST: Address/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -137,10 +152,28 @@ namespace NIA_CRM.Controllers
             {
                 try
                 {
+                    // Update the address in the database
                     _context.Update(address);
-                    TempData["SuccessMessage"] = $"Member Address Updated Successfully!";
 
+                    // Retrieve the member's name to pass back to the view
+                    var member = await _context.Members.FindAsync(address.MemberId);
+                    if (member != null)
+                    {
+                        ViewBag.MemberName = member.MemberName; // Set the member's name for display
+                    }
+                    else
+                    {
+                        ViewBag.MemberName = "No member name provided"; // Handle null or missing member
+                    }
+
+                    // Save the changes to the database
                     await _context.SaveChangesAsync();
+
+                    // Success message
+                    TempData["SuccessMessage"] = "Member Address Updated Successfully!";
+
+                    // Redirect to the Member's detail page
+                    return RedirectToAction("Detail", "Member", new { id = address.MemberId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -153,11 +186,13 @@ namespace NIA_CRM.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
+
+            // In case of invalid data, pass back the SelectList for MemberId
             ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberName", address.MemberId);
             return View(address);
         }
+
 
         // GET: Address/Delete/5
         public async Task<IActionResult> Delete(int? id)
