@@ -124,19 +124,67 @@
             <thead class="thead-dark">
             <tr>
                 <th scope="col" class="table-head">
-                    @Html.DisplayNameFor(model => model.Name)
+                        @{
+                            var isNameSortField = sortField == "Annual Actions Name";
+                            var nameSortIndicator = isNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isNameSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Annual Actions Name" class="btn btn-link" aria-label="Sort by Annual Actions Name" />
+                            <span class="SortIndicator">@nameSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Annual Actions Name" class="btn btn-link" aria-label="Sort by Annual Actions Name" />
+                        }
                 </th>
                 <th scope="col" class="table-head">
                     @Html.DisplayNameFor(model => model.Note)
                 </th >
                 <th scope="col" class="table-head">
-                    @Html.DisplayNameFor(model => model.Date)
-                </th scope="col" class="table-head">
+                        @{
+                            var isDateSortField = sortField == "Date";
+                            var dateSortIndicator = isDateSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isDateSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Date" class="btn btn-link" aria-label="Sort by Date" />
+                            <span class="SortIndicator">@dateSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Date" class="btn btn-link" aria-label="Sort by Date" />
+                        }
+                </th>
                 <th scope="col" class="table-head">
-                    @Html.DisplayNameFor(model => model.Asignee)
+                        @{
+                            var isAssigneeSortField = sortField == "Assignee";
+                            var assigneeSortIndicator = isAssigneeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isAssigneeSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Assignee" class="btn btn-link" aria-label="Sort by Assignee" />
+                            <span class="SortIndicator">@assigneeSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Assignee" class="btn btn-link" aria-label="Sort by Assignee" />
+                        }
                 </th >
-                <th scope="col" class="table-head"> 
-                    @Html.DisplayNameFor(model => model.AnnualStatus)
+                <th scope="col" class="table-head">
+                        @{
+                            var isStatusSortField = sortField == "Status";
+                            var statusSortIndicator = isStatusSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isStatusSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Status" class="btn btn-link" aria-label="Sort by Status" />
+                            <span class="SortIndicator">@statusSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Status" class="btn btn-link" aria-label="Sort by Status" />
+                        }
                 </th>
             </tr>
         </thead>

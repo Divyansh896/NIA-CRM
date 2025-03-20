@@ -28,7 +28,7 @@ namespace NIA_CRM.Controllers
                                                 string sortDirection = "desc", string sortField = "Annual Actions Name")
         {
 
-            string[] sortOptions = new[] { "Annual Actions Name", "StrategyAssignee", "CreatedDate", "SearchString" }; // Add other fields if needed
+            string[] sortOptions = new[] { "Annual Actions Name", "Date", "Assignee", "Status" }; // Add other fields if needed
             int numberFilters = 0;
 
             var actions = _context.AnnualActions.AsQueryable();
@@ -72,19 +72,27 @@ namespace NIA_CRM.Controllers
                 }
             }
 
-            if (sortField == "Strategy Name")
+            actions = sortField switch
             {
-                if (sortDirection == "desc")
-                {
-                    actions =  actions
-                        .OrderByDescending(p => p.Name);
-                }
-                else
-                {
-                    actions = actions
-                        .OrderBy(p => p.Name);
-                }
-            }
+                "Annual Actions Name" => sortDirection == "asc"
+                    ? actions.OrderBy(e => e.Name)
+                    : actions.OrderByDescending(e => e.Name),
+
+                "Date" => sortDirection == "asc"
+                    ? actions.OrderBy(e => e.Date) // Assuming Address has City
+                    : actions.OrderByDescending(e => e.Date),
+
+                "Assignee" => sortDirection == "asc"
+                    ? actions.OrderBy(e => e.Asignee) // Assuming the MembershipType has a Name
+                    : actions.OrderByDescending(e => e.Asignee),
+
+                "Status" => sortDirection == "asc"
+                    ? actions.OrderBy(e => e.AnnualStatus) // Assuming NAICSCode has Sector
+                    : actions.OrderByDescending(e => e.AnnualStatus),
+
+               
+                _ => actions
+            };
 
 
 
