@@ -457,64 +457,64 @@ namespace NIA_CRM.Controllers
             }
         }
 
-            // GET/POST: MedicalTrial/Notification/5
-            public async Task<IActionResult> Notification(int? id, string Subject, string emailContent)
+        [HttpPost]
+        public async Task<IActionResult> Notification(string selectedContactIds, string Subject, string emailContent)
+        {
+            if (string.IsNullOrEmpty(selectedContactIds))
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-                Contact? t = await _context.Contacts.FindAsync(id);
+                return BadRequest("No contacts selected.");
+            }
 
-                ViewData["id"] = id;
-                ViewData["ContactCancellations"] = t?.ContactCancellations;
+            if (string.IsNullOrEmpty(Subject) || string.IsNullOrEmpty(emailContent))
+            {
+                ViewData["Message"] = "You must enter both a Subject and some message Content before sending the message.";
+                return View();
+            }
 
-                if (string.IsNullOrEmpty(Subject) || string.IsNullOrEmpty(emailContent))
+            var contactIds = selectedContactIds.Split(',').Select(int.Parse).ToList();
+            int folksCount = 0;
+
+            try
+            {
+                List<EmailAddress> recipients = await _context.Contacts
+                    .Where(p => contactIds.Contains(p.Id) && p.Email != null)
+                    .Select(p => new EmailAddress
+                    {
+                        Name = p.Summary,
+                        Address = p.Email
+                    })
+                    .ToListAsync();
+
+                folksCount = recipients.Count;
+
+                if (folksCount > 0)
                 {
-                    ViewData["Message"] = "You must enter both a Subject and some message Content before sending the message.";
+                    var msg = new EmailMessage()
+                    {
+                        ToAddresses = recipients,
+                        Subject = Subject,
+                        Content = "<p>" + emailContent + "</p><p>Please access the <strong>Niagara College</strong> web site to review.</p>"
+                    };
+
+                    await _emailSender.SendToManyAsync(msg);
+
+                    ViewData["Message"] = "Message sent to " + folksCount + " contact"
+                        + ((folksCount == 1) ? "." : "s.");
                 }
                 else
                 {
-                    int folksCount = 0;
-                    try
-                    {
-                        //Send a Notice.
-                        List<EmailAddress> folks = (from p in _context.Contacts
-                                                    where p.Id == id
-                                                    where p.Email != null
-                                                    select new EmailAddress
-                                                    {
-                                                        Name = p.Summary,
-                                                        Address = p.Email
-                                                    }).ToList();
-                        folksCount = folks.Count;
-                        if (folksCount > 0)
-                        {
-                            var msg = new EmailMessage()
-                            {
-                                ToAddresses = folks,
-                                Subject = Subject,
-                                Content = "<p>" + emailContent + "</p><p>Please access the <strong>Niagara College</strong> web site to review.</p>"
-
-                            };
-                            await _emailSender.SendToManyAsync(msg);
-                            ViewData["Message"] = "Message sent to " + folksCount + " Patient"
-                                + ((folksCount == 1) ? "." : "s.");
-                        }
-                        else
-                        {
-                            ViewData["Message"] = "Message NOT sent!  No Patients in medical trial.";
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        string errMsg = ex.GetBaseException().Message;
-                        ViewData["Message"] = "Error: Could not send email message to the " + folksCount + " Patient"
-                            + ((folksCount == 1) ? "" : "s") + " in the trial.";
-                    }
+                    ViewData["Message"] = "Message NOT sent! No valid email addresses found for the selected contacts.";
                 }
-                return View();
             }
+            catch (Exception ex)
+            {
+                ViewData["Message"] = "Error: Could not send email. " + ex.GetBaseException().Message;
+            }
+
+            return View();
+        }
+
+
 
         private bool ContactExists(int id)
         {

@@ -16,7 +16,7 @@ var connectionString = builder.Configuration.GetConnectionString("NIACRMContext"
 
 
 // Set the EPPlus LicenseContext globally for the application
-ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Change to Commercial if using it for commercial purposes
+//ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Change to Commercial if using it for commercial purposes
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));

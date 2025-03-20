@@ -8,8 +8,9 @@
     <RootNamespace>NIA_CRM</RootNamespace>
   </PropertyGroup>
 
+  
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="7.6.0" />
+    <PackageReference Include="EPPlus" Version="8.0.0-beta" />
     <PackageReference Include="MailKit" Version="4.10.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.11" />
@@ -25,6 +26,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="SkiaSharp" Version="3.116.1" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,7 +38,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Views\Lookup\" />
   </ItemGroup>
 
 </Project>
