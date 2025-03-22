@@ -68,6 +68,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 //For email service configuration
 builder.Services.AddSingleton<IEmailConfiguration>(builder.Configuration
     .GetSection("EmailConfiguration").Get<EmailConfiguration>());

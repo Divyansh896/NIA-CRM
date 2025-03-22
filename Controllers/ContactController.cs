@@ -34,7 +34,7 @@ namespace NIA_CRM.Controllers
                                               string sortDirection = "asc", string sortField = "Contact Name")
         {
             PopulateDropdownLists();
-            string[] sortOptions = new[] { "Contact Name" };  // You can add more sort options if needed
+            string[] sortOptions = new[] { "Contact Name", "Member Name", "VIP", "Phone", "Email" };  // You can add more sort options if needed
 
             int numberFilters = 0;
 
@@ -99,23 +99,30 @@ namespace NIA_CRM.Controllers
                 }
             }
 
-            if (sortField == "Contact Name")
+            contacts = sortField switch
             {
-                if (sortDirection == "desc")
-                {
-                    contacts = contacts
-                        .OrderByDescending(p => p.FirstName)
-                        .ThenByDescending(p => p.LastName);
+                "Member Name" => sortDirection == "asc"
+                    ? contacts.OrderBy(e => e.MemberContacts.FirstOrDefault().Member.MemberName)
+                    : contacts.OrderByDescending(e => e.MemberContacts.FirstOrDefault().Member.MemberName),
 
-                }
-                else
-                {
-                    contacts = contacts
-                        .OrderBy(p => p.FirstName)
-                        .ThenBy(p => p.LastName);
+                "VIP" => sortDirection == "asc"
+                    ? contacts.OrderBy(e => e.IsVip) // Assuming Address has City
+                    : contacts.OrderByDescending(e => e.IsVip),
 
-                }
-            }
+                "Phone" => sortDirection == "asc"
+                    ? contacts.OrderBy(e => e.Phone) // Assuming the MembershipType has a Name
+                    : contacts.OrderByDescending(e => e.Phone),
+
+                "Email" => sortDirection == "asc"
+                    ? contacts.OrderBy(e => e.Email) // Assuming NAICSCode has Sector
+                    : contacts.OrderByDescending(e => e.Email),
+
+                "Contact Name" => sortDirection == "asc"
+                    ? contacts.OrderBy(e => e.FirstName).ThenBy(e => e.LastName) // Assuming Contact has Name
+                    : contacts.OrderByDescending(e => e.FirstName).ThenByDescending(e => e.LastName),
+
+                _ => contacts
+            };
 
 
             //Give feedback about the state of the filters

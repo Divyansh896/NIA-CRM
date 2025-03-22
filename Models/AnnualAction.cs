@@ -6,6 +6,7 @@ namespace NIA_CRM.Models
     {
         public int ID { get; set; }
 
+        [Display(Name="Action Name")]
         [Required(ErrorMessage = "You cannot leave the annual action name blank.")]
         [StringLength(255, ErrorMessage = "Annual action name cannot be more than 255 characters long.")]
         public string Name { get; set; } = "";
@@ -21,6 +22,7 @@ namespace NIA_CRM.Models
         [StringLength(255, ErrorMessage = "Assignee cannot be more than 255 characters long.")]
         public string? Asignee { get; set; }
 
+        [Display(Name = "Annual Status")]
         [Required(ErrorMessage = "You must select the annual action status.")]
         public AnnualStatus AnnualStatus { get; set; }
 

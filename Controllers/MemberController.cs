@@ -90,8 +90,8 @@ namespace NIA_CRM.Controllers
                     : members.OrderByDescending(e => e.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code),
 
                 "Contacts" => sortDirection == "asc"
-                    ? members.OrderBy(e => e.MemberContacts.FirstOrDefault().Contact.Summary) // Assuming Contact has Name
-                    : members.OrderByDescending(e => e.MemberContacts.FirstOrDefault().Contact.Summary),
+                    ? members.OrderBy(e => e.MemberContacts.FirstOrDefault().Contact.FirstName).ThenBy(e => e.MemberContacts.FirstOrDefault().Contact.LastName) // Assuming Contact has Name
+                    : members.OrderByDescending(e => e.MemberContacts.FirstOrDefault().Contact.FirstName).ThenByDescending(e => e.MemberContacts.FirstOrDefault().Contact.LastName),
 
                 _ => members
             };

@@ -27,7 +27,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Index(int? page, int? pageSizeID, string? status, string? priority, string? SearchString, string? actionButton,
                                               string sortDirection = "desc", string sortField = "Opportunity Name")
         {
-            string[] sortOptions = new[] { "Opportunity Name" };  // You can add more sort options if needed
+            string[] sortOptions = new[] { "Opportunity Name", "POC", "Interaction", "Status", "Priority", "Action" };  // You can add more sort options if needed
 
             int numberFilters = 0;
 
@@ -73,20 +73,33 @@ namespace NIA_CRM.Controllers
                 }
             }
 
-            if (sortField == "Opportunity Name")
+            opportunities = sortField switch
             {
-                if (sortDirection == "desc")
-                {
-                    opportunities = opportunities
-                        .OrderByDescending(p => p.OpportunityName);
-                }
-                else
-                {
-                    opportunities = opportunities
-                        .OrderBy(p => p.OpportunityName);
+                "Opportunity Name" => sortDirection == "asc"
+                    ? opportunities.OrderBy(e => e.OpportunityName)
+                    : opportunities.OrderByDescending(e => e.OpportunityName),
 
-                }
-            }
+                "POC" => sortDirection == "asc"
+                    ? opportunities.OrderBy(e => e.POC) // Assuming Address has City
+                    : opportunities.OrderByDescending(e => e.POC),
+
+                "Interaction" => sortDirection == "asc"
+                    ? opportunities.OrderBy(e => e.Interaction) // Assuming the MembershipType has a Name
+                    : opportunities.OrderByDescending(e => e.Interaction),
+
+                "Priority" => sortDirection == "asc"
+                    ? opportunities.OrderBy(e => e.OpportunityPriority) // Assuming NAICSCode has Sector
+                    : opportunities.OrderByDescending(e => e.OpportunityPriority),
+
+                "Action" => sortDirection == "asc"
+                    ? opportunities.OrderBy(e => e.OpportunityAction) // Assuming NAICSCode has Code
+                    : opportunities.OrderByDescending(e => e.OpportunityAction),
+                "Status" => sortDirection == "asc"
+                ? opportunities.OrderBy(e => e.OpportunityStatus) // Assuming NAICSCode has Code
+                : opportunities.OrderByDescending(e => e.OpportunityStatus),
+
+                _ => opportunities
+            };
 
 
             //Give feedback about the state of the filters

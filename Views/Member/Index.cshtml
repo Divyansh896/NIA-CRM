@@ -320,11 +320,15 @@
 
                     <td>
 
+                       @if (item.MemberSectors != null)
+{
+    foreach (var industry in item.MemberSectors)
+    {
+        @industry.Sector.SectorName
+        <br />
+    }
                         }
-                        else
-                        {
-                        <span class="text-muted">No Sectors Available</span>
-                        }
+           
                     </td>
                     <!-- New Columns -->
                     <td>

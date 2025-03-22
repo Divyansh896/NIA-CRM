@@ -162,34 +162,87 @@
 			<caption class="sr-only">Contacts table showing filtered results</caption>
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col" class="table-head">
-						<input type="checkbox" id="selectAllCheckboxes"  style="display: none;">
-					</th>
-					<th scope="col" class="table-head">
-						@{
+    <th scope="col" class="table-head">
+        @{
 
-							var isCurrentSortField = sortField == "Contact Name";
-							var sortOrderIndicator = isCurrentSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
-						}
+            var isCurrentSortField = sortField == "Contact Name";
+            var sortOrderIndicator = isCurrentSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+        }
 
 
-						@if (isCurrentSortField)
-						{
-							<input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
-							<span class="SortIndicator">@sortOrderIndicator</span>
-						}
-						else
-						{
-							<input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
-						}
-					</th>
-					<th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Email)</th>
-					<th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Phone)</th>
-					<th scope="col" class="table-head">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
-					<th scope="col" class="table-head">@Html.DisplayNameFor(model => model.IsVip)</th>
-					<th scope="col" class="table-head">Member</th>
+        @if (isCurrentSortField)
+        {
+            <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
+            <span class="SortIndicator">@sortOrderIndicator</span>
+        }
+        else
+        {
+            <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
+        }
+    </th>
+    <th scope="col" class="table-head">
+        @{
+            var isEmailSortField = sortField == "Email";
+            var EmailSortIndicator = isEmailSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+        }
+        @if (isEmailSortField)
+        {
+            <input type="submit" name="actionButton" value="Email" class="btn btn-link" aria-label="Sort by Email" />
+            <span class="SortIndicator">@EmailSortIndicator</span>
+        }
+        else
+        {
+            <input type="submit" name="actionButton" value="Email" class="btn btn-link" aria-label="Sort by Email" />
+        }
+    </th>
+    <th scope="col" class="table-head">
+        @{
+            var isPhoneSortField = sortField == "Phone";
+            var PhoneSortIndicator = isPhoneSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+        }
+        @if (isPhoneSortField)
+        {
+            <input type="submit" name="actionButton" value="Phone" class="btn btn-link" aria-label="Sort by Phone" />
+            <span class="SortIndicator">@PhoneSortIndicator</span>
+        }
+        else
+        {
+            <input type="submit" name="actionButton" value="Phone" class="btn btn-link" aria-label="Sort by Phone" />
+        }
+    </th>
+    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
+    <th scope="col" class="table-head">
+        @{
+            var isVIPSortField = sortField == "VIP";
+            var VIPSortIndicator = isVIPSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+        }
+        @if (isVIPSortField)
+        {
+            <input type="submit" name="actionButton" value="VIP" class="btn btn-link" aria-label="Sort by VIP" />
+            <span class="SortIndicator">@VIPSortIndicator</span>
+        }
+        else
+        {
+            <input type="submit" name="actionButton" value="VIP" class="btn btn-link" aria-label="Sort by VIP" />
+        }
+    </th>
+    <th scope="col" class="table-head">
+        @{
+            var isMemberNameSortField = sortField == "Member Name";
+            var memberNameSortIndicator = isMemberNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+        }
+        @if (isMemberNameSortField)
+        {
+            <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member Name" />
+            <span class="SortIndicator">@memberNameSortIndicator</span>
+        }
+        else
+        {
+            <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member Name" />
+        }
+    </th>
 
-				</tr>
+</tr>
 			</thead>
 			<tbody>
 				@foreach (var item in Model)

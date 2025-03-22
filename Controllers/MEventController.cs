@@ -30,7 +30,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Index(int? page, int? pageSizeID, DateTime? date, string? SearchString, string? actionButton,
                                               string sortDirection = "desc", string sortField = "Event Name")
         {
-            string[] sortOptions = new[] { "Event Name" };  // You can add more sort options if needed
+            string[] sortOptions = new[] { "Event Name", "Event Date", "Event Location" };  // You can add more sort options if needed
             int numberFilters = 0;
 
             var MEvents = _context.MEvents.Include(m => m.MemberEvents).ThenInclude(m => m.Member).AsQueryable();
@@ -69,20 +69,22 @@ namespace NIA_CRM.Controllers
                 }
             }
 
-            if (sortField == "Event Name")
+            MEvents = sortField switch
             {
-                if (sortDirection == "desc")
-                {
-                    MEvents = MEvents
-                        .OrderByDescending(p => p.EventName);
-                }
-                else
-                {
-                    MEvents = MEvents
-                        .OrderBy(p => p.EventName);
+                "Event Name" => sortDirection == "asc"
+                    ? MEvents.OrderBy(e => e.EventName)
+                    : MEvents.OrderByDescending(e => e.EventName),
 
-                }
-            }
+                "Event Date" => sortDirection == "asc"
+                    ? MEvents.OrderBy(e => e.EventDate) // Assuming Address has City
+                    : MEvents.OrderByDescending(e => e.EventDate),
+
+                "Event Location" => sortDirection == "asc"
+                    ? MEvents.OrderBy(e => e.EventLocation) // Assuming the MembershipType has a Name
+                    : MEvents.OrderByDescending(e => e.EventLocation),
+
+                _ => MEvents
+            };
 
 
             //Give feedback about the state of the filters
