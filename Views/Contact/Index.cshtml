@@ -52,7 +52,7 @@
 							data-bs-target="#collapseFilter"
 							aria-expanded="false"
 							aria-controls="collapseFilter">
-						Filter/Search @ViewData["numberFilters"]
+						Filter/Search @ViewData["numberFilters"]+
 					</button>
 					<button type="submit" class="btn btn-dark" name="actionButton" value="ExportExcel">
 						<i class="fa fa-file-excel text-white"></i> Export Excel
@@ -255,9 +255,9 @@
 							<input type="checkbox" class="contact-checkbox" name="selectedContactIds" value="@item.Id" style="display: none;">
 						</td>
 						<td>@Html.DisplayFor(modelItem => item.Summary)</td>
-						@* <td>@Html.DisplayFor(modelItem => item.Email)</td> *@
-						<td>Divyansh9030@gmail.com</td>
-						<td>
+						<td>@Html.DisplayFor(modelItem => item.Email)</td>
+@* 						<td>Divyansh9030@gmail.com</td>
+ *@						<td>
 							<a href="tel:@item.PhoneFormatted" id="phoneNumber">@item.PhoneFormatted</a>
 						</td>
 						<td>

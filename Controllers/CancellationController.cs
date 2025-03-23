@@ -31,7 +31,7 @@ namespace NIA_CRM.Controllers
             PopulateDropdowns();
             string[] sortOptions = new[] { "Member", "Date" };
 
-            var cancellations = _context.Cancellations.Include(c => c.Member).Where( c => c.IsCancelled).AsQueryable();
+            var cancellations = _context.Cancellations.Include(c => c.Member).Where( c => c.IsCancelled == true).AsQueryable();
 
             int numberFilters = 0;
 

@@ -3314,42 +3314,42 @@ namespace NIA_CRM.Data
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 10),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 3
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 12),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 4
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 18),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 5
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 20),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 6
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 22),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 7
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 25),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 8
                             },
@@ -3363,7 +3363,7 @@ namespace NIA_CRM.Data
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 30),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 10
                             },
@@ -3384,7 +3384,7 @@ namespace NIA_CRM.Data
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 10),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 13
                             },
