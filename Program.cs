@@ -21,6 +21,8 @@ var connectionString = builder.Configuration.GetConnectionString("NIACRMContext"
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 builder.Services.AddDefaultIdentity<IdentityUser>
     (options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
@@ -107,6 +109,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
 
 ////To prepare the database and seed data.  Can comment this out some of the time.
 using (var scope = app.Services.CreateScope())

@@ -177,6 +177,7 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -498,6 +499,9 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("MemberName")
+                        .IsUnique();
 
                     b.ToTable("Members");
                 });

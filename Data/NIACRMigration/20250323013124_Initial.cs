@@ -496,7 +496,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Title = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
                     Department = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
                     LinkedInUrl = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     ContactNote = table.Column<string>(type: "TEXT", nullable: true),
@@ -689,6 +689,12 @@ namespace NIA_CRM.Data.NIACRMigration
                 name: "IX_MemberMembershipTypes_MembershipTypeId",
                 table: "MemberMembershipTypes",
                 column: "MembershipTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Members_MemberName",
+                table: "Members",
+                column: "MemberName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_MemberSectors_SectorId",

@@ -27,7 +27,7 @@
                 else
                 {
                     <div class="form-group">
-                        <label for="memberId" class="control-label">Select Member</label>
+                        <label for="memberId" class="control-label">Select Member (required)</label>
                         <select name="memberId" class="form-control" asp-items="ViewBag.Members"></select>
                     </div>
                 }
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
+                    <label asp-for="Email" class="control-label"></label> (required)
                     <input asp-for="Email" class="form-control" placeholder="Enter Email Address" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>

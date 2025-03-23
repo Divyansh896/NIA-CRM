@@ -14,6 +14,7 @@ using NIA_CRM.Utilities;
 using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using NIA_CRM.ViewModels;
+using Org.BouncyCastle.Utilities.Encoders;
 
 namespace NIA_CRM.Controllers
 {
@@ -41,6 +42,7 @@ namespace NIA_CRM.Controllers
                                     .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
                                     .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                                     .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                .Include(m => m.MemberSectors).ThenInclude(m => m.Sector)
                                     //.Where(m => !m.Cancellations.Any())  // Exclude members with cancellations
                                     .AsNoTracking();
 
@@ -417,6 +419,8 @@ namespace NIA_CRM.Controllers
             var member = await _context.Members
                 .Include(m => m.Address)
                 .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+                .Include(m => m.MemberTags).ThenInclude(m => m.MTag)
+                .Include(m => m.MemberSectors).ThenInclude(m => m.Sector)
                 .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                 .Include(m => m.MemberLogo)
                 .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
@@ -491,7 +495,21 @@ namespace NIA_CRM.Controllers
             }
             catch (RetryLimitExceededException)
             {
+
                 ModelState.AddModelError("", "Unable to save changes after multiple attempts. Try again, and if the problem persists, see your system administrator.");
+            }
+            catch (DbUpdateException dex)
+            {
+                string message = dex.GetBaseException().Message;
+                if (message.Contains("UNIQUE") && message.Contains("Members.MemberName"))
+                {
+                    ModelState.AddModelError("Member Name", "Unable to save changes. Remember, " +
+                        "you cannot have duplicate Member Names.");
+                }
+                else
+                {
+                    ModelState.AddModelError("", $"Unable to save changes: {message}");
+                }
             }
 
             // Populate assigned data if the model state is invalid
@@ -512,9 +530,21 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
+
             var member = await _context.Members
                 .Include(m => m.MemberThumbnail)
+                .Include(m =>m. MemberSectors).ThenInclude(m=>m.Sector)
+                .Include(m => m.MemberTags).ThenInclude(m => m.MTag)
+                .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                .Include(m => m.MemberLogo)
                 .FirstOrDefaultAsync(m => m.ID == id);
+
+            PopulateAssignedMTagData(member);
+            PopulateAssignedSectorData(member);
+            PopulateAssignedMembershipTypeData(member);
+            PopulateAssignedNaicsCodeData(member);
+
             if (member == null)
             {
                 return NotFound();
@@ -522,107 +552,142 @@ namespace NIA_CRM.Controllers
             return View(member);
         }
 
-        // POST: Member/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Byte[] RowVersion, string? chkRemoveImage, IFormFile? thePicture)
-        {
-            var memberToUpdate = await _context.Members
-                .Include(m => m.MemberThumbnail)
-                .FirstOrDefaultAsync(m => m.ID == id);
+		// POST: Member/Edit/5
+		// To protect from overposting attacks, enable the specific properties you want to bind to.
+		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+		// POST: Member/Edit/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int id, string? chkRemoveImage, IFormFile? thePicture, string[] selectedOptionsTag,
+												string[] selectedOptionsSector, string[] selectedOptionsMembership, string[] selectedOptionsNaicsCode)
+		{
+			var memberToUpdate = await _context.Members
+				.Include(m => m.MemberThumbnail)
+				.Include(m => m.MemberSectors).ThenInclude(m => m.Sector)
+				.Include(m => m.MemberTags).ThenInclude(m => m.MTag)
+				.Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+				.Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+				.Include(m => m.MemberLogo)
+				.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (memberToUpdate == null)
-            {
-                return NotFound();
-            }
+			if (memberToUpdate == null)
+			{
+				return NotFound();
+			}
 
-            // Attach the RowVersion for concurrency tracking
-            _context.Entry(memberToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+			
 
-            // Try updating the model with user input
-            if (await TryUpdateModelAsync<Member>(memberToUpdate, "",
-                m => m.MemberName, m => m.MemberSize, m => m.WebsiteUrl, m => m.JoinDate, m => m.IsPaid, m => m.MemberLogo))
-            {
-                try
-                {
-                    if (chkRemoveImage != null)
-                    {
-                        // If we are deleting the image and thumbnail, make sure to notify the Change Tracker
-                        memberToUpdate.MemberThumbnail = _context.MemebrThumbnails.FirstOrDefault(p => p.MemberID == memberToUpdate.ID);
-                        // Set the image fields to null to delete them
-                        memberToUpdate.MemberLogo = null;
-                        memberToUpdate.MemberThumbnail = null;
-                    }
-                    else
-                    {
-                        // Add or update the picture if one is provided
-                        await AddPicture(memberToUpdate, thePicture);
-                    }
+			// Try updating the model with user input
+			if (await TryUpdateModelAsync<Member>(memberToUpdate, "",
+				m => m.MemberName, m => m.MemberSize, m => m.WebsiteUrl, m => m.JoinDate, m => m.IsPaid, m => m.MemberLogo))
+			{
+				try
+				{
 
-                    // Save changes
-                    await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = $"Member: {memberToUpdate.MemberName} updated successfully!";
+					// Update Member Tags (MTag)
+					UpdateMemberMTag(selectedOptionsTag, memberToUpdate);
 
-                    return RedirectToAction("Details", new { id = memberToUpdate.ID });
-                }
-                catch (RetryLimitExceededException)
-                {
-                    ModelState.AddModelError("", "Unable to save changes after multiple attempts. Please try again later.");
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    var exceptionEntry = ex.Entries.Single();
-                    var clientValues = (Member)exceptionEntry.Entity;
-                    var databaseEntry = exceptionEntry.GetDatabaseValues();
+					// Update Member Sectors
+					UpdateMemberSector(selectedOptionsSector, memberToUpdate);
 
-                    if (databaseEntry == null)
-                    {
-                        ModelState.AddModelError("", "The record was deleted by another user.");
-                    }
-                    else
-                    {
-                        var databaseValues = (Member)databaseEntry.ToObject();
+					// Update Member Membership Types
+					UpdateMemberMembershipType(selectedOptionsMembership, memberToUpdate);
+					UpdateMemberNaicsCode(selectedOptionsNaicsCode, memberToUpdate);
 
-                        // Compare each field to provide specific feedback
-                        if (databaseValues.MemberName != clientValues.MemberName)
-                            ModelState.AddModelError("MemberName", $"Current value: {databaseValues.MemberName}");
-                        if (databaseValues.MemberSize != clientValues.MemberSize)
-                            ModelState.AddModelError("MemberSize", $"Current value: {databaseValues.MemberSize}");
-                        if (databaseValues.WebsiteUrl != clientValues.WebsiteUrl)
-                            ModelState.AddModelError("WebsiteUrl", $"Current value: {databaseValues.WebsiteUrl}");
-                        if (databaseValues.JoinDate != clientValues.JoinDate)
-                            ModelState.AddModelError("JoinDate", $"Current value: {databaseValues.JoinDate}");
-                        if (databaseValues.IsPaid != clientValues.IsPaid)
-                            ModelState.AddModelError("IsPaid", $"Current value: {databaseValues.IsPaid}");
+					// Handle image removal if the checkbox is checked
+					if (chkRemoveImage != null)
+					{
+						// If we are deleting the image and thumbnail, make sure to notify the Change Tracker
+						memberToUpdate.MemberThumbnail = _context.MemebrThumbnails.FirstOrDefault(p => p.MemberID == memberToUpdate.ID);
 
-                        // Handle MemberLogo and MemberThumbnail separately since they are related to the image
-                        //if (databaseValues.MemberLogo != clientValues.MemberLogo)
-                        //    ModelState.AddModelError("MemberLogo", $"Current value: {databaseValues.MemberLogo?.Content ?? "No logo"}");
-                        //if (databaseValues.MemberThumbnail != clientValues.MemberThumbnail)
-                        //    ModelState.AddModelError("MemberThumbnail", $"Current value: {databaseValues.MemberThumbnail?.FileName ?? "No thumbnail"}");
+						// Set the image fields to null to delete them
+						memberToUpdate.MemberLogo = null;
+						memberToUpdate.MemberThumbnail = null;
 
-                        ModelState.AddModelError("", "The record was modified by another user after you started editing. If you still want to save your changes, click the Save button again.");
+						// Mark the properties as modified to ensure the changes are tracked
+						_context.Entry(memberToUpdate).Property(m => m.MemberLogo).IsModified = true;
+						_context.Entry(memberToUpdate).Property(m => m.MemberThumbnail).IsModified = true;
+					}
+					else
+					{
+						// Add or update the picture if one is provided
+						await AddPicture(memberToUpdate, thePicture);
+					}
 
-                        // Update RowVersion for the next attempt
-                        memberToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
-                        ModelState.Remove("RowVersion");
-                    }
-                }
-                catch (DbUpdateException dex)
-                {
+					// Save changes to the database
+					await _context.SaveChangesAsync();
+					TempData["SuccessMessage"] = $"Member: {memberToUpdate.MemberName} updated successfully!";
+
+					// Redirect to the Details view for the updated member
+					return RedirectToAction("Details", new { id = memberToUpdate.ID });
+				}
+				catch (RetryLimitExceededException)
+				{
+					ModelState.AddModelError("", "Unable to save changes after multiple attempts. Please try again later.");
+				}
+				catch (DbUpdateConcurrencyException ex)
+				{
+					var exceptionEntry = ex.Entries.Single();
+					var clientValues = (Member)exceptionEntry.Entity;
+					var databaseEntry = exceptionEntry.GetDatabaseValues();
+
+					if (databaseEntry == null)
+					{
+						ModelState.AddModelError("", "The record was deleted by another user.");
+					}
+					else
+					{
+						var databaseValues = (Member)databaseEntry.ToObject();
+
+						// Compare each field to provide specific feedback
+						if (databaseValues.MemberName != clientValues.MemberName)
+							ModelState.AddModelError("MemberName", $"Current value: {databaseValues.MemberName}");
+						if (databaseValues.MemberSize != clientValues.MemberSize)
+							ModelState.AddModelError("MemberSize", $"Current value: {databaseValues.MemberSize}");
+						if (databaseValues.WebsiteUrl != clientValues.WebsiteUrl)
+							ModelState.AddModelError("WebsiteUrl", $"Current value: {databaseValues.WebsiteUrl}");
+						if (databaseValues.JoinDate != clientValues.JoinDate)
+							ModelState.AddModelError("JoinDate", $"Current value: {databaseValues.JoinDate}");
+						if (databaseValues.IsPaid != clientValues.IsPaid)
+							ModelState.AddModelError("IsPaid", $"Current value: {databaseValues.IsPaid}");
+
+						ModelState.AddModelError("", "The record was modified by another user after you started editing. If you still want to save your changes, click the Save button again.");
+
+						// Update RowVersion for the next attempt
+						memberToUpdate.RowVersion = databaseValues.RowVersion ?? Array.Empty<byte>();
+						ModelState.Remove("RowVersion");
+					}
+				}
+				catch (DbUpdateException dex)
+				{
                     string message = dex.GetBaseException().Message;
-                    ModelState.AddModelError("", $"Unable to save changes: {message}");
-                }
-            }
+                    if (message.Contains("UNIQUE") && message.Contains("Members.MemberName"))
+                    {
+                        ModelState.AddModelError("Member Name", "Unable to save changes. Remember, " +
+                            "you cannot have duplicate Member Names.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", $"Unable to save changes: {message}");
+                    }
+                    
+				}
+			}
 
-            return View(memberToUpdate);
-        }
+			
+			PopulateAssignedMTagData(memberToUpdate);
+			PopulateAssignedSectorData(memberToUpdate);
+			PopulateAssignedMembershipTypeData(memberToUpdate);  
+			PopulateAssignedNaicsCodeData(memberToUpdate);
+
+			// If we reach here, something went wrong, so return the view with the model
+			return View(memberToUpdate);
+		}
 
 
-        // GET: Member/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+
+		// GET: Member/Delete/5
+		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {

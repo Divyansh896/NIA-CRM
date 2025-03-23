@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250320220346_Initial")]
+    [Migration("20250323013124_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -180,6 +180,7 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -501,6 +502,9 @@ namespace NIA_CRM.Data.NIACRMigration
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("MemberName")
+                        .IsUnique();
 
                     b.ToTable("Members");
                 });
