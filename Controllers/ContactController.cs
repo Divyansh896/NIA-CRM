@@ -462,13 +462,12 @@ namespace NIA_CRM.Controllers
         {
             if (string.IsNullOrEmpty(selectedContactIds))
             {
-                return BadRequest("No contacts selected.");
+                return Json(new { success = false, message = "No contacts selected." });
             }
 
             if (string.IsNullOrEmpty(Subject) || string.IsNullOrEmpty(emailContent))
             {
-                ViewData["Message"] = "You must enter both a Subject and some message Content before sending the message.";
-                return View();
+                return Json(new { success = false, message = "You must enter both a Subject and some message Content before sending the message." });
             }
 
             var contactIds = selectedContactIds.Split(',').Select(int.Parse).ToList();
@@ -482,6 +481,7 @@ namespace NIA_CRM.Controllers
                     {
                         Name = p.Summary,
                         Address = p.Email
+                        //Address = "Divyansh9030@gmail.com"
                     })
                     .ToListAsync();
 
@@ -498,20 +498,17 @@ namespace NIA_CRM.Controllers
 
                     await _emailSender.SendToManyAsync(msg);
 
-                    ViewData["Message"] = "Message sent to " + folksCount + " contact"
-                        + ((folksCount == 1) ? "." : "s.");
+                    return Json(new { success = true, message = "Message sent to " + folksCount + " contact" + ((folksCount == 1) ? "." : "s.") });
                 }
                 else
                 {
-                    ViewData["Message"] = "Message NOT sent! No valid email addresses found for the selected contacts.";
+                    return Json(new { success = false, message = "Message NOT sent! No valid email addresses found for the selected contacts." });
                 }
             }
             catch (Exception ex)
             {
-                ViewData["Message"] = "Error: Could not send email. " + ex.GetBaseException().Message;
+                return Json(new { success = false, message = "Error: Could not send email. " + ex.GetBaseException().Message });
             }
-
-            return View();
         }
 
 

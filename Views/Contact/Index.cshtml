@@ -371,6 +371,9 @@
 
 				var form = $('#createNotificationForm'); // Ensure form ID is correct
 				var ContactIds = document.getElementById("selectedContactIds").value; // Hidden input value
+				var Subject = document.getElementById("emailSubject").value; // Subject input value
+				var Body = document.getElementById("emailBody").value; // Body textarea value
+
 
 				console.log("Submitting form for Contact IDs:", ContactIds); // Debugging log
 
@@ -379,16 +382,21 @@
 					$.ajax({
 						type: "POST",
 						url: form.attr('action'),  // Form action URL
-						data: form.serialize() + "&selectedContactIds=" + ContactIds, // Include selected contacts
-						success: function (response) {
-							if (response.success) {
-								$('#addNotificationModal').modal('hide');
-								location.reload(); // Refresh page to reflect changes
-							} else {
-								console.error("Error: " + response.message);
-								showErrorMessage(response.message); // Show error messages
-							}
+						//data: form.serialize() + "&selectedContactIds=" + ContactIds + "&Subject=" + encodeURIComponent(Subject) + "&Body=" + encodeURIComponent(Body), // Include selected contacts, subject, and body
+						data: {
+							selectedContactIds: ContactIds,
+							Subject: Subject,
+							emailContent: Body
 						},
+						success: function (response) {
+								if (response.success) {
+									$('#addNotificationModal').modal('hide');
+									location.reload(); // Refresh page to reflect changes
+								} else {
+									console.error("Error: " + response.message);
+									showErrorMessage(response.message); // Show error messages
+								}
+							},
 						error: function (xhr) {
 							console.error("Error: ", xhr);
 							showErrorMessage("An unexpected error occurred."); // General error message
@@ -398,15 +406,38 @@
 			});
 
 			// Function to show error messages in the modal
-			function showErrorMessage(message) {
-				var ul = document.getElementById("ErrorList");
-				ul.innerHTML = "";  // Clear previous errors
-				var errors = message.split("|");
-				errors.forEach(function (error) {
-					var li = document.createElement("li");
-					li.innerHTML = error;
-					ul.appendChild(li);
-				});
+		function showErrorMessage(message) {
+			var ul = document.getElementById("ErrorList");
+			ul.innerHTML = "";  // Clear previous errors
+
+			// Split and display each error message
+			var errors = message.split("|");
+			errors.forEach(function (error) {
+				var li = document.createElement("li");
+				li.innerHTML = error;
+				ul.appendChild(li);
+			});
+		}
+
+			// Function to handle error messages from AJAX response
+			function handleAjaxErrors(xhr) {
+				var errorMessages = [];
+				switch (xhr.status) {
+					case 401:
+						errorMessages.push("You must be logged in first.");
+						break;
+					case 403:
+						errorMessages.push("You are not authorized for this action.");
+						break;
+					default:
+						errorMessages = xhr.responseText.split("|").slice(0, -1);
+				}
+
+				if (!errorMessages.some((str) => str !== "")) {
+					errorMessages.push("Error: Unable to complete operation");
+				}
+
+
 			}
 
 			// Function to clear previous error messages
