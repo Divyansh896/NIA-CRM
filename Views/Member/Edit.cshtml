@@ -9,7 +9,7 @@
 
 <h1>Edit</h1>
 
-<h4>@Model.MemberName</h4>
+<h4>Member</h4>
 <hr />
 
 <div class="card card-body bg-light text-black">
@@ -45,7 +45,8 @@
             <!-- Second Column (Member Info) -->
             <div class="col-md-4">
                 <div class="form-group mb-3">
-                    <label asp-for="MemberName" class="control-label"></label> (required)
+                    <label asp-for="MemberName" class="control-label"></label>
+                    <span class="required-label">(required)</span>
                     <input asp-for="MemberName" class="form-control" />
                     <span asp-validation-for="MemberName" class="text-danger"></span>
                 </div>
@@ -63,7 +64,8 @@
                     <span asp-validation-for="IsPaid" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">
-                    <label asp-for="MemberSize" class="control-label"></label> (required)
+                    <label asp-for="MemberSize" class="control-label"></label>
+                    <span class="required-label">(required)</span>
                     <input asp-for="MemberSize" class="form-control" />
                     <span asp-validation-for="MemberSize" class="text-danger"></span>
                 </div>
@@ -175,7 +177,7 @@
         <!-- Buttons outside the card -->
         <div class="position-bottom-left mt-3">
             <a asp-action="Index" class="btn btn-dark me-2">Back to List</a>
-            <input type="submit" value="Next" id="btnSubmit" class="btn btn-primary" />
+            <input type="submit" value="Save" id="btnSubmit" class="btn btn-primary" />
         </div>
     </form>
 </div>
@@ -346,7 +348,7 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
+    <script src="~/js/multiselect.js"></script>
     <script>
         var cropper;
         var originalImageData = null;
@@ -495,14 +497,6 @@
             document.getElementById('drag-drop-area').style.display = 'block';
             inputFile.click();
         }
-
-
-
-
-
-
-
-
 
         //script for adding tags, sector exc on a go
         $(document).ready(function () {

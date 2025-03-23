@@ -29,7 +29,7 @@ namespace NIA_CRM.Controllers
                                               string sortDirection = "asc", string sortField = "Member")
         {
             PopulateDropdowns();
-            string[] sortOptions = new[] { "Member" };
+            string[] sortOptions = new[] { "Member", "Date" };
 
             var cancellations = _context.Cancellations.Include(c => c.Member).Where( c => c.IsCancelled).AsQueryable();
 
@@ -65,23 +65,19 @@ namespace NIA_CRM.Controllers
                     sortField = actionButton;//Sort by the button clicked
                 }
             }
-            if (sortField == "Member")
+            cancellations = sortField switch
             {
-                if (sortDirection == "desc")
-                {
-                    cancellations = cancellations
-                        .OrderByDescending(p => p.Member.MemberName)
-                        .ThenByDescending(p => p.Member.MemberName);
+                "Member" => sortDirection == "asc"
+                    ? cancellations.OrderBy(e => e.Member.MemberName)
+                    : cancellations.OrderByDescending(e => e.Member.MemberName),
 
-                }
-                else
-                {
-                    cancellations = cancellations
-                        .OrderBy(p => p.Member.MemberName)
-                        .ThenBy(p => p.Member.MemberName);
+                "Date" => sortDirection == "asc"
+                    ? cancellations.OrderBy(e => e.CancellationDate) // Assuming Address has City
+                    : cancellations.OrderByDescending(e => e.CancellationDate),
 
-                }
-            }
+                
+                _ => cancellations
+            };
 
             if (Members.HasValue)
             {

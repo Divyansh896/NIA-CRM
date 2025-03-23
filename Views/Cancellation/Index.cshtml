@@ -113,7 +113,24 @@
                 </th>
 
 
-                <th scope="col" class="table-head">Archiving Date</th>
+                <th scope="col" class="table-head">
+                    @{
+
+                        var isDateSortField = sortField == "Date";
+                        var DateOrderIndicator = isDateSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+
+
+                    @if (isDateSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Date" class="btn btn-link" aria-label="Sort by Date" />
+                        <span class="SortIndicator">@DateOrderIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Date" class="btn btn-link" aria-label="Sort by Date" />
+                    }
+                </th>
                 <th scope="col" class="table-head">Archiving Note</th>
             </tr>
         </thead>

@@ -26,7 +26,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Index(int? page, int? pageSizeID, DateTime? dateFrom, DateTime? dateTo, string? actionButton,
                                               string sortDirection = "asc", string sortField = "Contact")
         {
-            string[] sortOptions = new[] { "Contact" };  // You can add more sort options if needed
+            string[] sortOptions = new[] { "Contact", "Date" };  // You can add more sort options if needed
 
             int numberFilters = 0;
             var contactCancellations = _context.ContactCancellations.Include(c => c.Contact).AsQueryable();
@@ -53,30 +53,33 @@ namespace NIA_CRM.Controllers
                 ViewData["DateFilterTo"] = dateTo.Value.ToString("yyyy-MM-dd");
             }
 
-            if (sortOptions.Contains(actionButton))//Change of sort is requested
+            if (!String.IsNullOrEmpty(actionButton)) // Form Submitted!
             {
-                if (actionButton == sortField) //Reverse order on same field
-                {
-                    sortDirection = sortDirection == "asc" ? "desc" : "asc";
-                }
-                sortField = actionButton;//Sort by the button clicked
-            }
+                page = 1; // Reset page to start
 
-            if (sortField == "Contact")
-            {
-                if (sortDirection == "desc")
+                if (sortOptions.Contains(actionButton)) // Change of sort is requested
                 {
-                    contactCancellations = contactCancellations
-                        .OrderByDescending(p => p.Contact);
-                }
-                else
-                {
-                    contactCancellations = contactCancellations
-                        .OrderBy(p => p.Contact);
-
+                    if (actionButton == sortField) // Reverse order on same field
+                    {
+                        sortDirection = sortDirection == "asc" ? "desc" : "asc";
+                    }
+                    sortField = actionButton; // Sort by the button clicked
                 }
             }
 
+            contactCancellations = sortField switch
+            {
+                "Contact" => sortDirection == "asc"
+                    ? contactCancellations.OrderBy(e => e.Contact.FirstName).ThenBy(e => e.Contact.LastName)
+                    : contactCancellations.OrderByDescending(e => e.Contact.FirstName).ThenByDescending(e => e.Contact.LastName),
+
+                "Date" => sortDirection == "asc"
+                    ? contactCancellations.OrderBy(e => e.CancellationDate) // Assuming Address has City
+                    : contactCancellations.OrderByDescending(e => e.CancellationDate),
+
+                
+                _ => contactCancellations
+            };
 
             // Give feedback about applied filters
             if (numberFilters != 0)

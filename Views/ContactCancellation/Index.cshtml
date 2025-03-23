@@ -5,6 +5,7 @@
 }
 
  <partial name="_Notification" />
+<h1 id="Cancellation-title">Archived Contacts</h1>
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     @{
         var sortField = ViewData["sortField"]?.ToString();
@@ -61,19 +62,35 @@
             <tr>
                 <th scope="col" class="table-head">
                     @{
-                        var isCurrentSortField = sortField == "Contact";
-                        var newSortDirection = (isCurrentSortField && sortDirection == "asc") ? "desc" : "asc";
-                        var sortOrderIndicator = isCurrentSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        var isSectorSortField = sortField == "Contact";
+                        var sectorSortIndicator = isSectorSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
                     }
-
-                    <button type="submit" name="sortField" value="Contact" class="btn btn-link" aria-label="Sort by Contact">
-                        Contact <span class="SortIndicator">@sortOrderIndicator</span>
-                    </button>
-
-                    <input type="hidden" name="sortDirection" value="@newSortDirection" />
+                    @if (isSectorSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Contact" class="btn btn-link" aria-label="Sort by Contact" />
+                        <span class="SortIndicator">@sectorSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Contact" class="btn btn-link" aria-label="Sort by Contact" />
+                    }
                 </th>
 
-                <th scope="col" class="table-head">Archiving Date</th>
+                <th scope="col" class="table-head">
+                    @{
+                        var isDateSortField = sortField == "Date";
+                        var dateSortIndicator = isDateSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isDateSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Date" class="btn btn-link" aria-label="Sort by Date" />
+                        <span class="SortIndicator">@dateSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Date" class="btn btn-link" aria-label="Sort by Date" />
+                    }
+                </th>
                 <th scope="col" class="table-head">Archiving Note</th>
             </tr>
         </thead>

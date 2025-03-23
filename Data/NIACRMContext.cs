@@ -187,6 +187,11 @@ namespace NIA_CRM.Data
                 .WithMany(c => c.MemberContacts)
                 .HasForeignKey(mc => mc.ContactId)
                 .OnDelete(DeleteBehavior.Cascade); // or another delete behavior
+
+            //Member Name is unique
+            modelBuilder.Entity<Member>()
+            .HasIndex(p => p.MemberName)
+            .IsUnique();
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

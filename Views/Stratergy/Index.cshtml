@@ -61,7 +61,7 @@
                         Filter/Search @ViewData["numberFilters"]
                     </button>
                 </div>
-                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add Event</a>
+                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add Strategy</a>
 
             </div>
 
@@ -133,19 +133,67 @@
                     </th>
        
             <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.StrategyAssignee)
+                        @{
+                            var isAsigneeCodeSortField = sortField == "Strategy Assignee";
+                            var AsigneeCodeSortIndicator = isAsigneeCodeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isAsigneeCodeSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Strategy Assignee" class="btn btn-link" aria-label="Sort by Strategy Assignee" />
+                            <span class="SortIndicator">@AsigneeCodeSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Strategy Assignee" class="btn btn-link" aria-label="Sort by Strategy Assignee" />
+                        }
             </th>
             <th scope="col" class="table-head">
                 @Html.DisplayNameFor(model => model.StrategyNote)
             </th>
             <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.CreatedDate)
+                        @{
+                            var isDateSortField = sortField == "Created Date";
+                            var DateSortIndicator = isDateSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isDateSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Created Date" class="btn btn-link" aria-label="Sort by Created Date" />
+                            <span class="SortIndicator">@DateSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Created Date" class="btn btn-link" aria-label="Sort by Created Date" />
+                        }
             </th>
             <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.StrategyTerm)
+                        @{
+                            var isTermSortField = sortField == "Startegy Term";
+                            var TermSortIndicator = isTermSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isTermSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Startegy Term" class="btn btn-link" aria-label="Sort by Startegy Term" />
+                            <span class="SortIndicator">@TermSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Startegy Term" class="btn btn-link" aria-label="Sort by Startegy Term" />
+                        }
             </th>
             <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.StrategyStatus)
+                        @{
+                            var isStatusCodeSortField = sortField == "Strategy Status";
+                            var StatusCodeSortIndicator = isStatusCodeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isStatusCodeSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Strategy Status" class="btn btn-link" aria-label="Sort by Strategy Status" />
+                            <span class="SortIndicator">@StatusCodeSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Strategy Status" class="btn btn-link" aria-label="Sort by Strategy Status" />
+                        }
             </th>
             @* <th scope="col" class="table-head"></th> *@
         </tr>
