@@ -15,6 +15,44 @@
     </div>
 </form>
 
+<!-- Modal for Exporting Annual Actions -->
+<div class="modal fade" id="exportAnnualActionsModal" tabindex="-1" aria-labelledby="exportAnnualActionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exportAnnualActionsModalLabel">Export Annual Actions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Export Fields Selection Form -->
+                <form id="exportAnnualActionsForm" method="post" asp-action="ExportSelectedMemberEventsFields">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="checkbox" name="selectedFields" value="EventName" checked> Event Name
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" name="selectedFields" value="EventDescription"> Event Description
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" name="selectedFields" value="EventLocation"> Event Location
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" name="selectedFields" value="EventDate"> Event Date
+                        </div>
+                       
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="exportAnnualActionsForm" class="btn btn-dark">
+                    <i class="fa fa-file-excel text-white"></i> Export
+                </button>
+            </div>
+           
+        </div>
+    </div>
+</div>
 
 <form asp-action="ExportToExcel" method="get">
     <button type="submit" class="btn btn-dark me-2">
@@ -34,6 +72,7 @@
 }
 
 
+
 <form>
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
@@ -43,8 +82,8 @@
     }
 
     <div class="m-auto flex-grow-1">
-        <div class="form-horizontal mb-3">
-            <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+@*             <div class="d-flex justify-content-between align-items-center"> *@
                 <div>
                     <button class="btn btn-dark @ViewData["Filtering"]"
                             type="button"
@@ -56,8 +95,19 @@
                         Filter/Search @ViewData["numberFilters"]
                     </button>
                 </div>
+
+
+                <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
+                    <i class="fa fa-file-excel text-white"></i>
+                    Export filtered data to Excel
+                </button>
+
+                <!-- Export Button to Open Modal -->
+                <button type="button" class="btn btn-dark mt-2" data-bs-toggle="modal" data-bs-target="#exportAnnualActionsModal">
+                    <i class="fa fa-file-excel text-white"></i> Export Selected Fields
+                </button>
                 <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add Event</a>
-            </div>
+        </div>
 
             @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
             {
@@ -78,7 +128,7 @@
                     }
                 </div>
             }
-        </div>
+    </div>
 
         <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
             <div class="card card-body bg-light">

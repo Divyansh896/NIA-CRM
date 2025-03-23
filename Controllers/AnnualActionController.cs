@@ -100,6 +100,14 @@ namespace NIA_CRM.Controllers
                 @ViewData["ShowFilter"] = " show";
             }
 
+
+
+            if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
+            {
+
+                return ExportToExcel(actions.ToList());
+            }
+
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
@@ -115,7 +123,7 @@ namespace NIA_CRM.Controllers
 
 
         // New action to export to Excel
-        public IActionResult ExportToExcel()
+        private IActionResult ExportToExcel(List<AnnualAction> actions)
         {
             // Get the data you want to export
             var annualActions = _context.AnnualActions.ToList();
@@ -452,6 +460,70 @@ namespace NIA_CRM.Controllers
             }
 
         }
+
+        [HttpPost]
+        public IActionResult ExportSelectedAnnualActionsFields(List<string>? selectedFields)
+        {
+            if (selectedFields == null || selectedFields.Count == 0)
+            {
+                TempData["Error"] = "Please select at least one field to export.";
+                return RedirectToAction("Index");
+            }
+
+            var annualActions = _context.AnnualActions.ToList();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("AnnualActions");
+                int col = 1;
+
+                // Add selected column headers
+                foreach (var field in selectedFields)
+                {
+                    var cell = worksheet.Cells[1, col];
+                    cell.Value = field;
+
+                    // Make the header bold
+                    cell.Style.Font.Bold = true;
+
+                    col++;
+                }
+
+                int row = 2;
+                foreach (var action in annualActions)
+                {
+                    col = 1;
+
+                    if (selectedFields.Contains("ActionName"))
+                        worksheet.Cells[row, col++].Value = action.Name ?? "N/A"; // Replace with actual property name
+
+                    if (selectedFields.Contains("Note"))
+                        worksheet.Cells[row, col++].Value = action.Note ?? "N/A"; // Replace with actual property name
+
+                    if (selectedFields.Contains("Date"))
+                        worksheet.Cells[row, col++].Value = action.Date.HasValue ? action.Date.Value.ToString("yyyy-MM-dd") : "N/A";
+
+                    if (selectedFields.Contains("Assignee"))
+                        worksheet.Cells[row, col++].Value = action.Asignee ?? "N/A"; // Assuming Assignee is a navigation property
+
+                    if (selectedFields.Contains("AnnualStatus"))
+                        worksheet.Cells[row, col++].Value = action.AnnualStatus.ToString() ?? "N/A"; // Replace with actual property name
+
+                    row++;
+                }
+
+                // Auto-fit columns for better readability
+                worksheet.Cells.AutoFitColumns();
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"AnnualActionsExport_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+
 
     }
 }

@@ -147,3 +147,17 @@ body {
     .grid-stack-item:hover {
         background: #e9ecef;
     }
+
+
+
+/*.export-buttons {
+    display: flex;
+    align-items: center;*/ /* Align buttons vertically */
+    /*gap: 12px;*/ /* Space between buttons */
+    /*flex-wrap: wrap;*/ /* Prevents overflow on smaller screens */
+/*}
+
+.btn-dark {
+    white-space: nowrap;*/ /* Prevents text from breaking */
+    /*padding: 8px 12px;*/ /* Adjusts button padding */
+/*}*/

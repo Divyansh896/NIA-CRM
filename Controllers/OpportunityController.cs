@@ -101,6 +101,13 @@ namespace NIA_CRM.Controllers
                 @ViewData["ShowFilter"] = " show";
             }
 
+
+            if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
+            {
+
+                return ExportOpportunitiesToExcel(opportunities.ToList());
+            }
+
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
@@ -116,12 +123,12 @@ namespace NIA_CRM.Controllers
 
 
         // Export Opportunities to Excel
-        public IActionResult ExportOpportunitiesToExcel()
+        public IActionResult ExportOpportunitiesToExcel(List<Opportunity> opportunities)
         {
             // Set the license context for EPPlus
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var opportunities = _context.Opportunities.ToList();
+            //var opportunities = _context.Opportunities.ToList();
 
             // Initialize the Excel package
             var package = new ExcelPackage();
@@ -422,6 +429,76 @@ namespace NIA_CRM.Controllers
         private bool OpportunityExists(int id)
         {
             return _context.Opportunities.Any(e => e.ID == id);
+        }
+
+
+
+
+        [HttpPost]
+        public IActionResult ExportSelectedOpportunitiesFields(List<string>? selectedFields)
+        {
+            if (selectedFields == null || selectedFields.Count == 0)
+            {
+                TempData["Error"] = "Please select at least one field to export.";
+                return RedirectToAction("Index");
+            }
+
+            var opportunities = _context.Opportunities.ToList();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Opportunities");
+                int col = 1;
+
+                // Add selected column headers
+                foreach (var field in selectedFields)
+                {
+                    worksheet.Cells[1, col].Value = field;
+                    col++;
+                }
+
+                int row = 2;
+                foreach (var opportunity in opportunities)
+                {
+                    col = 1;
+
+                    if (selectedFields.Contains("OpportunityName"))
+                        worksheet.Cells[row, col++].Value = opportunity.OpportunityName ?? "N/A";
+
+                    if (selectedFields.Contains("Action"))
+                        worksheet.Cells[row, col++].Value = opportunity.OpportunityAction ?? "N/A";
+
+                    if (selectedFields.Contains("POC"))
+                        worksheet.Cells[row, col++].Value = opportunity.POC ?? "N/A";
+
+                    if (selectedFields.Contains("Account"))
+                        worksheet.Cells[row, col++].Value = opportunity.Account ?? "N/A";
+
+                    if (selectedFields.Contains("Interaction"))
+                        worksheet.Cells[row, col++].Value = opportunity.Interaction ?? "N/A";
+
+                    if (selectedFields.Contains("LastContact"))
+                        worksheet.Cells[row, col++].Value = opportunity.LastContact?.ToString("yyyy-MM-dd") ?? "N/A";
+
+                    if (selectedFields.Contains("OpportunityStatus"))
+                        worksheet.Cells[row, col++].Value = opportunity.OpportunityStatus.ToString() ?? "N/A";
+
+                    if (selectedFields.Contains("OpportunityPriority"))
+                        worksheet.Cells[row, col++].Value = opportunity.OpportunityPriority.ToString() ?? "N/A";
+
+                    row++;
+                }
+
+                // Auto-fit columns for better readability
+                worksheet.Cells.AutoFitColumns();
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"OpportunitiesExport_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
         }
 
     }

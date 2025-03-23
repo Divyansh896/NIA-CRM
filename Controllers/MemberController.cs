@@ -46,12 +46,7 @@ namespace NIA_CRM.Controllers
 
 
 
-            if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
-            {
-                var exportData = await members.AsNoTracking().ToListAsync();
-                return ExportMembersToExcel(exportData);
-            }
-
+           
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
             {
@@ -118,6 +113,14 @@ namespace NIA_CRM.Controllers
                 @ViewData["ShowFilter"] = " show";
             }
 
+
+            if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
+            {
+                
+                return ExportMembersToExcel(members.ToList());
+            }
+
+
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
@@ -181,9 +184,11 @@ namespace NIA_CRM.Controllers
         //    return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         //}
 
+        
+
         private IActionResult ExportMembersToExcel(List<Member> members)
         {
-            var package = new ExcelPackage(); // No 'using' block to avoid disposal
+            var package = new ExcelPackage();
             var worksheet = package.Workbook.Worksheets.Add("Members");
 
             // Adding headers
@@ -199,7 +204,6 @@ namespace NIA_CRM.Controllers
             worksheet.Cells[1, 10].Value = "Postal Code";
             worksheet.Cells[1, 11].Value = "Phone Number";
             worksheet.Cells[1, 12].Value = "Email Address";
-            //worksheet.Cells[1, 13].Value = "VIP Status";
 
             // Populating data
             int row = 2;
@@ -243,8 +247,6 @@ namespace NIA_CRM.Controllers
                     worksheet.Cells[row, 12].Value = "N/A";
                 }
 
-                //worksheet.Cells[row, 13].Value = member.IsVip ? "Yes" : "No";
-
                 row++;
             }
 
@@ -255,7 +257,7 @@ namespace NIA_CRM.Controllers
             package.SaveAs(stream);
             stream.Position = 0; // Reset position before returning
 
-            string excelName = $"Members.xlsx";
+            string excelName = $"Members_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
 
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
@@ -1052,6 +1054,78 @@ namespace NIA_CRM.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult ExportSelectedFields(List<string>? selectedFields)
+        {
+            if (selectedFields == null || selectedFields.Count == 0)
+            {
+                TempData["Error"] = "Please select at least one field to export.";
+                return RedirectToAction("Index");
+            }
+
+            var members = _context.Members
+                .Include(m => m.Addresses)
+                .Include(m => m.MemberMembershipTypes)
+                .ThenInclude(m => m.MembershipType)
+                .Include(m => m.MemberContacts)
+                .ThenInclude(m => m.Contact)
+                .ToList();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Members");
+                int col = 1;
+
+                // Add selected column headers
+                foreach (var field in selectedFields)
+                {
+                    worksheet.Cells[1, col].Value = field;
+                    col++;
+                }
+
+                int row = 2;
+                foreach (var member in members)
+                {
+                    col = 1;
+
+                    if (selectedFields.Contains("MemberID"))
+                        worksheet.Cells[row, col++].Value = member.ID;
+
+                    if (selectedFields.Contains("MemberName"))
+                        worksheet.Cells[row, col++].Value = member.MemberName ?? "N/A";
+
+                    if (selectedFields.Contains("City"))
+                        worksheet.Cells[row, col++].Value = member?.Addresses?.FirstOrDefault()?.City ?? "N/A";
+
+                    if (selectedFields.Contains("JoinDate"))
+                        worksheet.Cells[row, col++].Value = member.JoinDate.ToString("yyyy-MM-dd") ?? "N/A";
+
+                    if (selectedFields.Contains("MembershipType"))
+                        worksheet.Cells[row, col++].Value = member?.MemberMembershipTypes?.FirstOrDefault()?.MembershipType?.TypeName ?? "N/A";
+
+                    if (selectedFields.Contains("Address"))
+                        worksheet.Cells[row, col++].Value = member?.Addresses?.FirstOrDefault()?.AddressLine1 ?? "N/A";
+
+                    if (selectedFields.Contains("PhoneNumber"))
+                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.Phone ?? "N/A";
+
+                    if (selectedFields.Contains("EmailAddress"))
+                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.Email ?? "N/A";
+
+                    row++;
+                }
+
+                // Auto-fit columns for better readability
+                worksheet.Cells.AutoFitColumns();
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"MembersExport_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
 
     }
 
