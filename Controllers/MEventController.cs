@@ -99,6 +99,16 @@ namespace NIA_CRM.Controllers
                 @ViewData["ShowFilter"] = " show";
             }
 
+
+            if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
+            {
+
+                return ExportToExcel(MEvents.ToList());
+            }
+
+
+
+
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
@@ -112,37 +122,41 @@ namespace NIA_CRM.Controllers
             return View(pagedData);
         }
 
-        // Export to Excel Action
-        public IActionResult ExportToExcel()
+        public IActionResult ExportToExcel(List<MEvent> MEvents)
         {
-            // Get the data you want to export
-            var events = _context.MEvents.ToList();
+            var package = new ExcelPackage(); // No 'using' block to avoid disposal
+            var worksheet = package.Workbook.Worksheets.Add("Events");
 
-            // Create a new Excel package
-            using (var package = new ExcelPackage())
+            // Adding headers
+            worksheet.Cells[1, 1].Value = "Event Name";
+            worksheet.Cells[1, 2].Value = "Event Description";
+            worksheet.Cells[1, 3].Value = "Event Location";
+            worksheet.Cells[1, 4].Value = "Event Date";
+
+            // Populating data
+            int row = 2;
+            foreach (var eventItem in MEvents)
             {
-                var worksheet = package.Workbook.Worksheets.Add("Events");
-
-                // Add the header row
-                worksheet.Cells[1, 1].Value = "Event Name";
-                worksheet.Cells[1, 2].Value = "Event Description";
-                worksheet.Cells[1, 3].Value = "Event Location";
-                worksheet.Cells[1, 4].Value = "Event Date";
-
-                // Add data rows
-                for (int i = 0; i < events.Count; i++)
-                {
-                    worksheet.Cells[i + 2, 1].Value = events[i].EventName;
-                    worksheet.Cells[i + 2, 2].Value = events[i].EventDescription;
-                    worksheet.Cells[i + 2, 3].Value = events[i].EventLocation;
-                    worksheet.Cells[i + 2, 4].Value = events[i].EventDate.ToString("yyyy-MM-dd"); // Format the Date
-                }
-
-                // Set the response headers
-                var fileContents = package.GetAsByteArray();
-                return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Events.xlsx");
+                worksheet.Cells[row, 1].Value = eventItem.EventName;
+                worksheet.Cells[row, 2].Value = eventItem.EventDescription;
+                worksheet.Cells[row, 3].Value = eventItem.EventLocation;
+                worksheet.Cells[row, 4].Value = eventItem.EventDate.ToString("yyyy-MM-dd"); // Format the Date
+                row++;
             }
+
+            // Auto-fit columns for better readability
+            worksheet.Cells.AutoFitColumns();
+
+            var stream = new MemoryStream();
+            package.SaveAs(stream);
+            stream.Position = 0; // Reset position before returning
+
+            string excelName = "Events.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
+
+
+
         [HttpPost]
         public async Task<IActionResult> ImportFromExcel(IFormFile file)
         {
@@ -431,6 +445,79 @@ namespace NIA_CRM.Controllers
 
             return PartialView("_EventPreview", opportunity); // Ensure the partial view name matches
         }
+
+
+        [HttpPost]
+        public IActionResult ExportSelectedMemberEventsFields(List<string>? selectedFields)
+        {
+            if (selectedFields == null || selectedFields.Count == 0)
+            {
+                TempData["Error"] = "Please select at least one field to export.";
+                return RedirectToAction("Index");
+            }
+
+            var memberEvents = _context.MEvents.Include(me => me.MemberEvents).ThenInclude(m => m.Member).ToList(); // Assuming Member is a navigation property
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("MemberEvents");
+                int col = 1;
+
+                // Add selected column headers
+                foreach (var field in selectedFields)
+                {
+                    var cell = worksheet.Cells[1, col];
+                    cell.Value = field;
+
+                    // Make the header bold
+                    cell.Style.Font.Bold = true;
+
+                    col++;
+                }
+
+                int row = 2;
+                foreach (var eventItem in memberEvents)
+                {
+                    col = 1;
+
+                    if (selectedFields.Contains("EventName"))
+                        worksheet.Cells[row, col++].Value = eventItem.EventName ?? "N/A"; // Replace with actual property name
+
+                    if (selectedFields.Contains("EventDescription"))
+                        worksheet.Cells[row, col++].Value = eventItem.EventDescription ?? "N/A"; // Replace with actual property name
+
+                    if (selectedFields.Contains("EventLocation"))
+                        worksheet.Cells[row, col++].Value = eventItem.EventLocation ?? "N/A"; // Replace with actual property name
+
+                    if (selectedFields.Contains("EventDate"))
+                        worksheet.Cells[row, col++].Value = eventItem.EventDate.ToString("yyyy-MM-dd") ?? "N/A";
+
+                    if (selectedFields.Contains("MemberName"))
+                    {
+                        var memberNames = eventItem.MemberEvents?
+                            .Select(me => me.Member?.MemberName) // Accessing the MemberName
+                            .Where(name => !string.IsNullOrEmpty(name)) // Ensuring non-null or empty values
+                            .ToList();
+
+                        // If there are member names, join them with a comma; otherwise, use "N/A"
+                        worksheet.Cells[row, col++].Value = memberNames.Any() ? string.Join(", ", memberNames) : "N/A";
+                    }
+
+                    row++;
+                }
+
+                // Auto-fit columns for better readability
+                worksheet.Cells.AutoFitColumns();
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"MemberEventsExport_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+
 
     }
 }

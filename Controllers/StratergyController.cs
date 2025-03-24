@@ -110,6 +110,15 @@ namespace NIA_CRM.Controllers
                 @ViewData["ShowFilter"] = " show";
             }
 
+
+
+            if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
+            {
+
+                return ExportToExcel(strategies.ToList());
+            }
+
+
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
@@ -125,10 +134,10 @@ namespace NIA_CRM.Controllers
 
 
         // Export to Excel Action
-        public IActionResult ExportToExcel()
+        public IActionResult ExportToExcel(List<Strategy> strategies)
         {
-            // Get the data you want to export
-            var strategies = _context.Strategies.ToList();
+            //// Get the data you want to export
+            //var strategies = _context.Strategies.ToList();
 
             // Create a new Excel package
             using (var package = new ExcelPackage())
@@ -423,6 +432,68 @@ namespace NIA_CRM.Controllers
         }
 
 
-        
+
+        [HttpPost]
+        public IActionResult ExportSelectedStrategiesFields(List<string>? selectedFields)
+        {
+            if (selectedFields == null || selectedFields.Count == 0)
+            {
+                TempData["Error"] = "Please select at least one field to export.";
+                return RedirectToAction("Index");
+            }
+
+            var strategies = _context.Strategies.ToList();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Strategies");
+                int col = 1;
+
+                // Add selected column headers
+                foreach (var field in selectedFields)
+                {
+                    worksheet.Cells[1, col].Value = field;
+                    col++;
+                }
+
+                int row = 2;
+                foreach (var strategy in strategies)
+                {
+                    col = 1;
+
+                    if (selectedFields.Contains("StrategyName"))
+                        worksheet.Cells[row, col++].Value = strategy.StrategyName ?? "N/A";
+
+                    if (selectedFields.Contains("StrategyAssignee"))
+                        worksheet.Cells[row, col++].Value = strategy.StrategyAssignee ?? "N/A";
+
+                    if (selectedFields.Contains("StrategyNote"))
+                        worksheet.Cells[row, col++].Value = strategy.StrategyNote ?? "N/A";
+
+                    if (selectedFields.Contains("CreatedDate"))
+                        worksheet.Cells[row, col++].Value = strategy.CreatedDate.ToString("yyyy-MM-dd") ?? "N/A";
+
+                    if (selectedFields.Contains("StrategyTerm"))
+                        worksheet.Cells[row, col++].Value = strategy.StrategyTerm.ToString() ?? "N/A";
+
+                    if (selectedFields.Contains("StrategyStatus"))
+                        worksheet.Cells[row, col++].Value = strategy.StrategyStatus.ToString() ?? "N/A";
+
+                    row++;
+                }
+
+                // Auto-fit columns for better readability
+                worksheet.Cells.AutoFitColumns();
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"StrategiesExport_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+
+
     }
 }

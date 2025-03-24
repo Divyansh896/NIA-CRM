@@ -136,7 +136,15 @@ namespace NIA_CRM.Controllers
                 //Keep the Bootstrap collapse open
                 @ViewData["ShowFilter"] = " show";
             }
-            
+
+
+            if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
+            {
+
+                return ExportContactsToExcel(contacts.ToList());
+            }
+
+
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
@@ -664,6 +672,87 @@ namespace NIA_CRM.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+        [HttpPost]
+        public IActionResult ExportSelectedContactsFields(List<string>? selectedFields)
+        {
+            if (selectedFields == null || selectedFields.Count == 0)
+            {
+                TempData["Error"] = "Please select at least one field to export.";
+                return RedirectToAction("Index");
+            }
+
+            var contacts = _context.Contacts
+                .Include(c => c.MemberContacts)
+                .ThenInclude(m => m.Member)// Assuming Contact has a navigation property to Member
+                .ToList();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Contacts");
+                int col = 1;
+
+                // Add selected column headers
+                foreach (var field in selectedFields)
+                {
+                    var cell = worksheet.Cells[1, col];
+                    cell.Value = field;
+
+                    // Make the header bold
+                    cell.Style.Font.Bold = true;
+
+                    col++;
+                }
+
+
+                int row = 2;
+                foreach (var contact in contacts)
+                {
+                    col = 1;
+
+                    if (selectedFields.Contains("ContactName"))
+                        worksheet.Cells[row, col++].Value = contact.Summary ?? "N/A"; // Replace with actual property name
+
+                    if (selectedFields.Contains("Email"))
+                        worksheet.Cells[row, col++].Value = contact.Email ?? "N/A"; // Replace with actual property name
+
+                    if (selectedFields.Contains("Phone"))
+                        worksheet.Cells[row, col++].Value = contact.Phone ?? "N/A"; // Replace with actual property name
+
+                    if (selectedFields.Contains("LinkedInUrl"))
+                        worksheet.Cells[row, col++].Value = contact.LinkedInUrl ?? "N/A"; // Replace with actual property name
+
+                    if (selectedFields.Contains("IsVip"))
+                        worksheet.Cells[row, col++].Value = contact.IsVip ? "Yes" : "No"; // Replace with actual property name
+
+                    if (selectedFields.Contains("MemberName"))
+                    {
+                        // If a contact is associated with multiple members, take the member names.
+                        var memberNames = contact.MemberContacts
+                            .Select(mc => mc.Member?.MemberName)
+                            .Where(name => !string.IsNullOrEmpty(name)) // Ensure no null or empty member names
+                            .ToList();
+
+                        // If there are multiple members, join them with a comma, or display "N/A" if no member names are available.
+                        worksheet.Cells[row, col++].Value = memberNames.Any() ? string.Join(", ", memberNames) : "N/A";
+                    }
+
+                    row++;
+                }
+
+                // Auto-fit columns for better readability
+                worksheet.Cells.AutoFitColumns();
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"ContactsExport_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+
 
     }
 
