@@ -3,15 +3,24 @@
 @{
     ViewData["Title"] = "Index";
 }
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
 <partial name="_addArchiveModal" />
 <partial name="_notificationModal" />
 
-@* <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
-        <input type="file" name="file" class="form-control me-2" required />
-
-    </div>
-</form> *@
 
 
 
@@ -22,10 +31,11 @@
 
 <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
     <div class="d-flex align-items-center" style="padding-bottom: 10px;">
+
+        <input type="file" name="file" class="form-control me-2" required />
         <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
             <i class="fa fa-file-import"></i> Import Excel
         </button>
-        <input type="file" name="file" class="form-control me-2" required />
 
     </div>
 </form>
@@ -43,36 +53,26 @@
     <!-- Filter/Search Section -->
     <div class="m-auto flex-grow-1">
         <div class="form-horizontal mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <button class="btn btn-dark @ViewData["Filtering"]"
-                            type="button"
-                            id="filterToggle"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#collapseFilter"
-                            aria-expanded="false"
-                            aria-controls="collapseFilter">
-                        Filter/Search @ViewData["numberFilters"]+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex flex-wrap">
+                    <button class="btn btn-dark @ViewData["Filtering"] me-2 mb-2" type="button" id="filterToggle" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                        Filter/Search @ViewData["numberFilters"]
                     </button>
-                    <button type="submit" class="btn btn-dark" name="actionButton" value="ExportExcel">
+                    <button type="submit" class="btn btn-dark me-2 mb-2" name="actionButton" value="ExportExcel">
                         <i class="fa fa-file-excel text-white"></i> Export Excel
                     </button>
-                    @*  <button type="submit" class="btn btn-dark">
-                        <i class="fa fa-file-import"></i> Import Excel
-                    </button> *@
+                    <button type="button" class="btn btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#addNotificationModal">
+                        Send Email
+                    </button>
+                    <button type="button" class="btn btn-dark me-2 mb-2" id="toggleCheckboxes">
+                        Enable Contact Selection
+                    </button>
                 </div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNotificationModal">
-                    Open Notification Modal
-                </button>
-                <button type="button" class="btn btn-dark mt-2" id="toggleCheckboxes">
-                    Enable Selection
-                </button>
-                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
+                <div>
+                    <a asp-action="Create" class="btn btn-primary me-2 mb-2" aria-label="Add a new contact">+ Add Contact</a>
+                </div>
             </div>
-            @*             <div>
-                <a asp-controller="Contact" asp-action="Notification" class="linkClick">Send Email Notification</a>
-
-            </div> *@
+           
             @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
             {
                 <div class="filters-container mt-2">
@@ -162,7 +162,7 @@
             <caption class="sr-only">Contacts table showing filtered results</caption>
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col" class="table-head">
+                    <th scope="col" class="table-head" id="checkboxHeader" style="display: none;">
                         <input type="checkbox" id="selectAllCheckboxes" style="display: none;">
                     </th>
                     <th scope="col" class="table-head">
@@ -251,7 +251,7 @@
                 @foreach (var item in Model)
                 {
                     <tr class="clickable-row" data-id="@item.Id" title="Click on row to get preview">
-                        <td>
+                        <td class="checkbox-cell" style="display: none;">
                             <input type="checkbox" class="contact-checkbox" name="selectedContactIds" value="@item.Id" style="display: none;">
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.Summary)</td>
@@ -621,18 +621,22 @@
     </script>
 
 @* script to toggle checkboxes for selection  *@
-    <script>
+    <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function () {
             var toggleButton = document.getElementById("toggleCheckboxes");
             var checkboxes = document.querySelectorAll(".contact-checkbox");
             var selectAllCheckbox = document.getElementById("selectAllCheckboxes");
+            var checkboxHeader = document.getElementById("checkboxHeader");
+            var checkboxCells = document.querySelectorAll(".checkbox-cell");
             var isVisible = false;
 
             toggleButton.addEventListener("click", function () {
                 isVisible = !isVisible;
                 checkboxes.forEach(cb => cb.style.display = isVisible ? "inline-block" : "none");
                 selectAllCheckbox.style.display = isVisible ? "inline-block" : "none";
-                toggleButton.textContent = isVisible ? "Disable Selection" : "Enable Selection";
+                checkboxHeader.style.display = isVisible ? "table-cell" : "none";
+                checkboxCells.forEach(cell => cell.style.display = isVisible ? "table-cell" : "none");
+                toggleButton.textContent = isVisible ? "Disable Contact Selection" : "Enable Contact Selection";
             });
 
             selectAllCheckbox.addEventListener("change", function () {
