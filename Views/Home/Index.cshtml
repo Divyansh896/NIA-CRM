@@ -20,8 +20,8 @@
 
         <!-- Card 1: Total Members -->
         <div class="col-md-4">
-            <div class="card text-light vidget-MemebrCount" role="group" aria-labelledby="total-members-title">
-                <div class="card-body">
+            <div class="card text-light" role="group" aria-labelledby="total-members-title">
+                <div class="card-body vidget-MemebrCount">
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="total-members-title" role="heading" aria-level="3">Total Members</p>
@@ -35,12 +35,54 @@
 
         <!-- Card 2: Members in Copperport -->
         <div class="col-md-4">
-            <div class="card text-light vidget-MemebrCity" role="group" aria-labelledby="members-copperport-title">
-                <div class="card-body">
+            <div class="card text-light " role="group" aria-labelledby="members-dynamic-title">
+                <div class="card-body vidget-MemebrCity">
+                    <div class="dropdown">
+                        <button class="btn citydrop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="dots">...</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" id="lockCityOption">Lock City</a>
+                            <a class="dropdown-item" href="#" id="dynamicCityOption" style="display: none;">Dynamic City</a>
+                            <div class="dropdown-divider"></div>
+                            <!-- Add all cities here -->
+                            <div id="cityList"></div>
+                        </div>
+                    </div>
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
-                            <p class="card-title title-vidget" id="members-copperport-title" role="heading" aria-level="3">Members in Welland</p>
-                            <p class="card-text fixed-text" aria-live="polite">3</p>
+                            <p class="card-title title-vidget" id="members-dynamic-title" role="heading" aria-level="3">Loading city...</p>
+                            <p class="card-text fixed-text" id="members-dynamic-count" aria-live="polite">0</p>
+                        </div>
+                        <div class="col-6 text-right">
+                            <!-- Empty column for layout purposes -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Card 3: VIP Clients -->
+        <div class="col-md-4">
+            <div class="card text-light " role="group" aria-labelledby="vip-clients-title">
+                <div class="card-body vidget-Memebr">
+                    <div class="dropdown">
+                        <button class="btn  citydrop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="dots">...</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" id="lockMembershipOption">Lock Membership</a>
+                            <a class="dropdown-item" href="#" id="dynamicMembershipOption" style="display: none;">Dynamic Membership</a>
+                            <div class="dropdown-divider"></div>
+                            <div id="membershipList"></div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="vip-clients-title" role="heading" aria-level="3">Loading Membership Types...</p>
+                            <p class="card-text fixed-text" id="membership-count" aria-live="polite">0</p>
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -48,20 +90,100 @@
             </div>
         </div>
 
-        <!-- Card 3: VIP Clients -->
+        <!-- Card 3: Sector Members -->
         <div class="col-md-4">
-            <div class="card text-light vidget-Memebr" role="group" aria-labelledby="vip-clients-title">
-                <div class="card-body">
+            <div class="card text-light " role="group" aria-labelledby="sector-clients-title">
+                <div class="card-body vidget-Sector">
+                    <div class="dropdown">
+                        <button class="btn  citydrop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="dots">...</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" id="lockSectorOption">Lock Sector</a>
+                            <a class="dropdown-item" href="#" id="dynamicSectorOption" style="display: none;">Dynamic Sector</a>
+                            <div class="dropdown-divider"></div>
+                            <div id="sectorList"></div>
+                        </div>
+                    </div>
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
-                            <p class="card-title title-vidget" id="vip-clients-title" role="heading" aria-level="3">Associate Members</p>
-                            <p class="card-text fixed-text" aria-live="polite">8</p>
+                            <p class="card-title title-vidget" id="sector-clients-title" role="heading" aria-level="3">Sectors</p>
+                            <p class="card-text fixed-text" id="sector-count" aria-live="polite">0</p>
                         </div>
                         <div class="col-6"></div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!--Members Tags-->
+        <div class="col-md-4">
+            <div class="card text-light " role="group" aria-labelledby="tag-clients-title">
+                <div class="card-body vidget-Tag">
+                    <div class="dropdown">
+                        <button class="btn  citydrop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="dots">...</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" id="lockTagOption">Lock Tag</a>
+                            <a class="dropdown-item" href="#" id="dynamicTagOption" style="display: none;">Dynamic Tag</a>
+                            <div class="dropdown-divider"></div>
+                            <div id="tagList"></div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="tag-clients-title" role="heading" aria-level="3">Tags</p>
+                            <p class="card-text fixed-text" id="tag-count" aria-live="polite">0</p>
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-light " role="group" aria-labelledby="archived-members-title">
+                <div class="card-body vidget-Archived">
+                    <div class="row align-items-center">
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="archived-members-title" role="heading" aria-level="3">Archived Members</p>
+                            <p class="card-text fixed-text" id="archived-member-count" aria-live="polite">@ViewData["ArchivedMemberCount"]</p> <!-- Display the count -->
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-light " role="group" aria-labelledby="active-members-title">
+                <div class="card-body vidget-Active">
+                    <div class="row align-items-center">
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="active-members-title" role="heading" aria-level="3">Active Members</p>
+                            <p class="card-text fixed-text" id="active-member-count" aria-live="polite">@ViewData["ActiveMemberCount"]</p> <!-- Display the calculated active members count -->
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="card text-light " role="group" aria-labelledby="retention-rate-title">
+                <div class="card-body vidget-Retention">
+                    <div class="row align-items-center">
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p class="card-title title-vidget" id="retention-rate-title" role="heading" aria-level="3">Retention Rate</p>
+                            <p class="card-text fixed-text" id="retention-rate-count" aria-live="polite">@ViewData["RetentionRate"] %</p> <!-- Display the calculated retention rate -->
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
     </div>
@@ -99,7 +221,6 @@
         </div>
 
         <div class="grid-stack" id="widgetContainer">
-            
         </div>
     </div>
 
@@ -113,12 +234,382 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/gridstack/dist/gridstack-all.min.js"></script>
 
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
     <script>
-        var cityCounts = @Html.Raw(Json.Serialize(ViewData["CityCounts"]));
         var memberCount = @Html.Raw(Json.Serialize(ViewData["MemberCount"]));
         var MembershipCount = @Html.Raw(Json.Serialize(ViewData["MembershipCount"]));
         var MembersJoins = @Html.Raw(Json.Serialize(ViewData["MembersJoins"]));
-        var MembersAddress = @Html.Raw(Json.Serialize(ViewData["MembersAddress"]));z
+        var MembersAddress = @Html.Raw(Json.Serialize(ViewData["MembersAddress"]));
+        console.log("Archived Member Count:", @ViewData["ArchivedMemberCount"]);
+        console.log("Active Member Count:", @ViewData["ActiveMemberCount"]);
     </script>
+
+    <script>
+        const cityCounts = @Html.Raw(Json.Serialize(ViewData["CityCounts"]));
+        console.log("City data is:", cityCounts);
+
+        let currentIndex = 0;
+        let isUpdating = false;
+        let lockedCity = null; // Variable to hold the locked city
+        let autoUpdateInterval = null; // Variable to store the interval for auto-updating
+
+        function animateNumber(from, to, element) {
+            let current = from;
+            const step = Math.ceil((to - from) / 20);
+            const interval = setInterval(() => {
+                current += step;
+                if (current >= to) {
+                    current = to;
+                    clearInterval(interval);
+                }
+                element.textContent = current;
+            }, 50);
+        }
+
+        function updateCityCard() {
+            if (isUpdating || !cityCounts || cityCounts.length === 0) return;
+
+            isUpdating = true;
+
+            const titleEl = document.getElementById("members-dynamic-title");
+            const countEl = document.getElementById("members-dynamic-count");
+
+            // Fade out the current elements before updating
+            titleEl.classList.add("hidden");
+            countEl.classList.add("hidden");
+
+            setTimeout(() => {
+                let city;
+                if (lockedCity) {
+                    city = cityCounts.find(c => c.city === lockedCity); // Find the locked city
+                } else {
+                    city = cityCounts[currentIndex]; // Otherwise, rotate cities
+                }
+
+                // Smoothly update the city and count
+                titleEl.textContent = `Members in ${city.city}`;
+                animateNumber(0, city.count, countEl);
+
+                // Fade in the new elements
+                titleEl.classList.remove("hidden");
+                countEl.classList.remove("hidden");
+
+                // Move to the next city if not locked
+                if (!lockedCity) {
+                    currentIndex = (currentIndex + 1) % cityCounts.length;
+                }
+
+                isUpdating = false;
+            }, 500);
+        }
+
+        // Populate city list in dropdown
+        function populateCityList() {
+            const cityListEl = document.getElementById("cityList");
+            cityCounts.forEach(city => {
+                const cityItem = document.createElement("a");
+                cityItem.classList.add("dropdown-item");
+                cityItem.href = "#";
+                cityItem.textContent = city.city;
+                cityItem.addEventListener("click", () => lockCity(city.city));
+                cityListEl.appendChild(cityItem);
+            });
+        }
+
+        // Lock city and update UI
+        function lockCity(cityName) {
+            lockedCity = cityName;
+            updateCityCard(); // Update the card immediately with the selected city
+
+            // Stop the auto update when the city is locked
+            clearInterval(autoUpdateInterval);
+            document.getElementById("lockCityOption").style.display = 'none'; // Hide lock city option
+            document.getElementById("dynamicCityOption").style.display = 'block'; // Show dynamic city option
+        }
+
+        // Unlock city and start the auto update
+        function unlockCity() {
+            lockedCity = null;
+            updateCityCard();
+            // Restart the auto update when unlocked
+            autoUpdateInterval = setInterval(updateCityCard, 15000);
+            document.getElementById("lockCityOption").style.display = 'block'; // Show lock city option
+            document.getElementById("dynamicCityOption").style.display = 'none'; // Hide dynamic city option
+        }
+
+        // Add dynamic behavior to dropdown
+        document.getElementById("lockCityOption").addEventListener("click", () => lockCity(lockedCity));
+        document.getElementById("dynamicCityOption").addEventListener("click", unlockCity);
+
+        // Initial setup
+        populateCityList();
+        updateCityCard(); // Initial call to update the card
+
+        // Set interval to auto-rotate cities every 15 seconds if no city is locked
+        autoUpdateInterval = setInterval(updateCityCard, 15000);
+    </script>
+
+    <script>
+        const membershipCount = @Html.Raw(Json.Serialize(ViewData["MembershipCount"]));  // Data from the controller
+        console.log("Membership Count Data:", membershipCount);  // Log to the console to check
+
+        let lockedMembership = null; // Variable to store the locked membership type
+        let autoUpdateIntervalMembership; // Reusing the same variable for both cards
+
+        function animateNumber(from, to, element) {
+            let current = from;
+            const step = Math.ceil((to - from) / 20); // Speed up the animation, adjust the number of steps
+            const interval = setInterval(() => {
+                current += step;
+                if (current >= to) {
+                    current = to;
+                    clearInterval(interval);
+                }
+                element.textContent = current;
+            }, 50); // Update every 50ms
+        }
+
+        function updateMembershipCard() {
+            const titleEl = document.getElementById("vip-clients-title");
+            const countEl = document.getElementById("membership-count");
+
+            if (!membershipCount || membershipCount.length === 0) return;
+
+            let membership;
+
+            // Find the locked membership or get the first one in the list
+            if (lockedMembership) {
+                membership = membershipCount.find(m => m.membershipType.typeName === lockedMembership);
+            } else {
+                membership = membershipCount[currentIndex] || membershipCount[0];
+            }
+
+            titleEl.textContent = `Total of ${membership.membershipType.typeName} Members`;
+
+            // Animate the number from 0 to the actual count
+            animateNumber(0, membership.count, countEl);
+        }
+
+        function populateMembershipList() {
+            const membershipListEl = document.getElementById("membershipList");
+            membershipCount.forEach(membership => {
+                const membershipItem = document.createElement("a");
+                membershipItem.classList.add("dropdown-item");
+                membershipItem.href = "#";
+                membershipItem.textContent = membership.membershipType.typeName;
+                membershipItem.addEventListener("click", () => lockMembership(membership.membershipType.typeName));
+                membershipListEl.appendChild(membershipItem);
+            });
+        }
+
+        function lockMembership(membershipType) {
+            lockedMembership = membershipType;
+            updateMembershipCard();
+            clearInterval(autoUpdateIntervalMembership);  // Stop auto-updating when a membership is locked
+            document.getElementById("lockMembershipOption").style.display = 'none';
+            document.getElementById("dynamicMembershipOption").style.display = 'block';
+        }
+
+        function unlockMembership() {
+            lockedMembership = null;
+            updateMembershipCard();
+            autoUpdateIntervalMembership = setInterval(updateMembershipCard, 15000);  // Restart auto-update when unlocked
+            document.getElementById("lockMembershipOption").style.display = 'block';
+            document.getElementById("dynamicMembershipOption").style.display = 'none';
+        }
+
+        document.getElementById("lockMembershipOption").addEventListener("click", () => lockMembership(lockedMembership));
+        document.getElementById("dynamicMembershipOption").addEventListener("click", unlockMembership);
+
+        // Initial setup
+        populateMembershipList();
+        updateMembershipCard();
+
+        // Start auto-update for membership card every 15 seconds if not locked
+        autoUpdateIntervalMembership = setInterval(updateMembershipCard, 15000);
+    </script>
+
+    <script>
+        const sectorCount = @Html.Raw(Json.Serialize(ViewData["SectorCount"]));  // Data from the controller
+        console.log("Sector Count Data:", sectorCount);  // Log to the console to check
+
+        let lockedSector = null; // Variable to store the locked sector
+        let autoUpdateIntervalSector; // Reusing the same variable for both cards
+
+        function animateNumber(from, to, element) {
+            let current = from;
+            const step = Math.ceil((to - from) / 20); // Speed up the animation, adjust the number of steps
+            const interval = setInterval(() => {
+                current += step;
+                if (current >= to) {
+                    current = to;
+                    clearInterval(interval);
+                }
+                element.textContent = current;
+            }, 50); // Update every 50ms
+        }
+
+        function updateSectorCard() {
+            const titleEl = document.getElementById("sector-clients-title");
+            const countEl = document.getElementById("sector-count");
+
+            if (!sectorCount || sectorCount.length === 0) return;
+
+            let sector;
+
+            // Find the locked sector or get the first one in the list
+            if (lockedSector) {
+                // Log to check if the sector is correctly selected
+                console.log("Locked sector:", lockedSector);
+                sector = sectorCount.find(s => s.sectorName === lockedSector);
+            } else {
+                sector = sectorCount[0];  // Default to the first sector
+            }
+
+            // Check the sector data before using it
+            console.log("Selected sector:", sector);
+
+            // Ensure count is a number
+            const count = Number(sector.count);
+
+            // If count is valid, animate it
+            if (!isNaN(count)) {
+                titleEl.textContent = `Members with ${sector.sectorName} Sector`;
+                animateNumber(0, count, countEl);
+            } else {
+                console.error("Invalid count value:", sector.count);
+            }
+        }
+
+        function populateSectorList() {
+            const sectorListEl = document.getElementById("sectorList");
+            sectorCount.forEach(sector => {
+                const sectorItem = document.createElement("a");
+                sectorItem.classList.add("dropdown-item");
+                sectorItem.href = "#";
+                sectorItem.textContent = sector.sectorName;  // Correctly accessing sectorName
+                sectorItem.addEventListener("click", () => lockSector(sector.sectorName));
+                sectorListEl.appendChild(sectorItem);
+            });
+        }
+
+        function lockSector(sectorName) {
+            lockedSector = sectorName;
+            updateSectorCard();
+            clearInterval(autoUpdateIntervalSector);  // Stop auto-updating when a sector is locked
+            document.getElementById("lockSectorOption").style.display = 'none';
+            document.getElementById("dynamicSectorOption").style.display = 'block';
+        }
+
+        function unlockSector() {
+            lockedSector = null;
+            updateSectorCard();
+            autoUpdateIntervalSector = setInterval(updateSectorCard, 15000);  // Restart auto-update when unlocked
+            document.getElementById("lockSectorOption").style.display = 'block';
+            document.getElementById("dynamicSectorOption").style.display = 'none';
+        }
+
+        document.getElementById("lockSectorOption").addEventListener("click", () => lockSector(lockedSector));
+        document.getElementById("dynamicSectorOption").addEventListener("click", unlockSector);
+
+        // Initial setup
+        populateSectorList();
+        updateSectorCard();
+
+        // Start auto-update for sector card every 15 seconds if not locked
+        autoUpdateIntervalSector = setInterval(updateSectorCard, 15000);
+    </script>
+
+    <script>
+        const tagCount = @Html.Raw(Json.Serialize(ViewData["TagCount"]));  // Data from the controller
+        console.log("Tag Count Data:", tagCount);  // Log to the console to check
+
+        let lockedTag = null; // Variable to store the locked tag
+        let currentIndexTag = 0; // To rotate through the tags
+        let autoUpdateIntervalTag; // Reusing the same variable for both cards
+
+        function animateNumber(from, to, element) {
+            let current = from;
+            const step = Math.ceil((to - from) / 20); // Speed up the animation, adjust the number of steps
+            const interval = setInterval(() => {
+                current += step;
+                if (current >= to) {
+                    current = to;
+                    clearInterval(interval);
+                }
+                element.textContent = current;
+            }, 50); // Update every 50ms
+        }
+
+        function updateTagCard() {
+            const titleEl = document.getElementById("tag-clients-title");
+            const countEl = document.getElementById("tag-count");
+
+            if (!tagCount || tagCount.length === 0) return;
+
+            let tag;
+
+            // Find the locked tag or get the tag at the current index
+            if (lockedTag) {
+                tag = tagCount.find(t => t.tagName === lockedTag);  // Find the locked tag
+            } else {
+                tag = tagCount[currentIndexTag];  // Default to the tag at the current index
+            }
+
+            titleEl.textContent = `Members with ${tag.tagName} Tag`;
+
+            // Animate the number from 0 to the actual count
+            animateNumber(0, tag.count, countEl);
+
+            // Move to the next tag in the list for rotation, but wrap around at the end
+            if (!lockedTag) {
+                currentIndexTag = (currentIndexTag + 1) % tagCount.length;
+            }
+        }
+
+        function populateTagList() {
+            const tagListEl = document.getElementById("tagList");
+            tagCount.forEach(tag => {
+                const tagItem = document.createElement("a");
+                tagItem.classList.add("dropdown-item");
+                tagItem.href = "#";
+                tagItem.textContent = tag.tagName;  // Correctly accessing tagName
+                tagItem.addEventListener("click", () => lockTag(tag.tagName));
+                tagListEl.appendChild(tagItem);
+            });
+        }
+
+        function lockTag(tagName) {
+            lockedTag = tagName;
+            updateTagCard();
+            clearInterval(autoUpdateIntervalTag);  // Stop auto-updating when a tag is locked
+            document.getElementById("lockTagOption").style.display = 'none';
+            document.getElementById("dynamicTagOption").style.display = 'block';
+        }
+
+        function unlockTag() {
+            lockedTag = null;
+            updateTagCard();
+            autoUpdateIntervalTag = setInterval(updateTagCard, 15000);  // Restart auto-update when unlocked
+            document.getElementById("lockTagOption").style.display = 'block';
+            document.getElementById("dynamicTagOption").style.display = 'none';
+        }
+
+        document.getElementById("lockTagOption").addEventListener("click", () => lockTag(lockedTag));
+        document.getElementById("dynamicTagOption").addEventListener("click", unlockTag);
+
+        // Initial setup
+        populateTagList();
+        updateTagCard();
+
+        // Start auto-update for tag card every 15 seconds if not locked
+        autoUpdateIntervalTag = setInterval(updateTagCard, 15000);
+    </script>
+
     <script src="~/js/dashboard.js"></script>
 }
