@@ -57,6 +57,7 @@ body {
 .btn-light {
     border-width: 2px;
     border-color: #434343 !important;
+    margin-bottom: 10px;
 }
 
 .btn-light:hover {
@@ -206,10 +207,6 @@ body {
 .sidebar ul li a:hover {
     background-color: #2B2B2B;
     border-radius: 5px;
-}
-
-.sidebar span {
-    color: #ffffff;
 }
 
 h1 {
@@ -413,6 +410,142 @@ td, th {
         color: black;
     }
 
+/*Drag and drop for member edit and create view*/
+
+.drag-drop-area {
+    width: 100%;
+    height: 150px;
+    border: 2px dashed #ccc;
+    text-align: center;
+    line-height: 150px;
+    color: #ccc;
+    position: relative; /* Allows button to be positioned inside the area */
+}
+
+#selectImageButton {
+    position: absolute;
+    bottom: 10px; /* Position button near the bottom of the area */
+    left: 50%;
+    transform: translateX(-50%); /* Center the button horizontally */
+}
+
+#imagePreviewContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#imagePreview {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+#previewControls, #editControls {
+    margin-top: 10px;
+    text-align: center;
+}
+
+    #previewControls button, #editControls button {
+        margin: 5px;
+    }
+
+/* Dark Mode */
+.theme-toggle-btn {
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: #e0e0e0;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .theme-toggle-btn i {
+        font-size: 16px;
+    }
+
+.dark-mode .theme-toggle-btn {
+    background-color: #2c2c2c;
+    color: #f0f0f0;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+    .dark-mode .navbar {
+        background-color: #1e1e1e;
+    }
+
+    .dark-mode .card {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
+
+    .dark-mode button, .dark-mode .btn-secondary, .dark-mode .btn-light {
+        background-color: #333 !important;
+        color: white;
+        border: 2px solid #555;
+    }
+
+        .dark-mode .btn-secondary:hover, .dark-mode .btn-light:hover {
+            background-color: #292929 !important;
+            color: white !important;
+        }
+
+    .dark-mode td {
+        color: white;
+    }
+
+    .dark-mode #previewContainer, .dark-mode .sticky-buttons-container {
+        background-color: #121212;
+    }
+
+    .dark-mode .card-body {
+        background-color: #121212 !important;
+        border-color: white !important;
+    }
+
+    .dark-mode p, .dark-mode dt, .dark-mode dd, .dark-mode h1, .dark-mode h2, .dark-mode h4, .dark-mode label, .dark-mode strong, .dark-mode #text, .dark-mode span {
+        color: white;
+    }
+
+    .dark-mode tr:hover {
+        background-color: #333 !important;
+    }
+
+
+    /* Applies only in dark mode */
+    .dark-mode input[type="text"],
+    .dark-mode input[type="email"],
+    .dark-mode input[type="password"],
+    .dark-mode input[type="number"],
+    .dark-mode input[type="search"],
+    .dark-mode input[type="tel"],
+    .dark-mode input[type="url"],
+    .dark-mode input[type="date"],
+    .dark-mode input[type="datetime-local"],
+    .dark-mode input[type="month"],
+    .dark-mode input[type="week"],
+    .dark-mode input[type="time"],
+    .dark-mode input[type="file"],
+    .dark-mode textarea,
+    .dark-mode select {
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #555;
+    }
+
+        /* Optional: style placeholder text in dark mode */
+        .dark-mode input::placeholder,
+        .dark-mode textarea::placeholder {
+            color: #aaa;
+        }
 
 @media (max-width: 768px) {
     body {

@@ -10,24 +10,17 @@
 </div>
 
 
-
-<form asp-action="ImportData" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
-        <div>
-            <input type="file" name="file" class="form-control me-2" required />
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-file-import"></i> Import Excel
-            </button>
-        </div>
-    </div>
-</form>
+<div class="d-flex align-items-center" style="padding-bottom: 10px;">
 
 
-<form method="post" asp-action="ExportToExcel">
-    <button type="submit" class="btn btn-dark me-2" name="actionButton" value="ExportToExcel">
-        <i class="fa fa-file-excel text-white"></i> Export Excel
-    </button>
-</form>
+    <form asp-action="ImportData" method="post" enctype="multipart/form-data" class="d-flex">
+        <button type="submit" class="btn btn-dark" style="min-width: 150px;">
+            <i class="fa fa-file-import"></i> Import Excel
+        </button>
+        <input type="file" name="file" class="form-control" required />
+
+    </form>
+</div>
 
 
 <!-- Modal for Exporting Strategies -->
@@ -108,7 +101,6 @@
                     </button>
                 </div>
 
-
                 <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
                     <i class="fa fa-file-excel text-white"></i>
                     Export filtered data to Excel
@@ -119,7 +111,7 @@
                     <i class="fa fa-file-excel text-white"></i> Export Selected Fields for Strategy
                 </button>
 
-                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add Event</a>
+                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add Strategy</a>
 
             </div>
 
@@ -170,7 +162,7 @@
         <table class="table table-bordered table-striped" id="event-table" aria-labelledby="strategies">
             <caption class="sr-only">Strategy table showing filtered results</caption>
             <thead class="thead-dark">
-        <tr>
+                <tr>
                     <th scope="col" class="table-head">
                         @{
 
@@ -189,54 +181,103 @@
                             <input type="submit" name="actionButton" value="Strategy Name" class="btn btn-link" aria-label="Sort by Strategy Name" />
                         }
                     </th>
-       
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.StrategyAssignee)
-            </th>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.StrategyNote)
-            </th>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.StrategyTerm)
-            </th>
-            <th scope="col" class="table-head">
-                @Html.DisplayNameFor(model => model.StrategyStatus)
-            </th>
-            @* <th scope="col" class="table-head"></th> *@
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
-            <td>
-                @Html.DisplayFor(modelItem => item.StrategyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StrategyAssignee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StrategyNote)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StrategyTerm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StrategyStatus)
-            @* </td>
+
+                    <th scope="col" class="table-head">
+                        @{
+                            var isAsigneeCodeSortField = sortField == "Strategy Assignee";
+                            var AsigneeCodeSortIndicator = isAsigneeCodeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isAsigneeCodeSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Strategy Assignee" class="btn btn-link" aria-label="Sort by Strategy Assignee" />
+                            <span class="SortIndicator">@AsigneeCodeSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Strategy Assignee" class="btn btn-link" aria-label="Sort by Strategy Assignee" />
+                        }
+                    </th>
+                    <th scope="col" class="table-head">
+                        @Html.DisplayNameFor(model => model.StrategyNote)
+                    </th>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isDateSortField = sortField == "Created Date";
+                            var DateSortIndicator = isDateSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isDateSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Created Date" class="btn btn-link" aria-label="Sort by Created Date" />
+                            <span class="SortIndicator">@DateSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Created Date" class="btn btn-link" aria-label="Sort by Created Date" />
+                        }
+                    </th>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isTermSortField = sortField == "Startegy Term";
+                            var TermSortIndicator = isTermSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isTermSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Startegy Term" class="btn btn-link" aria-label="Sort by Startegy Term" />
+                            <span class="SortIndicator">@TermSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Startegy Term" class="btn btn-link" aria-label="Sort by Startegy Term" />
+                        }
+                    </th>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isStatusCodeSortField = sortField == "Strategy Status";
+                            var StatusCodeSortIndicator = isStatusCodeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isStatusCodeSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Strategy Status" class="btn btn-link" aria-label="Sort by Strategy Status" />
+                            <span class="SortIndicator">@StatusCodeSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Strategy Status" class="btn btn-link" aria-label="Sort by Strategy Status" />
+                        }
+                    </th>
+                    @* <th scope="col" class="table-head"></th> *@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StrategyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StrategyAssignee)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StrategyNote)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StrategyTerm)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StrategyStatus)
+                            @* </td>
                 <td class="d-flex flex-column">
                     <a class="btn btn-light mb-2"  asp-action="Edit" asp-route-id="@item.ID">Edit</a>
                     <a class="btn btn-light"  asp-action="Delete" asp-route-id="@item.ID">Delete</a>
             </td> *@
-        </tr>
-}
-    </tbody>
-</table>
+                    </tr>
+                }
+            </tbody>
+        </table>
         <partial name="_PagingNavBar" />
 </form>
 
@@ -340,5 +381,5 @@
             window.location.href = url + '?' + params.toString();
         }
     </script>
-  
+
 }

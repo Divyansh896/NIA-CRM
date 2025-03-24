@@ -27,7 +27,7 @@ namespace NIA_CRM.Controllers
                                                 string sortDirection = "desc", string sortField = "Strategy Name")
         {
 
-            string[] sortOptions = new[] { "Strategy Name", "StrategyAssignee", "CreatedDate", "SearchString" }; // Add other fields if needed
+            string[] sortOptions = new[] { "Strategy Name", "Strategy Assignee", "Created Date", "SearchString", "Startegy Term", "Strategy Status" }; // Add other fields if needed
             int numberFilters = 0;
 
             var strategies = _context.Strategies.AsQueryable();
@@ -71,20 +71,31 @@ namespace NIA_CRM.Controllers
                 }
             }
 
-            if (sortField == "Strategy Name")
+            strategies = sortField switch
             {
-                if (sortDirection == "desc")
-                {
-                    strategies = strategies
-                        .OrderByDescending(p => p.StrategyName);
-                }
-                else
-                {
-                    strategies = strategies
-                        .OrderBy(p => p.StrategyName);
-                }
-            }
+                "Strategy Name" => sortDirection == "asc"
+                    ? strategies.OrderBy(e => e.StrategyName)
+                    : strategies.OrderByDescending(e => e.StrategyName),
 
+                "Strategy Assignee" => sortDirection == "asc"
+                    ? strategies.OrderBy(e => e.StrategyAssignee) // Assuming Address has City
+                    : strategies.OrderByDescending(e => e.StrategyAssignee),
+
+                "Created Date" => sortDirection == "asc"
+                    ? strategies.OrderBy(e => e.CreatedDate) // Assuming the MembershipType has a Name
+                    : strategies.OrderByDescending(e => e.CreatedDate),
+
+
+                "Startegy Term" => sortDirection == "asc"
+                    ? strategies.OrderBy(e => e.StrategyTerm) // Assuming NAICSCode has Code
+                    : strategies.OrderByDescending(e => e.StrategyTerm),
+
+                "Strategy Status" => sortDirection == "asc"
+                    ? strategies.OrderBy(e => e.StrategyStatus) // Assuming Contact has Name
+                    : strategies.OrderByDescending(e => e.StrategyStatus),
+
+                _ => strategies
+            };
 
 
             // Apply filters and sorting feedback to the view

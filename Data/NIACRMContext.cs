@@ -109,9 +109,9 @@ namespace NIA_CRM.Data
             // Address -> Member (One-to-Many)
             modelBuilder.Entity<Address>()
                 .HasOne(a => a.Member)
-                .WithMany(m => m.Addresses)
-                .HasForeignKey(a => a.MemberId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .WithOne(m => m.Address) // Changed from WithMany to WithOne
+                .HasForeignKey<Address>(a => a.MemberId) // Foreign key remains the same
+                .OnDelete(DeleteBehavior.Restrict); // Restricts deletion if referenced
 
             // Member -> Cancellation (One-to-Many)
             modelBuilder.Entity<Cancellation>()
@@ -174,6 +174,24 @@ namespace NIA_CRM.Data
                 .WithMany(m => m.MemberTags)
                 .HasForeignKey(mmt => mmt.MTagID)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Configure the many-to-many relationship between Member and Contact via MemberContact
+            modelBuilder.Entity<MemberContact>()
+                .HasOne(mc => mc.Member)
+                .WithMany(m => m.MemberContacts)
+                .HasForeignKey(mc => mc.MemberId)
+                .OnDelete(DeleteBehavior.Cascade); // or another delete behavior like Restrict
+
+            modelBuilder.Entity<MemberContact>()
+                .HasOne(mc => mc.Contact)
+                .WithMany(c => c.MemberContacts)
+                .HasForeignKey(mc => mc.ContactId)
+                .OnDelete(DeleteBehavior.Cascade); // or another delete behavior
+
+            //Member Name is unique
+            modelBuilder.Entity<Member>()
+            .HasIndex(p => p.MemberName)
+            .IsUnique();
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

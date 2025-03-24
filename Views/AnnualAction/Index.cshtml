@@ -8,6 +8,7 @@
     <h1 class="mb-0" id="contacts-title">Annual Actions</h1>
 </div>
 
+
 <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
     <div class="d-flex align-items-center">
         <input type="file" name="file" class="form-control me-2" required />
@@ -58,23 +59,16 @@
 
 
 
-<form asp-action="ExportToExcel" method="get">
-    <button type="submit" class="btn btn-dark me-2">
-        <i class="fa fa-file-excel text-white"></i> Export to Excel
-    </button>
-</form>
-@* <form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex justify-content-between align-items-center">
-        <div>
-            <a class="btn btn-dark" asp-action="ExportToExcel"> <i class="fa fa-file-excel text-white"></i>
-                Export Excel</a>
-        <button type="submit" class="btn btn-dark">
+<div>
+    <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data" class="d-flex">
+        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
             <i class="fa fa-file-import"></i> Import Excel
         </button>
-        </div>
-        
-    </div>
-</form> *@
+        <input type="file" name="file" class="form-control me-2 w-100" required />
+
+    </form>
+</div>
+
 
 @if (TempData["Success"] != null)
 {
@@ -85,10 +79,6 @@
 {
     <div class="alert alert-danger">@TempData["Error"]</div>
 }
-@* <p>
-   
-    <input type="file" name="file" class="form-control me-2" required />
-</p> *@
 
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
@@ -100,7 +90,7 @@
 
     <div class="m-auto flex-grow-1">
         <div class="form-horizontal mb-3">
-             <div class="d-flex align-items-center gap-2">
+            <div class="d-flex align-items-center gap-2">
                 <div>
                     <button class="btn btn-dark @ViewData["Filtering"]"
                             type="button"
@@ -113,16 +103,16 @@
                     </button>
                 </div>
 
-                
+
                 <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
                     <i class="fa fa-file-excel text-white"></i>
                     Export filtered data to Excel
                 </button>
 
                 <!-- Export Button to Open Modal for Annual Actions -->
-<button type="button" class="btn btn-dark mt-2" data-bs-toggle="modal" data-bs-target="#exportAnnualActionsModal">
-    <i class="fa fa-file-excel text-white"></i> Export Selected Fields
-</button>
+                <button type="button" class="btn btn-dark mt-2" data-bs-toggle="modal" data-bs-target="#exportAnnualActionsModal">
+                    <i class="fa fa-file-excel text-white"></i> Export Selected Fields
+                </button>
 
                 <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add New Action</a>
             </div>
@@ -174,52 +164,101 @@
         <table class="table table-bordered table-striped" id="event-table" aria-labelledby="strategies">
             <caption class="sr-only">Strategy table showing filtered results</caption>
             <thead class="thead-dark">
-            <tr>
-                <th scope="col" class="table-head">
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th scope="col" class="table-head">
-                    @Html.DisplayNameFor(model => model.Note)
-                </th >
-                <th scope="col" class="table-head">
-                    @Html.DisplayNameFor(model => model.Date)
-                </th scope="col" class="table-head">
-                <th scope="col" class="table-head">
-                    @Html.DisplayNameFor(model => model.Asignee)
-                </th >
-                <th scope="col" class="table-head"> 
-                    @Html.DisplayNameFor(model => model.AnnualStatus)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Note)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Asignee)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AnnualStatus)
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>
+                <tr>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isNameSortField = sortField == "Annual Actions Name";
+                            var nameSortIndicator = isNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isNameSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Annual Actions Name" class="btn btn-link" aria-label="Sort by Annual Actions Name" />
+                            <span class="SortIndicator">@nameSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Annual Actions Name" class="btn btn-link" aria-label="Sort by Annual Actions Name" />
+                        }
+                    </th>
+                    <th scope="col" class="table-head">
+                        @Html.DisplayNameFor(model => model.Note)
+                    </th>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isDateSortField = sortField == "Date";
+                            var dateSortIndicator = isDateSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isDateSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Date" class="btn btn-link" aria-label="Sort by Date" />
+                            <span class="SortIndicator">@dateSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Date" class="btn btn-link" aria-label="Sort by Date" />
+                        }
+                    </th>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isAssigneeSortField = sortField == "Assignee";
+                            var assigneeSortIndicator = isAssigneeSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isAssigneeSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Assignee" class="btn btn-link" aria-label="Sort by Assignee" />
+                            <span class="SortIndicator">@assigneeSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Assignee" class="btn btn-link" aria-label="Sort by Assignee" />
+                        }
+                    </th>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isStatusSortField = sortField == "Status";
+                            var statusSortIndicator = isStatusSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isStatusSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Status" class="btn btn-link" aria-label="Sort by Status" />
+                            <span class="SortIndicator">@statusSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Status" class="btn btn-link" aria-label="Sort by Status" />
+                        }
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="clickable-row" data-id="@item.ID" title="Click on row to get preview">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Asignee)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AnnualStatus)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-            <partial name="_PagingNavBar" />
-    </form>
+    <partial name="_PagingNavBar" />
+</form>
 
 
-    <div id="previewContainer" class="preview-content hidden"></div>
+<div id="previewContainer" class="preview-content hidden"></div>
 
 
 
@@ -232,7 +271,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-    @* Show Preview and save note function script  *@
+@* Show Preview and save note function script  *@
     <script>
         $(document).ready(function () {
             // Initially hide the preview content
@@ -320,9 +359,9 @@
 
             // Reload the page with the updated query string (filters removed)
             window.location.href = url + '?' + params.toString();
-            
+
         }
 
 
     </script>
-}
+    }

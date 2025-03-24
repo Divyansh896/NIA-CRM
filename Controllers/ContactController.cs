@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,17 +12,21 @@ using NIA_CRM.CustomControllers;
 using NIA_CRM.Data;
 using NIA_CRM.Models;
 using NIA_CRM.Utilities;
+using NIA_CRM.ViewModels;
 using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
     public class ContactController : ElephantController
     {
+        //for sending email
+        private readonly IMyEmailSender _emailSender;
         private readonly NIACRMContext _context;
 
-        public ContactController(NIACRMContext context)
+        public ContactController(NIACRMContext context, IMyEmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
 
         // GET: Contact
@@ -29,7 +34,7 @@ namespace NIA_CRM.Controllers
                                               string sortDirection = "asc", string sortField = "Contact Name")
         {
             PopulateDropdownLists();
-            string[] sortOptions = new[] { "Contact Name" };  // You can add more sort options if needed
+            string[] sortOptions = new[] { "Contact Name", "Member Name", "VIP", "Phone", "Email" };  // You can add more sort options if needed
 
             int numberFilters = 0;
 
@@ -40,9 +45,9 @@ namespace NIA_CRM.Controllers
                                      .ThenInclude(mc => mc.Member)
                                      .Include(m => m.ContactCancellations)
                                      .Where(c => !c.ContactCancellations.Any(cc => cc.IsCancelled))  // Only include contacts with no cancellations or cancellations that are not cancelled
-                                     .Distinct() // Ensures only unique contacts are selected
-
+                                     //.GroupBy(comparer => new { comparer.FirstName, comparer.LastName })
                                      .AsQueryable();
+            
             if (Departments != null)
             {
                 contacts = contacts.Where(c => c.Department == Departments);
@@ -94,23 +99,30 @@ namespace NIA_CRM.Controllers
                 }
             }
 
-            if (sortField == "Contact Name")
+            contacts = sortField switch
             {
-                if (sortDirection == "desc")
-                {
-                    contacts = contacts
-                        .OrderByDescending(p => p.FirstName)
-                        .ThenByDescending(p => p.LastName);
+                "Member Name" => sortDirection == "asc"
+                    ? contacts.OrderBy(e => e.MemberContacts.FirstOrDefault().Member.MemberName)
+                    : contacts.OrderByDescending(e => e.MemberContacts.FirstOrDefault().Member.MemberName),
 
-                }
-                else
-                {
-                    contacts = contacts
-                        .OrderBy(p => p.FirstName)
-                        .ThenBy(p => p.LastName);
+                "VIP" => sortDirection == "asc"
+                    ? contacts.OrderBy(e => e.IsVip) // Assuming Address has City
+                    : contacts.OrderByDescending(e => e.IsVip),
 
-                }
-            }
+                "Phone" => sortDirection == "asc"
+                    ? contacts.OrderBy(e => e.Phone) // Assuming the MembershipType has a Name
+                    : contacts.OrderByDescending(e => e.Phone),
+
+                "Email" => sortDirection == "asc"
+                    ? contacts.OrderBy(e => e.Email) // Assuming NAICSCode has Sector
+                    : contacts.OrderByDescending(e => e.Email),
+
+                "Contact Name" => sortDirection == "asc"
+                    ? contacts.OrderBy(e => e.FirstName).ThenBy(e => e.LastName) // Assuming Contact has Name
+                    : contacts.OrderByDescending(e => e.FirstName).ThenByDescending(e => e.LastName),
+
+                _ => contacts
+            };
 
 
             //Give feedback about the state of the filters
@@ -126,12 +138,12 @@ namespace NIA_CRM.Controllers
             }
 
 
-
             if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
             {
 
                 return ExportContactsToExcel(contacts.ToList());
             }
+
 
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
@@ -298,14 +310,38 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var contact = await _context.Contacts.FindAsync(id);
+            var contact = await _context.Contacts
+                .Include(c => c.MemberContacts)
+                .ThenInclude(mc => mc.Member)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (contact == null)
             {
                 return NotFound();
             }
-            //ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.);
+
+            // Get the member name based on the contact's MemberContacts
+            var memberContact = contact.MemberContacts.FirstOrDefault();
+            if (memberContact != null)
+            {
+                var member = await _context.Members.FindAsync(memberContact.MemberId);
+                if (member != null)
+                {
+                    ViewBag.MemberName = member.MemberName; // Set the member's name
+                }
+                else
+                {
+                    ViewBag.MemberName = "No member name provided"; // Handle null or missing member
+                }
+            }
+            else
+            {
+                ViewBag.MemberName = "No member associated"; // Handle case where no member is associated
+            }
+
             return View(contact);
         }
+
 
         // POST: Contact/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -315,9 +351,13 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
 
+            // Try updating the model with user input
             // Fetch the existing Contact record from the database
             var contactToUpdate = await _context.Contacts
+                .Include(c => c.MemberContacts)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            
 
             if (contactToUpdate == null)
             {
@@ -336,11 +376,37 @@ namespace NIA_CRM.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    //return RedirectToAction(nameof(Index));
                     TempData["SuccessMessage"] = $"Contact: {contactToUpdate.FirstName} {contactToUpdate.LastName} Updated Successfully!";
 
-                    return RedirectToAction("Details", new { id = contactToUpdate.Id });
+                    // Get the member ID from the MemberContacts collection
+                    var memberId = contactToUpdate.MemberContacts.FirstOrDefault()?.MemberId;
 
+                    // Get the member name based on the contact's MemberContacts
+                    var memberContact = contactToUpdate.MemberContacts.FirstOrDefault();
+                    if (memberContact != null)
+                    {
+                        var member = await _context.Members.FindAsync(memberContact.MemberId);
+                        if (member != null)
+                        {
+                            ViewBag.MemberName = member.MemberName; // Set the member's name
+                        }
+                        else
+                        {
+                            ViewBag.MemberName = "No member name provided"; // Handle null or missing member
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.MemberName = "No member associated"; // Handle case where no member is associated
+                    }
+                    if (memberId != null)
+                    {
+                        return RedirectToAction("Details", "Member", new { id = memberId });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 catch (RetryLimitExceededException)
                 {
@@ -396,6 +462,7 @@ namespace NIA_CRM.Controllers
             }
 
             return View(contactToUpdate);
+
         }
 
 
@@ -436,8 +503,6 @@ namespace NIA_CRM.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
         [HttpPost]
         public async Task<IActionResult> SaveContactNote(int id, string note)
         {
@@ -461,6 +526,61 @@ namespace NIA_CRM.Controllers
                 return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Notification(string selectedContactIds, string Subject, string emailContent)
+        {
+            if (string.IsNullOrEmpty(selectedContactIds))
+            {
+                return Json(new { success = false, message = "No contacts selected." });
+            }
+
+            if (string.IsNullOrEmpty(Subject) || string.IsNullOrEmpty(emailContent))
+            {
+                return Json(new { success = false, message = "You must enter both a Subject and some message Content before sending the message." });
+            }
+
+            var contactIds = selectedContactIds.Split(',').Select(int.Parse).ToList();
+            int folksCount = 0;
+
+            try
+            {
+                List<EmailAddress> recipients = await _context.Contacts
+                    .Where(p => contactIds.Contains(p.Id) && p.Email != null)
+                    .Select(p => new EmailAddress
+                    {
+                        Name = p.Summary,
+                        Address = p.Email
+                        //Address = "Divyansh9030@gmail.com"
+                    })
+                    .ToListAsync();
+
+                folksCount = recipients.Count;
+
+                if (folksCount > 0)
+                {
+                    var msg = new EmailMessage()
+                    {
+                        ToAddresses = recipients,
+                        Subject = Subject,
+                        Content = "<p>" + emailContent + "</p><p>Please access the <strong>Niagara College</strong> web site to review.</p>"
+                    };
+
+                    await _emailSender.SendToManyAsync(msg);
+
+                    return Json(new { success = true, message = "Message sent to " + folksCount + " contact" + ((folksCount == 1) ? "." : "s.") });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Message NOT sent! No valid email addresses found for the selected contacts." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error: Could not send email. " + ex.GetBaseException().Message });
+            }
+        }
+
 
 
         private bool ContactExists(int id)

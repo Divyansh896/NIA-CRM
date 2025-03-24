@@ -4,6 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
 <h1>Create</h1>
 
 <h4>Member</h4>
@@ -15,20 +18,37 @@
     <form asp-action="Create" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
 
-
-
+        <!-- First Row: Logo and Basic Information -->
         <div class="row">
-            <!-- First Column (Membership & Tag) -->
-            <div class="col-md-6">
+            <!-- First Column (Logo) -->
+            <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label custom-file-label">Picture File:</label>
-                    <div class="input-group mb-3">
-                        <input type="file" class="form-control" name="thePicture" id="thePicture">
+                    <div id="drag-drop-area" class="drag-drop-area" ondrop="dropImage(event)" ondragover="allowDrop(event)">
+                        <p>Drag & Drop your image here</p>
+                        <button type="button" onclick="triggerFileSelect()" class="btn btn-primary" id="selectImageButton">Select Image</button>
+                        <input type="file" class="form-control" name="thePicture" id="thePicture" onchange="previewImage(event)" style="display: none;" />
+                    </div>
+                    <div id="imagePreviewContainer" style="display: none;">
+                        <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 200px; max-height: 200px;" />
+                    </div>
+                    <div id="previewControls" style="display: none;">
+                        <button class="btn btn-light me-2" type="button" onclick="removeImage()">Remove</button>
+                        <button class="btn btn-light me-2" type="button" onclick="reselectLogo()">Reselect Logo</button>
+                        <button class="btn btn-secondary" type="button" onclick="startEditing()">Edit</button>
+                    </div>
+                    <div id="editControls" style="display: none;">
+                        <button class="btn btn-light me-2" type="button" onclick="cancelEditing()">Cancel</button>
+                        <button class="btn btn-secondary" type="button" onclick="saveCroppedImage()">Save</button>
                     </div>
                 </div>
-                <div class="form-group mb-3">
-                    <label asp-for="MemberName" class="control-label"></label> (required)
+            </div>
 
+            <!-- Second Column (Member Info) -->
+            <div class="col-md-4">
+                <div class="form-group mb-3">
+                    <label asp-for="MemberName" class="control-label"></label> 
+                    <span class="required-label">(required)</span>
                     <input asp-for="MemberName" class="form-control" />
                     <span asp-validation-for="MemberName" class="text-danger"></span>
                 </div>
@@ -38,47 +58,7 @@
                     <input asp-for="JoinDate" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                     <span asp-validation-for="JoinDate" class="text-danger"></span>
                 </div>
-                <!-- Membership Selection -->
-                <div class="form-group mb-3">
-                    <label class="control-label">Membership Accredited</label>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="button" id="btnRightMembership" class="btn btn-light btn-sm w-100">
-                                <strong>-</strong>
-                            </button>
-                            @Html.ListBox("selectedOptionsMembership", (MultiSelectList)ViewData["selOptsMembership"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsMembership" })
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" id="btnLeftMembership" class="btn btn-secondary btn-sm w-100">
-                                <strong>+</strong>
-                            </button>
-                            @Html.ListBox("availOptionsMembership", (MultiSelectList)ViewData["availOptsMembership"], new { @size = 10, @class = "form-control w-100", id = "availOptionsMembership" })
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Tag Selection -->
-                <div class="form-group mb-3">
-                    <label class="control-label">Tag Accredited</label>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="button" id="btnRightTag" class="btn btn-light btn-sm w-100">
-                                <strong>-</strong>
-                            </button>
-                            @Html.ListBox("selectedOptionsTag", (MultiSelectList)ViewData["selOptsTag"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsTag" })
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" id="btnLeftTag" class="btn btn-secondary btn-sm w-100">
-                                <strong>+</strong>
-                            </button>
-                            @Html.ListBox("availOptionsTag", (MultiSelectList)ViewData["availOptsTag"], new { @size = 10, @class = "form-control w-100", id = "availOptionsTag" })
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Second Column (Sector) -->
-            <div class="col-md-6">
                 <div class="form-group form-check mb-3">
                     <label class="form-check-label">
                         <input class="form-check-input" asp-for="IsPaid" /> @Html.DisplayNameFor(model => model.IsPaid)
@@ -86,82 +66,589 @@
                     <span asp-validation-for="IsPaid" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">
-                    <label asp-for="MemberSize" class="control-label"></label> (required)
+                    <label asp-for="MemberSize" class="control-label"></label>
+                    <span class="required-label">(required)</span>
                     <input asp-for="MemberSize" class="form-control" />
                     <span asp-validation-for="MemberSize" class="text-danger"></span>
                 </div>
+
                 <div class="form-group mb-3">
                     <label asp-for="WebsiteUrl" class="control-label"></label>
                     <input asp-for="WebsiteUrl" class="form-control" />
                     <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
                 </div>
+            </div>
 
-
-                <!-- Sector Selection -->
-                <div class="form-group mb-3">
-                    <label class="control-label">Sector Accredited</label>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="button" id="btnRightSector" class="btn btn-light btn-sm w-100">
-                                <strong>-</strong>
-                            </button>
-                            @Html.ListBox("selectedOptionsSector", (MultiSelectList)ViewData["selOptsSector"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsSector" })
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" id="btnLeftSector" class="btn btn-secondary btn-sm w-100">
-                                <strong>+</strong>
-                            </button>
-                            @Html.ListBox("availOptionsSector", (MultiSelectList)ViewData["availOptsSector"], new { @size = 10, @class = "form-control w-100", id = "availOptionsSector" })
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NAICS Code Selection -->
-                <div class="form-group mb-3">
-                    <label class="control-label">NAICS Code Accredited</label>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="button" id="btnRightNaicsCode" class="btn btn-light btn-sm w-100">
-                                <strong>-</strong>
-                            </button>
-                            @Html.ListBox("selectedOptionsNaicsCode", (MultiSelectList)ViewData["selOptsNaiceCode"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsNaicsCode" })
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" id="btnLeftNaicsCode" class="btn btn-secondary btn-sm w-100">
-                                <strong>+</strong>
-                            </button>
-                            @Html.ListBox("availOptionsNaicsCode", (MultiSelectList)ViewData["availOptsNaicsCode"], new { @size = 10, @class = "form-control w-100", id = "availOptionsNaicsCode" })
-                        </div>
-                    </div>
-                </div>
+            <!-- Third Column (Size, Website) -->
+            <div class="col-md-4">
+                <label asp-for="MemberNote" class="control-label"></label>
+                <textarea asp-for="MemberNote" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="MemberNote" class="text-danger"></span>
             </div>
         </div>
-        <!-- Notes Section at the Bottom -->
-        <div class="form-group mt-3">
-            <label asp-for="MemberNote" class="control-label"></label>
-            <textarea asp-for="MemberNote" class="form-control" rows="3"></textarea>
-            <span asp-validation-for="MemberNote" class="text-danger"></span>
+
+        <!-- Multi-selection Fields in One Row with Equal Width and Vertical Separation -->
+        <div class="row justify-content-center">
+            <div class="col-md-2">
+                <label class="control-label">Membership Accredited</label>
+                <button type="button" id="btnRightMembership" class="btn btn-light btn-sm w-100">
+                    <strong>-</strong>
+                </button>
+                @Html.ListBox("selectedOptionsMembership", (MultiSelectList)ViewData["selOptsMembership"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsMembership" })
+                <button type="button" id="btnLeftMembership" class="btn btn-secondary btn-sm w-100">
+                    <strong>+</strong>
+                </button>
+                @Html.ListBox("availOptionsMembership", (MultiSelectList)ViewData["availOptsMembership"], new { @size = 10, @class = "form-control w-100", id = "availOptionsMembership" })
+                <div class="w-100">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#membershipModal">
+                    Add New Membership
+                </button>
+                    <button type="button" class="btn btn-light w-100" data-bs-toggle="modal" data-bs-target="#deleteMembershipModal">
+                    Delete Membership
+                </button>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label class="control-label">Tag Accredited</label>
+                <button type="button" id="btnRightTag" class="btn btn-light btn-sm w-100">
+                    <strong>-</strong>
+                </button>
+                @Html.ListBox("selectedOptionsTag", (MultiSelectList)ViewData["selOptsTag"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsTag" })
+                <button type="button" id="btnLeftTag" class="btn btn-secondary btn-sm w-100">
+                    <strong>+</strong>
+                </button>
+                @Html.ListBox("availOptionsTag", (MultiSelectList)ViewData["availOptsTag"], new { @size = 10, @class = "form-control w-100", id = "availOptionsTag" })
+                <div class="w-100">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#tagModal">
+                    Add New Tag
+                </button>
+                    <button type="button" class="btn btn-light w-100" data-bs-toggle="modal" data-bs-target="#deleteTagModal">
+                        Delete Tag
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label class="control-label">Sector Accredited</label>
+                <button type="button" id="btnRightSector" class="btn btn-light btn-sm w-100">
+                    <strong>-</strong>
+                </button>
+                @Html.ListBox("selectedOptionsSector", (MultiSelectList)ViewData["selOptsSector"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsSector" })
+                <button type="button" id="btnLeftSector" class="btn btn-secondary btn-sm w-100">
+                    <strong>+</strong>
+                </button>
+                @Html.ListBox("availOptionsSector", (MultiSelectList)ViewData["availOptsSector"], new { @size = 10, @class = "form-control w-100", id = "availOptionsSector" })
+                <div class="w-100">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#sectorModal">
+                    Add New Sector
+                </button>
+                    <button type="button" class="btn btn-light w-100" data-bs-toggle="modal" data-bs-target="#deleteSectorModal">
+                    Delete Sector
+                </button>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label class="control-label">NAICS Code Accredited</label>
+
+                <button type="button" id="btnRightNaicsCode" class="btn btn-light btn-sm w-100">
+                    <strong>-</strong>
+                </button>
+
+                @Html.ListBox("selectedOptionsNaicsCode", (MultiSelectList)ViewData["selOptsNaiceCode"], new { @size = 10, @class = "form-control w-100", id = "selectedOptionsNaicsCode" })
+
+                <button type="button" id="btnLeftNaicsCode" class="btn btn-secondary btn-sm w-100">
+                    <strong>+</strong>
+                </button>
+
+                @Html.ListBox("availOptionsNaicsCode", (MultiSelectList)ViewData["availOptsNaicsCode"], new { @size = 10, @class = "form-control w-100", id = "availOptionsNaicsCode" })
+
+                <div class="w-100">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#naicsCodeModal">
+                        Add New NAICS Code
+                    </button>
+                    <button type="button" class="btn btn-light w-100" data-bs-toggle="modal" data-bs-target="#deleteNaicsCodeModal">
+                        Delete NAICS Code
+                    </button>
+                    
+                </div>
+
+            </div>
         </div>
         <!-- Buttons outside the card -->
         <div class="position-bottom-left mt-3">
             <a asp-action="Index" class="btn btn-dark me-2">Back to List</a>
             <input type="submit" value="Next" id="btnSubmit" class="btn btn-primary" />
-
         </div>
     </form>
 </div>
 
 
+<!-- Membership Modal -->
+<div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="membershipModalLabel">Add New Membership Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="newMembership" class="form-control" placeholder="Enter new membership" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveMembership">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Tag Modal -->
+<div class="modal fade" id="tagModal" tabindex="-1" aria-labelledby="tagModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tagModalLabel">Add New Tag Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="newTag" class="form-control" placeholder="Enter new tag" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveTag">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sector Modal -->
+<div class="modal fade" id="sectorModal" tabindex="-1" aria-labelledby="sectorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sectorModalLabel">Add New Sector Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="newSector" class="form-control" placeholder="Enter new sector" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveSector">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- NAICS Code Modal -->
+<div class="modal fade" id="naicsCodeModal" tabindex="-1" aria-labelledby="naicsCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="naicsCodeModalLabel">Add New NAICS Code Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="newNaicsCode" class="form-control" placeholder="Enter new NAICS code" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveNaicsCode">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
+<!-- Membership Delete Modal -->
+<div class="modal fade" id="deleteMembershipModal" tabindex="-1" aria-labelledby="deleteMembershipModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMembershipModalLabel">Delete Membership Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select id="deleteMembershipSelect" class="form-control">
+                    <!-- Options will be populated by JS -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="deleteMembership">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Tag Delete Modal -->
+<div class="modal fade" id="deleteTagModal" tabindex="-1" aria-labelledby="deleteTagModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteTagModalLabel">Delete Tag Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select id="deleteTagSelect" class="form-control">
+                    <!-- Options will be populated by JS -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="deleteTag">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sector Delete Modal -->
+<div class="modal fade" id="deleteSectorModal" tabindex="-1" aria-labelledby="deleteSectorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteSectorModalLabel">Delete Sector Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select id="deleteSectorSelect" class="form-control">
+                    <!-- Options will be populated by JS -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="deleteSector">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- NAICS Code Delete Modal -->
+<div class="modal fade" id="deleteNaicsCodeModal" tabindex="-1" aria-labelledby="deleteNaicsCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteNaicsCodeModalLabel">Delete NAICS Code Accredited</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select id="deleteNaicsCodeSelect" class="form-control">
+                    <!-- Options will be populated by JS -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="deleteNaicsCode">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Repeat similar modals and buttons for Tag, Sector, and NAICS Code -->
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script src="~/js/multiselect.js"></script>
 
-    
-    
+
+    <script>
+        var cropper;
+        var originalImageData = null;  // Store the original image data before editing
+
+        // Trigger the file input when the button is clicked
+function triggerFileSelect() {
+    document.getElementById('thePicture').click();  // Trigger the file input
+}
+
+// Prevent default behavior for dragging over
+function allowDrop(event) {
+    event.preventDefault(); // Prevent opening in new tab
+}
+
+// Handle the file drop
+function dropImage(event) {
+    event.preventDefault(); // Prevent the default action (e.g., opening in a new tab)
+    const file = event.dataTransfer.files[0];  // Get the dropped file
+    document.getElementById('thePicture').files = event.dataTransfer.files;  // Simulate file selection
+    displayImage(file);  // Display the image
+}
+
+// Preview the selected image
+function previewImage(event) {
+    const file = event.target.files[0];  // Get the selected file
+    if (file) {
+        displayImage(file);  // Call displayImage function to handle it
+    }
+}
+
+// Function to display the selected image as a preview
+        function displayImage(file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imgElement = document.getElementById('imagePreview');
+                imgElement.style.display = 'block'; // Show the image preview initially
+                imgElement.src = e.target.result;  // Set the image source
+
+                // Store the original image data before editing
+                originalImageData = e.target.result;
+
+                // Show the preview controls (Edit, Remove, Reselect)
+                document.getElementById('previewControls').style.display = 'block';
+                document.getElementById('editControls').style.display = 'none';
+
+                // Show the image preview container and hide the drag-and-drop section
+                document.getElementById('imagePreviewContainer').style.display = 'block';
+                document.getElementById('drag-drop-area').style.display = 'none';  // Hide the drag-and-drop area
+            };
+            reader.readAsDataURL(file);  // Read the file as DataURL
+        }
+
+// Initialize the cropper when the user clicks "Edit"
+        function startEditing() {
+            const imagePreview = document.getElementById('imagePreview');
+            const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+
+            // Get the image dimensions
+            const imgWidth = imagePreview.naturalWidth;
+            const imgHeight = imagePreview.naturalHeight;
+
+            // Set the container size to match the image size (max 300px for both width and height)
+            const maxWidth = 300;
+            const maxHeight = 300;
+            const containerWidth = Math.min(imgWidth, maxWidth);
+            const containerHeight = Math.min(imgHeight, maxHeight);
+
+            imagePreviewContainer.style.width = `${containerWidth}px`;
+            imagePreviewContainer.style.height = `${containerHeight}px`;
+
+            // Initialize the cropper with the ability to resize the crop box
+            if (!cropper) {
+                cropper = new Cropper(imagePreview, {
+                    aspectRatio: 1,  // Maintain a square aspect ratio
+                    viewMode: 1,  // Crop box will be within the canvas bounds
+                    autoCropArea: 0.65,
+                    responsive: true,
+                    background: true,
+                    cropBoxResizable: true,  // Allow resizing the crop box
+                    cropBoxMovable: true,    // Allow moving the crop box
+                    dragMode: 'move',        // Allow the image to be moved inside the cropper
+                    minContainerWidth: 100,  // Set minimum container width
+                    minContainerHeight: 100, // Set minimum container height
+                    maxWidth: maxWidth,      // Maximum crop box width
+                    maxHeight: maxHeight,    // Maximum crop box height
+                });
+            }
+
+            // Switch to editing mode: hide preview buttons, show editing buttons
+            document.getElementById('previewControls').style.display = 'none';
+            document.getElementById('editControls').style.display = 'block';
+
+            // Hide the preview image and show the cropper controls
+            document.getElementById('imagePreview').style.display = 'none';
+        }
+
+// Save the cropped image when the user clicks "Save"
+        function saveCroppedImage() {
+            if (cropper) {
+                var canvas = cropper.getCroppedCanvas({
+                    width: 200,  // Set the width of the cropped image (can be adjusted as needed)
+                    height: 200  // Set the height of the cropped image (can be adjusted as needed)
+                });
+
+                var imagePreview = document.getElementById('imagePreview');
+                if (imagePreview) {
+                    // Set the cropped image as the source
+                    imagePreview.src = canvas.toDataURL();
+                    imagePreview.style.display = 'block';  // Ensure it is visible
+
+                    // Resize the image to fit its container and prevent white space
+
+                    // Hide the cropper and show the preview container
+                    document.getElementById('editControls').style.display = 'none';
+                    document.getElementById('previewControls').style.display = 'block';
+
+                    // Adjust the container size to match the cropped image size
+
+                } else {
+                    console.error("Image preview element not found!");
+                }
+
+                // Destroy the cropper after saving
+                cropper.destroy();
+                cropper = null;
+            }
+        }
+
+// Cancel editing and revert back to the original image
+        function cancelEditing() {
+            // Revert back to the original preview image
+            const imagePreview = document.getElementById('imagePreview');
+            if (imagePreview && originalImageData) {
+                imagePreview.src = originalImageData;  // Set the original image as the source
+                imagePreview.style.display = 'block';  // Ensure it is visible
+            }
+
+            // Hide cropper controls and show the preview controls
+            document.getElementById('editControls').style.display = 'none';
+            document.getElementById('previewControls').style.display = 'block';
+
+            // Destroy the cropper and reset
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+        }
+
+// Remove the image (reset everything)
+function removeImage() {
+    const imagePreview = document.getElementById('imagePreview');
+    imagePreview.src = '';  // Clear the preview image
+    imagePreview.style.display = 'none';  // Hide the preview image
+    document.getElementById('previewControls').style.display = 'none';  // Hide preview controls
+            document.getElementById('imagePreviewContainer').style.display = 'none';
+
+    // Show the drag-and-drop area again
+    document.getElementById('drag-drop-area').style.display = 'block';
+}
+
+// Reselect Logo (reset and allow the user to select another file)
+function reselectLogo() {
+    const inputFile = document.getElementById('thePicture');
+    inputFile.value = '';  // Reset the file input field
+    document.getElementById('imagePreview').style.display = 'none';  // Hide the previous preview
+    document.getElementById('previewControls').style.display = 'none';  // Hide preview controls
+            document.getElementById('imagePreviewContainer').style.display = 'none';
+
+    // Show the drag-and-drop area again and open the file explorer
+    document.getElementById('drag-drop-area').style.display = 'block';
+    inputFile.click();  // Open file explorer again
+}
+
+
+
+
+
+
+//script for adding tags, sector exc on a go
+        $(document).ready(function () {
+            // Handle save action for Membership
+            $('#saveMembership').on('click', function () {
+                var newMembership = $('#newMembership').val();
+                if (newMembership) {
+                    var newOption = new Option(newMembership, newMembership);
+                    $('#availOptionsMembership').append(newOption);
+                    $('#membershipModal').modal('hide');
+                    $('#newMembership').val(''); // Clear the input field
+                }
+            });
+
+            // Handle save action for Tag
+            $('#saveTag').on('click', function () {
+                var newTag = $('#newTag').val();
+                if (newTag) {
+                    var newOption = new Option(newTag, newTag);
+                    $('#availOptionsTag').append(newOption);
+                    $('#tagModal').modal('hide');
+                    $('#newTag').val(''); // Clear the input field
+                }
+            });
+
+            // Handle save action for Sector
+            $('#saveSector').on('click', function () {
+                var newSector = $('#newSector').val();
+                if (newSector) {
+                    var newOption = new Option(newSector, newSector);
+                    $('#availOptionsSector').append(newOption);
+                    $('#sectorModal').modal('hide');
+                    $('#newSector').val(''); // Clear the input field
+                }
+            });
+
+            // Handle save action for NAICS Code
+            $('#saveNaicsCode').on('click', function () {
+                var newNaicsCode = $('#newNaicsCode').val();
+                if (newNaicsCode) {
+                    var newOption = new Option(newNaicsCode, newNaicsCode);
+                    $('#availOptionsNaicsCode').append(newOption);
+                    $('#naicsCodeModal').modal('hide');
+                    $('#newNaicsCode').val(''); // Clear the input field
+                }
+            });
+        });
+
+
+        //script for deleting pop up
+        $(document).ready(function () {
+            // Function to populate delete options
+            function populateDeleteSelect(listId, selectId) {
+                $(selectId).empty();
+                var options = $(listId).children('option');
+                options.each(function () {
+                    var option = new Option($(this).text(), $(this).val());
+                    $(selectId).append(option);
+                });
+            }
+
+            // Populate Membership options for delete
+            $('#deleteMembershipModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsMembership', '#deleteMembershipSelect');
+            });
+
+            // Populate Tag options for delete
+            $('#deleteTagModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsTag', '#deleteTagSelect');
+            });
+
+            // Populate Sector options for delete
+            $('#deleteSectorModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsSector', '#deleteSectorSelect');
+            });
+
+            // Populate NAICS Code options for delete
+            $('#deleteNaicsCodeModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsNaicsCode', '#deleteNaicsCodeSelect');
+            });
+
+            // Delete Membership
+            $('#deleteMembership').on('click', function () {
+                var selectedMembership = $('#deleteMembershipSelect').val();
+                if (selectedMembership) {
+                    $('#availOptionsMembership option[value="' + selectedMembership + '"]').remove();
+                    $('#deleteMembershipModal').modal('hide');
+                }
+            });
+
+            // Delete Tag
+            $('#deleteTag').on('click', function () {
+                var selectedTag = $('#deleteTagSelect').val();
+                if (selectedTag) {
+                    $('#availOptionsTag option[value="' + selectedTag + '"]').remove();
+                    $('#deleteTagModal').modal('hide');
+                }
+            });
+
+            // Delete Sector
+            $('#deleteSector').on('click', function () {
+                var selectedSector = $('#deleteSectorSelect').val();
+                if (selectedSector) {
+                    $('#availOptionsSector option[value="' + selectedSector + '"]').remove();
+                    $('#deleteSectorModal').modal('hide');
+                }
+            });
+
+            // Delete NAICS Code
+            $('#deleteNaicsCode').on('click', function () {
+                var selectedNaicsCode = $('#deleteNaicsCodeSelect').val();
+                if (selectedNaicsCode) {
+                    $('#availOptionsNaicsCode option[value="' + selectedNaicsCode + '"]').remove();
+                    $('#deleteNaicsCodeModal').modal('hide');
+                }
+            });
+        });
+
+    </script>
+
 
 }

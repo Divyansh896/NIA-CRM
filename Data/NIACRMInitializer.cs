@@ -385,16 +385,32 @@ namespace NIA_CRM.Data
                     if (!context.Members.Any())
                     {
                         context.Members.AddRange(
-                           new Member
-                           {
-                               ID = 1,
-                               MemberName = "Alpha Steel",
-                               MemberSize = 10,
-                               JoinDate = new DateTime(2021, 1, 1),
-                               WebsiteUrl = "https://www.johndoe.com",
-                               Addresses = new List<Address>
-                               {
-                            new Address
+                            new Member
+                            {
+
+                                ID = 1,
+                                MemberName = "Alpha Steel",
+                                MemberSize = 10,
+                                JoinDate = new DateTime(2021, 1, 1),
+                                WebsiteUrl = "https://www.johndoe.com",
+                                Address = new Address // Updated to one-to-one relationship
+                                {
+                                    AddressLine1 = "123 Main St",
+                                    AddressLine2 = "Apt 1B",
+                                    City = "Niagara Falls",
+                                    StateProvince = Province.Ontario,
+                                    PostalCode = "L2G 3Y7"
+                                }
+                            },
+
+                        new Member
+                        {
+                            ID = 2,
+                            MemberName = "TISCO CO.",
+                            MemberSize = 5,
+                            JoinDate = new DateTime(2020, 6, 15),
+                            WebsiteUrl = "https://www.janesmith.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
                                 AddressLine1 = "123 Main St",
                                 AddressLine2 = "Apt 1B",
@@ -402,170 +418,141 @@ namespace NIA_CRM.Data
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2G 3Y7"
                             }
-                                               }
-                           },
-                                           new Member
-                                           {
-                                               ID = 2,
-                                               MemberName = "TISCO CO.",
-                                               MemberSize = 5,
-                                               JoinDate = new DateTime(2020, 6, 15),
-                                               WebsiteUrl = "https://www.janesmith.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+
+                        },
+
+                        new Member
+                        {
+                            ID = 3,
+                            MemberName = "M Time Irons",
+                            MemberSize = 8,
+                            JoinDate = new DateTime(2019, 4, 21),
+                            WebsiteUrl = "https://www.emilyjohnson.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
-                                AddressLine1 = "456 Oak Ave",
-                                AddressLine2 = "Unit 2A",
-                                City = "Niagara Falls",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L2H 1H4"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 3,
-                                               MemberName = "M Time Irons",
-                                               MemberSize = 8,
-                                               JoinDate = new DateTime(2019, 4, 21),
-                                               WebsiteUrl = "https://www.emilyjohnson.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
+
                                 AddressLine1 = "789 Pine Rd",
                                 AddressLine2 = "Suite 3C",
                                 City = "Niagara Falls",
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2E 6S5"
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 4,
-                                               MemberName = "Forge & Foundry Inc.",
-                                               MemberSize = 6,
-                                               JoinDate = new DateTime(2021, 7, 11),
-                                               WebsiteUrl = "https://www.michaelbrown.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+
+                        },
+                        new Member
+                        {
+                            ID = 4,
+                            MemberName = "Forge & Foundry Inc.",
+                            MemberSize = 6,
+                            JoinDate = new DateTime(2021, 7, 11),
+                            WebsiteUrl = "https://www.michaelbrown.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
+
                                 AddressLine1 = "101 Maple St",
                                 AddressLine2 = "Apt 4D",
                                 City = "Niagara Falls",
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2E 1B1"
+
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 5,
-                                               MemberName = "Northern Metalworks",
-                                               MemberSize = 4,
-                                               JoinDate = new DateTime(2020, 3, 25),
-                                               WebsiteUrl = "https://www.sarahdavis.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 5,
+                            MemberName = "Northern Metalworks",
+                            MemberSize = 4,
+                            JoinDate = new DateTime(2020, 3, 25),
+                            WebsiteUrl = "https://www.sarahdavis.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
+
                                 AddressLine1 = "555 Birch Blvd",
                                 AddressLine2 = "Unit 7B",
                                 City = "Niagara Falls",
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2G 7M7"
+
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 6,
-                                               MemberName = "Titanium Solutions",
-                                               MemberSize = 12,
-                                               JoinDate = new DateTime(2022, 5, 19),
-                                               WebsiteUrl = "https://www.davidmartinez.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 6,
+                            MemberName = "Titanium Solutions",
+                            MemberSize = 12,
+                            JoinDate = new DateTime(2022, 5, 19),
+                            WebsiteUrl = "https://www.davidmartinez.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
+
                                 AddressLine1 = "888 Cedar St",
                                 AddressLine2 = "Apt 10E",
                                 City = "St. Catharines",
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2M 3Y3"
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 7,
-                                               MemberName = "Phoenix Alloys",
-                                               MemberSize = 15,
-                                               JoinDate = new DateTime(2018, 2, 7),
-                                               WebsiteUrl = "https://www.robertwilson.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 7,
+                            MemberName = "Phoenix Alloys",
+                            MemberSize = 15,
+                            JoinDate = new DateTime(2018, 2, 7),
+                            WebsiteUrl = "https://www.robertwilson.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
+
                                 AddressLine1 = "222 Elm St",
                                 AddressLine2 = "Suite 5A",
                                 City = "St. Catharines",
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2P 3H2"
+
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 8,
-                                               MemberName = "Galaxy Metals",
-                                               MemberSize = 3,
-                                               JoinDate = new DateTime(2020, 8, 30),
-                                               WebsiteUrl = "https://www.williammoore.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 8,
+                            MemberName = "Galaxy Metals",
+                            MemberSize = 3,
+                            JoinDate = new DateTime(2020, 8, 30),
+                            WebsiteUrl = "https://www.williammoore.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
+
                                 AddressLine1 = "333 Ash Ave",
                                 AddressLine2 = "Unit 2C",
                                 City = "St. Catharines",
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2N 5V4"
+
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 9,
-                                               MemberName = "Ironclad Industries",
-                                               MemberSize = 9,
-                                               JoinDate = new DateTime(2022, 10, 18),
-                                               WebsiteUrl = "https://www.oliviataylor.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 9,
+                            MemberName = "Ironclad Industries",
+                            MemberSize = 9,
+                            JoinDate = new DateTime(2022, 10, 18),
+                            WebsiteUrl = "https://www.oliviataylor.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
                                 AddressLine1 = "444 Birch Rd",
                                 AddressLine2 = "Suite 5B",
                                 City = "St. Catharines",
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2T 2P3"
+
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 10,
-                                               MemberName = "Silverline Fabrication",
-                                               MemberSize = 7,
-                                               JoinDate = new DateTime(2019, 5, 21),
-                                               WebsiteUrl = "https://www.sophiaanderson.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 10,
+                            MemberName = "Silverline Fabrication",
+                            MemberSize = 7,
+                            JoinDate = new DateTime(2019, 5, 21),
+                            WebsiteUrl = "https://www.sophiaanderson.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
                                 AddressLine1 = "555 Oak Blvd",
                                 AddressLine2 = "Unit 1A",
@@ -573,18 +560,15 @@ namespace NIA_CRM.Data
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2S 1P9"
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 11,
-                                               MemberName = "Star Steelworks",
-                                               MemberSize = 2,
-                                               JoinDate = new DateTime(2021, 12, 8),
-                                               WebsiteUrl = "https://www.jamesthomas.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 11,
+                            MemberName = "Star Steelworks",
+                            MemberSize = 2,
+                            JoinDate = new DateTime(2021, 12, 8),
+                            WebsiteUrl = "https://www.jamesthomas.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
                                 AddressLine1 = "111 Maple Rd",
                                 AddressLine2 = "Apt 2C",
@@ -592,18 +576,15 @@ namespace NIA_CRM.Data
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L3B 1A1"
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 12,
-                                               MemberName = "Summit Metal Co.",
-                                               MemberSize = 11,
-                                               JoinDate = new DateTime(2017, 11, 15),
-                                               WebsiteUrl = "https://www.daniellee.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 12,
+                            MemberName = "Summit Metal Co.",
+                            MemberSize = 11,
+                            JoinDate = new DateTime(2017, 11, 15),
+                            WebsiteUrl = "https://www.daniellee.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
                                 AddressLine1 = "333 Pine Blvd",
                                 AddressLine2 = "Apt 1F",
@@ -611,18 +592,15 @@ namespace NIA_CRM.Data
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L3B 5N9"
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 13,
-                                               MemberName = "Everest Iron Corp.",
-                                               MemberSize = 8,
-                                               JoinDate = new DateTime(2022, 9, 22),
-                                               WebsiteUrl = "https://www.lucasharris.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 13,
+                            MemberName = "Everest Iron Corp.",
+                            MemberSize = 8,
+                            JoinDate = new DateTime(2022, 9, 22),
+                            WebsiteUrl = "https://www.lucasharris.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
                                 AddressLine1 = "777 Oak Rd",
                                 AddressLine2 = "Suite 5B",
@@ -630,18 +608,15 @@ namespace NIA_CRM.Data
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L3C 7C1"
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 14,
-                                               MemberName = "Prime Alloy Coatings",
-                                               MemberSize = 6,
-                                               JoinDate = new DateTime(2022, 6, 30),
-                                               WebsiteUrl = "https://www.ellawalker.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 14,
+                            MemberName = "Prime Alloy Coatings",
+                            MemberSize = 6,
+                            JoinDate = new DateTime(2022, 6, 30),
+                            WebsiteUrl = "https://www.ellawalker.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
                                 AddressLine1 = "555 Birch St",
                                 AddressLine2 = "Unit 4A",
@@ -649,18 +624,15 @@ namespace NIA_CRM.Data
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L3C 4T6"
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 15,
-                                               MemberName = "Magnum Steel Solutions",
-                                               MemberSize = 4,
-                                               JoinDate = new DateTime(2021, 3, 12),
-                                               WebsiteUrl = "https://www.liamrobinson.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 15,
+                            MemberName = "Magnum Steel Solutions",
+                            MemberSize = 4,
+                            JoinDate = new DateTime(2021, 3, 12),
+                            WebsiteUrl = "https://www.liamrobinson.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
                                 AddressLine1 = "200 Maple Rd",
                                 AddressLine2 = "Unit 6D",
@@ -668,18 +640,15 @@ namespace NIA_CRM.Data
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L3C 2A9"
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 16,
-                                               MemberName = "Quantum Tech Innovations",
-                                               MemberSize = 4,
-                                               JoinDate = new DateTime(2021, 11, 12),
-                                               WebsiteUrl = "https://www.avalewis.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 16,
+                            MemberName = "Quantum Tech Innovations",
+                            MemberSize = 4,
+                            JoinDate = new DateTime(2021, 11, 12),
+                            WebsiteUrl = "https://www.avalewis.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
                                 AddressLine1 = "965 Elm St",
                                 AddressLine2 = "Apt 7A",
@@ -687,407 +656,348 @@ namespace NIA_CRM.Data
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2V 4Y6"
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 17,
-                                               MemberName = "Aurora Renewable Energy",
-                                               MemberSize = 3,
-                                               JoinDate = new DateTime(2020, 4, 28),
-                                               WebsiteUrl = "https://www.ethanwalker.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+                        },
+                        new Member
+                        {
+                            ID = 17,
+                            MemberName = "Aurora Renewable Energy",
+                            MemberSize = 3,
+                            JoinDate = new DateTime(2020, 4, 28),
+                            WebsiteUrl = "https://www.ethanwalker.com",
+                            Address = new Address // Updated to one-to-one relationship
                             {
+
                                 AddressLine1 = "124 Maple Blvd",
                                 AddressLine2 = "Unit 6",
                                 City = "Thorold",
                                 StateProvince = Province.Ontario,
                                 PostalCode = "L2V 1H1"
                             }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 18,
-                                               MemberName = "Vertex Financial Group",
-                                               MemberSize = 6,
-                                               JoinDate = new DateTime(2021, 10, 4),
-                                               WebsiteUrl = "https://www.masonking.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
+
+
+                        },
+                            new Member
                             {
-                                AddressLine1 = "481 Cedar Ave",
-                                AddressLine2 = "Apt 12B",
-                                City = "Thorold",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L2V 3P2"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 19,
-                                               MemberName = "Nova Biotech Labs",
-                                               MemberSize = 4,
-                                               JoinDate = new DateTime(2022, 4, 18),
-                                               WebsiteUrl = "https://www.lucasgreen.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "187 Birch Rd",
-                                AddressLine2 = "Suite 4",
-                                City = "Thorold",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L2V 5Z8"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 20,
-                                               MemberName = "Summit Construction Co.",
-                                               MemberSize = 9,
-                                               JoinDate = new DateTime(2021, 7, 14),
-                                               WebsiteUrl = "https://www.charlottehall.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "922 Cedar St",
-                                AddressLine2 = "Unit 5A",
-                                City = "Thorold",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L2V 4K9"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 21,
-                                               MemberName = "Oceanic Shipping Corp",
-                                               MemberSize = 7,
-                                               JoinDate = new DateTime(2021, 8, 30),
-                                               WebsiteUrl = "https://www.benjaminharris.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "643 Cedar Blvd",
-                                AddressLine2 = "Apt 9D",
-                                City = "Port Colborne",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L3K 2W9"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 22,
-                                               MemberName = "Evergreen Agriculture",
-                                               MemberSize = 2,
-                                               JoinDate = new DateTime(2022, 9, 7),
-                                               WebsiteUrl = "https://www.aidenclark.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "876 Maple Rd",
-                                AddressLine2 = "Unit 1B",
-                                City = "Port Colborne",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L3K 3V2"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 23,
-                                               MemberName = "Ironclad Manufacturing Ltd.",
-                                               MemberSize = 3,
-                                               JoinDate = new DateTime(2020, 12, 15),
-                                               WebsiteUrl = "https://www.ellamoore.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "134 Pine St",
-                                AddressLine2 = "Apt 6A",
-                                City = "Port Colborne",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L3K 6A9"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 24,
-                                               MemberName = "Skyline Architects Inc.",
-                                               MemberSize = 5,
-                                               JoinDate = new DateTime(2021, 5, 21),
-                                               WebsiteUrl = "https://www.jacobwhite.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "789 Oak St",
-                                AddressLine2 = "Suite 4B",
-                                City = "Port Colborne",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L3K 5E8"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 25,
-                                               MemberName = "Pinnacle Consulting Services",
-                                               MemberSize = 8,
-                                               JoinDate = new DateTime(2020, 10, 18),
-                                               WebsiteUrl = "https://www.abigailnelson.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "233 Cedar St",
-                                AddressLine2 = "Unit 7C",
-                                City = "Port Colborne",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L3K 7X5"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 26,
-                                               MemberName = "Crystal Water Solutions",
-                                               MemberSize = 6,
-                                               JoinDate = new DateTime(2021, 7, 14),
-                                               WebsiteUrl = "https://www.masonlee.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "111 Birch Blvd",
-                                AddressLine2 = "Apt 4D",
-                                City = "Grimsby",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L3M 1R2"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 27,
-                                               MemberName = "Elite Healthcare Partners",
-                                               MemberSize = 9,
-                                               JoinDate = new DateTime(2022, 1, 22),
-                                               WebsiteUrl = "https://www.chloescott.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "533 Cedar Rd",
-                                AddressLine2 = "Unit 2B",
-                                City = "Grimsby",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L3M 4N6"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 28,
-                                               MemberName = "Galaxy IT Solutions",
-                                               MemberSize = 7,
-                                               JoinDate = new DateTime(2022, 7, 11),
-                                               WebsiteUrl = "https://www.danielharris.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "987 Maple St",
-                                AddressLine2 = "Apt 3A",
-                                City = "Grimsby",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L3M 3J5"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 29,
-                                               MemberName = "Urban Infrastructure Group",
-                                               MemberSize = 4,
-                                               JoinDate = new DateTime(2021, 9, 3),
-                                               WebsiteUrl = "https://www.avacarter.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "444 Oak Blvd",
-                                AddressLine2 = "Suite 8B",
-                                 City = "Grimsby",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L3M 2A8"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 30,
-                                               MemberName = "Horizon Aerospace Inc.",
-                                               MemberSize = 5,
-                                               JoinDate = new DateTime(2022, 8, 18),
-                                               WebsiteUrl = "https://www.landonwalker.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "872 Cedar Rd",
-                                AddressLine2 = "Apt 9C",
-                                City = "Grimsby",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L3M 5K9"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 31,
-                                               MemberName = "Cobalt Mining Ventures",
-                                               MemberSize = 6,
-                                               JoinDate = new DateTime(2022, 6, 13),
-                                               WebsiteUrl = "https://www.ameliaharris.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "1234 Oak Blvd",
-                                AddressLine2 = "Apt 2C",
-                                City = "Fort Erie",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L2A 5R1"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 32,
-                                               MemberName = "Lakeside Resorts and Hotels",
-                                               MemberSize = 9,
-                                               JoinDate = new DateTime(2022, 7, 6),
-                                               WebsiteUrl = "https://www.oliverlee.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "990 Pine Rd",
-                                AddressLine2 = "Unit 7",
-                                City = "Fort Erie",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L2A 7B9"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 33,
-                                               MemberName = "NextGen Media Productions",
-                                               MemberSize = 4,
-                                               JoinDate = new DateTime(2021, 5, 10),
-                                               WebsiteUrl = "https://www.harperscott.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "522 Cedar Rd",
-                                AddressLine2 = "Suite 6A",
-                                  City = "Fort Erie",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L2A 2T6"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 34,
-                                               MemberName = "Crestwood Pharmaceutical",
-                                               MemberSize = 7,
-                                               JoinDate = new DateTime(2022, 1, 24),
-                                               WebsiteUrl = "https://www.sophieadams.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "690 Birch St",
-                                AddressLine2 = "Unit 3A",
-                                City = "Fort Erie",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L2A 9W8"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 35,
-                                               MemberName = "Dynamic Logistics Group",
-                                               MemberSize = 2,
-                                               JoinDate = new DateTime(2021, 4, 9),
-                                               WebsiteUrl = "https://www.isaacmorgan.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "123 Birch Rd",
-                                AddressLine2 = "Apt 7C",
-                                City = "Fort Erie",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L2A 4K3"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 36,
-                                               MemberName = "Northern Timber Products",
-                                               MemberSize = 8,
-                                               JoinDate = new DateTime(2022, 4, 19),
-                                               WebsiteUrl = "https://www.miathompson.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "987 Birch Rd",
-                                AddressLine2 = "Unit 4A",
-                                City = "Lincoln",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L0R 1B1"
-                            }
-                                               }
-                                           },
-                                           new Member
-                                           {
-                                               ID = 37,
-                                               MemberName = "Brightline Education Systems",
-                                               MemberSize = 5,
-                                               JoinDate = new DateTime(2022, 10, 10),
-                                               WebsiteUrl = "https://www.ethanjohnson.com",
-                                               Addresses = new List<Address>
-                                               {
-                            new Address
-                            {
-                                AddressLine1 = "456 Oak Rd",
-                                AddressLine2 = "Suite 2B",
-                                City = "Lincoln",
-                               StateProvince = Province.Ontario,
-                                PostalCode = "L0R 2C0"
-                            }
-                                               }
-                                           },
+                                ID = 18,
+                                MemberName = "Vertex Financial Group",
+                                MemberSize = 6,
+                                JoinDate = new DateTime(2021, 10, 4),
+                                WebsiteUrl = "https://www.masonking.com",
+                                Address = new Address // Updated to one-to-one relationship
+                                {
+                                    AddressLine1 = "481 Cedar Ave",
+                                    AddressLine2 = "Apt 12B",
+                                    City = "Thorold",
+                                    StateProvince = Province.Ontario,
+                                    PostalCode = "L2V 3P2"
+
+                                }
+                            },
+                             new Member
+                             {
+                                 ID = 19,
+                                 MemberName = "Nova Biotech Labs",
+                                 MemberSize = 4,
+                                 JoinDate = new DateTime(2022, 4, 18),
+                                 WebsiteUrl = "https://www.lucasgreen.com",
+                                 Address = new Address // Updated to one-to-one relationship
+                                 {
+                                     AddressLine1 = "187 Birch Rd",
+                                     AddressLine2 = "Suite 4",
+                                     City = "Thorold",
+                                     StateProvince = Province.Ontario,
+                                     PostalCode = "L2V 5Z8"
+                                 }
+                             },
+                              new Member
+                              {
+                                  ID = 20,
+                                  MemberName = "Summit Construction Co.",
+                                  MemberSize = 9,
+                                  JoinDate = new DateTime(2021, 7, 14),
+                                  WebsiteUrl = "https://www.charlottehall.com",
+                                  Address = new Address // Updated to one-to-one relationship
+                                  {
+                                      AddressLine1 = "922 Cedar St",
+                                      AddressLine2 = "Unit 5A",
+                                      City = "Thorold",
+                                      StateProvince = Province.Ontario,
+                                      PostalCode = "L2V 4K9"
+                                  }
+                              },
+                               new Member
+                               {
+                                   ID = 21,
+                                   MemberName = "Oceanic Shipping Corp",
+                                   MemberSize = 7,
+                                   JoinDate = new DateTime(2021, 8, 30),
+                                   WebsiteUrl = "https://www.benjaminharris.com",
+                                   Address = new Address // Updated to one-to-one relationship
+                                   {
+                                       AddressLine1 = "643 Cedar Blvd",
+                                       AddressLine2 = "Apt 9D",
+                                       City = "Port Colborne",
+                                       StateProvince = Province.Ontario,
+                                       PostalCode = "L3K 2W9"
+                                   }
+                               },
+                                new Member
+                                {
+                                    ID = 22,
+                                    MemberName = "Evergreen Agriculture",
+                                    MemberSize = 2,
+                                    JoinDate = new DateTime(2022, 9, 7),
+                                    WebsiteUrl = "https://www.aidenclark.com",
+                                    Address = new Address // Updated to one-to-one relationship
+                                    {
+                                        AddressLine1 = "876 Maple Rd",
+                                        AddressLine2 = "Unit 1B",
+                                        City = "Port Colborne",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L3K 3V2"
+                                    }
+                                },
+                                new Member
+                                {
+                                    ID = 23,
+                                    MemberName = "Ironclad Manufacturing Ltd.",
+                                    MemberSize = 3,
+                                    JoinDate = new DateTime(2020, 12, 15),
+                                    WebsiteUrl = "https://www.ellamoore.com",
+                                    Address = new Address // Updated to one-to-one relationship
+                                    {
+
+                                        AddressLine1 = "134 Pine St",
+                                        AddressLine2 = "Apt 6A",
+                                        City = "Port Colborne",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L3K 6A9"
+                                    }
+                                },
+                                 new Member
+                                 {
+                                     ID = 24,
+                                     MemberName = "Skyline Architects Inc.",
+                                     MemberSize = 5,
+                                     JoinDate = new DateTime(2021, 5, 21),
+                                     WebsiteUrl = "https://www.jacobwhite.com",
+                                     Address = new Address // Updated to one-to-one relationship
+                                     {
+                                         AddressLine1 = "789 Oak St",
+                                         AddressLine2 = "Suite 4B",
+                                         City = "Port Colborne",
+                                         StateProvince = Province.Ontario,
+                                         PostalCode = "L3K 5E8"
+                                     }
+                                 },
+                                  new Member
+                                  {
+                                      ID = 25,
+                                      MemberName = "Pinnacle Consulting Services",
+                                      MemberSize = 8,
+                                      JoinDate = new DateTime(2020, 10, 18),
+                                      WebsiteUrl = "https://www.abigailnelson.com",
+                                      Address = new Address // Updated to one-to-one relationship
+                                      {
+                                          AddressLine1 = "233 Cedar St",
+                                          AddressLine2 = "Unit 7C",
+                                          City = "Port Colborne",
+                                          StateProvince = Province.Ontario,
+                                          PostalCode = "L3K 7X5"
+                                      }
+                                  },
+                                  new Member
+                                  {
+                                      ID = 26,
+                                      MemberName = "Crystal Water Solutions",
+                                      MemberSize = 6,
+                                      JoinDate = new DateTime(2021, 7, 14),
+                                      WebsiteUrl = "https://www.masonlee.com",
+                                      Address = new Address // Updated to one-to-one relationship
+                                      {
+                                          AddressLine1 = "111 Birch Blvd",
+                                          AddressLine2 = "Apt 4D",
+                                          City = "Grimsby",
+                                          StateProvince = Province.Ontario,
+                                          PostalCode = "L3M 1R2"
+                                      }
+                                  },
+                                  new Member
+                                  {
+                                      ID = 27,
+                                      MemberName = "Elite Healthcare Partners",
+                                      MemberSize = 9,
+                                      JoinDate = new DateTime(2022, 1, 22),
+                                      WebsiteUrl = "https://www.chloescott.com",
+                                      Address = new Address // Updated to one-to-one relationship
+                                      {
+                                          AddressLine1 = "533 Cedar Rd",
+                                          AddressLine2 = "Unit 2B",
+                                          City = "Grimsby",
+                                          StateProvince = Province.Ontario,
+                                          PostalCode = "L3M 4N6"
+                                      }
+                                  },
+                                  new Member
+                                  {
+                                      ID = 28,
+                                      MemberName = "Galaxy IT Solutions",
+                                      MemberSize = 7,
+                                      JoinDate = new DateTime(2022, 7, 11),
+                                      WebsiteUrl = "https://www.danielharris.com",
+                                      Address = new Address // Updated to one-to-one relationship
+                                      {
+                                          AddressLine1 = "987 Maple St",
+                                          AddressLine2 = "Apt 3A",
+                                          City = "Grimsby",
+                                          StateProvince = Province.Ontario,
+                                          PostalCode = "L3M 3J5"
+                                      }
+                                  },
+                                  new Member
+                                  {
+                                      ID = 29,
+                                      MemberName = "Urban Infrastructure Group",
+                                      MemberSize = 4,
+                                      JoinDate = new DateTime(2021, 9, 3),
+                                      WebsiteUrl = "https://www.avacarter.com",
+                                      Address = new Address // Updated to one-to-one relationship
+                                      {
+                                          AddressLine1 = "444 Oak Blvd",
+                                          AddressLine2 = "Suite 8B",
+                                          City = "Grimsby",
+                                          StateProvince = Province.Ontario,
+                                          PostalCode = "L3M 2A8"
+                                      }
+                                  },
+                                   new Member
+                                   {
+                                       ID = 30,
+                                       MemberName = "Horizon Aerospace Inc.",
+                                       MemberSize = 5,
+                                       JoinDate = new DateTime(2022, 8, 18),
+                                       WebsiteUrl = "https://www.landonwalker.com",
+                                       Address = new Address // Updated to one-to-one relationship
+                                       {
+                                           AddressLine1 = "872 Cedar Rd",
+                                           AddressLine2 = "Apt 9C",
+                                           City = "Grimsby",
+                                           StateProvince = Province.Ontario,
+                                           PostalCode = "L3M 5K9"
+                                       }
+                                   },
+                                   new Member
+                                   {
+                                       ID = 31,
+                                       MemberName = "Cobalt Mining Ventures",
+                                       MemberSize = 6,
+                                       JoinDate = new DateTime(2022, 6, 13),
+                                       WebsiteUrl = "https://www.ameliaharris.com",
+                                       Address = new Address // Updated to one-to-one relationship
+                                       {
+                                           AddressLine1 = "1234 Oak Blvd",
+                                           AddressLine2 = "Apt 2C",
+                                           City = "Fort Erie",
+                                           StateProvince = Province.Ontario,
+                                           PostalCode = "L2A 5R1"
+                                       }
+                                   },
+                                   new Member
+                                   {
+                                       ID = 32,
+                                       MemberName = "Lakeside Resorts and Hotels",
+                                       MemberSize = 9,
+                                       JoinDate = new DateTime(2022, 7, 6),
+                                       WebsiteUrl = "https://www.oliverlee.com",
+                                       Address = new Address // Updated to one-to-one relationship
+                                       {
+                                           AddressLine1 = "990 Pine Rd",
+                                           AddressLine2 = "Unit 7",
+                                           City = "Fort Erie",
+                                           StateProvince = Province.Ontario,
+                                           PostalCode = "L2A 7B9"
+                                       }
+                                   },
+                                   new Member
+                                   {
+                                       ID = 33,
+                                       MemberName = "NextGen Media Productions",
+                                       MemberSize = 4,
+                                       JoinDate = new DateTime(2021, 5, 10),
+                                       WebsiteUrl = "https://www.harperscott.com",
+                                       Address = new Address // Updated to one-to-one relationship
+                                       {
+                                           AddressLine1 = "522 Cedar Rd",
+                                           AddressLine2 = "Suite 6A",
+                                           City = "Fort Erie",
+                                           StateProvince = Province.Ontario,
+                                           PostalCode = "L2A 2T6"
+                                       }
+                                   },
+                                   new Member
+                                   {
+                                       ID = 34,
+                                       MemberName = "Crestwood Pharmaceutical",
+                                       MemberSize = 7,
+                                       JoinDate = new DateTime(2022, 1, 24),
+                                       WebsiteUrl = "https://www.sophieadams.com",
+                                       Address = new Address // Updated to one-to-one relationship
+                                       {
+                                           AddressLine1 = "690 Birch St",
+                                           AddressLine2 = "Unit 3A",
+                                           City = "Fort Erie",
+                                           StateProvince = Province.Ontario,
+                                           PostalCode = "L2A 9W8"
+                                       }
+                                   },
+                                   new Member
+                                   {
+                                       ID = 35,
+                                       MemberName = "Dynamic Logistics Group",
+                                       MemberSize = 2,
+                                       JoinDate = new DateTime(2021, 4, 9),
+                                       WebsiteUrl = "https://www.isaacmorgan.com",
+                                       Address = new Address // Updated to one-to-one relationship
+                                       {
+                                           AddressLine1 = "123 Birch Rd",
+                                           AddressLine2 = "Apt 7C",
+                                           City = "Fort Erie",
+                                           StateProvince = Province.Ontario,
+                                           PostalCode = "L2A 4K3"
+                                       }
+                                   },
+                                   new Member
+                                   {
+                                       ID = 36,
+                                       MemberName = "Northern Timber Products",
+                                       MemberSize = 8,
+                                       JoinDate = new DateTime(2022, 4, 19),
+                                       WebsiteUrl = "https://www.miathompson.com",
+                                       Address = new Address // Updated to one-to-one relationship
+                                       {
+                                           AddressLine1 = "987 Birch Rd",
+                                           AddressLine2 = "Unit 4A",
+                                           City = "Lincoln",
+                                           StateProvince = Province.Ontario,
+                                           PostalCode = "L0R 1B1"
+                                       }
+                                   },
+                                   new Member
+                                   {
+                                       ID = 37,
+                                       MemberName = "Brightline Education Systems",
+                                       MemberSize = 5,
+                                       JoinDate = new DateTime(2022, 10, 10),
+                                       WebsiteUrl = "https://www.ethanjohnson.com",
+                                       Address = new Address // Updated to one-to-one relationship
+                                       {
+                                           AddressLine1 = "456 Oak Rd",
+                                           AddressLine2 = "Suite 2B",
+                                           City = "Lincoln",
+                                           StateProvince = Province.Ontario,
+                                           PostalCode = "L0R 2C0"
+                                       }
+                                   },
                                            new Member
                                            {
                                                ID = 38,
@@ -1095,16 +1005,13 @@ namespace NIA_CRM.Data
                                                MemberSize = 4,
                                                JoinDate = new DateTime(2022, 5, 15),
                                                WebsiteUrl = "https://www.gracemiller.com",
-                                               Addresses = new List<Address>
+                                               Address = new Address // Updated to one-to-one relationship
                                                {
-                            new Address
-                            {
-                                AddressLine1 = "890 Cedar Blvd",
-                                AddressLine2 = "Suite 2B",
-                                City = "Pelham",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L0S 1C0"
-                            }
+                                                   AddressLine1 = "890 Cedar Blvd",
+                                                   AddressLine2 = "Suite 2B",
+                                                   City = "Pelham",
+                                                   StateProvince = Province.Ontario,
+                                                   PostalCode = "L0S 1C0"
                                                }
                                            },
                                            new Member
@@ -1114,16 +1021,13 @@ namespace NIA_CRM.Data
                                                MemberSize = 3,
                                                JoinDate = new DateTime(2022, 8, 22),
                                                WebsiteUrl = "https://www.lilyturner.com",
-                                               Addresses = new List<Address>
+                                               Address = new Address // Updated to one-to-one relationship
                                                {
-                            new Address
-                            {
-                                AddressLine1 = "800 Maple Blvd",
-                                AddressLine2 = "Unit 5A",
-                                City = "Pelham",
-                                StateProvince = Province.Ontario,
-                                PostalCode = "L0S 1E0"
-                            }
+                                                   AddressLine1 = "800 Maple Blvd",
+                                                   AddressLine2 = "Unit 5A",
+                                                   City = "Pelham",
+                                                   StateProvince = Province.Ontario,
+                                                   PostalCode = "L0S 1E0"
                                                }
                                            },
                                            new Member
@@ -1133,17 +1037,14 @@ namespace NIA_CRM.Data
                                                MemberSize = 6,
                                                JoinDate = new DateTime(2021, 3, 18),
                                                WebsiteUrl = "https://www.liamwalker.com",
-                                               Addresses = new List<Address>
+                                               Address = new Address // Updated to one-to-one relationship
                                                {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "354 Cedar St",
-                                                    AddressLine2 = "Apt 6D",
-                                                    City = "Fort Erie",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2A 1M7"
-                                                }
-                                                }
+                                                   AddressLine1 = "354 Cedar St",
+                                                   AddressLine2 = "Apt 6D",
+                                                   City = "Fort Erie",
+                                                   StateProvince = Province.Ontario,
+                                                   PostalCode = "L2A 1M7"
+                                               }
 
                                            },
                                            new Member
@@ -1153,17 +1054,14 @@ namespace NIA_CRM.Data
                                                MemberSize = 10,
                                                JoinDate = new DateTime(2020, 9, 12),
                                                WebsiteUrl = "https://www.jacobpeterson.com",
-                                               Addresses = new List<Address>
-                                            {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "123 Power Ave",
-                                                    AddressLine2 = "Suite 1B",
-                                                    City = "Niagara Falls",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2E 3P2"
-                                                }
-                                            }
+                                               Address = new Address // Updated to one-to-one relationship
+                                               {
+                                                   AddressLine1 = "123 Power Ave",
+                                                   AddressLine2 = "Suite 1B",
+                                                   City = "Niagara Falls",
+                                                   StateProvince = Province.Ontario,
+                                                   PostalCode = "L2E 3P2"
+                                               }
                                            },
                                         new Member
                                         {
@@ -1172,16 +1070,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 25,
                                             JoinDate = new DateTime(2021, 5, 3),
                                             WebsiteUrl = "https://www.marcusjones.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "500 Glenridge Ave",
-                                                    AddressLine2 = "Building C",
-                                                    City = "St. Catharines",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2S 3A1"
-                                                }
+                                                AddressLine1 = "500 Glenridge Ave",
+                                                AddressLine2 = "Building C",
+                                                City = "St. Catharines",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2S 3A1"
                                             }
                                         },
                                         new Member
@@ -1191,16 +1086,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 15,
                                             JoinDate = new DateTime(2022, 1, 20),
                                             WebsiteUrl = "https://www.sarahmartin.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "45 Welland Ave",
-                                                    AddressLine2 = "Unit 7B",
-                                                    City = "Welland",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L3C 1V8"
-                                                }
+                                                AddressLine1 = "45 Welland Ave",
+                                                AddressLine2 = "Unit 7B",
+                                                City = "Welland",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L3C 1V8"
                                             }
                                         },
                                         new Member
@@ -1210,16 +1102,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 20,
                                             JoinDate = new DateTime(2021, 8, 14),
                                             WebsiteUrl = "https://www.oliviamartinez.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "2500 South Service Rd",
-                                                    AddressLine2 = "Suite 11A",
-                                                    City = "Grimsby",
-                                                    StateProvince = Province.Ontario,   
-                                                    PostalCode = "L3M 2R7"
-                                                }
+                                                AddressLine1 = "2500 South Service Rd",
+                                                AddressLine2 = "Suite 11A",
+                                                City = "Grimsby",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L3M 2R7"
                                             }
                                         },
                                         new Member
@@ -1229,16 +1118,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 30,
                                             JoinDate = new DateTime(2022, 4, 8),
                                             WebsiteUrl = "https://www.tylermorris.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "1234 Vine St",
-                                                    AddressLine2 = "Winery Rd",
-                                                    City = "Niagara-on-the-Lake",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L0S 1J0"
-                                                }
+                                                AddressLine1 = "1234 Vine St",
+                                                AddressLine2 = "Winery Rd",
+                                                City = "Niagara-on-the-Lake",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L0S 1J0"
                                             }
                                         },
                                         new Member
@@ -1248,16 +1134,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 8,
                                             JoinDate = new DateTime(2020, 11, 2),
                                             WebsiteUrl = "https://www.danielcollins.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "29 Queen St",
-                                                    AddressLine2 = "Brewery Lane",
-                                                    City = "St. Catharines",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2R 5A9"
-                                                }
+                                                AddressLine1 = "29 Queen St",
+                                                AddressLine2 = "Brewery Lane",
+                                                City = "St. Catharines",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2R 5A9"
                                             }
                                         },
                                         new Member
@@ -1267,16 +1150,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 12,
                                             JoinDate = new DateTime(2021, 10, 10),
                                             WebsiteUrl = "https://www.rachelharris.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "55 Industrial Dr",
-                                                    AddressLine2 = "Unit 3",
-                                                    City = "Thorold",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2V 2P9"
-                                                }
+                                                AddressLine1 = "55 Industrial Dr",
+                                                AddressLine2 = "Unit 3",
+                                                City = "Thorold",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2V 2P9"
                                             }
                                         },
                                         new Member
@@ -1286,16 +1166,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 10,
                                             JoinDate = new DateTime(2022, 2, 11),
                                             WebsiteUrl = "https://www.jamieclark.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "2141 Mewburn Rd",
-                                                    AddressLine2 = "Suite 10",
-                                                    City = "Niagara Falls",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2G 7V6"
-                                                }
+                                                AddressLine1 = "2141 Mewburn Rd",
+                                                AddressLine2 = "Suite 10",
+                                                City = "Niagara Falls",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2G 7V6"
                                             }
                                         },
                                         new Member
@@ -1305,16 +1182,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 5,
                                             JoinDate = new DateTime(2021, 6, 17),
                                             WebsiteUrl = "https://www.nicholasanderson.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "1500 Elm St",
-                                                    AddressLine2 = "Unit 4",
-                                                    City = "Port Colborne",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L3K 5Y5"
-                                                }
+                                                AddressLine1 = "1500 Elm St",
+                                                AddressLine2 = "Unit 4",
+                                                City = "Port Colborne",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L3K 5Y5"
                                             }
                                         },
                                         new Member
@@ -1324,16 +1198,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 7,
                                             JoinDate = new DateTime(2022, 5, 19),
                                             WebsiteUrl = "https://www.elizabethlee.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "123 Sunset Blvd",
-                                                    AddressLine2 = "Car Sales",
-                                                    City = "Niagara Falls",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2E 6X5"
-                                                }
+                                                AddressLine1 = "123 Sunset Blvd",
+                                                AddressLine2 = "Car Sales",
+                                                City = "Niagara Falls",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2E 6X5"
                                             }
                                         },
                                         new Member
@@ -1343,16 +1214,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 22,
                                             JoinDate = new DateTime(2021, 12, 25),
                                             WebsiteUrl = "https://www.nicholasjones.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "7893 South Niagara Pkwy",
-                                                    AddressLine2 = "Recycling Plant",
-                                                    City = "Niagara Falls",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2E 6V8"
-                                                }
+                                                AddressLine1 = "7893 South Niagara Pkwy",
+                                                AddressLine2 = "Recycling Plant",
+                                                City = "Niagara Falls",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2E 6V8"
                                             }
                                         },
                                         new Member
@@ -1362,16 +1230,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 20,
                                             JoinDate = new DateTime(2022, 9, 18),
                                             WebsiteUrl = "https://www.meganvaughn.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "123 Rosewood Ave",
-                                                    AddressLine2 = "Winery Rd",
-                                                    City = "Niagara-on-the-Lake",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L0S 1J1"
-                                                }
+                                                AddressLine1 = "123 Rosewood Ave",
+                                                AddressLine2 = "Winery Rd",
+                                                City = "Niagara-on-the-Lake",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L0S 1J1"
                                             }
                                         },
                                         new Member
@@ -1381,16 +1246,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 18,
                                             JoinDate = new DateTime(2020, 7, 10),
                                             WebsiteUrl = "https://www.andrewjohnson.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "6815 Stanley Ave",
-                                                    AddressLine2 = "Convention Centre",
-                                                    City = "Niagara Falls",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2G 3Y9"
-                                                }
+                                                AddressLine1 = "6815 Stanley Ave",
+                                                AddressLine2 = "Convention Centre",
+                                                City = "Niagara Falls",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2G 3Y9"
                                             }
                                         },
                                         new Member
@@ -1400,16 +1262,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 14,
                                             JoinDate = new DateTime(2021, 4, 25),
                                             WebsiteUrl = "https://www.joshuasmith.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "7600 Montrose Rd",
-                                                    AddressLine2 = "Furniture Store",
-                                                    City = "Niagara Falls",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2H 2T7"
-                                                }
+                                                AddressLine1 = "7600 Montrose Rd",
+                                                AddressLine2 = "Furniture Store",
+                                                City = "Niagara Falls",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2H 2T7"
                                             }
                                         },
                                         new Member
@@ -1419,16 +1278,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 12,
                                             JoinDate = new DateTime(2020, 10, 14),
                                             WebsiteUrl = "https://www.justinwhite.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "1550 Ontario St",
-                                                    AddressLine2 = "Unit 9",
-                                                    City = "St. Catharines",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2N 7Y4"
-                                                }
+                                                AddressLine1 = "1550 Ontario St",
+                                                AddressLine2 = "Unit 9",
+                                                City = "St. Catharines",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2N 7Y4"
                                             }
                                         },
                                         new Member
@@ -1438,16 +1294,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 6,
                                             JoinDate = new DateTime(2021, 2, 7),
                                             WebsiteUrl = "https://www.jennifermartin.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "9800 Lundy's Lane",
-                                                    AddressLine2 = "Unit 12",
-                                                    City = "Niagara Falls",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2H 1H7"
-                                                }
+                                                AddressLine1 = "9800 Lundy's Lane",
+                                                AddressLine2 = "Unit 12",
+                                                City = "Niagara Falls",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2H 1H7"
                                             }
                                         },
                                         new Member
@@ -1457,16 +1310,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 25,
                                             JoinDate = new DateTime(2021, 11, 16),
                                             WebsiteUrl = "https://www.kimberlydavis.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "1500 Montrose Rd",
-                                                    AddressLine2 = "Golf Club",
-                                                    City = "Niagara Falls",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2H 3N6"
-                                                }
+                                                AddressLine1 = "1500 Montrose Rd",
+                                                AddressLine2 = "Golf Club",
+                                                City = "Niagara Falls",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2H 3N6"
                                             }
                                         },
                                         new Member
@@ -1476,16 +1326,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 28,
                                             JoinDate = new DateTime(2020, 12, 5),
                                             WebsiteUrl = "https://www.ryanscott.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "6347 Stanley Ave",
-                                                    AddressLine2 = "Unit 20",
-                                                    City = "Niagara Falls",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2G 3Z6"
-                                                }
+                                                AddressLine1 = "6347 Stanley Ave",
+                                                AddressLine2 = "Unit 20",
+                                                City = "Niagara Falls",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2G 3Z6"
                                             }
                                         },
                                         new Member
@@ -1495,16 +1342,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 30,
                                             JoinDate = new DateTime(2021, 5, 10),
                                             WebsiteUrl = "https://www.dylanross.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "123 Victoria Ave",
-                                                    AddressLine2 = "Hospitality Suite",
-                                                    City = "Niagara Falls",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L2E 4Y3"
-                                                }
+                                                AddressLine1 = "123 Victoria Ave",
+                                                AddressLine2 = "Hospitality Suite",
+                                                City = "Niagara Falls",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L2E 4Y3"
                                             }
                                         },
                                         new Member
@@ -1514,16 +1358,13 @@ namespace NIA_CRM.Data
                                             MemberSize = 14,
                                             JoinDate = new DateTime(2022, 3, 29),
                                             WebsiteUrl = "https://www.johnadams.com",
-                                            Addresses = new List<Address>
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
-                                                new Address
-                                                {
-                                                    AddressLine1 = "8255 Greenhill Ave",
-                                                    AddressLine2 = "Grocery Store",
-                                                    City = "Pelham",
-                                                    StateProvince = Province.Ontario,
-                                                    PostalCode = "L0S 1E2"
-                                                }
+                                                AddressLine1 = "8255 Greenhill Ave",
+                                                AddressLine2 = "Grocery Store",
+                                                City = "Pelham",
+                                                StateProvince = Province.Ontario,
+                                                PostalCode = "L0S 1E2"
                                             }
                                         },
                                         new Member
@@ -1533,9 +1374,7 @@ namespace NIA_CRM.Data
                                             MemberSize = 8,
                                             JoinDate = new DateTime(2022, 8, 30),
                                             WebsiteUrl = "https://www.alexthompson.com",
-                                            Addresses = new List<Address>
-                                        {
-                                            new Address
+                                            Address = new Address // Updated to one-to-one relationship
                                             {
                                                 AddressLine1 = "1904 Niagara Stone Rd",
                                                 AddressLine2 = "Distillery Lane",
@@ -1543,7 +1382,6 @@ namespace NIA_CRM.Data
                                                 StateProvince = Province.Ontario,
                                                 PostalCode = "L0S 1J0"
                                             }
-                                        }
                                         },
                                     new Member
                                     {
@@ -1552,16 +1390,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 6,
                                         JoinDate = new DateTime(2021, 3, 5),
                                         WebsiteUrl = "https://www.susanwilliams.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "120 Main St E",
-                                                AddressLine2 = "Unit 3",
-                                                City = "Grimsby",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L3M 1P3"
-                                            }
+                                            AddressLine1 = "120 Main St E",
+                                            AddressLine2 = "Unit 3",
+                                            City = "Grimsby",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L3M 1P3"
                                         }
                                     },
                                     new Member
@@ -1571,16 +1406,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 12,
                                         JoinDate = new DateTime(2020, 12, 8),
                                         WebsiteUrl = "https://www.nathanharris.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "500 Port Rd",
-                                                AddressLine2 = "Warehouse 4",
-                                                City = "Port Colborne",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L3K 3T2"
-                                            }
+                                            AddressLine1 = "500 Port Rd",
+                                            AddressLine2 = "Warehouse 4",
+                                            City = "Port Colborne",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L3K 3T2"
                                         }
                                     },
                                     new Member
@@ -1590,16 +1422,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 18,
                                         JoinDate = new DateTime(2021, 7, 22),
                                         WebsiteUrl = "https://www.davidmiller.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "8200 Park Rd",
-                                                AddressLine2 = "Steelworks Building",
-                                                City = "Stoney Creek",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L8E 5R2"
-                                            }
+                                            AddressLine1 = "8200 Park Rd",
+                                            AddressLine2 = "Steelworks Building",
+                                            City = "Stoney Creek",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L8E 5R2"
                                         }
                                     },
                                     new Member
@@ -1609,16 +1438,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 16,
                                         JoinDate = new DateTime(2021, 9, 18),
                                         WebsiteUrl = "https://www.kendalljohnson.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "2173 Merrittville Hwy",
-                                                AddressLine2 = "Freight Office",
-                                                City = "Thorold",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L2V 1A1"
-                                            }
+                                            AddressLine1 = "2173 Merrittville Hwy",
+                                            AddressLine2 = "Freight Office",
+                                            City = "Thorold",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L2V 1A1"
                                         }
                                     },
                                     new Member
@@ -1628,16 +1454,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 14,
                                         JoinDate = new DateTime(2022, 4, 5),
                                         WebsiteUrl = "https://www.michaelscott.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "2567 Dominion Rd",
-                                                AddressLine2 = "Building A",
-                                                City = "Fort Erie",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L2A 1E5"
-                                            }
+                                            AddressLine1 = "2567 Dominion Rd",
+                                            AddressLine2 = "Building A",
+                                            City = "Fort Erie",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L2A 1E5"
                                         }
                                     },
                                     new Member
@@ -1647,16 +1470,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 9,
                                         JoinDate = new DateTime(2020, 11, 12),
                                         WebsiteUrl = "https://www.lucasbrown.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "7600 South Service Rd",
-                                                AddressLine2 = "Water Distribution Centre",
-                                                City = "Grimsby",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L3M 2Z1"
-                                            }
+                                            AddressLine1 = "7600 South Service Rd",
+                                            AddressLine2 = "Water Distribution Centre",
+                                            City = "Grimsby",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L3M 2Z1"
                                         }
                                     },
                                     new Member
@@ -1666,16 +1486,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 13,
                                         JoinDate = new DateTime(2022, 2, 2),
                                         WebsiteUrl = "https://www.sophiareid.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "1450 Mountain Rd",
-                                                AddressLine2 = "Sporting Goods Store",
-                                                City = "Niagara Falls",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L2G 1X9"
-                                            }
+                                            AddressLine1 = "1450 Mountain Rd",
+                                            AddressLine2 = "Sporting Goods Store",
+                                            City = "Niagara Falls",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L2G 1X9"
                                         }
                                     },
                                     new Member
@@ -1685,16 +1502,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 24,
                                         JoinDate = new DateTime(2021, 6, 15),
                                         WebsiteUrl = "https://www.annaevans.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "2001 Park Rd",
-                                                AddressLine2 = "Waterpark Entrance",
-                                                City = "Niagara Falls",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L2E 6T1"
-                                            }
+                                            AddressLine1 = "2001 Park Rd",
+                                            AddressLine2 = "Waterpark Entrance",
+                                            City = "Niagara Falls",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L2E 6T1"
                                         }
                                     },
                                     new Member
@@ -1704,16 +1518,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 8,
                                         JoinDate = new DateTime(2022, 7, 25),
                                         WebsiteUrl = "https://www.williamroberts.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "1786 Falls Ave",
-                                                AddressLine2 = "Tour Operator HQ",
-                                                City = "Niagara Falls",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L2E 6V9"
-                                            }
+                                            AddressLine1 = "1786 Falls Ave",
+                                            AddressLine2 = "Tour Operator HQ",
+                                            City = "Niagara Falls",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L2E 6V9"
                                         }
                                     },
                                     new Member
@@ -1723,16 +1534,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 20,
                                         JoinDate = new DateTime(2022, 3, 18),
                                         WebsiteUrl = "https://www.ryanjames.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "8459 Creek Rd",
-                                                AddressLine2 = "Logistics Centre",
-                                                City = "Niagara-on-the-Lake",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L0S 1J0"
-                                            }
+                                            AddressLine1 = "8459 Creek Rd",
+                                            AddressLine2 = "Logistics Centre",
+                                            City = "Niagara-on-the-Lake",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L0S 1J0"
                                         }
                                     },
                                     new Member
@@ -1742,16 +1550,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 12,
                                         JoinDate = new DateTime(2021, 1, 28),
                                         WebsiteUrl = "https://www.emilydavis.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "3125 Highway 20",
-                                                AddressLine2 = "Woodworking Shop",
-                                                City = "Thorold",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L2V 3M4"
-                                            }
+                                            AddressLine1 = "3125 Highway 20",
+                                            AddressLine2 = "Woodworking Shop",
+                                            City = "Thorold",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L2V 3M4"
                                         }
                                     },
                                     new Member
@@ -1761,16 +1566,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 7,
                                         JoinDate = new DateTime(2022, 5, 8),
                                         WebsiteUrl = "https://www.sophiebaker.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "1349 Greenstone Rd",
-                                                AddressLine2 = "Landscaping Services",
-                                                City = "St. Catharines",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L2M 3W3"
-                                            }
+                                            AddressLine1 = "1349 Greenstone Rd",
+                                            AddressLine2 = "Landscaping Services",
+                                            City = "St. Catharines",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L2M 3W3"
                                         }
                                     },
                                     new Member
@@ -1780,16 +1582,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 10,
                                         JoinDate = new DateTime(2021, 4, 1),
                                         WebsiteUrl = "https://www.kennethgonzalez.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "1550 King St",
-                                                AddressLine2 = "Marketing Agency",
-                                                City = "Niagara Falls",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L2G 1J7"
-                                            }
+                                            AddressLine1 = "1550 King St",
+                                            AddressLine2 = "Marketing Agency",
+                                            City = "Niagara Falls",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L2G 1J7"
                                         }
                                     },
                                     new Member
@@ -1799,16 +1598,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 8,
                                         JoinDate = new DateTime(2022, 5, 15),
                                         WebsiteUrl = "https://www.alexanderjohnson.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "500 Elmwood Ave",
-                                                AddressLine2 = "Construction Office",
-                                                City = "Welland",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L3C 1W1"
-                                            }
+                                            AddressLine1 = "500 Elmwood Ave",
+                                            AddressLine2 = "Construction Office",
+                                            City = "Welland",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L3C 1W1"
                                         }
                                     },
                                     new Member
@@ -1818,16 +1614,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 4,
                                         JoinDate = new DateTime(2021, 11, 2),
                                         WebsiteUrl = "https://www.jonathandoe.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "5100 Lakeshore Rd",
-                                                AddressLine2 = "Cafe Front",
-                                                City = "Port Colborne",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L3K 5V3"
-                                            }
+                                            AddressLine1 = "5100 Lakeshore Rd",
+                                            AddressLine2 = "Cafe Front",
+                                            City = "Port Colborne",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L3K 5V3"
                                         }
                                     },
                                     new Member
@@ -1837,16 +1630,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 15,
                                         JoinDate = new DateTime(2021, 10, 11),
                                         WebsiteUrl = "https://www.isaacmoore.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "123 Niagara Pkwy",
-                                                AddressLine2 = "Cruise Dock",
-                                                City = "Niagara-on-the-Lake",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L0S 1J0"
-                                            }
+                                            AddressLine1 = "123 Niagara Pkwy",
+                                            AddressLine2 = "Cruise Dock",
+                                            City = "Niagara-on-the-Lake",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L0S 1J0"
                                         }
                                     },
                                     new Member
@@ -1856,16 +1646,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 6,
                                         JoinDate = new DateTime(2021, 9, 5),
                                         WebsiteUrl = "https://www.maryjackson.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "435 Main St",
-                                                AddressLine2 = "Bistro Shop",
-                                                City = "Grimsby",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L3M 1P1"
-                                            }
+                                            AddressLine1 = "435 Main St",
+                                            AddressLine2 = "Bistro Shop",
+                                            City = "Grimsby",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L3M 1P1"
                                         }
                                     },
                                     new Member
@@ -1875,16 +1662,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 28,
                                         JoinDate = new DateTime(2021, 12, 15),
                                         WebsiteUrl = "https://www.olivermiller.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "2252 Lakeshore Rd",
-                                                AddressLine2 = "Lodge Entrance",
-                                                City = "Fort Erie",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L2A 1G2"
-                                            }
+                                            AddressLine1 = "2252 Lakeshore Rd",
+                                            AddressLine2 = "Lodge Entrance",
+                                            City = "Fort Erie",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L2A 1G2"
                                         }
                                     },
                                     new Member
@@ -1894,16 +1678,13 @@ namespace NIA_CRM.Data
                                         MemberSize = 5,
                                         JoinDate = new DateTime(2022, 1, 17),
                                         WebsiteUrl = "https://www.jamesroberts.com",
-                                        Addresses = new List<Address>
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
-                                            new Address
-                                            {
-                                                AddressLine1 = "100 Main St",
-                                                AddressLine2 = "Bakery Front",
-                                                City = "Niagara-on-the-Lake",
-                                                StateProvince = Province.Ontario,
-                                                PostalCode = "L0S 1J0"
-                                            }
+                                            AddressLine1 = "100 Main St",
+                                            AddressLine2 = "Bakery Front",
+                                            City = "Niagara-on-the-Lake",
+                                            StateProvince = Province.Ontario,
+                                            PostalCode = "L0S 1J0"
                                         }
                                     },
                                     new Member
@@ -1913,9 +1694,7 @@ namespace NIA_CRM.Data
                                         MemberSize = 11,
                                         JoinDate = new DateTime(2022, 2, 10),
                                         WebsiteUrl = "https://www.jenniferhill.com",
-                                        Addresses = new List<Address>
-                                    {
-                                        new Address
+                                        Address = new Address // Updated to one-to-one relationship
                                         {
                                             AddressLine1 = "1234 Golden Rd",
                                             AddressLine2 = "Tasting Room",
@@ -1923,7 +1702,6 @@ namespace NIA_CRM.Data
                                             StateProvince = Province.Ontario,
                                             PostalCode = "L0S 1J0"
                                         }
-                                    }
                                     },
                                 new Member
                                 {
@@ -1932,16 +1710,13 @@ namespace NIA_CRM.Data
                                     MemberSize = 10,
                                     JoinDate = new DateTime(2021, 8, 19),
                                     WebsiteUrl = "https://www.joemartinez.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "1000 Ridge Rd",
-                                            AddressLine2 = "Rental Office",
-                                            City = "St. Catharines",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L2P 3R3"
-                                        }
+                                        AddressLine1 = "1000 Ridge Rd",
+                                        AddressLine2 = "Rental Office",
+                                        City = "St. Catharines",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L2P 3R3"
                                     }
                                 },
                                 new Member
@@ -1951,16 +1726,13 @@ namespace NIA_CRM.Data
                                     MemberSize = 35,
                                     JoinDate = new DateTime(2021, 5, 14),
                                     WebsiteUrl = "https://www.christopheranderson.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "500 Silverstone Dr",
-                                            AddressLine2 = "Clubhouse",
-                                            City = "Niagara Falls",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L2E 6V1"
-                                        }
+                                        AddressLine1 = "500 Silverstone Dr",
+                                        AddressLine2 = "Clubhouse",
+                                        City = "Niagara Falls",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L2E 6V1"
                                     }
                                 },
                                 new Member
@@ -1970,16 +1742,13 @@ namespace NIA_CRM.Data
                                     MemberSize = 6,
                                     JoinDate = new DateTime(2022, 1, 23),
                                     WebsiteUrl = "https://www.briannawilliams.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "222 Art St",
-                                            AddressLine2 = "Gallery Showroom",
-                                            City = "Niagara-on-the-Lake",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L0S 1J0"
-                                        }
+                                        AddressLine1 = "222 Art St",
+                                        AddressLine2 = "Gallery Showroom",
+                                        City = "Niagara-on-the-Lake",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L0S 1J0"
                                     }
                                 },
                                 new Member
@@ -1989,16 +1758,13 @@ namespace NIA_CRM.Data
                                     MemberSize = 15,
                                     JoinDate = new DateTime(2021, 10, 2),
                                     WebsiteUrl = "https://www.daniellawson.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "345 Lake Rd",
-                                            AddressLine2 = "Restaurant Dining",
-                                            City = "Port Colborne",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L3K 3Y6"
-                                        }
+                                        AddressLine1 = "345 Lake Rd",
+                                        AddressLine2 = "Restaurant Dining",
+                                        City = "Port Colborne",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L3K 3Y6"
                                     }
                                 },
                                 new Member
@@ -2008,16 +1774,13 @@ namespace NIA_CRM.Data
                                     MemberSize = 50,
                                     JoinDate = new DateTime(2020, 11, 28),
                                     WebsiteUrl = "https://www.ashleymorris.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "2200 Main St",
-                                            AddressLine2 = "Cinema Entrance",
-                                            City = "Niagara Falls",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L2G 1J4"
-                                        }
+                                        AddressLine1 = "2200 Main St",
+                                        AddressLine2 = "Cinema Entrance",
+                                        City = "Niagara Falls",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L2G 1J4"
                                     }
                                 },
                                 new Member
@@ -2027,16 +1790,13 @@ namespace NIA_CRM.Data
                                     MemberSize = 30,
                                     JoinDate = new DateTime(2021, 6, 30),
                                     WebsiteUrl = "https://www.jessicaperez.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "1585 Fitness Rd",
-                                            AddressLine2 = "Gym Entrance",
-                                            City = "St. Catharines",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L2R 1C9"
-                                        }
+                                        AddressLine1 = "1585 Fitness Rd",
+                                        AddressLine2 = "Gym Entrance",
+                                        City = "St. Catharines",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L2R 1C9"
                                     }
                                 },
                                 new Member
@@ -2046,16 +1806,14 @@ namespace NIA_CRM.Data
                                     MemberSize = 20,
                                     JoinDate = new DateTime(2022, 3, 10),
                                     WebsiteUrl = "https://www.jordanpeterson.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "1196 Rolling Hills Rd",
-                                            AddressLine2 = "Construction Site",
-                                            City = "Welland",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L3B 4K9"
-                                        }
+
+                                        AddressLine1 = "1196 Rolling Hills Rd",
+                                        AddressLine2 = "Construction Site",
+                                        City = "Welland",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L3B 4K9"
                                     }
                                 },
                                 new Member
@@ -2065,16 +1823,13 @@ namespace NIA_CRM.Data
                                     MemberSize = 10,
                                     JoinDate = new DateTime(2021, 4, 25),
                                     WebsiteUrl = "https://www.marykline.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "789 Tech Rd",
-                                            AddressLine2 = "Electronics HQ",
-                                            City = "Grimsby",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L3M 4R2"
-                                        }
+                                        AddressLine1 = "789 Tech Rd",
+                                        AddressLine2 = "Electronics HQ",
+                                        City = "Grimsby",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L3M 4R2"
                                     }
                                 },
                                 new Member
@@ -2084,16 +1839,13 @@ namespace NIA_CRM.Data
                                     MemberSize = 18,
                                     JoinDate = new DateTime(2022, 6, 15),
                                     WebsiteUrl = "https://www.nicholasjohnson.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "1200 Crystal Blvd",
-                                            AddressLine2 = "Pool Services",
-                                            City = "Niagara Falls",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L2E 1P8"
-                                        }
+                                        AddressLine1 = "1200 Crystal Blvd",
+                                        AddressLine2 = "Pool Services",
+                                        City = "Niagara Falls",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L2E 1P8"
                                     }
                                 },
                                 new Member
@@ -2103,16 +1855,14 @@ namespace NIA_CRM.Data
                                     MemberSize = 8,
                                     JoinDate = new DateTime(2022, 4, 18),
                                     WebsiteUrl = "https://www.lauranorris.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "234 Soap Rd",
-                                            AddressLine2 = "Soap Factory",
-                                            City = "Niagara-on-the-Lake",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L0S 1J0"
-                                        }
+
+                                        AddressLine1 = "234 Soap Rd",
+                                        AddressLine2 = "Soap Factory",
+                                        City = "Niagara-on-the-Lake",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L0S 1J0"
                                     }
                                 },
                                 new Member
@@ -2122,16 +1872,14 @@ namespace NIA_CRM.Data
                                     MemberSize = 20,
                                     JoinDate = new DateTime(2021, 9, 23),
                                     WebsiteUrl = "https://www.hannahbrooks.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "567 Pinehurst Rd",
-                                            AddressLine2 = "Brewery Entrance",
-                                            City = "Thorold",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L2V 1A9"
-                                        }
+                                        AddressLine1 = "567 Pinehurst Rd",
+                                        AddressLine2 = "Brewery Entrance",
+                                        City = "Thorold",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L2V 1A9"
+
                                     }
                                 },
                                 new Member
@@ -2141,16 +1889,14 @@ namespace NIA_CRM.Data
                                     MemberSize = 5,
                                     JoinDate = new DateTime(2021, 12, 20),
                                     WebsiteUrl = "https://www.danielpatel.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "1346 Creamery Rd",
-                                            AddressLine2 = "Ice Cream Shop",
-                                            City = "Niagara Falls",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L2E 6T3"
-                                        }
+
+                                        AddressLine1 = "1346 Creamery Rd",
+                                        AddressLine2 = "Ice Cream Shop",
+                                        City = "Niagara Falls",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L2E 6T3"
                                     }
                                 },
                                 new Member
@@ -2160,16 +1906,13 @@ namespace NIA_CRM.Data
                                     MemberSize = 14,
                                     JoinDate = new DateTime(2022, 2, 28),
                                     WebsiteUrl = "https://www.amandaevans.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "2345 Green Valley Rd",
-                                            AddressLine2 = "Farm Shop",
-                                            City = "St. Catharines",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L2P 3J5"
-                                        }
+                                        AddressLine1 = "2345 Green Valley Rd",
+                                        AddressLine2 = "Farm Shop",
+                                        City = "St. Catharines",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L2P 3J5"
                                     }
                                 },
                                 new Member
@@ -2179,16 +1922,14 @@ namespace NIA_CRM.Data
                                     MemberSize = 10,
                                     JoinDate = new DateTime(2021, 8, 12),
                                     WebsiteUrl = "https://www.rachelwhitman.com",
-                                    Addresses = new List<Address>
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
-                                        new Address
-                                        {
-                                            AddressLine1 = "665 Lakeview Rd",
-                                            AddressLine2 = "Tasting Room",
-                                            City = "Niagara-on-the-Lake",
-                                            StateProvince = Province.Ontario,
-                                            PostalCode = "L0S 1J0"
-                                        }
+
+                                        AddressLine1 = "665 Lakeview Rd",
+                                        AddressLine2 = "Tasting Room",
+                                        City = "Niagara-on-the-Lake",
+                                        StateProvince = Province.Ontario,
+                                        PostalCode = "L0S 1J0"
                                     }
                                 },
                                 new Member
@@ -2198,17 +1939,15 @@ namespace NIA_CRM.Data
                                     MemberSize = 25,
                                     JoinDate = new DateTime(2022, 5, 7),
                                     WebsiteUrl = "https://www.oliviagray.com",
-                                    Addresses = new List<Address>
-                                {
-                                    new Address
+                                    Address = new Address // Updated to one-to-one relationship
                                     {
+
                                         AddressLine1 = "888 Vineyard Dr",
                                         AddressLine2 = "Winery Entrance",
                                         City = "Niagara-on-the-Lake",
                                         StateProvince = Province.Ontario,
                                         PostalCode = "L0S 1J0"
                                     }
-                                }
                                 },
                             new Member
                             {
@@ -2217,16 +1956,15 @@ namespace NIA_CRM.Data
                                 MemberSize = 40,
                                 JoinDate = new DateTime(2021, 11, 15),
                                 WebsiteUrl = "https://www.juliajones.com",
-                                Addresses = new List<Address>
+                                Address = new Address // Updated to one-to-one relationship
                                 {
-                                    new Address
-                                    {
-                                        AddressLine1 = "1420 Pinewood Ln",
-                                        AddressLine2 = "Resort Main Office",
-                                        City = "Welland",
-                                        StateProvince = Province.Ontario,
-                                        PostalCode = "L3B 2H6"
-                                    }
+
+                                    AddressLine1 = "1420 Pinewood Ln",
+                                    AddressLine2 = "Resort Main Office",
+                                    City = "Welland",
+                                    StateProvince = Province.Ontario,
+                                    PostalCode = "L3B 2H6"
+
                                 }
                             },
                             new Member
@@ -2236,16 +1974,13 @@ namespace NIA_CRM.Data
                                 MemberSize = 12,
                                 JoinDate = new DateTime(2022, 8, 1),
                                 WebsiteUrl = "https://www.matthewharris.com",
-                                Addresses = new List<Address>
+                                Address = new Address // Updated to one-to-one relationship
                                 {
-                                    new Address
-                                    {
-                                        AddressLine1 = "750 Riverside Dr",
-                                        AddressLine2 = "Marina Office",
-                                        City = "Port Colborne",
-                                        StateProvince = Province.Ontario,
-                                        PostalCode = "L3K 5C3"
-                                    }
+                                    AddressLine1 = "750 Riverside Dr",
+                                    AddressLine2 = "Marina Office",
+                                    City = "Port Colborne",
+                                    StateProvince = Province.Ontario,
+                                    PostalCode = "L3K 5C3"
                                 }
                             },
                             new Member
@@ -2255,16 +1990,14 @@ namespace NIA_CRM.Data
                                 MemberSize = 8,
                                 JoinDate = new DateTime(2021, 7, 18),
                                 WebsiteUrl = "https://www.kaylathompson.com",
-                                Addresses = new List<Address>
+                                Address = new Address // Updated to one-to-one relationship
                                 {
-                                    new Address
-                                    {
-                                        AddressLine1 = "346 Distillery Rd",
-                                        AddressLine2 = "Distillery Shop",
-                                        City = "Niagara-on-the-Lake",
-                                        StateProvince = Province.Ontario,
-                                        PostalCode = "L0S 1J0"
-                                    }
+
+                                    AddressLine1 = "346 Distillery Rd",
+                                    AddressLine2 = "Distillery Shop",
+                                    City = "Niagara-on-the-Lake",
+                                    StateProvince = Province.Ontario,
+                                    PostalCode = "L0S 1J0"
                                 }
                             },
                             new Member
@@ -2274,17 +2007,16 @@ namespace NIA_CRM.Data
                                 MemberSize = 65,
                                 JoinDate = new DateTime(2022, 3, 5),
                                 WebsiteUrl = "https://www.zoemorris.com",
-                                Addresses = new List<Address>
+                                Address = new Address // Updated to one-to-one relationship
                                 {
-                                    new Address
-                                    {
-                                        AddressLine1 = "200 Heritage Ln",
-                                        AddressLine2 = "Hotel Main Entrance",
-                                        City = "Niagara Falls",
-                                        StateProvince = Province.Ontario,
-                                        PostalCode = "L2G 1P8"
-                                    }
+
+                                    AddressLine1 = "200 Heritage Ln",
+                                    AddressLine2 = "Hotel Main Entrance",
+                                    City = "Niagara Falls",
+                                    StateProvince = Province.Ontario,
+                                    PostalCode = "L2G 1P8"
                                 }
+
                             }
 
                         );
@@ -3533,30 +3265,30 @@ namespace NIA_CRM.Data
 
                     }
 
-                   try
-{
-    if (!context.MemberContacts.Any())
-    {
-        var memberContacts = new List<MemberContact>
-        {
-            new MemberContact { MemberId = 1, ContactId = 1 },
-            new MemberContact { MemberId = 2, ContactId = 2 },
-            new MemberContact { MemberId = 2, ContactId = 1 },
-            new MemberContact { MemberId = 1, ContactId = 6 },
-            new MemberContact { MemberId = 3, ContactId = 3 },
-            new MemberContact { MemberId = 4, ContactId = 4 },
-            new MemberContact { MemberId = 5, ContactId = 5 },
-            new MemberContact { MemberId = 6, ContactId = 6 }
-        };
+                    if (!context.MemberContacts.Any())  // Only seed if there are no MemberContacts
+                    {
+                        var memberContacts = new List<MemberContact>();
 
-        context.MemberContacts.AddRange(memberContacts);
-        context.SaveChanges();
-    }
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Seeding failed: {ex.Message}");
-}
+                        // Check if there are at least 100 Members and 100 Contacts in the database
+                        if (context.Members.Count() >= 100 && context.Contacts.Count() >= 100)
+                        {
+                            for (int i = 1; i <= 100; i++)
+                            {
+                                // Create a new MemberContact record
+                                memberContacts.Add(new MemberContact
+                                {
+                                    MemberId = i,  // Assuming MemberId exists in the Members table
+                                    ContactId = i  // Assuming ContactId exists in the Contacts table
+                                });
+                            }
+
+                            // Add new MemberContact records to the context
+                            context.MemberContacts.AddRange(memberContacts);
+
+                            // Save changes to the database
+                            context.SaveChanges();
+                        }
+                    }
 
 
                     if (!context.Cancellations.Any())
@@ -3582,63 +3314,63 @@ catch (Exception ex)
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 10),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 3
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 12),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 4
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 18),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 5
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 20),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 6
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 22),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 7
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 25),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 8
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 27),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 9
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 30),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 10
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 1),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 11
                             },
@@ -3652,21 +3384,21 @@ catch (Exception ex)
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 10),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 13
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 15),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 14
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 18),
-                                IsCancelled = false,
+                                IsCancelled = true,
                                 CancellationNote = "Good member, no cancellation.",
                                 MemberID = 15
                             }
@@ -3953,8 +3685,8 @@ catch (Exception ex)
 
                             context.MemberEvents.AddRange(memberEvents);
                             context.SaveChanges();
-                        
-                    }
+
+                        }
                     }
                     catch (Exception ex)
                     {

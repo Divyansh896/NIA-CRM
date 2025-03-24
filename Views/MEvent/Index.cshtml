@@ -6,13 +6,18 @@
 
 <h1>Events</h1>
 
-<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
-        <input type="file" name="file" class="form-control me-2" required />
-        <button type="submit" class="btn btn-success">
-            <i class="fa fa-file-import"></i> Import from Excel
+<div class="d-flex align-items-center" style="padding-bottom: 10px;">
+
+    <form asp-action="ExportToExcel" method="get">
+        <button type="submit" class="btn btn-dark me-2">
+            <i class="fa fa-file-excel text-white"></i> Export Excel
         </button>
-    </div>
+    </form>
+    <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data" class="d-flex">
+            <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
+        <input type="file" name="file" class="form-control me-2" required />
 </form>
 
 <!-- Modal for Exporting Annual Actions -->
@@ -54,12 +59,8 @@
     </div>
 </div>
 
-<form asp-action="ExportToExcel" method="get">
-    <button type="submit" class="btn btn-dark me-2">
-        <i class="fa fa-file-excel text-white"></i> Export to Excel
-    </button>
-</form>
 
+</div>
 
 @if (TempData["Success"] != null)
 {
@@ -158,16 +159,54 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" class="table-head">
-                        @Html.DisplayNameFor(model => model.EventName)
+                        @{
+                            var isNameSortField = sortField == "Event Name";
+                            var NameSortIndicator = isNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isNameSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Event Name" class="btn btn-link" aria-label="Sort by Event Name" />
+                            <span class="SortIndicator">@NameSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Event Name" class="btn btn-link" aria-label="Sort by Event Name" />
+                        }
                     </th>
                     <th scope="col" class="table-head">
                         @Html.DisplayNameFor(model => model.EventDescription)
                     </th>
                     <th scope="col" class="table-head">
-                        @Html.DisplayNameFor(model => model.EventLocation)
+                        
+
+                        @{
+                            var isLocationSortField = sortField == "Event Location";
+                            var locationSortIndicator = isLocationSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isLocationSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Event Location" class="btn btn-link" aria-label="Sort by Event Location" />
+                            <span class="SortIndicator">@locationSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Event Location" class="btn btn-link" aria-label="Sort by Event Location" />
+                        }
                     </th>
                     <th scope="col" class="table-head">
-                        @Html.DisplayNameFor(model => model.EventDate)
+                        @{
+                            var isDateSortField = sortField == "Event Date";
+                            var dateSortIndicator = isDateSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isDateSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Event Date" class="btn btn-link" aria-label="Sort by Event Date" />
+                            <span class="SortIndicator">@dateSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Event Date" class="btn btn-link" aria-label="Sort by Event Date" />
+                        }
                     </th>
                     <th scope="col" class="table-head">Participants</th>
                 </tr>

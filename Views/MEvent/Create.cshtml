@@ -21,7 +21,8 @@
                     <!-- First Column: Event Name, Location -->
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="EventName" class="control-label"></label> (required)
+                            <label asp-for="EventName" class="control-label"></label>
+                            <span class="required-label">(required)</span>
                             <input asp-for="EventName" class="form-control" />
                             <span asp-validation-for="EventName" class="text-danger"></span>
                         </div>
@@ -35,7 +36,8 @@
                     <!-- Second Column: Event Date -->
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="EventDate" class="control-label"></label> (required)
+                            <label asp-for="EventDate" class="control-label"></label>
+                            <span class="required-label">(required)</span>
                             <input asp-for="EventDate" class="form-control" />
                             <span asp-validation-for="EventDate" class="text-danger"></span>
                         </div>

@@ -4,6 +4,8 @@
     ViewData["Title"] = "Details";
 }
 <partial name="_Notification" />
+<partial name="_addArchiveModal" />
+
 
 <div class="row align-items-center">
     <!-- Logo (Member Thumbnail or Default Image) -->
@@ -38,7 +40,7 @@
         var contacts = Model.MemberContacts?.Select(mc => mc.Contact).ToList();
         var primaryContact = contacts?.FirstOrDefault(c => c.IsVip) ?? contacts?.FirstOrDefault();
         var additionalContacts = contacts?.Where(c => c != primaryContact).ToList();
-        var addres = Model?.Addresses?.FirstOrDefault();
+        var addres = Model?.Address;
     }
 
     <div class="container">
@@ -53,20 +55,18 @@
                             <dl>
                                 <dt>Address:</dt>
                                 <dd>
-                                    @if (Model.Addresses != null && Model.Addresses.Any())
+                                    @if (Model.Address != null)
                                     {
-                                        @foreach (var address in Model.Addresses)
-                                        {
-                                            <p>
-                                                @address.AddressLine1<br />
-                                                @if (!string.IsNullOrEmpty(address.AddressLine2))
-                                                {
-                                                    @address.AddressLine2
-                                                    <br />
-                                                }
-                                                @address.City, @address.StateProvince, @address.PostalCode<br />
-                                            </p>
-                                        }
+                                        <p>
+                                            @Model.Address.AddressLine1<br />
+                                            @if (!string.IsNullOrEmpty(Model.Address.AddressLine2))
+                                            {
+                                                @Model.Address.AddressLine2
+                                                <br />
+                                            }
+                                            @Model.Address.City, @Model.Address.StateProvince, @Model.Address.PostalCode<br />
+                                        </p>
+
                                     }
                                     else
                                     {
@@ -122,7 +122,7 @@
 
                         <!-- Right Column: Other Details -->
                         <div class="col-md-6">
-                            
+
                             <dt>NAICS Code:</dt>
                             <dd>
                                 @if (Model.IndustryNAICSCodes != null && Model.IndustryNAICSCodes.Any())
@@ -142,7 +142,11 @@
                                 <dd>@Html.DisplayFor(model => model.JoinDate)</dd>
 
                                 <dt>Website:</dt>
-                                <dd>@Html.DisplayFor(model => model.WebsiteUrl)</dd>
+                                <dd>
+                                    <a href="@Model.WebsiteUrl" target="_blank">
+                                        @Html.DisplayFor(model => model.WebsiteUrl)
+                                    </a>
+                                </dd>
 
                                 <dt>Size:</dt>
                                 <dd>@Html.DisplayFor(model => model.MemberSize)</dd>
@@ -151,7 +155,7 @@
                     </div>
                     <div class="position-bottom-left">
                         <a class="btn btn-secondary me-2" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit General Info</a>
-                        <a class="btn btn-secondary me-2" asp-controller="Address" asp-action="Edit" asp-route-id="@addres.Id">Edit Address</a>
+                        <a class="btn btn-secondary me-2" asp-controller="Address" asp-action="Edit" asp-route-id="@addres.Id" asp-route-memberid="@addres.MemberId" asp-route-membername="@addres.Member.MemberName">Edit Address</a>
                     </div>
                 </div>
             </div>
@@ -188,10 +192,10 @@
                             <div class="col-md-6">
                                 <dl>
                                     <dt>Email:</dt>
-                                    <dd>@primaryContact.Email</dd>
+                                    <dd><a href="mailto:@primaryContact.Email">@primaryContact.Email</a></dd>
 
                                     <dt>Phone:</dt>
-                                    <dd>@primaryContact.PhoneFormatted</dd>
+                                    <dd><a href="tel:@primaryContact.PhoneFormatted" id="phoneNumber">@primaryContact.PhoneFormatted</a></dd>
 
                                     @if (!string.IsNullOrEmpty(primaryContact.LinkedInUrl))
                                     {
@@ -246,11 +250,11 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <dt>Email:</dt>
-                                            <dd>@contact.Email</dd>
+                                            <dd><a href="mailto:@contact.Email">@contact.Email</a></dd>
                                         </div>
                                         <div class="col-sm-4">
                                             <dt>Phone:</dt>
-                                            <dd>@contact.PhoneFormatted</dd>
+                                            <dd><a href="tel:@contact.PhoneFormatted" id="phoneNumber">@contact.PhoneFormatted</a></dd>
                                         </div>
                                         @if (!string.IsNullOrEmpty(contact.LinkedInUrl))
                                         {
@@ -299,13 +303,131 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="position-bottom-left">
-            <a class="btn btn-dark me-2">Archive</a>
-            <a class="btn btn-primary me-2" asp-controller="Contact" asp-action="Create" asp-route-id="@Model.ID">Create New Contact</a>
+            <a class="btn btn-dark me-2" data-bs-toggle="modal" data-bs-target="#addCancellationModal" data-id="@Model.ID">Archive</a>
+            <a class="btn btn-primary me-2" asp-controller="Contact" asp-action="Create" asp-route-memberId="@Model.ID" asp-route-memberName="@Model.MemberName">Create New Contact</a>
             <a class="btn btn-primary me-2" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
             <a class="btn btn-primary me-2" asp-controller="Member" asp-action="Index">Back to Members</a>
         </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = document.getElementById('addCancellationModal'); // Fixed modal ID
 
+            // When the modal is about to be shown
+            modal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;  // Button that triggered the modal
+                var memberId = button.getAttribute('data-id');  // Get Member ID from button
+
+                console.log("Member ID received:", memberId); // Debugging log
+
+                // Set the Member ID in the hidden input field inside the modal
+                //document.getElementById('MemberID').value = memberId;
+
+                // Make AJAX GET request to fetch member data and fill the form dynamically
+                $.ajax({
+                    type: "GET",
+                    url: '/Cancellation/Create',  // Ensure this points to the correct action URL
+                    data: { memberId: memberId },
+                    success: function (response) {
+                        console.log(response.memberName);
+                        if (response.success) {
+                            // Populate the form with the received data
+                            $('#createCancellationForm').find('input[name="MemberID"]').val(response.memberId);
+                           // $('#MemberID').val(response.memberId);  // Set MemberID in the form field
+                            $('#MemberName').text(response.memberName);  // Optionally display MemberName in the modal header or form
+                        } else {
+                            console.error("Failed to fetch member data:", response.message);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching member data:", xhr);
+                    }
+                });
+            });
+
+            // Handle form submission with AJAX
+                    $('#submitCancellationCreate').click(function (event) {
+            event.preventDefault();  // Prevent default form submission
+            clearErrors();  // Clear previous error messages
+
+            var form = $('#createCancellationForm'); // Fixed form ID
+            var memberId = $('#MemberID').val(); // Get Member ID from hidden input field
+            memberId = parseInt(memberId);
+            console.log("Submitting form for Member ID:", memberId); // Debugging log
+
+            // Validate the form
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),  // The form's action URL
+                    data: form.serialize() + "&MemberID=" + memberId, // Ensure MemberID is included
+                    success: function (response) {
+                        if (response.success) {
+                            $('#addCancellationModal').modal('hide');
+                            //alert(response.message); // Optionally show success message
+                            location.reload(); // Refresh page to reflect changes
+                        } else {
+                            console.error("Error: " + response.message);
+                            showErrorMessage(response.message); // Show error messages
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error: ", xhr);
+                        showErrorMessage("An unexpected error occurred."); // General error message
+                    }
+                });
+            }
+
+            return false; // Prevent default form submission
+        });
+
+        // Function to show error messages in the modal
+        function showErrorMessage(message) {
+            var ul = document.getElementById("ErrorList");
+            ul.innerHTML = "";  // Clear previous errors
+
+            // Split and display each error message
+            var errors = message.split("|");
+            errors.forEach(function (error) {
+                var li = document.createElement("li");
+                li.innerHTML = error;
+                ul.appendChild(li);
+            });
+        }
+
+            // Function to handle error messages from AJAX response
+            function handleAjaxErrors(xhr) {
+                var errorMessages = [];
+                switch (xhr.status) {
+                    case 401:
+                        errorMessages.push("You must be logged in first.");
+                        break;
+                    case 403:
+                        errorMessages.push("You are not authorized for this action.");
+                        break;
+                    default:
+                        errorMessages = xhr.responseText.split("|").slice(0, -1);
+                }
+
+                if (!errorMessages.some((str) => str !== "")) {
+                    errorMessages.push("Error: Unable to complete operation");
+                }
+
+
+            }
+
+            // Function to clear previous error messages
+            function clearErrors() {
+                var ul = document.getElementById("ErrorList");
+                ul.innerHTML = "";  // Clear previous error messages
+            }
+        });
+    </script>
+
+    }

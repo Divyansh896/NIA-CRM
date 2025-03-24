@@ -14,6 +14,7 @@ using NIA_CRM.Utilities;
 using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using NIA_CRM.ViewModels;
+using Org.BouncyCastle.Utilities.Encoders;
 
 namespace NIA_CRM.Controllers
 {
@@ -32,35 +33,67 @@ namespace NIA_CRM.Controllers
         {
 
             PopulateDropdowns();
-            string[] sortOptions = { "Member Name", "Industry" };
+            string[] sortOptions = { "Member Name", "City", "Membership Type", "Sector", "NAICS Code", "Contacts" };
             int numberFilters = 0;
 
             var members = _context.Members
                                     .Include(m => m.MemberThumbnail)
-                                    .Include(m => m.Addresses)
+                                    .Include(m => m.Address)
                                     .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
                                     .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                                     .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
-                                    .Where(m => !m.Cancellations.Any())  // Exclude members with cancellations
+                .Include(m => m.MemberSectors).ThenInclude(m => m.Sector)
+                                    //.Where(m => !m.Cancellations.Any())  // Exclude members with cancellations
                                     .AsNoTracking();
 
 
 
            
 
-            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
+            if (!String.IsNullOrEmpty(actionButton)) // Form Submitted!
             {
-                page = 1;//Reset page to start
+                page = 1; // Reset page to start
 
-                if (sortOptions.Contains(actionButton))//Change of sort is requested
+                if (sortOptions.Contains(actionButton)) // Change of sort is requested
                 {
-                    if (actionButton == sortField) //Reverse order on same field
+                    if (actionButton == sortField) // Reverse order on same field
                     {
                         sortDirection = sortDirection == "asc" ? "desc" : "asc";
                     }
-                    sortField = actionButton;//Sort by the button clicked
+                    sortField = actionButton; // Sort by the button clicked
                 }
             }
+
+            members = sortField switch
+            {
+                "Member Name" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberName)
+                    : members.OrderByDescending(e => e.MemberName),
+
+                "City" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.Address.City) // Assuming Address has City
+                    : members.OrderByDescending(e => e.Address.City),
+
+                "Membership Type" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName) // Assuming the MembershipType has a Name
+                    : members.OrderByDescending(e => e.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName),
+
+                "Sector" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberSectors.FirstOrDefault().Sector.SectorName) // Assuming NAICSCode has Sector
+                    : members.OrderByDescending(e => e.MemberSectors.FirstOrDefault().Sector.SectorName),
+
+                "NAICS Code" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code) // Assuming NAICSCode has Code
+                    : members.OrderByDescending(e => e.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code),
+
+                "Contacts" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberContacts.FirstOrDefault().Contact.FirstName).ThenBy(e => e.MemberContacts.FirstOrDefault().Contact.LastName) // Assuming Contact has Name
+                    : members.OrderByDescending(e => e.MemberContacts.FirstOrDefault().Contact.FirstName).ThenByDescending(e => e.MemberContacts.FirstOrDefault().Contact.LastName),
+
+                _ => members
+            };
+
+
             if (!string.IsNullOrEmpty(SearchString))
             {
                 members = members.Where(m =>
@@ -211,12 +244,13 @@ namespace NIA_CRM.Controllers
             {
                 worksheet.Cells[row, 1].Value = member.ID;
                 worksheet.Cells[row, 2].Value = member.MemberName;
-                worksheet.Cells[row, 3].Value = member.Addresses.FirstOrDefault()?.City ?? "N/A";
+                worksheet.Cells[row, 3].Value = member.Address?.City ?? "N/A"; // Access City directly in one-to-one relation
                 worksheet.Cells[row, 4].Value = member.JoinDate.ToString("yyyy-MM-dd") ?? "N/A"; // Format date
                 worksheet.Cells[row, 5].Value = member.MemberMembershipTypes.FirstOrDefault()?.MembershipType?.TypeName ?? "N/A";
 
+
                 // Separating address components
-                var address = member.Addresses.FirstOrDefault();
+                var address = member.Address;
                 if (address != null)
                 {
                     worksheet.Cells[row, 6].Value = address.AddressLine1;
@@ -324,14 +358,12 @@ namespace NIA_CRM.Controllers
                         },
 
                                 // Address - Check for missing fields
-                                Addresses = new List<Address>
-                        {
-                            new Address
-                            {
-                                City = worksheet.Cells[row, 3]?.Value?.ToString()?.Trim() ?? "N/A",
-                                AddressLine2 = worksheet.Cells[row, 6]?.Value?.ToString()?.Trim() ?? "N/A"
-                            }
-                        },
+                                Address = new Address
+                                {
+
+                                    City = worksheet.Cells[row, 3]?.Value?.ToString()?.Trim() ?? "N/A",
+                                    AddressLine2 = worksheet.Cells[row, 6]?.Value?.ToString()?.Trim() ?? "N/A"
+                                },
 
                                 // Contact Information
                                 MemberContacts = new List<MemberContact>()
@@ -387,8 +419,10 @@ namespace NIA_CRM.Controllers
             }
 
             var member = await _context.Members
-                .Include(m => m.Addresses)
+                .Include(m => m.Address)
                 .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+                .Include(m => m.MemberTags).ThenInclude(m => m.MTag)
+                .Include(m => m.MemberSectors).ThenInclude(m => m.Sector)
                 .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                 .Include(m => m.MemberLogo)
                 .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
@@ -406,9 +440,10 @@ namespace NIA_CRM.Controllers
         {
             Member member = new Member
             {
-                Addresses = new List<Address> { new Address() },  // Initializing with one empty address
+                Address = new Address(),  // Initializing with one empty address (instead of a list)
                 MemberContacts = new List<MemberContact> { new MemberContact() }  // Initializing with one empty contact
             };
+
             PopulateAssignedMTagData(member);
             PopulateAssignedSectorData(member);
             PopulateAssignedMembershipTypeData(member);
@@ -422,7 +457,7 @@ namespace NIA_CRM.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,MemberName,MemberSize,WebsiteUrl,JoinDate,IsPaid,MemberNote")]
-                                                Member member, IFormFile? thePicture, string[] selectedOptionsTag, 
+                                                Member member, IFormFile? thePicture, string[] selectedOptionsTag,
                                                 string[] selectedOptionsSector, string[] selectedOptionsMembership, string[] selectedOptionsNaicsCode)
         {
             try
@@ -462,7 +497,21 @@ namespace NIA_CRM.Controllers
             }
             catch (RetryLimitExceededException)
             {
+
                 ModelState.AddModelError("", "Unable to save changes after multiple attempts. Try again, and if the problem persists, see your system administrator.");
+            }
+            catch (DbUpdateException dex)
+            {
+                string message = dex.GetBaseException().Message;
+                if (message.Contains("UNIQUE") && message.Contains("Members.MemberName"))
+                {
+                    ModelState.AddModelError("Member Name", "Unable to save changes. Remember, " +
+                        "you cannot have duplicate Member Names.");
+                }
+                else
+                {
+                    ModelState.AddModelError("", $"Unable to save changes: {message}");
+                }
             }
 
             // Populate assigned data if the model state is invalid
@@ -483,25 +532,55 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
+
             var member = await _context.Members
                 .Include(m => m.MemberThumbnail)
+                .Include(m => m.MemberSectors).ThenInclude(m => m.Sector)
+                .Include(m => m.MemberTags).ThenInclude(m => m.MTag)
+                .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                .Include(m => m.MemberLogo)
                 .FirstOrDefaultAsync(m => m.ID == id);
+
+            PopulateAssignedMTagData(member);
+            PopulateAssignedSectorData(member);
+            PopulateAssignedMembershipTypeData(member);
+            PopulateAssignedNaicsCodeData(member);
+
             if (member == null)
             {
                 return NotFound();
             }
+
+            // Get the member name based on the address's MemberId
+            if (member != null)
+            {
+                ViewBag.MemberName = member.MemberName; // Set the member's name
+            }
+            else
+            {
+                ViewBag.MemberName = "No member name provided"; // Handle null or missing member
+            }
+
             return View(member);
         }
 
         // POST: Member/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Member/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Byte[] RowVersion, string? chkRemoveImage, IFormFile? thePicture)
+        public async Task<IActionResult> Edit(int id, string? chkRemoveImage, IFormFile? thePicture, string[] selectedOptionsTag,
+                                                string[] selectedOptionsSector, string[] selectedOptionsMembership, string[] selectedOptionsNaicsCode)
         {
             var memberToUpdate = await _context.Members
                 .Include(m => m.MemberThumbnail)
+                .Include(m => m.MemberSectors).ThenInclude(m => m.Sector)
+                .Include(m => m.MemberTags).ThenInclude(m => m.MTag)
+                .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+                .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                .Include(m => m.MemberLogo)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (memberToUpdate == null)
@@ -509,8 +588,7 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            // Attach the RowVersion for concurrency tracking
-            _context.Entry(memberToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+
 
             // Try updating the model with user input
             if (await TryUpdateModelAsync<Member>(memberToUpdate, "",
@@ -518,13 +596,30 @@ namespace NIA_CRM.Controllers
             {
                 try
                 {
+
+                    // Update Member Tags (MTag)
+                    UpdateMemberMTag(selectedOptionsTag, memberToUpdate);
+
+                    // Update Member Sectors
+                    UpdateMemberSector(selectedOptionsSector, memberToUpdate);
+
+                    // Update Member Membership Types
+                    UpdateMemberMembershipType(selectedOptionsMembership, memberToUpdate);
+                    UpdateMemberNaicsCode(selectedOptionsNaicsCode, memberToUpdate);
+
+                    // Handle image removal if the checkbox is checked
                     if (chkRemoveImage != null)
                     {
                         // If we are deleting the image and thumbnail, make sure to notify the Change Tracker
                         memberToUpdate.MemberThumbnail = _context.MemebrThumbnails.FirstOrDefault(p => p.MemberID == memberToUpdate.ID);
+
                         // Set the image fields to null to delete them
                         memberToUpdate.MemberLogo = null;
                         memberToUpdate.MemberThumbnail = null;
+
+                        // Mark the properties as modified to ensure the changes are tracked
+                        _context.Entry(memberToUpdate).Property(m => m.MemberLogo).IsModified = true;
+                        _context.Entry(memberToUpdate).Property(m => m.MemberThumbnail).IsModified = true;
                     }
                     else
                     {
@@ -532,10 +627,20 @@ namespace NIA_CRM.Controllers
                         await AddPicture(memberToUpdate, thePicture);
                     }
 
-                    // Save changes
+                    // Save changes to the database
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = $"Member: {memberToUpdate.MemberName} updated successfully!";
+                    // Get the member name based on the address's MemberId
+                    if (memberToUpdate != null)
+                    {
+                        ViewBag.MemberName = memberToUpdate.MemberName; // Set the member's name
+                    }
+                    else
+                    {
+                        ViewBag.MemberName = "No member name provided"; // Handle null or missing member
+                    }
 
+                    // Redirect to the Details view for the updated member
                     return RedirectToAction("Details", new { id = memberToUpdate.ID });
                 }
                 catch (RetryLimitExceededException)
@@ -568,12 +673,6 @@ namespace NIA_CRM.Controllers
                         if (databaseValues.IsPaid != clientValues.IsPaid)
                             ModelState.AddModelError("IsPaid", $"Current value: {databaseValues.IsPaid}");
 
-                        // Handle MemberLogo and MemberThumbnail separately since they are related to the image
-                        //if (databaseValues.MemberLogo != clientValues.MemberLogo)
-                        //    ModelState.AddModelError("MemberLogo", $"Current value: {databaseValues.MemberLogo?.Content ?? "No logo"}");
-                        //if (databaseValues.MemberThumbnail != clientValues.MemberThumbnail)
-                        //    ModelState.AddModelError("MemberThumbnail", $"Current value: {databaseValues.MemberThumbnail?.FileName ?? "No thumbnail"}");
-
                         ModelState.AddModelError("", "The record was modified by another user after you started editing. If you still want to save your changes, click the Save button again.");
 
                         // Update RowVersion for the next attempt
@@ -584,12 +683,29 @@ namespace NIA_CRM.Controllers
                 catch (DbUpdateException dex)
                 {
                     string message = dex.GetBaseException().Message;
-                    ModelState.AddModelError("", $"Unable to save changes: {message}");
+                    if (message.Contains("UNIQUE") && message.Contains("Members.MemberName"))
+                    {
+                        ModelState.AddModelError("Member Name", "Unable to save changes. Remember, " +
+                            "you cannot have duplicate Member Names.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", $"Unable to save changes: {message}");
+                    }
+
                 }
             }
 
+
+            PopulateAssignedMTagData(memberToUpdate);
+            PopulateAssignedSectorData(memberToUpdate);
+            PopulateAssignedMembershipTypeData(memberToUpdate);
+            PopulateAssignedNaicsCodeData(memberToUpdate);
+
+            // If we reach here, something went wrong, so return the view with the model
             return View(memberToUpdate);
         }
+
 
 
         // GET: Member/Delete/5
@@ -682,7 +798,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> GetMemberPreview(int id)
         {
             var member = await _context.Members
-                .Include(m => m.Addresses) // Include the related Address
+                .Include(m => m.Address) // Include the related Address
                 .Include(m => m.MemberThumbnail)
                 .Include(m => m.MemberMembershipTypes)
                 .ThenInclude(mm => mm.MembershipType)
@@ -1064,7 +1180,7 @@ namespace NIA_CRM.Controllers
             }
 
             var members = _context.Members
-                .Include(m => m.Addresses)
+                .Include(m => m.Address)
                 .Include(m => m.MemberMembershipTypes)
                 .ThenInclude(m => m.MembershipType)
                 .Include(m => m.MemberContacts)
@@ -1095,7 +1211,7 @@ namespace NIA_CRM.Controllers
                         worksheet.Cells[row, col++].Value = member.MemberName ?? "N/A";
 
                     if (selectedFields.Contains("City"))
-                        worksheet.Cells[row, col++].Value = member?.Addresses?.FirstOrDefault()?.City ?? "N/A";
+                        worksheet.Cells[row, col++].Value = member?.Address?.City ?? "N/A";
 
                     if (selectedFields.Contains("JoinDate"))
                         worksheet.Cells[row, col++].Value = member.JoinDate.ToString("yyyy-MM-dd") ?? "N/A";
@@ -1104,7 +1220,7 @@ namespace NIA_CRM.Controllers
                         worksheet.Cells[row, col++].Value = member?.MemberMembershipTypes?.FirstOrDefault()?.MembershipType?.TypeName ?? "N/A";
 
                     if (selectedFields.Contains("Address"))
-                        worksheet.Cells[row, col++].Value = member?.Addresses?.FirstOrDefault()?.AddressLine1 ?? "N/A";
+                        worksheet.Cells[row, col++].Value = member?.Address?.AddressLine1 ?? "N/A";
 
                     if (selectedFields.Contains("PhoneNumber"))
                         worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.Phone ?? "N/A";

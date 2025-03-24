@@ -4,25 +4,9 @@
     ViewData["Title"] = "Index";
 }
 <partial name="_addArchiveModal" />
-<partial name="_Notification" />
+<partial name="_notificationModal" />
 
-@* <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
-        <input type="file" name="file" class="form-control me-2" required />
 
-    </div>
-</form> *@
-<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
-        <div>
-            <input type="file" name="file" class="form-control me-2" required />
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-file-import"></i> Import Excel
-            </button>
-        </div>
-
-    </div>
-</form>
 
 <!-- Export Fields Modal for Contacts -->
 <div class="modal fade" id="exportContactsModal" tabindex="-1" aria-labelledby="exportContactsModalLabel" aria-hidden="true">
@@ -71,6 +55,16 @@
     <h1 class="mb-0" id="contacts-title">Contacts</h1>
 </div>
 
+<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
+    <div class="d-flex align-items-center" style="padding-bottom: 10px;">
+        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+            <i class="fa fa-file-import"></i> Import Excel
+        </button>
+        <input type="file" name="file" class="form-control me-2" required />
+
+    </div>
+</form>
+
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
     <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
@@ -93,12 +87,12 @@
                             data-bs-target="#collapseFilter"
                             aria-expanded="false"
                             aria-controls="collapseFilter">
-                        Filter/Search @ViewData["numberFilters"]
+                        Filter/Search @ViewData["numberFilters"]+
                     </button>
                     <button type="submit" class="btn btn-dark" name="actionButton" value="ExportExcel">
                         <i class="fa fa-file-excel text-white"></i> Export Excel
                     </button>
-                   @*  <button type="submit" class="btn btn-dark">
+                    @*  <button type="submit" class="btn btn-dark">
                         <i class="fa fa-file-import"></i> Import Excel
                     </button> *@
                     <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
@@ -110,14 +104,16 @@
                     </button>
                 </div>
 
-               
-                
-
-
-
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNotificationModal">
+                    Open Notification Modal
+                </button>
+                <button type="button" class="btn btn-dark mt-2" id="toggleCheckboxes">
+                    Enable Selection
+                </button>
 
                 <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
             </div>
+            
             @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
             {
                 <div class="filters-container mt-2">
@@ -208,6 +204,9 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" class="table-head">
+                        <input type="checkbox" id="selectAllCheckboxes" style="display: none;">
+                    </th>
+                    <th scope="col" class="table-head">
                         @{
 
                             var isCurrentSortField = sortField == "Contact Name";
@@ -225,11 +224,67 @@
                             <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
                         }
                     </th>
-                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Email)</th>
-                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.Phone)</th>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isEmailSortField = sortField == "Email";
+                            var EmailSortIndicator = isEmailSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isEmailSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Email" class="btn btn-link" aria-label="Sort by Email" />
+                            <span class="SortIndicator">@EmailSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Email" class="btn btn-link" aria-label="Sort by Email" />
+                        }
+                    </th>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isPhoneSortField = sortField == "Phone";
+                            var PhoneSortIndicator = isPhoneSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isPhoneSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Phone" class="btn btn-link" aria-label="Sort by Phone" />
+                            <span class="SortIndicator">@PhoneSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Phone" class="btn btn-link" aria-label="Sort by Phone" />
+                        }
+                    </th>
                     <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.LinkedInUrl)</th>
-                    <th scope="col" class="table-head">@Html.DisplayNameFor(model => model.IsVip)</th>
-                    <th scope="col" class="table-head">Member</th>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isVIPSortField = sortField == "VIP";
+                            var VIPSortIndicator = isVIPSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isVIPSortField)
+                        {
+                            <input type="submit" name="actionButton" value="VIP" class="btn btn-link" aria-label="Sort by VIP" />
+                            <span class="SortIndicator">@VIPSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="VIP" class="btn btn-link" aria-label="Sort by VIP" />
+                        }
+                    </th>
+                    <th scope="col" class="table-head">
+                        @{
+                            var isMemberNameSortField = sortField == "Member Name";
+                            var memberNameSortIndicator = isMemberNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
+                        @if (isMemberNameSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member Name" />
+                            <span class="SortIndicator">@memberNameSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Member Name" class="btn btn-link" aria-label="Sort by Member Name" />
+                        }
+                    </th>
 
                 </tr>
             </thead>
@@ -237,6 +292,9 @@
                 @foreach (var item in Model)
                 {
                     <tr class="clickable-row" data-id="@item.Id" title="Click on row to get preview">
+                        <td>
+                            <input type="checkbox" class="contact-checkbox" name="selectedContactIds" value="@item.Id" style="display: none;">
+                        </td>
                         <td>@Html.DisplayFor(modelItem => item.Summary)</td>
                         <td>@Html.DisplayFor(modelItem => item.Email)</td>
                         <td>
@@ -249,15 +307,17 @@
                         <td>
                             @if (item.MemberContacts != null && item.MemberContacts.Any())
                             {
-                                @string.Join(", ", item.MemberContacts
-                                         .Where(mc => mc.Member != null)
-                                         .Select(mc => mc.Member.MemberName))
+                                <span>
+                                    @string.Join(", ", item.MemberContacts
+                                             .Select(mc => mc.Member?.MemberName)
+                                             .Distinct()
+                                             .Where(name => !string.IsNullOrEmpty(name)))
+                                </span>
                             }
                         </td>
-
-
                     </tr>
                 }
+
             </tbody>
         </table>
     </div>
@@ -280,7 +340,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
-    <script src="~/js/PhoneNumber.js"></script>
     <script>
               $(document).ready(function () {
             // Initially hide the preview content
@@ -378,6 +437,117 @@
         })
     </script>
 
+@* Notification Modal *@
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = document.getElementById('addNotificationModal'); // Ensure modal ID is correct
+            var selectedContactIds = []; // Store selected contacts
+
+            // When the modal is about to be shown
+            modal.addEventListener('show.bs.modal', function () {
+                selectedContactIds = [];
+                document.querySelectorAll(".contact-checkbox:checked").forEach((checkbox) => {
+                    selectedContactIds.push(checkbox.value);
+                });
+
+                console.log(selectedContactIds);
+                if (selectedContactIds.length === 0) {
+                    alert("Please select at least one contact before sending an email.");
+                    return;
+                }
+
+                // Store selected IDs in a hidden input field inside the modal
+                document.getElementById("selectedContactIds").value = selectedContactIds.join(",");
+
+                console.log("Selected Contacts:", selectedContactIds); // Debugging
+            });
+
+            // Handle form submission with AJAX
+            $('#submitNotificationForm').click(function (event) {
+                event.preventDefault();  // Prevent default form submission
+                clearErrors();  // Clear previous error messages
+
+                var form = $('#createNotificationForm'); // Ensure form ID is correct
+                var ContactIds = document.getElementById("selectedContactIds").value; // Hidden input value
+                var Subject = document.getElementById("emailSubject").value; // Subject input value
+                var Body = document.getElementById("emailBody").value; // Body textarea value
+
+
+                console.log("Submitting form for Contact IDs:", ContactIds); // Debugging log
+
+                // Validate the form
+                if (form.valid()) {
+                    $.ajax({
+                        type: "POST",
+                        url: form.attr('action'),  // Form action URL
+                        //data: form.serialize() + "&selectedContactIds=" + ContactIds + "&Subject=" + encodeURIComponent(Subject) + "&Body=" + encodeURIComponent(Body), // Include selected contacts, subject, and body
+                        data: {
+                            selectedContactIds: ContactIds,
+                            Subject: Subject,
+                            emailContent: Body
+                        },
+                        success: function (response) {
+                                if (response.success) {
+                                    $('#addNotificationModal').modal('hide');
+                                    location.reload(); // Refresh page to reflect changes
+                                } else {
+                                    console.error("Error: " + response.message);
+                                    showErrorMessage(response.message); // Show error messages
+                                }
+                            },
+                        error: function (xhr) {
+                            console.error("Error: ", xhr);
+                            showErrorMessage("An unexpected error occurred."); // General error message
+                        }
+                    });
+                }
+            });
+
+            // Function to show error messages in the modal
+        function showErrorMessage(message) {
+            var ul = document.getElementById("ErrorList");
+            ul.innerHTML = "";  // Clear previous errors
+
+            // Split and display each error message
+            var errors = message.split("|");
+            errors.forEach(function (error) {
+                var li = document.createElement("li");
+                li.innerHTML = error;
+                ul.appendChild(li);
+            });
+        }
+
+            // Function to handle error messages from AJAX response
+            function handleAjaxErrors(xhr) {
+                var errorMessages = [];
+                switch (xhr.status) {
+                    case 401:
+                        errorMessages.push("You must be logged in first.");
+                        break;
+                    case 403:
+                        errorMessages.push("You are not authorized for this action.");
+                        break;
+                    default:
+                        errorMessages = xhr.responseText.split("|").slice(0, -1);
+                }
+
+                if (!errorMessages.some((str) => str !== "")) {
+                    errorMessages.push("Error: Unable to complete operation");
+                }
+
+
+            }
+
+            // Function to clear previous error messages
+            function clearErrors() {
+                var ul = document.getElementById("ErrorList");
+                ul.innerHTML = "";  // Clear previous error messages
+            }
+        });
+    </script>
+
+
+@* Contact cancelltion Modal *@
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function () {
             var modal = document.getElementById('addCancellationModal'); // Fixed modal ID
@@ -389,7 +559,7 @@
 
                 console.log("Contact ID received:", ContactId); // Debugging log
 
-                
+
                 // Make AJAX GET request to fetch member data and fill the form dynamically
                 $.ajax({
                     type: "GET",
@@ -490,5 +660,27 @@
             }
         });
     </script>
+
+@* script to toggle checkboxes for selection  *@
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var toggleButton = document.getElementById("toggleCheckboxes");
+            var checkboxes = document.querySelectorAll(".contact-checkbox");
+            var selectAllCheckbox = document.getElementById("selectAllCheckboxes");
+            var isVisible = false;
+
+            toggleButton.addEventListener("click", function () {
+                isVisible = !isVisible;
+                checkboxes.forEach(cb => cb.style.display = isVisible ? "inline-block" : "none");
+                selectAllCheckbox.style.display = isVisible ? "inline-block" : "none";
+                toggleButton.textContent = isVisible ? "Disable Selection" : "Enable Selection";
+            });
+
+            selectAllCheckbox.addEventListener("change", function () {
+                checkboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
+            });
+        });
+    </script>
+
 
 }

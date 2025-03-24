@@ -7,12 +7,23 @@
     </div>
 
     <div class="d-flex">
-        <img src="~/images/preview.jpg" alt="Profile Picture of Summary"
-             title="Profile Picture of Summary" class="img-fluid rounded me-3" style="max-width: 150px;" />
+        @if (Model.ContactThumbnail?.Content != null)
+        {
+            string imageBase64 = Convert.ToBase64String(Model.ContactThumbnail.Content);
+            string imageSrc = string.Format("data:" + Model.ContactThumbnail.MimeType + ";base64,{0}", imageBase64);
+            <img src="@imageSrc" alt="Profile Picture of @Model?.Summary"
+                 title="Profile Picture of @Model?.Summary" class="img-fluid rounded" />
+        }
+        else
+        {
+            <img src="images/blankProfile.jpg" alt="blank profile picture"
+                 title="blank profile picture" class="img-fluid rounded" style="margin-right: 5px !important;" />
+        }
+
         <div>
             <p><strong>Contact Name:</strong> <br />@Model.Summary</p>
-            <p><strong>Contact Email:</strong> <br /> @Model.Email</p>
-            <p><strong>Phone:</strong> <br /> @Model.PhoneFormatted</p>
+            <p><strong>Contact Email:</strong> <br /> <a href="mailto:@Model.Email">@Model.Email</a></p>
+            <p><strong>Phone:</strong> <br /> <a href="tel:@Model.Phone">@Model.Phone</a></p>
             <p><a href="@Model.LinkedInUrl" target="_blank">View LinkedIn</a></p>
         </div>
     </div>

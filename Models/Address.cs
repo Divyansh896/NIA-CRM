@@ -49,6 +49,8 @@ namespace NIA_CRM.Models
 
         [Required(ErrorMessage = "Postal Code is required.")]
         [MaxLength(20, ErrorMessage = "Postal Code cannot exceed 20 characters.")]
+        [RegularExpression(@"^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$", ErrorMessage = "Invalid Postal Code. Must be in the format 'A1A 1A1'")]
+
         [Display(Name = "Postal Code")]
         public string? PostalCode { get; set; }
 

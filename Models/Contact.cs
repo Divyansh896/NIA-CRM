@@ -5,8 +5,17 @@ namespace NIA_CRM.Models
     public class Contact : Auditable
     {
         [Display(Name = "Phone")]
-        public string PhoneFormatted => "(" + Phone?.Substring(0, 3) + ") "
-            + Phone?.Substring(3, 3) + "-" + Phone?[6..];
+        public string PhoneFormatted
+        {
+            get
+            {
+                if (Phone != null && Phone.Contains("("))
+                {
+                    return Phone;
+                }
+                return "(" + Phone?.Substring(0, 3) + ") " + Phone?.Substring(3, 3) + "-" + Phone?[6..];
+            }
+        }
 
         [Key]
         public int Id { get; set; }
@@ -31,6 +40,7 @@ namespace NIA_CRM.Models
         [StringLength(100, ErrorMessage = "Department cannot be longer than 100 characters.")]
         public string? Department { get; set; }
 
+        [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         [StringLength(100, ErrorMessage = "Email cannot be longer than 100 characters.")]
         public string? Email { get; set; }
@@ -53,9 +63,14 @@ namespace NIA_CRM.Models
         public bool IsArchieved { get; set; } = false;
 
         public ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
+
+        [Required(ErrorMessage = "Mamber is required")]
         public ICollection<MemberContact> MemberContacts { get; set; } = new List<MemberContact>();
         public ICollection<ContactCancellation> ContactCancellations { get; set; } = new List<ContactCancellation>();
 
+
+        public ContactLogo? ContactLogo { get; set; }
+        public ContactThumbnail? ContactThumbnail { get; set; }
 
         [ScaffoldColumn(false)]
         [Timestamp]

@@ -21,12 +21,14 @@
                     <!-- First Column -->
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="Name" class="control-label"></label> (required)
+                            <label asp-for="Name" class="control-label"></label>
+                            <span class="required-label">(required)</span>
                             <input asp-for="Name" class="form-control" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="AnnualStatus" class="control-label"></label> (required)
+                            <label asp-for="AnnualStatus" class="control-label"></label>
+                            <span class="required-label">(required)</span>
                             <select asp-for="AnnualStatus" asp-items="Html.GetEnumSelectList<AnnualStatus>()" class="form-control"></select>
                             <span asp-validation-for="AnnualStatus" class="text-danger"></span>
                         </div>
@@ -49,7 +51,8 @@
 
                 <!-- Notes Section -->
                 <div class="form-group">
-                    <label asp-for="Note" class="control-label"></label> (required)
+                    <label asp-for="Note" class="control-label"></label>
+                    <span class="required-label">(required)</span>
                     <textarea asp-for="Note" class="form-control" rows="4"></textarea>
                     <span asp-validation-for="Note" class="text-danger"></span>
                 </div>

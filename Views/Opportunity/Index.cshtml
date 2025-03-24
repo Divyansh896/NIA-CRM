@@ -7,16 +7,14 @@
 }
 
 <h1>Opportunities</h1>
-<a asp-action="ExportOpportunitiesToExcel">Export Excel</a>
+
 
 <form asp-action="ImportOpportunitiesFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center">
-        <div>
-            <input type="file" name="file" class="form-control me-2" required />
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-file-import"></i> Import Excel
-            </button>
-        </div>
+    <div class="d-flex align-items-center" style="padding-bottom: 10px;">
+        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+            <i class="fa fa-file-import"></i> Import Excel
+        </button>
+        <input type="file" name="file" class="form-control" required />
     </div>
 </form>
 
@@ -102,6 +100,7 @@
             <i class="fa fa-file-excel text-white"></i> Export Selected Fields for Opportunities
         </button>
 
+    
         <a asp-action="Create" class="btn btn-primary">+ Add Opportunity</a>
     </div>
 
@@ -150,6 +149,7 @@
                 <div class="form-group col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary me-2">Apply Filters</button>
                     <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
+
                 </div>
                 
             </div>
@@ -160,14 +160,95 @@
     <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
         <thead>
             <tr>
-                <th scope="col" class="table-head">Opportunity Name</th>
-                <th scope="col" class="table-head">Action</th>
-                <th scope="col" class="table-head">POC</th>
-                <th scope="col" class="table-head">Account</th>
-                <th scope="col" class="table-head">Interaction</th>
-                <th scope="col" class="table-head">Last Contact</th>
-                <th scope="col" class="table-head">Status</th>
-                <th scope="col" class="table-head">Priority</th>
+                <th scope="col" class="table-head">
+                    @{
+                        var isNameSortField = sortField == "Opportunity Name";
+                        var NameSortIndicator = isNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isNameSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Opportunity Name" class="btn btn-link" aria-label="Sort by Opportunity Name" />
+                        <span class="SortIndicator">@NameSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Opportunity Name" class="btn btn-link" aria-label="Sort by Opportunity Name" />
+                    }
+                </th>
+                <th scope="col" class="table-head">
+                    @{
+                        var isActionSortField = sortField == "Action";
+                        var ActionSortIndicator = isActionSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isActionSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Action" class="btn btn-link" aria-label="Sort by Action" />
+                        <span class="SortIndicator">@ActionSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Action" class="btn btn-link" aria-label="Sort by Action" />
+                    }
+                </th>
+                <th scope="col" class="table-head">
+                    @{
+                        var isPOCSortField = sortField == "POC";
+                        var POCSortIndicator = isPOCSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isPOCSortField)
+                    {
+                        <input type="submit" name="actionButton" value="POC" class="btn btn-link" aria-label="Sort by POC" />
+                        <span class="SortIndicator">@POCSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="POC" class="btn btn-link" aria-label="Sort by POC" />
+                    }
+                </th>
+                <th scope="col" class="table-head">@{
+                        var isInteractionSortField = sortField == "Interaction";
+                        var InteractionSortIndicator = isInteractionSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isInteractionSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Interaction" class="btn btn-link" aria-label="Sort by Interaction" />
+                        <span class="SortIndicator">@InteractionSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Interaction" class="btn btn-link" aria-label="Sort by Interaction" />
+                    }
+                    </th>
+                <th scope="col" class="table-head">
+                    @{
+                        var isStatusSortField = sortField == "Status";
+                        var StatusSortIndicator = isStatusSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isStatusSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Status" class="btn btn-link" aria-label="Sort by Status" />
+                        <span class="SortIndicator">@StatusSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Status" class="btn btn-link" aria-label="Sort by Status" />
+                    }
+                </th>
+                <th scope="col" class="table-head">
+                    @{
+                        var isPrioritySortField = sortField == "Priority";
+                        var PrioritySortIndicator = isPrioritySortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isPrioritySortField)
+                    {
+                        <input type="submit" name="actionButton" value="Priority" class="btn btn-link" aria-label="Sort by Priority" />
+                        <span class="SortIndicator">@PrioritySortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Priority" class="btn btn-link" aria-label="Sort by Priority" />
+                    }
+                </th>
                 @* <th scope ="col" class="table-head">Actions</th> *@
             </tr>
         </thead>
@@ -178,9 +259,7 @@
                     <td>@item.OpportunityName</td>
                     <td>@item.OpportunityAction</td>
                     <td>@item.POC</td>
-                    <td>@item.Account</td>
                     <td>@item.Interaction</td>
-                    <td>@item.LastContact</td>
                     <td>@item.OpportunityStatus</td>
                     <td>@item.OpportunityPriority</td>
                     @* <td>

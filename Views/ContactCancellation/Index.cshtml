@@ -4,14 +4,15 @@
     ViewData["Title"] = "Contact Cancellation";
 }
 
-<partial name="_Notification" />
-
-
-<h1>Archived Contacts</h1>
-
-<form>
-    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
-    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+ <partial name="_Notification" />
+<h1 id="Cancellation-title">Archived Contacts</h1>
+<form asp-action="Index" method="get" aria-labelledby="contacts-title">
+    @{
+        var sortField = ViewData["sortField"]?.ToString();
+        var sortDirection = ViewData["sortDirection"]?.ToString();
+    }
+    <input type="hidden" name="sortField" value="@sortField" />
+    <input type="hidden" name="sortDirection" value="@sortDirection" />
 
     <div class="m-auto flex-grow-1">
         <div class="form-horizontal mb-3">
@@ -19,7 +20,6 @@
                 <button class="btn btn-dark @ViewData["Filtering"]" type="button" id="filterToggle" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                     Filter/Search @ViewData["numberFilters"]
                 </button>
-                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new Contact Cancellation">+ Add Contact Cancellation</a>
             </div>
 
             @if (ViewData["numberFilters"]?.ToString() != "0 Filters Applied")
@@ -56,12 +56,41 @@
         </div>
     </div>
 
-
-    <table class="table">
-        <thead>
+    <table class="table table-bordered table-striped" id="contacts-table" aria-labelledby="contacts-title">
+        <caption class="sr-only">Archieve Contacts table showing filtered results</caption>
+        <thead class="thead-dark">
             <tr>
-                <th scope="col" class="table-head">Contact</th>
-                <th scope="col" class="table-head">Archiving Date</th>
+                <th scope="col" class="table-head">
+                    @{
+                        var isSectorSortField = sortField == "Contact";
+                        var sectorSortIndicator = isSectorSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isSectorSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Contact" class="btn btn-link" aria-label="Sort by Contact" />
+                        <span class="SortIndicator">@sectorSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Contact" class="btn btn-link" aria-label="Sort by Contact" />
+                    }
+                </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isDateSortField = sortField == "Date";
+                        var dateSortIndicator = isDateSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isDateSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Date" class="btn btn-link" aria-label="Sort by Date" />
+                        <span class="SortIndicator">@dateSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Date" class="btn btn-link" aria-label="Sort by Date" />
+                    }
+                </th>
                 <th scope="col" class="table-head">Archiving Note</th>
             </tr>
         </thead>
@@ -85,13 +114,13 @@
 
     <partial name="_PagingNavBar" />
 </form>
+
 <div id="previewContainer" class="preview-content hidden" role="region" aria-labelledby="previewTitle">
     <h2 id="previewTitle" class="sr-only">Preview Section</h2>
 </div>
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="~/js/PhoneNumber.js"></script>
     <script>
         $(document).ready(function () {
             $('#previewContainer').addClass('hidden');
@@ -140,5 +169,4 @@
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
     </script>
-    
 }

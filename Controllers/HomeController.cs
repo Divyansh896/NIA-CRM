@@ -40,15 +40,13 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Index()
         {
             var addresses = await _context.Members
-                .Include(m => m.Addresses)
-                .Where(m => m.Addresses != null && m.Addresses.Any()) // Ensure no null addresses
-                .SelectMany(m => m.Addresses)
+                .Include(m => m.Address)
+                .Where(m => m.Address != null) // Ensure no null addresses
                 .ToListAsync();
 
             var cityCounts = await _context.Members
-                                            .Where(m => m.Addresses != null && m.Addresses.Any())  // Ensure there are addresses
-                                            .SelectMany(m => m.Addresses)  // Flatten the addresses for each member
-                                            .GroupBy(a => a.City)  // Group by city
+                                            .Where(m => m.Address != null)  // Ensure there are addresses
+                                            .GroupBy(m => m.Address.City)  // Access City through Address
                                             .Select(g => new { City = g.Key, Count = g.Count() })  // Get the city and count of addresses
                                             .ToListAsync();
 
@@ -73,9 +71,8 @@ namespace NIA_CRM.Controllers
      .ToListAsync();
             // Execute the query asynchronously
             var memberAddress = await _context.Members
-                                                .Include(m => m.Addresses)  // Include the Addresses navigation property
-                                                .SelectMany(m => m.Addresses)  // Flatten the Addresses collection
-                                                .GroupBy(a => a.City)  // Group by the City in the Addresses
+                                                .Include(m => m.Address)  // Include the Address navigation property
+                                                .GroupBy(m => m.Address.City)  // Group by the City in Address
                                                 .Select(g => new
                                                 {
                                                     City = g.Key,
