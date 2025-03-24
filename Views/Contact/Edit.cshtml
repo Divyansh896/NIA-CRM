@@ -5,8 +5,14 @@
 }
 <partial name="_Notification" />
 
-<h1>Edit</h1>
-<h4>Contact</h4>
+<h1>Edit Contact</h1>
+@if (ViewData["MemberName"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Member: </strong> @ViewData["MemberName"]
+    </div>
+    <input type="hidden" asp-for="MemberContacts" value="@ViewData["MemberId"]" />
+}
 <hr />
 
 <form asp-action="Edit">

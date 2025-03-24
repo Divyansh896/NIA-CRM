@@ -5,8 +5,17 @@ namespace NIA_CRM.Models
     public class Contact : Auditable
     {
         [Display(Name = "Phone")]
-        public string PhoneFormatted => "(" + Phone?.Substring(0, 3) + ") "
-            + Phone?.Substring(3, 3) + "-" + Phone?[6..];
+        public string PhoneFormatted
+        {
+            get
+            {
+                if (Phone != null && Phone.Contains("("))
+                {
+                    return Phone;
+                }
+                return "(" + Phone?.Substring(0, 3) + ") " + Phone?.Substring(3, 3) + "-" + Phone?[6..];
+            }
+        }
 
         [Key]
         public int Id { get; set; }

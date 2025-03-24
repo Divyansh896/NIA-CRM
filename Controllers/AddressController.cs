@@ -173,7 +173,7 @@ namespace NIA_CRM.Controllers
                     TempData["SuccessMessage"] = "Member Address Updated Successfully!";
 
                     // Redirect to the Member's detail page
-                    return RedirectToAction("Detail", "Member", new { id = address.MemberId });
+                    return RedirectToAction("Details", "Member", new { id = address.MemberId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {

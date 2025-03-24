@@ -45,9 +45,9 @@ namespace NIA_CRM.Controllers
                                      .ThenInclude(mc => mc.Member)
                                      .Include(m => m.ContactCancellations)
                                      .Where(c => !c.ContactCancellations.Any(cc => cc.IsCancelled))  // Only include contacts with no cancellations or cancellations that are not cancelled
-                                     .Distinct() // Ensures only unique contacts are selected
-
+                                     //.GroupBy(comparer => new { comparer.FirstName, comparer.LastName })
                                      .AsQueryable();
+            
             if (Departments != null)
             {
                 contacts = contacts.Where(c => c.Department == Departments);
@@ -136,7 +136,7 @@ namespace NIA_CRM.Controllers
                 //Keep the Bootstrap collapse open
                 @ViewData["ShowFilter"] = " show";
             }
-
+            
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
@@ -302,14 +302,38 @@ namespace NIA_CRM.Controllers
                 return NotFound();
             }
 
-            var contact = await _context.Contacts.FindAsync(id);
+            var contact = await _context.Contacts
+                .Include(c => c.MemberContacts)
+                .ThenInclude(mc => mc.Member)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (contact == null)
             {
                 return NotFound();
             }
-            //ViewData["MemberId"] = new SelectList(_context.Members, "ID", "MemberFirstName", contact.);
+
+            // Get the member name based on the contact's MemberContacts
+            var memberContact = contact.MemberContacts.FirstOrDefault();
+            if (memberContact != null)
+            {
+                var member = await _context.Members.FindAsync(memberContact.MemberId);
+                if (member != null)
+                {
+                    ViewBag.MemberName = member.MemberName; // Set the member's name
+                }
+                else
+                {
+                    ViewBag.MemberName = "No member name provided"; // Handle null or missing member
+                }
+            }
+            else
+            {
+                ViewBag.MemberName = "No member associated"; // Handle case where no member is associated
+            }
+
             return View(contact);
         }
+
 
         // POST: Contact/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -319,9 +343,13 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
 
+            // Try updating the model with user input
             // Fetch the existing Contact record from the database
             var contactToUpdate = await _context.Contacts
+                .Include(c => c.MemberContacts)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            
 
             if (contactToUpdate == null)
             {
@@ -340,11 +368,37 @@ namespace NIA_CRM.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    //return RedirectToAction(nameof(Index));
                     TempData["SuccessMessage"] = $"Contact: {contactToUpdate.FirstName} {contactToUpdate.LastName} Updated Successfully!";
 
-                    return RedirectToAction("Details", new { id = contactToUpdate.Id });
+                    // Get the member ID from the MemberContacts collection
+                    var memberId = contactToUpdate.MemberContacts.FirstOrDefault()?.MemberId;
 
+                    // Get the member name based on the contact's MemberContacts
+                    var memberContact = contactToUpdate.MemberContacts.FirstOrDefault();
+                    if (memberContact != null)
+                    {
+                        var member = await _context.Members.FindAsync(memberContact.MemberId);
+                        if (member != null)
+                        {
+                            ViewBag.MemberName = member.MemberName; // Set the member's name
+                        }
+                        else
+                        {
+                            ViewBag.MemberName = "No member name provided"; // Handle null or missing member
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.MemberName = "No member associated"; // Handle case where no member is associated
+                    }
+                    if (memberId != null)
+                    {
+                        return RedirectToAction("Details", "Member", new { id = memberId });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 catch (RetryLimitExceededException)
                 {
@@ -400,6 +454,7 @@ namespace NIA_CRM.Controllers
             }
 
             return View(contactToUpdate);
+
         }
 
 

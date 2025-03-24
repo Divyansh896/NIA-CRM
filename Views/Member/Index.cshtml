@@ -320,15 +320,15 @@
 
                     <td>
 
-                       @if (item.MemberSectors != null)
-{
-    foreach (var industry in item.MemberSectors)
-    {
-        @industry.Sector.SectorName
-        <br />
-    }
+                        @if (item.MemberSectors != null)
+                        {
+                            foreach (var industry in item.MemberSectors)
+                            {
+                                @industry.Sector.SectorName
+                                <br />
+                            }
                         }
-           
+
                     </td>
                     <!-- New Columns -->
                     <td>
@@ -351,7 +351,7 @@
                                 var contact = memberContact.Contact; // Get the actual Contact object
                                 if (contact != null)
                                 {
-                                    <a href="tel:@contact.Phone" id="phoneNumber">@contact.Phone</a>
+                                    <a href="tel:@contact.PhoneFormatted" id="phoneNumber">@contact.PhoneFormatted</a>
                                     @: |
                                     <a href="mailto:@contact.Email">@contact.Email</a>
                                     <br />
