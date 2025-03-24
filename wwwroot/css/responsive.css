@@ -187,7 +187,7 @@ body {
 }
 
 .title-vidget{
-    font-size:15px;
+    font-size:17px;
 }
 /* Sticky Buttons */
 .sticky-buttons {
@@ -590,10 +590,32 @@ td, th {
         }
 
 
+    .dark-mode .vidget-MemebrCount, .dark-mode .vidget-Active, .dark-mode .vidget-Archived {
+        background-image: url('/images/MembersDark.jpg') !important; /* Replace with your image path */
+    }
+
+
+    .dark-mode .vidget-MemebrCity {
+        background-image: url('/images/CityDark.jpg') !important; /* Replace with your image path */
+    }
+
+    .dark-mode .vidget-Memebr {
+        background-image: url('/images/MembershipDark.jpg') !important; /* Replace with your image path */
+    }
+
+    .dark-mode  .vidget-Sector {
+        background-image: url('/images/SectorDark.jpg') !important; /* Replace with your image path */
+    }
+
+    .dark-mode .vidget-Tag {
+        background-image: url('/images/TagDark.jpg') !important; /* Replace with your image path */
+    }
+
+    .dark-mode  .vidget-Retention {
+        background-image: url('/images/RateDark.jpg') !important; /* Replace with your image path */
+    }
 /*Cards on dashboard styles*/
-
 /* Styling for the dots (black color) */
-
 /* Dropdown menu styling */
 .dropdown-menu {
     background-color: #444; /* Darker background for the dropdown */
