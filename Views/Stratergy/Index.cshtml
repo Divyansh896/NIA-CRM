@@ -8,6 +8,7 @@
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="contacts-title">Strategies</h1>
 </div>
+<partial name="_ErrorMessage" />
 
 
 
@@ -69,11 +70,6 @@
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
-}
-
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">@TempData["Error"]</div>
 }
 
 

@@ -15,9 +15,11 @@ using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using NIA_CRM.ViewModels;
 using Org.BouncyCastle.Utilities.Encoders;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NIA_CRM.Controllers
 {
+    [Authorize]
     public class MemberController : ElephantController
     {
         private readonly NIACRMContext _context;
@@ -48,7 +50,7 @@ namespace NIA_CRM.Controllers
 
 
 
-           
+
 
             if (!String.IsNullOrEmpty(actionButton)) // Form Submitted!
             {
@@ -149,7 +151,7 @@ namespace NIA_CRM.Controllers
 
             if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
             {
-                
+
                 return ExportMembersToExcel(members.ToList());
             }
 
@@ -167,57 +169,6 @@ namespace NIA_CRM.Controllers
             return View(pagedData);
         }
 
-
-
-        //private IActionResult ExportMembersToExcel(List<Member> members)
-        //{
-        //    var package = new ExcelPackage(); // No 'using' block to avoid disposal
-        //    var worksheet = package.Workbook.Worksheets.Add("Members");
-
-        //    // Adding headers
-        //    worksheet.Cells[1, 1].Value = "Member ID";
-        //    worksheet.Cells[1, 2].Value = "Member Name";
-        //    worksheet.Cells[1, 3].Value = "City";
-        //    worksheet.Cells[1, 4].Value = "Join Date";
-        //    worksheet.Cells[1, 5].Value = "Membership Type";
-        //    worksheet.Cells[1, 6].Value = "Address";
-        //    worksheet.Cells[1, 7].Value = "Contact";
-        //    worksheet.Cells[1, 8].Value = "VIP Status";
-
-        //    // Populating data
-        //    int row = 2;
-        //    foreach (var member in members)
-        //    {
-        //        worksheet.Cells[row, 1].Value = member.ID;
-        //        worksheet.Cells[row, 2].Value = member.MemberName;
-        //        worksheet.Cells[row, 3].Value = member.Addresses.FirstOrDefault()?.City ?? "N/A";
-        //        worksheet.Cells[row, 4].Value = member.JoinDate.ToString("yyyy-MM-dd") ?? "N/A"; // Format date
-        //        worksheet.Cells[row, 5].Value = member.MemberMembershipTypes.FirstOrDefault()?.MembershipType?.TypeName ?? "N/A";
-
-        //        worksheet.Cells[row, 6].Value = member.Addresses.FirstOrDefault() != null
-        //            ? $"{member.Addresses.FirstOrDefault().AddressLine2}, {member.Addresses.FirstOrDefault().City}, {member.Addresses.FirstOrDefault().StateProvince}, {member.Addresses.FirstOrDefault().PostalCode}"
-        //            : "No Address Available";
-
-        //        worksheet.Cells[row, 7].Value = member.MemberContacts.FirstOrDefault() != null
-        //            ? $"{member.MemberContacts.FirstOrDefault().Contact.Phone} | {member.MemberContacts.FirstOrDefault().Contact.Email}"
-        //            : "No Contacts Available";
-
-        //        row++;
-        //    }
-
-        //    // Auto-fit columns for better readability
-        //    worksheet.Cells.AutoFitColumns();
-
-        //    var stream = new MemoryStream();
-        //    package.SaveAs(stream);
-        //    stream.Position = 0; // Reset position before returning
-
-        //    string excelName = $"Members.xlsx";
-
-        //    return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
-        //}
-
-        
 
         private IActionResult ExportMembersToExcel(List<Member> members)
         {
@@ -1171,47 +1122,91 @@ namespace NIA_CRM.Controllers
         }
 
         [HttpPost]
-        public IActionResult ExportSelectedFields(List<string>? selectedFields)
+        public IActionResult ExportSelectedFields(List<string>? selectedFields, string? SearchString, DateTime? JoinDate, string? MembershipType, bool applyFilters)
         {
+            // Check if no fields are selected
             if (selectedFields == null || selectedFields.Count == 0)
             {
                 TempData["Error"] = "Please select at least one field to export.";
                 return RedirectToAction("Index");
             }
 
+            // Fetch member data along with related entities
             var members = _context.Members
-                .Include(m => m.Address)
-                .Include(m => m.MemberMembershipTypes)
-                .ThenInclude(m => m.MembershipType)
-                .Include(m => m.MemberContacts)
-                .ThenInclude(m => m.Contact)
-                .ToList();
+                                    .Include(m => m.MemberThumbnail)
+                                    .Include(m => m.Address)
+                                    .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
+                                    .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
+                                    .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
+                                    .Include(m => m.MemberSectors).ThenInclude(m => m.Sector)
+                                    .AsQueryable();
+
+            // Apply filters only if applyFilters is true
+            if (applyFilters)
+            {
+                // Apply SearchString filter
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    members = members.Where(m => m.MemberName.ToUpper().Contains(SearchString.ToUpper()));
+                }
+
+                // Apply JoinDate filter
+                if (JoinDate.HasValue)
+                {
+                    members = members.Where(m => m.JoinDate.Date == JoinDate.Value.Date);
+                }
+
+                // Apply MembershipTypes filter
+                if (!string.IsNullOrEmpty(MembershipType))
+                {
+                    members = members.Where(m => m.MemberMembershipTypes.Any(mt => mt.MembershipType.TypeName.ToUpper().Contains(MembershipType.ToUpper())));
+                }
+            }
+
+            // Execute the query to get the filtered results
+            var filteredMembers = members.ToList();
+
+
 
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("Members");
                 int col = 1;
 
-                // Add selected column headers
+                // **Adding a proper header row**
+                worksheet.Cells[1, 1].Value = "Member Export";
+                worksheet.Cells[1, 1, 1, selectedFields.Count].Merge = true; // Merge header cells
+                worksheet.Cells[1, 1].Style.Font.Bold = true;
+                worksheet.Cells[1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+                int headerRow = 2; // Header row for column names
                 foreach (var field in selectedFields)
                 {
-                    worksheet.Cells[1, col].Value = field;
+                    var cell = worksheet.Cells[headerRow, col];
+                    cell.Value = field;
+                    cell.Style.Font.Bold = true;
+                    cell.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    cell.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray); // Adding color to header
                     col++;
                 }
 
-                int row = 2;
-                foreach (var member in members)
+
+                int row = 3;
+
+                // Populate the worksheet with member data based on selected fields
+                foreach (var member in filteredMembers)
                 {
                     col = 1;
 
-                    if (selectedFields.Contains("MemberID"))
-                        worksheet.Cells[row, col++].Value = member.ID;
-
+                    // Add values for each selected field based on the checkboxes
                     if (selectedFields.Contains("MemberName"))
                         worksheet.Cells[row, col++].Value = member.MemberName ?? "N/A";
 
-                    if (selectedFields.Contains("City"))
-                        worksheet.Cells[row, col++].Value = member?.Address?.City ?? "N/A";
+                    if (selectedFields.Contains("MemberSize"))
+                        worksheet.Cells[row, col++].Value = member?.MemberSize.ToString() ?? "N/A";
+
+                    if (selectedFields.Contains("WebsiteUrl"))
+                        worksheet.Cells[row, col++].Value = member?.WebsiteUrl ?? "N/A";
 
                     if (selectedFields.Contains("JoinDate"))
                         worksheet.Cells[row, col++].Value = member.JoinDate.ToString("yyyy-MM-dd") ?? "N/A";
@@ -1219,14 +1214,54 @@ namespace NIA_CRM.Controllers
                     if (selectedFields.Contains("MembershipType"))
                         worksheet.Cells[row, col++].Value = member?.MemberMembershipTypes?.FirstOrDefault()?.MembershipType?.TypeName ?? "N/A";
 
-                    if (selectedFields.Contains("Address"))
+                    if (selectedFields.Contains("MemberNote"))
+                        worksheet.Cells[row, col++].Value = member?.MemberNote ?? "N/A";
+
+                    // Contact Fields
+                    if (selectedFields.Contains("ContactFullName"))
+                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.Summary ?? "N/A";
+
+                    if (selectedFields.Contains("ContactTitle"))
+                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.Title ?? "N/A";
+
+                    if (selectedFields.Contains("ContactDepartment"))
+                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.Department ?? "N/A";
+
+                    if (selectedFields.Contains("ContactEmail"))
+                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.Email ?? "N/A";
+
+                    if (selectedFields.Contains("ContactPhone"))
+                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.PhoneFormatted ?? "N/A";
+
+                    if (selectedFields.Contains("ContactLinkedIn"))
+                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.LinkedInUrl ?? "N/A";
+
+                    if (selectedFields.Contains("ContactNote"))
+                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.ContactNote ?? "N/A";
+
+                    if (selectedFields.Contains("IsVip"))
+                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.IsVip == true ? "VIP" : "N/A";
+
+                    // Address Fields
+                    if (selectedFields.Contains("AddressLine1"))
                         worksheet.Cells[row, col++].Value = member?.Address?.AddressLine1 ?? "N/A";
 
-                    if (selectedFields.Contains("PhoneNumber"))
-                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.Phone ?? "N/A";
+                    if (selectedFields.Contains("AddressLine2"))
+                        worksheet.Cells[row, col++].Value = member?.Address?.AddressLine2 ?? "N/A";
 
-                    if (selectedFields.Contains("EmailAddress"))
-                        worksheet.Cells[row, col++].Value = member?.MemberContacts?.FirstOrDefault()?.Contact?.Email ?? "N/A";
+                    if (selectedFields.Contains("City"))
+                        worksheet.Cells[row, col++].Value = member?.Address?.City ?? "N/A";
+
+                    if (selectedFields.Contains("StateProvince"))
+                        worksheet.Cells[row, col++].Value = member?.Address?.StateProvince.ToString() ?? "N/A";
+
+                    if (selectedFields.Contains("PostalCode"))
+                        worksheet.Cells[row, col++].Value = member?.Address?.PostalCode ?? "N/A";
+
+                    if (selectedFields.Contains("FormattedAddress"))
+                        worksheet.Cells[row, col++].Value = member?.Address?.FormattedAddress ?? "N/A";
+
+
 
                     row++;
                 }
@@ -1234,6 +1269,7 @@ namespace NIA_CRM.Controllers
                 // Auto-fit columns for better readability
                 worksheet.Cells.AutoFitColumns();
 
+                // Prepare the Excel file for download
                 var stream = new MemoryStream();
                 package.SaveAs(stream);
                 stream.Position = 0;
@@ -1243,8 +1279,7 @@ namespace NIA_CRM.Controllers
             }
         }
 
+
+
     }
-
-
-
 }

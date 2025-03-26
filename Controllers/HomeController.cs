@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using SQLitePCL;
 
 namespace NIA_CRM.Controllers
 {
+    [Authorize]
     public class HomeController : ElephantController
     {
         private readonly ILogger<HomeController> _logger;
@@ -21,10 +23,6 @@ namespace NIA_CRM.Controllers
             _logger = logger;
             _context = context;
         }
-
-
-
-
 
         public IActionResult Privacy()
         {
@@ -40,15 +38,20 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Index()
         {
             var addresses = await _context.Members
-                .Include(m => m.Address)
-                .Where(m => m.Address != null) // Ensure no null addresses
-                .ToListAsync();
+        .Include(m => m.Address)
+        .Where(m => m.Address != null) // Ensure no null addresses
+        .ToListAsync();
 
             var cityCounts = await _context.Members
-                                            .Where(m => m.Address != null)  // Ensure there are addresses
-                                            .GroupBy(m => m.Address.City)  // Access City through Address
-                                            .Select(g => new { City = g.Key, Count = g.Count() })  // Get the city and count of addresses
-                                            .ToListAsync();
+    .Where(m => m.Address != null)
+    .GroupBy(m => m.Address.City)
+    .Select(g => new { City = g.Key, Count = g.Count() })
+    .ToListAsync();
+
+            // Debugging line (optional)
+            Console.WriteLine("City counts: " + string.Join(", ", cityCounts.Select(c => $"{c.City}: {c.Count}")));
+
+
 
             var membershipCount = await _context.MemberMembershipTypes
                 .GroupBy(mmt => mmt.MembershipType)
@@ -58,6 +61,44 @@ namespace NIA_CRM.Controllers
                     Count = g.Count()
                 })
                 .ToArrayAsync();
+
+            var sectorCount = await _context.MemberSectors
+                .Include(ms => ms.Sector)
+                .GroupBy(ms => ms.Sector.SectorName)
+                .Select(g => new
+                {
+                    SectorName = g.Key,
+                    Count = g.Count()
+                })
+                .ToArrayAsync();
+
+            ViewData["SectorCount"] = sectorCount;  // Pass data to the view
+
+            var tagCount = await _context.MemberTags
+        .Include(mt => mt.MTag)
+        .GroupBy(mt => mt.MTag.MTagName)
+        .Select(g => new
+        {
+            TagName = g.Key,
+            Count = g.Count()
+        })
+        .ToArrayAsync();
+
+            ViewData["TagCount"] = tagCount;  // Pass data to the view
+
+            var archivedMemberCount = await _context.Cancellations
+         .Where(c => c.IsCancelled == true)
+         .CountAsync();
+
+            ViewData["ArchivedMemberCount"] = archivedMemberCount;  // Pass the count to the view
+
+            var totalMemberCount = await _context.Members.CountAsync();
+            var activeMemberCount = totalMemberCount - archivedMemberCount;
+            ViewData["ActiveMemberCount"] = activeMemberCount;
+
+
+
+            ViewData["ActiveMemberCount"] = activeMemberCount;  // Pass the count to the view
 
             var memberJoinDates = await _context.Members
                                                  .GroupBy(m => new { m.JoinDate.Year, m.JoinDate.Month })  // No need to check for null
@@ -81,16 +122,24 @@ namespace NIA_CRM.Controllers
                                                 .ToListAsync();  // Execute the query asynchronously
 
 
+            double retentionRate = 0;
+            if (totalMemberCount > 0)
+            {
+                retentionRate = (double)activeMemberCount / totalMemberCount * 100;
+            }
+
             // Pass cityCounts as a model or through ViewData
             ViewData["CityCounts"] = cityCounts;
             ViewData["MemberCount"] = await _context.Members.CountAsync();
             ViewData["MembershipCount"] = membershipCount;
             ViewData["MembersJoins"] = memberJoinDates;
             ViewData["MembersAddress"] = memberAddress;
+            ViewData["RetentionRate"] = retentionRate;
+
 
             return View(); // Pass nothing if using ViewData, or you can directly pass data via View()
         }
-        
+
 
     }
 

@@ -24,7 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>
-    (options => options.SignIn.RequireConfirmedAccount = false)
+    (options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -63,7 +63,9 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddDbContext<NIACRMContext>(options =>
     options.UseSqlite(connectionString));
+
 builder.Services.AddHttpClient<NAICSApiHelper>();
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -78,6 +80,8 @@ builder.Services.AddSingleton<IEmailConfiguration>(builder.Configuration
 
 //For the Identity System
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+
+
 //Email with methods for production use.
 builder.Services.AddTransient<IMyEmailSender, MyEmailSender>();
 

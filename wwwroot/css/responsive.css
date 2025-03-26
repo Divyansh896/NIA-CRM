@@ -1,9 +1,10 @@
 ﻿/* responsive.css */
 
 
-.vidget-MemebrCount {
+.vidget-MemebrCount, .vidget-Active, .vidget-Archived {
     height: 250px;
     background-image: url('/images/TotalVidget.jpg') !important; /* Replace with your image path */
+    overflow: hidden;
     background-size: cover; /* Ensures the image covers the div */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents repeating */
@@ -15,6 +16,7 @@
 .vidget-MemebrCity {
     height: 250px;
     background-image: url('/images/CityVidget.jpg') !important;
+    overflow: hidden;
     background-size: cover; /* Ensures the image covers the div */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents repeating */
@@ -26,6 +28,7 @@
 .vidget-Memebr {
     height: 250px;
     background-image: url('/images/MembershipVidget.jpg') !important; /* Replace with your image path */
+    overflow: hidden;
     background-size: cover; /* Ensures the image covers the div */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents repeating */
@@ -33,6 +36,44 @@
     display: flex;
     flex-direction: column;
 }
+
+.vidget-Sector {
+    height: 250px;
+    background-image: url('/images/Sector.jpg') !important; /* Replace with your image path */
+    overflow: hidden;
+    background-size: cover; /* Ensures the image covers the div */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.vidget-Tag {
+    height: 250px;
+    background-image: url('/images/Tag.jpg') !important; /* Replace with your image path */
+    overflow: hidden;
+    background-size: cover; /* Ensures the image covers the div */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.vidget-Retention {
+    height: 250px;
+    background-image: url('/images/Rate.jpg') !important; /* Replace with your image path */
+    overflow: hidden;
+    background-size: cover; /* Ensures the image covers the div */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+
 /* Base Styles - Mobile First */
 body {
     font-family: 'Open Sans', sans-serif;
@@ -127,6 +168,7 @@ body {
     margin-top: 4px;
     border: solid !important;
     border-color: #A61C1C !important;
+    overflow: hidden;
 }
 
 .card-text, .card-title{
@@ -145,7 +187,7 @@ body {
 }
 
 .title-vidget{
-    font-size:25px;
+    font-size:17px;
 }
 /* Sticky Buttons */
 .sticky-buttons {
@@ -546,6 +588,126 @@ td, th {
         .dark-mode textarea::placeholder {
             color: #aaa;
         }
+
+
+    .dark-mode .vidget-MemebrCount, .dark-mode .vidget-Active, .dark-mode .vidget-Archived {
+        background-image: url('/images/MembersDark.jpg') !important; /* Replace with your image path */
+    }
+
+
+    .dark-mode .vidget-MemebrCity {
+        background-image: url('/images/CityDark.jpg') !important; /* Replace with your image path */
+    }
+
+    .dark-mode .vidget-Memebr {
+        background-image: url('/images/MembershipDark.jpg') !important; /* Replace with your image path */
+    }
+
+    .dark-mode  .vidget-Sector {
+        background-image: url('/images/SectorDark.jpg') !important; /* Replace with your image path */
+    }
+
+    .dark-mode .vidget-Tag {
+        background-image: url('/images/TagDark.jpg') !important; /* Replace with your image path */
+    }
+
+    .dark-mode  .vidget-Retention {
+        background-image: url('/images/RateDark.jpg') !important; /* Replace with your image path */
+    }
+/*Cards on dashboard styles*/
+/* Styling for the dots (black color) */
+/* Dropdown menu styling */
+.dropdown-menu {
+    background-color: #444; /* Darker background for the dropdown */
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    color: white; /* White text color for dropdown items */
+    padding: 10px;
+    cursor: pointer;
+}
+
+    .dropdown-item:hover {
+        background-color: #555; /* Hover effect on dropdown items */
+    }
+
+/* Title styling */
+#members-dynamic-title {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Count styling */
+#members-dynamic-count, #membership-count {
+    opacity: 1;
+    padding-left: calc(var(--bs-gutter-x)* .5);
+    transition: opacity 0.5s ease-in-out;
+}
+
+.fixed-text {
+    font-size: 2em;
+    font-weight: bold;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.number-transition {
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+
+/* Style for the dots button */
+/* Style for the dots button */
+.citydrop {
+    font-size: 18px;
+    color: black; /* Change dots to black */
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    position: absolute; /* Position the button in the top-right corner */
+    top: 0px; /* Add some space from the top */
+    right: 0px; /* Add some space from the right edge of the card */
+    padding: 0px 7px;
+    background-color: rgba(85, 85, 85, 1.4); /* Adjusted to make it slightly transparent */
+}
+
+.dots {
+    font-size: 16px; /* Make the dots smaller */
+    color: white !important;
+    text-decoration: none !important; /* Remove underline from the dots */
+}
+
+.dots:hover{
+    color: white !important;
+}
+
+/* Adjust dropdown menu to appear on the left of the button */
+.dropdown-menu {
+    position: absolute !important;
+    right: auto !important; /* Remove the right positioning */
+    left: -150px !important; /* Move dropdown to the left of the button */
+    top: 0 !important; /* Align dropdown with the top of the button */
+    z-index: 1000 !important; /* Ensure the dropdown stays on top */
+}
+
+
+
+/* Ensure dropdown appears on the left side of the button */
+.dropdown-menu {
+    position: absolute;
+    left: -150px; /* Adjust this value to move it to the left of the button */
+    top: 0; /* Align dropdown with the top of the button */
+    z-index: 1000; /* Ensure dropdown stays on top */
+}
 
 @media (max-width: 768px) {
     body {

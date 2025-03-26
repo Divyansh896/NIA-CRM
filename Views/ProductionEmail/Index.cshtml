@@ -88,24 +88,24 @@
             <caption id="table-title" class="sr-only">Email Records Table</caption>
             <thead class="thead-dark">
                 <tr>
-                    
+
 
                     <th scope="col" class="table-head">
-    @{
-        var isTemplateNameSortField = sortField == "Template Name";
-        var templateNameSortIndicator = isTemplateNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
-    }
+                        @{
+                            var isTemplateNameSortField = sortField == "Template Name";
+                            var templateNameSortIndicator = isTemplateNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        }
 
-    @if (isTemplateNameSortField)
-    {
-        <input type="submit" name="actionButton" value="Template Name" class="btn btn-link" aria-label="Sort by Template Name" />
-        <span class="SortIndicator">@templateNameSortIndicator</span>
-    }
-    else
-    {
-        <input type="submit" name="actionButton" value="Template Name" class="btn btn-link" aria-label="Sort by Template Name" />
-    }
-</th>
+                        @if (isTemplateNameSortField)
+                        {
+                            <input type="submit" name="actionButton" value="Template Name" class="btn btn-link" aria-label="Sort by Template Name" />
+                            <span class="SortIndicator">@templateNameSortIndicator</span>
+                        }
+                        else
+                        {
+                            <input type="submit" name="actionButton" value="Template Name" class="btn btn-link" aria-label="Sort by Template Name" />
+                        }
+                    </th>
 
 
                     <th scope="col" class="table-head">
@@ -143,8 +143,8 @@
                             <input type="submit" name="actionButton" value="Subject" class="btn btn-link" aria-label="Sort by Subject" />
                         }
                     </th>
-                    
-                    
+
+
                     <th scope="col" class="table-head">
                         @Html.DisplayNameFor(model => model.Body)
                     </th>

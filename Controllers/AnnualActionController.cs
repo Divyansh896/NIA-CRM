@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
+    [Authorize]
     public class AnnualActionController : ElephantController
     {
         private readonly NIACRMContext _context;
@@ -470,7 +472,7 @@ namespace NIA_CRM.Controllers
         }
 
         [HttpPost]
-        public IActionResult ExportSelectedAnnualActionsFields(List<string>? selectedFields)
+        public IActionResult ExportSelectedAnnualActionsFields(List<string>? selectedFields, string? SearchString, DateTime? DateFilter, bool applyFilters)
         {
             if (selectedFields == null || selectedFields.Count == 0)
             {
@@ -478,49 +480,70 @@ namespace NIA_CRM.Controllers
                 return RedirectToAction("Index");
             }
 
-            var annualActions = _context.AnnualActions.ToList();
+            // Fetch the filtered data
+            var annualActions = _context.AnnualActions.AsQueryable();
+
+            // Apply filters only if applyFilters is true
+            if (applyFilters)
+            {
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    annualActions = annualActions.Where(p => p.Name.ToUpper().Contains(SearchString.ToUpper()));
+                }
+
+                if (DateFilter.HasValue)
+                {
+                    annualActions = annualActions.Where(a => a.Date == DateFilter.Value.Date);
+                }
+            }
+
+            var filteredActions = annualActions.ToList(); // Execute query
 
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("AnnualActions");
                 int col = 1;
 
-                // Add selected column headers
+                // **Adding a proper header row**
+                worksheet.Cells[1, 1].Value = "Annual Actions Export";
+                worksheet.Cells[1, 1, 1, selectedFields.Count].Merge = true; // Merge header cells
+                worksheet.Cells[1, 1].Style.Font.Bold = true;
+                worksheet.Cells[1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+                int headerRow = 2; // Header row for column names
                 foreach (var field in selectedFields)
                 {
-                    var cell = worksheet.Cells[1, col];
+                    var cell = worksheet.Cells[headerRow, col];
                     cell.Value = field;
-
-                    // Make the header bold
                     cell.Style.Font.Bold = true;
-
+                    cell.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    cell.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray); // Adding color to header
                     col++;
                 }
 
-                int row = 2;
-                foreach (var action in annualActions)
+                int row = 3; // Data starts from row 3
+                foreach (var action in filteredActions)
                 {
                     col = 1;
 
                     if (selectedFields.Contains("ActionName"))
-                        worksheet.Cells[row, col++].Value = action.Name ?? "N/A"; // Replace with actual property name
+                        worksheet.Cells[row, col++].Value = action.Name ?? "N/A";
 
                     if (selectedFields.Contains("Note"))
-                        worksheet.Cells[row, col++].Value = action.Note ?? "N/A"; // Replace with actual property name
+                        worksheet.Cells[row, col++].Value = action.Note ?? "N/A";
 
                     if (selectedFields.Contains("Date"))
                         worksheet.Cells[row, col++].Value = action.Date.HasValue ? action.Date.Value.ToString("yyyy-MM-dd") : "N/A";
 
                     if (selectedFields.Contains("Assignee"))
-                        worksheet.Cells[row, col++].Value = action.Asignee ?? "N/A"; // Assuming Assignee is a navigation property
+                        worksheet.Cells[row, col++].Value = action.Asignee ?? "N/A";
 
                     if (selectedFields.Contains("AnnualStatus"))
-                        worksheet.Cells[row, col++].Value = action.AnnualStatus.ToString() ?? "N/A"; // Replace with actual property name
+                        worksheet.Cells[row, col++].Value = action.AnnualStatus.ToString() ?? "N/A";
 
                     row++;
                 }
 
-                // Auto-fit columns for better readability
                 worksheet.Cells.AutoFitColumns();
 
                 var stream = new MemoryStream();
@@ -531,7 +554,6 @@ namespace NIA_CRM.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
-
 
     }
 }

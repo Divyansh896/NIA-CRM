@@ -11,12 +11,7 @@
     </div>
 }
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
+
 
 <partial name="_addArchiveModal" />
 <partial name="_notificationModal" />
@@ -70,6 +65,7 @@
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="contacts-title">Contacts</h1>
 </div>
+<partial name="_ErrorMessage" />
 
 <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
     <div class="d-flex align-items-center" style="padding-bottom: 10px;">

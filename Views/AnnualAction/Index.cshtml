@@ -8,6 +8,8 @@
     <h1 class="mb-0" id="contacts-title">Annual Actions</h1>
 </div>
 
+<partial name="_ErrorMessage" />
+
 
 
 <!-- Export Fields Modal for Annual Actions -->
@@ -20,28 +22,43 @@
             </div>
             <div class="modal-body">
                 <form id="exportAnnualActionsForm" asp-action="ExportSelectedAnnualActionsFields" method="post">
+                    @* Hidden fields to pass the filters to the Export Controller *@
+                    <input type="hidden" name="SearchString" id="modalSearchString" value="@ViewData["SearchString"]">
+                    <input type="hidden" name="DateFilter" id="modalDateFilter" value="@ViewData["DateFilter"]">
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="includeFilters" name="applyFilters" value="true" checked>
+                        <label class="form-check-label" for="includeFilters">Include current filters in export</label>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="ActionName" checked> Action Name
+                            <input type="checkbox" id="ActionName" name="selectedFields" value="ActionName" checked>
+                            <label class="form-check-label" for="ActionName">Action Name</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="Note" checked> Note
+                            <input type="checkbox" id="Note" name="selectedFields" value="Note" checked>
+                            <label class="form-check-label" for="Note">Note</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="Date"> Date
+                            <input type="checkbox" id="Date" name="selectedFields" value="Date">
+                            <label class="form-check-label" for="Date">Date</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="Assignee"> Assignee
+                            <input type="checkbox" id="Assignee" name="selectedFields" value="Assignee">
+                            <label class="form-check-label" for="Assignee">Assignee</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="AnnualStatus"> Annual Status
+                            <input type="checkbox" id="AnnualStatus" name="selectedFields" value="AnnualStatus">
+                            <label class="form-check-label" for="AnnualStatus">Annual Status</label>
                         </div>
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="exportAnnualActionsForm" class="btn btn-dark">
+                <button type="submit" form="exportAnnualActionsForm" class="btn btn-dark" data-bs-dismiss="modal">
                     <i class="fa fa-file-excel text-white"></i> Export
                 </button>
             </div>
@@ -67,11 +84,11 @@
 {
     <div class="alert alert-success">@TempData["Success"]</div>
 }
-
+@* 
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger">@TempData["Error"]</div>
-}
+} *@
 
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
@@ -91,14 +108,14 @@
                         Filter/Search @ViewData["numberFilters"]
                     </button>
 
-                    <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
+                    @* <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
                         <i class="fa fa-file-excel text-white"></i>
                         Export filtered data to Excel
-                    </button>
+                    </button> *@
 
                     <!-- Export Button to Open Modal for Annual Actions -->
                     <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportAnnualActionsModal">
-                        <i class="fa fa-file-excel text-white"></i> Export Selected Fields
+                        <i class="fa fa-file-excel text-white"></i> Export To Excel
                     </button>
 
                 </div>
@@ -114,7 +131,7 @@
             @if (!string.IsNullOrEmpty(ViewData["SearchString"] as string))
             {
                 <span class="custom-filter-badge me-2">
-                    Annual Action Name: @ViewData["EventString"]
+                    Annual Action Name: @ViewData["SearchString"]
                     <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('SearchString')">x</button>
                 </span>
             }
@@ -353,4 +370,22 @@
 
 
     </script>
-    }
+
+@* Get and Set the values of the filter fields in the modal script *@
+    @* <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("exportAnnualActionsModal").addEventListener("show.bs.modal", function () {
+                // Get filter values from the main form
+                let searchString = document.getElementById("search-name")?.value || "";
+                let dateFilter = document.getElementById("filter-date")?.value || "";
+
+                console.log(searchString, dateFilter);
+                // Assign values to modal's hidden fields
+                document.getElementById("modalSearchString").value = searchString;
+                document.getElementById("modalDateFilter").value = dateFilter;
+            });
+        });
+    </script> *@
+
+}
+

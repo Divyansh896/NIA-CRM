@@ -12,10 +12,11 @@
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="member-title">Members</h1>
 </div>
+<partial name="_ErrorMessage" />
 
 <form asp-action="ImportMembersFromExcel" method="post" enctype="multipart/form-data">
     <div class="d-flex align-items-center" style="padding-bottom: 10px;">
-        
+
         <input type="file" name="file" class="form-control" required />
         <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
             <i class="fa fa-file-import"></i> Import Excel
@@ -33,12 +34,6 @@
     </div>
 }
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
 
 
 
@@ -52,37 +47,125 @@
             </div>
             <div class="modal-body">
                 <form id="exportForm" asp-action="ExportSelectedFields" method="post">
+                    @* Hidden fields to pass the filters to the Export Controller *@
+                    <input type="hidden" name="SearchString" id="modalSearchString" value="@ViewData["SearchString"]">
+                    <input type="hidden" name="JoinDate" id="modalJoinDate" value="@ViewData["JoinDate"]">
+                    <input type="hidden" name="MembershipType" id="modalMembershipType" value="@ViewData["MembershipTypesFilter"]">
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="includeFilters" name="applyFilters" value="true" checked>
+                        <label class="form-check-label" for="includeFilters">Include current filters in export</label>
+                    </div>
+
                     <div class="row">
+                        <!-- Member Section Header -->
+                        <div class="col-md-12 mt-4">
+                            <h5>Member Information</h5>
+                        </div>
+
+                        <!-- Member Fields -->
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="MemberID" checked> Member ID
+                            <input type="checkbox" id="chkMemberName" name="selectedFields" value="MemberName" checked>
+                            <label for="chkMemberName">Member Name</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="MemberName" checked> Member Name
+                            <input type="checkbox" id="chkMemberSize" name="selectedFields" value="MemberSize" checked>
+                            <label for="chkMemberSize">Member Size</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="City"> City
+                            <input type="checkbox" id="chkWebsiteUrl" name="selectedFields" value="WebsiteUrl" checked>
+                            <label for="chkWebsiteUrl">Website Url</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="JoinDate"> Join Date
+                            <input type="checkbox" id="chkJoinDate" name="selectedFields" value="JoinDate" checked>
+                            <label for="chkJoinDate">Join Date</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="MembershipType"> Membership Type
+                            <input type="checkbox" id="chkMembershipType" name="selectedFields" value="MembershipType" checked>
+                            <label for="chkMembershipType">Membership Type</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="Address"> Address
+                            <input type="checkbox" id="chkMemberNote" name="selectedFields" value="MemberNote" checked>
+                            <label for="chkMemberNote">Member Note</label>
+                        </div>
+
+                        <!-- Contact Section Header -->
+                        <div class="col-md-12 mt-4">
+                            <h5>Contact Information</h5>
+                        </div>
+
+                        <!-- Contact Fields -->
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactFullName" name="selectedFields" value="ContactFullName" checked>
+                            <label for="chkContactFullName">Contact Full Name</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactTitle" name="selectedFields" value="ContactTitle" checked>
+                            <label for="chkContactTitle">Contact Title</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="PhoneNumber"> Phone Number
+                            <input type="checkbox" id="chkContactDepartment" name="selectedFields" value="ContactDepartment" checked>
+                            <label for="chkContactDepartment">Contact Department</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="EmailAddress"> Email Address
+                            <input type="checkbox" id="chkContactEmail" name="selectedFields" value="ContactEmail" checked>
+                            <label for="chkContactEmail">Contact Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactPhone" name="selectedFields" value="ContactPhone" checked>
+                            <label for="chkContactPhone">Contact Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactLinkedIn" name="selectedFields" value="ContactLinkedIn" checked>
+                            <label for="chkContactLinkedIn">Contact LinkedIn</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactNote" name="selectedFields" value="ContactNote" checked>
+                            <label for="chkContactNote">Contact Note</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkIsVip" name="selectedFields" value="IsVip" checked>
+                            <label for="chkIsVip">Is VIP</label>
+                        </div>
+
+                        <!-- Address Section Header -->
+                        <div class="col-md-12 mt-4">
+                            <h5>Address Information</h5>
+                        </div>
+
+                        <!-- Address Fields -->
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkAddressLine1" name="selectedFields" value="AddressLine1" checked>
+                            <label for="chkAddressLine1">Address Line 1</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkAddressLine2" name="selectedFields" value="AddressLine2" checked>
+                            <label for="chkAddressLine2">Address Line 2</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkAddressCity" name="selectedFields" value="City" checked>
+                            <label for="chkAddressCity">Address City</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkStateProvince" name="selectedFields" value="StateProvince" checked>
+                            <label for="chkStateProvince">Address Province</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkPostalCode" name="selectedFields" value="PostalCode" checked>
+                            <label for="chkPostalCode">Postal Code</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkFormattedAddress" name="selectedFields" value="FormattedAddress" checked>
+                            <label for="chkFormattedAddress">Formatted Address</label>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="exportForm" class="btn btn-dark">
+                <button type="submit" form="exportForm" class="btn btn-dark" data-bs-dismiss="modal">
                     <i class="fa fa-file-excel text-white"></i> Export
                 </button>
             </div>
@@ -108,30 +191,20 @@
                     Filter/Search @ViewData["numberFilters"]
                 </button>
 
-                <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
+               @*  <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
                     <i class="fa fa-file-excel text-white"></i>
                     Export filtered data to Excel
-                </button>
+                </button> *@
 
                 <!-- Export Button to Open Modal -->
                 <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exportModal">
-                    <i class="fa fa-file-excel text-white"></i> Export Selected Fields
+                    <i class="fa fa-file-excel text-white"></i> Export To Excel
                 </button>
-                
+
             </div>
             <a class="btn btn-primary" asp-action="Create">+ Add Member</a>
         </div>
 
-
-
-
-
-        @if (TempData["ErrorMessage"] != null)
-        {
-            <div class="alert alert-danger">
-                @TempData["ErrorMessage"]
-            </div>
-        }
 
 
 
@@ -213,7 +286,7 @@
                     @*         }) *@
                     @*     <span id="organization-name-help" class="sr-only">Type the organization name to filter.</span> *@
                     @* </div> *@
-                   
+
                     <!-- Buttons -->
                     <div class="form-group col-md-4 d-flex align-items-end mt-2">
                         <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
