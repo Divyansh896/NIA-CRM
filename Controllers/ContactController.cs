@@ -47,9 +47,9 @@ namespace NIA_CRM.Controllers
                                      .ThenInclude(mc => mc.Member)
                                      .Include(m => m.ContactCancellations)
                                      .Where(c => !c.ContactCancellations.Any(cc => cc.IsCancelled))  // Only include contacts with no cancellations or cancellations that are not cancelled
-                                     //.GroupBy(comparer => new { comparer.FirstName, comparer.LastName })
+                                                                                                     //.GroupBy(comparer => new { comparer.FirstName, comparer.LastName })
                                      .AsQueryable();
-            
+
             if (Departments != null)
             {
                 contacts = contacts.Where(c => c.Department == Departments);
@@ -359,7 +359,7 @@ namespace NIA_CRM.Controllers
                 .Include(c => c.MemberContacts)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            
+
 
             if (contactToUpdate == null)
             {
@@ -677,7 +677,7 @@ namespace NIA_CRM.Controllers
 
 
         [HttpPost]
-        public IActionResult ExportSelectedContactsFields(List<string>? selectedFields)
+        public IActionResult ExportSelectedContactsFields(List<string>? selectedFields, string? SearchString, string? Title, string? Department, string? VIP, bool applyFilters)
         {
             if (selectedFields == null || selectedFields.Count == 0)
             {
@@ -685,48 +685,100 @@ namespace NIA_CRM.Controllers
                 return RedirectToAction("Index");
             }
 
-            var contacts = _context.Contacts
+            // Apply filters if they are provided
+            var contactsQuery = _context.Contacts
                 .Include(c => c.MemberContacts)
-                .ThenInclude(m => m.Member)// Assuming Contact has a navigation property to Member
-                .ToList();
+                .ThenInclude(m => m.Member)
+                .AsQueryable();// Assuming Contact has a navigation property to Member
+
+            if (applyFilters)
+            {
+                // Filter by SearchString
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    contactsQuery = contactsQuery.Where(c => c.Summary.ToUpper().Contains(SearchString.ToUpper()));
+                }
+
+                // Filter by Title
+                if (!string.IsNullOrEmpty(Title))
+                {
+                    contactsQuery = contactsQuery.Where(c => c.Title.ToUpper().Contains(Title.ToUpper()));
+                }
+
+                // Filter by Department
+                if (!string.IsNullOrEmpty(Department))
+                {
+                    contactsQuery = contactsQuery.Where(c => c.Department.ToUpper().Contains(Department.ToUpper()));
+                }
+
+                // Filter by VIP status
+                if (!string.IsNullOrEmpty(VIP))
+                {
+                    contactsQuery = contactsQuery.Where(c => c.IsVip);
+                }
+            }
+            
+
+            var contacts = contactsQuery.ToList();
 
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("Contacts");
                 int col = 1;
 
-                // Add selected column headers
+                // **Adding a proper header row**
+                worksheet.Cells[1, 1].Value = "Contact Export";
+                worksheet.Cells[1, 1, 1, selectedFields.Count].Merge = true; // Merge header cells
+                worksheet.Cells[1, 1].Style.Font.Bold = true;
+                worksheet.Cells[1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+                int headerRow = 2; // Header row for column names
                 foreach (var field in selectedFields)
                 {
-                    var cell = worksheet.Cells[1, col];
+                    var cell = worksheet.Cells[headerRow, col];
                     cell.Value = field;
-
-                    // Make the header bold
                     cell.Style.Font.Bold = true;
-
+                    cell.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    cell.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray); // Adding color to header
                     col++;
                 }
 
-
-                int row = 2;
+                int row = 3; // Data starts from row 3
                 foreach (var contact in contacts)
                 {
                     col = 1;
 
-                    if (selectedFields.Contains("ContactName"))
-                        worksheet.Cells[row, col++].Value = contact.Summary ?? "N/A"; // Replace with actual property name
+                    // Check each selected field and export the corresponding data
+
+                    if (selectedFields.Contains("ContactFirstName"))
+                        worksheet.Cells[row, col++].Value = contact.FirstName ?? "N/A";
+
+                    if (selectedFields.Contains("ContactMiddleName"))
+                        worksheet.Cells[row, col++].Value = contact.MiddleName ?? "N/A";
+
+                    if (selectedFields.Contains("ContactLastName"))
+                        worksheet.Cells[row, col++].Value = contact.LastName ?? "N/A";
+
+                    if (selectedFields.Contains("ContactTitle"))
+                        worksheet.Cells[row, col++].Value = contact.Title ?? "N/A";
+
+                    if (selectedFields.Contains("ContactDepartment"))
+                        worksheet.Cells[row, col++].Value = contact.Department ?? "N/A";
 
                     if (selectedFields.Contains("Email"))
-                        worksheet.Cells[row, col++].Value = contact.Email ?? "N/A"; // Replace with actual property name
+                        worksheet.Cells[row, col++].Value = contact.Email ?? "N/A";
 
                     if (selectedFields.Contains("Phone"))
-                        worksheet.Cells[row, col++].Value = contact.Phone ?? "N/A"; // Replace with actual property name
+                        worksheet.Cells[row, col++].Value = contact.Phone ?? "N/A";
 
                     if (selectedFields.Contains("LinkedInUrl"))
-                        worksheet.Cells[row, col++].Value = contact.LinkedInUrl ?? "N/A"; // Replace with actual property name
+                        worksheet.Cells[row, col++].Value = contact.LinkedInUrl ?? "N/A";
 
                     if (selectedFields.Contains("IsVip"))
-                        worksheet.Cells[row, col++].Value = contact.IsVip ? "Yes" : "No"; // Replace with actual property name
+                        worksheet.Cells[row, col++].Value = contact.IsVip ? "Yes" : "No";
+
+                    if (selectedFields.Contains("ContactNote"))
+                        worksheet.Cells[row, col++].Value = contact.ContactNote ?? "N/A";
 
                     if (selectedFields.Contains("MemberName"))
                     {
@@ -739,6 +791,7 @@ namespace NIA_CRM.Controllers
                         // If there are multiple members, join them with a comma, or display "N/A" if no member names are available.
                         worksheet.Cells[row, col++].Value = memberNames.Any() ? string.Join(", ", memberNames) : "N/A";
                     }
+
 
                     row++;
                 }

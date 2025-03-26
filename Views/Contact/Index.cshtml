@@ -29,31 +29,69 @@
             </div>
             <div class="modal-body">
                 <form id="exportContactsForm" asp-action="ExportSelectedContactsFields" method="post">
+                    @* Hidden fields to pass the filters to the Export Controller *@
+                    <input type="hidden" name="SearchString" id="modalSearchString" value="@ViewData["SearchString"]">
+                    <input type="hidden" name="Title" id="modalTitleFilter" value="@ViewData["TitlesFilter"]">
+                    <input type="hidden" name="Department" id="modalDepartmentFilter" value="@ViewData["DepartmentsFilter"]">
+                    <input type="hidden" name="VIP" id="modalVipFilter" value="@ViewData["IsVIPFilter"]">
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="includeFilters" name="applyFilters" value="true" checked>
+                        <label class="form-check-label" for="includeFilters">Include current filters in export</label>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="ContactName" checked> Contact Name
+                            <input type="checkbox" id="chkContactFirstName" name="selectedFields" value="ContactFirstName" checked>
+                            <label for="chkContactFirstName">Contact First Name</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="Email" checked> Email
+                            <input type="checkbox" id="chkContactMiddleName" name="selectedFields" value="ContactMiddleName" checked>
+                            <label for="chkContactMiddleName">Contact Middle Name</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="Phone"> Phone
+                            <input type="checkbox" id="chkContactLastName" name="selectedFields" value="ContactLastName" checked>
+                            <label for="chkContactLastName">Contact Last Name</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="LinkedInUrl"> LinkedIn URL
+                            <input type="checkbox" id="chkContactTitle" name="selectedFields" value="ContactTitle" checked>
+                            <label for="chkContactTitle">Contact Title</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="IsVip"> Is VIP
+                            <input type="checkbox" id="chkContactDepartment" name="selectedFields" value="ContactDepartment" checked>
+                            <label for="chkContactDepartment">Contact Department</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="MemberName"> Member
+                            <input type="checkbox" id="chkEmail" name="selectedFields" value="Email" checked>
+                            <label for="chkEmail">Email</label>
                         </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkPhone" name="selectedFields" value="Phone">
+                            <label for="chkPhone">Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkLinkedInUrl" name="selectedFields" value="LinkedInUrl">
+                            <label for="chkLinkedInUrl">LinkedIn URL</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkIsVip" name="selectedFields" value="IsVip">
+                            <label for="chkIsVip">Is VIP</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactNote" name="selectedFields" value="ContactNote" checked>
+                            <label for="chkContactNote">Contact Note</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkMemberName" name="selectedFields" value="MemberName">
+                            <label for="chkMemberName">Member Name</label>
+                        </div>
+
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="exportContactsForm" class="btn btn-dark">
+                <button type="submit" form="exportContactsForm" class="btn btn-dark" data-bs-dismiss="modal">
                     <i class="fa fa-file-excel text-white"></i> Export
                 </button>
             </div>
@@ -103,10 +141,10 @@
                     <button type="button" class="btn btn-dark me-2 mb-2" id="toggleCheckboxes">
                         Enable Contact Selection
                     </button>
-                    <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
+                    @* <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
                         <i class="fa fa-file-excel text-white"></i>
                         Export filtered data to Excel
-                    </button>
+                    </button> *@
                     <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportContactsModal">
                         <i class="fa fa-file-excel text-white"></i> Export Selected Fields
                     </button>
