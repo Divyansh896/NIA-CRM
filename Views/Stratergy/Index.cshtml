@@ -34,6 +34,18 @@
             </div>
             <div class="modal-body">
                 <form id="exportStrategiesForm" asp-action="ExportSelectedStrategiesFields" method="post">
+                    <!-- Hidden fields for the filters -->
+                    <input type="hidden" name="SearchString" id="hiddenSearchString" value="@ViewData["SearchString"]" />
+                    <input type="hidden" name="DateFilter" id="hiddenDateFilter" value="@ViewData["DateFilter"]" />
+                    <input type="hidden" name="StrategyAssigneeFilter" id="hiddenStrategyAssigneeFilter" value="@ViewData["StrategyAssigneeFilter"]" />
+                    <input type="hidden" name="StrategyTermFilter" id="hiddenStrategyTermFilter" value="@ViewData["StrategyTermFilter"]" />
+                    <input type="hidden" name="StrategyStatusFilter" id="hiddenStrategyStatusFilter" value="@ViewData["StrategyStatusFilter"]" />
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="includeFilters" name="applyFilters" value="true" checked>
+                        <label class="form-check-label" for="includeFilters">Include current filters in export</label>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <input type="checkbox" name="selectedFields" value="StrategyName" checked> Strategy Name
@@ -58,7 +70,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="exportStrategiesForm" class="btn btn-dark">
+                <button type="submit" form="exportStrategiesForm" class="btn btn-dark" data-bs-dismiss="modal">
                     <i class="fa fa-file-excel text-white"></i> Export
                 </button>
             </div>
@@ -92,14 +104,14 @@
                         Filter/Search @ViewData["numberFilters"]
                     </button>
 
-                    <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
+                   @*  <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
                         <i class="fa fa-file-excel text-white"></i>
                         Export filtered data to Excel
-                    </button>
+                    </button> *@
 
                     <!-- Export Button to Open Strategy Modal -->
                     <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportStrategiesModal">
-                        <i class="fa fa-file-excel text-white"></i> Export Selected Fields for Strategy
+                        <i class="fa fa-file-excel text-white"></i> Export To Excel
                     </button>
 
                 </div>
@@ -109,13 +121,14 @@
         </div>
     </div>
 
+    <!-- Filter clear badges -->
     @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
     {
         <div class="filters-container mt-2">
             @if (!string.IsNullOrEmpty(ViewData["SearchString"] as string))
             {
                 <span class="custom-filter-badge me-2">
-                    Strategy Term: @ViewData["EventString"]
+                    Member Name: @ViewData["SearchString"]
                     <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('SearchString')">x</button>
                 </span>
             }
@@ -126,20 +139,56 @@
                     <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('DateFilter')">x</button>
                 </span>
             }
+            @if (!string.IsNullOrEmpty(ViewData["StrategyAssigneeFilter"] as string))
+            {
+                <span class="custom-filter-badge me-2">
+                    Assignee: @ViewData["StrategyAssigneeFilter"]
+                    <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('StrategyAssigneeFilter')">x</button>
+                </span>
+            }
+            @if (ViewData["StrategyTermFilter"] != null)
+            {
+                <span class="custom-filter-badge me-2">
+                    Strategy Term: @ViewData["StrategyTermFilter"]
+                    <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('StrategyTermFilter')">x</button>
+                </span>
+            }
+
+            @if (ViewData["StrategyStatusFilter"] != null)
+            {
+                <span class="custom-filter-badge me-2">
+                    Strategy Status: @ViewData["StrategyStatusFilter"]
+                    <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('StrategyStatusFilter')">x</button>
+                </span>
+            }
+
+
         </div>
     }
 
-    <div>
-        <label class="control-label">@ViewData["records"]</label>
-    </div>
+
 
     <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
         <div class="card card-body bg-light">
             <div class="row">
                 <div class="form-group col-md-3">
                     <label for="search-name" class="control-label">Search By Strategy Name:</label>
-                    @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name" })
+                    @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name", placeholder = "Enter Strategy Name" })
                 </div>
+                <div class="form-group col-md-3">
+                    <label for="StrategyAssigneeFilter">Search By Assignee:</label>
+                    @Html.TextBox("StrategyAssigneeFilter", null, new { @class = "form-control", id = "StrategyAssigneeFilter", placeholder = "Enter Assignee Name" })
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label>Filter by Strategy Term:</label>
+                    @Html.DropDownList("StrategyTermFilter", new SelectList(Enum.GetValues(typeof(StrategyTerm))), "All Strategy Terms", new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Filter by Strategy Status:</label>
+                    @Html.DropDownList("StrategyStatusFilter", new SelectList(Enum.GetValues(typeof(StrategyStatus))), "All Strategy Statuses", new { @class = "form-control" })
+                </div>
+
 
                 <div class="form-group col-md-3">
                     <label for="filter-date" class="control-label">Filter by Create Date:</label>
@@ -152,6 +201,11 @@
             </div>
         </div>
     </div>
+    
+    <div>
+        <label class="control-label">@ViewData["records"]</label>
+    </div>
+
     <table class="table table-bordered table-striped" id="event-table" aria-labelledby="strategies">
         <caption class="sr-only">Strategy table showing filtered results</caption>
         <thead class="thead-dark">

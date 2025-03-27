@@ -26,7 +26,7 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Opportunity
-        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? status, string? priority, string? SearchString, string? actionButton,
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? status, string? priority, string? SearchString, string? OpportunityAction, string? Interaction,  string? actionButton,
                                               string sortDirection = "desc", string sortField = "Opportunity Name")
         {
             string[] sortOptions = new[] { "Opportunity Name", "POC", "Interaction", "Status", "Priority", "Action" };  // You can add more sort options if needed
@@ -36,17 +36,27 @@ namespace NIA_CRM.Controllers
 
 
             var opportunities = _context.Opportunities.AsQueryable();
-            if (!string.IsNullOrEmpty(status) && Enum.TryParse(status, out OpportunityStatus selectedStatus))
+
+            // Filter by Opportunity Status
+            if (!string.IsNullOrEmpty(status))
             {
-                opportunities = opportunities.Where(c => c.OpportunityStatus == selectedStatus);
-                numberFilters++;
-                ViewData["StatusFilter"] = selectedStatus;
+                if (Enum.TryParse<OpportunityStatus>(status, out var selectedStatus))
+                {
+                    opportunities = opportunities.Where(c => c.OpportunityStatus == selectedStatus);
+                    numberFilters++;
+                    ViewData["StatusFilter"] = selectedStatus;
+                }
             }
-            if (!string.IsNullOrEmpty(priority) && Enum.TryParse(priority, out OpportunityPriority selectedPriority))
+
+            // Filter by Opportunity Priority
+            if (!string.IsNullOrEmpty(priority))
             {
-                opportunities = opportunities.Where(c => c.OpportunityPriority == selectedPriority);
-                numberFilters++;
-                ViewData["PriorityFilter"] = selectedPriority;
+                if (Enum.TryParse<OpportunityPriority>(priority, out var selectedPriority))
+                {
+                    opportunities = opportunities.Where(c => c.OpportunityPriority == selectedPriority);
+                    numberFilters++;
+                    ViewData["PriorityFilter"] = selectedPriority;
+                }
             }
 
             if (!String.IsNullOrEmpty(SearchString))
@@ -54,6 +64,22 @@ namespace NIA_CRM.Controllers
                 opportunities = opportunities.Where(p => p.OpportunityName.ToUpper().Contains(SearchString.ToUpper()));
                 numberFilters++;
                 ViewData["SearchString"] = SearchString;
+
+            }
+
+            if (!String.IsNullOrEmpty(OpportunityAction))
+            {
+                opportunities = opportunities.Where(p => p.OpportunityAction.ToUpper().Contains(OpportunityAction.ToUpper()));
+                numberFilters++;
+                ViewData["OpportunityActionFilter"] = OpportunityAction;
+
+            }
+
+            if (!String.IsNullOrEmpty(Interaction))
+            {
+                opportunities = opportunities.Where(p => p.Interaction.ToUpper().Contains(Interaction.ToUpper()));
+                numberFilters++;
+                ViewData["InteractionFilter"] = Interaction;
 
             }
 
@@ -450,7 +476,7 @@ namespace NIA_CRM.Controllers
 
 
         [HttpPost]
-        public IActionResult ExportSelectedOpportunitiesFields(List<string>? selectedFields)
+        public IActionResult ExportSelectedOpportunitiesFields(List<string>? selectedFields, string? status, string? priority, string? SearchString, string? OpportunityAction, string? Interaction, bool applyFilters)
         {
             if (selectedFields == null || selectedFields.Count == 0)
             {
@@ -458,29 +484,79 @@ namespace NIA_CRM.Controllers
                 return RedirectToAction("Index");
             }
 
-            var opportunities = _context.Opportunities.ToList();
+            var opportunities = _context.Opportunities.AsQueryable();
+
+            // Apply filters only if applyFilters is true
+            if (applyFilters)
+            {
+                // Filter by Opportunity Status
+                if (!string.IsNullOrEmpty(status))
+                {
+                    if (Enum.TryParse<OpportunityStatus>(status, out var selectedStatus))
+                    {
+                        opportunities = opportunities.Where(o => o.OpportunityStatus == selectedStatus);
+                    }
+                }
+
+                // Filter by Opportunity Priority
+                if (!string.IsNullOrEmpty(priority))
+                {
+                    if (Enum.TryParse<OpportunityPriority>(priority, out var selectedPriority))
+                    {
+                        opportunities = opportunities.Where(o => o.OpportunityPriority == selectedPriority);
+                    }
+                }
+
+
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    opportunities = opportunities.Where(o => o.OpportunityName.ToUpper().Contains(SearchString.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(OpportunityAction))
+                {
+                    opportunities = opportunities.Where(o => o.OpportunityAction.ToUpper().Contains(OpportunityAction.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(Interaction))
+                {
+                    opportunities = opportunities.Where(o => o.Interaction.ToUpper().Contains(Interaction.ToUpper()));
+                }
+            }
+
+            var Filteredopportunities = opportunities.ToList();  // Convert to list after filtering
 
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("Opportunities");
                 int col = 1;
 
-                // Add selected column headers
+                // **Adding a proper header row**
+                worksheet.Cells[1, 1].Value = "Opportunities Export";
+                worksheet.Cells[1, 1, 1, selectedFields.Count].Merge = true; // Merge header cells
+                worksheet.Cells[1, 1].Style.Font.Bold = true;
+                worksheet.Cells[1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+                int headerRow = 2; // Header row for column names
                 foreach (var field in selectedFields)
                 {
-                    worksheet.Cells[1, col].Value = field;
+                    var cell = worksheet.Cells[headerRow, col];
+                    cell.Value = field;
+                    cell.Style.Font.Bold = true;
+                    cell.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    cell.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray); // Adding color to header
                     col++;
                 }
 
-                int row = 2;
-                foreach (var opportunity in opportunities)
+                int row = 3; // Data starts from row 3
+                foreach (var opportunity in Filteredopportunities)
                 {
                     col = 1;
 
                     if (selectedFields.Contains("OpportunityName"))
                         worksheet.Cells[row, col++].Value = opportunity.OpportunityName ?? "N/A";
 
-                    if (selectedFields.Contains("Action"))
+                    if (selectedFields.Contains("OpportunityAction")) 
                         worksheet.Cells[row, col++].Value = opportunity.OpportunityAction ?? "N/A";
 
                     if (selectedFields.Contains("POC"))
@@ -515,6 +591,7 @@ namespace NIA_CRM.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
+
 
     }
 }

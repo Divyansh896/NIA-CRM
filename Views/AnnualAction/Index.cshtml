@@ -24,7 +24,10 @@
                 <form id="exportAnnualActionsForm" asp-action="ExportSelectedAnnualActionsFields" method="post">
                     @* Hidden fields to pass the filters to the Export Controller *@
                     <input type="hidden" name="SearchString" id="modalSearchString" value="@ViewData["SearchString"]">
+                    <input type="hidden" name="AssigneeFilter" id="modalAssigneeFilter" value="@ViewData["AssigneeFilter"]">
+                    <input type="hidden" name="AnnualStatusFilter" id="modalAnnualStatusFilter" value="@ViewData["AnnualStatusFilter"]">
                     <input type="hidden" name="DateFilter" id="modalDateFilter" value="@ViewData["DateFilter"]">
+
 
                     <div class="form-check mb-3">
                         <input type="checkbox" class="form-check-input" id="includeFilters" name="applyFilters" value="true" checked>
@@ -41,15 +44,15 @@
                             <label class="form-check-label" for="Note">Note</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" id="Date" name="selectedFields" value="Date">
+                            <input type="checkbox" id="Date" name="selectedFields" value="Date" checked>
                             <label class="form-check-label" for="Date">Date</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" id="Assignee" name="selectedFields" value="Assignee">
+                            <input type="checkbox" id="Assignee" name="selectedFields" value="Assignee" checked>
                             <label class="form-check-label" for="Assignee">Assignee</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" id="AnnualStatus" name="selectedFields" value="AnnualStatus">
+                            <input type="checkbox" id="AnnualStatus" name="selectedFields" value="AnnualStatus" checked>
                             <label class="form-check-label" for="AnnualStatus">Annual Status</label>
                         </div>
                     </div>
@@ -135,6 +138,21 @@
                     <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('SearchString')">x</button>
                 </span>
             }
+            @if (!string.IsNullOrEmpty(ViewData["AssigneeFilter"] as string))
+            {
+                <span class="custom-filter-badge me-2">
+                    Assignee: @ViewData["AssigneeFilter"]
+                    <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('Assignee')">x</button>
+                </span>
+            }
+            @if (!string.IsNullOrEmpty(ViewData["AnnualStatusFilter"] as string))
+            {
+                <span class="custom-filter-badge me-2">
+                    Annual Status: @ViewData["AnnualStatusFilter"]
+                    <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('AnnualStatusFilter')">x</button>
+                </span>
+            }
+
             @if (ViewData["DateFilter"] != null)
             {
                 <span class="custom-filter-badge me-2">
@@ -145,16 +163,23 @@
         </div>
     }
 
-    <div>
-        <label class="control-label">@ViewData["records"]</label>
-    </div>
+    
 
     <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
         <div class="card card-body bg-light">
             <div class="row">
                 <div class="form-group col-md-3">
                     <label for="search-name" class="control-label">Search By Annual Action Name:</label>
-                    @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name" })
+                    @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name", placeholder = "Enter Annual Action Name" })
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label for="search-assignee" class="control-label">Search By Assignee:</label>
+                    @Html.TextBox("Assignee", null, new { @class = "form-control", id = "search-assignee", placeholder = "Enter Assignee Name" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Filter by Annual Status:</label>
+                    @Html.DropDownList("AnnualStatusFilter", new SelectList(Enum.GetValues(typeof(AnnualStatus))), "All Annual Statuses", new { @class = "form-control" })
                 </div>
 
                 <div class="form-group col-md-3">
@@ -168,6 +193,11 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <label class="control-label">@ViewData["records"]</label>
+    </div>
+
     <table class="table table-bordered table-striped" id="event-table" aria-labelledby="strategies">
         <caption class="sr-only">Strategy table showing filtered results</caption>
         <thead class="thead-dark">

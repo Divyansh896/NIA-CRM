@@ -6,6 +6,8 @@
 
 <h1>Events</h1>
 
+<partial name="_ErrorMessage" />
+<partial name="_Notification" />
 
 
 <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
@@ -29,18 +31,37 @@
             <div class="modal-body">
                 <!-- Export Fields Selection Form -->
                 <form id="exportAnnualActionsForm" method="post" asp-action="ExportSelectedMemberEventsFields">
+                    @* Hidden fields to pass the filters to the Export Controller *@
+                    <input type="hidden" name="SearchString" id="modalSearchString" value="@ViewData["SearchString"]">
+                    <input type="hidden" name="DateFilter" id="modalDateFilter" value="@ViewData["DateFilter"]">
+                    <input type="hidden" name="Participants" id="modalParticipants" value="@ViewData["ParticipantsFilter"]">
+                    <input type="hidden" name="EventLocations" id="modalEventLocations" value="@ViewData["EventLocationFilter"]">
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="includeFilters" name="applyFilters" value="true" checked>
+                        <label class="form-check-label" for="includeFilters">Include current filters in export</label>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="EventName" checked> Event Name
+                            <input type="checkbox" id="chkMemberName" name="selectedFields" value="MemberName" checked>
+                            <label for="chkMemberName">Member Name</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="EventDescription"> Event Description
+                            <input type="checkbox" name="selectedFields" value="EventName" id="EventName" checked>
+                            <label for="EventName">Event Name</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="EventLocation"> Event Location
+                            <input type="checkbox" name="selectedFields" value="EventDescription" id="EventDescription" checked>
+                            <label for="EventDescription">Event Description</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="EventDate"> Event Date
+                            <input type="checkbox" name="selectedFields" value="EventLocation" id="EventLocation" checked>
+                            <label for="EventLocation">Event Location</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" name="selectedFields" value="EventDate" id="EventDate" checked>
+                            <label for="EventDate">Event Date</label>
                         </div>
 
                     </div>
@@ -48,7 +69,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" form="exportAnnualActionsForm" class="btn btn-dark">
+                <button type="submit" form="exportAnnualActionsForm" class="btn btn-dark" data-bs-dismiss="modal">
                     <i class="fa fa-file-excel text-white"></i> Export
                 </button>
             </div>
@@ -60,11 +81,6 @@
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
-}
-
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">@TempData["Error"]</div>
 }
 
 
@@ -87,14 +103,14 @@
                     </button>
 
 
-                    <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
+                    @* <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
                         <i class="fa fa-file-excel text-white"></i>
                         Export filtered data to Excel
-                    </button>
+                    </button> *@
 
                     <!-- Export Button to Open Modal -->
                     <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportAnnualActionsModal">
-                        <i class="fa fa-file-excel text-white"></i> Export Selected Fields
+                        <i class="fa fa-file-excel text-white"></i> Export To Excel
                     </button>
                 </div>
                 <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add Event</a>
@@ -109,7 +125,7 @@
             @if (!string.IsNullOrEmpty(ViewData["SearchString"] as string))
             {
                 <span class="custom-filter-badge me-2">
-                    Event Name: @ViewData["EventString"]
+                    Event Name: @ViewData["SearchString"]
                     <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('SearchString')">x</button>
                 </span>
             }
@@ -120,16 +136,49 @@
                     <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('DateFilter')">x</button>
                 </span>
             }
+            @if (ViewData["ParticipantsFilter"] != null)
+            {
+                <span class="custom-filter-badge me-2">
+                    Participants: @ViewData["ParticipantsFilter"]
+                    <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('Participants')">x</button>
+                </span>
+            }
+            @if (ViewData["EventLocationFilter"] != null)
+            {
+                <span class="custom-filter-badge me-2">
+                    Event Location: @ViewData["EventLocationFilter"]
+                    <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('EventLocations')">x</button>
+                </span>
+            }
+
+
         </div>
     }
 
     <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
         <div class="card card-body bg-light">
             <div class="row">
+                <!-- Search By Name -->
                 <div class="form-group col-md-3">
                     <label for="search-name" class="control-label">Search By Name:</label>
-                    @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name" })
+                    @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name", placeholder = "Enter name..." })
                 </div>
+
+                <!-- Search By Participants -->
+                <div class="form-group col-md-3">
+                    <label for="search-participants" class="control-label">Search By Participants:</label>
+                    @Html.TextBox("Participants", null, new { @class = "form-control", id = "search-participants", placeholder = "Enter participant name..." })
+                </div>
+
+
+                <!-- Filter by Event Locations -->
+                <div class="form-group col-md-4">
+                    <label for="EventLocations" class="control-label">Filter by Event Locations:</label>
+                    @Html.DropDownList("EventLocations", ViewData["EventLocations"] as SelectList, "All Event Locations",
+                             new { @class = "form-control" })
+                    <span id="event-locations-help" class="sr-only">Select Event Locations to filter members by.</span>
+                </div>
+
                 <div class="form-group col-md-3">
                     <label for="filter-date" class="control-label">Filter by Event Date:</label>
                     <input type="date" name="date" class="form-control" id="filter-date" value="@ViewData["DateFilter"]" />

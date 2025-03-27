@@ -51,6 +51,9 @@
                     <input type="hidden" name="SearchString" id="modalSearchString" value="@ViewData["SearchString"]">
                     <input type="hidden" name="JoinDate" id="modalJoinDate" value="@ViewData["JoinDate"]">
                     <input type="hidden" name="MembershipType" id="modalMembershipType" value="@ViewData["MembershipTypesFilter"]">
+                    <input type="hidden" name="Sectors" id="modalSectors" value="@ViewData["SectorsFilter"]">
+                    <input type="hidden" name="NAICSCodes" id="modalNAICSCodes" value="@ViewData["NAICSCodesFilter"]">
+                    <input type="hidden" name="Cities" id="modalCities" value="@ViewData["CitiesFilter"]">
 
                     <div class="form-check mb-3">
                         <input type="checkbox" class="form-check-input" id="includeFilters" name="applyFilters" value="true" checked>
@@ -87,6 +90,16 @@
                         <div class="col-md-6">
                             <input type="checkbox" id="chkMemberNote" name="selectedFields" value="MemberNote" checked>
                             <label for="chkMemberNote">Member Note</label>
+                        </div>
+
+                        <!-- New Filters for Sectors and NAICSCodes -->
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkSectors" name="selectedFields" value="Sectors" checked>
+                            <label for="chkSectors">Sectors</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkNAICSCodes" name="selectedFields" value="NAICSCodes" checked>
+                            <label for="chkNAICSCodes">NAICS Codes</label>
                         </div>
 
                         <!-- Contact Section Header -->
@@ -191,7 +204,7 @@
                     Filter/Search @ViewData["numberFilters"]
                 </button>
 
-               @*  <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
+                @*  <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
                     <i class="fa fa-file-excel text-white"></i>
                     Export filtered data to Excel
                 </button> *@
@@ -205,10 +218,7 @@
             <a class="btn btn-primary" asp-action="Create">+ Add Member</a>
         </div>
 
-
-
-
-
+        <!-- Filters clear banners -->
         @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
         {
             <div class="filters-container mt-2">
@@ -233,10 +243,30 @@
                         <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('MembershipTypes')">x</button>
                     </span>
                 }
+                @if (ViewData["SectorsFilter"] != null)
+                {
+                    <span class="custom-filter-badge me-2">
+                        Sector: @ViewData["SectorsFilter"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('Sectors')">x</button>
+                    </span>
+                }
+                @if (ViewData["NAICSCodesFilter"] != null)
+                {
+                    <span class="custom-filter-badge me-2">
+                        NAICS Code: @ViewData["NAICSCodesFilter"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('NAICSCodes')">x</button>
+                    </span>
+                }
+                @if (ViewData["CitiesFilter"] != null)
+                {
+                    <span class="custom-filter-badge me-2">
+                        City: @ViewData["CitiesFilter"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('Cities')">x</button>
+                    </span>
+                }
             </div>
-
-
         }
+
 
 
         <!-- Filter/Search Form -->
@@ -252,10 +282,10 @@
                                 @class = "form-control",
                                 id = "SearchString",
                                 placeholder = "Enter Member Name"
-
                             })
                         <span id="search-name-help" class="sr-only">Type the member name to search.</span>
                     </div>
+
                     <!-- Filter by Join Date -->
                     <div class="form-group col-md-4">
                         <label for="JoinDate" class="control-label">Filter by Join Date:</label>
@@ -265,40 +295,56 @@
                                 id = "JoinDate",
                                 placeholder = "YYYY-MM-DD",
                                 type = "date"
-
                             })
                         <span id="join-date-help" class="sr-only">Enter the date in YYYY-MM-DD format.</span>
                     </div>
+
+                    <!-- Filter by Membership Types -->
                     <div class="form-group col-md-4">
                         <label for="MembershipTypes" class="control-label">Filter by Membership Types:</label>
-                        @Html.DropDownList("MembershipTypes", null, "All MembershipTypes", htmlAttributes: new { @class = "form-control" })
-                        <span id="industry-help" class="sr-only">Select Membership Types to filter members by.</span>
+                        @Html.DropDownList("MembershipTypes", ViewData["MembershipTypes"] as SelectList, "All Membership Types",
+                                 new { @class = "form-control" })
+                        <span id="membership-types-help" class="sr-only">Select Membership Types to filter members by.</span>
                     </div>
-                    <!-- Filter by Organization Name -->
-                    @* <div class="form-group col-md-4"> *@
-                    @*     <label for="Organization" class="control-label">Search by Organization Name:</label> *@
-                    @*     @Html.TextBox("Organization", ViewData["Organization"] as string, new *@
-                    @*         { *@
-                    @*             @class = "form-control", *@
-                    @*             id = "Organization", *@
-                    @*             placeholder = "Enter Organization Name" *@
 
-                    @*         }) *@
-                    @*     <span id="organization-name-help" class="sr-only">Type the organization name to filter.</span> *@
-                    @* </div> *@
-
-                    <!-- Buttons -->
-                    <div class="form-group col-md-4 d-flex align-items-end mt-2">
-                        <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
-                        <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
+                    <!-- Filter by Sectors -->
+                    <div class="form-group col-md-4">
+                        <label for="Sectors" class="control-label">Filter by Sectors:</label>
+                        @Html.DropDownList("Sectors", ViewData["Sectors"] as SelectList, "All Sectors",
+                                 new { @class = "form-control" })
+                        <span id="sectors-help" class="sr-only">Select a sector to filter members by.</span>
                     </div>
+
+                    <!-- Filter by NAICS Codes -->
+                    <div class="form-group col-md-4">
+                        <label for="NAICSCodes" class="control-label">Filter by NAICS Code:</label>
+                        @Html.DropDownList("NAICSCodes", ViewData["NAICSCodes"] as SelectList, "All NAICS Codes",
+                                 new { @class = "form-control" })
+                        <span id="naics-codes-help" class="sr-only">Select a NAICS Code to filter members by.</span>
+                    </div>
+
+                    <!-- Filter by City -->
+                    <div class="form-group col-md-4">
+                        <label for="Cities" class="control-label">Filter by City:</label>
+                        @Html.DropDownList("Cities", ViewData["Cities"] as SelectList, "All Cities",
+                                 new { @class = "form-control" })
+                        <span id="cities-help" class="sr-only">Select a city to filter members by.</span>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-group col-md-4 d-flex align-items-end mt-2">
+                    <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
+                    <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
                 </div>
             </div>
         </div>
     </div>
+
     <div>
         <label class="control-label">@ViewData["records"]</label>
     </div>
+
     <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
         <thead>
             <tr>

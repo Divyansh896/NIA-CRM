@@ -32,7 +32,7 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Contact
-        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? Departments, string? Titles, bool IsVIP, string? SearchString, string? actionButton,
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? Departments, string? Titles, bool IsVIP, string? SearchString, string? MemberNameSearchString, string? actionButton,
                                               string sortDirection = "asc", string sortField = "Contact Name")
         {
             PopulateDropdownLists();
@@ -46,8 +46,7 @@ namespace NIA_CRM.Controllers
                                      .Include(c => c.MemberContacts)
                                      .ThenInclude(mc => mc.Member)
                                      .Include(m => m.ContactCancellations)
-                                     .Where(c => !c.ContactCancellations.Any(cc => cc.IsCancelled))  // Only include contacts with no cancellations or cancellations that are not cancelled
-                                                                                                     //.GroupBy(comparer => new { comparer.FirstName, comparer.LastName })
+                                     .Where(c => !c.ContactCancellations.Any(cc => cc.IsCancelled))  // Only include contacts with no cancellations or 
                                      .AsQueryable();
 
             if (Departments != null)
@@ -78,6 +77,13 @@ namespace NIA_CRM.Controllers
                 numberFilters++;
                 ViewData["SearchString"] = SearchString;
 
+            }
+
+            if (!String.IsNullOrEmpty(MemberNameSearchString))
+            {
+                contacts = contacts.Where(m => m.MemberContacts.Any(mc => mc.Member.MemberName.ToUpper().Contains(MemberNameSearchString.ToUpper())));
+                numberFilters++;
+                ViewData["MemberNameSearchString"] = MemberNameSearchString; // Store the member name search string in ViewData
             }
 
             // Check if the actionButton is "ExportExcel" BEFORE applying filters
@@ -677,7 +683,7 @@ namespace NIA_CRM.Controllers
 
 
         [HttpPost]
-        public IActionResult ExportSelectedContactsFields(List<string>? selectedFields, string? SearchString, string? Title, string? Department, string? VIP, bool applyFilters)
+        public IActionResult ExportSelectedContactsFields(List<string>? selectedFields, string? SearchString, string? Title, string? Department, string? MemberNameSearchString, string? VIP, bool applyFilters)
         {
             if (selectedFields == null || selectedFields.Count == 0)
             {
@@ -696,7 +702,11 @@ namespace NIA_CRM.Controllers
                 // Filter by SearchString
                 if (!string.IsNullOrEmpty(SearchString))
                 {
-                    contactsQuery = contactsQuery.Where(c => c.Summary.ToUpper().Contains(SearchString.ToUpper()));
+                    contactsQuery = contactsQuery.Where(c =>
+                        c.FirstName.ToUpper().Contains(SearchString.ToUpper()) ||
+                        c.MiddleName.ToUpper().Contains(SearchString.ToUpper()) ||
+                        c.LastName.ToUpper().Contains(SearchString.ToUpper())
+                    );
                 }
 
                 // Filter by Title
@@ -716,6 +726,12 @@ namespace NIA_CRM.Controllers
                 {
                     contactsQuery = contactsQuery.Where(c => c.IsVip);
                 }
+
+                if (!String.IsNullOrEmpty(MemberNameSearchString))
+                {
+                    contactsQuery = contactsQuery.Where(m => m.MemberContacts.Any(mc => mc.Member.MemberName.ToUpper().Contains(MemberNameSearchString.ToUpper())));
+                }
+
             }
             
 
@@ -769,7 +785,7 @@ namespace NIA_CRM.Controllers
                         worksheet.Cells[row, col++].Value = contact.Email ?? "N/A";
 
                     if (selectedFields.Contains("Phone"))
-                        worksheet.Cells[row, col++].Value = contact.Phone ?? "N/A";
+                        worksheet.Cells[row, col++].Value = contact.PhoneFormatted ?? "N/A";
 
                     if (selectedFields.Contains("LinkedInUrl"))
                         worksheet.Cells[row, col++].Value = contact.LinkedInUrl ?? "N/A";

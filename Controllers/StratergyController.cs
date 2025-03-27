@@ -25,13 +25,12 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Stratergy
-        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? createdDate, string? SearchString, string? actionButton,
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? createdDate, string? SearchString, string? StrategyAssigneeFilter,
+                                                string? StrategyTermFilter, string? StrategyStatusFilter, string? actionButton,
                                                 string sortDirection = "desc", string sortField = "Strategy Name")
         {
-
-            string[] sortOptions = new[] { "Strategy Name", "Strategy Assignee", "Created Date", "SearchString", "Startegy Term", "Strategy Status" }; // Add other fields if needed
+            string[] sortOptions = new[] { "Strategy Name", "Strategy Assignee", "Created Date", "SearchString", "Strategy Term", "Strategy Status" }; // Add other fields if needed
             int numberFilters = 0;
-
             var strategies = _context.Strategies.AsQueryable();
 
             // Filter by Created Date
@@ -46,22 +45,55 @@ namespace NIA_CRM.Controllers
                 }
             }
 
+            // Filter by Strategy Assignee
+            if (!string.IsNullOrEmpty(StrategyAssigneeFilter))
+            {
+                strategies = strategies.Where(p => p.StrategyAssignee.ToUpper().Contains(StrategyAssigneeFilter.ToUpper()));
+                numberFilters++;
+                ViewData["StrategyAssigneeFilter"] = StrategyAssigneeFilter;
+            }
+
+            // Filter by Strategy Term (string filtering)
+            if (!string.IsNullOrEmpty(StrategyTermFilter))
+            {
+                if (Enum.TryParse(StrategyTermFilter, out StrategyTerm term))
+                {
+                    strategies = strategies.Where(s => s.StrategyTerm == term);
+                    numberFilters++;
+                    ViewData["StrategyTermFilter"] = StrategyTermFilter; // Store the selected value as a string
+                }
+            }
+
+            // Filter by Strategy Status (string filtering)
+            if (!string.IsNullOrEmpty(StrategyStatusFilter))
+            {
+                if (Enum.TryParse(StrategyStatusFilter, out StrategyStatus status))
+                {
+                    strategies = strategies.Where(s => s.StrategyStatus == status);
+                    numberFilters++;
+                    ViewData["StrategyStatusFilter"] = StrategyStatusFilter; // Store the selected value as a string
+                }
+            }
+
+
+
+            // Filter by Search String (e.g., Strategy Name or other field)
             if (!String.IsNullOrEmpty(SearchString))
             {
-                strategies = strategies.Where(p => p.StrategyTerm.ToString().ToUpper().Contains(SearchString.ToUpper()));
+                strategies = strategies.Where(p => p.StrategyName.ToUpper().Contains(SearchString.ToUpper()) ||
+                                                    p.StrategyAssignee.ToUpper().Contains(SearchString.ToUpper()));
                 numberFilters++;
                 ViewData["SearchString"] = SearchString;
             }
 
-
             // Handle sorting
-            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
+            if (!String.IsNullOrEmpty(actionButton)) // Form Submitted!
             {
-                page = 1;//Reset page to start
+                page = 1; // Reset page to start
 
-                if (sortOptions.Contains(actionButton))//Change of sort is requested
+                if (sortOptions.Contains(actionButton)) // Change of sort is requested
                 {
-                    if (actionButton == sortField) //Reverse order on same field
+                    if (actionButton == sortField) // Reverse order on same field
                     {
                         sortDirection = sortDirection == "asc" ? "desc" : "asc";
                     }
@@ -69,7 +101,7 @@ namespace NIA_CRM.Controllers
                     {
                         sortDirection = "desc"; // Default new sort fields to descending
                     }
-                    sortField = actionButton;//Sort by the button clicked
+                    sortField = actionButton; // Sort by the button clicked
                 }
             }
 
@@ -80,46 +112,39 @@ namespace NIA_CRM.Controllers
                     : strategies.OrderByDescending(e => e.StrategyName),
 
                 "Strategy Assignee" => sortDirection == "asc"
-                    ? strategies.OrderBy(e => e.StrategyAssignee) // Assuming Address has City
+                    ? strategies.OrderBy(e => e.StrategyAssignee)
                     : strategies.OrderByDescending(e => e.StrategyAssignee),
 
                 "Created Date" => sortDirection == "asc"
-                    ? strategies.OrderBy(e => e.CreatedDate) // Assuming the MembershipType has a Name
+                    ? strategies.OrderBy(e => e.CreatedDate)
                     : strategies.OrderByDescending(e => e.CreatedDate),
 
-
-                "Startegy Term" => sortDirection == "asc"
-                    ? strategies.OrderBy(e => e.StrategyTerm) // Assuming NAICSCode has Code
+                "Strategy Term" => sortDirection == "asc"
+                    ? strategies.OrderBy(e => e.StrategyTerm)
                     : strategies.OrderByDescending(e => e.StrategyTerm),
 
                 "Strategy Status" => sortDirection == "asc"
-                    ? strategies.OrderBy(e => e.StrategyStatus) // Assuming Contact has Name
+                    ? strategies.OrderBy(e => e.StrategyStatus)
                     : strategies.OrderByDescending(e => e.StrategyStatus),
 
                 _ => strategies
             };
 
-
             // Apply filters and sorting feedback to the view
             if (numberFilters != 0)
             {
-                //Toggle the Open/Closed state of the collapse depending on if we are filtering
+                // Toggle the Open/Closed state of the collapse depending on if we are filtering
                 ViewData["Filtering"] = " btn-danger";
-                //Show how many filters have been applied
-                ViewData["numberFilters"] = "(" + numberFilters.ToString()
-                    + " Filter" + (numberFilters > 1 ? "s" : "") + " Applied)";
-                //Keep the Bootstrap collapse open
-                @ViewData["ShowFilter"] = " show";
+                // Show how many filters have been applied
+                ViewData["numberFilters"] = $"({numberFilters} Filter{(numberFilters > 1 ? "s" : "")} Applied)";
+                // Keep the Bootstrap collapse open
+                ViewData["ShowFilter"] = " show";
             }
-
-
 
             if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
             {
-
                 return ExportToExcel(strategies.ToList());
             }
-
 
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
@@ -133,7 +158,6 @@ namespace NIA_CRM.Controllers
 
             return View(pagedData);
         }
-
 
         // Export to Excel Action
         public IActionResult ExportToExcel(List<Strategy> strategies)
@@ -436,7 +460,9 @@ namespace NIA_CRM.Controllers
 
 
         [HttpPost]
-        public IActionResult ExportSelectedStrategiesFields(List<string>? selectedFields)
+        public IActionResult ExportSelectedStrategiesFields(List<string>? selectedFields, string? createdDate, string? SearchString,
+                                                     string? StrategyAssigneeFilter, string? StrategyTermFilter,
+                                                     string? StrategyStatusFilter, bool applyFilters)
         {
             if (selectedFields == null || selectedFields.Count == 0)
             {
@@ -444,22 +470,80 @@ namespace NIA_CRM.Controllers
                 return RedirectToAction("Index");
             }
 
-            var strategies = _context.Strategies.ToList();
+            var strategies = _context.Strategies.AsQueryable();
+
+            // Apply filters if 'applyFilters' is true
+            if (applyFilters)
+            {
+                // Filter by Created Date
+                if (!string.IsNullOrEmpty(createdDate))
+                {
+                    DateTime filterDate;
+                    if (DateTime.TryParse(createdDate, out filterDate))
+                    {
+                        strategies = strategies.Where(s => s.CreatedDate.Date == filterDate.Date);
+                    }
+                }
+
+                // Filter by Strategy Assignee
+                if (!string.IsNullOrEmpty(StrategyAssigneeFilter))
+                {
+                    strategies = strategies.Where(p => p.StrategyAssignee.ToUpper().Contains(StrategyAssigneeFilter.ToUpper()));
+                }
+
+                // Filter by Strategy Term (Enum filtering)
+                if (!string.IsNullOrEmpty(StrategyTermFilter))
+                {
+                    if (Enum.TryParse(StrategyTermFilter, out StrategyTerm term))
+                    {
+                        strategies = strategies.Where(s => s.StrategyTerm == term);
+                    }
+                }
+
+                // Filter by Strategy Status (Enum filtering)
+                if (!string.IsNullOrEmpty(StrategyStatusFilter))
+                {
+                    if (Enum.TryParse(StrategyStatusFilter, out StrategyStatus status))
+                    {
+                        strategies = strategies.Where(s => s.StrategyStatus == status);
+                    }
+                }
+
+                // Filter by Search String
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    strategies = strategies.Where(p => p.StrategyName.ToUpper().Contains(SearchString.ToUpper()) ||
+                                                        p.StrategyAssignee.ToUpper().Contains(SearchString.ToUpper()));
+                }
+            }
+
+            // Convert to list after applying filters
+            var filteredStrategies = strategies.ToList();
 
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("Strategies");
                 int col = 1;
 
-                // Add selected column headers
+                // **Adding a proper header row**
+                worksheet.Cells[1, 1].Value = "Strategies Export";
+                worksheet.Cells[1, 1, 1, selectedFields.Count].Merge = true; // Merge header cells
+                worksheet.Cells[1, 1].Style.Font.Bold = true;
+                worksheet.Cells[1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+                int headerRow = 2; // Header row for column names
                 foreach (var field in selectedFields)
                 {
-                    worksheet.Cells[1, col].Value = field;
+                    var cell = worksheet.Cells[headerRow, col];
+                    cell.Value = field;
+                    cell.Style.Font.Bold = true;
+                    cell.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    cell.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray); // Adding color to header
                     col++;
                 }
 
-                int row = 2;
-                foreach (var strategy in strategies)
+                int row = 3; // Data starts from row 3
+                foreach (var strategy in filteredStrategies)
                 {
                     col = 1;
 
@@ -496,6 +580,7 @@ namespace NIA_CRM.Controllers
             }
         }
 
+       
 
     }
 }

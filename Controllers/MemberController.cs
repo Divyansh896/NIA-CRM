@@ -30,7 +30,7 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Member
-        public async Task<IActionResult> Index(string? SearchString, string? JoinDate, int? page, int? pageSizeID, string? actionButton, int? MembershipTypes, string sortDirection = "asc", string sortField = "Member Name")
+        public async Task<IActionResult> Index(string? SearchString, string? JoinDate, int? page, int? pageSizeID, string? actionButton, int? MembershipTypes, int? Sectors, int? NAICSCodes, string? Cities, string sortDirection = "asc", string sortField = "Member Name")
 
         {
 
@@ -44,8 +44,8 @@ namespace NIA_CRM.Controllers
                                     .Include(m => m.MemberMembershipTypes).ThenInclude(m => m.MembershipType)
                                     .Include(m => m.MemberContacts).ThenInclude(m => m.Contact)
                                     .Include(m => m.IndustryNAICSCodes).ThenInclude(m => m.NAICSCode)
-                .Include(m => m.MemberSectors).ThenInclude(m => m.Sector)
-                                    //.Where(m => !m.Cancellations.Any())  // Exclude members with cancellations
+                                    .Include(m => m.MemberSectors).ThenInclude(m => m.Sector)
+                                    .Where(m => !m.Cancellations.Any())  // Exclude members with cancellations
                                     .AsNoTracking();
 
 
@@ -116,25 +116,57 @@ namespace NIA_CRM.Controllers
                     ModelState.AddModelError("JoinDate", "Invalid date format. Please use YYYY-MM-DD.");
                 }
             }
+
             if (MembershipTypes.HasValue)
             {
-                // Retrieve the MembershipType object from the database using the ID
                 var membershipType = _context.MembershipTypes
                                              .FirstOrDefault(m => m.Id == MembershipTypes.Value);
 
                 if (membershipType != null)
                 {
-                    // Filter members based on MembershipTypeId (MemberMembershipType)
                     members = members
                         .Where(p => p.MemberMembershipTypes
                             .Any(mmt => mmt.MembershipTypeId == MembershipTypes.Value));
 
                     numberFilters++;
-
-                    // Store the name of the selected membership type in ViewData
                     ViewData["MembershipTypesFilter"] = membershipType.TypeName;
                 }
             }
+
+            // Filter by Sectors
+            if (Sectors.HasValue)
+            {
+                var sector = _context.Sectors.FirstOrDefault(s => s.Id == Sectors.Value);
+                if (sector != null)
+                {
+                    members = members.Where(m => m.MemberSectors.Any(ms => ms.SectorId == Sectors.Value));
+                    numberFilters++;
+                    ViewData["SectorsFilter"] = sector.SectorName;
+                }
+            }
+
+            // Filter by NAICS Codes
+            if (NAICSCodes.HasValue)
+            {
+                var naicsCode = _context.NAICSCodes.FirstOrDefault(n => n.Id == NAICSCodes.Value);
+                if (naicsCode != null)
+                {
+                    members = members.Where(m => m.IndustryNAICSCodes.Any(nc => nc.NAICSCodeId == NAICSCodes.Value));
+                    numberFilters++;
+                    ViewData["NAICSCodesFilter"] = naicsCode.Code;
+                }
+            }
+
+            // Filter by City
+            if (!string.IsNullOrEmpty(Cities))
+            {
+                members = members.Where(m => m.Address.City.ToUpper() == Cities.ToUpper());
+                numberFilters++;
+                ViewData["CitiesFilter"] = Cities;
+            }
+
+            // Store the total number of filters applied
+            ViewData["numberFilters"] = numberFilters > 0 ? $"{numberFilters} Filters Applied" : "0 Filters Applied";
 
 
             if (numberFilters != 0)
@@ -768,9 +800,19 @@ namespace NIA_CRM.Controllers
         private void PopulateDropdowns()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
+            var sectors = _context.Sectors.ToList();
+            var naicsCodes = _context.NAICSCodes.ToList();
+            var cities = _context.Addresses
+                .Where(a => !string.IsNullOrEmpty(a.City)) // Exclude null/empty values
+                .Select(a => a.City.Trim()) // Trim extra spaces
+                .Distinct()
+                .OrderBy(c => c) // Sort alphabetically
+                .ToList();
 
             ViewData["MembershipTypes"] = new SelectList(membershipTypes, "Id", "TypeName");
-
+            ViewData["Sectors"] = new SelectList(sectors, "Id", "SectorName");
+            ViewData["NAICSCodes"] = new SelectList(naicsCodes, "Id", "Code");
+            ViewData["Cities"] = new SelectList(cities);
         }
 
         private void PopulateAssignedMTagData(Member member)
@@ -1122,7 +1164,7 @@ namespace NIA_CRM.Controllers
         }
 
         [HttpPost]
-        public IActionResult ExportSelectedFields(List<string>? selectedFields, string? SearchString, DateTime? JoinDate, string? MembershipType, bool applyFilters)
+        public IActionResult ExportSelectedFields(List<string>? selectedFields, string? SearchString, DateTime? JoinDate, string? MembershipType, string? Sectors, string? NAICSCodes, string? Cities, bool applyFilters)
         {
             // Check if no fields are selected
             if (selectedFields == null || selectedFields.Count == 0)
@@ -1159,9 +1201,31 @@ namespace NIA_CRM.Controllers
                 // Apply MembershipTypes filter
                 if (!string.IsNullOrEmpty(MembershipType))
                 {
-                    members = members.Where(m => m.MemberMembershipTypes.Any(mt => mt.MembershipType.TypeName.ToUpper().Contains(MembershipType.ToUpper())));
+                    members = members.Where(m => m.MemberMembershipTypes
+                        .Any(mt => mt.MembershipType.TypeName.ToUpper().Contains(MembershipType.ToUpper())));
+                }
+
+                // Apply Sectors filter
+                if (!string.IsNullOrEmpty(Sectors))
+                {
+                    members = members.Where(m => m.MemberSectors
+                        .Any(ms => ms.Sector.SectorName.ToUpper() == Sectors.ToUpper()));
+                }
+
+                // Apply NAICSCodes filter
+                if (!string.IsNullOrEmpty(NAICSCodes))
+                {
+                    members = members.Where(m => m.IndustryNAICSCodes
+                        .Any(nc => nc.NAICSCode.Code.ToUpper() == NAICSCodes.ToUpper()));
+                }
+
+                // Apply Cities filter
+                if (!string.IsNullOrEmpty(Cities))
+                {
+                    members = members.Where(m => m.Address.City.ToUpper() == Cities.ToUpper());
                 }
             }
+
 
             // Execute the query to get the filtered results
             var filteredMembers = members.ToList();
@@ -1212,10 +1276,33 @@ namespace NIA_CRM.Controllers
                         worksheet.Cells[row, col++].Value = member.JoinDate.ToString("yyyy-MM-dd") ?? "N/A";
 
                     if (selectedFields.Contains("MembershipType"))
-                        worksheet.Cells[row, col++].Value = member?.MemberMembershipTypes?.FirstOrDefault()?.MembershipType?.TypeName ?? "N/A";
+                    {
+                        var membershipTypes = member?.MemberMembershipTypes
+                            .Select(mmt => mmt.MembershipType?.TypeName) // Assuming MembershipType.TypeName is the field you want to export
+                            .ToList();
+                        worksheet.Cells[row, col++].Value = membershipTypes != null && membershipTypes.Any() ? string.Join(", ", membershipTypes) : "N/A";
+                    }
 
                     if (selectedFields.Contains("MemberNote"))
                         worksheet.Cells[row, col++].Value = member?.MemberNote ?? "N/A";
+
+                    // Apply export for Sectors
+                    if (selectedFields.Contains("Sectors"))
+                    {
+                        var sectors = member?.MemberSectors
+                            .Select(ms => ms.Sector?.SectorName) // Assuming Sector.Name is the field you want to export
+                            .ToList();
+                        worksheet.Cells[row, col++].Value = sectors != null && sectors.Any() ? string.Join(", ", sectors) : "N/A";
+                    }
+
+                    // Apply export for NAICSCodes
+                    if (selectedFields.Contains("NAICSCodes"))
+                    {
+                        var naicsCodes = member?.IndustryNAICSCodes
+                            .Select(nc => nc.NAICSCode?.Code) // Assuming NAICSCode.Code is the field you want to export
+                            .ToList();
+                        worksheet.Cells[row, col++].Value = naicsCodes != null && naicsCodes.Any() ? string.Join(", ", naicsCodes) : "N/A";
+                    }
 
                     // Contact Fields
                     if (selectedFields.Contains("ContactFullName"))

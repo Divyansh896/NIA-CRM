@@ -36,37 +36,58 @@
             </div>
             <div class="modal-body">
                 <form id="exportOpportunitiesForm" asp-action="ExportSelectedOpportunitiesFields" method="post">
+                    @* Hidden fields to pass the filters to the Export Controller *@
+                    <input type="hidden" name="SearchString" id="modalSearchString" value="@ViewData["SearchString"]">
+                    <input type="hidden" name="OpportunityAction" id="modalOpportunityAction" value="@ViewData["OpportunityActionFilter"]">
+                    <input type="hidden" name="Interaction" id="modalInteraction" value="@ViewData["InteractionFilter"]">
+                    <input type="hidden" name="Status" id="modalStatus" value="@ViewData["StatusFilter"]">
+                    <input type="hidden" name="Priority" id="modalPriority" value="@ViewData["PriorityFilter"]">
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="includeFilters" name="applyFilters" value="true" checked>
+                        <label class="form-check-label" for="includeFilters">Include current filters in export</label>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="OpportunityName" checked> Opportunity Name
+                            <input type="checkbox" name="selectedFields" value="OpportunityName" id="OpportunityName" checked>
+                            <label for="OpportunityName">Opportunity Name</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="OpportunityAction" checked> Action
+                            <input type="checkbox" name="selectedFields" value="OpportunityAction" id="OpportunityAction" checked>
+                            <label for="OpportunityAction">Action</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="POC" checked> POC
+                            <input type="checkbox" name="selectedFields" value="POC" id="POC" checked>
+                            <label for="POC">POC</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="Account" checked> Account
+                            <input type="checkbox" name="selectedFields" value="Account" id="Account" checked>
+                            <label for="Account">Account</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="Interaction" checked> Interaction
+                            <input type="checkbox" name="selectedFields" value="Interaction" id="Interaction" checked>
+                            <label for="Interaction">Interaction</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="LastContact" checked> Last Contact
+                            <input type="checkbox" name="selectedFields" value="LastContact" id="LastContact" checked>
+                            <label for="LastContact">Last Contact</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="OpportunityStatus" checked> Status
+                            <input type="checkbox" name="selectedFields" value="OpportunityStatus" id="OpportunityStatus" checked>
+                            <label for="OpportunityStatus">Status</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="OpportunityPriority" checked> Priority
+                            <input type="checkbox" name="selectedFields" value="OpportunityPriority" id="OpportunityPriority" checked>
+                            <label for="OpportunityPriority">Priority</label>
                         </div>
+
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="exportOpportunitiesForm" class="btn btn-dark">
+                <button type="submit" form="exportOpportunitiesForm" class="btn btn-dark" data-bs-dismiss="modal">
                     <i class="fa fa-file-excel text-white"></i> Export
                 </button>
 
@@ -92,14 +113,14 @@
                     </button>
 
 
-                    <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
+                   @*  <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
                         <i class="fa fa-file-excel text-white"></i>
                         Export filtered data to Excel
                     </button>
-
+ *@
                     <!-- Export Button to Open Opportunities Modal -->
                     <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportOpportunitiesModal">
-                        <i class="fa fa-file-excel text-white"></i> Export Selected Fields for Opportunities
+                        <i class="fa fa-file-excel text-white"></i> Export To Excel
                     </button>
 
                 </div>
@@ -122,18 +143,33 @@
                     <button type="button" class="ms-2 clear-btn" onclick="clearFilter('SearchString')">x</button>
                 </span>
             }
+            @if (!string.IsNullOrEmpty(ViewData["OpportunityActionFilter"] as string))
+            {
+                <span class="custom-filter-badge me-2">
+                    Opportunity Action: @ViewData["OpportunityActionFilter"]
+                    <button type="button" class="ms-2 clear-btn" onclick="clearFilter('OpportunityAction')">x</button>
+                </span>
+            }
+
+            @if (!string.IsNullOrEmpty(ViewData["InteractionFilter"] as string))
+            {
+                <span class="custom-filter-badge me-2">
+                    Interaction: @ViewData["InteractionFilter"]
+                    <button type="button" class="ms-2 clear-btn" onclick="clearFilter('Interaction')">x</button>
+                </span>
+            }
             @if (ViewData["StatusFilter"] != null)
             {
                 <span class="custom-filter-badge me-2">
                     Status: @ViewData["StatusFilter"]
-                    <button type="button" class="ms-2 clear-btn" onclick="clearFilter('StatusFilter')">x</button>
+                    <button type="button" class="ms-2 clear-btn" onclick="clearFilter('status')">x</button>
                 </span>
             }
             @if (ViewData["PriorityFilter"] != null)
             {
                 <span class="custom-filter-badge me-2">
                     Priority: @ViewData["PriorityFilter"]
-                    <button type="button" class="ms-2 clear-btn" onclick="clearFilter('PriorityFilter')">x</button>
+                    <button type="button" class="ms-2 clear-btn" onclick="clearFilter('priority')">x</button>
                 </span>
             }
         </div>
@@ -144,15 +180,24 @@
             <div class="row">
                 <div class="form-group col-md-3">
                     <label>Search By Name:</label>
-                    @Html.TextBox("SearchString", null, new { @class = "form-control" })
+                    @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Enter name" })
                 </div>
                 <div class="form-group col-md-3">
+                    <label>Search By Opportunity Action:</label>
+                    @Html.TextBox("OpportunityAction", null, new { @class = "form-control", placeholder = "Enter opportunity action" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Search By Interaction:</label>
+                    @Html.TextBox("Interaction", null, new { @class = "form-control", placeholder = "Enter interaction" })
+                </div>
+
+                <div class="form-group col-md-3">
                     <label>Filter by Status:</label>
-                    @Html.DropDownList("StatusFilter", new SelectList(Enum.GetValues(typeof(OpportunityStatus))), "All Statuses", new { @class = "form-control" })
+                    @Html.DropDownList("status", new SelectList(Enum.GetValues(typeof(OpportunityStatus))), "All Statuses", new { @class = "form-control" })
                 </div>
                 <div class="form-group col-md-3">
                     <label>Filter by Priority:</label>
-                    @Html.DropDownList("PriorityFilter", new SelectList(Enum.GetValues(typeof(OpportunityPriority))), "All Priorities", new { @class = "form-control" })
+                    @Html.DropDownList("priority", new SelectList(Enum.GetValues(typeof(OpportunityPriority))), "All Priorities", new { @class = "form-control" })
                 </div>
                 <div class="form-group col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary me-2">Apply Filters</button>
