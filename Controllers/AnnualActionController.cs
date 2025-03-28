@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using OfficeOpenXml;
 
 namespace NIA_CRM.Controllers
 {
+    [Authorize]
     public class AnnualActionController : ElephantController
     {
         private readonly NIACRMContext _context;
@@ -24,11 +26,10 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: AnnualAction
-        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? createdDate, string? SearchString, string? actionButton,
-                                                string sortDirection = "desc", string sortField = "Annual Actions Name")
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, string? createdDate, string? SearchString, string? Assignee, string? AnnualStatusFilter, string? actionButton,
+                                        string sortDirection = "desc", string sortField = "Annual Actions Name")
         {
-
-            string[] sortOptions = new[] { "Annual Actions Name", "Date", "Assignee", "Status" }; // Add other fields if needed
+            string[] sortOptions = new[] { "Annual Actions Name", "Date", "Assignee", "Status" };
             int numberFilters = 0;
 
             var actions = _context.AnnualActions.AsQueryable();
@@ -41,10 +42,11 @@ namespace NIA_CRM.Controllers
                 {
                     actions = actions.Where(s => s.Date == filterDate.Date);
                     numberFilters++;
-                    ViewData["DateFilter"] = createdDate; // Retain the selected filter in the view
+                    ViewData["DateFilter"] = createdDate;
                 }
             }
 
+            // Filter by Annual Action Name
             if (!String.IsNullOrEmpty(SearchString))
             {
                 actions = actions.Where(p => p.Name.ToString().ToUpper().Contains(SearchString.ToUpper()));
@@ -52,67 +54,62 @@ namespace NIA_CRM.Controllers
                 ViewData["SearchString"] = SearchString;
             }
 
-
-            // Handle sorting
-            if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
+            // Filter by Assignee
+            if (!string.IsNullOrEmpty(Assignee))
             {
-                page = 1;//Reset page to start
+                actions = actions.Where(p => p.Asignee.ToUpper().Contains(Assignee.ToUpper()));
+                numberFilters++;
+                ViewData["AssigneeFilter"] = Assignee;
+            }
 
-                if (sortOptions.Contains(actionButton))//Change of sort is requested
+            // Filter by Annual Status
+            if (!string.IsNullOrEmpty(AnnualStatusFilter))
+            {
+                if (Enum.TryParse<AnnualStatus>(AnnualStatusFilter, out var annualStatus))
                 {
-                    if (actionButton == sortField) //Reverse order on same field
+                    actions = actions.Where(p => p.AnnualStatus == annualStatus);
+                    numberFilters++;
+                    ViewData["AnnualStatusFilter"] = AnnualStatusFilter;
+                }
+            }
+
+            // Handle Sorting
+            if (!String.IsNullOrEmpty(actionButton))
+            {
+                page = 1;
+
+                if (sortOptions.Contains(actionButton))
+                {
+                    if (actionButton == sortField)
                     {
                         sortDirection = sortDirection == "asc" ? "desc" : "asc";
                     }
                     else
                     {
-                        sortDirection = "desc"; // Default new sort fields to descending
+                        sortDirection = "desc";
                     }
-                    sortField = actionButton;//Sort by the button clicked
+                    sortField = actionButton;
                 }
             }
 
             actions = sortField switch
             {
-                "Annual Actions Name" => sortDirection == "asc"
-                    ? actions.OrderBy(e => e.Name)
-                    : actions.OrderByDescending(e => e.Name),
-
-                "Date" => sortDirection == "asc"
-                    ? actions.OrderBy(e => e.Date) // Assuming Address has City
-                    : actions.OrderByDescending(e => e.Date),
-
-                "Assignee" => sortDirection == "asc"
-                    ? actions.OrderBy(e => e.Asignee) // Assuming the MembershipType has a Name
-                    : actions.OrderByDescending(e => e.Asignee),
-
-                "Status" => sortDirection == "asc"
-                    ? actions.OrderBy(e => e.AnnualStatus) // Assuming NAICSCode has Sector
-                    : actions.OrderByDescending(e => e.AnnualStatus),
-
-               
+                "Annual Actions Name" => sortDirection == "asc" ? actions.OrderBy(e => e.Name) : actions.OrderByDescending(e => e.Name),
+                "Date" => sortDirection == "asc" ? actions.OrderBy(e => e.Date) : actions.OrderByDescending(e => e.Date),
+                "Assignee" => sortDirection == "asc" ? actions.OrderBy(e => e.Asignee) : actions.OrderByDescending(e => e.Asignee),
+                "Status" => sortDirection == "asc" ? actions.OrderBy(e => e.AnnualStatus) : actions.OrderByDescending(e => e.AnnualStatus),
                 _ => actions
             };
 
-
-
-            // Apply filters and sorting feedback to the view
             if (numberFilters != 0)
             {
-                //Toggle the Open/Closed state of the collapse depending on if we are filtering
                 ViewData["Filtering"] = " btn-danger";
-                //Show how many filters have been applied
-                ViewData["numberFilters"] = "(" + numberFilters.ToString()
-                    + " Filter" + (numberFilters > 1 ? "s" : "") + " Applied)";
-                //Keep the Bootstrap collapse open
+                ViewData["numberFilters"] = $"({numberFilters} Filter{(numberFilters > 1 ? "s" : "")} Applied)";
                 @ViewData["ShowFilter"] = " show";
             }
 
-
-
             if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
             {
-
                 return ExportToExcel(actions.ToList());
             }
 
@@ -121,14 +118,12 @@ namespace NIA_CRM.Controllers
             ViewData["numberFilters"] = numberFilters;
             ViewData["records"] = $"Records Found: {actions.Count()}";
 
-            // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
             ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);
             var pagedData = await PaginatedList<AnnualAction>.CreateAsync(actions.AsNoTracking(), page ?? 1, pageSize);
 
             return View(pagedData);
         }
-
 
         // New action to export to Excel
         private IActionResult ExportToExcel(List<AnnualAction> actions)
@@ -470,7 +465,8 @@ namespace NIA_CRM.Controllers
         }
 
         [HttpPost]
-        public IActionResult ExportSelectedAnnualActionsFields(List<string>? selectedFields)
+        public IActionResult ExportSelectedAnnualActionsFields(List<string>? selectedFields, string? SearchString, DateTime? DateFilter,
+                                                       string? AssigneeFilter, string? AnnualStatusFilter, bool applyFilters)
         {
             if (selectedFields == null || selectedFields.Count == 0)
             {
@@ -478,49 +474,85 @@ namespace NIA_CRM.Controllers
                 return RedirectToAction("Index");
             }
 
-            var annualActions = _context.AnnualActions.ToList();
+            // Fetch the filtered data
+            var annualActions = _context.AnnualActions.AsQueryable();
+
+            // Apply filters only if applyFilters is true
+            if (applyFilters)
+            {
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    annualActions = annualActions.Where(p => p.Name.ToUpper().Contains(SearchString.ToUpper()));
+                }
+
+                if (DateFilter.HasValue)
+                {
+                    annualActions = annualActions.Where(a => a.Date == DateFilter.Value.Date);
+                }
+
+                // Filter by Assignee if provided
+                if (!string.IsNullOrEmpty(AssigneeFilter))
+                {
+                    annualActions = annualActions.Where(a => a.Asignee.ToUpper().Contains(AssigneeFilter.ToUpper()));
+                }
+
+                // Filter by Annual Status if provided
+                if (!string.IsNullOrEmpty(AnnualStatusFilter))
+                {
+                    if (Enum.TryParse<AnnualStatus>(AnnualStatusFilter, out var annualStatus))
+                    {
+                        annualActions = annualActions.Where(a => a.AnnualStatus == annualStatus);
+                    }
+                }
+            }
+
+            var filteredActions = annualActions.ToList(); // Execute query
 
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("AnnualActions");
                 int col = 1;
 
-                // Add selected column headers
+                // **Adding a proper header row**
+                worksheet.Cells[1, 1].Value = "Annual Actions Export";
+                worksheet.Cells[1, 1, 1, selectedFields.Count].Merge = true; // Merge header cells
+                worksheet.Cells[1, 1].Style.Font.Bold = true;
+                worksheet.Cells[1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+                int headerRow = 2; // Header row for column names
                 foreach (var field in selectedFields)
                 {
-                    var cell = worksheet.Cells[1, col];
+                    var cell = worksheet.Cells[headerRow, col];
                     cell.Value = field;
-
-                    // Make the header bold
                     cell.Style.Font.Bold = true;
-
+                    cell.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    cell.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray); // Adding color to header
                     col++;
                 }
 
-                int row = 2;
-                foreach (var action in annualActions)
+                int row = 3; // Data starts from row 3
+                foreach (var action in filteredActions)
                 {
                     col = 1;
 
                     if (selectedFields.Contains("ActionName"))
-                        worksheet.Cells[row, col++].Value = action.Name ?? "N/A"; // Replace with actual property name
+                        worksheet.Cells[row, col++].Value = action.Name ?? "N/A";
 
                     if (selectedFields.Contains("Note"))
-                        worksheet.Cells[row, col++].Value = action.Note ?? "N/A"; // Replace with actual property name
+                        worksheet.Cells[row, col++].Value = action.Note ?? "N/A";
 
                     if (selectedFields.Contains("Date"))
                         worksheet.Cells[row, col++].Value = action.Date.HasValue ? action.Date.Value.ToString("yyyy-MM-dd") : "N/A";
 
                     if (selectedFields.Contains("Assignee"))
-                        worksheet.Cells[row, col++].Value = action.Asignee ?? "N/A"; // Assuming Assignee is a navigation property
+                        worksheet.Cells[row, col++].Value = action.Asignee ?? "N/A";
 
                     if (selectedFields.Contains("AnnualStatus"))
-                        worksheet.Cells[row, col++].Value = action.AnnualStatus.ToString() ?? "N/A"; // Replace with actual property name
+                        worksheet.Cells[row, col++].Value = action.AnnualStatus.ToString() ?? "N/A";
 
                     row++;
                 }
 
-                // Auto-fit columns for better readability
                 worksheet.Cells.AutoFitColumns();
 
                 var stream = new MemoryStream();
@@ -531,7 +563,6 @@ namespace NIA_CRM.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
-
 
     }
 }

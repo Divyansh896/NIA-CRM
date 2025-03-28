@@ -1,6 +1,7 @@
 ﻿<!-- Modal-->
 <div class="modal fade" id="addNotificationModal" tabindex="-1" role="dialog" aria-labelledby="SpecialtymyModalLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
+        <!-- Use modal-lg for a larger modal -->
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="SpecialtymyModalLabel">Send Email</h4>
@@ -10,7 +11,7 @@
                 <input type="hidden" id="MemberID" name="MemberID" />
 
                 @{
-                    var s = new EmailModal ();
+                    var s = new EmailModal();
                     <partial name="_NotificationEmail" model="s" />
                 }
             </div>

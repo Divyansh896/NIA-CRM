@@ -36,7 +36,7 @@ namespace NIA_CRM.Controllers
                         Body = "This is a test email.",
                         IsBodyHtml = false
                     };
-                    mailMessage.To.Add(emailModel.EmailAddress);
+                    //mailMessage.To.Add(emailModel.EmailAddress);
                     smtpClient.Send(mailMessage);
                 }
                 ViewBag.Message = "Email sent successfully.";

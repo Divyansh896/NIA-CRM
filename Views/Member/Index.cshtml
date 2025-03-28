@@ -8,49 +8,30 @@
 <partial name="_addArchiveModal" />
 <partial name="_Notification" />
 
-@* <form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="fileUpload">Import Members (Excel File):</label>
-        <input type="file" name="fileUpload" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-dark"> <i class="fa fa-file-import"></i> Import Excel</button>
-</form> *@
-@* <button class="btn btn-sm btn-outline-secondary" id="nowAddSpecialty" *@
-@*         data-bs-toggle="modal" data-id="1" data-bs-target="#addSpecialtyModal" *@
-@*         type="button"> *@
-@*     <strong>Member Archive</strong> *@
-@* </button> *@
+
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="member-title">Members</h1>
 </div>
 
-<form asp-action="ImportMembersFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center" style="padding-bottom: 10px;">
-        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
-            <i class="fa fa-file-import"></i> Import Excel
-        </button>
-        <input type="file" name="file" class="form-control" required />
-
-    </div>
-</form>
+<partial name="_ErrorMessage" />
+<partial name="_SuccessMessage" />
 
 
-
-@if (TempData["Success"] != null)
+<!-- Import Excel Form -->
+@if (User.IsInRole("Admin"))
 {
-    <div class="alert alert-success">
-        @TempData["Success"]
-    </div>
+    <form asp-action="ImportMembersFromExcel" method="post" enctype="multipart/form-data">
+        <div class="d-flex align-items-center" style="padding-bottom: 10px;">
+
+            <input type="file" name="file" class="form-control" required />
+            <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
+
+        </div>
+    </form>
+
 }
-
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
-
-
 
 <!-- Export Fields Modal -->
 <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
@@ -62,43 +43,190 @@
             </div>
             <div class="modal-body">
                 <form id="exportForm" asp-action="ExportSelectedFields" method="post">
+                    @* Hidden fields to pass the filters to the Export Controller *@
+                    <input type="hidden" name="SearchString" id="modalSearchString" value="@ViewData["SearchString"]">
+                    <input type="hidden" name="JoinDate" id="modalJoinDate" value="@ViewData["JoinDate"]">
+                    <input type="hidden" name="MembershipType" id="modalMembershipType" value="@ViewData["MembershipTypesFilter"]">
+                    <input type="hidden" name="Sectors" id="modalSectors" value="@ViewData["SectorsFilter"]">
+                    <input type="hidden" name="NAICSCodes" id="modalNAICSCodes" value="@ViewData["NAICSCodesFilter"]">
+                    <input type="hidden" name="Cities" id="modalCities" value="@ViewData["CitiesFilter"]">
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="includeFilters" name="applyFilters" value="true" checked>
+                        <label class="form-check-label" for="includeFilters">Include current filters in export</label>
+                    </div>
+
                     <div class="row">
+                        <!-- Member Section Header -->
+                        <div class="col-md-12 mt-4">
+                            <h5>Member Information</h5>
+                        </div>
+
+                        <!-- Member Fields -->
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="MemberID" checked> Member ID
+                            <input type="checkbox" id="chkMemberName" name="selectedFields" value="MemberName" checked>
+                            <label for="chkMemberName">Member Name</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="MemberName" checked> Member Name
+                            <input type="checkbox" id="chkMemberSize" name="selectedFields" value="MemberSize" checked>
+                            <label for="chkMemberSize">Member Size</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="City"> City
+                            <input type="checkbox" id="chkWebsiteUrl" name="selectedFields" value="WebsiteUrl" checked>
+                            <label for="chkWebsiteUrl">Website Url</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="JoinDate"> Join Date
+                            <input type="checkbox" id="chkJoinDate" name="selectedFields" value="JoinDate" checked>
+                            <label for="chkJoinDate">Join Date</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="MembershipType"> Membership Type
+                            <input type="checkbox" id="chkMembershipType" name="selectedFields" value="MembershipType" checked>
+                            <label for="chkMembershipType">Membership Type</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="Address"> Address
+                            <input type="checkbox" id="chkMemberNote" name="selectedFields" value="MemberNote" checked>
+                            <label for="chkMemberNote">Member Note</label>
+                        </div>
+
+                        <!-- New Filters for Sectors and NAICSCodes -->
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkSectors" name="selectedFields" value="Sectors" checked>
+                            <label for="chkSectors">Sectors</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="PhoneNumber"> Phone Number
+                            <input type="checkbox" id="chkNAICSCodes" name="selectedFields" value="NAICSCodes" checked>
+                            <label for="chkNAICSCodes">NAICS Codes</label>
+                        </div>
+
+                        <!-- Contact Section Header -->
+                        <div class="col-md-12 mt-4">
+                            <h5>Contact Information</h5>
+                        </div>
+
+                        <!-- Contact Fields -->
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactFullName" name="selectedFields" value="ContactFullName" checked>
+                            <label for="chkContactFullName">Contact Full Name</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactTitle" name="selectedFields" value="ContactTitle" checked>
+                            <label for="chkContactTitle">Contact Title</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" name="selectedFields" value="EmailAddress"> Email Address
+                            <input type="checkbox" id="chkContactDepartment" name="selectedFields" value="ContactDepartment" checked>
+                            <label for="chkContactDepartment">Contact Department</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactEmail" name="selectedFields" value="ContactEmail" checked>
+                            <label for="chkContactEmail">Contact Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactPhone" name="selectedFields" value="ContactPhone" checked>
+                            <label for="chkContactPhone">Contact Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactLinkedIn" name="selectedFields" value="ContactLinkedIn" checked>
+                            <label for="chkContactLinkedIn">Contact LinkedIn</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkContactNote" name="selectedFields" value="ContactNote" checked>
+                            <label for="chkContactNote">Contact Note</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkIsVip" name="selectedFields" value="IsVip" checked>
+                            <label for="chkIsVip">Is VIP</label>
+                        </div>
+
+                        <!-- Address Section Header -->
+                        <div class="col-md-12 mt-4">
+                            <h5>Address Information</h5>
+                        </div>
+
+                        <!-- Address Fields -->
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkAddressLine1" name="selectedFields" value="AddressLine1" checked>
+                            <label for="chkAddressLine1">Address Line 1</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkAddressLine2" name="selectedFields" value="AddressLine2" checked>
+                            <label for="chkAddressLine2">Address Line 2</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkAddressCity" name="selectedFields" value="City" checked>
+                            <label for="chkAddressCity">Address City</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkStateProvince" name="selectedFields" value="StateProvince" checked>
+                            <label for="chkStateProvince">Address Province</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkPostalCode" name="selectedFields" value="PostalCode" checked>
+                            <label for="chkPostalCode">Postal Code</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="checkbox" id="chkFormattedAddress" name="selectedFields" value="FormattedAddress" checked>
+                            <label for="chkFormattedAddress">Formatted Address</label>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="exportForm" class="btn btn-dark">
+                <button type="submit" form="exportForm" class="btn btn-dark" data-bs-dismiss="modal">
                     <i class="fa fa-file-excel text-white"></i> Export
                 </button>
+                <!-- Help Icon for Export Instructions -->
+                <i class="fa fa-question-circle help-icon ms-2" data-bs-toggle="modal" data-bs-target="#exportHelpModal" title="Click for export instructions"></i>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Import Help Modal -->
+<div class="modal fade" id="importHelpModal" tabindex="-1" aria-labelledby="importHelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importHelpModalLabel">Import Instructions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Click the "Import Excel" button to upload an Excel file containing member details.
+                    Please ensure your file is in the proper format (e.g., CSV or Excel) and contains all required columns.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="exportHelpModal" tabindex="-1" aria-labelledby="exportHelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exportHelpModalLabel">Export Instructions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Select the fields you wish to export by checking the corresponding boxes.
+                    If you have applied filters, you can choose to export the filtered data. Then click the "Export" button to download the file.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <form asp-action="Index" method="get" aria-labelledby="form-title">
     <h2 id="form-title" class="sr-only">Filter and Search Form</h2>
     <input type="hidden" name="sortDirection" value="@ViewData["SortDirection"]" />
@@ -112,46 +240,32 @@
     <div class="form-horizontal mb-3">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <button class="btn btn-dark @ViewData["Filtering"]"
-                        type="button"
-                        id="filterToggle"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseFilter"
-                        aria-expanded="false"
-                        aria-controls="collapseFilter">
+                <button class="btn btn-dark @ViewData["Filtering"]" type="button" id="filterToggle" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                     Filter/Search @ViewData["numberFilters"]
                 </button>
 
-                <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
+                @*  <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark">
                     <i class="fa fa-file-excel text-white"></i>
                     Export filtered data to Excel
-                </button>
+                </button> *@
 
                 <!-- Export Button to Open Modal -->
-                <button type="button" class="btn btn-dark mt-2" data-bs-toggle="modal" data-bs-target="#exportModal">
-                    <i class="fa fa-file-excel text-white"></i> Export Selected Fields
-                </button>
-                
+                @if (User.IsInRole("Admin"))
+                {
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exportModal">
+                        <i class="fa fa-file-excel text-white"></i> Export To Excel
+                    </button>
+                }
 
 
             </div>
-            <a class="btn btn-primary" asp-action="Create">Create New</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-primary" asp-action="Create">+ Add Member</a>
+            }
         </div>
 
-
-
-
-
-        @if (TempData["ErrorMessage"] != null)
-        {
-            <div class="alert alert-danger">
-                @TempData["ErrorMessage"]
-            </div>
-        }
-
-
-
-
+        <!-- Filters clear banners -->
         @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
         {
             <div class="filters-container mt-2">
@@ -176,10 +290,30 @@
                         <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('MembershipTypes')">x</button>
                     </span>
                 }
+                @if (ViewData["SectorsFilter"] != null)
+                {
+                    <span class="custom-filter-badge me-2">
+                        Sector: @ViewData["SectorsFilter"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('Sectors')">x</button>
+                    </span>
+                }
+                @if (ViewData["NAICSCodesFilter"] != null)
+                {
+                    <span class="custom-filter-badge me-2">
+                        NAICS Code: @ViewData["NAICSCodesFilter"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('NAICSCodes')">x</button>
+                    </span>
+                }
+                @if (ViewData["CitiesFilter"] != null)
+                {
+                    <span class="custom-filter-badge me-2">
+                        City: @ViewData["CitiesFilter"]
+                        <button type="button" class="ms-2 clear-btn" aria-label="Clear" onclick="clearFilter('Cities')">x</button>
+                    </span>
+                }
             </div>
-
-
         }
+
 
 
         <!-- Filter/Search Form -->
@@ -195,10 +329,10 @@
                                 @class = "form-control",
                                 id = "SearchString",
                                 placeholder = "Enter Member Name"
-
                             })
                         <span id="search-name-help" class="sr-only">Type the member name to search.</span>
                     </div>
+
                     <!-- Filter by Join Date -->
                     <div class="form-group col-md-4">
                         <label for="JoinDate" class="control-label">Filter by Join Date:</label>
@@ -208,40 +342,56 @@
                                 id = "JoinDate",
                                 placeholder = "YYYY-MM-DD",
                                 type = "date"
-
                             })
                         <span id="join-date-help" class="sr-only">Enter the date in YYYY-MM-DD format.</span>
                     </div>
+
+                    <!-- Filter by Membership Types -->
                     <div class="form-group col-md-4">
                         <label for="MembershipTypes" class="control-label">Filter by Membership Types:</label>
-                        @Html.DropDownList("MembershipTypes", null, "All MembershipTypes", htmlAttributes: new { @class = "form-control" })
-                        <span id="industry-help" class="sr-only">Select Membership Types to filter members by.</span>
+                        @Html.DropDownList("MembershipTypes", ViewData["MembershipTypes"] as SelectList, "All Membership Types",
+                                 new { @class = "form-control" })
+                        <span id="membership-types-help" class="sr-only">Select Membership Types to filter members by.</span>
                     </div>
-                    <!-- Filter by Organization Name -->
-                    @* <div class="form-group col-md-4"> *@
-                    @*     <label for="Organization" class="control-label">Search by Organization Name:</label> *@
-                    @*     @Html.TextBox("Organization", ViewData["Organization"] as string, new *@
-                    @*         { *@
-                    @*             @class = "form-control", *@
-                    @*             id = "Organization", *@
-                    @*             placeholder = "Enter Organization Name" *@
 
-                    @*         }) *@
-                    @*     <span id="organization-name-help" class="sr-only">Type the organization name to filter.</span> *@
-                    @* </div> *@
-                   
-                    <!-- Buttons -->
-                    <div class="form-group col-md-4 d-flex align-items-end mt-2">
-                        <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
-                        <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
+                    <!-- Filter by Sectors -->
+                    <div class="form-group col-md-4">
+                        <label for="Sectors" class="control-label">Filter by Sectors:</label>
+                        @Html.DropDownList("Sectors", ViewData["Sectors"] as SelectList, "All Sectors",
+                                 new { @class = "form-control" })
+                        <span id="sectors-help" class="sr-only">Select a sector to filter members by.</span>
                     </div>
+
+                    <!-- Filter by NAICS Codes -->
+                    <div class="form-group col-md-4">
+                        <label for="NAICSCodes" class="control-label">Filter by NAICS Code:</label>
+                        @Html.DropDownList("NAICSCodes", ViewData["NAICSCodes"] as SelectList, "All NAICS Codes",
+                                 new { @class = "form-control" })
+                        <span id="naics-codes-help" class="sr-only">Select a NAICS Code to filter members by.</span>
+                    </div>
+
+                    <!-- Filter by City -->
+                    <div class="form-group col-md-4">
+                        <label for="Cities" class="control-label">Filter by City:</label>
+                        @Html.DropDownList("Cities", ViewData["Cities"] as SelectList, "All Cities",
+                                 new { @class = "form-control" })
+                        <span id="cities-help" class="sr-only">Select a city to filter members by.</span>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-group col-md-4 d-flex align-items-end mt-2">
+                    <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
+                    <a asp-action="Index" class="btn btn-dark">Clear Filters</a>
                 </div>
             </div>
         </div>
     </div>
+
     <div>
         <label class="control-label">@ViewData["records"]</label>
     </div>
+
     <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
         <thead>
             <tr>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,6 +16,7 @@ using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
+    [Authorize]
     public class CancellationController : ElephantController
     {
         private readonly NIACRMContext _context;
@@ -219,6 +221,7 @@ namespace NIA_CRM.Controllers
                     return Json(new { success = true, message = "Cancellation archiving completed successfully!" });
                 }
 
+                
                 string errorMessage = string.Join("|", ModelState.Values
                     .SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage));
@@ -264,6 +267,21 @@ namespace NIA_CRM.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            //Decide if we need to send the Validaiton Errors directly to the client
+            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                //Was an AJAX request so build a message with all validation errors
+                string errorMessage = "";
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errorMessage += error.ErrorMessage + "|";
+                    }
+                }
+                //Note: returning a BadRequest results in HTTP Status code 400
+                return BadRequest(errorMessage);
+            }
             return View(cancellation);
         }
 

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -13,6 +15,7 @@ using NIA_CRM.Utilities;
 
 namespace NIA_CRM.Controllers
 {
+    [Authorize]
     public class ContactCancellationController : ElephantController
     {
         private readonly NIACRMContext _context;
@@ -207,7 +210,21 @@ namespace NIA_CRM.Controllers
                 // Redirect to the index page
                 return RedirectToAction(nameof(Index));
             }
-
+            //Decide if we need to send the Validaiton Errors directly to the client
+            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                //Was an AJAX request so build a message with all validation errors
+                string errorMessage = "";
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errorMessage += error.ErrorMessage + "|";
+                    }
+                }
+                //Note: returning a BadRequest results in HTTP Status code 400
+                return BadRequest(errorMessage);
+            }
             // If the model is invalid, re-populate the select list and return the view
             ViewData["ContactID"] = new SelectList(_context.Contacts, "Id", "FirstName", contactCancellation.ContactID);
             return View(contactCancellation);

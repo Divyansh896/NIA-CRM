@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ using static Microsoft.IO.RecyclableMemoryStreamManager;
 
 namespace NIA_CRM.Controllers
 {
+    [Authorize]
     public class MEventController : ElephantController
     {
         private readonly NIACRMContext _context;
@@ -27,13 +29,23 @@ namespace NIA_CRM.Controllers
 
         // GET: MEvent
 
-        public async Task<IActionResult> Index(int? page, int? pageSizeID, DateTime? date, string? SearchString, string? actionButton,
-                                              string sortDirection = "desc", string sortField = "Event Name")
+        public async Task<IActionResult> Index(int? page, int? pageSizeID, DateTime? date, string? SearchString, string? Participants, string? EventLocations, string? actionButton,
+                                      string sortDirection = "desc", string sortField = "Event Name")
         {
             string[] sortOptions = new[] { "Event Name", "Event Date", "Event Location" };  // You can add more sort options if needed
             int numberFilters = 0;
 
             var MEvents = _context.MEvents.Include(m => m.MemberEvents).ThenInclude(m => m.Member).AsQueryable();
+
+            ViewData["EventLocations"] = new SelectList(_context.MEvents.Select(e => e.EventLocation).Distinct().ToList());
+
+            // Filter by Event Location
+            if (!String.IsNullOrEmpty(EventLocations))
+            {
+                MEvents = MEvents.Where(e => e.EventLocation != null && e.EventLocation.ToUpper().Contains(EventLocations.ToUpper()));
+                numberFilters++;
+                ViewData["EventLocationFilter"] = EventLocations;
+            }
 
             if (date.HasValue) // Check if date has a value instead of using TryParse
             {
@@ -42,13 +54,19 @@ namespace NIA_CRM.Controllers
                 ViewData["DateFilter"] = date.Value.ToString("yyyy-MM-dd"); // Store in ViewData for UI persistence
             }
 
-
             if (!String.IsNullOrEmpty(SearchString))
             {
                 MEvents = MEvents.Where(p => p.EventName.ToUpper().Contains(SearchString.ToUpper()));
                 numberFilters++;
                 ViewData["SearchString"] = SearchString;
+            }
 
+            if (!String.IsNullOrEmpty(Participants))
+            {
+                MEvents = MEvents.Where(p => p.MemberEvents
+                    .Any(a => a.Member.MemberName != null && a.Member.MemberName.ToUpper().Contains(Participants.ToUpper())));
+                numberFilters++;
+                ViewData["ParticipantsFilter"] = Participants;
             }
 
             if (!String.IsNullOrEmpty(actionButton)) //Form Submitted!
@@ -86,7 +104,6 @@ namespace NIA_CRM.Controllers
                 _ => MEvents
             };
 
-
             //Give feedback about the state of the filters
             if (numberFilters != 0)
             {
@@ -99,15 +116,10 @@ namespace NIA_CRM.Controllers
                 @ViewData["ShowFilter"] = " show";
             }
 
-
             if (!string.IsNullOrEmpty(actionButton) && actionButton == "ExportExcel")
             {
-
-                return ExportToExcel();
+                return ExportToExcel(MEvents.ToList());
             }
-
-
-
 
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
@@ -122,37 +134,41 @@ namespace NIA_CRM.Controllers
             return View(pagedData);
         }
 
-        // Export to Excel Action
-        public IActionResult ExportToExcel()
+        public IActionResult ExportToExcel(List<MEvent> MEvents)
         {
-            // Get the data you want to export
-            var events = _context.MEvents.ToList();
+            var package = new ExcelPackage(); // No 'using' block to avoid disposal
+            var worksheet = package.Workbook.Worksheets.Add("Events");
 
-            // Create a new Excel package
-            using (var package = new ExcelPackage())
+            // Adding headers
+            worksheet.Cells[1, 1].Value = "Event Name";
+            worksheet.Cells[1, 2].Value = "Event Description";
+            worksheet.Cells[1, 3].Value = "Event Location";
+            worksheet.Cells[1, 4].Value = "Event Date";
+
+            // Populating data
+            int row = 2;
+            foreach (var eventItem in MEvents)
             {
-                var worksheet = package.Workbook.Worksheets.Add("Events");
-
-                // Add the header row
-                worksheet.Cells[1, 1].Value = "Event Name";
-                worksheet.Cells[1, 2].Value = "Event Description";
-                worksheet.Cells[1, 3].Value = "Event Location";
-                worksheet.Cells[1, 4].Value = "Event Date";
-
-                // Add data rows
-                for (int i = 0; i < events.Count; i++)
-                {
-                    worksheet.Cells[i + 2, 1].Value = events[i].EventName;
-                    worksheet.Cells[i + 2, 2].Value = events[i].EventDescription;
-                    worksheet.Cells[i + 2, 3].Value = events[i].EventLocation;
-                    worksheet.Cells[i + 2, 4].Value = events[i].EventDate.ToString("yyyy-MM-dd"); // Format the Date
-                }
-
-                // Set the response headers
-                var fileContents = package.GetAsByteArray();
-                return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Events.xlsx");
+                worksheet.Cells[row, 1].Value = eventItem.EventName;
+                worksheet.Cells[row, 2].Value = eventItem.EventDescription;
+                worksheet.Cells[row, 3].Value = eventItem.EventLocation;
+                worksheet.Cells[row, 4].Value = eventItem.EventDate.ToString("yyyy-MM-dd"); // Format the Date
+                row++;
             }
+
+            // Auto-fit columns for better readability
+            worksheet.Cells.AutoFitColumns();
+
+            var stream = new MemoryStream();
+            package.SaveAs(stream);
+            stream.Position = 0; // Reset position before returning
+
+            string excelName = "Events.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
+
+
+
         [HttpPost]
         public async Task<IActionResult> ImportFromExcel(IFormFile file)
         {
@@ -444,7 +460,7 @@ namespace NIA_CRM.Controllers
 
 
         [HttpPost]
-        public IActionResult ExportSelectedMemberEventsFields(List<string>? selectedFields)
+        public IActionResult ExportSelectedMemberEventsFields(List<string>? selectedFields, string? SearchString, DateTime? DateFilter, string? Participants, string? EventLocations, bool applyFilters)
         {
             if (selectedFields == null || selectedFields.Count == 0)
             {
@@ -452,57 +468,91 @@ namespace NIA_CRM.Controllers
                 return RedirectToAction("Index");
             }
 
-            var memberEvents = _context.MEvents.Include(me => me.MemberEvents).ThenInclude(m => m.Member).ToList(); // Assuming Member is a navigation property
+            var memberEvents = _context.MEvents
+                .Include(me => me.MemberEvents)
+                .ThenInclude(m => m.Member)
+                .AsQueryable();
+
+            // Apply filters if applyFilter is true
+            if (applyFilters)
+            {
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    memberEvents = memberEvents.Where(e => e.EventName.Contains(SearchString));
+                }
+
+                if (DateFilter.HasValue)
+                {
+                    memberEvents = memberEvents.Where(e => e.EventDate.Date == DateFilter.Value.Date);
+                }
+
+                if (!string.IsNullOrEmpty(Participants))
+                {
+                    memberEvents = memberEvents.Where(e => e.MemberEvents
+                        .Any(m => m.Member.MemberName != null && m.Member.MemberName.ToUpper().Contains(Participants.ToUpper())));
+                }
+
+                if (!string.IsNullOrEmpty(EventLocations))
+                {
+                    memberEvents = memberEvents.Where(e => e.EventLocation.ToUpper().Contains(EventLocations.ToUpper()));
+                }
+            }
+
+            var memberEventsList = memberEvents.ToList(); // Execute query
 
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("MemberEvents");
                 int col = 1;
 
-                // Add selected column headers
+                // **Adding a proper header row**
+                worksheet.Cells[1, 1].Value = "Member Events Export";
+                worksheet.Cells[1, 1, 1, selectedFields.Count].Merge = true; // Merge header cells
+                worksheet.Cells[1, 1].Style.Font.Bold = true;
+                worksheet.Cells[1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+                int headerRow = 2; // Header row for column names
                 foreach (var field in selectedFields)
                 {
-                    var cell = worksheet.Cells[1, col];
+                    var cell = worksheet.Cells[headerRow, col];
                     cell.Value = field;
-
-                    // Make the header bold
                     cell.Style.Font.Bold = true;
-
+                    cell.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    cell.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray); // Adding color to header
                     col++;
                 }
 
-                int row = 2;
-                foreach (var eventItem in memberEvents)
+                int row = 3; // Data starts from row 3
+                foreach (var eventItem in memberEventsList)
                 {
                     col = 1;
-
-                    if (selectedFields.Contains("EventName"))
-                        worksheet.Cells[row, col++].Value = eventItem.EventName ?? "N/A"; // Replace with actual property name
-
-                    if (selectedFields.Contains("EventDescription"))
-                        worksheet.Cells[row, col++].Value = eventItem.EventDescription ?? "N/A"; // Replace with actual property name
-
-                    if (selectedFields.Contains("EventLocation"))
-                        worksheet.Cells[row, col++].Value = eventItem.EventLocation ?? "N/A"; // Replace with actual property name
-
-                    if (selectedFields.Contains("EventDate"))
-                        worksheet.Cells[row, col++].Value = eventItem.EventDate.ToString("yyyy-MM-dd") ?? "N/A";
 
                     if (selectedFields.Contains("MemberName"))
                     {
                         var memberNames = eventItem.MemberEvents?
-                            .Select(me => me.Member?.MemberName) // Accessing the MemberName
-                            .Where(name => !string.IsNullOrEmpty(name)) // Ensuring non-null or empty values
+                            .Select(me => me.Member?.MemberName)
+                            .Where(name => !string.IsNullOrEmpty(name))
                             .ToList();
 
-                        // If there are member names, join them with a comma; otherwise, use "N/A"
                         worksheet.Cells[row, col++].Value = memberNames.Any() ? string.Join(", ", memberNames) : "N/A";
                     }
+
+                    if (selectedFields.Contains("EventName"))
+                        worksheet.Cells[row, col++].Value = eventItem.EventName ?? "N/A";
+
+                    if (selectedFields.Contains("EventDescription"))
+                        worksheet.Cells[row, col++].Value = eventItem.EventDescription ?? "N/A";
+
+                    if (selectedFields.Contains("EventLocation"))
+                        worksheet.Cells[row, col++].Value = eventItem.EventLocation ?? "N/A";
+
+                    if (selectedFields.Contains("EventDate"))
+                        worksheet.Cells[row, col++].Value = eventItem.EventDate.ToString("yyyy-MM-dd") ?? "N/A";
+
 
                     row++;
                 }
 
-                // Auto-fit columns for better readability
                 worksheet.Cells.AutoFitColumns();
 
                 var stream = new MemoryStream();
@@ -513,6 +563,7 @@ namespace NIA_CRM.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
+
 
 
     }

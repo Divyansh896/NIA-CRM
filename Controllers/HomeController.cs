@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using SQLitePCL;
 
 namespace NIA_CRM.Controllers
 {
+    [Authorize]
     public class HomeController : ElephantController
     {
         private readonly ILogger<HomeController> _logger;
@@ -50,27 +52,27 @@ namespace NIA_CRM.Controllers
             Console.WriteLine("City counts: " + string.Join(", ", cityCounts.Select(c => $"{c.City}: {c.Count}")));
 
 
-            
-                var membershipCount = await _context.MemberMembershipTypes
-                    .GroupBy(mmt => mmt.MembershipType)
-                    .Select(g => new
-                    {
-                        MembershipType = g.Key,
-                        Count = g.Count()
-                    })
-                    .ToArrayAsync();
-            
-                var sectorCount = await _context.MemberSectors
-                    .Include(ms => ms.Sector)
-                    .GroupBy(ms => ms.Sector.SectorName)
-                    .Select(g => new
-                    {
-                        SectorName = g.Key,
-                        Count = g.Count()
-                    })
-                    .ToArrayAsync();
 
-                ViewData["SectorCount"] = sectorCount;  // Pass data to the view
+            var membershipCount = await _context.MemberMembershipTypes
+                .GroupBy(mmt => mmt.MembershipType)
+                .Select(g => new
+                {
+                    MembershipType = g.Key,
+                    Count = g.Count()
+                })
+                .ToArrayAsync();
+
+            var sectorCount = await _context.MemberSectors
+                .Include(ms => ms.Sector)
+                .GroupBy(ms => ms.Sector.SectorName)
+                .Select(g => new
+                {
+                    SectorName = g.Key,
+                    Count = g.Count()
+                })
+                .ToArrayAsync();
+
+            ViewData["SectorCount"] = sectorCount;  // Pass data to the view
 
             var tagCount = await _context.MemberTags
         .Include(mt => mt.MTag)
@@ -137,7 +139,7 @@ namespace NIA_CRM.Controllers
 
             return View(); // Pass nothing if using ViewData, or you can directly pass data via View()
         }
-        
+
 
     }
 

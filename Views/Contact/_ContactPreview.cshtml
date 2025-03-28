@@ -41,9 +41,9 @@
                 string industrySize = industry.MemberSize.ToString(); // Industry Size
                 string? industryWebsite = industry.WebsiteUrl; // Website URL
 
-                <strong>Industry Name:</strong> @industryName <br />
-                <strong>Industry Size:</strong> @industrySize <br />
-                <strong>Website:</strong>
+               <p><strong>Industry Name:</strong> @industryName</p>
+              <p><strong>Industry Size:</strong> @industrySize</p>
+               <p><strong>Website:</strong></p>
                 @if (!string.IsNullOrEmpty(industryWebsite))
                 {
                     <a href="@industryWebsite" target="_blank">@industryWebsite</a>
@@ -63,23 +63,28 @@
 
 
         <div id="responseMessage"></div>
-
-        <form id="saveNoteForm" asp-action="SaveMemberNote" asp-controller="Member" method="post">
-            <input type="hidden" id="ContactId" name="id" value="@Model.Id" />
-            <label for="Note">Contact Note</label>
-            <textarea id="Note" name="note" placeholder="Enter your note..." class="form-control">@Model.ContactNote</textarea>
-            <input type="button" id="saveNoteBtn" value="Save Note" class="btn btn-primary mt-2" />
-        </form>
+        @if (User.IsInRole("Admin"))
+        {
+            <form id="saveNoteForm" asp-action="SaveMemberNote" asp-controller="Member" method="post">
+                <input type="hidden" id="ContactId" name="id" value="@Model.Id" />
+                <label for="Note">Contact Note</label>
+                <textarea id="Note" name="note" placeholder="Enter your note..." class="form-control">@Model.ContactNote</textarea>
+                <input type="button" id="saveNoteBtn" value="Save Note" class="btn btn-primary mt-2" />
+            </form>
+        }
     </div>
     <div class="sticky-buttons">
         <div class="sticky-buttons-container">
-            <button type="button" class="btn btn-dark"
-                    data-bs-toggle="modal"
-                    data-bs-target="#addCancellationModal"
-                    data-id="@Model.Id">
-                Archive Contact
-            </button>
-            <a class="btn btn-dark" asp-action="Edit" asp-controller="Contact" asp-route-id="@Model.Id">Edit</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <button type="button" class="btn btn-dark"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addCancellationModal"
+                        data-id="@Model.Id">
+                    Archive Contact
+                </button>
+                <a class="btn btn-dark" asp-action="Edit" asp-controller="Contact" asp-route-id="@Model.Id">Edit</a>
+            }
             <a class="btn btn-dark" asp-controller="Member" asp-action="Details" asp-route-id="@Model.Id">Details</a>
         </div>
     </div>
