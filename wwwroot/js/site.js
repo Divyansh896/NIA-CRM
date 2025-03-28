@@ -19,6 +19,21 @@ btnBackToTop.addEventListener('click', () => {
 })
 
 
+function toggleVisibility(id) {
+    var element = document.getElementById(id);
+
+    if (element.style.opacity === "0" || element.style.display === "none" || element.style.opacity === "") {
+        element.style.display = "block";
+        setTimeout(() => {
+            element.style.opacity = "1";
+        }, 10); // Small delay to allow transition
+    } else {
+        element.style.opacity = "0";
+        setTimeout(() => {
+            element.style.display = "none";
+        }, 300); // Matches transition duration
+    }
+}
 
 
 

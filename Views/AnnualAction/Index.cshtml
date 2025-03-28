@@ -66,54 +66,23 @@
                     <i class="fa fa-file-excel text-white"></i> Export
                 </button>
                 <!-- Help Icon for Export Instructions -->
-                <i class="fa fa-question-circle help-icon ms-2" data-bs-toggle="modal" data-bs-target="#exportHelpModal" title="Click for export instructions"></i>
+                <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('exportHelp')" title="Click for export instructions"></i>
             </div>
-        </div>
-    </div>
-</div>
 
-
-<!-- Import Help Modal -->
-<div class="modal fade" id="importHelpModal" tabindex="-1" aria-labelledby="importHelpModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="importHelpModalLabel">Import Instructions</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    Click the "Import Excel" button to upload an Excel file containing member details.
-                    Please ensure your file is in the proper format (e.g., CSV or Excel) and contains all required columns.
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Export Help Modal -->
-<div class="modal fade" id="exportHelpModal" tabindex="-1" aria-labelledby="exportHelpModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exportHelpModalLabel">Export Instructions</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+            <!-- Export Help Info -->
+            <div id="exportHelp" class="info-box" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px; position: relative;">
+                <button class="close-btn" onclick="toggleVisibility('exportHelp')">×</button>
+                <h5>Export Instructions</h5>
                 <p>
                     Select the fields you wish to export by checking the corresponding boxes.
                     If you have applied filters, you can choose to export the filtered data. Then click the "Export" button to download the file.
                 </p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+
         </div>
     </div>
 </div>
+
 
 
 @if (User.IsInRole("Admin"))
@@ -125,9 +94,22 @@
             <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
                 <i class="fa fa-file-import"></i> Import Excel
             </button>
+            <!-- Help Icon for import Instructions -->
+            <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('importHelp')" title="Click for import instructions"></i>
+
         </div>
 
     </form>
+
+    <!-- Import Help Info -->
+    <div id="importHelp" class="info-box" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px; position: relative;">
+        <button class="close-btn" onclick="toggleVisibility('importHelp')">×</button>
+        <h5>Import Instructions</h5>
+        <p>
+            Click the "Import Excel" button to upload an Excel file containing member details.
+            Please ensure your file is in the proper format (e.g., CSV or Excel) and contains all required columns.
+        </p>
+    </div>
 }
 
 
@@ -441,19 +423,19 @@
 
 @* Get and Set the values of the filter fields in the modal script *@
 @* <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    document.getElementById("exportAnnualActionsModal").addEventListener("show.bs.modal", function () {
-                        // Get filter values from the main form
-                        let searchString = document.getElementById("search-name")?.value || "";
-                        let dateFilter = document.getElementById("filter-date")?.value || "";
+                        document.addEventListener("DOMContentLoaded", function () {
+                            document.getElementById("exportAnnualActionsModal").addEventListener("show.bs.modal", function () {
+                                // Get filter values from the main form
+                                let searchString = document.getElementById("search-name")?.value || "";
+                                let dateFilter = document.getElementById("filter-date")?.value || "";
 
-                        console.log(searchString, dateFilter);
-                        // Assign values to modal's hidden fields
-                        document.getElementById("modalSearchString").value = searchString;
-                        document.getElementById("modalDateFilter").value = dateFilter;
-                    });
-                });
-            </script> *@
+                                console.log(searchString, dateFilter);
+                                // Assign values to modal's hidden fields
+                                document.getElementById("modalSearchString").value = searchString;
+                                document.getElementById("modalDateFilter").value = dateFilter;
+                            });
+                        });
+                    </script> *@
 
 }
 

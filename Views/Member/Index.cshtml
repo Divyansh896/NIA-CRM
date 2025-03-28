@@ -28,8 +28,23 @@
                 <i class="fa fa-file-import"></i> Import Excel
             </button>
 
+            <!-- Help Icon for import Instructions -->
+            <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('importHelp')" title="Click for import instructions"></i>
+
         </div>
     </form>
+
+    @* onclick = "toggleVisibility('importHelp')" *@
+
+    <!-- Import Help Info -->
+    <div id="importHelp" class="info-box" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px; position: relative;">
+        <button class="close-btn" onclick="toggleVisibility('importHelp')">×</button>
+        <h5>Import Instructions</h5>
+        <p>
+            Click the "Import Excel" button to upload an Excel file containing member details.
+            Please ensure your file is in the proper format (e.g., CSV or Excel) and contains all required columns.
+        </p>
+    </div>
 
 }
 
@@ -51,14 +66,14 @@
                     <input type="hidden" name="NAICSCodes" id="modalNAICSCodes" value="@ViewData["NAICSCodesFilter"]">
                     <input type="hidden" name="Cities" id="modalCities" value="@ViewData["CitiesFilter"]">
 
-                    <div class="form-check mb-3">
+                    <div class="form-check mb-1">
                         <input type="checkbox" class="form-check-input" id="includeFilters" name="applyFilters" value="true" checked>
                         <label class="form-check-label" for="includeFilters">Include current filters in export</label>
                     </div>
 
                     <div class="row">
                         <!-- Member Section Header -->
-                        <div class="col-md-12 mt-4">
+                        <div class="col-md-12 mt-2">
                             <h5>Member Information</h5>
                         </div>
 
@@ -99,7 +114,7 @@
                         </div>
 
                         <!-- Contact Section Header -->
-                        <div class="col-md-12 mt-4">
+                        <div class="col-md-12 mt-2">
                             <h5>Contact Information</h5>
                         </div>
 
@@ -139,7 +154,7 @@
                         </div>
 
                         <!-- Address Section Header -->
-                        <div class="col-md-12 mt-4">
+                        <div class="col-md-12 mt-2">
                             <h5>Address Information</h5>
                         </div>
 
@@ -178,54 +193,23 @@
                     <i class="fa fa-file-excel text-white"></i> Export
                 </button>
                 <!-- Help Icon for Export Instructions -->
-                <i class="fa fa-question-circle help-icon ms-2" data-bs-toggle="modal" data-bs-target="#exportHelpModal" title="Click for export instructions"></i>
+                <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('exportHelp')" title="Click for export instructions"></i>
             </div>
 
-        </div>
-    </div>
-</div>
-
-<!-- Import Help Modal -->
-<div class="modal fade" id="importHelpModal" tabindex="-1" aria-labelledby="importHelpModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="importHelpModalLabel">Import Instructions</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    Click the "Import Excel" button to upload an Excel file containing member details.
-                    Please ensure your file is in the proper format (e.g., CSV or Excel) and contains all required columns.
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="exportHelpModal" tabindex="-1" aria-labelledby="exportHelpModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exportHelpModalLabel">Export Instructions</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+            <!-- Export Help Info -->
+            <div id="exportHelp" class="info-box" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px; position: relative;">
+                <button class="close-btn" onclick="toggleVisibility('exportHelp')">×</button>
+                <h5>Export Instructions</h5>
                 <p>
                     Select the fields you wish to export by checking the corresponding boxes.
                     If you have applied filters, you can choose to export the filtered data. Then click the "Export" button to download the file.
                 </p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
         </div>
     </div>
 </div>
+
+
 
 <form asp-action="Index" method="get" aria-labelledby="form-title">
     <h2 id="form-title" class="sr-only">Filter and Search Form</h2>
