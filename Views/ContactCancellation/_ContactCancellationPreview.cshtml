@@ -2,7 +2,7 @@
 
 <div>
     <div class="d-flex justify-content-between align-items-center px-2 mb-3">
-        <h3>Contact Preview</h3>
+        <h3>Contact Archive Preview</h3>
         <input type="button" name="btnClose" value="X" id="btnClose" class="btn btn-danger" />
     </div>
 
@@ -71,20 +71,26 @@
 
 
         <div id="responseMessage"></div>
+        @if (User.IsInRole("Admin"))
+        {
 
-        <form id="saveNoteForm" asp-action="SaveCancellationNote" asp-controller="ContactCancellation" method="post">
-            <input type="hidden" id="ContactId" name="id" value="@Model.ID" />
-            <label for="Note">Cancellation Note</label>
-            <textarea id="Note" name="note" placeholder="Enter your note..." class="form-control">@Model.CancellationNote</textarea>
-            <input type="button" id="saveNoteBtn" value="Save Note" class="btn btn-primary mt-2" />
-        </form>
+            <form id="saveNoteForm" asp-action="SaveCancellationNote" asp-controller="ContactCancellation" method="post">
+                <input type="hidden" id="ContactId" name="id" value="@Model.ID" />
+                <label for="Note">Cancellation Note</label>
+                <textarea id="Note" name="note" placeholder="Enter your note..." class="form-control">@Model.CancellationNote</textarea>
+                <input type="button" id="saveNoteBtn" value="Save Note" class="btn btn-primary mt-2" />
+            </form>
+        }
     </div>
     <div class="sticky-buttons">
         <div class="sticky-buttons-container">
-
-            <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+                <a class="btn btn-primary" asp-action="Delete" asp-route-id="@Model.ID">Activate</a>
+            }
             <a class="btn btn-dark" asp-action="Details" asp-route-id="@Model.ID">Details</a>
-            <a class="btn btn-primary" asp-action="Delete" asp-route-id="@Model.ID">Activate</a>
+
         </div>
     </div>
 </div>

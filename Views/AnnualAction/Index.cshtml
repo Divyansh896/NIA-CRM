@@ -9,6 +9,7 @@
 </div>
 
 <partial name="_ErrorMessage" />
+<partial name="_SuccessMessage" />
 
 
 
@@ -115,30 +116,21 @@
 </div>
 
 
-
-<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center" style="padding-bottom: 10px;">
-
-        <input type="file" name="file" class="form-control me-2" required />
-        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
-            <i class="fa fa-file-import"></i> Import Excel
-        </button>
-        <!-- Help Icon for Import Instructions -->
-        <i class="fa fa-question-circle help-icon ms-2" data-bs-toggle="modal" data-bs-target="#importHelpModal" title="Click for import instructions"></i>
-    </div>
-
-</form>
-
-
-@if (TempData["Success"] != null)
+@if (User.IsInRole("Admin"))
 {
-    <div class="alert alert-success">@TempData["Success"]</div>
+    <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
+        <div class="d-flex align-items-center" style="padding-bottom: 10px;">
+
+            <input type="file" name="file" class="form-control me-2" required />
+            <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
+        </div>
+
+    </form>
 }
-@* 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">@TempData["Error"]</div>
-} *@
+
+
 
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
@@ -158,19 +150,18 @@
                         Filter/Search @ViewData["numberFilters"]
                     </button>
 
-                    @* <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
-                        <i class="fa fa-file-excel text-white"></i>
-                        Export filtered data to Excel
-                    </button> *@
-
-                    <!-- Export Button to Open Modal for Annual Actions -->
-                    <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportAnnualActionsModal">
-                        <i class="fa fa-file-excel text-white"></i> Export To Excel
-                    </button>
-
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <!-- Export Button to Open Modal for Annual Actions -->
+                        <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportAnnualActionsModal">
+                            <i class="fa fa-file-excel text-white"></i> Export To Excel
+                        </button>
+                    }
                 </div>
-                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add New Action</a>
-
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add New Action</a>
+                }
             </div>
         </div>
     </div>
@@ -210,7 +201,7 @@
         </div>
     }
 
-    
+
 
     <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
         <div class="card card-body bg-light">
@@ -449,20 +440,20 @@
     </script>
 
 @* Get and Set the values of the filter fields in the modal script *@
-    @* <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("exportAnnualActionsModal").addEventListener("show.bs.modal", function () {
-                // Get filter values from the main form
-                let searchString = document.getElementById("search-name")?.value || "";
-                let dateFilter = document.getElementById("filter-date")?.value || "";
+@* <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.getElementById("exportAnnualActionsModal").addEventListener("show.bs.modal", function () {
+                        // Get filter values from the main form
+                        let searchString = document.getElementById("search-name")?.value || "";
+                        let dateFilter = document.getElementById("filter-date")?.value || "";
 
-                console.log(searchString, dateFilter);
-                // Assign values to modal's hidden fields
-                document.getElementById("modalSearchString").value = searchString;
-                document.getElementById("modalDateFilter").value = dateFilter;
-            });
-        });
-    </script> *@
+                        console.log(searchString, dateFilter);
+                        // Assign values to modal's hidden fields
+                        document.getElementById("modalSearchString").value = searchString;
+                        document.getElementById("modalDateFilter").value = dateFilter;
+                    });
+                });
+            </script> *@
 
 }
 

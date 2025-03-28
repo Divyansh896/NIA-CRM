@@ -4,17 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Success"]
-    </div>
-}
 
 
 
 <partial name="_addArchiveModal" />
 <partial name="_notificationModal" />
+<partial name="_SuccessMessage" />
 
 
 
@@ -152,17 +147,20 @@
 </div>
 <partial name="_ErrorMessage" />
 
-<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center" style="padding-bottom: 10px;">
-        <input type="file" name="file" class="form-control me-2" required />
-        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
-            <i class="fa fa-file-import"></i> Import Excel
-        </button>
-        <!-- Help Icon for Import Instructions -->
-        <i class="fa fa-question-circle help-icon ms-2" data-bs-toggle="modal" data-bs-target="#importHelpModal" title="Click for import instructions"></i>
-    </div>
-</form>
 
+@if (User.IsInRole("Admin"))
+{
+    <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
+        <div class="d-flex align-items-center" style="padding-bottom: 10px;">
+
+            <input type="file" name="file" class="form-control me-2" required />
+            <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
+
+        </div>
+    </form>
+}
 
 <form asp-action="Index" method="get" aria-labelledby="contacts-title">
     <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
@@ -182,22 +180,27 @@
                     <button class="btn btn-dark @ViewData["Filtering"] me-2 mb-2" type="button" id="filterToggle" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                         Filter/Search @ViewData["numberFilters"]
                     </button>
-
-                    <button type="button" class="btn btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#addNotificationModal">
-                        Send Email
-                    </button>
-                    <button type="button" class="btn btn-dark me-2 mb-2" id="toggleCheckboxes">
-                        Enable Contact Selection
-                    </button>
-                    @* <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <button type="button" class="btn btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#addNotificationModal">
+                            Send Email
+                        </button>
+                        <button type="button" class="btn btn-dark me-2 mb-2" id="toggleCheckboxes">
+                            Enable Contact Selection
+                        </button>
+                        @* <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
                         <i class="fa fa-file-excel text-white"></i>
                         Export filtered data to Excel
                     </button> *@
-                    <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportContactsModal">
-                        <i class="fa fa-file-excel text-white"></i> Export Selected Fields
-                    </button>
+                        <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportContactsModal">
+                            <i class="fa fa-file-excel text-white"></i> Export Selected Fields
+                        </button>
+                    }
                 </div>
-                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new contact">+ Add Contact</a>
+                }
 
             </div>
 
@@ -249,11 +252,7 @@
 
 
     }
-    @if (TempData["Success"] != null)
-    {
-        <div class="alert alert-success">@TempData["Success"]</div>
-    }
-
+   
 
 
 

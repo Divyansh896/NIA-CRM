@@ -33,7 +33,10 @@
                         aria-controls="collapseFilter">
                     Filter/Search @ViewData["numberFilters"]
                 </button>
-                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new Email">+ Add Email</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new Email">+ Add Email</a>
+                }
             </div>
             @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
             {
@@ -53,25 +56,13 @@
             <div class="collapse @ViewData["ShowFilter"] mt-2" id="collapseFilter">
                 <div class="card card-body bg-light">
                     <div class="row">
-                        @* <div class="form-group col-md-3"> *@
-                        @*     <label for="search-name" class="control-label">Search By Name:</label> *@
-                        @*     @Html.TextBox("SearchString", null, new { @class = "form-control", id = "search-name" }) *@
-                        @* </div> *@
+
 
                         <div class="form-group col-md-3">
                             <label for="filter-email" class="control-label">Filter By Email Type:</label>
                             @Html.DropDownList("EmailTypeID", null, "All Email Types", htmlAttributes: new { @class = "form-control", id = "filter-email" })
                         </div>
 
-                        @* <div class="form-group col-md-3"> *@
-                        @*     <label for="filter-department" class="control-label">Filter by Department:</label> *@
-                        @*     @Html.DropDownList("Departments", null, "All Departments", htmlAttributes: new { @class = "form-control", id = "filter-department" }) *@
-                        @* </div> *@
-
-                        @* <div class="form-group col-md-2"> *@
-                        @*     <label class="control-label" for="OnlyVIP">Only VIPs</label> *@
-                        @*     @Html.CheckBox("IsVIP", htmlAttributes: new { @class = "form-check-input", id = "OnlyVIP" }) *@
-                        @* </div> *@
 
                         <div class="form-group col-md-4 d-flex align-items-end mt-2">
                             <input type="submit" name="actionButton" value="Apply Filters" class="btn btn-primary me-2" />
@@ -170,14 +161,19 @@
 
                         <td>
                             <a class="btn btn-secondary mb-2" asp-action="Details" asp-route-id="@item.Id" aria-label="View details of email of type @item.EmailType with subject @item.Subject">Details</a>
-                            <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.Id" aria-label="Edit email of type @item.EmailType with subject @item.Subject">Edit</a>
-                            <a class="btn btn-light mb-2" asp-action="Delete" asp-route-id="@item.Id" aria-label="Delete email of type @item.EmailType with subject @item.Subject">Delete</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.Id" aria-label="Edit email of type @item.EmailType with subject @item.Subject">Edit</a>
+                                <a class="btn btn-light mb-2" asp-action="Delete" asp-route-id="@item.Id" aria-label="Delete email of type @item.EmailType with subject @item.Subject">Delete</a>
+                            }
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+    <partial name="_PagingNavBar" />
+
 </form>
 
 @section Scripts {
