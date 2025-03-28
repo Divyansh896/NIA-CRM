@@ -25,7 +25,7 @@
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="total-members-title" role="heading" aria-level="3">Total Members</p>
-                            <p class="card-text fixed-text" aria-live="polite">@ViewData["MemberCount"]</p>
+                            <a href="@Url.Action("Index", "Member")" class="card-text fixed-text" aria-live="polite" style="cursor: pointer;">@ViewData["MemberCount"]</a>
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -148,7 +148,7 @@
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="archived-members-title" role="heading" aria-level="3">Archived Members</p>
-                            <p class="card-text fixed-text" id="archived-member-count" aria-live="polite">@ViewData["ArchivedMemberCount"]</p> <!-- Display the count -->
+                            <a href="@Url.Action("Index", "Cancellation")" class="card-text fixed-text" id="archived-member-count" aria-live="polite">@ViewData["ArchivedMemberCount"]</a> <!-- Display the count -->
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -161,7 +161,7 @@
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="active-members-title" role="heading" aria-level="3">Active Members</p>
-                            <p class="card-text fixed-text" id="active-member-count" aria-live="polite">@ViewData["ActiveMemberCount"]</p> <!-- Display the calculated active members count -->
+                                <a href="@Url.Action("Index", "Member")" class="card-text fixed-text" id="active-member-count" aria-live="polite">@ViewData["ActiveMemberCount"]</a> <!-- Display the calculated active members count -->
                         </div>
                         <div class="col-6"></div>
                     </div>

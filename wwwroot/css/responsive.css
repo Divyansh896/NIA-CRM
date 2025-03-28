@@ -490,6 +490,21 @@ td, th {
         margin: 5px;
     }
 
+.member-count-link {
+    color: inherit !important; /* Inherit text color from parent */
+}
+.member-count-link:hover {
+    color: #A61C1C !important; /* Change color to red on hover */
+}
+
+a:hover{
+    color: black !important;
+}
+
+a::after {
+    color: black !important;
+}
+
 /* Dark Mode */
 .theme-toggle-btn {
     height: 40px;
