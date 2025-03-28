@@ -12,29 +12,26 @@
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="member-title">Members</h1>
 </div>
+
 <partial name="_ErrorMessage" />
-
-<form asp-action="ImportMembersFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center" style="padding-bottom: 10px;">
-        <input type="file" name="file" class="form-control" required />
-        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
-            <i class="fa fa-file-import"></i> Import Excel
-        </button>
-        <!-- Help Icon for Import Instructions -->
-        <i class="fa fa-question-circle help-icon ms-2" data-bs-toggle="modal" data-bs-target="#importHelpModal" title="Click for import instructions"></i>
-    </div>
-</form>
+<partial name="_SuccessMessage" />
 
 
-@if (TempData["Success"] != null)
+<!-- Import Excel Form -->
+@if (User.IsInRole("Admin"))
 {
-    <div class="alert alert-success">
-        @TempData["Success"]
-    </div>
+    <form asp-action="ImportMembersFromExcel" method="post" enctype="multipart/form-data">
+        <div class="d-flex align-items-center" style="padding-bottom: 10px;">
+
+            <input type="file" name="file" class="form-control" required />
+            <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
+
+        </div>
+    </form>
+
 }
-
-
-
 
 <!-- Export Fields Modal -->
 <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
@@ -253,12 +250,19 @@
                 </button> *@
 
                 <!-- Export Button to Open Modal -->
-                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exportModal">
-                    <i class="fa fa-file-excel text-white"></i> Export To Excel
-                </button>
+                @if (User.IsInRole("Admin"))
+                {
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exportModal">
+                        <i class="fa fa-file-excel text-white"></i> Export To Excel
+                    </button>
+                }
+
 
             </div>
-            <a class="btn btn-primary" asp-action="Create">+ Add Member</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-primary" asp-action="Create">+ Add Member</a>
+            }
         </div>
 
         <!-- Filters clear banners -->

@@ -279,7 +279,7 @@ namespace NIA_CRM.Controllers
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult ImportMembersFromExcel(IFormFile file)
         {
             if (file == null || file.Length == 0)
@@ -419,6 +419,7 @@ namespace NIA_CRM.Controllers
         }
 
         // GET: Member/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             Member member = new Member
@@ -439,6 +440,7 @@ namespace NIA_CRM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ID,MemberName,MemberSize,WebsiteUrl,JoinDate,IsPaid,MemberNote")]
                                                 Member member, IFormFile? thePicture, string[] selectedOptionsTag,
                                                 string[] selectedOptionsSector, string[] selectedOptionsMembership, string[] selectedOptionsNaicsCode)
@@ -554,6 +556,7 @@ namespace NIA_CRM.Controllers
         // POST: Member/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, string? chkRemoveImage, IFormFile? thePicture, string[] selectedOptionsTag,
                                                 string[] selectedOptionsSector, string[] selectedOptionsMembership, string[] selectedOptionsNaicsCode)
         {
@@ -713,6 +716,7 @@ namespace NIA_CRM.Controllers
         // POST: Member/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var member = await _context.Members.FindAsync(id);
@@ -1140,6 +1144,7 @@ namespace NIA_CRM.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SaveMemberNote(int id, string note)
         {
             var memberToUpdate = await _context.Members.FirstOrDefaultAsync(m => m.ID == id);
@@ -1164,6 +1169,7 @@ namespace NIA_CRM.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult ExportSelectedFields(List<string>? selectedFields, string? SearchString, DateTime? JoinDate, string? MembershipType, string? Sectors, string? NAICSCodes, string? Cities, bool applyFilters)
         {
             // Check if no fields are selected
@@ -1361,9 +1367,12 @@ namespace NIA_CRM.Controllers
                 package.SaveAs(stream);
                 stream.Position = 0;
 
+                //TempData["Success"] = "Member data export completed successfully! Check your Downloads folder.";
+
                 string excelName = $"MembersExport_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
+
         }
 
 

@@ -154,8 +154,11 @@
                         </div>
                     </div>
                     <div class="position-bottom-left">
-                        <a class="btn btn-secondary me-2" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit General Info</a>
-                        <a class="btn btn-secondary me-2" asp-controller="Address" asp-action="Edit" asp-route-id="@addres.Id" asp-route-memberid="@addres.MemberId" asp-route-membername="@addres.Member.MemberName">Edit Address</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-secondary me-2" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit General Info</a>
+                            <a class="btn btn-secondary me-2" asp-controller="Address" asp-action="Edit" asp-route-id="@addres.Id" asp-route-memberid="@addres.MemberId" asp-route-membername="@addres.Member.MemberName">Edit Address</a>
+                        }
                     </div>
                 </div>
             </div>
@@ -209,13 +212,16 @@
                             </div>
                         </div>
                         <div class="position-bottom-left">
-                            <button type="button" class="btn btn-light me-2"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#addCancellationModal"
-                                    data-id="@primaryContact.Id">
-                                Archive Contact
-                            </button>
-                            <a class="btn btn-secondary" asp-controller="Contact" asp-action="Edit" asp-route-id="@primaryContact.Id">Edit</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <button type="button" class="btn btn-light me-2"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#addCancellationModal"
+                                        data-id="@primaryContact.Id">
+                                    Archive Contact
+                                </button>
+                                <a class="btn btn-secondary" asp-controller="Contact" asp-action="Edit" asp-route-id="@primaryContact.Id">Edit</a>
+                            }
                         </div>
                     </div>
                 }
@@ -265,13 +271,16 @@
                                         }
                                     </dl>
                                     <div class="position-bottom-left">
-                                        <button type="button" class="btn btn-light me-2"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#addCancellationModal"
-                                                data-id="@contact.Id">
-                                            Archive Contact
-                                        </button>
-                                        <a class="btn btn-secondary" asp-controller="Contact" asp-action="Edit" asp-route-id="@contact.Id">Edit</a>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <button type="button" class="btn btn-light me-2"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#addCancellationModal"
+                                                    data-id="@contact.Id">
+                                                Archive Contact
+                                            </button>
+                                            <a class="btn btn-secondary" asp-controller="Contact" asp-action="Edit" asp-route-id="@contact.Id">Edit</a>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -307,9 +316,12 @@
         </div>
 
         <div class="position-bottom-left">
-            <a class="btn btn-dark me-2" data-bs-toggle="modal" data-bs-target="#addCancellationModal" data-id="@Model.ID">Archive</a>
-            <a class="btn btn-primary me-2" asp-controller="Contact" asp-action="Create" asp-route-memberId="@Model.ID" asp-route-memberName="@Model.MemberName">Create New Contact</a>
-            <a class="btn btn-primary me-2" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-dark me-2" data-bs-toggle="modal" data-bs-target="#addCancellationModal" data-id="@Model.ID">Archive</a>
+                <a class="btn btn-primary me-2" asp-controller="Contact" asp-action="Create" asp-route-memberId="@Model.ID" asp-route-memberName="@Model.MemberName">Create New Contact</a>
+                <a class="btn btn-primary me-2" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+            }
             <a class="btn btn-primary me-2" asp-controller="Member" asp-action="Index">Back to Members</a>
         </div>
     </div>
