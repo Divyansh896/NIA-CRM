@@ -7,18 +7,21 @@
 <h1>Events</h1>
 
 <partial name="_ErrorMessage" />
+<partial name="_SuccessMessage" />
 <partial name="_Notification" />
 
+@if (User.IsInRole("Admin"))
+{
+    <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
+        <div class="d-flex align-items-center" style="padding-bottom: 10px;">
 
-<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
-    <div class="d-flex align-items-center" style="padding-bottom: 10px;">
-
-        <input type="file" name="file" class="form-control me-2" required />
-        <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
-            <i class="fa fa-file-import"></i> Import Excel
-        </button>
-    </div>
-</form>
+            <input type="file" name="file" class="form-control me-2" required />
+            <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
+                <i class="fa fa-file-import"></i> Import Excel
+            </button>
+        </div>
+    </form>
+}
 
 <!-- Modal for Exporting Annual Actions -->
 <div class="modal fade" id="exportAnnualActionsModal" tabindex="-1" aria-labelledby="exportAnnualActionsModalLabel" aria-hidden="true">
@@ -78,10 +81,6 @@
     </div>
 </div>
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">@TempData["Success"]</div>
-}
 
 
 
@@ -103,18 +102,18 @@
                     </button>
 
 
-                    @* <button type="submit" name="actionButton" value="ExportExcel" class="btn btn-dark me-2 mb-2">
-                        <i class="fa fa-file-excel text-white"></i>
-                        Export filtered data to Excel
-                    </button> *@
-
-                    <!-- Export Button to Open Modal -->
-                    <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportAnnualActionsModal">
-                        <i class="fa fa-file-excel text-white"></i> Export To Excel
-                    </button>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <!-- Export Button to Open Modal -->
+                        <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportAnnualActionsModal">
+                            <i class="fa fa-file-excel text-white"></i> Export To Excel
+                        </button>
+                    }
                 </div>
-                <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add Event</a>
-
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Create" class="btn btn-primary" aria-label="Add a new event">+ Add Event</a>
+                }
             </div>
         </div>
     </div>

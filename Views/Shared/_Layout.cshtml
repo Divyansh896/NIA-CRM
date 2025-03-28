@@ -46,8 +46,7 @@
                             </a>
                         </li>
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("Supervisor"))
-                        {
+                        
                             <!-- Members Menu Item -->
                             <li class="nav-item" role="menuitem">
                                 <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
@@ -55,7 +54,7 @@
                                     <span class="text-white ms-2">Members</span>
                                 </a>
                             </li>
-                        }
+                        
 
                         <!-- Email Patterns Menu Item -->
                         <li class="nav-item" role="menuitem">
@@ -65,8 +64,7 @@
                             </a>
                         </li>
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("Supervisor"))
-                        {
+                        
                             <!-- Contacts Menu Item -->
                             <li class="nav-item" role="menuitem">
                                 <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
@@ -74,11 +72,10 @@
                                     <span class="text-white ms-2">Contacts</span>
                                 </a>
                             </li>
-                        }
+                        
 
                         <!-- Collapsible Archived Menu Item -->
-                        @if (User.IsInRole("Admin") || User.IsInRole("Supervisor"))
-                        {
+                        
                             <li class="nav-item" role="menuitem">
                                 <a class="nav-link text-dark" data-bs-toggle="collapse" href="#archivedCollapse" aria-expanded="false" aria-controls="archivedCollapse" title="Archived">
                                     <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
@@ -102,7 +99,7 @@
                                     </ul>
                                 </div>
                             </li>
-                        }
+                        
 
                         <!-- Collapsible Notes Menu Item -->
                         <li class="nav-item" role="menuitem">
