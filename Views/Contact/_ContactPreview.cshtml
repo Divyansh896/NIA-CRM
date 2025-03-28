@@ -41,9 +41,9 @@
                 string industrySize = industry.MemberSize.ToString(); // Industry Size
                 string? industryWebsite = industry.WebsiteUrl; // Website URL
 
-                <strong>Industry Name:</strong> @industryName <br />
-                <strong>Industry Size:</strong> @industrySize <br />
-                <strong>Website:</strong>
+               <p><strong>Industry Name:</strong> @industryName</p>
+              <p><strong>Industry Size:</strong> @industrySize</p>
+               <p><strong>Website:</strong></p>
                 @if (!string.IsNullOrEmpty(industryWebsite))
                 {
                     <a href="@industryWebsite" target="_blank">@industryWebsite</a>
