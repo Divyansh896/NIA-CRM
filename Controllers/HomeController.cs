@@ -125,7 +125,7 @@ namespace NIA_CRM.Controllers
             double retentionRate = 0;
             if (totalMemberCount > 0)
             {
-                retentionRate = (double)activeMemberCount / totalMemberCount * 100;
+                retentionRate = Math.Round((double)activeMemberCount / totalMemberCount * 100, 2);
             }
 
             // Pass cityCounts as a model or through ViewData

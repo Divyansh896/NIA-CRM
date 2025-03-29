@@ -157,6 +157,22 @@ body {
     background-color: #434343 !important;
     height: 40px !important;
 }
+
+.member-count-link {
+    color: inherit !important; /* Inherit text color from parent */
+}
+
+    .member-count-link:hover {
+        color: #A61C1C !important; /* Change color to red on hover */
+    }
+
+a:hover {
+    color: black !important;
+}
+
+a::after {
+    color: black !important;
+}
 /* Card Styles */
 .card {
     border: none;
