@@ -286,6 +286,7 @@ namespace NIA_CRM.Controllers
                     await _context.SaveChangesAsync();
                 }
                 TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} added successfully!";
+                SendWelcomeEmail(contact.Id);
 
                 return RedirectToAction(nameof(Details), "Member", new { id = memberId });
             }
@@ -571,7 +572,7 @@ namespace NIA_CRM.Controllers
                     {
                         ToAddresses = recipients,
                         Subject = Subject,
-                        Content = "<p>" + emailContent + "</p><p>Please access the <strong>Niagara College</strong> web site to review.</p>"
+                        Content = "<p>" + emailContent + "</p><p>This is a automatically generated Email from <strong>Niagara Industrial Association</strong> web site to review.</p>"
                     };
 
                     await _emailSender.SendToManyAsync(msg);
@@ -589,6 +590,55 @@ namespace NIA_CRM.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SendWelcomeEmail(int contactId)
+        {
+            if (contactId <= 0)
+            {
+                return Json(new { success = false, message = "Invalid contact ID." });
+            }
+
+            try
+            {
+                var contact = await _context.Contacts
+                    .Where(c => c.Id == contactId && c.Email != null)
+                    .Select(c => new EmailAddress
+                    {
+                        Name = c.Summary,
+                        Address = c.Email
+                    })
+                    .FirstOrDefaultAsync();
+
+                if (contact == null)
+                {
+                    return Json(new { success = false, message = "No valid email address found for the selected contact." });
+                }
+
+                var productionEmail = await _context.ProductionEmails
+                    .Where(e => e.EmailType == EmailType.Welcome)
+                    .FirstOrDefaultAsync();
+
+                if (productionEmail == null)
+                {
+                    return Json(new { success = false, message = "No production email template found." });
+                }
+
+                var msg = new EmailMessage()
+                {
+                    ToAddresses = new List<EmailAddress> { contact },
+                    Subject = productionEmail.Subject,
+                    Content = productionEmail.Body?.Replace("{Name}", contact.Name)
+                };
+
+                await _emailSender.SendToManyAsync(msg);
+
+                return Json(new { success = true, message = "Welcome email sent successfully to " + contact.Name + "." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error: Could not send email. " + ex.GetBaseException().Message });
+            }
+        }
 
 
         private bool ContactExists(int id)
