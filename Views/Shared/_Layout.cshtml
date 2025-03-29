@@ -49,15 +49,15 @@
                             </a>
                         </li>
 
-                        
-                            <!-- Members Menu Item -->
-                            <li class="nav-item" role="menuitem">
-                                <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
-                                    <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
-                                    <span class="text-white ms-2">Members</span>
-                                </a>
-                            </li>
-                        
+
+                        <!-- Members Menu Item -->
+                        <li class="nav-item" role="menuitem">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
+                                <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
+                                <span class="text-white ms-2">Members</span>
+                            </a>
+                        </li>
+
 
                         <!-- Email Patterns Menu Item -->
                         <li class="nav-item" role="menuitem">
@@ -67,42 +67,42 @@
                             </a>
                         </li>
 
-                        
-                            <!-- Contacts Menu Item -->
-                            <li class="nav-item" role="menuitem">
-                                <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
-                                    <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
-                                    <span class="text-white ms-2">Contacts</span>
-                                </a>
-                            </li>
-                        
+
+                        <!-- Contacts Menu Item -->
+                        <li class="nav-item" role="menuitem">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
+                                <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
+                                <span class="text-white ms-2">Contacts</span>
+                            </a>
+                        </li>
+
 
                         <!-- Collapsible Archived Menu Item -->
-                        
-                            <li class="nav-item" role="menuitem">
-                                <a class="nav-link text-dark" data-bs-toggle="collapse" href="#archivedCollapse" aria-expanded="false" aria-controls="archivedCollapse" title="Archived">
-                                    <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
-                                    <span class="text-white ms-2">Archived</span>
-                                    <span class="ms-2"><i class="fas fa-chevron-down text-white arrow-indicator" id="archivedArrow"></i></span>
-                                </a>
-                                <div id="archivedCollapse" class="collapse">
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <a class="nav-link text-dark" href="@Url.Action("Index", "ContactCancellation")">
-                                                <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
-                                                <span class="text-white ms-2">Archived Contacts</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")">
-                                                <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
-                                                <span class="text-white ms-2">Archived Members</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        
+
+                        <li class="nav-item" role="menuitem">
+                            <a class="nav-link text-dark" data-bs-toggle="collapse" href="#archivedCollapse" aria-expanded="false" aria-controls="archivedCollapse" title="Archived">
+                                <span class="icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
+                                <span class="text-white ms-2">Archived</span>
+                                <span class="ms-2"><i class="fas fa-chevron-down text-white arrow-indicator" id="archivedArrow"></i></span>
+                            </a>
+                            <div id="archivedCollapse" class="collapse">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a class="nav-link text-dark" href="@Url.Action("Index", "ContactCancellation")">
+                                            <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
+                                            <span class="text-white ms-2">Archived Contacts</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-dark" href="@Url.Action("Index", "Cancellation")">
+                                            <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
+                                            <span class="text-white ms-2">Archived Members</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
 
                         <!-- Collapsible Notes Menu Item -->
                         <li class="nav-item" role="menuitem">
@@ -139,6 +139,15 @@
                                     </li>
                                 </ul>
                             </div>
+                        </li>
+
+                        <li>
+
+                            <a class="nav-link text-dark" href="https://mail.google.com/" target="_blank" title="Open Gmail Inbox Directly">
+                                <span class="icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
+                                <span class="text-white ms-2">Open Gmail Inbox</span>
+                            </a>
+
                         </li>
 
                         @if (User.IsInRole("Admin"))
@@ -326,8 +335,8 @@
 
     <!--new -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-   
-   
+
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

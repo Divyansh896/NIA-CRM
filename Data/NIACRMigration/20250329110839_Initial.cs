@@ -497,7 +497,7 @@ namespace NIA_CRM.Data.NIACRMigration
                     Title = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
                     Department = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Phone = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
                     LinkedInUrl = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     ContactNote = table.Column<string>(type: "TEXT", nullable: true),
                     IsVip = table.Column<bool>(type: "INTEGER", nullable: false),

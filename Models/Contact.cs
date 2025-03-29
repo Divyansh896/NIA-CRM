@@ -46,6 +46,7 @@ namespace NIA_CRM.Models
         public string? Email { get; set; }
 
         [Phone(ErrorMessage = "Invalid phone number.")]
+        [Required(ErrorMessage = "Phone number is required.")]
         [StringLength(20, ErrorMessage = "Phone number cannot be longer than 20 characters.")]
         public string? Phone { get; set; }
 

@@ -40,7 +40,9 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label class="control-label">Body</label>
-                        <textarea class="form-control w-100" rows="4" disabled>@Model.Body</textarea>
+                        <div class="border p-3 bg-white rounded overflow-auto" style="max-height: 500px;">
+                            @Html.Raw(Model.Body)
+                        </div>
                     </div>
                 </div>
             </div>

@@ -942,7 +942,7 @@ namespace NIA_CRM.Controllers
                 var option = new ListOptionVM
                 {
                     ID = naicsCode.Id,  // Ensure "Id" exists in the NAICSCodes entity
-                    DisplayText = naicsCode.Code // Adjust this based on your model property
+                    DisplayText = naicsCode.Code + " - " + naicsCode.Description // Adjust this based on your model property
                 };
 
                 if (currentNaicsCodesHS.Contains(naicsCode.Id))
