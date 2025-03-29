@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NIA_CRM.Data;
@@ -64,6 +65,22 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            //Decide if we need to send the Validaiton Errors directly to the client
+            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                //Was an AJAX request so build a message with all validation errors
+                string errorMessage = "";
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errorMessage += error.ErrorMessage + "|";
+                    }
+                }
+                //Note: returning a BadRequest results in HTTP Status code 400
+                return BadRequest(errorMessage);
+            }
+
             return View(membershipType);
         }
 
@@ -161,6 +178,8 @@ namespace NIA_CRM.Controllers
 
             var membershipType = await _context.MembershipTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+
             if (membershipType == null)
             {
                 return NotFound();
@@ -175,6 +194,23 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var membershipType = await _context.MembershipTypes.FindAsync(id);
+            //Decide if we need to send the Validaiton Errors directly to the client
+            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                //Was an AJAX request so build a message with all validation errors
+                string errorMessage = "";
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errorMessage += error.ErrorMessage + "|";
+                    }
+                }
+                //Note: returning a BadRequest results in HTTP Status code 400
+                return BadRequest(errorMessage);
+            }
+
+
             if (membershipType != null)
             {
                 _context.MembershipTypes.Remove(membershipType);
@@ -188,5 +224,33 @@ namespace NIA_CRM.Controllers
         {
             return _context.MembershipTypes.Any(e => e.Id == id);
         }
+
+        // For Adding MembershipType
+        private SelectList MembershipTypeSelectList(string skip)
+        {
+            var membershipTypeQuery = _context.MembershipTypes
+                .AsNoTracking();
+
+            if (!String.IsNullOrEmpty(skip))
+            {
+                // Convert the string to an array of integers
+                // so we can make sure we leave them out of the data we download
+                string[] avoidStrings = skip.Split('|');
+                int[] skipKeys = Array.ConvertAll(avoidStrings, s => int.Parse(s));
+                membershipTypeQuery = membershipTypeQuery
+                    .Where(m => !skipKeys.Contains(m.Id));
+            }
+            return new SelectList(membershipTypeQuery.OrderBy(d => d.TypeName), "Id", "TypeName");
+        }
+
+        [HttpGet]
+        public JsonResult GetMembershipTypes(string skip)
+        {
+            return Json(MembershipTypeSelectList(skip));
+        }
+
+        
+
+
     }
 }

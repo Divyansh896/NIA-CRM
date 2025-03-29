@@ -12,6 +12,14 @@
 <hr />
 
 <partial name="_Notification" />
+<partial name="_MembershipAddModal" />
+<partial name="_TagAddModal" />
+<partial name="_SectorAddModal" />
+<partial name="_NAICSAddModal" />
+<partial name="_MembershipTypeDeleteModal" />
+<partial name="_TagDeleteModal" />
+<partial name="_SectorDeleteModal" />
+<partial name="_NAICSCodeDeleteModal" />
 
 <div class="card card-body bg-light text-black">
     <form asp-action="Create" method="post" enctype="multipart/form-data">
@@ -56,7 +64,7 @@
                     <span asp-validation-for="JoinDate" class="text-danger"></span>
                 </div>
 
-                
+
                 <div class="form-group mb-3">
                     <label asp-for="MemberSize" class="control-label"></label>
                     <span class="required-label">(required)</span>
@@ -95,10 +103,10 @@
                     <h5 class="mb-3">Assign Membership</h5>
                     <!-- Action Buttons -->
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary flex-grow-1" data-bs-toggle="modal" data-bs-target="#membershipModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Add New Membership">
+                        <button type="button" class="btn btn-primary flex-grow-1" data-bs-toggle="modal" data-bs-target="#membershipModal" data-bs-placement="top" title="Add New Membership">
                             <i class="fas fa-plus-circle"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-danger flex-grow-1 ms-2" data-bs-toggle="modal" data-bs-target="#deleteMembershipModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Membership">
+                        <button type="button" class="btn btn-outline-danger flex-grow-1 ms-2" data-bs-toggle="modal" data-bs-target="#deleteMembershipModal" data-bs-placement="top" title="Delete Membership">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </div>
@@ -135,10 +143,10 @@
 
                     <h5 class="mb-3">Assign Tag</h5>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary flex-grow-1" data-bs-toggle="modal" data-bs-target="#tagModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Add New Tag">
+                        <button type="button" class="btn btn-primary flex-grow-1" data-bs-toggle="modal" data-bs-target="#mtagModal" data-bs-placement="top" title="Add New Tag">
                             <i class="fas fa-plus-circle"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-danger flex-grow-1 ms-2" data-bs-toggle="modal" data-bs-target="#deleteTagModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Tag">
+                        <button type="button" class="btn btn-outline-danger flex-grow-1 ms-2" data-bs-toggle="modal" data-bs-target="#deleteTagModal" data-bs-placement="top" title="Delete Tag">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </div>
@@ -179,10 +187,10 @@
                     <h5 class="mb-3">Assign Sector</h5>
 
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary flex-grow-1" data-bs-toggle="modal" data-bs-target="#sectorModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Add New Sector">
+                        <button type="button" class="btn btn-primary flex-grow-1" data-bs-toggle="modal" data-bs-target="#sectorModal" data-bs-placement="top" title="Add New Sector">
                             <i class="fas fa-plus-circle"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-danger flex-grow-1 ms-2" data-bs-toggle="modal" data-bs-target="#deleteSectorModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Sector">
+                        <button type="button" class="btn btn-outline-danger flex-grow-1 ms-2" data-bs-toggle="modal" data-bs-target="#deleteSectorModal" data-bs-placement="top" title="Delete Sector">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </div>
@@ -220,10 +228,10 @@
                 <div class="d-flex justify-content-between mb-1">
                     <h5 class="mb-3">Assign NAICS Code</h5>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary flex-grow-1" data-bs-toggle="modal" data-bs-target="#naicsCodeModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Add New NAICS Code">
+                        <button type="button" class="btn btn-primary flex-grow-1" data-bs-toggle="modal" data-bs-target="#naicsModal" data-bs-placement="top" title="Add New NAICS Code">
                             <i class="fas fa-plus-circle"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-danger flex-grow-1 ms-2" data-bs-toggle="modal" data-bs-target="#deleteNaicsCodeModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete NAICS Code">
+                        <button type="button" class="btn btn-outline-danger flex-grow-1 ms-2" data-bs-toggle="modal" data-bs-target="#deleteNaicsCodeModal" data-bs-placement="top" title="Delete NAICS Code">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </div>
@@ -268,7 +276,7 @@
 
 
 <!-- Membership Modal -->
-<div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel" aria-hidden="true">
+@* <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -285,9 +293,9 @@
         </div>
     </div>
 </div>
-
+ *@
 <!-- Tag Modal -->
-<div class="modal fade" id="tagModal" tabindex="-1" aria-labelledby="tagModalLabel" aria-hidden="true">
+@* <div class="modal fade" id="tagModal" tabindex="-1" aria-labelledby="tagModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -426,7 +434,7 @@
             </div>
         </div>
     </div>
-</div>
+ </div>*@
 
 <!-- Repeat similar modals and buttons for Tag, Sector, and NAICS Code -->
 @section Scripts {
@@ -434,6 +442,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script src="~/js/multiselect.js"></script>
+    <script src="~/js/refreshDDL.js"></script>
 
 
     <script>
@@ -614,52 +623,6 @@
 
 
 
-        //script for adding tags, sector exc on a go
-                $(document).ready(function () {
-                    // Handle save action for Membership
-                    $('#saveMembership').on('click', function () {
-                        var newMembership = $('#newMembership').val();
-                        if (newMembership) {
-                            var newOption = new Option(newMembership, newMembership);
-                            $('#availOptionsMembership').append(newOption);
-                            $('#membershipModal').modal('hide');
-                            $('#newMembership').val(''); // Clear the input field
-                        }
-                    });
-
-                    // Handle save action for Tag
-                    $('#saveTag').on('click', function () {
-                        var newTag = $('#newTag').val();
-                        if (newTag) {
-                            var newOption = new Option(newTag, newTag);
-                            $('#availOptionsTag').append(newOption);
-                            $('#tagModal').modal('hide');
-                            $('#newTag').val(''); // Clear the input field
-                        }
-                    });
-
-                    // Handle save action for Sector
-                    $('#saveSector').on('click', function () {
-                        var newSector = $('#newSector').val();
-                        if (newSector) {
-                            var newOption = new Option(newSector, newSector);
-                            $('#availOptionsSector').append(newOption);
-                            $('#sectorModal').modal('hide');
-                            $('#newSector').val(''); // Clear the input field
-                        }
-                    });
-
-                    // Handle save action for NAICS Code
-                    $('#saveNaicsCode').on('click', function () {
-                        var newNaicsCode = $('#newNaicsCode').val();
-                        if (newNaicsCode) {
-                            var newOption = new Option(newNaicsCode, newNaicsCode);
-                            $('#availOptionsNaicsCode').append(newOption);
-                            $('#naicsCodeModal').modal('hide');
-                            $('#newNaicsCode').val(''); // Clear the input field
-                        }
-                    });
-                });
 
 
                 //script for deleting pop up
@@ -732,6 +695,395 @@
                 });
 
     </script>
+
+    <!-- Membership Type Add Modal -->
+    <script type="text/javascript">
+        $('#submitMembershipTypeCreate').click(function (event) {
+            event.preventDefault();
+            ClearErrors();
+            var form = $('#createMembershipTypeForm');
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        $('#membershipModal').modal('hide');
+                    },
+                    error: function (xhr) { //Note: xhr is the XMLHttpRequest
+                        var errorMessages = [];
+                        switch (xhr.status) {
+                            case 401:
+                                errorMessages.push("You must be logged in first.");
+                                break;
+                            case 403:
+                                errorMessages.push("You are not authorized for this action.");
+                                break;
+                            default:
+                                //Messages coming from the Model State Errors
+                                //We split on the | delimeter and the .slice removes the last one
+                                errorMessages = xhr.responseText.split("|").slice(0, -1);
+                        }
+                        //This checks if there are any elements with some content
+                        //and if not then it provides a default feedback message.
+                        if (!errorMessages.some((str) => str !== "")) {
+                          errorMessages.push("Error: Unable to complete operation");
+                        }
+                        //Put the messages in the ErrorList ul contained in the 'ValidationSummary' div.
+                        var ul = document.getElementById("ErrorList");
+                        for (var i = 0; i < errorMessages.length; i++) {
+                          var errorMessage = errorMessages[i];
+                          var li = document.createElement("li");
+                          li.innerHTML = errorMessage;
+                          ul.appendChild(li);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+
+        $('#membershipModal').on('hide.bs.modal', function () {
+            document.getElementById("createMembershipTypeForm").reset(); // to clear the data in the popup form
+            ClearErrors();
+            // This will create a delimited list of the keys of the selected options and
+            // we will pass it as a QueryString parameter when we get the new data
+            var qstring = "";
+            // Get the collection of currently selected options
+            var skipData = $("#selectedOptions option");
+            $.each(skipData, function () {
+                qstring += $(this).val() + "|";
+            });
+            var URI = "/MembershipType/GetMembershipTypes?skip=" + qstring.slice(0, -1);
+            refreshDDL("availOptionsMembership", URI, true, "No Data Available", false, null, false);
+        });
+
+        function ClearErrors() {
+            // Empty out the list of validation errors if there are any
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+        }
+    </script>
+
+    <!-- MTag  Add Modal -->
+    <script type="text/javascript">
+        $('#submitMTagCreate').click(function (event) {
+            event.preventDefault();
+            ClearErrors();
+            var form = $('#createMTagForm');
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        $('#mtagModal').modal('hide');
+                    },
+                    error: function (xhr) { //Note: xhr is the XMLHttpRequest
+                        var errorMessages = [];
+                        switch (xhr.status) {
+                            case 401:
+                                errorMessages.push("You must be logged in first.");
+                                break;
+                            case 403:
+                                errorMessages.push("You are not authorized for this action.");
+                                break;
+                            default:
+                                //Messages coming from the Model State Errors
+                                //We split on the | delimeter and the .slice removes the last one
+                                errorMessages = xhr.responseText.split("|").slice(0, -1);
+                        }
+                        //This checks if there are any elements with some content
+                        //and if not then it provides a default feedback message.
+                        if (!errorMessages.some((str) => str !== "")) {
+                          errorMessages.push("Error: Unable to complete operation");
+                        }
+                        //Put the messages in the ErrorList ul contained in the 'ValidationSummary' div.
+                        var ul = document.getElementById("ErrorList");
+                        for (var i = 0; i < errorMessages.length; i++) {
+                          var errorMessage = errorMessages[i];
+                          var li = document.createElement("li");
+                          li.innerHTML = errorMessage;
+                          ul.appendChild(li);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+
+        $('#mtagModal').on('hide.bs.modal', function () {
+            document.getElementById("createMTagForm").reset(); // to clear the data in the popup form
+            ClearErrors();
+            // This will create a delimited list of the keys of the selected options and
+            // we will pass it as a QueryString parameter when we get the new data
+            var qstring = "";
+            // Get the collection of currently selected options
+            var skipData = $("#selectedOptions option");
+            $.each(skipData, function () {
+                qstring += $(this).val() + "|";
+            });
+            var URI = "/MTag/GetMTags?skip=" + qstring.slice(0, -1);
+            refreshDDL("availOptionsTag", URI, true, "No Data Available", false, null, false);
+        });
+
+        function ClearErrors() {
+            // Empty out the list of validation errors if there are any
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+        }
+    </script>
+
+    <!-- Sector  Add Modal -->
+    <script type="text/javascript">
+        $('#submitSectorCreate').click(function (event) {
+            event.preventDefault();
+            ClearErrors();
+            var form = $('#createSectorForm');
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        $('#sectorModal').modal('hide');
+                    },
+                    error: function (xhr) { //Note: xhr is the XMLHttpRequest
+                        var errorMessages = [];
+                        switch (xhr.status) {
+                            case 401:
+                                errorMessages.push("You must be logged in first.");
+                                break;
+                            case 403:
+                                errorMessages.push("You are not authorized for this action.");
+                                break;
+                            default:
+                                //Messages coming from the Model State Errors
+                                //We split on the | delimeter and the .slice removes the last one
+                                errorMessages = xhr.responseText.split("|").slice(0, -1);
+                        }
+                        //This checks if there are any elements with some content
+                        //and if not then it provides a default feedback message.
+                        if (!errorMessages.some((str) => str !== "")) {
+                          errorMessages.push("Error: Unable to complete operation");
+                        }
+                        //Put the messages in the ErrorList ul contained in the 'ValidationSummary' div.
+                        var ul = document.getElementById("ErrorList");
+                        for (var i = 0; i < errorMessages.length; i++) {
+                          var errorMessage = errorMessages[i];
+                          var li = document.createElement("li");
+                          li.innerHTML = errorMessage;
+                          ul.appendChild(li);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+
+        $('#sectorModal').on('hide.bs.modal', function () {
+            document.getElementById("createSectorForm").reset(); // to clear the data in the popup form
+            ClearErrors();
+            // This will create a delimited list of the keys of the selected options and
+            // we will pass it as a QueryString parameter when we get the new data
+            var qstring = "";
+            // Get the collection of currently selected options
+            var skipData = $("#selectedOptions option");
+            $.each(skipData, function () {
+                qstring += $(this).val() + "|";
+            });
+            var URI = "/Sector/GetSectors?skip=" + qstring.slice(0, -1);
+            refreshDDL("availOptionsSector", URI, true, "No Data Available", false, null, false);
+        });
+
+        function ClearErrors() {
+            // Empty out the list of validation errors if there are any
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+        }
+    </script>
+
+    <!-- NAICSCode Add Modal -->
+    <script type="text/javascript">
+        $('#submitNAICSCodeCreate').click(function (event) {
+            event.preventDefault();
+            ClearErrors();
+            var form = $('#createNAICSCodeForm');
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        $('#naicsModal').modal('hide');
+                    },
+                    error: function (xhr) { //Note: xhr is the XMLHttpRequest
+                        var errorMessages = [];
+                        switch (xhr.status) {
+                            case 401:
+                                errorMessages.push("You must be logged in first.");
+                                break;
+                            case 403:
+                                errorMessages.push("You are not authorized for this action.");
+                                break;
+                            default:
+                                //Messages coming from the Model State Errors
+                                //We split on the | delimeter and the .slice removes the last one
+                                errorMessages = xhr.responseText.split("|").slice(0, -1);
+                        }
+                        //This checks if there are any elements with some content
+                        //and if not then it provides a default feedback message.
+                        if (!errorMessages.some((str) => str !== "")) {
+                          errorMessages.push("Error: Unable to complete operation");
+                        }
+                        //Put the messages in the ErrorList ul contained in the 'ValidationSummary' div.
+                        var ul = document.getElementById("ErrorList");
+                        for (var i = 0; i < errorMessages.length; i++) {
+                          var errorMessage = errorMessages[i];
+                          var li = document.createElement("li");
+                          li.innerHTML = errorMessage;
+                          ul.appendChild(li);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+
+        $('#naicsModal').on('hide.bs.modal', function () {
+            document.getElementById("createNAICSCodeForm").reset(); // to clear the data in the popup form
+            ClearErrors();
+            // This will create a delimited list of the keys of the selected options and
+            // we will pass it as a QueryString parameter when we get the new data
+            var qstring = "";
+            // Get the collection of currently selected options
+            var skipData = $("#selectedOptions option");
+            $.each(skipData, function () {
+                qstring += $(this).val() + "|";
+            });
+            var URI = "/NAICSCodes/GetNAICSCode?skip=" + qstring.slice(0, -1);
+            refreshDDL("availOptionsNaicsCode", URI, true, "No Data Available", false, null, false);
+        });
+
+        function ClearErrors() {
+            // Empty out the list of validation errors if there are any
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+        }
+    </script>
+
+
+    <!-- NAICSCode Add Modal -->
+    <script type="text/javascript">
+        // Ensure the change event handler for the dropdown is attached only once
+        $('#deleteMembershipSelect').change(function () {
+            var selectedId = $(this).val(); // Get selected ID from dropdown
+            $('#membershipTypeId').val(selectedId); // Set hidden field with selected ID
+            console.log(selectedId);
+        });
+
+        $('#submitMembershipTypeDelete').click(function (event) {
+            event.preventDefault();
+            ClearErrors();
+
+            var form = $('#deleteMembershipTypeForm');
+            var membershipTypeId = $("#deleteMembershipSelect").val(); // Get selected ID
+            $('#membershipTypeId').val(membershipTypeId);
+            console.log(membershipTypeId);
+            // Validate the form
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),  // The form's action URL
+                    data: form.serialize() + "&id=" + membershipTypeId, // Ensure MemberID is included
+                    success: function (response) {
+                        if (response.success) {
+                            $('#deleteMembershipModal').modal('hide');
+                            //alert(response.message); // Optionally show success message
+                            location.reload(); // Refresh page to reflect changes
+                        } else {
+                            console.error("Error: " + response.message);
+                            showErrorMessage(response.message); // Show error messages
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error: ", xhr);
+                        showErrorMessage("An unexpected error occurred."); // General error message
+                    }
+                });
+            }
+            return false;
+        });
+
+        // Function to show error messages in the modal
+        function showErrorMessage(message) {
+            var ul = document.getElementById("ErrorList");
+            ul.innerHTML = "";  // Clear previous errors
+
+            // Split and display each error message
+            var errors = message.split("|");
+            errors.forEach(function (error) {
+                var li = document.createElement("li");
+                li.innerHTML = error;
+                ul.appendChild(li);
+            });
+        }
+
+        // Function to handle error messages from AJAX response
+        function handleAjaxErrors(xhr) {
+            var errorMessages = [];
+            switch (xhr.status) {
+                case 401:
+                    errorMessages.push("You must be logged in first.");
+                    break;
+                case 403:
+                    errorMessages.push("You are not authorized for this action.");
+                    break;
+                default:
+                    errorMessages = xhr.responseText.split("|").slice(0, -1);
+            }
+
+            if (!errorMessages.some((str) => str !== "")) {
+                errorMessages.push("Error: Unable to complete operation");
+            }
+
+            showErrorMessage(errorMessages.join('|')); // Show the error messages as a string
+        }
+
+        // Function to clear previous error messages
+        function ClearErrors() {
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+        }
+
+        $('#deleteMembershipModal').on('hide.bs.modal', function () {
+            document.getElementById("deleteMembershipTypeForm").reset(); // to clear the data in the popup form
+            ClearErrors();
+            // This will create a delimited list of the keys of the selected options and
+            // we will pass it as a QueryString parameter when we get the new data
+            var qstring = "";
+            // Get the collection of currently selected options
+            var skipData = $("#selectedOptions option");
+            $.each(skipData, function () {
+                qstring += $(this).val() + "|";
+            });
+            var URI = "/MembershipType/GetMembershipTypes?skip=" + qstring.slice(0, -1);
+            refreshDDL("availOptionsMembership", URI, true, "No Data Available", false, null, false);
+        });
+    </script>
+
+
+
 
 
 }

@@ -432,6 +432,7 @@ namespace NIA_CRM.Controllers
             PopulateAssignedSectorData(member);
             PopulateAssignedMembershipTypeData(member);
             PopulateAssignedNaicsCodeData(member);
+            DeleteItems();
             return View();
         }
 
@@ -456,7 +457,7 @@ namespace NIA_CRM.Controllers
                 // Update Member Membership Types
                 UpdateMemberMembershipType(selectedOptionsMembership, member);
                 UpdateMemberNaicsCode(selectedOptionsNaicsCode, member);
-
+                DeleteItems();
                 if (ModelState.IsValid)
                 {
                     // Handle file upload for picture
@@ -942,7 +943,7 @@ namespace NIA_CRM.Controllers
                 var option = new ListOptionVM
                 {
                     ID = naicsCode.Id,  // Ensure "Id" exists in the NAICSCodes entity
-                    DisplayText = naicsCode.Code + " - " + naicsCode.Description // Adjust this based on your model property
+                    DisplayText = naicsCode.Code // Adjust this based on your model property
                 };
 
                 if (currentNaicsCodesHS.Contains(naicsCode.Id))
@@ -1373,6 +1374,22 @@ namespace NIA_CRM.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
 
+        }
+        public IActionResult DeleteItems()
+        {
+            // Fetch the lists from the database
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var tags = _context.MTags.ToList();
+            var sectors = _context.Sectors.ToList();
+            var naicsCodes = _context.NAICSCodes.ToList();
+
+            // Create SelectLists for each type to pass to the view
+            ViewData["MembershipTypeSelectList"] = new SelectList(membershipTypes, "Id", "TypeName"); // 'Id' is the value, 'TypeName' is the text
+            ViewData["TagSelectList"] = new SelectList(tags, "Id", "Name"); // 'Id' is the value, 'Name' is the text
+            ViewData["SectorSelectList"] = new SelectList(sectors, "Id", "SectorName"); // 'Id' is the value, 'SectorName' is the text
+            ViewData["NaicsCodeSelectList"] = new SelectList(naicsCodes, "Id", "Code"); // 'Id' is the value, 'Code' is the text
+
+            return View();
         }
 
 
