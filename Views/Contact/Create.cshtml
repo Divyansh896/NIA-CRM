@@ -26,9 +26,9 @@
                 @if (ViewBag.MemberName == null)
                 {
                     <div class="form-group">
-                        <label for="memberId" class="control-label">Select Member</label>
+                        <label for="selectedMemberId" class="control-label">Select Member</label>
                         <span class="required-label">(required)</span>
-                        <select name="memberId" class="form-control" asp-items="ViewBag.Members"></select>
+                        <select name="selectedMemberId" class="form-control" asp-items="ViewBag.Members"></select>
                     </div>
                 }
                

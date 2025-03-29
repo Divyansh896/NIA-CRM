@@ -258,14 +258,12 @@ namespace NIA_CRM.Controllers
         }
 
 
-        // POST: Contact/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
     [Bind("Id,FirstName,MiddleName,LastName,Title,Department,Email,Phone,LinkedInUrl,IsVip,ContactNote")] Contact contact,
-    int? memberId)
+    int? memberId,
+    int? selectedMemberId)
         {
             if (ModelState.IsValid)
             {
@@ -273,22 +271,31 @@ namespace NIA_CRM.Controllers
                 _context.Add(contact);
                 await _context.SaveChangesAsync(); // Save the contact first to get its ID
 
-                if (memberId.HasValue)
+                // Determine the correct memberId to use (from step-by-step or dropdown)
+                int? finalMemberId = memberId ?? selectedMemberId;
+
+                if (finalMemberId.HasValue)
                 {
                     // Create a MemberContact relationship
                     var memberContact = new MemberContact
                     {
                         ContactId = contact.Id,
-                        MemberId = memberId.Value
+                        MemberId = finalMemberId.Value
                     };
 
                     _context.MemberContacts.Add(memberContact);
                     await _context.SaveChangesAsync();
                 }
-                TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} added successfully!";
-                SendWelcomeEmail(contact.Id);
 
-                return RedirectToAction(nameof(Details), "Member", new { id = memberId });
+                // Send email only if NO member was selected (meaning a new member is being created)
+                if (!memberId.HasValue)
+                {
+                    SendWelcomeEmail(contact.Id);
+                }
+
+                TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} added successfully!";
+
+                return RedirectToAction(nameof(Details), "Member", new { id = finalMemberId });
             }
 
             // Retrieve member info again to display banner if necessary
@@ -308,6 +315,8 @@ namespace NIA_CRM.Controllers
 
             return View(contact);
         }
+
+
 
 
 
@@ -783,7 +792,7 @@ namespace NIA_CRM.Controllers
                 }
 
             }
-            
+
 
             var contacts = contactsQuery.ToList();
 

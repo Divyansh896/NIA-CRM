@@ -41,7 +41,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label class="control-label">Body</label>
-                        <textarea class="form-control w-100" rows="4" disabled>@Model.Body</textarea>
+                        <textarea class="form-control w-100" rows="4" disabled>@Html.Raw(@Model.Body)</textarea>
                     </div>
                 </div>
             </div>
