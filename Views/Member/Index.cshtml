@@ -496,14 +496,34 @@
 
 
                     <td>
-                        @if (item.MemberMembershipTypes != null)
-                        {
-                            foreach (var industry in item.MemberMembershipTypes)
+                        @{
+                            int membershipCount = item.MemberMembershipTypes.Count;
+                            if (membershipCount > 0)
                             {
-                                @industry.MembershipType.TypeName
-                                <br />
+                                string firstMembershipType = item.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName;
+                                if (membershipCount > 1)
+                                {
+                                    string membershipList = ""; // HTML string of membership type names separated by <br /> tags
+                                    var memberships = item.MemberMembershipTypes.ToList();
+                                    for (int i = 1; i < membershipCount; i++) // Skip the first because we have it already
+                                    {
+                                        membershipList += memberships[i].MembershipType.TypeName + " <br />";
+                                    }
+                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseMembership@(item.ID)"
+                                       aria-expanded="false" aria-controls="collapseMembership@(item.ID)">
+                                        @firstMembershipType <span class="badge bg-info">@membershipCount</span>
+                                    </a>
+                                    <div class="collapse" id="collapseMembership@(item.ID)">
+                                        @Html.Raw(membershipList)
+                                    </div>
+                                }
+                                else
+                                {
+                                    @firstMembershipType
+                                }
                             }
                         }
+
                     </td>
 
                     <td>
@@ -570,6 +590,7 @@
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -702,7 +723,7 @@
             });
 
             // Handle form submission with AJAX
-                    $('#submitCancellationCreate').click(function (event) {
+            $('#submitCancellationCreate').click(function (event) {
             event.preventDefault();  // Prevent default form submission
             clearErrors();  // Clear previous error messages
 

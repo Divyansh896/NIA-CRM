@@ -10,9 +10,10 @@ namespace NIA_CRM.Models
 
         [Required(ErrorMessage = "Subject is required.")]
         [StringLength(100, ErrorMessage = "Subject cannot be longer than 100 characters.")]
-        public string Subject { get; set; }
+        public string? Subject { get; set; }
 
         [Required(ErrorMessage = "Body is required.")]
-        public string Body { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string? Body { get; set; }
     }
 }

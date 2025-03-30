@@ -408,10 +408,14 @@
     <partial name="_PagingNavBar" />
 </form>
 
+
+
+
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
+    
     <script>
               $(document).ready(function () {
             // Initially hide the preview content
@@ -515,24 +519,24 @@
             var modal = document.getElementById('addNotificationModal'); // Ensure modal ID is correct
             var selectedContactIds = []; // Store selected contacts
 
-            // When the modal is about to be shown
-            modal.addEventListener('show.bs.modal', function () {
-                selectedContactIds = [];
-                document.querySelectorAll(".contact-checkbox:checked").forEach((checkbox) => {
-                    selectedContactIds.push(checkbox.value);
-                });
-
-                console.log(selectedContactIds);
-                if (selectedContactIds.length === 0) {
-                    alert("Please select at least one contact before sending an email.");
-                    return;
-                }
-
-                // Store selected IDs in a hidden input field inside the modal
-                document.getElementById("selectedContactIds").value = selectedContactIds.join(",");
-
-                console.log("Selected Contacts:", selectedContactIds); // Debugging
+                // Prevent modal from opening if no checkbox is selected
+        $('#addNotificationModal').on('show.bs.modal', function (event) {
+            selectedContactIds = [];
+            document.querySelectorAll(".contact-checkbox:checked").forEach((checkbox) => {
+                selectedContactIds.push(checkbox.value);
             });
+
+            console.log("Selected Contact IDs:", selectedContactIds);
+
+            if (selectedContactIds.length === 0) {
+                event.preventDefault(); // Stop modal from opening
+                alert("Please select at least one contact before sending an email.");
+                return false; // Stop execution
+            }
+
+            // Store selected IDs in a hidden input field inside the modal
+            document.getElementById("selectedContactIds").value = selectedContactIds.join(",");
+        });
 
             // Handle form submission with AJAX
             $('#submitNotificationForm').click(function (event) {
@@ -743,20 +747,35 @@
             var checkboxCells = document.querySelectorAll(".checkbox-cell");
             var isVisible = false;
 
-            toggleButton.addEventListener("click", function () {
+            // Prevent the preview container from appearing when clicking checkboxes or checkbox column
+            checkboxCells.forEach(cell => {
+                cell.addEventListener("click", function (event) {
+                    event.stopPropagation(); // Prevents click event from reaching the preview container
+                });
+            });
+
+            // Prevent the preview container from closing when clicking inside it
+            $('#previewContainer').on('click', function (event) {
+                event.stopPropagation();
+            });
+
+            toggleButton?.addEventListener("click", function () {
                 isVisible = !isVisible;
-                checkboxes.forEach(cb => cb.style.display = isVisible ? "inline-block" : "none");
-                selectAllCheckbox.style.display = isVisible ? "inline-block" : "none";
-                checkboxHeader.style.display = isVisible ? "table-cell" : "none";
+
+                checkboxes.forEach(cb => cb.style.display = isVisible ? "inline-flex" : "none");
+                if (selectAllCheckbox) selectAllCheckbox.style.display = isVisible ? "inline-flex" : "none";
+                if (checkboxHeader) checkboxHeader.style.display = isVisible ? "table-cell" : "none";
                 checkboxCells.forEach(cell => cell.style.display = isVisible ? "table-cell" : "none");
+
                 toggleButton.textContent = isVisible ? "Disable Contact Selection" : "Enable Contact Selection";
             });
 
-            selectAllCheckbox.addEventListener("change", function () {
+            selectAllCheckbox?.addEventListener("change", function () {
                 checkboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
             });
         });
     </script>
+
 
 
 }

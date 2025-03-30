@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -288,7 +289,7 @@ namespace NIA_CRM.Controllers
                 }
 
                 // Send email only if NO member was selected (meaning a new member is being created)
-                if (!memberId.HasValue)
+                if (memberId.HasValue)
                 {
                     SendWelcomeEmail(contact.Id);
                 }
@@ -548,15 +549,23 @@ namespace NIA_CRM.Controllers
         [HttpPost]
         public async Task<IActionResult> Notification(string selectedContactIds, string Subject, string emailContent)
         {
-            if (string.IsNullOrEmpty(selectedContactIds))
+            //Decide if we need to send the Validaiton Errors directly to the client
+            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-                return Json(new { success = false, message = "No contacts selected." });
+                //Was an AJAX request so build a message with all validation errors
+                string errorMessage = "";
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errorMessage += error.ErrorMessage + "|";
+                    }
+                }
+                //Note: returning a BadRequest results in HTTP Status code 400
+                return BadRequest(errorMessage);
             }
 
-            if (string.IsNullOrEmpty(Subject) || string.IsNullOrEmpty(emailContent))
-            {
-                return Json(new { success = false, message = "You must enter both a Subject and some message Content before sending the message." });
-            }
+          
 
             var contactIds = selectedContactIds.Split(',').Select(int.Parse).ToList();
             int folksCount = 0;
@@ -567,9 +576,8 @@ namespace NIA_CRM.Controllers
                     .Where(p => contactIds.Contains(p.Id) && p.Email != null)
                     .Select(p => new EmailAddress
                     {
-                        Name = p.Summary,
+                        Name = p.Summary,  // Assuming 'Summary' contains the contact name
                         Address = p.Email
-                        //Address = "Divyansh9030@gmail.com"
                     })
                     .ToListAsync();
 
@@ -577,11 +585,19 @@ namespace NIA_CRM.Controllers
 
                 if (folksCount > 0)
                 {
+                    // Prepare the email content with personalized greetings for each contact
+                    string emailContentWithGreetings = string.Empty;
+
+                    foreach (var recipient in recipients)
+                    {
+                        emailContentWithGreetings += $"<p>Dear {recipient.Name},</p><p>{emailContent}</p><p>This is an automatically generated email from <strong>Niagara Industrial Association</strong> website to review.</p><br>";
+                    }
+
                     var msg = new EmailMessage()
                     {
                         ToAddresses = recipients,
                         Subject = Subject,
-                        Content = "<p>" + emailContent + "</p><p>This is a automatically generated Email from <strong>Niagara Industrial Association</strong> web site to review.</p>"
+                        Content = emailContentWithGreetings
                     };
 
                     await _emailSender.SendToManyAsync(msg);
@@ -595,8 +611,11 @@ namespace NIA_CRM.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Error: Could not send email. " + ex.GetBaseException().Message });
+                // Handle the exception
+                return Json(new { success = false, message = "An error occurred while sending the message: " + ex.Message });
             }
+
+            
         }
 
         [HttpPost]
@@ -609,11 +628,12 @@ namespace NIA_CRM.Controllers
 
             try
             {
+                // Fetch the contact with the given ID and ensure the email is not null
                 var contact = await _context.Contacts
                     .Where(c => c.Id == contactId && c.Email != null)
                     .Select(c => new EmailAddress
                     {
-                        Name = c.Summary,
+                        Name = c.Summary,  // Assuming 'Summary' is the contact's name
                         Address = c.Email
                     })
                     .FirstOrDefaultAsync();
@@ -623,6 +643,7 @@ namespace NIA_CRM.Controllers
                     return Json(new { success = false, message = "No valid email address found for the selected contact." });
                 }
 
+                // Fetch the production email template for the Welcome email type
                 var productionEmail = await _context.ProductionEmails
                     .Where(e => e.EmailType == EmailType.Welcome)
                     .FirstOrDefaultAsync();
@@ -632,17 +653,22 @@ namespace NIA_CRM.Controllers
                     return Json(new { success = false, message = "No production email template found." });
                 }
 
+                // Prepare the email content with a personalized greeting
+                string emailContentWithGreetings = $"<p>Dear {contact.Name},</p><p>{productionEmail.Body}</p><p>This is an automatically generated email from <strong>Niagara Industrial Association</strong> website to review.</p><br>";
+
                 var msg = new EmailMessage()
                 {
                     ToAddresses = new List<EmailAddress> { contact },
                     Subject = productionEmail.Subject,
-                    Content = productionEmail.Body?.Replace("{Name}", contact.Name)
+                    Content = emailContentWithGreetings  // Include the greeting and body
                 };
 
                 await _emailSender.SendToManyAsync(msg);
 
                 return Json(new { success = true, message = "Welcome email sent successfully to " + contact.Name + "." });
             }
+            
+
             catch (Exception ex)
             {
                 return Json(new { success = false, message = "Error: Could not send email. " + ex.GetBaseException().Message });

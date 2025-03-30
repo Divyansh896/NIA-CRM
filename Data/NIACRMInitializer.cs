@@ -3473,7 +3473,7 @@ namespace NIA_CRM.Data
                                  TemplateName = "Primary Welcome",
                                  EmailType = EmailType.Welcome,
                                  Subject = "Welcome to NIA!",
-                                 Body = $"Dear {randomNames[0]},\n\nWelcome to the NIA community! We are thrilled to have you onboard. Please let us know if you need any assistance.\n\nBest regards,\nNIA Team",
+                                 Body = $"Welcome to the NIA community! We are thrilled to have you onboard. Please let us know if you need any assistance.\n\nBest regards,\nNIA Team",
                                  //IsGood = true
                              },
                              new ProductionEmail
