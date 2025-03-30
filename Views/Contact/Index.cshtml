@@ -119,15 +119,14 @@
 @if (User.IsInRole("Admin"))
 {
     <form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
+        <!-- Help Icon for import Instructions -->
+        <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('importHelp')" title="Click for import instructions"></i>
         <div class="d-flex align-items-center" style="padding-bottom: 10px;">
 
-            <input type="file" name="file" class="form-control me-2" required />
             <button type="submit" class="btn btn-dark me-2" style="min-width: 150px;">
                 <i class="fa fa-file-import"></i> Import Excel
             </button>
-
-            <!-- Help Icon for import Instructions -->
-            <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('importHelp')" title="Click for import instructions"></i>
+            <input type="file" name="file" class="form-control me-2" required />
         </div>
     </form>
 

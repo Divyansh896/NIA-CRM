@@ -46,18 +46,41 @@
 
             <dt class="col-sm-4">Membership Type:</dt>
             <dd class="col-sm-8">
-                @if (Model.MemberMembershipTypes != null && Model.MemberMembershipTypes.Any())
-                {
-                    @foreach (var membership in Model.MemberMembershipTypes)
+                @{
+                    int membershipCount = Model.MemberMembershipTypes.Count;
+                    if (membershipCount > 0)
                     {
-                        <p>@membership.MembershipType.TypeName</p>
+                        var firstMembershipType = Model.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName; // Get the first membership type
+                        if (membershipCount > 1)
+                        {
+                            string membershipList = ""; // HTML string of membership type names separated by <br /> tags
+                            var memberships = Model.MemberMembershipTypes.ToList();
+                            for (int i = 1; i < membershipCount; i++) // Skip the first because we have it already
+                            {
+                                membershipList += $"{memberships[i].MembershipType.TypeName}<br />";
+                            }
+                            <a class="role='button'" data-bs-toggle="collapse" href="#collapseMembership@(Model.ID)_preview"
+                               aria-expanded="false" aria-controls="collapseMembership@(Model.ID)_preview">
+                                @firstMembershipType <span class="badge bg-info">@membershipCount</span>
+                            </a>
+                            <div class="collapse" id="collapseMembership@(Model.ID)_preview">
+                                @Html.Raw(membershipList)
+                            </div>
+                        }
+                        else
+                        {
+                            @firstMembershipType
+                        }
+                    }
+                    else
+                    {
+                        <p>No membership type available.</p>
                     }
                 }
-                else
-                {
-                    <p>No membership type available.</p>
-                }
             </dd>
+
+
+
 
             <dt class="col-sm-4">Website:</dt>
             <dd class="col-sm-8">

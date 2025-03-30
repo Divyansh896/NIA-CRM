@@ -6,60 +6,39 @@
 
 <h1>Edit</h1>
 
-<h4>Contact Cancellation</h4>
+<h4>Contact Archiving</h4>
+<br />
+<h4>@Model.Contact.Summary</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="card">
+        <div class="card-body">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <input type="hidden" asp-for="ID" />
             <input type="hidden" asp-for="RowVersion" />
-            @if (ViewBag.MemberName != null)
-            {
-                <div class="alert alert-info">
-                    <strong>Contact Name: </strong> @ViewBag.MemberName
-                </div>
-                <input type="hidden" asp-for="ContactID" value="@ViewBag.ContactID" />
-            }
-            else
-            {
-                <div class="form-group">
-                    <label asp-for="ContactID" class="control-label"></label>
-                    <select asp-for="ContactID" class="form-control" asp-items="ViewBag.ContactID"></select>
-                </div>
-            }
+
             <div class="form-group">
                 <label asp-for="CancellationDate" class="control-label"></label>
                 <input asp-for="CancellationDate" class="form-control" />
                 <span asp-validation-for="CancellationDate" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="CancellationNote" class="control-label"></label>
                 <input asp-for="CancellationNote" class="form-control" />
                 <span asp-validation-for="CancellationNote" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsCancelled" /> @Html.DisplayNameFor(model => model.IsCancelled)
-                </label>
-                <span asp-validation-for="IsCancelled" class="text-danger"></span>
 
-            </div>
-            @* <div class="form-group">
-                <label asp-for="ContactID" class="control-label"></label>
-                <select asp-for="ContactID" class="form-control" asp-items="ViewBag.ContactID"></select>
-                <span asp-validation-for="ContactID" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+    <div class="position-bottom-left">
+        <a asp-action="Index" class="btn btn-dark me-2">Back to Contact Archivings</a>
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
 
-<div>
-    <a asp-action="Index">Back to Contact Archivings</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

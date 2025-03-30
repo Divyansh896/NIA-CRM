@@ -155,26 +155,30 @@
                             <!-- User Role Menu Item -->
                             <li class="nav-item" role="menuitem">
                                 <a class="nav-link text-dark" href="@Url.Action("Index", "UserRole")" aria-label="User Roles " title="User Roles">
-                                    <span class="text-white ms-2">Maintain User Roles</span>
+                                    <span class="icon" aria-hidden="true"><i class="fas fa-key"></i></span>
+                                    <span class="text-white ms-2">User Roles</span>
                                 </a>
                             </li>
 
                             <!-- NAICS Codes Menu Item -->
                             <li class="nav-item" role="menuitem">
                                 <a class="nav-link text-dark" href="@Url.Action("Index", "NAICSCodes")" aria-label="Naics Codes" title="Naics Codes">
-                                    <span class="text-white ms-2">Maintain Naics Codes</span>
+                                    <span class="icon" aria-hidden="true"><i class="fas fa-search"></i></span>
+                                    <span class="text-white ms-2">NAICS Codes</span>
                                 </a>
                             </li>
                         }
                     }
                 </ul>
 
+                
+
+                <partial name="_LoginPartial" />
+
                 <button id="theme-toggle" class="theme-toggle-btn">
                     <i class="fas fa-moon"></i>
                     <span class="theme-toggle-text">Dark Mode</span>
                 </button>
-
-                <partial name="_LoginPartial" />
             </div>
         </nav>
 
@@ -189,7 +193,7 @@
     <!-- Footer -->
     <footer class="border-top footer text-muted text-center" id="footer-scroll">
         <div class="container mt-2">
-            &copy; 2025 - NIA CRM - <a href="@Url.Action("Privacy", "Home")">Privacy Policy</a>
+            &copy; 2025 - NIA CRM
             <p>
                 <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="19">
             </p>

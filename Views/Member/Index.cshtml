@@ -509,7 +509,7 @@
                                     {
                                         membershipList += memberships[i].MembershipType.TypeName + " <br />";
                                     }
-                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseMembership@(item.ID)"
+                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseMembership@(item.ID)" id="ExpandableList"
                                        aria-expanded="false" aria-controls="collapseMembership@(item.ID)">
                                         @firstMembershipType <span class="badge bg-info">@membershipCount</span>
                                     </a>
@@ -527,52 +527,114 @@
                     </td>
 
                     <td>
-
-                        @if (item.MemberSectors != null)
-                        {
-                            foreach (var industry in item.MemberSectors)
+                        @{
+                            int sectorCount = item.MemberSectors.Count;
+                            if (sectorCount > 0)
                             {
-                                @industry.Sector.SectorName
-                                <br />
-                            }
-                        }
-
-                    </td>
-                    <!-- New Columns -->
-                    <td>
-                        @if (item.IndustryNAICSCodes != null)
-                        {
-                            foreach (var industry in item.IndustryNAICSCodes)
-                            {
-                                @industry.NAICSCode.Code
-                                <br />
-                            }
-                        }
-                    </td>
-
-
-                    <td>
-                        @if (item.MemberContacts != null && item.MemberContacts.Any())  // Check if there are any contacts
-                        {
-                            foreach (var memberContact in item.MemberContacts)
-                            {
-                                var contact = memberContact.Contact; // Get the actual Contact object
-                                if (contact != null)
+                                string firstSector = item.MemberSectors.FirstOrDefault().Sector.SectorName;
+                                if (sectorCount > 1)
                                 {
-                                    <a href="tel:@contact.PhoneFormatted" id="phoneNumber">@contact.PhoneFormatted</a>
-                                    @: |
-                                    <a href="mailto:@contact.Email">@contact.Email</a>
-                                    <br />
+                                    string sectorList = ""; // HTML string of sector names separated by <br /> tags
+                                    var sectors = item.MemberSectors.ToList();
+                                    for (int i = 1; i < sectorCount; i++) // Skip the first because we have it already
+                                    {
+                                        sectorList += sectors[i].Sector.SectorName + " <br />";
+                                    }
+                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseSector@(item.ID)"
+                                       aria-expanded="false" aria-controls="collapseSector@(item.ID)">
+                                        @firstSector <span class="badge bg-info">@sectorCount</span>
+                                    </a>
+                                    <div class="collapse" id="collapseSector@(item.ID)">
+                                        @Html.Raw(sectorList)
+                                    </div>
+                                }
+                                else
+                                {
+                                    @firstSector
                                 }
                             }
                         }
+                    </td>
 
 
-                        else
-                        {
-                            <span class="text-muted">No Contacts Available</span>
+
+                    <!-- New Columns -->
+                    <td>
+                        @{
+                            int naicsCount = item.IndustryNAICSCodes.Count;
+                            if (naicsCount > 0)
+                            {
+                                string firstNaics = item.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code;
+                                if (naicsCount > 1)
+                                {
+                                    string naicsList = ""; // HTML string of NAIC code names separated by <br /> tags
+                                    var naicsCodes = item.IndustryNAICSCodes.ToList();
+                                    for (int i = 1; i < naicsCount; i++) // Skip the first because we have it already
+                                    {
+                                        naicsList += naicsCodes[i].NAICSCode.Code + " <br />";
+                                    }
+                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseNAICS@(item.ID)"
+                                       aria-expanded="false" aria-controls="collapseNAICS@(item.ID)">
+                                        @firstNaics <span class="badge bg-info">@naicsCount</span>
+                                    </a>
+                                    <div class="collapse" id="collapseNAICS@(item.ID)">
+                                        @Html.Raw(naicsList)
+                                    </div>
+                                }
+                                else
+                                {
+                                    @firstNaics
+                                }
+                            }
                         }
                     </td>
+
+
+
+                    <td>
+                        @{
+                            int contactCount = item.MemberContacts.Count;
+                            if (contactCount > 0)
+                            {
+                                var firstContact = item.MemberContacts.FirstOrDefault().Contact; // Get the first contact's details
+                                if (contactCount > 1)
+                                {
+                                    string contactList = ""; // HTML string of contact details separated by <br /> tags
+                                    var contacts = item.MemberContacts.ToList();
+                                    for (int i = 1; i < contactCount; i++) // Skip the first because we have it already
+                                    {
+                                        var contact = contacts[i].Contact;
+                                        if (contact != null)
+                                        {
+                                            contactList += $"<a href='tel:{contact.PhoneFormatted}'>{contact.PhoneFormatted}</a> | <a href='mailto:{contact.Email}'>{contact.Email}</a><br />";
+                                        }
+                                    }
+                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseContact@(item.ID)"
+                                       aria-expanded="false" aria-controls="collapseContact@(item.ID)">
+                                        @firstContact.PhoneFormatted <span class="badge bg-info">@contactCount</span>
+                                    </a>
+                                    <div class="collapse" id="collapseContact@(item.ID)">
+                                        @Html.Raw(contactList)
+                                    </div>
+                                }
+                                else
+                                {
+                                    var contact = firstContact; // First contact's details
+                                    if (contact != null)
+                                    {
+                                        <a href="tel:@contact.PhoneFormatted">@contact.PhoneFormatted</a>
+                                        @: |
+                                        <a href="mailto:@contact.Email">@contact.Email</a>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">No Contacts Available</span>
+                            }
+                        }
+                    </td>
+
 
 
                 </tr>
@@ -590,7 +652,6 @@
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -598,14 +659,18 @@
             $('#previewContainer').addClass('hidden');
 
             // Handle click event on rows with the "clickable-row" class
-            $(document).on('click', '.clickable-row', function () {
+            $(document).on('click', '.clickable-row', function (event) {
                 var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
 
                 if (!contactId) {
                     console.error('No contact ID found for this row.');
                     return;
                 }
-
+                    // Check if the click is on the collapse toggle (anchor with 'data-bs-toggle="collapse"')
+        if ($(event.target).is('a') && $(event.target).attr('data-bs-toggle') === 'collapse') {
+            // Do nothing if the click is on a collapse trigger
+            return;
+        }
                 // Make an AJAX request to get the partial view for the selected contact
                 $.ajax({
                     url: '/Member/GetMemberPreview', // Adjust the URL to match your routing
@@ -666,6 +731,7 @@
                 if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
                     $('#previewContainer').removeClass('visible').addClass('hidden');
                 }
+
             });
 
             // Prevent the preview container from closing when clicked inside

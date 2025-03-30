@@ -98,7 +98,6 @@ body {
 .btn-light {
     border-width: 2px;
     border-color: #434343 !important;
-    margin-bottom: 10px;
 }
 
 .btn-light:hover {
@@ -157,6 +156,22 @@ body {
     background-color: #434343 !important;
     height: 40px !important;
 }
+
+.member-count-link {
+    color: inherit !important; /* Inherit text color from parent */
+}
+
+    .member-count-link:hover {
+        color: #A61C1C !important; /* Change color to red on hover */
+    }
+
+a:hover {
+    color: black !important;
+}
+
+a::after {
+    color: black !important;
+}
 /* Card Styles */
 .card {
     border: none;
@@ -187,6 +202,14 @@ body {
 
 .title-vidget{
     font-size:17px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: #A61C1C !important;
+}
+
+.nav-link{
+    color: black;
 }
 /* Sticky Buttons */
 .sticky-buttons {

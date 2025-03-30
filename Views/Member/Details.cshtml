@@ -15,15 +15,15 @@
             string imageBase64 = Convert.ToBase64String(Model.MemberLogo.Content);
             string imageSrc = $"data:{Model.MemberLogo.MimeType};base64,{imageBase64}";
             <img src="@imageSrc" alt="Profile Picture of @Model.MemberName"
-                 title="Profile Picture of @Model.MemberName"
-                 class="img-fluid rounded" style="height: 70px; width: 70px; object-fit: cover;" />
+            title="Profile Picture of @Model.MemberName"
+            class="img-fluid rounded" style="height: 70px; width: 70px; object-fit: cover;" />
         }
         else
         {
             <img src="~/images/Unknown_person.jpg"
-                 alt="Profile Picture of @Model.MemberName"
-                 title="Profile Picture of @Model.MemberName"
-                 class="img-fluid rounded" style="height: 70px; width: 70px; object-fit: cover;" />
+            alt="Profile Picture of @Model.MemberName"
+            title="Profile Picture of @Model.MemberName"
+            class="img-fluid rounded" style="height: 70px; width: 70px; object-fit: cover;" />
         }
     </div>
 
@@ -90,7 +90,7 @@
                                                     membershipList += memberships[i].MembershipType.TypeName + " <br />";
                                                 }
                                                 <a class="role='button'" data-bs-toggle="collapse" href="#collapseMembership@(Model.ID)"
-                                                   aria-expanded="false" aria-controls="collapseMembership@(Model.ID)">
+                                                aria-expanded="false" aria-controls="collapseMembership@(Model.ID)">
                                                     @firstMembershipType <span class="badge bg-info">@membershipCount</span>
                                                 </a>
                                                 <div class="collapse" id="collapseMembership@(Model.ID)">
@@ -108,37 +108,79 @@
                                             <p>No membership type available.</p>
                                         }
                                     }
-                                    
+
                                 </dd>
 
                                 <dt>Tag:</dt>
                                 <dd>
-                                    @if (Model.MemberTags != null && Model.MemberTags.Any())
-                                    {
-                                        @foreach (var tag in Model.MemberTags)
+                                    @{
+                                        int tagCount = Model.MemberTags.Count;
+                                        if (tagCount > 0)
                                         {
-                                            <p>@tag.MTag.MTagName</p>
+                                            var firstTag = Model.MemberTags.FirstOrDefault().MTag.MTagName; // Get the first tag name
+                                            if (tagCount > 1)
+                                            {
+                                                string tagList = ""; // HTML string of tag names separated by <br /> tags
+                                                var tags = Model.MemberTags.ToList();
+                                                for (int i = 1; i < tagCount; i++) // Skip the first because we have it already
+                                                {
+                                                    tagList += $"{tags[i].MTag.MTagName}<br />";
+                                                }
+                                                <a class="role='button'" data-bs-toggle="collapse" href="#collapseTag@(Model.ID)"
+                                                aria-expanded="false" aria-controls="collapseTag@(Model.ID)">
+                                                    @firstTag <span class="badge bg-info">@tagCount</span>
+                                                </a>
+                                                <div class="collapse" id="collapseTag@(Model.ID)">
+                                                    @Html.Raw(tagList)
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                @firstTag
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <p>No tag available.</p>
                                         }
                                     }
-                                    else
-                                    {
-                                        <p>No tag available.</p>
-                                    }
                                 </dd>
+
                                 <dt>Sector:</dt>
                                 <dd>
-                                    @if (Model.MemberSectors != null && Model.MemberSectors.Any())
-                                    {
-                                        @foreach (var sector in Model.MemberSectors)
+                                    @{
+                                        int sectorCount = Model.MemberSectors.Count;
+                                        if (sectorCount > 0)
                                         {
-                                            <p>@sector.Sector.SectorName</p>
+                                            var firstSector = Model.MemberSectors.FirstOrDefault().Sector.SectorName; // Get the first sector name
+                                            if (sectorCount > 1)
+                                            {
+                                                string sectorList = ""; // HTML string of sector names separated by <br /> tags
+                                                var sectors = Model.MemberSectors.ToList();
+                                                for (int i = 1; i < sectorCount; i++) // Skip the first because we have it already
+                                                {
+                                                    sectorList += $"{sectors[i].Sector.SectorName}<br />";
+                                                }
+                                                <a class="role='button'" data-bs-toggle="collapse" href="#collapseSector@(Model.ID)"
+                                                aria-expanded="false" aria-controls="collapseSector@(Model.ID)">
+                                                    @firstSector <span class="badge bg-info">@sectorCount</span>
+                                                </a>
+                                                <div class="collapse" id="collapseSector@(Model.ID)">
+                                                    @Html.Raw(sectorList)
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                @firstSector
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <p>No sector available.</p>
                                         }
                                     }
-                                    else
-                                    {
-                                        <p>No sector available.</p>
-                                    }
                                 </dd>
+
                             </dl>
                         </div>
 
@@ -147,18 +189,42 @@
 
                             <dt>NAICS Code:</dt>
                             <dd>
-                                @if (Model.IndustryNAICSCodes != null && Model.IndustryNAICSCodes.Any())
-                                {
-                                    @foreach (var NAIC in Model.IndustryNAICSCodes)
+                                @{
+                                    int naicsCount = Model.IndustryNAICSCodes.Count;
+                                    if (naicsCount > 0)
                                     {
-                                        <p>@NAIC.NAICSCode.Code - @NAIC.NAICSCode.Description</p>
+                                        var firstNAICS = Model.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code; // Get the first NAICS code
+                                        if (naicsCount > 1)
+                                        {
+                                            string naicsList = ""; // HTML string of NAICS codes and descriptions separated by <br /> tags
+                                            var naicsCodes = Model.IndustryNAICSCodes.ToList();
+                                            for (int i = 1; i < naicsCount; i++) // Skip the first because we have it already
+                                            {
+                                                naicsList += $"{naicsCodes[i].NAICSCode.Code} - {naicsCodes[i].NAICSCode.Description}<br />";
+                                            }
+                                            <a class="role='button'" data-bs-toggle="collapse" href="#collapseNAICS@(Model.ID)"
+                                               aria-expanded="false" aria-controls="collapseNAICS@(Model.ID)">
+                                                @firstNAICS <span class="badge bg-info">@naicsCount</span>
+                                            </a>
+                                            <div class="collapse" id="collapseNAICS@(Model.ID)">
+                                                @Html.Raw(naicsList)
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            var firstDescription = Model.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Description;
+                                            @firstNAICS @("- ") @firstDescription
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>No NAICS Code available.</p>
                                     }
                                 }
-                                else
-                                {
-                                    <p>No NAICS Code available.</p>
-                                }
                             </dd>
+
+
+
                             <dl>
                                 <dt>@Html.DisplayNameFor(model => model.JoinDate)</dt>
                                 <dd>@Html.DisplayFor(model => model.JoinDate)</dd>
