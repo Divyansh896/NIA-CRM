@@ -80,7 +80,12 @@
                                     {
                                         @foreach (var membership in Model.MemberMembershipTypes)
                                         {
-                                            <p>@membership.MembershipType.TypeName</p>
+                                            <p>
+                                                <span class="membership" style="cursor: pointer; text-decoration: underline;">@membership.MembershipType.TypeName</span>
+                                                <span class="membership-description" style="display: none;">
+                                                    <br />@membership.MembershipType.TypeDescr
+                                                </span>
+                                            </p>
                                         }
                                     }
                                     else
@@ -95,7 +100,12 @@
                                     {
                                         @foreach (var tag in Model.MemberTags)
                                         {
-                                            <p>@tag.MTag.MTagName</p>
+                                            <p>
+                                                <span class="tag" style="cursor: pointer; text-decoration: underline;">@tag.MTag.MTagName</span>
+                                                <span class="tag-description" style="display: none;">
+                                                    <br />@tag.MTag.MTagDescription
+                                                </span>
+                                            </p>
                                         }
                                     }
                                     else
@@ -109,7 +119,12 @@
                                     {
                                         @foreach (var sector in Model.MemberSectors)
                                         {
-                                            <p>@sector.Sector.SectorName</p>
+                                            <p>
+                                                <span class="sector" style="cursor: pointer; text-decoration: underline;">@sector.Sector.SectorName</span>
+                                                <span class="sector-description" style="display: none;">
+                                                    <br />@sector.Sector.SectorDescription
+                                                </span>
+                                            </p>
                                         }
                                     }
                                     else
@@ -129,7 +144,12 @@
                                 {
                                     @foreach (var NAIC in Model.IndustryNAICSCodes)
                                     {
-                                        <p>@NAIC.NAICSCode.Code - @NAIC.NAICSCode.Description</p>
+                                        <p>
+                                            <span class="naics-code" style="cursor: pointer; text-decoration: underline;">@NAIC.NAICSCode.Code</span>
+                                            <span class="naics-description" style="display: none;">
+                                                <br />
+                                                @NAIC.NAICSCode.Description</span>
+                                        </p>
                                     }
                                 }
                                 else
@@ -137,6 +157,8 @@
                                     <p>No NAICS Code available.</p>
                                 }
                             </dd>
+
+
                             <dl>
                                 <dt>@Html.DisplayNameFor(model => model.JoinDate)</dt>
                                 <dd>@Html.DisplayFor(model => model.JoinDate)</dd>
@@ -327,7 +349,36 @@
     </div>
 </div>
 @section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        // jQuery to toggle the visibility of the description when clicking on the code
+        $(document).ready(function () {
+            $(".naics-code").click(function () {
+                $(this).next(".naics-description").toggle();
+            });
+        });
+
+        $(document).ready(function () {
+            $(".sector").click(function () {
+                $(this).next(".sector-description").toggle();
+            });
+        });
+
+        $(document).ready(function () {
+            $(".tag").click(function () {
+                $(this).next(".tag-description").toggle();
+            });
+        });
+
+        $(document).ready(function () {
+            $(".membership").click(function () {
+                $(this).next(".membership-description").toggle();
+            });
+        });
+    </script>
     <script type="text/javascript">
+
         document.addEventListener("DOMContentLoaded", function () {
             var modal = document.getElementById('addCancellationModal'); // Fixed modal ID
 

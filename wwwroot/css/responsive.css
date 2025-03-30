@@ -98,7 +98,6 @@ body {
 .btn-light {
     border-width: 2px;
     border-color: #434343 !important;
-    margin-bottom: 10px;
 }
 
 .btn-light:hover {
@@ -203,6 +202,14 @@ a::after {
 
 .title-vidget{
     font-size:17px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: #A61C1C !important;
+}
+
+.nav-link{
+    color: black;
 }
 /* Sticky Buttons */
 .sticky-buttons {
