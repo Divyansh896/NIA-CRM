@@ -292,6 +292,8 @@ namespace NIA_CRM.Controllers
                 if (memberId.HasValue)
                 {
                     SendWelcomeEmail(contact.Id);
+                    TempData["Success"] = $"Welcome Email sent to New Member successfully!";
+
                 }
 
                 TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} added successfully!";
@@ -601,6 +603,7 @@ namespace NIA_CRM.Controllers
                     };
 
                     await _emailSender.SendToManyAsync(msg);
+                    TempData["Success"] = $"Email sent successfully!";
 
                     return Json(new { success = true, message = "Message sent to " + folksCount + " contact" + ((folksCount == 1) ? "." : "s.") });
                 }

@@ -3315,91 +3315,91 @@ namespace NIA_CRM.Data
                             {
                                 CancellationDate = new DateTime(2025, 1, 10),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Subscription cancelled.",
                                 MemberID = 3
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 12),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Member requested cancellation due to personal reasons.",
                                 MemberID = 4
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 18),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Payment not updated.",
                                 MemberID = 5
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 20),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Requested cancellation.",
                                 MemberID = 6
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 22),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Subscription Bundling Issues.",
                                 MemberID = 7
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 25),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Account Suspension Due to Missed Payments.",
                                 MemberID = 8
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 27),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Inconsistent Billing Cycle.",
                                 MemberID = 9
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 1, 30),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Payment Processing Issues.",
                                 MemberID = 10
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 1),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Subscription Auto-Renewed Without Notice.",
                                 MemberID = 11
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 5),
-                                IsCancelled = false,
-                                CancellationNote = "Good member, no cancellation.",
+                                IsCancelled = true,
+                                CancellationNote = "Duplicate Charges for Multiple Accounts.",
                                 MemberID = 12
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 10),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Membership Price Increased.",
                                 MemberID = 13
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 15),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Bank Placed a Hold on Payments.",
                                 MemberID = 14
                             },
                             new Cancellation
                             {
                                 CancellationDate = new DateTime(2025, 2, 18),
                                 IsCancelled = true,
-                                CancellationNote = "Good member, no cancellation.",
+                                CancellationNote = "Billing Disputes Unresolved.",
                                 MemberID = 15
                             }
                         );
@@ -3734,28 +3734,16 @@ namespace NIA_CRM.Data
                             new ContactCancellation { ID = 3, ContactID = 3, CancellationDate = DateTime.Parse("2024-01-10"), CancellationNote = "No longer working with us", IsCancelled = true },
                             new ContactCancellation { ID = 4, ContactID = 4, CancellationDate = DateTime.Parse("2021-11-30"), CancellationNote = "Moved to a different industry", IsCancelled = true },
                             new ContactCancellation { ID = 5, ContactID = 5, CancellationDate = DateTime.Parse("2023-09-18"), CancellationNote = "Project completed", IsCancelled = true },
-                            new ContactCancellation { ID = 6, ContactID = 1, CancellationDate = DateTime.Parse("2020-12-05"), CancellationNote = "No response to emails", IsCancelled = true },
-                            new ContactCancellation { ID = 7, ContactID = 2, CancellationDate = DateTime.Parse("2023-02-14"), CancellationNote = "Switched to competitor", IsCancelled = true },
-                            new ContactCancellation { ID = 8, ContactID = 3, CancellationDate = DateTime.Parse("2021-06-22"), CancellationNote = "No longer interested in services", IsCancelled = true },
-                            new ContactCancellation { ID = 9, ContactID = 4, CancellationDate = DateTime.Parse("2022-09-07"), CancellationNote = "Business shutdown", IsCancelled = true },
-                            new ContactCancellation { ID = 10, ContactID = 5, CancellationDate = DateTime.Parse("2024-02-01"), CancellationNote = "Contract expired", IsCancelled = true },
-                            new ContactCancellation { ID = 11, ContactID = 1, CancellationDate = DateTime.Parse("2023-03-12"), CancellationNote = "Company acquisition", IsCancelled = true },
-                            new ContactCancellation { ID = 12, ContactID = 2, CancellationDate = DateTime.Parse("2022-05-30"), CancellationNote = "No longer in the role", IsCancelled = true },
-                            new ContactCancellation { ID = 13, ContactID = 3, CancellationDate = DateTime.Parse("2020-09-10"), CancellationNote = "Repeated complaints", IsCancelled = true },
-                            new ContactCancellation { ID = 14, ContactID = 4, CancellationDate = DateTime.Parse("2023-07-25"), CancellationNote = "Moved to a competitor", IsCancelled = true },
-                            new ContactCancellation { ID = 15, ContactID = 5, CancellationDate = DateTime.Parse("2021-08-17"), CancellationNote = "Fraudulent activity detected", IsCancelled = true },
-                            new ContactCancellation { ID = 16, ContactID = 1, CancellationDate = DateTime.Parse("2023-10-05"), CancellationNote = "Personal reasons", IsCancelled = true },
-                            new ContactCancellation { ID = 17, ContactID = 2, CancellationDate = DateTime.Parse("2022-12-19"), CancellationNote = "Health issues", IsCancelled = true },
-                            new ContactCancellation { ID = 18, ContactID = 3, CancellationDate = DateTime.Parse("2024-04-02"), CancellationNote = "No engagement in past year", IsCancelled = true },
-                            new ContactCancellation { ID = 19, ContactID = 4, CancellationDate = DateTime.Parse("2021-03-14"), CancellationNote = "Company restructured", IsCancelled = true },
-                            new ContactCancellation { ID = 20, ContactID = 5, CancellationDate = DateTime.Parse("2023-11-09"), CancellationNote = "Non-payment of dues", IsCancelled = true },
-                            new ContactCancellation { ID = 21, ContactID = 1, CancellationDate = DateTime.Parse("2023-06-21"), CancellationNote = "Left the country", IsCancelled = true },
-                            new ContactCancellation { ID = 22, ContactID = 2, CancellationDate = DateTime.Parse("2022-10-28"), CancellationNote = "Not responding to calls", IsCancelled = true },
-                            new ContactCancellation { ID = 23, ContactID = 3, CancellationDate = DateTime.Parse("2020-05-06"), CancellationNote = "Discontinued service", IsCancelled = true },
-                            new ContactCancellation { ID = 24, ContactID = 4, CancellationDate = DateTime.Parse("2022-08-23"), CancellationNote = "Dissatisfied with service", IsCancelled = true },
-                            new ContactCancellation { ID = 25, ContactID = 5, CancellationDate = DateTime.Parse("2024-01-15"), CancellationNote = "Merged with another company", IsCancelled = true }
-                        );
-
+                            new ContactCancellation { ID = 6, ContactID = 6, CancellationDate = DateTime.Parse("2020-12-05"), CancellationNote = "No response to emails", IsCancelled = true },
+                            new ContactCancellation { ID = 7, ContactID = 7, CancellationDate = DateTime.Parse("2023-02-14"), CancellationNote = "Switched to competitor", IsCancelled = true },
+                            new ContactCancellation { ID = 8, ContactID = 8, CancellationDate = DateTime.Parse("2021-06-22"), CancellationNote = "No longer interested in services", IsCancelled = true },
+                            new ContactCancellation { ID = 9, ContactID = 9, CancellationDate = DateTime.Parse("2022-09-07"), CancellationNote = "Business shutdown", IsCancelled = true },
+                            new ContactCancellation { ID = 10, ContactID = 10, CancellationDate = DateTime.Parse("2024-02-01"), CancellationNote = "Contract expired", IsCancelled = true },
+                            new ContactCancellation { ID = 11, ContactID = 11, CancellationDate = DateTime.Parse("2023-03-12"), CancellationNote = "Company acquisition", IsCancelled = true },
+                            new ContactCancellation { ID = 12, ContactID = 12, CancellationDate = DateTime.Parse("2022-05-30"), CancellationNote = "No longer in the role", IsCancelled = true },
+                            new ContactCancellation { ID = 13, ContactID = 13, CancellationDate = DateTime.Parse("2020-09-10"), CancellationNote = "Repeated complaints", IsCancelled = true },
+                            new ContactCancellation { ID = 14, ContactID = 14, CancellationDate = DateTime.Parse("2023-07-25"), CancellationNote = "Moved to a competitor", IsCancelled = true }
+                            );
                         context.SaveChanges();
                     }
 

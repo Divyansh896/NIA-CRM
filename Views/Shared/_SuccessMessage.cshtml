@@ -10,6 +10,8 @@
         // Automatically hide the error alert after 5 seconds
         setTimeout(function() {
             $('#errorAlert').fadeOut('slow');
+                        // Send an AJAX request to clear TempData
+            fetch('/Home/ClearSuccessMessage', { method: 'POST' });
         }, 5000); // 5000 ms = 5 seconds
     </script>
 }

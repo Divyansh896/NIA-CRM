@@ -35,6 +35,13 @@ namespace NIA_CRM.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpPost]
+        public IActionResult ClearSuccessMessage()
+        {
+            TempData["Success"] = null;
+            return Ok();
+        }
+
         public async Task<IActionResult> Index()
         {
             var addresses = await _context.Members
