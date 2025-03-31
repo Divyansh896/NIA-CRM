@@ -141,6 +141,16 @@
                             </div>
                         </li>
 
+                        <li class="nav-item" role="menuitem">
+                            <a class="nav-link text-dark" data-bs-toggle="collapse" href="#otherCollapse" aria-expanded="false" aria-controls="otherCollapse" title="Other">
+                                <span class="icon" aria-hidden="true">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </span>
+                                <span class="text-white ms-2">Other</span>
+                                <span class="ms-2"><i class="fas fa-chevron-down text-white arrow-indicator" id="otherArrow"></i></span>
+                            </a>
+                            <div id="otherCollapse" class="collapse">
+                                <ul class="list-unstyled">
                         <li>
 
                             <a class="nav-link text-dark" href="https://mail.google.com/" target="_blank" title="Open Gmail Inbox Directly">
@@ -168,6 +178,9 @@
                                 </a>
                             </li>
                         }
+                                </ul>
+                            </div>
+                        </li>
                     }
                 </ul>
 
@@ -276,6 +289,14 @@
 
             $('#notesCollapse').on('hidden.bs.collapse', function () {
                 $('#notesArrow').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            });
+            // Handle the arrow direction change for Notes dropdown
+            $('#otherCollapse').on('show.bs.collapse', function () {
+                $('#otherArrow').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            });
+
+            $('#otherCollapse').on('hidden.bs.collapse', function () {
+                $('#othersArrow').removeClass('fa-chevron-up').addClass('fa-chevron-down');
             });
         });
     </script>
