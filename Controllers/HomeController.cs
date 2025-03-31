@@ -35,18 +35,33 @@ namespace NIA_CRM.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpPost]
+        public IActionResult ClearSuccessMessage()
+        {
+            TempData["Success"] = null;
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult ClearTempData()
+        {
+            TempData["Error"] = null; // Clear the error message
+            return Ok(); // Respond with a successful status
+        }
+
         public async Task<IActionResult> Index()
         {
             var addresses = await _context.Members
-        .Include(m => m.Address)
-        .Where(m => m.Address != null) // Ensure no null addresses
-        .ToListAsync();
+                                            .Include(m => m.Address)
+                                            .Where(m => m.Address != null) // Ensure no null addresses
+                                            .ToListAsync();
 
             var cityCounts = await _context.Members
-    .Where(m => m.Address != null)
-    .GroupBy(m => m.Address.City)
-    .Select(g => new { City = g.Key, Count = g.Count() })
-    .ToListAsync();
+                                            .Include(m => m.Address)
+                                            .Where(m => m.Address != null)
+                                            .GroupBy(m => m.Address.City)
+                                            .Select(g => new { City = g.Key, Count = g.Count() })
+                                            .ToListAsync();
 
             // Debugging line (optional)
             Console.WriteLine("City counts: " + string.Join(", ", cityCounts.Select(c => $"{c.City}: {c.Count}")));
@@ -54,51 +69,47 @@ namespace NIA_CRM.Controllers
 
 
             var membershipCount = await _context.MemberMembershipTypes
-                .GroupBy(mmt => mmt.MembershipType)
-                .Select(g => new
-                {
-                    MembershipType = g.Key,
-                    Count = g.Count()
-                })
-                .ToArrayAsync();
+                                                .GroupBy(mmt => mmt.MembershipType)
+                                                .Select(g => new
+                                                {
+                                                    MembershipType = g.Key,
+                                                    Count = g.Count()
+                                                })
+                                                .ToArrayAsync();
 
             var sectorCount = await _context.MemberSectors
-                .Include(ms => ms.Sector)
-                .GroupBy(ms => ms.Sector.SectorName)
-                .Select(g => new
-                {
-                    SectorName = g.Key,
-                    Count = g.Count()
-                })
-                .ToArrayAsync();
+                                            .Include(ms => ms.Sector)
+                                            .GroupBy(ms => ms.Sector.SectorName)
+                                            .Select(g => new
+                                            {
+                                                SectorName = g.Key,
+                                                Count = g.Count()
+                                            })
+                                            .ToArrayAsync();
 
-            ViewData["SectorCount"] = sectorCount;  // Pass data to the view
 
             var tagCount = await _context.MemberTags
-        .Include(mt => mt.MTag)
-        .GroupBy(mt => mt.MTag.MTagName)
-        .Select(g => new
-        {
-            TagName = g.Key,
-            Count = g.Count()
-        })
-        .ToArrayAsync();
+                                            .Include(mt => mt.MTag)
+                                            .GroupBy(mt => mt.MTag.MTagName)
+                                            .Select(g => new
+                                            {
+                                                TagName = g.Key,
+                                                Count = g.Count()
+                                            })
+                                            .ToArrayAsync();
 
-            ViewData["TagCount"] = tagCount;  // Pass data to the view
 
             var archivedMemberCount = await _context.Cancellations
-         .Where(c => c.IsCancelled == true)
-         .CountAsync();
+                                                     .Where(c => c.IsCancelled == true)
+                                                     .CountAsync();
 
-            ViewData["ArchivedMemberCount"] = archivedMemberCount;  // Pass the count to the view
 
             var totalMemberCount = await _context.Members.CountAsync();
+
             var activeMemberCount = totalMemberCount - archivedMemberCount;
-            ViewData["ActiveMemberCount"] = activeMemberCount;
 
 
 
-            ViewData["ActiveMemberCount"] = activeMemberCount;  // Pass the count to the view
 
             var memberJoinDates = await _context.Members
                                                  .GroupBy(m => new { m.JoinDate.Year, m.JoinDate.Month })  // No need to check for null
@@ -108,8 +119,7 @@ namespace NIA_CRM.Controllers
                                                      Month = g.Key.Month,
                                                      MonthName = new DateTime(g.Key.Year, g.Key.Month, 1).ToString("MMMM"),
                                                      Count = g.Count()
-                                                 })
-     .ToListAsync();
+                                                 }).ToListAsync();
             // Execute the query asynchronously
             var memberAddress = await _context.Members
                                                 .Include(m => m.Address)  // Include the Address navigation property
@@ -135,6 +145,11 @@ namespace NIA_CRM.Controllers
             ViewData["MembersJoins"] = memberJoinDates;
             ViewData["MembersAddress"] = memberAddress;
             ViewData["RetentionRate"] = retentionRate;
+            ViewData["ActiveMemberCount"] = activeMemberCount;  // Pass the count to the view
+            ViewData["ArchivedMemberCount"] = archivedMemberCount;  // Pass the count to the view
+            ViewData["TagCount"] = tagCount;  // Pass data to the view
+            ViewData["SectorCount"] = sectorCount;  // Pass data to the view
+
 
 
             return View(); // Pass nothing if using ViewData, or you can directly pass data via View()

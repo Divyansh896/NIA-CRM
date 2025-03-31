@@ -33,7 +33,7 @@
         <!-- Card 1: Total Members -->
         <div class="col-md-4">
             <div class="card text-light" role="group" aria-labelledby="total-members-title">
-                <div class="card-body vidget-MemebrCount">
+                <div class="card-body vidget-MemebrCount widget-hover">
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="total-members-title" role="heading" aria-level="3">Total Members</p>
@@ -48,7 +48,7 @@
         <!-- Card 2: Members in Copperport -->
         <div class="col-md-4">
             <div class="card text-light " role="group" aria-labelledby="members-dynamic-title">
-                <div class="card-body vidget-MemebrCity">
+                <div class="card-body vidget-MemebrCity widget-hover">
                     <div class="dropdown">
                         <button class="btn citydrop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="dots">...</span>
@@ -79,7 +79,7 @@
         <!-- Card 3: VIP Clients -->
         <div class="col-md-4">
             <div class="card text-light " role="group" aria-labelledby="vip-clients-title">
-                <div class="card-body vidget-Memebr">
+                <div class="card-body vidget-Memebr widget-hover">
                     <div class="dropdown">
                         <button class="btn  citydrop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="dots">...</span>
@@ -105,7 +105,7 @@
         <!-- Card 3: Sector Members -->
         <div class="col-md-4">
             <div class="card text-light " role="group" aria-labelledby="sector-clients-title">
-                <div class="card-body vidget-Sector">
+                <div class="card-body vidget-Sector widget-hover">
                     <div class="dropdown">
                         <button class="btn  citydrop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="dots">...</span>
@@ -131,7 +131,7 @@
         <!--Members Tags-->
         <div class="col-md-4">
             <div class="card text-light " role="group" aria-labelledby="tag-clients-title">
-                <div class="card-body vidget-Tag">
+                <div class="card-body vidget-Tag widget-hover">
                     <div class="dropdown">
                         <button class="btn  citydrop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="dots">...</span>
@@ -156,7 +156,7 @@
 
         <div class="col-md-4">
             <div class="card text-light " role="group" aria-labelledby="archived-members-title">
-                <div class="card-body vidget-Archived">
+                <div class="card-body vidget-Archived widget-hover">
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="archived-members-title" role="heading" aria-level="3">Archived Members</p>
@@ -169,7 +169,7 @@
         </div>
         <div class="col-md-4">
             <div class="card text-light " role="group" aria-labelledby="active-members-title">
-                <div class="card-body vidget-Active">
+                <div class="card-body vidget-Active widget-hover">
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="active-members-title" role="heading" aria-level="3">Active Members</p>
@@ -184,7 +184,7 @@
 
         <div class="col-md-4">
             <div class="card text-light " role="group" aria-labelledby="retention-rate-title">
-                <div class="card-body vidget-Retention">
+                <div class="card-body vidget-Retention widget-hover">
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="retention-rate-title" role="heading" aria-level="3">Retention Rate</p>
@@ -222,13 +222,13 @@
     </div> *@
 
     <!-- Main Dashboard (Initially Visible) -->
-    <div class="grid-stack" id="dashboard"></div>
+    <div class="grid-stack dashboard-charts" id="dashboard"></div>
 
     <!-- Hidden Widget Selection Panel -->
     <div id="widgetPanel" class="widget-panel" style="display: none;">
         <div class="d-flex flex-row align-items-center justify-content-between mb-4">
 
-            <h4>Available Widgets</h4>
+            <h4>Available Charts</h4>
             <input type="button" id="saveLayoutBtn" class="btn btn-success" style="display: none;" value="Save Layout">
         </div>
 
@@ -257,13 +257,50 @@
         var MembershipCount = @Html.Raw(Json.Serialize(ViewData["MembershipCount"]));
         var MembersJoins = @Html.Raw(Json.Serialize(ViewData["MembersJoins"]));
         var MembersAddress = @Html.Raw(Json.Serialize(ViewData["MembersAddress"]));
-        console.log("Archived Member Count:", @ViewData["ArchivedMemberCount"]);
-        console.log("Active Member Count:", @ViewData["ActiveMemberCount"]);
+        var CityCounts = @Html.Raw(Json.Serialize(ViewData["CityCounts"]));
+        var SectorCounts = @Html.Raw(Json.Serialize(ViewData["SectorCount"]));
+        var TagCounts = @Html.Raw(Json.Serialize(ViewData["TagCount"]));
+
+       
+        //console.log(MembershipCount)
     </script>
+
+    @* <script>
+           // Deserialize the data passed from the server into JavaScript variables
+        var memberCount = @Html.Raw(Json.Serialize(ViewData["MemberCount"]));
+        var membershipCount = @Html.Raw(Json.Serialize(ViewData["MembershipCount"]));
+        var membersJoins = @Html.Raw(Json.Serialize(ViewData["MembersJoins"]));
+        var membersAddress = @Html.Raw(Json.Serialize(ViewData["MembersAddress"]));
+        var cityCounts = @Html.Raw(Json.Serialize(ViewData["CityCounts"]));
+        var sectorCounts = @Html.Raw(Json.Serialize(ViewData["SectorCount"]));
+
+        // Log the values for debugging purposes
+        console.log("Member Count:", memberCount);
+        console.log("Membership Count:", membershipCount);
+        console.log("Members Join Dates:", membersJoins);
+        console.log("Members Address:", membersAddress);
+        console.log("City Counts:", cityCounts);
+        console.log("Sector Counts:", sectorCounts);
+
+        // You can also log the retention rate, active member count, archived member count, and tag count if needed
+        console.log("Retention Rate:", @Html.Raw(Json.Serialize(ViewData["RetentionRate"])));
+        console.log("Active Member Count:", @Html.Raw(Json.Serialize(ViewData["ActiveMemberCount"])));
+        console.log("Archived Member Count:", @Html.Raw(Json.Serialize(ViewData["ArchivedMemberCount"])));
+        console.log("Tag Count:", @Html.Raw(Json.Serialize(ViewData["TagCount"])));
+
+        // Example of what you could log in a more structured way
+        console.log("Full Membership Data:", membershipCount);
+        console.log("Full Member Join Data:", membersJoins);
+        console.log("Full Member Address Data:", membersAddress);
+
+    
+
+</script> *@
+
 
     <script>
         const cityCounts = @Html.Raw(Json.Serialize(ViewData["CityCounts"]));
-        console.log("City data is:", cityCounts);
+        // console.log("City data is:", cityCounts);
 
         let currentIndex = 0;
         let isUpdating = false;
@@ -368,7 +405,7 @@
 
     <script>
         const membershipCount = @Html.Raw(Json.Serialize(ViewData["MembershipCount"]));  // Data from the controller
-        console.log("Membership Count Data:", membershipCount);  // Log to the console to check
+        // console.log("Membership Count Data:", membershipCount);  Log to the console to check
 
         let lockedMembership = null; // Variable to store the locked membership type
         let autoUpdateIntervalMembership; // Reusing the same variable for both cards
@@ -448,7 +485,7 @@
 
     <script>
         const sectorCount = @Html.Raw(Json.Serialize(ViewData["SectorCount"]));  // Data from the controller
-        console.log("Sector Count Data:", sectorCount);  // Log to the console to check
+        // console.log("Sector Count Data:", sectorCount);  Log to the console to check
 
         let lockedSector = null; // Variable to store the locked sector
         let autoUpdateIntervalSector; // Reusing the same variable for both cards
@@ -539,7 +576,7 @@
 
     <script>
         const tagCount = @Html.Raw(Json.Serialize(ViewData["TagCount"]));  // Data from the controller
-        console.log("Tag Count Data:", tagCount);  // Log to the console to check
+        //console.log("Tag Count Data:", tagCount);  // Log to the console to check
 
         let lockedTag = null; // Variable to store the locked tag
         let currentIndexTag = 0; // To rotate through the tags

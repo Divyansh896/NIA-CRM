@@ -25,7 +25,10 @@ namespace NIA_CRM.Controllers
         // GET: NAICSCodes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.NAICSCodes.ToListAsync());
+            var naicsCodes = await _context.NAICSCodes.ToListAsync();
+            ViewData["records"] = $"Records Found: {naicsCodes.Count()}";
+
+            return View(naicsCodes);
         }
 
         // GET: NAICSCodes/Details/5

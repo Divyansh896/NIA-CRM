@@ -79,21 +79,22 @@ body {
 #widgetPanel {
     display: none; /* Initially hidden */
     position: fixed;
-    bottom: 10px; /* Just above the taskbar */
+    bottom: 10px;
     left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Center alignment */
+    transform: translate(-50%); /* Adjust to truly center the element */
     width: 80%; /* Adjust width as needed */
-    max-width: 750px; /* Prevent it from getting too wide */
-    min-height: 350px;
+    max-width: 1080px; /* Prevent it from getting too wide */
+    min-height: 430px;
     background: white;
     border: 2px solid #ccc;
     padding: 15px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     overflow-y: auto;
-    max-height: 200px; /* Limit height to avoid taking too much space */
+    max-height: 430px; /* Limit height to avoid taking too much space */
     border-radius: 10px; /* Rounded corners for a modern look */
 }
+
 
 
 #widgetContainer {
@@ -101,7 +102,6 @@ body {
     grid-template-columns: repeat(3, 1fr);
     background: #f1f1f1;
     border: 2px dashed #ccc;
-    width: fit-content;
 }
 
 
@@ -147,16 +147,31 @@ body {
         background: #e9ecef;
     }
 
-
-.close-btn {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
+.dashboard-charts .grid-stack-item {
+    min-height: 200px !important; /* Ensures each grid item has at least a 200px height */
+    min-width: 30% !important; /* Set width to 100% to ensure it occupies available grid space */
+    box-sizing: border-box !important; /* Ensure padding and borders are included in the width/height calculation */
 }
+
+    .dashboard-charts .grid-stack-item .grid-stack-item-content{
+        overflow-x: hidden !important;
+        overflow-y: hidden !important;
+    }
+
+        .dashboard-charts .grid-stack-item .grid-stack-item-content canvas{
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
 
     .close-btn:hover {
         color: red;
@@ -173,6 +188,54 @@ body {
     display: none;
     transition: opacity 0.3s ease-in-out;
 }
+
+/* Apply smooth transition on all widget cards */
+.widget-hover {
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+    .widget-hover:hover {
+        transform: scale(1.02);
+    }
+
+    .widget-hover.shrink {
+        transform: scale(0.95);
+    }
+/* Optional: To prevent text overflow or layout issues */
+.widget-hover {
+    overflow: hidden;
+}
+
+.card {
+    background-color: transparent; /* Makes the background transparent */
+}
+
+
+.context-menu {
+    position: absolute; /* Make sure the context menu is positioned absolutely */
+
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+    .context-menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .context-menu li {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+        .context-menu li:hover {
+            background-color: #f0f0f0;
+        }
 
 
 /*.export-buttons {

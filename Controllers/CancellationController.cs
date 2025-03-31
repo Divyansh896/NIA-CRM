@@ -108,7 +108,7 @@ namespace NIA_CRM.Controllers
             ViewData["SortDirection"] = sortDirection;
             ViewData["SortField"] = sortField;
             ViewData["numberFilters"] = numberFilters;
-            //ViewData["records"] = $"Records Found: {contacts.Count()}";
+            ViewData["records"] = $"Records Found: {cancellations.Count()}";
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
             ViewData["pageSizeID"] = PageSizeHelper.PageSizeList(pageSize);

@@ -80,6 +80,9 @@ namespace NIA_CRM.Controllers
             {
                 _context.Add(address);
                 await _context.SaveChangesAsync();
+                // Pass isNewMember flag via ViewData to the next step (Contact Create)
+                // Set 'IsNewMember' in TempData so that it can be used in the next request
+                TempData["IsNewMember"] = true;  // Set it as true or false based on your flow
                 TempData["SuccessMessage"] = $"Member Address Added Successfully!";
 
                 return RedirectToAction(nameof(Create), "Contact", new { memberId = address.MemberId });

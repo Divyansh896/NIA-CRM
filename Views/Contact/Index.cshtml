@@ -10,7 +10,7 @@
 <partial name="_addArchiveModal" />
 <partial name="_notificationModal" />
 <partial name="_SuccessMessage" />
-<partial name="_PersistContactSelections" />
+@* <partial name="_PersistContactSelections" /> *@
 
 
 
@@ -371,6 +371,7 @@
                     <td class="checkbox-cell" style="display: none;">
                         <input type="checkbox" class="contact-checkbox" name="selectedContactIds" value="@item.Id" style="display: none;">
                     </td>
+
                     <td>@Html.DisplayFor(modelItem => item.Summary)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>
@@ -379,7 +380,16 @@
                     <td>
                         <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
                     </td>
-                    <td>@Html.DisplayFor(modelItem => item.IsVip)</td>
+                    <td>
+                        @if (item.IsVip)
+                        {
+                            <span class="badge bg-warning text-dark ms-2">VIP</span>
+                        }
+                        @* else
+                        {
+                            @Html.DisplayFor(modelItem => item.IsVip)
+                        } *@
+                    </td>
                     <td>
                         @if (item.MemberContacts != null && item.MemberContacts.Any())
                         {
@@ -959,7 +969,27 @@
             }
         });
     </script>
+    <script>
+            // JavaScript to toggle member rows with animation
+        $(document).ready(function () {
+            $(".toggle-members").on("click", function () {
+                var targetId = $(this).data("target"); // Get the contact ID to target the correct member rows
+                var memberRow = $("tr.member-row." + targetId); // Find the corresponding member row
 
+                // Toggle the member row visibility with animation
+                memberRow.slideToggle();
+
+                // Change the button text depending on whether the rows are visible or not
+                var button = $(this);
+                if (memberRow.is(":visible")) {
+                    button.text("Hide Members");
+                } else {
+                    button.text("Show Members");
+                }
+            });
+        });
+    </script>
+        
 
 
 

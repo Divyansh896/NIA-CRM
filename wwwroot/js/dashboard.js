@@ -1,39 +1,41 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
     let grid = GridStack.init({ cellHeight: 100, animate: true });
-
     const widgetContainer = document.getElementById("widgetContainer");
 
-    // Define available chart widgets
     const chartWidgets = [
         { id: "membershipPieChart", width: 2, height: 2, name: "Membership Pie Chart" },
         { id: "cityBarChart", width: 2, height: 2, name: "City Bar Chart" },
         { id: "MemberJoinLineChart1", width: 2, height: 2, name: "Member Join Line Chart 1" },
-        { id: "MemberJoinLineChart2", width: 2, height: 2, name: "Member Join Line Chart 2" }
+        { id: "SectorPieChart", width: 2, height: 2, name: "Sector Distribution Count Pie Chart" },
+        { id: "SectorBarChart", width: 2, height: 2, name: "Sector Distribution Count Bar Chart" },
+        { id: "TagBarChart", width: 2, height: 2, name: "Tag Distribution Count Bar Chart" }
     ];
 
-    // Object to map chart IDs to their initialization functions
     const chartInitializers = {
         "cityBarChart": initializeCityBarChart,
-        "membershipPieChart": initializePieChart,
+        "membershipPieChart": initializeMembershipPieChart,
         "MemberJoinLineChart1": initializeMemberJoinLineChart,
-        "MemberJoinLineChart2": initializeMemberJoinLineChart
+        "SectorPieChart": initializeSectorPieChart,
+        "SectorBarChart": initializeSectorBarChart,
+        "TagBarChart": initializeTagBarChart
     };
 
-    // Function to dynamically create and return a canvas inside a div
     function createChartContainer(chartId) {
         let container = document.createElement("div");
         container.classList.add("grid-stack-item-content");
-
         let canvas = document.createElement("canvas");
-        canvas.id = chartId;  // This ID must match the one passed to initializeChart
+        canvas.id = chartId;
         container.appendChild(canvas);
+
+        // Add context menu event listener to the canvas
+        canvas.addEventListener("contextmenu", function (event) {
+            event.preventDefault(); // Prevent the default context menu
+            showContextMenu(event, canvas);
+        });
 
         return container;
     }
 
-
-    // Function to create widget divs dynamically
-    // Function to create widget divs dynamically
     function createWidget(chart) {
         let widget = document.createElement("div");
         widget.classList.add("grid-stack-item");
@@ -45,24 +47,102 @@
         let content = document.createElement("div");
         content.classList.add("grid-stack-item-content");
         content.innerHTML = `<strong>${chart.name}</strong>`;
-
         widget.appendChild(content);
-        // Create the chart container with the chartId
+
         let chartContainer = createChartContainer(chart.id);
         widget.appendChild(chartContainer);
 
-        // Initialize the chart after the widget is added to the DOM
-        setTimeout(() => initializeChart(chart.id), 100); // Delay to ensure the canvas is in the DOM
+        setTimeout(() => initializeChart(chart.id), 100);
         return widget;
     }
 
+    function showContextMenu(event, canvas) {
+        event.preventDefault();
 
-    // Append all widgets to the container
+        const contextMenu = document.createElement("ul");
+        contextMenu.classList.add("context-menu");
+
+        let removeItem = document.createElement("li");
+        removeItem.textContent = "Remove from Dashboard";
+        removeItem.onclick = function () {
+            removeFromDashboard(canvas);
+            contextMenu.remove(); // Remove the context menu after action
+        };
+
+        let copyItem = document.createElement("li");
+        copyItem.textContent = "Copy Image";
+        copyItem.onclick = function () {
+            copyChartImage(canvas);
+            contextMenu.remove(); // Remove the context menu after action
+        };
+
+        let saveItem = document.createElement("li");
+        saveItem.textContent = "Save Image";
+        saveItem.onclick = function () {
+            saveChartImage(canvas);
+            contextMenu.remove(); // Remove the context menu after action
+        };
+
+        contextMenu.appendChild(removeItem);
+        contextMenu.appendChild(copyItem);
+        contextMenu.appendChild(saveItem);
+
+        document.body.appendChild(contextMenu);
+        contextMenu.style.left = `${event.pageX}px`;
+        contextMenu.style.top = `${event.pageY}px`;
+
+        document.addEventListener("click", function closeContextMenu() {
+            contextMenu.remove();
+            document.removeEventListener("click", closeContextMenu);
+        });
+    }
+
+    function addToDashboard(el) {
+        let chartId = el.getAttribute("data-chart-id");
+
+        let newItem = document.createElement("div");
+        newItem.classList.add("grid-stack-item");
+        newItem.setAttribute("data-gs-width", el.getAttribute("data-gs-width"));
+        newItem.setAttribute("data-gs-height", el.getAttribute("data-gs-height"));
+
+        let chartContainer = createChartContainer(chartId);
+        newItem.appendChild(chartContainer);
+        grid.makeWidget(newItem);
+        document.getElementById("dashboard").appendChild(newItem);
+
+        setTimeout(() => initializeChart(chartId), 100);
+        el.style.display = "none";
+    }
+
+    function removeFromDashboard(canvas) {
+        let widget = canvas.closest(".grid-stack-item");
+        widget.style.display = "block"; // Show it again in the available widgets
+        widgetContainer.appendChild(widget);
+        widget.parentElement.removeChild(widget);
+    }
+
+    function copyChartImage(canvas) {
+        canvas.toBlob(function (blob) {
+            const item = new ClipboardItem({ "image/png": blob });
+            navigator.clipboard.write([item]).then(() => {
+                alert("Chart image copied to clipboard!");
+            }).catch(err => {
+                console.error("Failed to copy chart image: ", err);
+            });
+        });
+    }
+
+    function saveChartImage(canvas) {
+        let link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = canvas.id + ".png";
+        link.click();
+    }
+
     chartWidgets.forEach(chart => {
         widgetContainer.appendChild(createWidget(chart));
     });
 
-    // Toggle customization panel
     document.getElementById("customizeBtn").addEventListener("click", function () {
         document.getElementById("widgetPanel").style.display = "block";
         document.getElementById("saveLayoutBtn").style.display = "inline-block";
@@ -75,32 +155,6 @@
         this.style.display = "none";
     });
 
-    // Function to add widget to dashboard
-    window.addToDashboard = function (el) {
-        let chartId = el.getAttribute("data-chart-id");
-
-        // Create new grid item for the chart
-        let newItem = document.createElement("div");
-        newItem.classList.add("grid-stack-item");
-        newItem.setAttribute("data-gs-width", el.getAttribute("data-gs-width"));
-        newItem.setAttribute("data-gs-height", el.getAttribute("data-gs-height"));
-
-        // Dynamically create and append a new chart container
-        let chartContainer = createChartContainer(chartId);
-        newItem.appendChild(chartContainer);
-        grid.makeWidget(newItem);
-
-        // Append the newItem to the dashboard
-        document.getElementById("dashboard").appendChild(newItem);
-
-        // Wait for the element to be in the DOM before initializing the chart
-        setTimeout(() => initializeChart(chartId), 100);
-
-        // Hide the selected widget from the panel
-        el.style.display = "none";
-    };
-
-    // Generic function to initialize any chart by ID
     function initializeChart(chartId) {
         const initFunction = chartInitializers[chartId];
         if (initFunction) {
@@ -110,15 +164,13 @@
         }
     }
 
-    // Function to generate a random color
     function getRandomColor() {
         const hue = Math.floor(Math.random() * 360);
         return `hsl(${hue}, 100%, 60%)`;
     }
 
-    // Function to initialize a bar chart
     function initializeCityBarChart(chartId) {
-        if (!window.cityCounts || !Array.isArray(window.cityCounts)) {
+        if (!window.CityCounts) {
             console.error("CityCounts data is missing or not in the expected format.");
             return;
         }
@@ -144,14 +196,24 @@
                 responsive: true,
                 plugins: {
                     tooltip: { enabled: true },
-                    legend: { display: true, position: "bottom" }
+                    legend: { display: true, position: "bottom" },
+                    title: {
+                        display: true,
+                        text: 'Members In Each City Distribution', // The chart title
+                        font: {
+                            size: 16
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 10
+                        }
+                    }
                 }
             }
         });
     }
 
-    // Function to initialize a pie chart
-    function initializePieChart(chartId) {
+    function initializeMembershipPieChart(chartId) {
         if (!window.MembershipCount) {
             console.error("MembershipCount data is missing or not available.");
             return;
@@ -181,21 +243,32 @@
                 hoverOffset: 20,
                 plugins: {
                     tooltip: { enabled: true },
-                    legend: { position: "right" }
+                    legend: { position: "right" },
+                    title: {
+                        display: true,
+                        text: 'Memberships Distribution', // The chart title
+                        font: {
+                            size: 18
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 10
+                        }
+                    }
                 }
             }
         });
     }
 
-    // Function to initialize a line chart
+    
     function initializeMemberJoinLineChart(chartId) {
-        if (!window.MembersAddress) {
-            console.error("MembersAddress data is missing or not available.");
+        if (!window.MembersJoins) {
+            console.error("MembersJoining data is missing or not available.");
             return;
         }
 
-        const labels = MembersAddress.map(item => item.city);
-        const data = MembersAddress.map(item => item.count);
+        const labels = MembersJoins.map(item => item.month);
+        const data = MembersJoins.map(item => item.count);
 
         const ctx = document.getElementById(chartId).getContext("2d");
         new Chart(ctx, {
@@ -203,8 +276,8 @@
             data: {
                 labels,
                 datasets: [{
-                    label: "Member According to Cities",
-                    data,
+                    label: "Member Joining",
+                    data: data,
                     borderWidth: 2,
                     tension: 0.8
                 }]
@@ -217,12 +290,253 @@
                     easing: "easeInOutQuad"
                 },
                 plugins: {
+                    tooltip: { enabled: true },
+
                     legend: {
                         display: true,
                         position: "bottom"
+                    },
+                    title: {
+                        display: true,
+                        text: 'Member Joining Distribution', // The chart title
+                        font: {
+                            size: 16
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 10
+                        }
                     }
                 }
             }
         });
     }
+
+    function initializeSectorPieChart(chartId) {
+        if (!window.SectorCounts) {
+            console.error("Sector data is missing or not in the expected format.");
+            return;
+        }
+
+        // Extract labels (Sector Names) and data (Counts) from the passed sector data
+        const labels = SectorCounts.map(item => item.sectorName);  // Sector names
+        const data = SectorCounts.map(item => item.count);  // Counts per sector
+
+        // Generate random background colors for each sector
+        const backgroundColors = data.map(() => getRandomColor());  // Random colors for each sector
+
+        // Get the context for the chart
+        const ctx = document.getElementById(chartId).getContext("2d");
+
+        // Create the pie chart
+        new Chart(ctx, {
+            type: "doughnut",  // Doughnut chart type (can also use 'pie' if preferred)
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Members per Sector",
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    borderColor: backgroundColors,
+                    borderWidth: 1,
+                    spacing: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                cutoutPercentage: 70,  // Controls the 'hole' size of the doughnut
+                hoverOffset: 20,  // Spacing when hovered over a slice
+                plugins: {
+                    tooltip: {
+                        enabled: true  // Enable tooltips for better interaction
+                    },
+                    legend: {
+                        position: "right"  // Position the legend to the right
+                    },
+                    title: {
+                        display: true,
+                        text: 'Member Per Sector Distribution', // The chart title
+                        font: {
+                            size: 16
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 10
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function initializeSectorBarChart(chartId) {
+        if (!window.SectorCounts) {
+            console.error("Sector data is missing or not in the expected format.");
+            return;
+        }
+
+        // Extract labels (Sector Names) and data (Counts) from the passed sector data
+        const labels = SectorCounts.map(item => item.sectorName);  // Sector names
+        const data = SectorCounts.map(item => item.count);  // Counts per sector
+        const backgroundColors = data.map(() => getRandomColor());
+
+        // Get the context for the chart
+        const ctx = document.getElementById(chartId).getContext("2d");
+
+        // Create the bar chart
+        new Chart(ctx, {
+            type: "bar",  // Set the chart type to 'bar' for a bar chart
+            data: {
+                labels: labels,  // X-axis labels (sector names)
+                datasets: [{
+                    label: "Members per Sector",
+                    data: data,  // Y-axis data (counts)
+                    backgroundColor: backgroundColors,  // Random color for the bars
+                    borderWidth: 1,  // Bar border width
+                    hoverBackgroundColor: backgroundColors,  // Color when hovered over
+                    hoverBorderColor: backgroundColors,  // Border color when hovered over
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        enabled: true  // Enable tooltips for better interaction
+                    },
+                    legend: {
+                        position: "top"  // Position the legend at the top (or "bottom", "right")
+                    },
+                    title: {
+                        display: true,
+                        text: 'Member Per Sector Distribution',  // Chart title
+                        font: {
+                            size: 16
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 10
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Sectors'  // Label for X-axis
+                        },
+                        grid: {
+                            display: false  // Hide gridlines for the X-axis
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Member Count'  // Label for Y-axis
+                        },
+                        beginAtZero: true,  // Start Y-axis from zero
+                        ticks: {
+                            stepSize: 1  // Adjust the step size of Y-axis ticks (optional)
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function initializeTagBarChart(chartId) {
+        if (!window.TagCounts) {
+            console.error("Tag data is missing or not in the expected format.");
+            return;
+        }
+
+        // Extract labels (Tag Names) and data (Counts) from the passed tag data
+        const labels = TagCounts.map(item => item.tagName);  // Tag names
+        const data = TagCounts.map(item => item.count);  // Counts per tag
+
+        // Generate random background colors for each sector
+        const backgroundColors = data.map(() => getRandomColor());  // Random colors for each sector
+
+
+        // Get the context for the chart
+        const ctx = document.getElementById(chartId).getContext("2d");
+
+        // Create the bar chart
+        new Chart(ctx, {
+            type: "bar",  // Set the chart type to 'bar' for a bar chart
+            data: {
+                labels: labels,  // X-axis labels (tag names)
+                datasets: [{
+                    label: "Members per Tag",
+                    data: data,  // Y-axis data (counts)
+                    backgroundColor: backgroundColors,  // Random color for the bars
+                    borderWidth: 1,  // Bar border width
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        enabled: true  // Enable tooltips for better interaction
+                    },
+                    legend: {
+                        position: "top"  // Position the legend at the top (or "bottom", "right")
+                    },
+                    title: {
+                        display: true,
+                        text: 'Member Per Tag Distribution',  // Chart title
+                        font: {
+                            size: 16
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 10
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tags'  // Label for X-axis
+                        },
+                        grid: {
+                            display: false  // Hide gridlines for the X-axis
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Member Count'  // Label for Y-axis
+                        },
+                        beginAtZero: true,  // Start Y-axis from zero
+                        ticks: {
+                            stepSize: 1  // Adjust the step size of Y-axis ticks (optional)
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+});
+
+
+document.querySelectorAll('.widget-hover').forEach(function (box) {
+    box.addEventListener('mouseenter', function () {
+        document.querySelectorAll('.widget-hover').forEach(function (otherBox) {
+            if (otherBox !== box) {
+                otherBox.classList.add('shrink');
+            }
+        });
+        box.classList.remove('shrink');
+        //console.log("widget-hover")
+    });
+
+    box.addEventListener('mouseleave', function () {
+        document.querySelectorAll('.widget-hover').forEach(function (otherBox) {
+            otherBox.classList.remove('shrink');
+        });
+        //console.log("left box")
+    });
 });

@@ -22,7 +22,7 @@
     }
 
     .sidebar {
-        width: 200px;
+        width: 300px;
         height: 100vh;
         transition: width 0.3s ease-in-out;
         position: fixed;
@@ -67,7 +67,7 @@
     
     /* Main content styling */
     .main-content {
-        margin-left: 200px; /* Default margin when sidebar is open */
+        margin-left: 300px; /* Default margin when sidebar is open */
         transition: margin-left 0.3s ease-in-out;
         padding: 20px;
     }
