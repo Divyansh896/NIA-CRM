@@ -731,31 +731,6 @@ td, th {
     z-index: 1000; /* Ensure dropdown stays on top */
 }
 
-
-.logo-container {
-    width: 100%;
-    height: auto; /* Adjust height as needed */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#animated-logo {
-    width: 150px; /* Adjust size as needed */
-    height: auto;
-    animation: spin 3s linear infinite; /* Adjust animation duration and type */
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 @media (max-width: 768px) {
     body {
         font-size: 14px;

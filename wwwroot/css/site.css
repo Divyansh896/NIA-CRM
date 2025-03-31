@@ -147,25 +147,6 @@ body {
         background: #e9ecef;
     }
 
-.dashboard-charts .grid-stack-item {
-    height: 200px !important; /* Ensures each grid item has at least a 200px height */
-    width: 300px !important; /* Set width to 100% to ensure it occupies available grid space */
-    box-sizing: border-box !important; /* Ensure padding and borders are included in the width/height calculation */
-}
-
-    .dashboard-charts .grid-stack-item .grid-stack-item-content{
-        overflow-x: hidden !important;
-        overflow-y: hidden !important;
-    }
-
-        .dashboard-charts .grid-stack-item .grid-stack-item-content canvas {
-            width: 100% !important;
-            height: 100% !important;
-            display: block; /* Ensures the canvas behaves like a block element */
-            object-fit: contain; /* Makes sure the content inside the canvas is contained proportionally */
-            margin: 0; /* Removes any unwanted margins */
-            padding: 0; /* Removes any unwanted padding */
-        }
 
 
         .close-btn {
