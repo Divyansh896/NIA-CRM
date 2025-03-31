@@ -238,6 +238,11 @@ namespace NIA_CRM.Controllers
         // GET: Contact/Create
         public IActionResult Create(int? memberId)
         {
+            bool isNewMember = TempData["IsNewMember"] as bool? ?? false;
+            ViewData["IsNewMember"] = isNewMember;
+            //TempData.Keep("IsNewMember"); // Keeps the value for the next request
+
+
             if (memberId.HasValue)
             {
                 var member = _context.Members
@@ -264,7 +269,7 @@ namespace NIA_CRM.Controllers
         public async Task<IActionResult> Create(
     [Bind("Id,FirstName,MiddleName,LastName,Title,Department,Email,Phone,LinkedInUrl,IsVip,ContactNote")] Contact contact,
     int? memberId,
-    int? selectedMemberId)
+    int? selectedMemberId, bool isNewMember = false)
         {
             if (ModelState.IsValid)
             {
@@ -289,9 +294,10 @@ namespace NIA_CRM.Controllers
                 }
 
                 // Send email only if NO member was selected (meaning a new member is being created)
-                if (memberId.HasValue)
+                if (isNewMember)
                 {
                     SendWelcomeEmail(contact.Id);
+                    TempData["IsNewMember"] = false;
                     TempData["Success"] = $"Welcome Email sent to New Member successfully!";
 
                 }
@@ -567,7 +573,7 @@ namespace NIA_CRM.Controllers
                 return BadRequest(errorMessage);
             }
 
-          
+
 
             var contactIds = selectedContactIds.Split(',').Select(int.Parse).ToList();
             int folksCount = 0;
@@ -618,7 +624,7 @@ namespace NIA_CRM.Controllers
                 return Json(new { success = false, message = "An error occurred while sending the message: " + ex.Message });
             }
 
-            
+
         }
 
         [HttpPost]
@@ -670,7 +676,7 @@ namespace NIA_CRM.Controllers
 
                 return Json(new { success = true, message = "Welcome email sent successfully to " + contact.Name + "." });
             }
-            
+
 
             catch (Exception ex)
             {

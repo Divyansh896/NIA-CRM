@@ -10,6 +10,7 @@
 <partial name="_addArchiveModal" />
 <partial name="_notificationModal" />
 <partial name="_SuccessMessage" />
+@* <partial name="_PersistContactSelections" /> *@
 
 
 
@@ -175,7 +176,7 @@
                         <button type="button" class="btn btn-dark me-2 mb-2" id="toggleCheckboxes">
                             Enable Contact Selection
                         </button>
-                        
+
                         <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportContactsModal">
                             <i class="fa fa-file-excel text-white"></i> Export To Excel
                         </button>
@@ -236,7 +237,7 @@
 
 
     }
-   
+
 
 
 
@@ -378,6 +379,7 @@
                     <td class="checkbox-cell" style="display: none;">
                         <input type="checkbox" class="contact-checkbox" name="selectedContactIds" value="@item.Id" style="display: none;">
                     </td>
+
                     <td>@Html.DisplayFor(modelItem => item.Summary)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>
@@ -386,7 +388,16 @@
                     <td>
                         <a href="@item.LinkedInUrl" target="_blank" aria-label="Open LinkedIn profile of @item.FirstName @item.LastName">View LinkedIn</a>
                     </td>
-                    <td>@Html.DisplayFor(modelItem => item.IsVip)</td>
+                    <td>
+                        @if (item.IsVip)
+                        {
+                            <span class="badge bg-warning text-dark ms-2">VIP</span>
+                        }
+                        @* else
+                        {
+                            @Html.DisplayFor(modelItem => item.IsVip)
+                        } *@
+                    </td>
                     <td>
                         @if (item.MemberContacts != null && item.MemberContacts.Any())
                         {
@@ -422,84 +433,115 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
-    
-    <script>
-              $(document).ready(function () {
-            // Initially hide the preview content
-            $('#previewContainer').addClass('hidden');
 
-            // Handle click event on rows with the "clickable-row" class
-            $(document).on('click', '.clickable-row', function () {
-                var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+@* <script>
+                $(document).ready(function () {
+                // Initially hide the preview content
+                $('#previewContainer').addClass('hidden');
 
-                if (!contactId) {
-                    console.error('No contact ID found for this row.');
-                    return;
-                }
+                // Handle click event on rows with the "clickable-row" class
+                $(document).on('click', '.clickable-row', function (event) {
+                    var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
 
-                // Make an AJAX request to get the partial view for the selected contact
-                $.ajax({
-                    url: '/Contact/GetContactPreview', // Adjust the URL to match your routing
-                    type: 'GET',
-                    data: { id: contactId },
-                    success: function (result) {
-                        // Insert the result (partial view) into the preview container
-                        $('#previewContainer').html(result);
-                        $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
-                        // Assign the close event to the button inside the loaded preview
-                        $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
-                            $('#previewContainer').removeClass('visible').addClass('hidden');
-                        });
-
-                        // Assign the save event to the save button inside the loaded preview
-                        $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
-                            e.preventDefault(); // Prevent default button behavior
-
-                            var contactId = $("#ContactId").val();
-                            var note = $("#Note").val();
-
-                            if (!contactId || !note.trim()) {
-                                $("#responseMessage").text("Note cannot be empty!").addClass("text-danger").removeClass("text-success").show();
-                                return;
-                            }
-
-                            $.ajax({
-                                type: "POST",
-                                url: "/Contact/SaveContactNote",
-                                data: { id: contactId, note: note },
-                                dataType: "json",
-                                success: function (response) {
-                                    if (response.success) {
-                                        $("#responseMessage").text(response.message).addClass("text-success").removeClass("text-danger").show();
-                                    } else {
-                                        $("#responseMessage").text(response.message).addClass("text-danger").removeClass("text-success").show();
-                                    }
-                                },
-                                error: function () {
-                                    $("#responseMessage").text("An unexpected error occurred.").addClass("text-danger").removeClass("text-success").show();
-                                }
-                            });
-                        });
-                    },
-                    error: function () {
-                        alert('An error occurred while loading the preview.');
+                    if (!contactId) {
+                        console.error('No contact ID found for this row.');
+                        return;
                     }
+
+                    // Check if the clicked element is inside the checkbox cell (td) with a specific ID
+                    var checkboxCell = $(event.target).closest('td.checkbox-cell'); // Assuming 'checkbox-cell' is the class for the checkbox's td
+                    if (checkboxCell.length > 0) {
+                        // Toggle the checkbox if it's inside a checkbox td
+                        var checkbox = checkboxCell.find('input[type="checkbox"]');
+                        if (checkbox.length > 0) {
+                            checkbox.prop('checked', !checkbox.prop('checked')); // Toggle checkbox state
+                            return; // Return immediately to prevent other row logic from running
+                        }
+                    }
+                    // Make an AJAX request to get the partial view for the selected contact
+                    $.ajax({
+                        url: '/Contact/GetContactPreview', // Adjust the URL to match your routing
+                        type: 'GET',
+                        data: { id: contactId },
+                        success: function (result) {
+                            // Insert the result (partial view) into the preview container
+                            $('#previewContainer').html(result);
+                            $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+                            // Assign the close event to the button inside the loaded preview
+                            $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
+                                $('#previewContainer').removeClass('visible').addClass('hidden');
+                            });
+
+                            // Assign the save event to the save button inside the loaded preview
+                            $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
+                                e.preventDefault(); // Prevent default button behavior
+
+                                var contactId = $("#ContactId").val();
+                                var note = $("#Note").val();
+
+                                if (!contactId || !note.trim()) {
+                                    $("#responseMessage").text("Note cannot be empty!").addClass("text-danger").removeClass("text-success").show();
+                                    return;
+                                }
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/Contact/SaveContactNote",
+                                    data: { id: contactId, note: note },
+                                    dataType: "json",
+                                    success: function (response) {
+                                        if (response.success) {
+                                            $("#responseMessage").text(response.message).addClass("text-success").removeClass("text-danger").show();
+                                        } else {
+                                            $("#responseMessage").text(response.message).addClass("text-danger").removeClass("text-success").show();
+                                        }
+                                    },
+                                    error: function () {
+                                        $("#responseMessage").text("An unexpected error occurred.").addClass("text-danger").removeClass("text-success").show();
+                                    }
+                                });
+                            });
+                        },
+                        error: function () {
+                            alert('An error occurred while loading the preview.');
+                        }
+                    });
+                });
+
+                // Window click listener to collapse preview when clicked outside
+                $(window).click(function (event) {
+                    if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                        $('#previewContainer').removeClass('visible').addClass('hidden');
+                    }
+                });
+
+                // Prevent the preview container from closing when clicked inside
+                $('#previewContainer').click(function (event) {
+                    event.stopPropagation(); // Stop the event from propagating to the window
                 });
             });
 
-            // Window click listener to collapse preview when clicked outside
-            $(window).click(function (event) {
-                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
-                    $('#previewContainer').removeClass('visible').addClass('hidden');
-                }
-            });
+            function clearFilter(filterName){
+                // Get the current URL
+                var url = window.location.href.split('?')[0]; // Current URL without query string
 
-            // Prevent the preview container from closing when clicked inside
-            $('#previewContainer').click(function (event) {
-                event.stopPropagation(); // Stop the event from propagating to the window
-            });
-        });
+                // Get the query parameters from the URL
+                var params = new URLSearchParams(window.location.search);
+                params.delete(filterName)
 
+                // Reload the page with the updated query string (filters removed)
+                window.location.href = url + '?' + params.toString();
+
+            }
+        </script> *@
+    <script type="text/javascript">
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+
+    <script>
         function clearFilter(filterName){
             // Get the current URL
             var url = window.location.href.split('?')[0]; // Current URL without query string
@@ -511,13 +553,16 @@
             // Reload the page with the updated query string (filters removed)
             window.location.href = url + '?' + params.toString();
 
-        }
-    </script>
-    <script type="text/javascript">
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
+        };
+
+               // Clear localStorage when window is closed
+        // window.onbeforeunload = function (event) {
+           
+        //             localStorage.removeItem("selectedCheckboxes");
+        //             localStorage.removeItem("checkboxVisibility");
+        //             localStorage.removeItem("toggleButtonState");
+                   
+        // };
     </script>
 
 @* Notification Modal *@
@@ -744,44 +789,216 @@
         });
     </script>
 
-@* script to toggle checkboxes for selection  *@
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
+        $(document).ready(function () {
+            // Initially hide the preview content
+            $('#previewContainer').addClass('hidden');
+
+            // Handle click event on rows with the "clickable-row" class
+            $(document).on('click', '.clickable-row', function (event) {
+                var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+
+                if (!contactId) {
+                    console.error('No contact ID found for this row.');
+                    return;
+                }
+
+                // Check if the clicked element is inside the checkbox cell (td) with a specific ID
+                var checkboxCell = $(event.target).closest('td.checkbox-cell'); // Assuming 'checkbox-cell' is the class for the checkbox's td
+
+                if (checkboxCell.length > 0) {
+                    // Toggle the checkbox if it's inside a checkbox td
+                    var checkbox = checkboxCell.find('input[type="checkbox"]');
+                    if (checkbox.length > 0) {
+                        checkbox.prop('checked', !checkbox.prop('checked')); // Toggle checkbox state
+                        updateSelectedCheckboxes(checkbox); // Update the selected checkboxes in localStorage
+                        return; // Return immediately to prevent other row logic from running
+                    }
+                }
+
+
+                // Make an AJAX request to get the partial view for the selected contact
+                $.ajax({
+                    url: '/Contact/GetContactPreview', // Adjust the URL to match your routing
+                    type: 'GET',
+                    data: { id: contactId },
+                    success: function (result) {
+                        // Insert the result (partial view) into the preview container
+                        $('#previewContainer').html(result);
+                        $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+                        // Assign the close event to the button inside the loaded preview
+                        $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
+                            $('#previewContainer').removeClass('visible').addClass('hidden');
+                        });
+
+                        // Assign the save event to the save button inside the loaded preview
+                        $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
+                            e.preventDefault(); // Prevent default button behavior
+
+                            var contactId = $("#ContactId").val();
+                            var note = $("#Note").val();
+
+                            if (!contactId || !note.trim()) {
+                                $("#responseMessage").text("Note cannot be empty!").addClass("text-danger").removeClass("text-success").show();
+                                return;
+                            }
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/Contact/SaveContactNote",
+                                data: { id: contactId, note: note },
+                                dataType: "json",
+                                success: function (response) {
+                                    if (response.success) {
+                                        $("#responseMessage").text(response.message).addClass("text-success").removeClass("text-danger").show();
+                                    } else {
+                                        $("#responseMessage").text(response.message).addClass("text-danger").removeClass("text-success").show();
+                                    }
+                                },
+                                error: function () {
+                                    $("#responseMessage").text("An unexpected error occurred.").addClass("text-danger").removeClass("text-success").show();
+                                }
+                            });
+                        });
+                    },
+                    error: function () {
+                        alert('An error occurred while loading the preview.');
+                    }
+                });
+            });
+
+            // Store selected checkboxes in localStorage
+            function updateSelectedCheckboxes(checkbox) {
+                var selectedCheckboxes = JSON.parse(localStorage.getItem("selectedCheckboxes")) || [];
+
+                var checkboxValue = checkbox.val();
+                if (checkbox.prop('checked')) {
+                    if (!selectedCheckboxes.includes(checkboxValue)) {
+                        selectedCheckboxes.push(checkboxValue);
+                    }
+                } else {
+                    var index = selectedCheckboxes.indexOf(checkboxValue);
+                    if (index !== -1) {
+                        selectedCheckboxes.splice(index, 1);
+                    }
+                }
+
+                localStorage.setItem("selectedCheckboxes", JSON.stringify(selectedCheckboxes));
+            }
+
+            // Window click listener to collapse preview when clicked outside
+            $(window).click(function (event) {
+                if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                    $('#previewContainer').removeClass('visible').addClass('hidden');
+                }
+            });
+
+            // Prevent the preview container from closing when clicked inside
+            $('#previewContainer').click(function (event) {
+                event.stopPropagation(); // Stop the event from propagating to the window
+            });
+
+
+
+            // Initialize variables for checkbox toggling
             var toggleButton = document.getElementById("toggleCheckboxes");
             var checkboxes = document.querySelectorAll(".contact-checkbox");
             var selectAllCheckbox = document.getElementById("selectAllCheckboxes");
             var checkboxHeader = document.getElementById("checkboxHeader");
             var checkboxCells = document.querySelectorAll(".checkbox-cell");
-            var isVisible = false;
+            var isVisible = localStorage.getItem("checkboxVisibility") === "enabled";
 
-            // Prevent the preview container from appearing when clicking checkboxes or checkbox column
-            checkboxCells.forEach(cell => {
-                cell.addEventListener("click", function (event) {
-                    event.stopPropagation(); // Prevents click event from reaching the preview container
+            // Restore checkbox states from localStorage or set to empty Set
+            var selectedCheckboxes = JSON.parse(localStorage.getItem("selectedCheckboxes")) || [];
+
+            // Restore checkbox states on initial load
+            function restoreCheckboxes() {
+                checkboxes = document.querySelectorAll(".contact-checkbox");
+                checkboxes.forEach(cb => {
+                    cb.checked = selectedCheckboxes.includes(cb.value);
                 });
-            });
 
-            // Prevent the preview container from closing when clicking inside it
-            $('#previewContainer').on('click', function (event) {
-                event.stopPropagation();
-            });
+                // Restore Select All checkbox state
+                if (selectAllCheckbox) {
+                    selectAllCheckbox.checked = checkboxes.length > 0 && [...checkboxes].every(cb => cb.checked);
+                }
+            }
 
+            // Handle toggling checkboxes visibility
             toggleButton?.addEventListener("click", function () {
                 isVisible = !isVisible;
+                localStorage.setItem("checkboxVisibility", isVisible ? "enabled" : "disabled"); // Save visibility flag
 
                 checkboxes.forEach(cb => cb.style.display = isVisible ? "inline-flex" : "none");
                 if (selectAllCheckbox) selectAllCheckbox.style.display = isVisible ? "inline-flex" : "none";
                 if (checkboxHeader) checkboxHeader.style.display = isVisible ? "table-cell" : "none";
                 checkboxCells.forEach(cell => cell.style.display = isVisible ? "table-cell" : "none");
 
+                // Update the button text based on visibility
                 toggleButton.textContent = isVisible ? "Disable Contact Selection" : "Enable Contact Selection";
+                localStorage.setItem("toggleButtonState", isVisible ? "Disable Contact Selection" : "Enable Contact Selection");
             });
 
+            // Handle individual checkbox selection
+            document.addEventListener("change", function (event) {
+                if (event.target.classList.contains("contact-checkbox")) {
+                    updateSelectedCheckboxes($(event.target)); // Update localStorage on checkbox change
+                }
+            });
+
+            // Handle Select All checkbox selection
             selectAllCheckbox?.addEventListener("change", function () {
-                checkboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
+                checkboxes.forEach(cb => {
+                    cb.checked = selectAllCheckbox.checked;
+                    updateSelectedCheckboxes($(cb)); // Update localStorage
+                });
+            });
+
+            // Restore checkboxes when pagination form is submitted
+            document.querySelector("form")?.addEventListener("submit", function () {
+                setTimeout(restoreCheckboxes, 500); // Delay to ensure new rows are loaded
+            });
+
+
+
+            // Restore checkbox states and button text on initial load
+            restoreCheckboxes();
+            var savedButtonState = localStorage.getItem("toggleButtonState");
+            if (savedButtonState) {
+                toggleButton.textContent = savedButtonState;
+            }
+
+            // Initially apply the visibility based on the flag
+            if (isVisible) {
+                checkboxes.forEach(cb => cb.style.display = "inline-flex");
+                if (selectAllCheckbox) selectAllCheckbox.style.display = "inline-flex";
+                if (checkboxHeader) checkboxHeader.style.display = "table-cell";
+                checkboxCells.forEach(cell => cell.style.display = "table-cell");
+            }
+        });
+    </script>
+    <script>
+            // JavaScript to toggle member rows with animation
+        $(document).ready(function () {
+            $(".toggle-members").on("click", function () {
+                var targetId = $(this).data("target"); // Get the contact ID to target the correct member rows
+                var memberRow = $("tr.member-row." + targetId); // Find the corresponding member row
+
+                // Toggle the member row visibility with animation
+                memberRow.slideToggle();
+
+                // Change the button text depending on whether the rows are visible or not
+                var button = $(this);
+                if (memberRow.is(":visible")) {
+                    button.text("Hide Members");
+                } else {
+                    button.text("Show Members");
+                }
             });
         });
     </script>
+        
+
 
 
 
