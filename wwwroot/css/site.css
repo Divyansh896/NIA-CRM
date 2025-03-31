@@ -148,8 +148,8 @@ body {
     }
 
 .dashboard-charts .grid-stack-item {
-    min-height: 200px !important; /* Ensures each grid item has at least a 200px height */
-    min-width: 30% !important; /* Set width to 100% to ensure it occupies available grid space */
+    height: 200px !important; /* Ensures each grid item has at least a 200px height */
+    width: 300px !important; /* Set width to 100% to ensure it occupies available grid space */
     box-sizing: border-box !important; /* Ensure padding and borders are included in the width/height calculation */
 }
 
@@ -158,10 +158,15 @@ body {
         overflow-y: hidden !important;
     }
 
-        .dashboard-charts .grid-stack-item .grid-stack-item-content canvas{
+        .dashboard-charts .grid-stack-item .grid-stack-item-content canvas {
             width: 100% !important;
             height: 100% !important;
+            display: block; /* Ensures the canvas behaves like a block element */
+            object-fit: contain; /* Makes sure the content inside the canvas is contained proportionally */
+            margin: 0; /* Removes any unwanted margins */
+            padding: 0; /* Removes any unwanted padding */
         }
+
 
         .close-btn {
             position: absolute;
@@ -231,6 +236,7 @@ body {
     .context-menu li {
         padding: 8px;
         cursor: pointer;
+        list-style: none;
     }
 
         .context-menu li:hover {
