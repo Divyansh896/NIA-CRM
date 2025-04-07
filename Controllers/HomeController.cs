@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -156,10 +158,67 @@ namespace NIA_CRM.Controllers
         }
 
 
+        [HttpGet]
+        [Route("Home/GetDashboardLayout")]
+        public async Task<IActionResult> GetDashboardLayout()
+
+        {
+            string userId = User.Identity.Name;
+            var layout = await _context.DashboardLayouts
+                .FirstOrDefaultAsync(dl => dl.UserId == userId);
+
+            if (layout != null)
+            {
+                return Ok(new { layoutData = layout.LayoutData });
+            }
+
+            return NotFound(new { message = "No layout found" });
+        }
+
+        [HttpPost]
+        [Route("Home/SaveDashboardLayout")]
+        public async Task<IActionResult> SaveDashboardLayout([FromBody] DashboardLayout layout)
+
+        {
+            string userId = User.Identity.Name;
+            var existingLayout = await _context.DashboardLayouts
+                .FirstOrDefaultAsync(dl => dl.UserId == userId);
+
+            if (existingLayout != null)
+            {
+                existingLayout.LayoutData = layout.LayoutData;
+                _context.DashboardLayouts.Update(existingLayout);
+            }
+            else
+            {
+                layout.UserId = userId;
+                _context.DashboardLayouts.Add(layout);
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok(new { success = true });
+        }
+
+
+        [HttpGet]
+        public IActionResult PingSession()
+        {
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ForceLogout()
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+
+            // Clear all cookies
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(cookie);
+            }
+
+            // Redirect to login page without ReturnUrl
+            return Redirect("/Identity/Account/Login");
+        }
     }
-
-
-
-
-
 }

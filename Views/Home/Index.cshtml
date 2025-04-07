@@ -222,6 +222,8 @@
     </div> *@
 
     <!-- Main Dashboard (Initially Visible) -->
+    <input type="button" id="saveLayoutBtn" class="btn btn-success" style="display: none;" value="Save Layout">
+
     <div class="grid-stack dashboard-charts" id="dashboard"></div>
 
     <!-- Hidden Widget Selection Panel -->
@@ -229,7 +231,7 @@
         <div class="d-flex flex-row align-items-center justify-content-between mb-4">
 
             <h4>Available Charts</h4>
-            <input type="button" id="saveLayoutBtn" class="btn btn-success" style="display: none;" value="Save Layout">
+            <input type="button" id="closeWidgetBtn" class="btn btn-danger" value="X" />
         </div>
 
         <div class="grid-stack" id="widgetContainer">
@@ -521,7 +523,7 @@
             }
 
             // Check the sector data before using it
-            console.log("Selected sector:", sector);
+            // console.log("Selected sector:", sector);
 
             // Ensure count is a number
             const count = Number(sector.count);

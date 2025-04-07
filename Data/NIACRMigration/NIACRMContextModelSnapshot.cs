@@ -325,6 +325,25 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.ToTable("ContactThumbnail");
                 });
 
+            modelBuilder.Entity("NIA_CRM.Models.DashboardLayout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LayoutData")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DashboardLayouts");
+                });
+
             modelBuilder.Entity("NIA_CRM.Models.IndustryNAICSCode", b =>
                 {
                     b.Property<int>("MemberId")

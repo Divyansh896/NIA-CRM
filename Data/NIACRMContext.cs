@@ -54,6 +54,9 @@ namespace NIA_CRM.Data
         public DbSet<Strategy> Strategies  { get; set; }
         public DbSet<MTag> MTags { get; set; }
 
+        public DbSet<DashboardLayout> DashboardLayouts { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Relationships and constraints

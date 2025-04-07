@@ -93,18 +93,7 @@ namespace NIA_CRM.Data
                                 userManager.AddToRoleAsync(user, "Supervisor").Wait();
                             }
                         }
-                        if (userManager.FindByEmailAsync("user@outlook.com").Result == null)
-                        {
-                            IdentityUser user = new IdentityUser
-                            {
-                                UserName = "user@outlook.com",
-                                Email = "user@outlook.com",
-                                EmailConfirmed = true
-                            };
-
-                            IdentityResult result = userManager.CreateAsync(user, defaultPassword).Result;
-                            //Not in any role
-                        }
+                       
                     }
                     catch (Exception ex)
                     {

@@ -11,7 +11,7 @@ using NIA_CRM.Data;
 namespace NIA_CRM.Data.NIACRMigration
 {
     [DbContext(typeof(NIACRMContext))]
-    [Migration("20250330015242_Initial")]
+    [Migration("20250405160517_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -326,6 +326,25 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.HasIndex("MemberID");
 
                     b.ToTable("ContactThumbnail");
+                });
+
+            modelBuilder.Entity("NIA_CRM.Models.DashboardLayout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LayoutData")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DashboardLayouts");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.IndustryNAICSCode", b =>
