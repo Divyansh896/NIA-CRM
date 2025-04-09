@@ -432,7 +432,7 @@
                     }
                 </th>
 
-                <th scope="col" class="table-head">
+                @* <th scope="col" class="table-head">
                     @{
                         var isSectorSortField = sortField == "Sector";
                         var sectorSortIndicator = isSectorSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
@@ -446,7 +446,7 @@
                     {
                         <input type="submit" name="actionButton" value="Sector" class="btn btn-link" aria-label="Sort by Sector" />
                     }
-                </th>
+                </th> *@
 
                 <th scope="col" class="table-head">
                     @{
@@ -466,19 +466,36 @@
 
                 <th scope="col" class="table-head">
                     @{
-                        var isContactsSortField = sortField == "Contacts";
-                        var contactsSortIndicator = isContactsSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                        var isContactNameSortField = sortField == "Contact Name";
+                        var contactNameSortIndicator = isContactNameSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
                     }
-                    @if (isContactsSortField)
+                    @if (isContactNameSortField)
                     {
-                        <input type="submit" name="actionButton" value="Contacts" class="btn btn-link" aria-label="Sort by Contacts" />
-                        <span class="SortIndicator">@contactsSortIndicator</span>
+                        <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
+                        <span class="SortIndicator">@contactNameSortIndicator</span>
                     }
                     else
                     {
-                        <input type="submit" name="actionButton" value="Contacts" class="btn btn-link" aria-label="Sort by Contacts" />
+                        <input type="submit" name="actionButton" value="Contact Name" class="btn btn-link" aria-label="Sort by Contact Name" />
                     }
                 </th>
+
+                <th scope="col" class="table-head">
+                    @{
+                        var isEmailSortField = sortField == "Email";
+                        var emailSortIndicator = isEmailSortField ? (sortDirection == "asc" ? "↑" : "↓") : "";
+                    }
+                    @if (isEmailSortField)
+                    {
+                        <input type="submit" name="actionButton" value="Email" class="btn btn-link" aria-label="Sort by Email" />
+                        <span class="SortIndicator">@emailSortIndicator</span>
+                    }
+                    else
+                    {
+                        <input type="submit" name="actionButton" value="Email" class="btn btn-link" aria-label="Sort by Email" />
+                    }
+                </th>
+
             </tr>
         </thead>
 
@@ -531,7 +548,7 @@
 
                     </td>
 
-                    <td>
+                    @* <td>
                         @{
                             int sectorCount = item.MemberSectors.Count;
                             if (sectorCount > 0)
@@ -559,7 +576,8 @@
                                 }
                             }
                         }
-                    </td>
+                    </td> *@
+
 
 
 
@@ -594,43 +612,37 @@
                         }
                     </td>
 
-
-
                     <td>
                         @{
-                            int contactCount = item.MemberContacts.Count;
-                            if (contactCount > 0)
+                            int nameContactCount = item.MemberContacts.Count;
+                            if (nameContactCount > 0)
                             {
-                                var firstContact = item.MemberContacts.FirstOrDefault().Contact; // Get the first contact's details
-                                if (contactCount > 1)
+                                var nameContacts = item.MemberContacts.ToList();
+                                var nameFirstContact = nameContacts[0].Contact;
+
+                                if (nameContactCount > 1)
                                 {
-                                    string contactList = ""; // HTML string of contact details separated by <br /> tags
-                                    var contacts = item.MemberContacts.ToList();
-                                    for (int i = 1; i < contactCount; i++) // Skip the first because we have it already
+                                    string nameList = "";
+                                    for (int i = 1; i < nameContactCount; i++)
                                     {
-                                        var contact = contacts[i].Contact;
+                                        var contact = nameContacts[i].Contact;
                                         if (contact != null)
                                         {
-                                            contactList += $"<a href='tel:{contact.PhoneFormatted}'>{contact.PhoneFormatted}</a> | <a href='mailto:{contact.Email}'>{contact.Email}</a><br />";
+                                            nameList += $"{contact.FirstName} {contact.LastName}<br />";
                                         }
                                     }
-                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseContact@(item.ID)"
-                                       aria-expanded="false" aria-controls="collapseContact@(item.ID)">
-                                        @firstContact.PhoneFormatted <span class="badge bg-info">@contactCount</span>
+                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseName@(item.ID)"
+                                       aria-expanded="false" aria-controls="collapseName@(item.ID)">
+                                        @nameFirstContact.FirstName @nameFirstContact.LastName
+                                        <span class="badge bg-info">@nameContactCount</span>
                                     </a>
-                                    <div class="collapse" id="collapseContact@(item.ID)">
-                                        @Html.Raw(contactList)
+                                    <div class="collapse" id="collapseName@(item.ID)">
+                                        @Html.Raw(nameList)
                                     </div>
                                 }
                                 else
                                 {
-                                    var contact = firstContact; // First contact's details
-                                    if (contact != null)
-                                    {
-                                        <a href="tel:@contact.PhoneFormatted">@contact.PhoneFormatted</a>
-                                        @: |
-                                        <a href="mailto:@contact.Email">@contact.Email</a>
-                                    }
+                                    <text>@nameFirstContact.FirstName @nameFirstContact.LastName</text>
                                 }
                             }
                             else
@@ -639,6 +651,49 @@
                             }
                         }
                     </td>
+
+
+
+                    <td>
+                        @{
+                            int emailContactCount = item.MemberContacts.Count;
+                            if (emailContactCount > 0)
+                            {
+                                var emailContacts = item.MemberContacts.ToList();
+                                var emailFirstContact = emailContacts[0].Contact;
+
+                                if (emailContactCount > 1)
+                                {
+                                    string emailList = "";
+                                    for (int i = 1; i < emailContactCount; i++)
+                                    {
+                                        var contact = emailContacts[i].Contact;
+                                        if (contact != null)
+                                        {
+                                            emailList += $"<a href='mailto:{contact.Email}'>{contact.Email}</a><br />";
+                                        }
+                                    }
+                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseEmail@(item.ID)"
+                                       aria-expanded="false" aria-controls="collapseEmail@(item.ID)">
+                                        <a href="mailto:@emailFirstContact.Email">@emailFirstContact.Email</a>
+                                        <span class="badge bg-info">@emailContactCount</span>
+                                    </a>
+                                    <div class="collapse" id="collapseEmail@(item.ID)">
+                                        @Html.Raw(emailList)
+                                    </div>
+                                }
+                                else
+                                {
+                                    <a href="mailto:@emailFirstContact.Email">@emailFirstContact.Email</a>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">No Contacts Available</span>
+                            }
+                        }
+                    </td>
+
 
 
 
