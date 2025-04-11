@@ -35,7 +35,7 @@ namespace NIA_CRM.Controllers
         {
 
             PopulateDropdowns();
-            string[] sortOptions = { "Member Name", "City", "Membership Type", "Sector", "NAICS Code", "Contacts" };
+            string[] sortOptions = { "Member Name", "City", "Membership Type", "Sector", "NAICS Code", "Contact Name", "Email" };
             int numberFilters = 0;
 
             var members = _context.Members
@@ -73,27 +73,34 @@ namespace NIA_CRM.Controllers
                     : members.OrderByDescending(e => e.MemberName),
 
                 "City" => sortDirection == "asc"
-                    ? members.OrderBy(e => e.Address.City) // Assuming Address has City
+                    ? members.OrderBy(e => e.Address.City)
                     : members.OrderByDescending(e => e.Address.City),
 
                 "Membership Type" => sortDirection == "asc"
-                    ? members.OrderBy(e => e.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName) // Assuming the MembershipType has a Name
+                    ? members.OrderBy(e => e.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName)
                     : members.OrderByDescending(e => e.MemberMembershipTypes.FirstOrDefault().MembershipType.TypeName),
 
                 "Sector" => sortDirection == "asc"
-                    ? members.OrderBy(e => e.MemberSectors.FirstOrDefault().Sector.SectorName) // Assuming NAICSCode has Sector
+                    ? members.OrderBy(e => e.MemberSectors.FirstOrDefault().Sector.SectorName)
                     : members.OrderByDescending(e => e.MemberSectors.FirstOrDefault().Sector.SectorName),
 
                 "NAICS Code" => sortDirection == "asc"
-                    ? members.OrderBy(e => e.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code) // Assuming NAICSCode has Code
+                    ? members.OrderBy(e => e.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code)
                     : members.OrderByDescending(e => e.IndustryNAICSCodes.FirstOrDefault().NAICSCode.Code),
 
-                "Contacts" => sortDirection == "asc"
-                    ? members.OrderBy(e => e.MemberContacts.FirstOrDefault().Contact.FirstName).ThenBy(e => e.MemberContacts.FirstOrDefault().Contact.LastName) // Assuming Contact has Name
-                    : members.OrderByDescending(e => e.MemberContacts.FirstOrDefault().Contact.FirstName).ThenByDescending(e => e.MemberContacts.FirstOrDefault().Contact.LastName),
+                "Contact Name" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberContacts.FirstOrDefault().Contact.FirstName)
+                             .ThenBy(e => e.MemberContacts.FirstOrDefault().Contact.LastName)
+                    : members.OrderByDescending(e => e.MemberContacts.FirstOrDefault().Contact.FirstName)
+                             .ThenByDescending(e => e.MemberContacts.FirstOrDefault().Contact.LastName),
+
+                "Email" => sortDirection == "asc"
+                    ? members.OrderBy(e => e.MemberContacts.FirstOrDefault().Contact.Email)
+                    : members.OrderByDescending(e => e.MemberContacts.FirstOrDefault().Contact.Email),
 
                 _ => members
             };
+
 
 
             if (!string.IsNullOrEmpty(SearchString))
@@ -320,15 +327,21 @@ namespace NIA_CRM.Controllers
                             if (worksheet.Cells[row, 1].Value == null) // Skip empty rows
                                 continue;
 
+                            // Validate and assign required fields
                             var member = new Member
                             {
-                                ID = int.TryParse(worksheet.Cells[row, 1].Value?.ToString(), out var id) ? id : 0,
+                                // Member ID (Required)
+                                ID = int.TryParse(worksheet.Cells[row, 1].Value?.ToString(), out var id) && id > 0 ? id : 0,
+
+                                // Member Name (Required)
                                 MemberName = worksheet.Cells[row, 2].Value?.ToString()?.Trim() ?? "Unknown",
 
+                                // Join Date (Required)
                                 JoinDate = DateTime.TryParse(worksheet.Cells[row, 4].Value?.ToString(), out var joinDate)
-                              ? joinDate : default(DateTime), // Join Date
+                                            ? joinDate
+                                            : DateTime.MinValue, // Use DateTime.MinValue if invalid
 
-                                // Membership Type
+                                // Membership Type (Required)
                                 MemberMembershipTypes = new List<MemberMembershipType>
                         {
                             new MemberMembershipType
@@ -340,15 +353,16 @@ namespace NIA_CRM.Controllers
                             }
                         },
 
-                                // Address - Check for missing fields
+                                // Address (Required: City and AddressLine1)
                                 Address = new Address
                                 {
-
                                     City = worksheet.Cells[row, 3]?.Value?.ToString()?.Trim() ?? "N/A",
-                                    AddressLine2 = worksheet.Cells[row, 6]?.Value?.ToString()?.Trim() ?? "N/A"
+                                    AddressLine1 = worksheet.Cells[row, 6]?.Value?.ToString()?.Trim() ?? "N/A",
+                                    PostalCode = string.IsNullOrWhiteSpace(worksheet.Cells[row, 8]?.Value?.ToString()) ? "N/A" : worksheet.Cells[row, 8]?.Value?.ToString()
+
                                 },
 
-                                // Contact Information
+                                // Contact Information (Required: Phone, Email)
                                 MemberContacts = new List<MemberContact>()
                             };
 
@@ -384,11 +398,25 @@ namespace NIA_CRM.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = $"Error importing members: {ex.Message}";
+                // Log the full exception message including stack trace and inner exception details
+                string fullErrorMessage = $"Error importing members: {ex.Message}\nStack Trace: {ex.StackTrace}";
+
+                // If the exception has an inner exception, include it
+                if (ex.InnerException != null)
+                {
+                    fullErrorMessage += $"\nInner Exception: {ex.InnerException.Message}\nStack Trace: {ex.InnerException.StackTrace}";
+                }
+
+                // Store the detailed error message in TempData
+                TempData["Error"] = fullErrorMessage;
+
+                // Optionally, log the error to a file or logging system for further review
+                // You can use a logging framework like Serilog, NLog, or log4net for better logging management
             }
 
             return RedirectToAction("Index");
         }
+
 
 
 

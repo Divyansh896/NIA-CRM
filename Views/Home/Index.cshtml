@@ -12,15 +12,49 @@
         <h1 id="dashboard-title">Dashboard</h1>
         <!-- Customize Button -->
         <div>
-        <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('importHelp')" title="Click for widget instructions"></i>
-        <input type="button" id="customizeBtn" value="Customize" class="btn btn-primary" />
+            <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('importHelp')" title="Click for widget instructions"></i>
+            <input type="button" id="customizeBtn" value="Customize" class="btn btn-primary" />
+            <input type="button" id="saveLayoutBtn" class="btn btn-success" style="display: none;" value="Save Layout">
+
         </div>
     </div>
     <div id="importHelp" class="info-box" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px; position: relative;">
         <button class="close-btn" onclick="toggleVisibility('importHelp')">×</button>
+        
+        <h5>Dashboard Customization Instructions</h5>
+
+        <p>
+            To customize your dashboard, click the <strong>"Customize"</strong> button. A panel will appear showing all available graphs.
+            Click on any graph to add it to the dashboard.
+        </p>
+
+        <p>
+            Once you've added the desired widgets, close the panel using the <strong>×</strong> button. You will then see a
+            <strong>"Save Layout"</strong> button next to "Customize".
+        </p>
+
+        <p>Widgets on the dashboard are fully interactive:</p>
+        <ul>
+            <li><strong>Drag and Drop:</strong> Rearrange widgets freely on the grid.</li>
+            <li><strong>Resize:</strong> Click and drag the bottom-right corner to resize.</li>
+            <li>
+                <strong>Right-click Menu:</strong> Right-click on a widget to access the context menu for more actions:
+                <ul>
+                    <li><strong>Download:</strong> Download the graph as a PNG image.</li>
+                    <li><strong>Copy:</strong> Copy the graph to your clipboard.</li>
+                    <li><strong>Remove:</strong> Remove the widget from the dashboard.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p>
+            Don't forget to click <strong>"Save Layout"</strong> after making changes to preserve your customized dashboard.
+        </p>
+        <hr />
+
         <h5>Widget Instructions</h5>
         <p>
-            Some widgets (e.g., City, Membership Type, Sector, Tag) display member counts for specific fields or cities, and these numbers update every 15 seconds. To pause the updates, click the three-dot (...) 
+            Some widgets (e.g., City, Membership Type, Sector, Tag) display member counts for specific fields or cities, and these numbers update every 15 seconds. To pause the updates, click the three-dot (...)
             button in the top-right corner of the widget. From there, you can select a specific city or field to view, and the widget will stop changing. To resume dynamic updates, simply choose the "Dynamic Field/City" option.
         </p>
         <p>
@@ -160,7 +194,7 @@
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="archived-members-title" role="heading" aria-level="3">Archived Members</p>
-                            <a href="@Url.Action("Index", "Cancellation")" class="card-text fixed-text" id="archived-member-count" aria-live="polite">@ViewData["ArchivedMemberCount"]</a> 
+                            <a href="@Url.Action("Index", "Cancellation")" class="card-text fixed-text" id="archived-member-count" aria-live="polite">@ViewData["ArchivedMemberCount"]</a>
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -222,7 +256,6 @@
     </div> *@
 
     <!-- Main Dashboard (Initially Visible) -->
-    <input type="button" id="saveLayoutBtn" class="btn btn-success" style="display: none;" value="Save Layout">
 
     <div class="grid-stack dashboard-charts" id="dashboard"></div>
 
@@ -263,7 +296,7 @@
         var SectorCounts = @Html.Raw(Json.Serialize(ViewData["SectorCount"]));
         var TagCounts = @Html.Raw(Json.Serialize(ViewData["TagCount"]));
 
-       
+
         //console.log(MembershipCount)
     </script>
 
@@ -295,7 +328,7 @@
         console.log("Full Member Join Data:", membersJoins);
         console.log("Full Member Address Data:", membersAddress);
 
-    
+
 
 </script> *@
 

@@ -16,10 +16,7 @@
 <partial name="_TagAddModal" />
 <partial name="_SectorAddModal" />
 <partial name="_NAICSAddModal" />
-<partial name="_MembershipTypeDeleteModal" />
-<partial name="_TagDeleteModal" />
-<partial name="_SectorDeleteModal" />
-<partial name="_NAICSCodeDeleteModal" />
+
 
 <div class="card card-body bg-light text-black">
     <form asp-action="Create" method="post" enctype="multipart/form-data">
@@ -350,7 +347,7 @@
         </div>
     </div>
 </div>
-
+*@
 
 <!-- Membership Delete Modal -->
 <div class="modal fade" id="deleteMembershipModal" tabindex="-1" aria-labelledby="deleteMembershipModalLabel" aria-hidden="true">
@@ -434,8 +431,7 @@
             </div>
         </div>
     </div>
- </div>*@
-
+</div>
 <!-- Repeat similar modals and buttons for Tag, Sector, and NAICS Code -->
 @section Scripts {
     @{
@@ -620,80 +616,79 @@
 
 
 
-
-
-
-
-
-                //script for deleting pop up
-                $(document).ready(function () {
-                    // Function to populate delete options
-                    function populateDeleteSelect(listId, selectId) {
-                        $(selectId).empty();
-                        var options = $(listId).children('option');
-                        options.each(function () {
-                            var option = new Option($(this).text(), $(this).val());
-                            $(selectId).append(option);
-                        });
-                    }
-
-                    // Populate Membership options for delete
-                    $('#deleteMembershipModal').on('show.bs.modal', function () {
-                        populateDeleteSelect('#availOptionsMembership', '#deleteMembershipSelect');
-                    });
-
-                    // Populate Tag options for delete
-                    $('#deleteTagModal').on('show.bs.modal', function () {
-                        populateDeleteSelect('#availOptionsTag', '#deleteTagSelect');
-                    });
-
-                    // Populate Sector options for delete
-                    $('#deleteSectorModal').on('show.bs.modal', function () {
-                        populateDeleteSelect('#availOptionsSector', '#deleteSectorSelect');
-                    });
-
-                    // Populate NAICS Code options for delete
-                    $('#deleteNaicsCodeModal').on('show.bs.modal', function () {
-                        populateDeleteSelect('#availOptionsNaicsCode', '#deleteNaicsCodeSelect');
-                    });
-
-                    // Delete Membership
-                    $('#deleteMembership').on('click', function () {
-                        var selectedMembership = $('#deleteMembershipSelect').val();
-                        if (selectedMembership) {
-                            $('#availOptionsMembership option[value="' + selectedMembership + '"]').remove();
-                            $('#deleteMembershipModal').modal('hide');
-                        }
-                    });
-
-                    // Delete Tag
-                    $('#deleteTag').on('click', function () {
-                        var selectedTag = $('#deleteTagSelect').val();
-                        if (selectedTag) {
-                            $('#availOptionsTag option[value="' + selectedTag + '"]').remove();
-                            $('#deleteTagModal').modal('hide');
-                        }
-                    });
-
-                    // Delete Sector
-                    $('#deleteSector').on('click', function () {
-                        var selectedSector = $('#deleteSectorSelect').val();
-                        if (selectedSector) {
-                            $('#availOptionsSector option[value="' + selectedSector + '"]').remove();
-                            $('#deleteSectorModal').modal('hide');
-                        }
-                    });
-
-                    // Delete NAICS Code
-                    $('#deleteNaicsCode').on('click', function () {
-                        var selectedNaicsCode = $('#deleteNaicsCodeSelect').val();
-                        if (selectedNaicsCode) {
-                            $('#availOptionsNaicsCode option[value="' + selectedNaicsCode + '"]').remove();
-                            $('#deleteNaicsCodeModal').modal('hide');
-                        }
-                    });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Function to populate delete select dropdown
+            function populateDeleteSelect(listId, selectId) {
+                $(selectId).empty();
+                var options = $(listId).children('option');
+                options.each(function () {
+                    var option = new Option($(this).text(), $(this).val());
+                    $(selectId).append(option);
                 });
+            }
 
+            // Bind modal show events to populate dropdowns
+            $('#deleteMembershipModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsMembership', '#deleteMembershipSelect');
+            });
+
+            $('#deleteTagModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsTag', '#deleteTagSelect');
+            });
+
+            $('#deleteSectorModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsSector', '#deleteSectorSelect');
+            });
+
+            $('#deleteNaicsCodeModal').on('show.bs.modal', function () {
+                populateDeleteSelect('#availOptionsNaicsCode', '#deleteNaicsCodeSelect');
+            });
+
+            // Delete Membership
+            $('#deleteMembership').on('click', function () {
+                var selected = $('#deleteMembershipSelect').val();
+                if (selected) {
+                    $('#availOptionsMembership option[value="' + selected + '"]').remove();
+                    $('#deleteMembershipModal').modal('hide');
+                }
+            });
+
+            // Delete Tag
+            $('#deleteTag').on('click', function () {
+                var selected = $('#deleteTagSelect').val();
+                if (selected) {
+                    $('#availOptionsTag option[value="' + selected + '"]').remove();
+                    $('#deleteTagModal').modal('hide');
+                }
+            });
+
+            // Delete Sector
+            $('#deleteSector').on('click', function () {
+                var selected = $('#deleteSectorSelect').val();
+                if (selected) {
+                    $('#availOptionsSector option[value="' + selected + '"]').remove();
+                    $('#deleteSectorModal').modal('hide');
+                }
+            });
+
+            // Delete NAICS Code
+            $('#deleteNaicsCode').on('click', function () {
+                var selected = $('#deleteNaicsCodeSelect').val();
+                if (selected) {
+                    $('#availOptionsNaicsCode option[value="' + selected + '"]').remove();
+                    $('#deleteNaicsCodeModal').modal('hide');
+                }
+            });
+
+            // Reset form(s) safely when any modal is closed
+            $('.modal').on('hidden.bs.modal', function () {
+                $(this).find('form').each(function () {
+                    this.reset?.(); // Safe reset only if the element is a form
+                });
+            });
+        });
     </script>
 
     <!-- Membership Type Add Modal -->
