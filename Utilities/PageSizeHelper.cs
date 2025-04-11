@@ -4,7 +4,7 @@ namespace NIA_CRM.Utilities
 {
     public static class PageSizeHelper
     {
-        private static readonly string[] SizeItems = ["3", "5", "10", "20", "30", "40", "50", "100", "500"];
+        private static readonly string[] SizeItems = ["3", "5", "10", "20", "30", "40", "50", "100", "500", "1000"];
 
         /// <summary>
         /// Creates a SelectList for choices for page size

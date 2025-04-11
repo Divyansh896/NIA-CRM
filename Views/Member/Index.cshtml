@@ -44,12 +44,26 @@
         <p>
             Required fields include a valid <strong>Member ID</strong>, <strong>Member Name</strong>, and <strong>Join Date</strong> (YYYY-MM-DD format).
             Other fields like <strong>City</strong>, <strong>Address</strong>, and <strong>Membership Type</strong> should also be properly formatted.
-            Contact information (Phone and Email) must be separated by a "|" symbol in a single column.
+            Contact information (Phone and Email) must be separated by a "|" symbol in a single column. For example: <strong>123-456-7890|member@example.com</strong>.
+        </p>
+        <p>
+            Ensure the following column structure:
+            <ul>
+                <li><strong>Column 1:</strong> Member ID (Numeric)</li>
+                <li><strong>Column 2:</strong> Member Name (Text)</li>
+                <li><strong>Column 3:</strong> City (Text)</li>
+                <li><strong>Column 4:</strong> Join Date (Date, YYYY-MM-DD format)</li>
+                <li><strong>Column 5:</strong> Membership Type (Text)</li>
+                <li><strong>Column 6:</strong> Address Line 2 (Text)</li>
+                <li><strong>Column 7:</strong> Contact Information (Phone|Email)</li>
+            </ul>
         </p>
         <p>
             Ensure all required data is included and headers match exactly, otherwise, the import may fail.
+            Any missing data will be filled with default values like "Unknown" or "N/A" where appropriate.
         </p>
     </div>
+
 
 }
 
