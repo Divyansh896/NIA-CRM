@@ -38,8 +38,8 @@
                     </a>
                 </div>
             </div>
-            <div class="position-sticky p-3">
-                <ul>
+            <div class="position-sticky p-3 d-flex flex-column" style="height: 80%;">
+                <ul class="nav flex-column">
                     @if (User.Identity.IsAuthenticated)
                     {
                         <!-- Home Menu Item -->
@@ -49,8 +49,6 @@
                                 <span class="text-white ms-2">Dashboard</span>
                             </a>
                         </li>
-
-
                         <!-- Members Menu Item -->
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
@@ -58,8 +56,6 @@
                                 <span class="text-white ms-2">Members</span>
                             </a>
                         </li>
-
-
                         <!-- Email Patterns Menu Item -->
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email" title="Email">
@@ -67,8 +63,6 @@
                                 <span class="text-white ms-2">Email Patterns</span>
                             </a>
                         </li>
-
-
                         <!-- Contacts Menu Item -->
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
@@ -76,8 +70,6 @@
                                 <span class="text-white ms-2">Contacts</span>
                             </a>
                         </li>
-
-
                         <!-- Collapsible Archived Menu Item -->
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark d-flex justify-content-between align-items-center"
@@ -207,17 +199,20 @@
                                 </a>
                             </li>
                         }
+                                </ul>
+                            </div>
+                        </li>
                     }
                 </ul>
 
-                
-
-                <partial name="_LoginPartial" />
-
-                <button id="theme-toggle" class="theme-toggle-btn">
+                <button id="theme-toggle" class="theme-toggle-btn" data-bs-toggle="tooltip" title="Toggle Dark Mode">
                     <i class="fas fa-moon"></i>
                     <span class="theme-toggle-text">Dark Mode</span>
                 </button>
+            </div>
+
+            <div class="mt-auto">
+                <partial name="_LoginPartial" />
             </div>
         </nav>
 
