@@ -1,5 +1,32 @@
 ﻿/* responsive.css */
+/*Scroll bars design*/
+/* Target the scrollbar */
+::-webkit-scrollbar {
+    width: 12px; /* Horizontal scrollbar size */
+    height: 12px; /* Vertical scrollbar size */
+}
 
+/* Customize the track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+    background: none; /* Light gray background */
+    border-radius: 10px;
+}
+
+/* Customize the handle (the part that the user drags) */
+::-webkit-scrollbar-thumb {
+    background: #888; /* Gray color for the handle */
+    border-radius: 10px;
+}
+
+    /* Change the color of the handle when hovered */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555; /* Darker gray for hover */
+    }
+
+/* Customize the scrollbar corner (where horizontal and vertical meet) */
+::-webkit-scrollbar-corner {
+    background: #f1f1f1;
+}
 
 .vidget-MemebrCount, .vidget-Active, .vidget-Archived {
     height: 250px;
@@ -151,7 +178,17 @@ body {
     .btn-dark:hover {
         background-color: #2B2B2B !important;
     }
+.logout-btn {
+    background-color: #434343;
+    border-width: 2px;
+    transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
+    border-radius: 5px;
+    width: 100%;
+}
 
+    .logout-btn:hover {
+        background-color: #2B2B2B !important;
+    }
 .custom-filter-badge {
     background-color: #434343 !important;
     height: 40px !important;
@@ -531,16 +568,44 @@ td, th {
     .theme-toggle-btn i {
         font-size: 16px;
     }
+/* Collapse behavior for theme toggle button */
+.sidebar:not(.show) #theme-toggle {
+    width: 26px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+    transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
+}
+
+    .sidebar:not(.show) #theme-toggle .theme-toggle-text {
+        display: none;
+        transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
+    }
 
 .dark-mode .theme-toggle-btn {
     background-color: #2c2c2c;
+    border-color: #2c2c2c !important;
     color: #f0f0f0;
 }
+
+.dark-mode .logout-btn {
+    background-color: #434343 !important;
+    border-width: 2px !important;
+    border-color: #434343 !important;
+}
+
+    .dark-mode .logout-btn:hover {
+        background-color: #2B2B2B !important;
+    }
 
 .dark-mode {
     background-color: #121212;
     color: #ffffff;
 }
+
+    .dark-mode #toggleSidebar {
+        background-color: #434343 !important;
+    }
 
     .dark-mode .navbar {
         background-color: #1e1e1e;
@@ -566,7 +631,7 @@ td, th {
         color: white;
     }
 
-    .dark-mode #previewContainer, .dark-mode .sticky-buttons-container {
+    .dark-mode #previewContainer, .dark-mode .sticky-buttons-container, .dark-mode .info-box, .dark-mode .grid-stack.dashboard-charts {
         background-color: #121212;
     }
 
@@ -575,7 +640,9 @@ td, th {
         border-color: white !important;
     }
 
-    .dark-mode p, .dark-mode dt, .dark-mode dd, .dark-mode h1, .dark-mode h2, .dark-mode h4, .dark-mode label, .dark-mode strong, .dark-mode #text, .dark-mode span {
+    .dark-mode p, .dark-mode dt, .dark-mode dd, .dark-mode h1, .dark-mode h2,
+    .dark-mode h4, .dark-mode label, .dark-mode strong, .dark-mode #text, .dark-mode span,
+    .dark-mode .card-title, .dark-mode .card-text, .dark-mode .member-toggle, .dark-mode a {
         color: white;
     }
 
@@ -583,7 +650,9 @@ td, th {
         background-color: #333 !important;
     }
 
-
+    .dark-mode .member-toggle:hover, .dark-mode a::after , .dark-mode a:hover{
+        color: gray !important;
+    }
     /* Applies only in dark mode */
     .dark-mode input[type="text"],
     .dark-mode input[type="email"],

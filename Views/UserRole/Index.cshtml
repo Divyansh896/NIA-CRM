@@ -8,13 +8,13 @@
 
 <table class="table">
     <tr>
-        <th>
+        <th scope="col" class="table-head">
             @Html.DisplayNameFor(model => model.UserName)
         </th>
-        <th>
+        <th scope="col" class="table-head">
             @Html.DisplayNameFor(model => model.UserRoles)
-        </th>
-        <th></th>
+        </th scope="col" class="table-head">
+        <th>Actions</th>
     </tr>
 
     @foreach (var item in Model)

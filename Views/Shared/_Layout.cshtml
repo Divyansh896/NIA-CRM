@@ -37,8 +37,8 @@
                     </a>
                 </div>
             </div>
-            <div class="position-sticky p-3">
-                <ul>
+            <div class="position-sticky p-3 d-flex flex-column" style="height: 80%;">
+                <ul class="nav flex-column">
                     @if (User.Identity.IsAuthenticated)
                     {
                         <!-- Home Menu Item -->
@@ -48,8 +48,6 @@
                                 <span class="text-white ms-2">Dashboard</span>
                             </a>
                         </li>
-
-
                         <!-- Members Menu Item -->
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
@@ -57,8 +55,6 @@
                                 <span class="text-white ms-2">Members</span>
                             </a>
                         </li>
-
-
                         <!-- Email Patterns Menu Item -->
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "ProductionEmail")" aria-label="Access Production Email" title="Email">
@@ -66,8 +62,6 @@
                                 <span class="text-white ms-2">Email Patterns</span>
                             </a>
                         </li>
-
-
                         <!-- Contacts Menu Item -->
                         <li class="nav-item" role="menuitem">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
@@ -75,8 +69,6 @@
                                 <span class="text-white ms-2">Contacts</span>
                             </a>
                         </li>
-
-
                         <!-- Collapsible Archived Menu Item -->
 
                         <li class="nav-item" role="menuitem">
@@ -102,6 +94,7 @@
                                 </ul>
                             </div>
                         </li>
+
 
 
                         <!-- Collapsible Notes Menu Item -->
@@ -141,34 +134,53 @@
                             </div>
                         </li>
 
-                        <li class="nav-item" role="menuitem">
-                            <a class="nav-link text-dark" data-bs-toggle="collapse" href="#otherCollapse" aria-expanded="false" aria-controls="otherCollapse" title="Other">
-                                <span class="icon" aria-hidden="true">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </span>
-                                <span class="text-white ms-2">Other</span>
-                                <span class="ms-2"><i class="fas fa-chevron-down text-white arrow-indicator" id="otherArrow"></i></span>
-                            </a>
-                            <div id="otherCollapse" class="collapse">
-                                <ul class="list-unstyled">
-                        <li>
 
+                        <li>
                             <a class="nav-link text-dark" href="https://mail.google.com/" target="_blank" title="Open Gmail Inbox Directly">
                                 <span class="icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
                                 <span class="text-white ms-2">Open Gmail Inbox</span>
                             </a>
-
                         </li>
-
                         @if (User.IsInRole("Admin"))
                         {
-                            <!-- User Role Menu Item -->
-                            <li class="nav-item" role="menuitem">
-                                <a class="nav-link text-dark" href="@Url.Action("Index", "UserRole")" aria-label="User Roles " title="User Roles">
-                                    <span class="icon" aria-hidden="true"><i class="fas fa-key"></i></span>
-                                    <span class="text-white ms-2">User Roles</span>
+                            <!-- User Roles Collapsible Menu -->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark d-flex justify-content-between align-items-center"
+                                   data-bs-toggle="collapse" href="#userRolesMenu" role="button"
+                                   aria-expanded="false" aria-controls="userRolesMenu" title="User Roles">
+                                    <div>
+                                        <i class="icon fas fa-key"></i>
+                                        <span class="text-white ms-2">User Roles</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down text-white"></i>
                                 </a>
+
+                                <div class="collapse" id="userRolesMenu">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link text-white" href="@Url.Action("Index", "UserRole")">
+                                                <span class="icon" aria-hidden="true">
+                                                    <i class="fas fa-user-cog"></i> <!-- Icon for User Roles -->
+                                                </span>
+                                                <span class="ms-2">Manage User Roles</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">
+                                                <span class="icon" aria-hidden="true">
+                                                    <i class="fas fa-user-plus"></i> <!-- Icon for Register User -->
+                                                </span>
+                                                <span class="ms-2">Register User</span>
+                                            </a>
+                                        </li>
+                                        @* Add more items here if needed *@
+                                    </ul>
+                                </div>
+
                             </li>
+
+
 
                             <!-- NAICS Codes Menu Item -->
                             <li class="nav-item" role="menuitem">
@@ -184,14 +196,14 @@
                     }
                 </ul>
 
-                
-
-                <partial name="_LoginPartial" />
-
-                <button id="theme-toggle" class="theme-toggle-btn">
+                <button id="theme-toggle" class="theme-toggle-btn" data-bs-toggle="tooltip" title="Toggle Dark Mode">
                     <i class="fas fa-moon"></i>
                     <span class="theme-toggle-text">Dark Mode</span>
                 </button>
+            </div>
+
+            <div class="mt-auto">
+                <partial name="_LoginPartial" />
             </div>
         </nav>
 
@@ -289,14 +301,6 @@
 
             $('#notesCollapse').on('hidden.bs.collapse', function () {
                 $('#notesArrow').removeClass('fa-chevron-up').addClass('fa-chevron-down');
-            });
-            // Handle the arrow direction change for Notes dropdown
-            $('#otherCollapse').on('show.bs.collapse', function () {
-                $('#otherArrow').removeClass('fa-chevron-down').addClass('fa-chevron-up');
-            });
-
-            $('#otherCollapse').on('hidden.bs.collapse', function () {
-                $('#othersArrow').removeClass('fa-chevron-up').addClass('fa-chevron-down');
             });
         });
     </script>

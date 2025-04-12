@@ -19,6 +19,7 @@
 
     .logo{
         max-width: 200px;
+        margin-top: 10px;
     }
 
     .sidebar {
@@ -49,13 +50,31 @@
     }
 
 
-    /* Collapsed Sidebar */
-    .sidebar:not(.show) {
-        width: 58px;
-    }
-    .sidebar ul li {
-            padding: 0; 
-    }
+        /* Collapsed Sidebar */
+        .sidebar:not(.show) {
+            width: 58px;
+        }
+
+        .sidebar ul li {
+            padding: 0;
+        }
+
+        /* Hide scrollbar but keep content scrollable */
+        .sidebar:not(.show) {
+            overflow: scroll; /* Allows scrolling */
+        }
+
+            /* For WebKit-based browsers (Chrome, Safari, etc.), hide the scrollbar */
+            .sidebar:not(.show)::-webkit-scrollbar {
+                display: none;
+            }
+
+        /* Optional: For Firefox, use this to hide the scrollbar */
+        .sidebar:not(.show) {
+            scrollbar-width: none; /* Firefox */
+
+                
+        }
     /*.sidebar:not(.show) .text-white {
     display: none;
 }*/
