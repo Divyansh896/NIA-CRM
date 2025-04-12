@@ -694,11 +694,18 @@
                                             emailList += $"<a href='mailto:{contact.Email}'>{contact.Email}</a><br />";
                                         }
                                     }
-                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseEmail@(item.ID)"
-                                       aria-expanded="false" aria-controls="collapseEmail@(item.ID)">
+
+                                    <span>
                                         <a href="mailto:@emailFirstContact.Email">@emailFirstContact.Email</a>
-                                        <span class="badge bg-info">@emailContactCount</span>
-                                    </a>
+                                        <a role="button"
+                                           class="ms-1 text-decoration-none"
+                                           data-bs-toggle="collapse"
+                                           href="#collapseEmail@(item.ID)"
+                                           aria-expanded="false"
+                                           aria-controls="collapseEmail@(item.ID)">
+                                            <span class="badge bg-info">@emailContactCount</span>
+                                        </a>
+                                    </span>
                                     <div class="collapse" id="collapseEmail@(item.ID)">
                                         @Html.Raw(emailList)
                                     </div>

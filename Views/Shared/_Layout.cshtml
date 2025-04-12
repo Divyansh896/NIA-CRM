@@ -199,9 +199,6 @@
                                 </a>
                             </li>
                         }
-                                </ul>
-                            </div>
-                        </li>
                     }
                 </ul>
 
@@ -211,7 +208,7 @@
                 </button>
             </div>
 
-            <div class="mt-auto">
+            <div class="mt-auto position-sticky p-3">
                 <partial name="_LoginPartial" />
             </div>
         </nav>
@@ -239,7 +236,7 @@
 
     @await Html.PartialAsync("_SessionTimeoutModal")
     <script src="~/js/session-timeout.js"></script>
-    
+
 
     <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -378,7 +375,7 @@
         });
     </script>
 
- 
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
