@@ -402,16 +402,49 @@
                         } *@
                     </td>
                     <td>
-                        @if (item.MemberContacts != null && item.MemberContacts.Any())
-                        {
-                            <span>
-                                @string.Join(", ", item.MemberContacts
-                                         .Select(mc => mc.Member?.MemberName)
-                                         .Distinct()
-                                         .Where(name => !string.IsNullOrEmpty(name)))
-                            </span>
+                        @{
+                            int memberCount = item.MemberContacts?.Count ?? 0;
+
+                            if (memberCount > 0)
+                            {
+                                var members = item.MemberContacts
+                                .Select(mc => mc.Member?.MemberName)
+                                .Where(name => !string.IsNullOrEmpty(name))
+                                .Distinct()
+                                .ToList();
+
+                                int distinctCount = members.Count;
+
+                                if (distinctCount > 0)
+                                {
+                                    string firstMember = members.First();
+                                    if (distinctCount > 1)
+                                    {
+                                        string memberList = "";
+                                        for (int i = 1; i < distinctCount; i++)
+                                        {
+                                            memberList += members[i] + " <br />";
+                                        }
+                                        <a role="button" class="text-decoration-none"
+                                           data-bs-toggle="collapse"
+                                           href="#collapseMembers@(item.Id)"
+                                           aria-expanded="false"
+                                           aria-controls="collapseMembers@(item.Id)">
+                                            @firstMember <span class="badge bg-info">@distinctCount</span>
+                                        </a>
+                                        <div class="collapse" id="collapseMembers@(item.Id)">
+                                            @Html.Raw(memberList)
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @firstMember
+                                    }
+                                }
+                            }
                         }
                     </td>
+
                 </tr>
             }
 
@@ -438,105 +471,105 @@
 
 
 @* <script>
-                $(document).ready(function () {
-                // Initially hide the preview content
-                $('#previewContainer').addClass('hidden');
+                    $(document).ready(function () {
+                    // Initially hide the preview content
+                    $('#previewContainer').addClass('hidden');
 
-                // Handle click event on rows with the "clickable-row" class
-                $(document).on('click', '.clickable-row', function (event) {
-                    var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
+                    // Handle click event on rows with the "clickable-row" class
+                    $(document).on('click', '.clickable-row', function (event) {
+                        var contactId = $(this).data('id'); // Get the Contact ID from the row's data attribute
 
-                    if (!contactId) {
-                        console.error('No contact ID found for this row.');
-                        return;
-                    }
-
-                    // Check if the clicked element is inside the checkbox cell (td) with a specific ID
-                    var checkboxCell = $(event.target).closest('td.checkbox-cell'); // Assuming 'checkbox-cell' is the class for the checkbox's td
-                    if (checkboxCell.length > 0) {
-                        // Toggle the checkbox if it's inside a checkbox td
-                        var checkbox = checkboxCell.find('input[type="checkbox"]');
-                        if (checkbox.length > 0) {
-                            checkbox.prop('checked', !checkbox.prop('checked')); // Toggle checkbox state
-                            return; // Return immediately to prevent other row logic from running
+                        if (!contactId) {
+                            console.error('No contact ID found for this row.');
+                            return;
                         }
-                    }
-                    // Make an AJAX request to get the partial view for the selected contact
-                    $.ajax({
-                        url: '/Contact/GetContactPreview', // Adjust the URL to match your routing
-                        type: 'GET',
-                        data: { id: contactId },
-                        success: function (result) {
-                            // Insert the result (partial view) into the preview container
-                            $('#previewContainer').html(result);
-                            $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
-                            // Assign the close event to the button inside the loaded preview
-                            $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
-                                $('#previewContainer').removeClass('visible').addClass('hidden');
-                            });
 
-                            // Assign the save event to the save button inside the loaded preview
-                            $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
-                                e.preventDefault(); // Prevent default button behavior
-
-                                var contactId = $("#ContactId").val();
-                                var note = $("#Note").val();
-
-                                if (!contactId || !note.trim()) {
-                                    $("#responseMessage").text("Note cannot be empty!").addClass("text-danger").removeClass("text-success").show();
-                                    return;
-                                }
-
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/Contact/SaveContactNote",
-                                    data: { id: contactId, note: note },
-                                    dataType: "json",
-                                    success: function (response) {
-                                        if (response.success) {
-                                            $("#responseMessage").text(response.message).addClass("text-success").removeClass("text-danger").show();
-                                        } else {
-                                            $("#responseMessage").text(response.message).addClass("text-danger").removeClass("text-success").show();
-                                        }
-                                    },
-                                    error: function () {
-                                        $("#responseMessage").text("An unexpected error occurred.").addClass("text-danger").removeClass("text-success").show();
-                                    }
+                        // Check if the clicked element is inside the checkbox cell (td) with a specific ID
+                        var checkboxCell = $(event.target).closest('td.checkbox-cell'); // Assuming 'checkbox-cell' is the class for the checkbox's td
+                        if (checkboxCell.length > 0) {
+                            // Toggle the checkbox if it's inside a checkbox td
+                            var checkbox = checkboxCell.find('input[type="checkbox"]');
+                            if (checkbox.length > 0) {
+                                checkbox.prop('checked', !checkbox.prop('checked')); // Toggle checkbox state
+                                return; // Return immediately to prevent other row logic from running
+                            }
+                        }
+                        // Make an AJAX request to get the partial view for the selected contact
+                        $.ajax({
+                            url: '/Contact/GetContactPreview', // Adjust the URL to match your routing
+                            type: 'GET',
+                            data: { id: contactId },
+                            success: function (result) {
+                                // Insert the result (partial view) into the preview container
+                                $('#previewContainer').html(result);
+                                $('#previewContainer').removeClass('hidden').addClass('visible'); // Show the preview
+                                // Assign the close event to the button inside the loaded preview
+                                $('#previewContainer').find('input[name="btnClose"]').on('click', function () {
+                                    $('#previewContainer').removeClass('visible').addClass('hidden');
                                 });
-                            });
-                        },
-                        error: function () {
-                            alert('An error occurred while loading the preview.');
+
+                                // Assign the save event to the save button inside the loaded preview
+                                $('#previewContainer').find('#saveNoteBtn').on('click', function (e) {
+                                    e.preventDefault(); // Prevent default button behavior
+
+                                    var contactId = $("#ContactId").val();
+                                    var note = $("#Note").val();
+
+                                    if (!contactId || !note.trim()) {
+                                        $("#responseMessage").text("Note cannot be empty!").addClass("text-danger").removeClass("text-success").show();
+                                        return;
+                                    }
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/Contact/SaveContactNote",
+                                        data: { id: contactId, note: note },
+                                        dataType: "json",
+                                        success: function (response) {
+                                            if (response.success) {
+                                                $("#responseMessage").text(response.message).addClass("text-success").removeClass("text-danger").show();
+                                            } else {
+                                                $("#responseMessage").text(response.message).addClass("text-danger").removeClass("text-success").show();
+                                            }
+                                        },
+                                        error: function () {
+                                            $("#responseMessage").text("An unexpected error occurred.").addClass("text-danger").removeClass("text-success").show();
+                                        }
+                                    });
+                                });
+                            },
+                            error: function () {
+                                alert('An error occurred while loading the preview.');
+                            }
+                        });
+                    });
+
+                    // Window click listener to collapse preview when clicked outside
+                    $(window).click(function (event) {
+                        if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
+                            $('#previewContainer').removeClass('visible').addClass('hidden');
                         }
+                    });
+
+                    // Prevent the preview container from closing when clicked inside
+                    $('#previewContainer').click(function (event) {
+                        event.stopPropagation(); // Stop the event from propagating to the window
                     });
                 });
 
-                // Window click listener to collapse preview when clicked outside
-                $(window).click(function (event) {
-                    if (!$(event.target).closest('#previewContainer, .clickable-row').length) {
-                        $('#previewContainer').removeClass('visible').addClass('hidden');
-                    }
-                });
+                function clearFilter(filterName){
+                    // Get the current URL
+                    var url = window.location.href.split('?')[0]; // Current URL without query string
 
-                // Prevent the preview container from closing when clicked inside
-                $('#previewContainer').click(function (event) {
-                    event.stopPropagation(); // Stop the event from propagating to the window
-                });
-            });
+                    // Get the query parameters from the URL
+                    var params = new URLSearchParams(window.location.search);
+                    params.delete(filterName)
 
-            function clearFilter(filterName){
-                // Get the current URL
-                var url = window.location.href.split('?')[0]; // Current URL without query string
+                    // Reload the page with the updated query string (filters removed)
+                    window.location.href = url + '?' + params.toString();
 
-                // Get the query parameters from the URL
-                var params = new URLSearchParams(window.location.search);
-                params.delete(filterName)
-
-                // Reload the page with the updated query string (filters removed)
-                window.location.href = url + '?' + params.toString();
-
-            }
-        </script> *@
+                }
+            </script> *@
     <script type="text/javascript">
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -560,11 +593,11 @@
 
                // Clear localStorage when window is closed
         // window.onbeforeunload = function (event) {
-           
+
         //             localStorage.removeItem("selectedCheckboxes");
         //             localStorage.removeItem("checkboxVisibility");
         //             localStorage.removeItem("toggleButtonState");
-                   
+
         // };
     </script>
 
@@ -1000,7 +1033,7 @@
             });
         });
     </script>
-        
+
 
 
 
