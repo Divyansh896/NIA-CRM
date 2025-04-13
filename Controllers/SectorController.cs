@@ -192,14 +192,20 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sector = await _context.Sectors.FindAsync(id);
-            if (sector != null)
+            try
             {
-                _context.Sectors.Remove(sector);
+                var sector = await _context.Sectors.FindAsync(id);
+                if (sector != null)
+                {
+                    _context.Sectors.Remove(sector);
+                }
+                await _context.SaveChangesAsync();
+                return Json(new { success = true });
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
 
         private bool SectorExists(int id)

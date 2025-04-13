@@ -167,7 +167,7 @@
     <div class="m-auto flex-grow-1">
         <div class="form-horizontal mb-3">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="d-flex flex-wrap">
+                <div class="d-flex flex-wrap" style="align-items: center;">
                     <button class="btn btn-dark @ViewData["Filtering"] me-2 mb-2" type="button" id="filterToggle" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                         Filter/Search @ViewData["numberFilters"]
                     </button>
@@ -183,7 +183,11 @@
                         <button type="button" class="btn btn-dark me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exportContactsModal">
                             <i class="fa fa-file-excel text-white"></i> Export To Excel
                         </button>
+                        <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('emailHelp')" title="Click for production email instructions"></i>
+
                     }
+                        
+                    
                 </div>
                 @if (User.IsInRole("Admin"))
                 {
@@ -195,7 +199,16 @@
         </div>
 
     </div>
+    <div id="emailHelp" class="info-box" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px; position: relative;">
+        <button class="close-btn" onclick="toggleVisibility('importHelp')">×</button>
+        <h5>Production Email Instructions</h5>
+        <p>
+            To send a production email, click on "Production Email" and select the contacts you want to email. Clicking the checkbox in the table header will select all contacts.
+            Once the desired contacts are chosen, click the "Send Email" button. This will open a window where you can either choose one of the pre-created email templates or write a completely new email.
+            After filling in or selecting the email content, click "Send Email" in the window to complete the process.
+        </p>
 
+    </div>
     <!-- Filters clear banners -->
     @if (ViewData["numberFilters"] != null && ViewData["numberFilters"].ToString() != "0 Filters Applied")
     {
@@ -281,8 +294,24 @@
 
 
 
-    <div>
+    <div class="d-flex justify-content-between align-items-center">
         <label class="control-label">@ViewData["records"]</label>
+        <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('prreviewHelp')" title="Click for preview panel instructions"></i>
+    </div>
+    <div id="prreviewHelp" class="info-box" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px; position: relative;">
+        <button class="close-btn" onclick="toggleVisibility('importHelp')">×</button>
+        <h5>Preview Panel Instructions</h5>
+        <p>
+            By clicking on a record row, a side panel will appear with a preview of the record's details.
+            In the Preview panel, you can quickly review the record's information and perform various actions:
+            <br />
+            - Navigate to the Edit contact page
+            <br />
+            - Archive the contact <br />
+            - View the full details page for this conatct and member it's assigned to <br />
+
+            Additionally, you can edit or add notes about the contact directly in the Preview panel and save them instantly.
+        </p>
     </div>
 
     <!-- Contacts Table -->

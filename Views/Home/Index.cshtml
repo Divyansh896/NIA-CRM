@@ -71,7 +71,7 @@
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="total-members-title" role="heading" aria-level="3">Total Members</p>
-                            <a href="@Url.Action("Index", "Member")" class="card-text fixed-text" aria-live="polite" style="cursor: pointer;">@ViewData["MemberCount"]</a>
+                            <a href="@Url.Action("Index", "Member")" class="card-text fixed-text widget-count" aria-live="polite" style="cursor: pointer;">@ViewData["MemberCount"]</a>
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -88,7 +88,7 @@
                             <span class="dots">...</span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#" id="lockCityOption">Lock City</a>
+                            <a class="dropdown-item" href="#" id="lockCityOption" style="display:none">Lock City</a>
                             <a class="dropdown-item" href="#" id="dynamicCityOption" style="display: none;">Dynamic City</a>
                             <div class="dropdown-divider"></div>
                             <!-- Add all cities here -->
@@ -119,7 +119,7 @@
                             <span class="dots">...</span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#" id="lockMembershipOption">Lock Membership</a>
+                            <a class="dropdown-item" href="#" id="lockMembershipOption" style="display:none">Lock Membership</a>
                             <a class="dropdown-item" href="#" id="dynamicMembershipOption" style="display: none;">Dynamic Membership</a>
                             <div class="dropdown-divider"></div>
                             <div id="membershipList"></div>
@@ -145,7 +145,7 @@
                             <span class="dots">...</span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#" id="lockSectorOption">Lock Sector</a>
+                            <a class="dropdown-item" href="#" id="lockSectorOption" style="display:none">Lock Sector</a>
                             <a class="dropdown-item" href="#" id="dynamicSectorOption" style="display: none;">Dynamic Sector</a>
                             <div class="dropdown-divider"></div>
                             <div id="sectorList"></div>
@@ -154,7 +154,7 @@
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="sector-clients-title" role="heading" aria-level="3">Sectors</p>
-                            <p class="card-text fixed-text" id="sector-count" aria-live="polite">0</p>
+                            <p class="card-text fixed-text widget-count" id="sector-count" aria-live="polite">0</p>
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -171,7 +171,7 @@
                             <span class="dots">...</span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#" id="lockTagOption">Lock Tag</a>
+                            <a class="dropdown-item" href="#" id="lockTagOption" style="display:none">Lock Tag</a>
                             <a class="dropdown-item" href="#" id="dynamicTagOption" style="display: none;">Dynamic Tag</a>
                             <div class="dropdown-divider"></div>
                             <div id="tagList"></div>
@@ -180,7 +180,7 @@
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="tag-clients-title" role="heading" aria-level="3">Tags</p>
-                            <p class="card-text fixed-text" id="tag-count" aria-live="polite">0</p>
+                            <p class="card-text fixed-text widget-count" id="tag-count" aria-live="polite">0</p>
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -207,7 +207,7 @@
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="active-members-title" role="heading" aria-level="3">Active Members</p>
-                            <a href="@Url.Action("Index", "Member")" class="card-text fixed-text" id="active-member-count" aria-live="polite">@ViewData["ActiveMemberCount"]</a> <!-- Display the calculated active members count -->
+                            <a href="@Url.Action("Index", "Member")" class="card-text fixed-text widget-count" id="active-member-count" aria-live="polite">@ViewData["ActiveMemberCount"]</a> <!-- Display the calculated active members count -->
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -222,7 +222,7 @@
                     <div class="row align-items-center">
                         <div class="col-6 d-flex flex-column justify-content-center">
                             <p class="card-title title-vidget" id="retention-rate-title" role="heading" aria-level="3">Retention Rate</p>
-                            <p class="card-text fixed-text" id="retention-rate-count" aria-live="polite">@ViewData["RetentionRate"] %</p> <!-- Display the calculated retention rate -->
+                            <p class="card-text fixed-text widget-count" id="retention-rate-count" aria-live="polite">@ViewData["RetentionRate"] %</p> <!-- Display the calculated retention rate -->
                         </div>
                         <div class="col-6"></div>
                     </div>
@@ -422,7 +422,6 @@
             updateCityCard();
             // Restart the auto update when unlocked
             autoUpdateInterval = setInterval(updateCityCard, 15000);
-            document.getElementById("lockCityOption").style.display = 'block'; // Show lock city option
             document.getElementById("dynamicCityOption").style.display = 'none'; // Hide dynamic city option
         }
 
@@ -503,7 +502,6 @@
             lockedMembership = null;
             updateMembershipCard();
             autoUpdateIntervalMembership = setInterval(updateMembershipCard, 15000);  // Restart auto-update when unlocked
-            document.getElementById("lockMembershipOption").style.display = 'block';
             document.getElementById("dynamicMembershipOption").style.display = 'none';
         }
 
@@ -594,7 +592,6 @@
             lockedSector = null;
             updateSectorCard();
             autoUpdateIntervalSector = setInterval(updateSectorCard, 15000);  // Restart auto-update when unlocked
-            document.getElementById("lockSectorOption").style.display = 'block';
             document.getElementById("dynamicSectorOption").style.display = 'none';
         }
 
@@ -680,7 +677,6 @@
             lockedTag = null;
             updateTagCard();
             autoUpdateIntervalTag = setInterval(updateTagCard, 15000);  // Restart auto-update when unlocked
-            document.getElementById("lockTagOption").style.display = 'block';
             document.getElementById("dynamicTagOption").style.display = 'none';
         }
 

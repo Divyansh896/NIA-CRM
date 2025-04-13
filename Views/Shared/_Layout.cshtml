@@ -38,8 +38,9 @@
                     </a>
                 </div>
             </div>
-            <div class="position-sticky p-3 d-flex flex-column" style="height: 80%;">
-                <ul class="nav flex-column">
+            <div class="position-sticky p-3 d-flex flex-column" style="min-height: 93%;">
+                <div>
+                <ul>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <!-- Home Menu Item -->
@@ -161,7 +162,7 @@
                                         <i class="icon fas fa-key"></i>
                                         <span class="text-white ms-2">User Roles</span>
                                     </div>
-                                    <i class="fas fa-chevron-down text-white"></i>
+                                        <i class="fas fa-chevron-down text-white" id="userArrow"></i>
                                 </a>
 
                                 <div class="collapse" id="userRolesMenu">
@@ -314,6 +315,13 @@
 
             $('#notesCollapse').on('hidden.bs.collapse', function () {
                 $('#notesArrow').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            });
+            $('#userRolesMenu').on('show.bs.collapse', function () {
+                $('#userArrow').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            });
+
+            $('#userRolesMenu').on('hidden.bs.collapse', function () {
+                $('#userArrow').removeClass('fa-chevron-up').addClass('fa-chevron-down');
             });
         });
     </script>

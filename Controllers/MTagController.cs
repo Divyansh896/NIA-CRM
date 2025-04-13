@@ -192,14 +192,20 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var mTag = await _context.MTag.FindAsync(id);
-            if (mTag != null)
+            try
             {
-                _context.MTag.Remove(mTag);
+                var mTag = await _context.MTag.FindAsync(id);
+                if (mTag != null)
+                {
+                    _context.MTag.Remove(mTag);
+                }
+                await _context.SaveChangesAsync();
+                return Json(new { success = true });
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
 
         private bool MTagExists(int id)
