@@ -188,7 +188,6 @@ namespace NIA_CRM.Controllers
             return View(membershipType);
         }
 
-        // POST: MembershipType/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -199,14 +198,52 @@ namespace NIA_CRM.Controllers
                 if (membershipType != null)
                 {
                     _context.MembershipTypes.Remove(membershipType);
+                    await _context.SaveChangesAsync();
+
+                    TempData["Success"] = "Membership type deleted successfully!";
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Membership type deleted successfully!",
+                        deletedId = id
+                    });
                 }
-                await _context.SaveChangesAsync();
-                TempData["Success"] = "Membership type deleted successfully!";
-                return Json(new { success = true });
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Membership type not found.",
+                    deletedId = id
+                });
             }
+            catch (DbUpdateException dbEx)
+            {
+                var innerMessage = dbEx.InnerException?.Message;
+
+                if (innerMessage != null && innerMessage.Contains("FOREIGN KEY constraint failed"))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "This membership type is currently assigned to one or more members and cannot be deleted."
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "An error occurred while deleting. Details: " + innerMessage ?? dbEx.Message
+                });
+            }
+
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new
+                {
+                    success = false,
+                    message = "Error deleting membership type: " + ex.Message,
+                    deletedId = id
+                });
             }
         }
 

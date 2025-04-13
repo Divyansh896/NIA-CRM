@@ -192,6 +192,7 @@ namespace NIA_CRM.Controllers
         }
 
         // POST: Sector/Delete/5
+        // POST: Sector/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -202,15 +203,54 @@ namespace NIA_CRM.Controllers
                 if (sector != null)
                 {
                     _context.Sectors.Remove(sector);
+                    await _context.SaveChangesAsync();
+
+                    TempData["Success"] = "Sector deleted successfully!";
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Sector deleted successfully!",
+                        deletedId = id
+                    });
                 }
-                await _context.SaveChangesAsync();
-                return Json(new { success = true });
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Sector not found.",
+                    deletedId = id
+                });
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var innerMessage = dbEx.InnerException?.Message;
+
+                if (innerMessage != null && innerMessage.Contains("FOREIGN KEY constraint failed"))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "This sector is currently assigned to one or more records and cannot be deleted."
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "An error occurred while deleting. Details: " + (innerMessage ?? dbEx.Message)
+                });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new
+                {
+                    success = false,
+                    message = "Error deleting sector: " + ex.Message,
+                    deletedId = id
+                });
             }
         }
+
 
         private bool SectorExists(int id)
         {

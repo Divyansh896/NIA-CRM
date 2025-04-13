@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="JoinDate" class="control-label"></label> 
+                    <label asp-for="JoinDate" class="control-label"></label>
                     <span class="required-label">(required)</span>
                     <input asp-for="JoinDate" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                     <span asp-validation-for="JoinDate" class="text-danger"></span>
@@ -273,83 +273,6 @@
 </div>
 
 
-<!-- Membership Modal -->
-@* <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="membershipModalLabel">Add New Membership Accredited</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="newMembership" class="form-control" placeholder="Enter new membership" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveMembership">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
- *@
-<!-- Tag Modal -->
-@* <div class="modal fade" id="tagModal" tabindex="-1" aria-labelledby="tagModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tagModalLabel">Add New Tag Accredited</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="newTag" class="form-control" placeholder="Enter new tag" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveTag">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Sector Modal -->
-<div class="modal fade" id="sectorModal" tabindex="-1" aria-labelledby="sectorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="sectorModalLabel">Add New Sector Accredited</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="newSector" class="form-control" placeholder="Enter new sector" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveSector">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- NAICS Code Modal -->
-<div class="modal fade" id="naicsCodeModal" tabindex="-1" aria-labelledby="naicsCodeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="naicsCodeModalLabel">Add New NAICS Code Accredited</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="newNaicsCode" class="form-control" placeholder="Enter new NAICS code" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveNaicsCode">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-*@
-
 <!-- Membership Delete Modal -->
 <div class="modal fade" id="deleteMembershipModal" tabindex="-1" aria-labelledby="deleteMembershipModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -358,15 +281,18 @@
                 <h5 class="modal-title" id="deleteMembershipModalLabel">Delete Membership Accredited</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <select id="deleteMembershipSelect" class="form-control">
-                    <!-- Options will be populated by JS -->
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" id="deleteMembership">Delete</button>
-            </div>
+            <form asp-controller="MembershipType" asp-action="Delete" method="post" id="createMembershipDeletionForm">
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <select id="deleteMembershipSelect" class="form-control">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" id="deleteMembership">Delete</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -375,64 +301,88 @@
 <div class="modal fade" id="deleteTagModal" tabindex="-1" aria-labelledby="deleteTagModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteTagModalLabel">Delete Tag Accredited</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <select id="deleteTagSelect" class="form-control">
-                    <!-- Options will be populated by JS -->
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" id="deleteTag">Delete</button>
-            </div>
+            <form asp-controller="MTag" asp-action="Delete" method="post" id="createTagDeletionForm">
+                @Html.AntiForgeryToken()
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteTagModalLabel">Delete Tag Accredited</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <select id="deleteTagSelect" class="form-control">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" id="deleteTagBtn">Delete</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
+
+<!-- Sector Delete Modal -->
 <!-- Sector Delete Modal -->
 <div class="modal fade" id="deleteSectorModal" tabindex="-1" aria-labelledby="deleteSectorModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteSectorModalLabel">Delete Sector Accredited</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <select id="deleteSectorSelect" class="form-control">
-                    <!-- Options will be populated by JS -->
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" id="deleteSector">Delete</button>
-            </div>
+            <form asp-controller="Sector" asp-action="Delete" method="post" id="createSectorDeletionForm">
+                @Html.AntiForgeryToken()
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteSectorModalLabel">Delete Sector Accredited</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <select id="deleteSectorSelect" name="id" class="form-control">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" id="deleteSectorBtn">Delete</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 <!-- NAICS Code Delete Modal -->
 <div class="modal fade" id="deleteNaicsCodeModal" tabindex="-1" aria-labelledby="deleteNaicsCodeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteNaicsCodeModalLabel">Delete NAICS Code Accredited</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <select id="deleteNaicsCodeSelect" class="form-control">
-                    <!-- Options will be populated by JS -->
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" id="deleteNaicsCode">Delete</button>
-            </div>
+            <form asp-controller="NAICSCodes" asp-action="Delete" method="post" id="createNaicsCodeDeletionForm">
+                @Html.AntiForgeryToken()
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteNaicsCodeModalLabel">Delete NAICS Code Accredited</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <select id="deleteNaicsCodeSelect" name="id" class="form-control">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" id="deleteNaicsCodeBtn">Delete</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+
+
 <!-- Repeat similar modals and buttons for Tag, Sector, and NAICS Code -->
 @section Scripts {
     @{
@@ -618,6 +568,7 @@
 
 
     </script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             // Function to populate delete select dropdown
@@ -648,110 +599,208 @@
             });
 
             // Delete Membership
-            $('#deleteMembership').on('click', function () {
-                var selectedMembership = $('#deleteMembershipSelect').val();
-                if (selectedMembership) {
-                    var token = $('input[name="__RequestVerificationToken"]').val();
-                    $.ajax({
-                        type: "POST",
-                        url: "/MembershipType/Delete/" + selectedMembership,// Adjust this URL to match your controller endpoint
-                        data: { __RequestVerificationToken: token },
-                        success: function (response) {
-                            // Remove from both lists to ensure consistency
-                            $('#availOptionsMembership option[value="' + selectedMembership + '"]').remove();
-                            $('#selectedOptionsMembership option[value="' + selectedMembership + '"]').remove();
-                            $('#deleteMembershipModal').modal('hide');
-                            alert("Membeship Type deleted successfully");
-                            // Show success message (if you have a notification system)
-                            // You could add a call to display a success toast/alert here
-                        },
-                        error: function (xhr) {
-                            console.error("Delete failed:", xhr.responseText);
-                            alert("Failed to delete membeship type. You can not delete membeship type if it's assigned to any member");
-                        }
-                    });
+            $('#createMembershipDeletionForm').submit(function (e) {
+                e.preventDefault(); // Stop normal form submission
+                ClearErrors();
+                var selectedId = $('#deleteMembershipSelect').val();
+                 var token = $('input[name="__RequestVerificationToken"]').val(); // ✅ token!
+
+                console.log(selectedId);
+                if (!selectedId) {
+                    alert('Please select a membership type to delete.');
+                    return;
                 }
+
+                $.ajax({
+                    url: '/MembershipType/Delete',
+                    type: 'POST',
+                    data: { __RequestVerificationToken: token,id: selectedId },
+                    success: function (response, status, xhr) {
+                    if (response.success) {
+                        console.log("XHR Status:", xhr.status); // Example xhr usage
+                        console.log("Deleted ID:", response.deletedId);
+                        alert(response.message);
+                        $('#deleteMembershipSelect option[value="' + response.deletedId + '"]').remove();
+                        $('#deleteMembershipModal').modal('hide');
+                        
+                        // 🆕 Reset the create form and clear errors
+                        document.getElementById("createMembershipDeletionForm").reset(); // Adjust ID if different
+                        ClearErrors();
+
+                        // 🆕 Build skip list (selected items)
+                        var qstring = "";
+                        var skipData = $("#selectedOptionsMembership option");
+                        $.each(skipData, function () {
+                            qstring += $(this).val() + "|";
+                        });
+
+                        // 🆕 Refresh the dropdown list (availOptionsMembership)
+                        var URI = "/MembershipType/GetMembershipTypes?skip=" + qstring.slice(0, -1);
+                        refreshDDL("availOptionsMembership", URI, true, "No Data Available", false, null, false);
+
+
+                    } else {
+                        alert('Failed to delete: ' + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                        console.error("XHR error:", xhr);
+                        alert('An unexpected error occurred: ' + xhr.responseText);
+                    }
+                });
             });
+        
 
             // Delete Tag
-            $('#deleteTag').on('click', function () {
-                var selectedTag = $('#deleteTagSelect').val();
-                if (selectedTag) {
-                    // Get the anti-forgery token
-                    var token = $('input[name="__RequestVerificationToken"]').val();
+            $('#createTagDeletionForm').submit(function (e) {
+                e.preventDefault(); // Stop normal form submission
 
-                    $.ajax({
-                        type: "POST",
-                        url: "/MTag/Delete/" + selectedTag, // Add the ID to the URL
-                        data: {
-                            __RequestVerificationToken: token // Include the token in the request
-                        },
-                        success: function (response) {
-                            // Remove from both lists to ensure consistency
-                            $('#availOptionsTag option[value="' + selectedTag + '"]').remove();
-                            $('#selectedOptionsTag option[value="' + selectedTag + '"]').remove();
-                            $('#deleteTagModal').modal('hide');
-                            // Show success notification if you have one
-                            alert("Tag deleted successfully");
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Delete failed:", xhr.responseText);
-                            alert("Failed to delete tag. You can not delete tag if it's assigned to any member.");
-                        }
-                    });
+                var selectedId = $('#deleteTagSelect').val();
+                var token = $('input[name="__RequestVerificationToken"]').val(); // ✅ token!
+
+                console.log(selectedId);
+                if (!selectedId) {
+                    alert('Please select a tag to delete.');
+                    return;
                 }
+
+                $.ajax({
+                    url: '/MTag/Delete',
+                    type: 'POST',
+                    data: { __RequestVerificationToken: token, id: selectedId },
+                    success: function (response, status, xhr) {
+                        if (response.success) {
+                            console.log("XHR Status:", xhr.status); // Example xhr usage
+                            console.log("Deleted ID:", response.deletedId);
+                            alert(response.message);
+                            $('#deleteTagSelect option[value="' + response.deletedId + '"]').remove();
+                            $('#deleteTagModal').modal('hide');
+
+                            document.getElementById("createTagDeletionForm").reset(); // to clear the data in the popup form
+                            //ClearErrors();
+                            // This will create a delimited list of the keys of the selected options and
+                            // we will pass it as a QueryString parameter when we get the new data
+                            var qstring = "";
+                            // Get the collection of currently selected options
+                            var skipData = $("#selectedOptionsTag option");
+                            $.each(skipData, function () {
+                                qstring += $(this).val() + "|";
+                            });
+                            var URI = "/MTag/GetMTags?skip=" + qstring.slice(0, -1);
+                            refreshDDL("availOptionsTag", URI, true, "No Data Available", false, null, false);
+
+
+                        } else {
+                            alert('Failed to delete: ' + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("XHR error:", xhr);
+                        alert('An unexpected error occurred: ' + xhr.responseText);
+                    }
+                });
             });
+
+
 
             // Delete Sector
-            $('#deleteSector').on('click', function () {
-                var selectedSector = $('#deleteSectorSelect').val();
-                if (selectedSector) {
-                    var token = $('input[name="__RequestVerificationToken"]').val();
-                    $.ajax({
-                        type: "POST",
-                        url: "/Sector/Delete/" + selectedSector, // Adjust this URL to match your controller endpoint
-                        data: { __RequestVerificationToken: token },
-                        success: function (response) {
-                            // Remove from both lists to ensure consistency
-                            $('#availOptionsSector option[value="' + selectedSector + '"]').remove();
-                            $('#selectedOptionsSector option[value="' + selectedSector + '"]').remove();
-                            $('#deleteSectorModal').modal('hide');
-                            // Show success message
-                            alert("Sector deleted successfully");
-                        },
-                        error: function (xhr) {
-                            console.error("Delete failed:", xhr.responseText);
-                            alert("Failed to delete sector. You can not delete sector if it's assigned to any member.");
-                        }
-                    });
+            $('#createSectorDeletionForm').submit(function (e) {
+                e.preventDefault(); // Stop normal form submission
+
+                var selectedId = $('#deleteSectorSelect').val();
+                var token = $('input[name="__RequestVerificationToken"]').val(); // ✅ token!
+
+                console.log(selectedId);
+                if (!selectedId) {
+                    alert('Please select a sector to delete.');
+                    return;
                 }
+
+                $.ajax({
+                    url: '/Sector/Delete',
+                    type: 'POST',
+                    data: { __RequestVerificationToken: token, id: selectedId },
+                    success: function (response, status, xhr) {
+                        if (response.success) {
+                            console.log("XHR Status:", xhr.status); // Example xhr usage
+                            console.log("Deleted ID:", response.deletedId);
+                            alert(response.message);
+                            $('#deleteSectorSelect option[value="' + response.deletedId + '"]').remove();
+                            $('#deleteSectorModal').modal('hide');
+
+                            document.getElementById("createSectorDeletionForm").reset(); // to clear the data in the popup form
+                            //ClearErrors();
+                            // This will create a delimited list of the keys of the selected options and
+                            // we will pass it as a QueryString parameter when we get the new data
+                            var qstring = "";
+                            // Get the collection of currently selected options
+                            var skipData = $("#selectedOptionsSector option");
+                            $.each(skipData, function () {
+                                qstring += $(this).val() + "|";
+                            });
+                            var URI = "/Sector/GetSectors?skip=" + qstring.slice(0, -1);
+                            refreshDDL("availOptionsSector", URI, true, "No Data Available", false, null, false);
+
+                        } else {
+                            alert('Failed to delete: ' + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("XHR error:", xhr);
+                        alert('An unexpected error occurred: ' + xhr.responseText);
+                    }
+                });
             });
+
 
             // Delete NAICS Code
-            $('#deleteNaicsCode').on('click', function () {
-                var selectedNaicsCode = $('#deleteNaicsCodeSelect').val();
-                if (selectedNaicsCode) {
-                    var token = $('input[name="__RequestVerificationToken"]').val();
-                    $.ajax({
-                        type: "POST",
-                        url: "/NAICSCodes/Delete/" + selectedNaicsCode, // Adjust this URL to match your controller endpoint
-                        data: { __RequestVerificationToken: token },
-                        success: function (response) {
-                            // Remove from both lists to ensure consistency
-                            $('#availOptionsNaicsCode option[value="' + selectedNaicsCode + '"]').remove();
-                            $('#selectedOptionsNaicsCode option[value="' + selectedNaicsCode + '"]').remove();
-                            $('#deleteNaicsCodeModal').modal('hide');
-                            // Show success message
-                            alert("NAICS code deleted successfully");
-                        },
-                        error: function (xhr) {
-                            console.error("Delete failed:", xhr.responseText);
-                            alert("Failed to delete NAICS code. You can not delete NAICS code if it's assigned to any member.");
-                        }
-                    });
-                }
-            });
+            $('#createNaicsCodeDeletionForm').submit(function (e) {
+                e.preventDefault(); // Stop normal form submission
 
+                var selectedId = $('#deleteNaicsCodeSelect').val();
+                var token = $('input[name="__RequestVerificationToken"]').val(); // ✅ token!
+
+                console.log(selectedId);
+                if (!selectedId) {
+                    alert('Please select a NAICS code to delete.');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/NAICSCodes/Delete',
+                    type: 'POST',
+                    data: { __RequestVerificationToken: token, id: selectedId },
+                    success: function (response, status, xhr) {
+                        if (response.success) {
+                            console.log("XHR Status:", xhr.status); // Example xhr usage
+                            console.log("Deleted ID:", response.deletedId);
+                            alert(response.message);
+                            $('#deleteNaicsCodeSelect option[value="' + response.deletedId + '"]').remove();
+                            $('#deleteNaicsCodeModal').modal('hide');
+
+                             document.getElementById("createNaicsCodeDeletionForm").reset(); // to clear the data in the popup form
+                            //ClearErrors();
+                            // This will create a delimited list of the keys of the selected options and
+                            // we will pass it as a QueryString parameter when we get the new data
+                            var qstring = "";
+                            // Get the collection of currently selected options
+                            var skipData = $("#selectedOptionsNaicsCode option");
+                            $.each(skipData, function () {
+                                qstring += $(this).val() + "|";
+                            });
+                            var URI = "/NAICSCodes/GetNAICSCode?skip=" + qstring.slice(0, -1);
+                            refreshDDL("availOptionsNaicsCode", URI, true, "No Data Available", false, null, false);
+                        } else {
+                            alert('Failed to delete: ' + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("XHR error:", xhr);
+                        alert('An unexpected error occurred: ' + xhr.responseText);
+                    }
+                });
+
+            });
             // Helper function to handle errors
             function handleAjaxError(xhr) {
                 var errorMessages = [];
@@ -781,6 +830,14 @@
                 }
             }
         });
+
+        function ClearErrors() {
+            // Empty out the list of validation errors if there are any
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+        }
     </script>
 
     <!-- Membership Type Add Modal -->
@@ -837,7 +894,7 @@
             // we will pass it as a QueryString parameter when we get the new data
             var qstring = "";
             // Get the collection of currently selected options
-            var skipData = $("#selectedOptions option");
+            var skipData = $("#selectedOptionsMembership option");
             $.each(skipData, function () {
                 qstring += $(this).val() + "|";
             });
@@ -908,7 +965,7 @@
             // we will pass it as a QueryString parameter when we get the new data
             var qstring = "";
             // Get the collection of currently selected options
-            var skipData = $("#selectedOptions option");
+            var skipData = $("#selectedOptionsTag option");
             $.each(skipData, function () {
                 qstring += $(this).val() + "|";
             });
@@ -979,7 +1036,7 @@
             // we will pass it as a QueryString parameter when we get the new data
             var qstring = "";
             // Get the collection of currently selected options
-            var skipData = $("#selectedOptions option");
+            var skipData = $("#selectedOptionsSector option");
             $.each(skipData, function () {
                 qstring += $(this).val() + "|";
             });
@@ -1050,7 +1107,7 @@
             // we will pass it as a QueryString parameter when we get the new data
             var qstring = "";
             // Get the collection of currently selected options
-            var skipData = $("#selectedOptions option");
+            var skipData = $("#selectedOptionsNaicsCode option");
             $.each(skipData, function () {
                 qstring += $(this).val() + "|";
             });

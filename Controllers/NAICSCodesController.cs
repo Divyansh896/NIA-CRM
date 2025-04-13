@@ -159,26 +159,65 @@ namespace NIA_CRM.Controllers
         }
 
         // POST: NAICSCodes/Delete/5
+        // POST: NaicsCode/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
             {
-                var nAICSCode = await _context.NAICSCodes.FindAsync(id);
-                if (nAICSCode != null)
+                var naicsCode = await _context.NAICSCodes.FindAsync(id);
+                if (naicsCode != null)
                 {
-                    _context.NAICSCodes.Remove(nAICSCode);
+                    _context.NAICSCodes.Remove(naicsCode);
+                    await _context.SaveChangesAsync();
+
+                    TempData["Success"] = "NAICS Code deleted successfully!";
+                    return Json(new
+                    {
+                        success = true,
+                        message = "NAICS Code deleted successfully!",
+                        deletedId = id
+                    });
                 }
-                await _context.SaveChangesAsync();
-                TempData["Success"] = "NAICS Code deleted successfully";
-                return Json(new { success = true });
+
+                return Json(new
+                {
+                    success = false,
+                    message = "NAICS Code not found.",
+                    deletedId = id
+                });
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var innerMessage = dbEx.InnerException?.Message;
+
+                if (innerMessage != null && innerMessage.Contains("FOREIGN KEY constraint failed"))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "This NAICS Code is currently assigned to one or more records and cannot be deleted."
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "An error occurred while deleting. Details: " + (innerMessage ?? dbEx.Message)
+                });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new
+                {
+                    success = false,
+                    message = "Error deleting NAICS Code: " + ex.Message,
+                    deletedId = id
+                });
             }
         }
+
 
         private bool NAICSCodeExists(int id)
         {

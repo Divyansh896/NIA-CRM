@@ -199,14 +199,51 @@ namespace NIA_CRM.Controllers
                 if (mTag != null)
                 {
                     _context.MTag.Remove(mTag);
+                    await _context.SaveChangesAsync();
+
+                    TempData["Success"] = "Tag deleted successfully!";
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Tag deleted successfully!",
+                        deletedId = id
+                    });
                 }
-                await _context.SaveChangesAsync();
-                TempData["Success"] = "Tag Deleted Successfully";
-                return Json(new { success = true });
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Tag not found.",
+                    deletedId = id
+                });
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var innerMessage = dbEx.InnerException?.Message;
+
+                if (innerMessage != null && innerMessage.Contains("FOREIGN KEY constraint failed"))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "This tag is currently assigned to one or more records and cannot be deleted."
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "An error occurred while deleting. Details: " + (innerMessage ?? dbEx.Message)
+                });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new
+                {
+                    success = false,
+                    message = "Error deleting tag: " + ex.Message,
+                    deletedId = id
+                });
             }
         }
 
