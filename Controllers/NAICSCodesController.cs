@@ -162,14 +162,20 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var nAICSCode = await _context.NAICSCodes.FindAsync(id);
-            if (nAICSCode != null)
+            try
             {
-                _context.NAICSCodes.Remove(nAICSCode);
+                var nAICSCode = await _context.NAICSCodes.FindAsync(id);
+                if (nAICSCode != null)
+                {
+                    _context.NAICSCodes.Remove(nAICSCode);
+                }
+                await _context.SaveChangesAsync();
+                return Json(new { success = true });
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
 
         private bool NAICSCodeExists(int id)

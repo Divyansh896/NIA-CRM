@@ -65,7 +65,9 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="JoinDate" class="control-label"></label> (required)
+                    <label asp-for="JoinDate" class="control-label">
+                        <span class="required-label">(required)</span>
+                    </label>
                     <input asp-for="JoinDate" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                     <span asp-validation-for="JoinDate" class="text-danger"></span>
                 </div>
@@ -677,8 +679,25 @@
             $('#deleteMembership').on('click', function () {
                 var selectedMembership = $('#deleteMembershipSelect').val();
                 if (selectedMembership) {
-                    $('#availOptionsMembership option[value="' + selectedMembership + '"]').remove();
-                    $('#deleteMembershipModal').modal('hide');
+                    var token = $('input[name="__RequestVerificationToken"]').val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/MembershipType/Delete/" + selectedMembership,// Adjust this URL to match your controller endpoint
+                        data: { __RequestVerificationToken: token },
+                        success: function (response) {
+                            // Remove from both lists to ensure consistency
+                            $('#availOptionsMembership option[value="' + selectedMembership + '"]').remove();
+                            $('#selectedOptionsMembership option[value="' + selectedMembership + '"]').remove();
+                            $('#deleteMembershipModal').modal('hide');
+                            alert("Membeship Type deleted successfully");
+                            // Show success message (if you have a notification system)
+                            // You could add a call to display a success toast/alert here
+                        },
+                        error: function (xhr) {
+                            console.error("Delete failed:", xhr.responseText);
+                            alert("Failed to delete membeship type. You can not delete membeship type if it's assigned to any member");
+                        }
+                    });
                 }
             });
 
@@ -686,8 +705,28 @@
             $('#deleteTag').on('click', function () {
                 var selectedTag = $('#deleteTagSelect').val();
                 if (selectedTag) {
-                    $('#availOptionsTag option[value="' + selectedTag + '"]').remove();
-                    $('#deleteTagModal').modal('hide');
+                    // Get the anti-forgery token
+                    var token = $('input[name="__RequestVerificationToken"]').val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/MTag/Delete/" + selectedTag, // Add the ID to the URL
+                        data: {
+                            __RequestVerificationToken: token // Include the token in the request
+                        },
+                        success: function (response) {
+                            // Remove from both lists to ensure consistency
+                            $('#availOptionsTag option[value="' + selectedTag + '"]').remove();
+                            $('#selectedOptionsTag option[value="' + selectedTag + '"]').remove();
+                            $('#deleteTagModal').modal('hide');
+                            // Show success notification if you have one
+                            alert("Tag deleted successfully");
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Delete failed:", xhr.responseText);
+                        alert("Failed to delete tag. You can not delete tag if it's assigned to any member.");
+                        }
+                    });
                 }
             });
 
@@ -695,8 +734,24 @@
             $('#deleteSector').on('click', function () {
                 var selectedSector = $('#deleteSectorSelect').val();
                 if (selectedSector) {
-                    $('#availOptionsSector option[value="' + selectedSector + '"]').remove();
-                    $('#deleteSectorModal').modal('hide');
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                    $.ajax({
+                        type: "POST",
+                    url: "/Sector/Delete/" + selectedSector, // Adjust this URL to match your controller endpoint
+                    data: { __RequestVerificationToken: token },
+                        success: function (response) {
+                            // Remove from both lists to ensure consistency
+                            $('#availOptionsSector option[value="' + selectedSector + '"]').remove();
+                            $('#selectedOptionsSector option[value="' + selectedSector + '"]').remove();
+                            $('#deleteSectorModal').modal('hide');
+                            // Show success message
+                        alert("Sector deleted successfully");
+                        },
+                        error: function (xhr) {
+                        console.error("Delete failed:", xhr.responseText);
+                        alert("Failed to delete sector. You can not delete sector if it's assigned to any member.");
+                        }
+                    });
                 }
             });
 
@@ -704,10 +759,55 @@
             $('#deleteNaicsCode').on('click', function () {
                 var selectedNaicsCode = $('#deleteNaicsCodeSelect').val();
                 if (selectedNaicsCode) {
-                    $('#availOptionsNaicsCode option[value="' + selectedNaicsCode + '"]').remove();
-                    $('#deleteNaicsCodeModal').modal('hide');
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                    $.ajax({
+                        type: "POST",
+                    url: "/NAICSCodes/Delete/" + selectedNaicsCode, // Adjust this URL to match your controller endpoint
+                    data: { __RequestVerificationToken: token },
+                        success: function (response) {
+                            // Remove from both lists to ensure consistency
+                            $('#availOptionsNaicsCode option[value="' + selectedNaicsCode + '"]').remove();
+                            $('#selectedOptionsNaicsCode option[value="' + selectedNaicsCode + '"]').remove();
+                            $('#deleteNaicsCodeModal').modal('hide');
+                            // Show success message
+                        alert("NAICS code deleted successfully");
+                        },
+                        error: function (xhr) {
+                        console.error("Delete failed:", xhr.responseText);
+                        alert("Failed to delete NAICS code. You can not delete NAICS code if it's assigned to any member.");
+                        }
+                    });
                 }
             });
+
+            // Helper function to handle errors
+            function handleAjaxError(xhr) {
+                var errorMessages = [];
+                switch (xhr.status) {
+                    case 401:
+                        errorMessages.push("You must be logged in first.");
+                        break;
+                    case 403:
+                        errorMessages.push("You are not authorized for this action.");
+                        break;
+                    default:
+                        //Messages coming from the Model State Errors
+                        errorMessages = xhr.responseText.split("|").slice(0, -1);
+                }
+
+                if (!errorMessages.some((str) => str !== "")) {
+                    errorMessages.push("Error: Unable to complete operation");
+                }
+
+                // Put the messages in the ErrorList ul
+                var ul = document.getElementById("ErrorList");
+                for (var i = 0; i < errorMessages.length; i++) {
+                    var errorMessage = errorMessages[i];
+                    var li = document.createElement("li");
+                    li.innerHTML = errorMessage;
+                    ul.appendChild(li);
+                }
+            }
         });
 
     </script>

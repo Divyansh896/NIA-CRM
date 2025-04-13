@@ -193,32 +193,22 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var membershipType = await _context.MembershipTypes.FindAsync(id);
-            //Decide if we need to send the Validaiton Errors directly to the client
-            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            try
             {
-                //Was an AJAX request so build a message with all validation errors
-                string errorMessage = "";
-                foreach (var modelState in ViewData.ModelState.Values)
+                var membershipType = await _context.MembershipTypes.FindAsync(id);
+                if (membershipType != null)
                 {
-                    foreach (ModelError error in modelState.Errors)
-                    {
-                        errorMessage += error.ErrorMessage + "|";
-                    }
+                    _context.MembershipTypes.Remove(membershipType);
                 }
-                //Note: returning a BadRequest results in HTTP Status code 400
-                return BadRequest(errorMessage);
+                await _context.SaveChangesAsync();
+                return Json(new { success = true });
             }
-
-
-            if (membershipType != null)
+            catch (Exception ex)
             {
-                _context.MembershipTypes.Remove(membershipType);
+                return Json(new { success = false, message = ex.Message });
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
+
 
         private bool MembershipTypeExists(int id)
         {

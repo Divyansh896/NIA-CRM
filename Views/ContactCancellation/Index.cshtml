@@ -58,8 +58,26 @@
         </div>
     </div>
 
-    <div>
+    <div class="d-flex justify-content-between align-items-center">
         <label class="control-label">@ViewData["records"]</label>
+        <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('prreviewHelp')" title="Click for preview panel instructions"></i>
+    </div>
+    <div id="prreviewHelp" class="info-box" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px; position: relative;">
+        <button class="close-btn" onclick="toggleVisibility('importHelp')">×</button>
+        <h5>Preview Panel Instructions</h5>
+        <p>
+            By clicking on a record row, a side panel will appear with a preview of the record's details.
+            In the Preview panel, you can quickly review the record's information and perform various actions:
+            <br />
+            - Navigate to the Edit contact page
+            <br />
+            - Navigate to the Edit archiving contact details page
+            <br />
+            - Activate the contact <br />
+            - View the full details page for this conatct and member it's assigned to <br />
+
+            Additionally, you can edit or add notes about the contact directly in the Preview panel and save them instantly.
+        </p>
     </div>
 
     <table class="table table-bordered table-striped" id="contacts-table" aria-labelledby="contacts-title">
