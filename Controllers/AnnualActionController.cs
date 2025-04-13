@@ -409,7 +409,7 @@ namespace NIA_CRM.Controllers
                 await _context.SaveChangesAsync();
 
                 Console.WriteLine("✅ Annual Action Deleted Successfully from Partial View");
-
+                TempData["Success"] = "Annual Action Deleted Successfully from Partial View!"; // Success message
                 return Json(new { success = true, message = "Annual Action deleted successfully!" });
             }
             catch (Exception ex)
@@ -455,6 +455,8 @@ namespace NIA_CRM.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Note saved successfully!"; // Success message
+
                 return Json(new { success = true, message = "Note saved successfully!" });
             }
             catch (Exception ex)

@@ -201,6 +201,7 @@ namespace NIA_CRM.Controllers
                     _context.MembershipTypes.Remove(membershipType);
                 }
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Membership type deleted successfully!";
                 return Json(new { success = true });
             }
             catch (Exception ex)

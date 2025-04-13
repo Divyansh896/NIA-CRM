@@ -63,6 +63,8 @@ namespace NIA_CRM.Controllers
             {
                 _context.Add(sector);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Sector Created Successfully";
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -131,6 +133,8 @@ namespace NIA_CRM.Controllers
                         // Update the sector record in the database
                         _context.Update(sectorToUpdate);
                         await _context.SaveChangesAsync();
+                        TempData["Success"] = "Sector Updated Successfully";
+
                         return RedirectToAction(nameof(Index));
                     }
                     catch (DbUpdateConcurrencyException ex)

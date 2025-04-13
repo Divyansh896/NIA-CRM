@@ -131,6 +131,7 @@ namespace NIA_CRM.Controllers
                         // Update the MTag record in the database
                         _context.Update(mTagToUpdate);
                         await _context.SaveChangesAsync();
+                        TempData["Success"] = "Tag Updated Successfully!";
                         return RedirectToAction(nameof(Index));
                     }
                     catch (DbUpdateConcurrencyException ex)
@@ -200,6 +201,7 @@ namespace NIA_CRM.Controllers
                     _context.MTag.Remove(mTag);
                 }
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Tag Deleted Successfully";
                 return Json(new { success = true });
             }
             catch (Exception ex)

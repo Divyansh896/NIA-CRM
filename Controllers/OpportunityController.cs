@@ -360,6 +360,7 @@ namespace NIA_CRM.Controllers
                         _context.Update(opportunityToUpdate);
                         await _context.SaveChangesAsync();
                         //return RedirectToAction(nameof(Index));
+                        TempData["Success"] = "Opportunity updated successfully";
                         return RedirectToAction("Details", new { id = opportunityToUpdate.ID });
 
                     }
@@ -445,7 +446,7 @@ namespace NIA_CRM.Controllers
 
                 _context.Opportunities.Remove(opportunity);
                 await _context.SaveChangesAsync();
-
+                TempData["Success"] = "Opportunity Deleted Successfully";
                 return Json(new { success = true, message = "Opportunity deleted successfully!" });
             }
             catch (Exception ex)

@@ -408,7 +408,7 @@ namespace NIA_CRM.Controllers
                 }
 
                 // Store the detailed error message in TempData
-                TempData["Error"] = fullErrorMessage;
+                TempData["Error"] = "Please Arrange the excel data as per the provided sample fie and put all those fields that are required!";
 
                 // Optionally, log the error to a file or logging system for further review
                 // You can use a logging framework like Serilog, NLog, or log4net for better logging management
@@ -496,7 +496,7 @@ namespace NIA_CRM.Controllers
                     await _context.SaveChangesAsync();
 
                     // Success message
-                    TempData["SuccessMessage"] = $"Member: {member.MemberName} added successfully!";
+                    TempData["Success"] = $"Member: {member.MemberName} added successfully!";
                     // Redirect to the index view
                     // Assuming you have a list of addresses and you want to pass the MemberId of the first address
 
@@ -644,7 +644,7 @@ namespace NIA_CRM.Controllers
 
                     // Save changes to the database
                     await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = $"Member: {memberToUpdate.MemberName} updated successfully!";
+                    TempData["Success"] = $"Member: {memberToUpdate.MemberName} updated successfully!";
                     // Get the member name based on the address's MemberId
                     if (memberToUpdate != null)
                     {
@@ -755,7 +755,7 @@ namespace NIA_CRM.Controllers
             }
 
             await _context.SaveChangesAsync();
-            TempData["SuccessMessage"] = $"Member: {member.MemberName} archived successfully!";
+            TempData["Success"] = $"Member: {member.MemberName} archived successfully!";
 
             return RedirectToAction(nameof(Index));
         }

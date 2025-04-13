@@ -121,6 +121,7 @@ namespace NIA_CRM.Controllers
                 try
                 {
                     _context.Update(nAICSCode);
+                    TempData["Success"] = "NAICS Code Updated Successfully";
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -170,6 +171,7 @@ namespace NIA_CRM.Controllers
                     _context.NAICSCodes.Remove(nAICSCode);
                 }
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "NAICS Code deleted successfully";
                 return Json(new { success = true });
             }
             catch (Exception ex)

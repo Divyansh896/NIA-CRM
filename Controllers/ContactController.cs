@@ -302,7 +302,7 @@ namespace NIA_CRM.Controllers
 
                 }
 
-                TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} added successfully!";
+                TempData["Success"] = $"Contact: {contact.FirstName} {contact.LastName} added successfully!";
 
                 return RedirectToAction(nameof(Details), "Member", new { id = finalMemberId });
             }
@@ -403,7 +403,7 @@ namespace NIA_CRM.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = $"Contact: {contactToUpdate.FirstName} {contactToUpdate.LastName} Updated Successfully!";
+                    TempData["Success"] = $"Contact: {contactToUpdate.FirstName} {contactToUpdate.LastName} Updated Successfully!";
 
                     // Get the member ID from the MemberContacts collection
                     var memberId = contactToUpdate.MemberContacts.FirstOrDefault()?.MemberId;
@@ -525,7 +525,7 @@ namespace NIA_CRM.Controllers
 
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} Deleted Successfully!";
+            TempData["Success"] = $"Contact: {contact.FirstName} {contact.LastName} Deleted Successfully!";
 
             return RedirectToAction(nameof(Index));
         }
