@@ -454,12 +454,12 @@
                                         {
                                             memberList += members[i] + " <br />";
                                         }
-                                        <a role="button" class="text-decoration-none"
+                                        <a role="button" class="member-toggle"
                                            data-bs-toggle="collapse"
                                            href="#collapseMembers@(item.Id)"
                                            aria-expanded="false"
                                            aria-controls="collapseMembers@(item.Id)">
-                                            @firstMember <span class="badge bg-info">@distinctCount</span>
+                                            @firstMember <span class="participant-badge">@distinctCount</span>
                                         </a>
                                         <div class="collapse" id="collapseMembers@(item.Id)">
                                             @Html.Raw(memberList)
