@@ -282,6 +282,8 @@ namespace NIA_CRM.Controllers
             {
                 _context.Add(strategy);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Strategy Created Successfully";
+
                 return RedirectToAction(nameof(Index));
             }
             return View(strategy);
@@ -334,6 +336,8 @@ namespace NIA_CRM.Controllers
                         // Update the strategy record in the database
                         _context.Update(strategyToUpdate);
                         await _context.SaveChangesAsync();
+                        TempData["Success"] = "Strategy Updated Successfully";
+
                         return RedirectToAction(nameof(Index));
                     }
                     catch (DbUpdateConcurrencyException ex)
@@ -411,6 +415,8 @@ namespace NIA_CRM.Controllers
 
             _context.Strategys.Remove(strategy);
             await _context.SaveChangesAsync();
+            TempData["Success"] = "Strategy Deleted Successfully";
+
 
             return Json(new { success = true });
         }

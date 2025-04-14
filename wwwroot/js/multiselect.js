@@ -15,8 +15,8 @@
     function switchOptions(event, senderDDL, receiverDDL) {
         let senderID = senderDDL.id;
         let selectedOptions = document.querySelectorAll(`#${senderID} option:checked`);
-        console.log("Sender DDl:", senderDDL); // Debugging
-        console.log("receiver DDL:", receiverDDL); // Debugging
+        //console.log("Sender DDl:", senderDDL); // Debugging
+        //console.log("receiver DDL:", receiverDDL); // Debugging
 
         event.preventDefault();
 

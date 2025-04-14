@@ -188,37 +188,65 @@ namespace NIA_CRM.Controllers
             return View(membershipType);
         }
 
-        // POST: MembershipType/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var membershipType = await _context.MembershipTypes.FindAsync(id);
-            //Decide if we need to send the Validaiton Errors directly to the client
-            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            try
             {
-                //Was an AJAX request so build a message with all validation errors
-                string errorMessage = "";
-                foreach (var modelState in ViewData.ModelState.Values)
+                var membershipType = await _context.MembershipTypes.FindAsync(id);
+                if (membershipType != null)
                 {
-                    foreach (ModelError error in modelState.Errors)
+                    _context.MembershipTypes.Remove(membershipType);
+                    await _context.SaveChangesAsync();
+
+                    TempData["Success"] = "Membership type deleted successfully!";
+                    return Json(new
                     {
-                        errorMessage += error.ErrorMessage + "|";
-                    }
+                        success = true,
+                        message = "Membership type deleted successfully!",
+                        deletedId = id
+                    });
                 }
-                //Note: returning a BadRequest results in HTTP Status code 400
-                return BadRequest(errorMessage);
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Membership type not found.",
+                    deletedId = id
+                });
             }
-
-
-            if (membershipType != null)
+            catch (DbUpdateException dbEx)
             {
-                _context.MembershipTypes.Remove(membershipType);
+                var innerMessage = dbEx.InnerException?.Message;
+
+                if (innerMessage != null && innerMessage.Contains("FOREIGN KEY constraint failed"))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "This membership type is currently assigned to one or more members and cannot be deleted."
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "An error occurred while deleting. Details: " + innerMessage ?? dbEx.Message
+                });
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error deleting membership type: " + ex.Message,
+                    deletedId = id
+                });
+            }
         }
+
 
         private bool MembershipTypeExists(int id)
         {

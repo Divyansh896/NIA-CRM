@@ -78,6 +78,7 @@
 
                 <div class="form-group">
                     <label asp-for="Phone" class="control-label"></label>
+                    <span class="required-label">(required)</span>
                     <input asp-for="Phone" id="phoneInput" class="form-control" maxlength="14"
                            placeholder="(123) 456-7890" />
                     <span asp-validation-for="Phone" class="text-danger"></span>
@@ -155,4 +156,5 @@
             }
         });
     </script>
+
 }

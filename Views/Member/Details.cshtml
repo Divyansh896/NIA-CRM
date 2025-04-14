@@ -90,9 +90,9 @@
                                                 {
                                                     membershipList += memberships[i].MembershipType.TypeName + " <br />";
                                                 }
-                                                <a class="role='button'" data-bs-toggle="collapse" href="#collapseMembership@(Model.ID)"
+                                                <a class="member-toggle" data-bs-toggle="collapse" href="#collapseMembership@(Model.ID)"
                                                 aria-expanded="false" aria-controls="collapseMembership@(Model.ID)">
-                                                    @firstMembershipType <span class="badge bg-info">@membershipCount</span>
+                                                    @firstMembershipType <span class="participant-badge">@membershipCount</span>
                                                 </a>
                                                 <div class="collapse" id="collapseMembership@(Model.ID)">
                                                     @Html.Raw(membershipList)
@@ -127,9 +127,9 @@
                                                 {
                                                     tagList += $"{tags[i].MTag.MTagName}<br />";
                                                 }
-                                                <a class="role='button'" data-bs-toggle="collapse" href="#collapseTag@(Model.ID)"
+                                                <a class="member-toggle" data-bs-toggle="collapse" href="#collapseTag@(Model.ID)"
                                                 aria-expanded="false" aria-controls="collapseTag@(Model.ID)">
-                                                    @firstTag <span class="badge bg-info">@tagCount</span>
+                                                    @firstTag <span class="participant-badge">@tagCount</span>
                                                 </a>
                                                 <div class="collapse" id="collapseTag@(Model.ID)">
                                                     @Html.Raw(tagList)
@@ -162,9 +162,9 @@
                                                 {
                                                     sectorList += $"{sectors[i].Sector.SectorName}<br />";
                                                 }
-                                                <a class="role='button'" data-bs-toggle="collapse" href="#collapseSector@(Model.ID)"
+                                                <a class="member-toggle" data-bs-toggle="collapse" href="#collapseSector@(Model.ID)"
                                                 aria-expanded="false" aria-controls="collapseSector@(Model.ID)">
-                                                    @firstSector <span class="badge bg-info">@sectorCount</span>
+                                                    @firstSector <span class="participant-badge">@sectorCount</span>
                                                 </a>
                                                 <div class="collapse" id="collapseSector@(Model.ID)">
                                                     @Html.Raw(sectorList)
@@ -203,9 +203,9 @@
                                             {
                                                 naicsList += $"{naicsCodes[i].NAICSCode.Code} - {naicsCodes[i].NAICSCode.Description}<br />";
                                             }
-                                            <a class="role='button'" data-bs-toggle="collapse" href="#collapseNAICS@(Model.ID)"
+                                            <a class="member-toggle" data-bs-toggle="collapse" href="#collapseNAICS@(Model.ID)"
                                                aria-expanded="false" aria-controls="collapseNAICS@(Model.ID)">
-                                                @firstNAICS <span class="badge bg-info">@naicsCount</span>
+                                                @firstNAICS <span class="participant-badge">@naicsCount</span>
                                             </a>
                                             <div class="collapse" id="collapseNAICS@(Model.ID)">
                                                 @Html.Raw(naicsList)
@@ -242,7 +242,7 @@
                             </dl>
                         </div>
                     </div>
-                    <div class="position-bottom-left">
+                    <div class="card-button-container">
                         @if (User.IsInRole("Admin"))
                         {
                             <a class="btn btn-secondary me-2" asp-controller="Member" asp-action="Edit" asp-route-id="@Model.ID">Edit General Info</a>
@@ -300,7 +300,7 @@
                                 </dl>
                             </div>
                         </div>
-                        <div class="position-bottom-left">
+                        <div class="card-button-container">
                             @if (User.IsInRole("Admin"))
                             {
                                 <button type="button" class="btn btn-light me-2"
@@ -530,5 +530,54 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Function to equalize card heights
+            function equalizeCardHeights() {
+                const detailedInfoCard = document.querySelector('.col-md-6:first-child .card');
+                const contactInfoCard = document.querySelector('.col-md-6:nth-child(2) .card');
 
+                if (detailedInfoCard && contactInfoCard) {
+                    // Reset heights to auto first to get true heights
+                    detailedInfoCard.style.height = 'auto';
+                    contactInfoCard.style.height = 'auto';
+
+                    // Get the height of the taller card
+                    const detailedHeight = detailedInfoCard.offsetHeight;
+                    const contactHeight = contactInfoCard.offsetHeight;
+                    const maxHeight = Math.max(detailedHeight, contactHeight);
+
+                    // Set both cards to the same height
+                    detailedInfoCard.style.height = maxHeight + 'px';
+                    contactInfoCard.style.height = maxHeight + 'px';
+                }
+            }
+
+            // Call the function initially
+            equalizeCardHeights();
+
+            // Call the function when window is resized
+            window.addEventListener('resize', equalizeCardHeights);
+
+            // Also call the function when any collapsible elements are toggled
+            const collapseElements = document.querySelectorAll('[data-bs-toggle="collapse"]');
+            collapseElements.forEach(function (element) {
+                element.addEventListener('click', function () {
+                    // Use setTimeout to allow the collapse animation to complete
+                    setTimeout(equalizeCardHeights, 350);
+                });
+            });
+        });
+    </script>
+    <style>
+        .card {
+            position: relative;
+        }
+
+        .card-button-container {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+    </style>
     }

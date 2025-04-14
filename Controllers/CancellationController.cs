@@ -191,33 +191,7 @@ namespace NIA_CRM.Controllers
                 {
                     _context.Add(cancellation); // Add the cancellation
                     await _context.SaveChangesAsync(); // Save changes to the database
-                    TempData["SuccessMessage"] = $"Member: {member.MemberName} Archived Successfully!";
-
-
-                    // Automatically cancel the related contact(s) and archive them
-                    //foreach (var memberContact in member.MemberContacts)
-                    //{
-                    //    var contactCancellation = await _context.Contacts
-                    //        .FirstOrDefaultAsync(cc => cc.MemberContacts. == memberContact.ContactId);
-
-                    //    if (contactCancellation != null)
-                    //    {
-                    //        contactCancellation.IsCancelled = true;
-                    //        contactCancellation.CancellationDate = cancellation.CancellationDate;
-                    //        contactCancellation.CancellationNote = "Cancelled due to member cancellation.";
-                    //        _context.Update(contactCancellation);
-                    //    }
-
-                    //    // Archive the contact
-                    //    var contact = await _context.Contacts.FindAsync(memberContact.ContactId);
-                    //    if (contact != null)
-                    //    {
-                    //        contact.IsArchieved = true;
-                    //        _context.Update(contact);
-                    //    }
-                    //}
-                    //await _context.SaveChangesAsync();
-
+                    TempData["Success"] = $"Member: {member.MemberName} Archived Successfully!";
                     return Json(new { success = true, message = "Cancellation archiving completed successfully!" });
                 }
 
@@ -232,7 +206,7 @@ namespace NIA_CRM.Controllers
             {
                 _context.Add(cancellation); // Add the cancellation to the context
                 await _context.SaveChangesAsync(); // Save changes to the database
-                TempData["SuccessMessage"] = $"Member: {cancellation.Member.MemberName} Archived Successfully!";
+                TempData["Success"] = $"Member: {cancellation.Member.MemberName} Archived Successfully!";
 
                 var member = await _context.Members.Include(m => m.MemberContacts)
                     .ThenInclude(mc => mc.Contact)
@@ -327,7 +301,7 @@ namespace NIA_CRM.Controllers
             cancellation.CancellationNote = "Archived via system.";
 
             _context.Cancellations.Add(cancellation);
-            TempData["SuccessMessage"] = $"Member: {member.MemberName} Archived Successfully!";
+            TempData["Success"] = $"Member: {member.MemberName} Archived Successfully!";
 
             await _context.SaveChangesAsync();
 
@@ -381,7 +355,7 @@ namespace NIA_CRM.Controllers
                 {
                     await _context.SaveChangesAsync();
                     //return RedirectToAction(nameof(Index));
-                    TempData["SuccessMessage"] = $"Archived Member: {cancellationToUpdate.Member.MemberName} Updated Successfully!";
+                    TempData["Success"] = $"Archived Member: {cancellationToUpdate.Member.MemberName} Updated Successfully!";
 
                     return RedirectToAction("Details", new { id = cancellationToUpdate.ID });
 
@@ -468,7 +442,7 @@ namespace NIA_CRM.Controllers
             }
 
             await _context.SaveChangesAsync();
-            TempData["SuccessMessage"] = $"Member: {cancellation.Member.MemberName} Activated Successfully!";
+            TempData["Success"] = $"Member: {cancellation.Member.MemberName} Activated Successfully!";
 
             return RedirectToAction(nameof(Index));
         }

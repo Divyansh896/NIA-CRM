@@ -131,6 +131,7 @@ namespace NIA_CRM.Controllers
                         // Update the MTag record in the database
                         _context.Update(mTagToUpdate);
                         await _context.SaveChangesAsync();
+                        TempData["Success"] = "Tag Updated Successfully!";
                         return RedirectToAction(nameof(Index));
                     }
                     catch (DbUpdateConcurrencyException ex)
@@ -192,14 +193,58 @@ namespace NIA_CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var mTag = await _context.MTag.FindAsync(id);
-            if (mTag != null)
+            try
             {
-                _context.MTag.Remove(mTag);
-            }
+                var mTag = await _context.MTag.FindAsync(id);
+                if (mTag != null)
+                {
+                    _context.MTag.Remove(mTag);
+                    await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                    TempData["Success"] = "Tag deleted successfully!";
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Tag deleted successfully!",
+                        deletedId = id
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Tag not found.",
+                    deletedId = id
+                });
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var innerMessage = dbEx.InnerException?.Message;
+
+                if (innerMessage != null && innerMessage.Contains("FOREIGN KEY constraint failed"))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "This tag is currently assigned to one or more records and cannot be deleted."
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "An error occurred while deleting. Details: " + (innerMessage ?? dbEx.Message)
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error deleting tag: " + ex.Message,
+                    deletedId = id
+                });
+            }
         }
 
         private bool MTagExists(int id)
