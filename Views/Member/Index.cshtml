@@ -709,21 +709,22 @@
                                             emailList += $"<a href='mailto:{contact.Email}'>{contact.Email}</a><br />";
                                         }
                                     }
-                                    <a class="member-toggle" data-bs-toggle="collapse" href="#collapseEmail@(item.ID)"
-                                       aria-expanded="false" aria-controls="collapseEmail@(item.ID)">
+                                    <div>
+                                        <!-- Email mailto link -->
                                         <a href="mailto:@emailFirstContact.Email">@emailFirstContact.Email</a>
-                                        <span class="participant-badge">@emailContactCount</span>
-                                    </a>
-                                        <a role="button"
-                                           class="ms-1 text-decoration-none"
+
+                                        <!-- Collapse toggle badge -->
+                                        <a href="#collapseEmail@(item.ID)"
+                                           class="ms-2 text-decoration-none"
                                            data-bs-toggle="collapse"
-                                           href="#collapseEmail@(item.ID)"
                                            aria-expanded="false"
                                            aria-controls="collapseEmail@(item.ID)">
-                                            <span class="badge bg-info">@emailContactCount</span>
+                                            <span class="participant-badge badge bg-info">@emailContactCount</span>
                                         </a>
-                                    
-                                    <div class="collapse" id="collapseEmail@(item.ID)">
+                                    </div>
+
+                                    <!-- Collapsible content -->
+                                    <div class="collapse mt-1" id="collapseEmail@(item.ID)">
                                         @Html.Raw(emailList)
                                     </div>
                                 }
@@ -738,6 +739,7 @@
                             }
                         }
                     </td>
+
 
 
 
