@@ -206,10 +206,6 @@ body {
         color: #A61C1C !important; /* Change color to red on hover */
     }
 
-a:hover {
-    color: black !important;
-}
-
 a::after {
     color: black !important;
 }
@@ -592,6 +588,9 @@ td, th {
     color: #f0f0f0;
 }
 
+.dark-mode .input-group-text{
+    background-color:#121212;
+}
 .dark-mode .logout-btn {
     background-color: #434343 !important;
     border-width: 2px !important;
@@ -774,7 +773,7 @@ td, th {
     top: 10px;
     right: 10px;
     padding: 0px 7px;
-    background-color: rgba(85, 85, 85, 0.8);
+    background-color: rgba(85, 85, 85, 1.7);
     z-index: 10;
 }
 
