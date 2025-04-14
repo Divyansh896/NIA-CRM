@@ -63,6 +63,8 @@ namespace NIA_CRM.Controllers
             {
                 _context.Add(sector);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Sector Created Successfully";
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -131,6 +133,8 @@ namespace NIA_CRM.Controllers
                         // Update the sector record in the database
                         _context.Update(sectorToUpdate);
                         await _context.SaveChangesAsync();
+                        TempData["Success"] = "Sector Updated Successfully";
+
                         return RedirectToAction(nameof(Index));
                     }
                     catch (DbUpdateConcurrencyException ex)
@@ -188,19 +192,65 @@ namespace NIA_CRM.Controllers
         }
 
         // POST: Sector/Delete/5
+        // POST: Sector/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sector = await _context.Sectors.FindAsync(id);
-            if (sector != null)
+            try
             {
-                _context.Sectors.Remove(sector);
-            }
+                var sector = await _context.Sectors.FindAsync(id);
+                if (sector != null)
+                {
+                    _context.Sectors.Remove(sector);
+                    await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                    TempData["Success"] = "Sector deleted successfully!";
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Sector deleted successfully!",
+                        deletedId = id
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Sector not found.",
+                    deletedId = id
+                });
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var innerMessage = dbEx.InnerException?.Message;
+
+                if (innerMessage != null && innerMessage.Contains("FOREIGN KEY constraint failed"))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "This sector is currently assigned to one or more records and cannot be deleted."
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "An error occurred while deleting. Details: " + (innerMessage ?? dbEx.Message)
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error deleting sector: " + ex.Message,
+                    deletedId = id
+                });
+            }
         }
+
 
         private bool SectorExists(int id)
         {

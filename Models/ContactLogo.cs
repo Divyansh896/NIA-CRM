@@ -12,7 +12,7 @@ namespace NIA_CRM.Models
         [StringLength(255)]
         public string? MimeType { get; set; }
 
-        public int MemberID { get; set; }
-        public Member? Member { get; set; }
+        public int ContactID { get; set; }
+        public Contact? Contact { get; set; }
     }
 }

@@ -1,5 +1,32 @@
 ﻿/* responsive.css */
+/*Scroll bars design*/
+/* Target the scrollbar */
+::-webkit-scrollbar {
+    width: 12px; /* Horizontal scrollbar size */
+    height: 12px; /* Vertical scrollbar size */
+}
 
+/* Customize the track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+    background: none; /* Light gray background */
+    border-radius: 10px;
+}
+
+/* Customize the handle (the part that the user drags) */
+::-webkit-scrollbar-thumb {
+    background: #888; /* Gray color for the handle */
+    border-radius: 10px;
+}
+
+    /* Change the color of the handle when hovered */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555; /* Darker gray for hover */
+    }
+
+/* Customize the scrollbar corner (where horizontal and vertical meet) */
+::-webkit-scrollbar-corner {
+    background: #f1f1f1;
+}
 
 .vidget-MemebrCount, .vidget-Active, .vidget-Archived {
     height: 250px;
@@ -152,6 +179,20 @@ body {
         background-color: #2B2B2B !important;
     }
 
+#btnBackToTop{
+    border-radius: 5px;
+}
+.logout-btn {
+    background-color: #434343;
+    border-width: 2px;
+    transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
+    border-radius: 5px;
+    width: 100%;
+}
+
+    .logout-btn:hover {
+        background-color: #2B2B2B !important;
+    }
 .custom-filter-badge {
     background-color: #434343 !important;
     height: 40px !important;
@@ -164,10 +205,6 @@ body {
     .member-count-link:hover {
         color: #A61C1C !important; /* Change color to red on hover */
     }
-
-a:hover {
-    color: black !important;
-}
 
 a::after {
     color: black !important;
@@ -531,16 +568,50 @@ td, th {
     .theme-toggle-btn i {
         font-size: 16px;
     }
+/* Collapse behavior for theme toggle button */
+.sidebar:not(.show) #theme-toggle {
+    width: 26px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+    transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
+}
+
+    .sidebar:not(.show) #theme-toggle .theme-toggle-text {
+        display: none;
+        transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
+    }
 
 .dark-mode .theme-toggle-btn {
     background-color: #2c2c2c;
+    border-color: #2c2c2c !important;
     color: #f0f0f0;
 }
 
-.dark-mode {
+.dark-mode .input-group-text{
+    background-color:#121212;
+}
+.dark-mode .logout-btn {
+    background-color: #434343 !important;
+    border-width: 2px !important;
+    border-color: #434343 !important;
+}
+
+    .dark-mode .logout-btn:hover {
+        background-color: #2B2B2B !important;
+    }
+
+.dark-mode, .dark-mode #btnBackToTop {
     background-color: #121212;
     color: #ffffff;
 }
+    .dark-mode .modal-content, .dark-mode .alert-info  {
+        background-color: #121212;
+    }
+
+    .dark-mode #toggleSidebar {
+        background-color: #434343 !important;
+    }
 
     .dark-mode .navbar {
         background-color: #1e1e1e;
@@ -566,7 +637,7 @@ td, th {
         color: white;
     }
 
-    .dark-mode #previewContainer, .dark-mode .sticky-buttons-container {
+    .dark-mode #previewContainer, .dark-mode .sticky-buttons-container, .dark-mode .info-box, .dark-mode .grid-stack.dashboard-charts {
         background-color: #121212;
     }
 
@@ -575,7 +646,9 @@ td, th {
         border-color: white !important;
     }
 
-    .dark-mode p, .dark-mode dt, .dark-mode dd, .dark-mode h1, .dark-mode h2, .dark-mode h4, .dark-mode label, .dark-mode strong, .dark-mode #text, .dark-mode span {
+    .dark-mode p, .dark-mode dt, .dark-mode dd, .dark-mode h1, .dark-mode h2,
+    .dark-mode h4, .dark-mode h5, .dark-mode label, .dark-mode strong, .dark-mode #text, .dark-mode span,
+    .dark-mode .card-title, .dark-mode .card-text, .dark-mode .member-toggle, .dark-mode a {
         color: white;
     }
 
@@ -583,7 +656,9 @@ td, th {
         background-color: #333 !important;
     }
 
-
+    .dark-mode .member-toggle:hover, .dark-mode a::after , .dark-mode a:hover{
+        color: gray !important;
+    }
     /* Applies only in dark mode */
     .dark-mode input[type="text"],
     .dark-mode input[type="email"],
@@ -665,9 +740,9 @@ td, th {
 }
 
 /* Count styling */
-#members-dynamic-count, #membership-count {
+#members-dynamic-count, #membership-count, .widget-count {
     opacity: 1;
-    padding-left: calc(var(--bs-gutter-x)* .5);
+    padding-left: calc(var(--bs-gutter-x)* .28);
     transition: opacity 0.5s ease-in-out;
 }
 
@@ -687,48 +762,52 @@ td, th {
 
 
 /* Style for the dots button */
-/* Style for the dots button */
 .citydrop {
     font-size: 18px;
-    color: black; /* Change dots to black */
+    color: black;
     cursor: pointer;
     background: none;
     border: none;
     outline: none;
-    position: absolute; /* Position the button in the top-right corner */
-    top: 0px; /* Add some space from the top */
-    right: 0px; /* Add some space from the right edge of the card */
+    position: absolute;
+    top: 10px;
+    right: 10px;
     padding: 0px 7px;
-    background-color: rgba(85, 85, 85, 1.4); /* Adjusted to make it slightly transparent */
+    background-color: rgba(85, 85, 85, 1.7);
+    z-index: 10;
 }
 
 .dots {
-    font-size: 16px; /* Make the dots smaller */
+    font-size: 16px;
     color: white !important;
-    text-decoration: none !important; /* Remove underline from the dots */
+    text-decoration: none !important;
 }
 
-.dots:hover{
-    color: white !important;
+    .dots:hover {
+        color: white !important;
+    }
+
+/* Dropdown positioning fix */
+.dropdown {
+    position: relative;
 }
 
-/* Adjust dropdown menu to appear on the left of the button */
+/* Strong overrides for Bootstrap's inline styles */
 .dropdown-menu {
     position: absolute !important;
-    right: auto !important; /* Remove the right positioning */
-    left: -150px !important; /* Move dropdown to the left of the button */
-    top: 0 !important; /* Align dropdown with the top of the button */
-    z-index: 1000 !important; /* Ensure the dropdown stays on top */
+    left: auto !important;
+    right: 0 !important;
+    transform: translateX(0) !important;
+    top: 100% !important;
+    will-change: auto !important;
+    margin-top: 40px !important;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
-
-
-/* Ensure dropdown appears on the left side of the button */
-.dropdown-menu {
-    position: absolute;
-    left: -150px; /* Adjust this value to move it to the left of the button */
-    top: 0; /* Align dropdown with the top of the button */
-    z-index: 1000; /* Ensure dropdown stays on top */
+/* Ensure parent containers don't clip the dropdowns */
+.card, .card-body, .col-md-4, .dropdown {
+    overflow: visible !important;
 }
 
 @media (max-width: 768px) {

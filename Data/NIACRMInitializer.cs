@@ -3265,30 +3265,36 @@ namespace NIA_CRM.Data
 
                     }
 
-                    if (!context.MemberContacts.Any())  // Only seed if there are no MemberContacts
+                    if (!context.MemberContacts.Any())
                     {
                         var memberContacts = new List<MemberContact>();
+                        var memberIds = context.Members.Select(m => m.ID).ToList();
+                        var contactIds = context.Contacts.Select(c => c.Id).ToList();
+                        var random = new Random();
 
-                        // Check if there are at least 100 Members and 100 Contacts in the database
-                        if (context.Members.Count() >= 100 && context.Contacts.Count() >= 100)
+                        foreach (var memberId in memberIds)
                         {
-                            for (int i = 1; i <= 100; i++)
+                            // Pick 2–3 random contacts for each member
+                            var selectedContacts = contactIds.OrderBy(x => random.Next()).Take(3).ToList();
+
+                            foreach (var contactId in selectedContacts)
                             {
-                                // Create a new MemberContact record
-                                memberContacts.Add(new MemberContact
+                                // Avoid duplicates
+                                if (!memberContacts.Any(mc => mc.MemberId == memberId && mc.ContactId == contactId))
                                 {
-                                    MemberId = i,  // Assuming MemberId exists in the Members table
-                                    ContactId = i  // Assuming ContactId exists in the Contacts table
-                                });
+                                    memberContacts.Add(new MemberContact
+                                    {
+                                        MemberId = memberId,
+                                        ContactId = contactId
+                                    });
+                                }
                             }
-
-                            // Add new MemberContact records to the context
-                            context.MemberContacts.AddRange(memberContacts);
-
-                            // Save changes to the database
-                            context.SaveChanges();
                         }
+
+                        context.MemberContacts.AddRange(memberContacts);
+                        context.SaveChanges();
                     }
+
 
 
                     if (!context.Cancellations.Any())
@@ -3605,6 +3611,7 @@ namespace NIA_CRM.Data
                         context.Sectors.AddRange(sectors);
                         context.SaveChanges();
                     }
+
                     if (!context.MemberSectors.Any())
                     {
                         var random = new Random();
@@ -3625,7 +3632,6 @@ namespace NIA_CRM.Data
                         context.MemberSectors.AddRange(memberSectors);
                         context.SaveChanges();
                     }
-
 
                     if (!context.Opportunities.Any())
                     {
@@ -3669,62 +3675,23 @@ namespace NIA_CRM.Data
                         context.SaveChanges();
                     }
 
-                    try
+                    if (!context.MemberEvents.Any())
                     {
-                        if (!context.MemberEvents.Any())
-                        {
-                            var memberEvents = new List<MemberEvent>
-        {
-            new MemberEvent { MemberId = 1, MEventID = 1 },
-            new MemberEvent { MemberId = 2, MEventID = 2 },
-            new MemberEvent { MemberId = 2, MEventID = 1 },
-            new MemberEvent { MemberId = 3, MEventID = 3 },
-            new MemberEvent { MemberId = 4, MEventID = 4 },
-            new MemberEvent { MemberId = 5, MEventID = 5 }
-        };
+                        var memberEvents = new List<MemberEvent>
+                            {
+                                new MemberEvent { MemberId = 1, MEventID = 1 },
+                                new MemberEvent { MemberId = 2, MEventID = 2 },
+                                new MemberEvent { MemberId = 2, MEventID = 1 },
+                                new MemberEvent { MemberId = 3, MEventID = 3 },
+                                new MemberEvent { MemberId = 4, MEventID = 4 },
+                                new MemberEvent { MemberId = 5, MEventID = 5 }
+                            };
 
-                            context.MemberEvents.AddRange(memberEvents);
-                            context.SaveChanges();
+                        context.MemberEvents.AddRange(memberEvents);
+                        context.SaveChanges();
 
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Seeding failed: {ex.Message}");
                     }
 
-                    //if (!context.MemberEvents.Any())
-                    //{
-                    //    context.MemberEvents.AddRange(
-                    //        new MemberEvent { Id = 1, MemberId = 1, MEventID = 1 },
-                    //        new MemberEvent { Id = 2, MemberId = 1, MEventID = 3 },
-                    //        new MemberEvent { Id = 3, MemberId = 2, MEventID = 1 },
-                    //        new MemberEvent { Id = 4, MemberId = 2, MEventID = 2 },
-                    //        new MemberEvent { Id = 5, MemberId = 3, MEventID = 4 },
-                    //        new MemberEvent { Id = 6, MemberId = 3, MEventID = 5 },
-                    //        new MemberEvent { Id = 7, MemberId = 4, MEventID = 2 },
-                    //        new MemberEvent { Id = 8, MemberId = 4, MEventID = 3 },
-                    //        new MemberEvent { Id = 9, MemberId = 5, MEventID = 1 },
-                    //        new MemberEvent { Id = 10, MemberId = 5, MEventID = 4 },
-                    //        new MemberEvent { Id = 11, MemberId = 1, MEventID = 5 },
-                    //        new MemberEvent { Id = 12, MemberId = 2, MEventID = 3 },
-                    //        new MemberEvent { Id = 13, MemberId = 3, MEventID = 1 },
-                    //        new MemberEvent { Id = 14, MemberId = 4, MEventID = 4 },
-                    //        new MemberEvent { Id = 15, MemberId = 5, MEventID = 2 },
-                    //        new MemberEvent { Id = 16, MemberId = 1, MEventID = 4 },
-                    //        new MemberEvent { Id = 17, MemberId = 2, MEventID = 5 },
-                    //        new MemberEvent { Id = 18, MemberId = 3, MEventID = 3 },
-                    //        new MemberEvent { Id = 19, MemberId = 4, MEventID = 1 },
-                    //        new MemberEvent { Id = 20, MemberId = 5, MEventID = 3 },
-                    //        new MemberEvent { Id = 21, MemberId = 1, MEventID = 2 },
-                    //        new MemberEvent { Id = 22, MemberId = 2, MEventID = 1 },
-                    //        new MemberEvent { Id = 23, MemberId = 3, MEventID = 5 },
-                    //        new MemberEvent { Id = 24, MemberId = 4, MEventID = 2 },
-                    //        new MemberEvent { Id = 25, MemberId = 5, MEventID = 4 }
-                    //    );
-
-                    //    context.SaveChanges();
-                    //}
 
                     if (!context.ContactCancellations.Any())
                     {
@@ -3815,10 +3782,6 @@ namespace NIA_CRM.Data
 
 
                 }
-
-
-
-
                 catch (Exception ex)
                 {
                     Console.WriteLine("Error: " + ex.Message);

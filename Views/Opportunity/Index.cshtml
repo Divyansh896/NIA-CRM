@@ -43,6 +43,24 @@
             <strong>Opportunity Status</strong> (e.g., Qualification, Proposal, Negotiation), and
             <strong>Opportunity Priority</strong> (e.g., Low, Medium, High) should be correctly formatted.
         </p>
+
+        <p>
+            Ensure the following column structure:
+            <ul>
+                <li><strong>Column 1:</strong> Opportunity Name (Text, Required)</li>
+                <li><strong>Column 2:</strong> Opportunity Action (Text, Required)</li>
+                <li><strong>Column 3:</strong> POC (Text, Point of Contact, Required)</li>
+                <li><strong>Column 4:</strong> Account (Text, Required)</li>
+                <li><strong>Column 5:</strong> Interaction (Text, Optional notes on recent engagement)</li>
+                <li><strong>Column 6:</strong> Last Contact (Date, YYYY-MM-DD format)</li>
+                <li><strong>Column 7:</strong> Opportunity Status (Text, e.g., Qualification, Proposal, Negotiation)</li>
+                <li><strong>Column 8:</strong> Opportunity Priority (Text, e.g., Low, Medium, High)</li>
+            </ul>
+        </p>
+
+        <a href="/files/OpportunityImportSample.xlsx" download style="font-weight:bold;">
+            Download Sample Excel File for Import
+        </a>
         <p>
             Ensure all required data is included and headers match exactly, otherwise, the import may fail.
         </p>
@@ -241,8 +259,21 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="d-flex justify-content-between align-items-center">
         <label class="control-label">@ViewData["records"]</label>
+        <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('prreviewHelp')" title="Click for preview panel instructions"></i>
+    </div>
+    <div id="prreviewHelp" class="info-box" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px; position: relative;">
+        <button class="close-btn" onclick="toggleVisibility('importHelp')">×</button>
+        <h5>Preview Panel Instructions</h5>
+        <p>
+            By clicking on a record row, a side panel will appear with a preview of the record's details.
+            In the Preview panel, you can quickly review the record's information and perform various actions:
+            <br />
+            - Navigate to the Edit opportunity page
+            <br />
+            - Delete the opportunity
+        </p>
     </div>
 
     <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">

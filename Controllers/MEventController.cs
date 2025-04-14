@@ -429,7 +429,7 @@ namespace NIA_CRM.Controllers
 
                 _context.MEvents.Remove(mEvent);
                 await _context.SaveChangesAsync();
-
+                TempData["Success"] = "Event Deleted Successfully!";
                 return Json(new { success = true, message = "Event deleted successfully!" });
             }
             catch (Exception ex)

@@ -156,14 +156,8 @@ namespace NIA_CRM.Data.NIACRMigration
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ContactLogoID")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("ContactNote")
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("ContactThumbnailID")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256)
@@ -228,10 +222,6 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContactLogoID");
-
-                    b.HasIndex("ContactThumbnailID");
-
                     b.ToTable("Contacts");
                 });
 
@@ -285,11 +275,11 @@ namespace NIA_CRM.Data.NIACRMigration
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("ContactID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<byte[]>("Content")
                         .HasColumnType("BLOB");
-
-                    b.Property<int>("MemberID")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("MimeType")
                         .HasMaxLength(255)
@@ -297,9 +287,10 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MemberID");
+                    b.HasIndex("ContactID")
+                        .IsUnique();
 
-                    b.ToTable("ContactLogo");
+                    b.ToTable("ContactLogos");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.ContactThumbnail", b =>
@@ -308,11 +299,11 @@ namespace NIA_CRM.Data.NIACRMigration
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("ContactID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<byte[]>("Content")
                         .HasColumnType("BLOB");
-
-                    b.Property<int>("MemberID")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("MimeType")
                         .HasMaxLength(255)
@@ -320,9 +311,10 @@ namespace NIA_CRM.Data.NIACRMigration
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MemberID");
+                    b.HasIndex("ContactID")
+                        .IsUnique();
 
-                    b.ToTable("ContactThumbnail");
+                    b.ToTable("ContactThumbnails");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.DashboardLayout", b =>
@@ -940,21 +932,6 @@ namespace NIA_CRM.Data.NIACRMigration
                     b.Navigation("Member");
                 });
 
-            modelBuilder.Entity("NIA_CRM.Models.Contact", b =>
-                {
-                    b.HasOne("NIA_CRM.Models.ContactLogo", "ContactLogo")
-                        .WithMany()
-                        .HasForeignKey("ContactLogoID");
-
-                    b.HasOne("NIA_CRM.Models.ContactThumbnail", "ContactThumbnail")
-                        .WithMany()
-                        .HasForeignKey("ContactThumbnailID");
-
-                    b.Navigation("ContactLogo");
-
-                    b.Navigation("ContactThumbnail");
-                });
-
             modelBuilder.Entity("NIA_CRM.Models.ContactCancellation", b =>
                 {
                     b.HasOne("NIA_CRM.Models.Contact", "Contact")
@@ -968,24 +945,24 @@ namespace NIA_CRM.Data.NIACRMigration
 
             modelBuilder.Entity("NIA_CRM.Models.ContactLogo", b =>
                 {
-                    b.HasOne("NIA_CRM.Models.Member", "Member")
-                        .WithMany()
-                        .HasForeignKey("MemberID")
+                    b.HasOne("NIA_CRM.Models.Contact", "Contact")
+                        .WithOne("ContactLogo")
+                        .HasForeignKey("NIA_CRM.Models.ContactLogo", "ContactID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Member");
+                    b.Navigation("Contact");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.ContactThumbnail", b =>
                 {
-                    b.HasOne("NIA_CRM.Models.Member", "Member")
-                        .WithMany()
-                        .HasForeignKey("MemberID")
+                    b.HasOne("NIA_CRM.Models.Contact", "Contact")
+                        .WithOne("ContactThumbnail")
+                        .HasForeignKey("NIA_CRM.Models.ContactThumbnail", "ContactID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Member");
+                    b.Navigation("Contact");
                 });
 
             modelBuilder.Entity("NIA_CRM.Models.IndustryNAICSCode", b =>
@@ -1152,6 +1129,10 @@ namespace NIA_CRM.Data.NIACRMigration
             modelBuilder.Entity("NIA_CRM.Models.Contact", b =>
                 {
                     b.Navigation("ContactCancellations");
+
+                    b.Navigation("ContactLogo");
+
+                    b.Navigation("ContactThumbnail");
 
                     b.Navigation("Interactions");
 

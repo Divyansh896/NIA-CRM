@@ -187,7 +187,7 @@ namespace NIA_CRM.Controllers
                     // Add the ContactCancellation to the database
                     _context.Add(contactCancellation);
                     await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = $"Contact: {contact.FirstName} {contact.LastName} Archived Successfully!";
+                    TempData["Success"] = $"Contact: {contact.FirstName} {contact.LastName} Archived Successfully!";
 
                     // Return success message as JSON
                     return Json(new { success = true, message = "Cancellation created successfully!" });
@@ -290,7 +290,7 @@ namespace NIA_CRM.Controllers
                     _context.Update(contactCancellationToUpdate);
                     await _context.SaveChangesAsync();
                     //return RedirectToAction(nameof(Index));
-                    TempData["SuccessMessage"] = $"Contact: {contactCancellationToUpdate.Contact.FirstName} {contactCancellationToUpdate.Contact.LastName} Updated Successfully!";
+                    TempData["Success"] = $"Contact: {contactCancellationToUpdate.Contact.FirstName} {contactCancellationToUpdate.Contact.LastName} Updated Successfully!";
 
                     return RedirectToAction("Details", new { id = contactCancellationToUpdate.ID });
 
@@ -378,7 +378,7 @@ namespace NIA_CRM.Controllers
             }
 
             await _context.SaveChangesAsync();
-            TempData["SuccessMessage"] = $"Contact: {contactCancellation.Contact.FirstName} Activated Successfully!";
+            TempData["Success"] = $"Contact: {contactCancellation.Contact.FirstName} Activated Successfully!";
 
             return RedirectToAction(nameof(Index));
         }
@@ -418,6 +418,8 @@ namespace NIA_CRM.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                TempData["Success"] = $"Note saved successfully!";
+
                 return Json(new { success = true, message = "Note saved successfully!" });
             }
             catch (Exception ex)

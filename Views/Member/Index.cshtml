@@ -43,11 +43,32 @@
         </p>
         <p>
             Required fields include a valid <strong>Member ID</strong>, <strong>Member Name</strong>, and <strong>Join Date</strong> (YYYY-MM-DD format).
-            Other fields like <strong>City</strong>, <strong>Address</strong>, and <strong>Membership Type</strong> should also be properly formatted.
-            Contact information (Phone and Email) must be separated by a "|" symbol in a single column.
+
+            Other fields like <strong>City</strong>, <strong>Address Line 1</strong>, <strong>Membership Type</strong>, and <strong>Postal Code</strong> should also be properly formatted.
+            Contact information (Phone and Email) must be separated by a "|" symbol in a single column. For example: <strong>123-456-7890|member@example.com</strong>.
+
+            
         </p>
+      
+        <p>
+            Ensure the following column structure:
+            <ul>
+                <li><strong>Column 1:</strong> Member ID (Numeric, Unique)</li>
+                <li><strong>Column 2:</strong> Member Name (Text, Full Name, Unique)</li>
+                <li><strong>Column 3:</strong> City (Text, City where the member resides)</li>
+                <li><strong>Column 4:</strong> Join Date (Date, YYYY-MM-DD format)</li>
+                <li><strong>Column 5:</strong> Membership Type (Text, Regular or Premium)</li>
+                <li><strong>Column 6:</strong> Address Line 1 (Text, Street address)</li>
+                <li><strong>Column 7:</strong> Contact Information (Phone|Email, Separate phone and email with a pipe symbol "|")</li>
+                <li><strong>Column 8:</strong> Postal Code (Text, Postal code in the correct format)</li>
+            </ul>
+        </p>
+        <a href="/files/MemberImportSample.xlsx" download style="font-weight:bold;">
+            Download Sample Excel File for Import
+        </a>
         <p>
             Ensure all required data is included and headers match exactly, otherwise, the import may fail.
+            Any missing data will be filled with default values like "Unknown" or "N/A" where appropriate.
         </p>
     </div>
 
@@ -377,10 +398,25 @@
         </div>
     </div>
 
-    <div>
+    <div class="d-flex justify-content-between align-items-center">
         <label class="control-label">@ViewData["records"]</label>
+        <i class="fa fa-question-circle help-icon ms-2" onclick="toggleVisibility('prreviewHelp')" title="Click for preview panel instructions"></i>
     </div>
+    <div id="prreviewHelp" class="info-box" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px; position: relative;">
+        <button class="close-btn" onclick="toggleVisibility('importHelp')">×</button>
+        <h5>Preview Panel Instructions</h5>
+        <p>
+            By clicking on a record row, a side panel will appear with a preview of the record's details.
+            In the Preview panel, you can quickly review the record's information and perform various actions:
+            <br />
+            - Navigate to the Edit Member page
+            <br />
+            - Archive the Member <br />
+            - View the full details page for this member <br />
 
+            Additionally, you can edit or add notes about the member directly in the Preview panel and save them instantly.
+        </p>
+    </div>
     <table class="table table-bordered table-striped" id="myTable" aria-label="Member Details Table">
         <thead>
             <tr>
@@ -531,9 +567,9 @@
                                     {
                                         membershipList += memberships[i].MembershipType.TypeName + " <br />";
                                     }
-                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseMembership@(item.ID)" id="ExpandableList"
+                                    <a class="member-toggle"  data-bs-toggle="collapse" href="#collapseMembership@(item.ID)" id="ExpandableList"
                                        aria-expanded="false" aria-controls="collapseMembership@(item.ID)">
-                                        @firstMembershipType <span class="badge bg-info">@membershipCount</span>
+                                        @firstMembershipType <span class="participant-badge">@membershipCount</span>
                                     </a>
                                     <div class="collapse" id="collapseMembership@(item.ID)">
                                         @Html.Raw(membershipList)
@@ -596,9 +632,9 @@
                                     {
                                         naicsList += naicsCodes[i].NAICSCode.Code + " <br />";
                                     }
-                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseNAICS@(item.ID)"
+                                    <a class="member-toggle" data-bs-toggle="collapse" href="#collapseNAICS@(item.ID)"
                                        aria-expanded="false" aria-controls="collapseNAICS@(item.ID)">
-                                        @firstNaics <span class="badge bg-info">@naicsCount</span>
+                                        @firstNaics <span class="participant-badge">@naicsCount</span>
                                     </a>
                                     <div class="collapse" id="collapseNAICS@(item.ID)">
                                         @Html.Raw(naicsList)
@@ -631,10 +667,10 @@
                                             nameList += $"{contact.FirstName} {contact.LastName}<br />";
                                         }
                                     }
-                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseName@(item.ID)"
+                                    <a class="member-toggle" data-bs-toggle="collapse" href="#collapseName@(item.ID)"
                                        aria-expanded="false" aria-controls="collapseName@(item.ID)">
                                         @nameFirstContact.FirstName @nameFirstContact.LastName
-                                        <span class="badge bg-info">@nameContactCount</span>
+                                        <span class="participant-badge">@nameContactCount</span>
                                     </a>
                                     <div class="collapse" id="collapseName@(item.ID)">
                                         @Html.Raw(nameList)
@@ -673,11 +709,20 @@
                                             emailList += $"<a href='mailto:{contact.Email}'>{contact.Email}</a><br />";
                                         }
                                     }
-                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseEmail@(item.ID)"
+                                    <a class="member-toggle" data-bs-toggle="collapse" href="#collapseEmail@(item.ID)"
                                        aria-expanded="false" aria-controls="collapseEmail@(item.ID)">
                                         <a href="mailto:@emailFirstContact.Email">@emailFirstContact.Email</a>
-                                        <span class="badge bg-info">@emailContactCount</span>
+                                        <span class="participant-badge">@emailContactCount</span>
                                     </a>
+                                        <a role="button"
+                                           class="ms-1 text-decoration-none"
+                                           data-bs-toggle="collapse"
+                                           href="#collapseEmail@(item.ID)"
+                                           aria-expanded="false"
+                                           aria-controls="collapseEmail@(item.ID)">
+                                            <span class="badge bg-info">@emailContactCount</span>
+                                        </a>
+                                    
                                     <div class="collapse" id="collapseEmail@(item.ID)">
                                         @Html.Raw(emailList)
                                     </div>

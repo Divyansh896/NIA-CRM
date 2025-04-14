@@ -141,6 +141,7 @@ namespace NIA_CRM.Controllers
             {
                 _context.Add(productionEmail);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Production Email Created Successfully";
                 return RedirectToAction(nameof(Index));
             }
             return View(productionEmail);
@@ -185,6 +186,7 @@ namespace NIA_CRM.Controllers
                     _context.Update(EmailToUpdate);
                     await _context.SaveChangesAsync();
                     //return RedirectToAction(nameof(Index));
+                    TempData["Success"] = "Email Updated Successfully";
                     return RedirectToAction("Details", new { id = EmailToUpdate.Id});
 
 
@@ -275,6 +277,7 @@ namespace NIA_CRM.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["Success"] = "Email Deleted Successfully";
             return RedirectToAction(nameof(Index));
         }
 

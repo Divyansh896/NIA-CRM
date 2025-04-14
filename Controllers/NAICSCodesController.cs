@@ -121,6 +121,7 @@ namespace NIA_CRM.Controllers
                 try
                 {
                     _context.Update(nAICSCode);
+                    TempData["Success"] = "NAICS Code Updated Successfully";
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -158,19 +159,65 @@ namespace NIA_CRM.Controllers
         }
 
         // POST: NAICSCodes/Delete/5
+        // POST: NaicsCode/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var nAICSCode = await _context.NAICSCodes.FindAsync(id);
-            if (nAICSCode != null)
+            try
             {
-                _context.NAICSCodes.Remove(nAICSCode);
-            }
+                var naicsCode = await _context.NAICSCodes.FindAsync(id);
+                if (naicsCode != null)
+                {
+                    _context.NAICSCodes.Remove(naicsCode);
+                    await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                    TempData["Success"] = "NAICS Code deleted successfully!";
+                    return Json(new
+                    {
+                        success = true,
+                        message = "NAICS Code deleted successfully!",
+                        deletedId = id
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "NAICS Code not found.",
+                    deletedId = id
+                });
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var innerMessage = dbEx.InnerException?.Message;
+
+                if (innerMessage != null && innerMessage.Contains("FOREIGN KEY constraint failed"))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "This NAICS Code is currently assigned to one or more records and cannot be deleted."
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "An error occurred while deleting. Details: " + (innerMessage ?? dbEx.Message)
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error deleting NAICS Code: " + ex.Message,
+                    deletedId = id
+                });
+            }
         }
+
 
         private bool NAICSCodeExists(int id)
         {

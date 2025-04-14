@@ -388,34 +388,30 @@ namespace NIA_CRM.Controllers
             return View(annualAction);
         }
 
-        // POST: AnnualAction/Delete/5
+        // POST: MEvent/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            Console.WriteLine($"🔥 DeleteConfirmed Triggered from Partial View - ID: {id}");
-
             try
             {
-                var action = await _context.AnnualActions.FindAsync(id);
+                var annualAction = await _context.AnnualAction.FindAsync(id);
 
-                if (action == null)
+                if (annualAction == null)
                 {
-                    Console.WriteLine($"❌ Annual Action Not Found - ID: {id}");
                     return Json(new { success = false, message = "Annual Action not found!" });
                 }
 
-                _context.AnnualActions.Remove(action);
+                _context.AnnualAction.Remove(annualAction);
                 await _context.SaveChangesAsync();
 
                 Console.WriteLine("✅ Annual Action Deleted Successfully from Partial View");
-
+                TempData["Success"] = "Annual Action Deleted Successfully from Partial View!"; // Success message
                 return Json(new { success = true, message = "Annual Action deleted successfully!" });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"⚠️ Error deleting annual action: {ex.Message}");
-                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
+                return Json(new { success = false, message = "An error occurred while deleting the Annual Action." });
             }
         }
 
@@ -455,6 +451,8 @@ namespace NIA_CRM.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Note saved successfully!"; // Success message
+
                 return Json(new { success = true, message = "Note saved successfully!" });
             }
             catch (Exception ex)
