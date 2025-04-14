@@ -194,7 +194,7 @@ using (var scope = app.Services.CreateScope())
 
     // Seed data for NIA CRM database
     NIACRMInitializer.Initialize(serviceProvider: services,
-        DeleteDatabase: false,
+        DeleteDatabase: true,
         UseMigrations: true,
         SeedSampleData: true);
 

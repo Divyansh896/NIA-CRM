@@ -530,5 +530,47 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function matchCardHeights() {
+                // Get the specific cards we want to match
+                const leftCard = document.querySelector('.col-md-6:first-child .card');
+                const rightCard = document.querySelector('.col-md-6:nth-child(2) .card');
 
+                if (leftCard && rightCard) {
+                    // Reset heights to natural height
+                    leftCard.style.height = '';
+                    rightCard.style.height = '';
+
+                    // Get computed height of left card
+                    const leftHeight = leftCard.offsetHeight;
+
+                    // Apply the height to right card
+                    rightCard.style.height = leftHeight + 'px';
+
+                    console.log('Left card height: ' + leftHeight + 'px');
+                }
+            }
+
+            // Initial height matching
+            matchCardHeights();
+
+            // Match heights when window is resized
+            window.addEventListener('resize', matchCardHeights);
+
+            // Match heights when collapsible elements are toggled
+            document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function (collapseBtn) {
+                collapseBtn.addEventListener('click', function () {
+                    // Wait for collapse animation to complete
+                    setTimeout(matchCardHeights, 400);
+                });
+            });
+
+            // If the collapse is triggered by Bootstrap's events
+            document.querySelectorAll('.collapse').forEach(function (collapseEl) {
+                collapseEl.addEventListener('shown.bs.collapse', matchCardHeights);
+                collapseEl.addEventListener('hidden.bs.collapse', matchCardHeights);
+            });
+        });
+    </script>
     }

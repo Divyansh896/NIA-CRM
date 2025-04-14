@@ -178,6 +178,10 @@ body {
     .btn-dark:hover {
         background-color: #2B2B2B !important;
     }
+
+#btnBackToTop{
+    border-radius: 5px;
+}
 .logout-btn {
     background-color: #434343;
     border-width: 2px;
@@ -598,10 +602,13 @@ td, th {
         background-color: #2B2B2B !important;
     }
 
-.dark-mode {
+.dark-mode, .dark-mode #btnBackToTop {
     background-color: #121212;
     color: #ffffff;
 }
+    .dark-mode .modal-content, .dark-mode .alert-info  {
+        background-color: #121212;
+    }
 
     .dark-mode #toggleSidebar {
         background-color: #434343 !important;

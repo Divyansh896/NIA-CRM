@@ -447,153 +447,241 @@
     <script src="~/js/multiselect.js"></script>
     <script src="~/js/refreshDDL.js"></script>
     <script>
-        var cropper;
-        var originalImageData = null;
+    // Store both original and current image data
+var cropper;
+var originalImageData = null;
+var currentImageData = null;
+var imageWasCropped = false;
 
-        // Trigger file select input
-        function triggerFileSelect() {
-            document.getElementById('thePicture').click();
-        }
+// Trigger file select input
+function triggerFileSelect() {
+    document.getElementById('thePicture').click();
+}
 
-        // Prevent default behavior for dragging over
-        function allowDrop(event) {
-            event.preventDefault();
-        }
+// Prevent default behavior for dragging over
+function allowDrop(event) {
+    event.preventDefault();
+}
 
-        // Handle file drop
-        function dropImage(event) {
-            event.preventDefault();
-            const file = event.dataTransfer.files[0];
-            document.getElementById('thePicture').files = event.dataTransfer.files;
-            displayImage(file);
-        }
+// Handle file drop
+function dropImage(event) {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    document.getElementById('thePicture').files = event.dataTransfer.files;
+    displayImage(file);
+}
 
-        // Preview the selected image
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                displayImage(file);
-            }
-        }
+// Preview the selected image
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        displayImage(file);
+    }
+}
 
-        // Function to display the selected image as a preview
-        function displayImage(file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const imgElement = document.getElementById('imagePreview');
-                imgElement.style.display = 'block';
-                imgElement.src = e.target.result;
+// Function to display the selected image as a preview
+function displayImage(file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const imgElement = document.getElementById('imagePreview');
+        imgElement.style.display = 'block';
+        imgElement.src = e.target.result;
 
-                originalImageData = e.target.result;
+        // Store both original and current image data initially
+        originalImageData = e.target.result;
+        currentImageData = e.target.result;
+        imageWasCropped = false;
 
-                document.getElementById('previewControls').style.display = 'block';
-                document.getElementById('editControls').style.display = 'none';
+        document.getElementById('previewControls').style.display = 'block';
+        document.getElementById('editControls').style.display = 'none';
 
-                document.getElementById('imagePreviewContainer').style.display = 'block';
-                document.getElementById('drag-drop-area').style.display = 'none';
-            };
-            reader.readAsDataURL(file);
-        }
+        document.getElementById('imagePreviewContainer').style.display = 'block';
+        document.getElementById('drag-drop-area').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+}
 
-        // Start editing (initialize cropper)
-        function startEditing() {
-            const imagePreview = document.getElementById('imagePreview');
-            const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+// For loading existing image on edit page
+function loadExistingImage(imageUrl) {
+    if (imageUrl) {
+        const imgElement = document.getElementById('imagePreview');
+        imgElement.style.display = 'block';
+        imgElement.src = imageUrl;
 
-            const imgWidth = imagePreview.naturalWidth;
-            const imgHeight = imagePreview.naturalHeight;
+        // Store both original and current image data initially
+        originalImageData = imageUrl;
+        currentImageData = imageUrl;
+        imageWasCropped = false;
 
-            const maxWidth = 300;
-            const maxHeight = 300;
-            const containerWidth = Math.min(imgWidth, maxWidth);
-            const containerHeight = Math.min(imgHeight, maxHeight);
+        document.getElementById('previewControls').style.display = 'block';
+        document.getElementById('imagePreviewContainer').style.display = 'block';
+        document.getElementById('drag-drop-area').style.display = 'none';
+    }
+}
 
-            imagePreviewContainer.style.width = `${containerWidth}px`;
-            imagePreviewContainer.style.height = `${containerHeight}px`;
+// Start editing (initialize cropper)
+function startEditing() {
+    const imagePreview = document.getElementById('imagePreview');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
 
-            if (!cropper) {
-                cropper = new Cropper(imagePreview, {
-                    aspectRatio: 1,
-                    viewMode: 1,
-                    autoCropArea: 0.65,
-                    responsive: true,
-                    background: true,
-                    cropBoxResizable: true,
-                    cropBoxMovable: true,
-                    dragMode: 'move',
-                    minContainerWidth: 100,
-                    minContainerHeight: 100,
-                    maxWidth: maxWidth,
-                    maxHeight: maxHeight,
-                });
-            }
+    // Always use original image for cropping
+    if (originalImageData) {
+        imagePreview.src = originalImageData;
+    }
 
-            document.getElementById('previewControls').style.display = 'none';
-            document.getElementById('editControls').style.display = 'block';
+    const imgWidth = imagePreview.naturalWidth;
+    const imgHeight = imagePreview.naturalHeight;
 
-            imagePreview.style.display = 'none';
-        }
+    const maxWidth = 300;
+    const maxHeight = 300;
+    const containerWidth = Math.min(imgWidth, maxWidth);
+    const containerHeight = Math.min(imgHeight, maxHeight);
 
-        // Save the cropped image
-        function saveCroppedImage() {
-            if (cropper) {
-                var canvas = cropper.getCroppedCanvas({
-                    width: 200,
-                    height: 200
-                });
+    imagePreviewContainer.style.width = `${containerWidth}px`;
+    imagePreviewContainer.style.height = `${containerHeight}px`;
 
-                var imagePreview = document.getElementById('imagePreview');
-                if (imagePreview) {
-                    imagePreview.src = canvas.toDataURL();
-                    imagePreview.style.display = 'block';
+    if (cropper) {
+        cropper.destroy();
+    }
 
-                    document.getElementById('editControls').style.display = 'none';
-                    document.getElementById('previewControls').style.display = 'block';
-                }
+    cropper = new Cropper(imagePreview, {
+        aspectRatio: 1,
+        viewMode: 1,
+        autoCropArea: 0.65,
+        responsive: true,
+        background: true,
+        cropBoxResizable: true,
+        cropBoxMovable: true,
+        dragMode: 'move',
+        minContainerWidth: 100,
+        minContainerHeight: 100,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight,
+    });
 
-                cropper.destroy();
-                cropper = null;
-            }
-        }
+    document.getElementById('previewControls').style.display = 'none';
+    document.getElementById('editControls').style.display = 'block';
+}
 
-        // Cancel editing and revert back to the original image
-        function cancelEditing() {
-            const imagePreview = document.getElementById('imagePreview');
-            if (imagePreview && originalImageData) {
-                imagePreview.src = originalImageData;
-                imagePreview.style.display = 'block';
-            }
+// Save the cropped image
+function saveCroppedImage() {
+    if (cropper) {
+        var canvas = cropper.getCroppedCanvas({
+            width: 200,
+            height: 200
+        });
+
+        var imagePreview = document.getElementById('imagePreview');
+        if (imagePreview) {
+            // Update current image with the cropped version
+            currentImageData = canvas.toDataURL();
+            imagePreview.src = currentImageData;
+            imagePreview.style.display = 'block';
+
+            // Set a flag that image was cropped
+            imageWasCropped = true;
+
+            // Update the actual file input with the cropped image
+            updateFileInput(currentImageData);
 
             document.getElementById('editControls').style.display = 'none';
             document.getElementById('previewControls').style.display = 'block';
-
-            if (cropper) {
-                cropper.destroy();
-                cropper = null;
-            }
         }
 
-        // Remove the image (reset everything)
-        function removeImage() {
-            const imagePreview = document.getElementById('imagePreview');
-            imagePreview.src = '';
-            imagePreview.style.display = 'none';
-            document.getElementById('previewControls').style.display = 'none';
-            document.getElementById('imagePreviewContainer').style.display = 'none';
+        cropper.destroy();
+        cropper = null;
+    }
+}
 
-            document.getElementById('drag-drop-area').style.display = 'block';
-        }
+// Convert data URL to File object and update the file input
+function updateFileInput(dataUrl) {
+    // Convert base64 to blob
+    var byteString = atob(dataUrl.split(',')[1]);
+    var mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
 
-        // Reselect Logo
-        function reselectLogo() {
-            const inputFile = document.getElementById('thePicture');
-            inputFile.value = '';
-            document.getElementById('imagePreview').style.display = 'none';
-            document.getElementById('previewControls').style.display = 'none';
-            document.getElementById('imagePreviewContainer').style.display = 'none';
-            document.getElementById('drag-drop-area').style.display = 'block';
-            inputFile.click();
-        }
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    var blob = new Blob([ab], {type: mimeString});
+    var file = new File([blob], "cropped_image.jpg", {type: "image/jpeg"});
+
+    // Create a DataTransfer object and add our file
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(file);
+
+    // Set the file input's files
+    document.getElementById('thePicture').files = dataTransfer.files;
+}
+
+// Cancel editing and revert back to the current image (which might be cropped)
+function cancelEditing() {
+    const imagePreview = document.getElementById('imagePreview');
+    if (imagePreview && currentImageData) {
+        imagePreview.src = currentImageData;
+        imagePreview.style.display = 'block';
+    }
+
+    document.getElementById('editControls').style.display = 'none';
+    document.getElementById('previewControls').style.display = 'block';
+
+    if (cropper) {
+        cropper.destroy();
+        cropper = null;
+    }
+}
+
+// Remove the image (reset everything)
+function removeImage() {
+    const imagePreview = document.getElementById('imagePreview');
+    imagePreview.src = '';
+    imagePreview.style.display = 'none';
+
+    document.getElementById('previewControls').style.display = 'none';
+    document.getElementById('imagePreviewContainer').style.display = 'none';
+    document.getElementById('drag-drop-area').style.display = 'block';
+
+    // Clear file input
+    document.getElementById('thePicture').value = '';
+
+    // Add a hidden input to indicate removal
+    if (!document.getElementById('chkRemoveImage')) {
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'chkRemoveImage';
+        hiddenInput.id = 'chkRemoveImage';
+        hiddenInput.value = 'remove';
+        document.getElementById('imagePreviewContainer').appendChild(hiddenInput);
+    }
+
+    originalImageData = null;
+    currentImageData = null;
+    imageWasCropped = false;
+}
+
+// Reselect Logo
+function reselectLogo() {
+    const inputFile = document.getElementById('thePicture');
+    inputFile.value = '';
+    document.getElementById('imagePreview').style.display = 'none';
+    document.getElementById('previewControls').style.display = 'none';
+    document.getElementById('imagePreviewContainer').style.display = 'none';
+    document.getElementById('drag-drop-area').style.display = 'block';
+
+    // Remove any hidden removal input
+    const removalInput = document.getElementById('chkRemoveImage');
+    if (removalInput) {
+        removalInput.parentNode.removeChild(removalInput);
+    }
+
+    originalImageData = null;
+    currentImageData = null;
+    imageWasCropped = false;
+
+    inputFile.click();
+}
 
         // //script for adding tags, sector exc on a go
         // $(document).ready(function () {

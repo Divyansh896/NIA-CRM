@@ -37,6 +37,8 @@ namespace NIA_CRM.Data
         public DbSet<ProductionEmail> ProductionEmails { get; set; }
         public DbSet<MemberLogo> MemberLogos { get; set; }
         public DbSet<MemberThumbnail> MemebrThumbnails { get; set; }
+        public DbSet<ContactLogo> ContactLogos { get; set; }
+        public DbSet<ContactThumbnail> ContactThumbnails { get; set; }
         public DbSet<IndustryNAICSCode> IndustryNAICSCodes { get; set; }
         public DbSet<NAICSCode> NAICSCodes { get; set; }
         public DbSet<MemberContact> MemberContacts { get; set; }

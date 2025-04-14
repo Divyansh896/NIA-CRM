@@ -443,152 +443,187 @@
 
 
     <script>
-                var cropper;
-                var originalImageData = null;  // Store the original image data before editing
+        var cropper;
+        var originalImageData = null;
+        var currentImageData = null;
+        var imageWasCropped = false;
 
-                // Trigger the file input when the button is clicked
+        // Trigger the file input when the button is clicked
         function triggerFileSelect() {
-            document.getElementById('thePicture').click();  // Trigger the file input
+            document.getElementById('thePicture').click();
         }
 
         // Prevent default behavior for dragging over
         function allowDrop(event) {
-            event.preventDefault(); // Prevent opening in new tab
+            event.preventDefault();
         }
 
         // Handle the file drop
         function dropImage(event) {
-            event.preventDefault(); // Prevent the default action (e.g., opening in a new tab)
-            const file = event.dataTransfer.files[0];  // Get the dropped file
-            document.getElementById('thePicture').files = event.dataTransfer.files;  // Simulate file selection
-            displayImage(file);  // Display the image
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+            document.getElementById('thePicture').files = event.dataTransfer.files;
+            displayImage(file);
         }
 
         // Preview the selected image
         function previewImage(event) {
-            const file = event.target.files[0];  // Get the selected file
+            const file = event.target.files[0];
             if (file) {
-                displayImage(file);  // Call displayImage function to handle it
+                displayImage(file);
             }
         }
 
         // Function to display the selected image as a preview
-                function displayImage(file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const imgElement = document.getElementById('imagePreview');
-                        imgElement.style.display = 'block'; // Show the image preview initially
-                        imgElement.src = e.target.result;  // Set the image source
+        function displayImage(file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imgElement = document.getElementById('imagePreview');
+                imgElement.style.display = 'block';
+                imgElement.src = e.target.result;
 
-                        // Store the original image data before editing
-                        originalImageData = e.target.result;
+                // Store both original and current image data initially
+                originalImageData = e.target.result;
+                currentImageData = e.target.result;
+                imageWasCropped = false;
 
-                        // Show the preview controls (Edit, Remove, Reselect)
-                        document.getElementById('previewControls').style.display = 'block';
-                        document.getElementById('editControls').style.display = 'none';
+                // Show the preview controls
+                document.getElementById('previewControls').style.display = 'block';
+                document.getElementById('editControls').style.display = 'none';
 
-                        // Show the image preview container and hide the drag-and-drop section
-                        document.getElementById('imagePreviewContainer').style.display = 'block';
-                        document.getElementById('drag-drop-area').style.display = 'none';  // Hide the drag-and-drop area
-                    };
-                    reader.readAsDataURL(file);  // Read the file as DataURL
-                }
+                // Show the image preview container and hide the drag-and-drop section
+                document.getElementById('imagePreviewContainer').style.display = 'block';
+                document.getElementById('drag-drop-area').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
 
         // Initialize the cropper when the user clicks "Edit"
-                function startEditing() {
-                    const imagePreview = document.getElementById('imagePreview');
-                    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        function startEditing() {
+            const imagePreview = document.getElementById('imagePreview');
+            const imagePreviewContainer = document.getElementById('imagePreviewContainer');
 
-                    // Get the image dimensions
-                    const imgWidth = imagePreview.naturalWidth;
-                    const imgHeight = imagePreview.naturalHeight;
+            // Always use original image for cropping
+            if (originalImageData) {
+                imagePreview.src = originalImageData;
+            }
 
-                    // Set the container size to match the image size (max 300px for both width and height)
-                    const maxWidth = 300;
-                    const maxHeight = 300;
-                    const containerWidth = Math.min(imgWidth, maxWidth);
-                    const containerHeight = Math.min(imgHeight, maxHeight);
+            // Get the image dimensions
+            const imgWidth = imagePreview.naturalWidth;
+            const imgHeight = imagePreview.naturalHeight;
 
-                    imagePreviewContainer.style.width = `${containerWidth}px`;
-                    imagePreviewContainer.style.height = `${containerHeight}px`;
+            // Set the container size to match the image size (max 300px for both width and height)
+            const maxWidth = 300;
+            const maxHeight = 300;
+            const containerWidth = Math.min(imgWidth, maxWidth);
+            const containerHeight = Math.min(imgHeight, maxHeight);
 
-                    // Initialize the cropper with the ability to resize the crop box
-                    if (!cropper) {
-                        cropper = new Cropper(imagePreview, {
-                            aspectRatio: 1,  // Maintain a square aspect ratio
-                            viewMode: 1,  // Crop box will be within the canvas bounds
-                            autoCropArea: 0.65,
-                            responsive: true,
-                            background: true,
-                            cropBoxResizable: true,  // Allow resizing the crop box
-                            cropBoxMovable: true,    // Allow moving the crop box
-                            dragMode: 'move',        // Allow the image to be moved inside the cropper
-                            minContainerWidth: 100,  // Set minimum container width
-                            minContainerHeight: 100, // Set minimum container height
-                            maxWidth: maxWidth,      // Maximum crop box width
-                            maxHeight: maxHeight,    // Maximum crop box height
-                        });
-                    }
+            imagePreviewContainer.style.width = `${containerWidth}px`;
+            imagePreviewContainer.style.height = `${containerHeight}px`;
 
-                    // Switch to editing mode: hide preview buttons, show editing buttons
-                    document.getElementById('previewControls').style.display = 'none';
-                    document.getElementById('editControls').style.display = 'block';
+            // If cropper already exists, destroy it first
+            if (cropper) {
+                cropper.destroy();
+            }
 
-                    // Hide the preview image and show the cropper controls
-                    document.getElementById('imagePreview').style.display = 'none';
-                }
+            // Initialize the cropper with the ability to resize the crop box
+            cropper = new Cropper(imagePreview, {
+                aspectRatio: 1,  // Maintain a square aspect ratio
+                viewMode: 1,     // Crop box will be within the canvas bounds
+                autoCropArea: 0.65,
+                responsive: true,
+                background: true,
+                cropBoxResizable: true,  // Allow resizing the crop box
+                cropBoxMovable: true,    // Allow moving the crop box
+                dragMode: 'move',        // Allow the image to be moved inside the cropper
+                minContainerWidth: 100,  // Set minimum container width
+                minContainerHeight: 100, // Set minimum container height
+                maxWidth: maxWidth,      // Maximum crop box width
+                maxHeight: maxHeight,    // Maximum crop box height
+            });
+
+            // Switch to editing mode: hide preview buttons, show editing buttons
+            document.getElementById('previewControls').style.display = 'none';
+            document.getElementById('editControls').style.display = 'block';
+
+            // Hide the preview image since the cropper will show it
+            imagePreview.style.display = 'none';
+        }
 
         // Save the cropped image when the user clicks "Save"
-                function saveCroppedImage() {
-                    if (cropper) {
-                        var canvas = cropper.getCroppedCanvas({
-                            width: 200,  // Set the width of the cropped image (can be adjusted as needed)
-                            height: 200  // Set the height of the cropped image (can be adjusted as needed)
-                        });
+        function saveCroppedImage() {
+            if (cropper) {
+                var canvas = cropper.getCroppedCanvas({
+                    width: 200,  // Set the width of the cropped image
+                    height: 200  // Set the height of the cropped image
+                });
 
-                        var imagePreview = document.getElementById('imagePreview');
-                        if (imagePreview) {
-                            // Set the cropped image as the source
-                            imagePreview.src = canvas.toDataURL();
-                            imagePreview.style.display = 'block';  // Ensure it is visible
+                var imagePreview = document.getElementById('imagePreview');
+                if (imagePreview) {
+                    // Update current image with the cropped version
+                    currentImageData = canvas.toDataURL();
+                    imagePreview.src = currentImageData;
+                    imagePreview.style.display = 'block';
 
-                            // Resize the image to fit its container and prevent white space
+                    // Set a flag that image was cropped
+                    imageWasCropped = true;
 
-                            // Hide the cropper and show the preview container
-                            document.getElementById('editControls').style.display = 'none';
-                            document.getElementById('previewControls').style.display = 'block';
+                    // Update the actual file input with the cropped image
+                    updateFileInput(currentImageData);
 
-                            // Adjust the container size to match the cropped image size
-
-                        } else {
-                            console.error("Image preview element not found!");
-                        }
-
-                        // Destroy the cropper after saving
-                        cropper.destroy();
-                        cropper = null;
-                    }
-                }
-
-        // Cancel editing and revert back to the original image
-                function cancelEditing() {
-                    // Revert back to the original preview image
-                    const imagePreview = document.getElementById('imagePreview');
-                    if (imagePreview && originalImageData) {
-                        imagePreview.src = originalImageData;  // Set the original image as the source
-                        imagePreview.style.display = 'block';  // Ensure it is visible
-                    }
-
-                    // Hide cropper controls and show the preview controls
+                    // Hide the cropper and show the preview container
                     document.getElementById('editControls').style.display = 'none';
                     document.getElementById('previewControls').style.display = 'block';
-
-                    // Destroy the cropper and reset
-                    if (cropper) {
-                        cropper.destroy();
-                        cropper = null;
-                    }
                 }
+
+                // Destroy the cropper after saving
+                cropper.destroy();
+                cropper = null;
+            }
+        }
+
+        // Convert data URL to File object and update the file input
+        function updateFileInput(dataUrl) {
+            // Convert base64 to blob
+            var byteString = atob(dataUrl.split(',')[1]);
+            var mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            var blob = new Blob([ab], { type: mimeString });
+            var file = new File([blob], "cropped_image.jpg", { type: "image/jpeg" });
+
+            // Create a DataTransfer object and add our file
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+
+            // Set the file input's files
+            document.getElementById('thePicture').files = dataTransfer.files;
+        }
+
+        // Cancel editing and revert back to the current image
+        function cancelEditing() {
+            // Revert back to the current preview image (which might be already cropped)
+            const imagePreview = document.getElementById('imagePreview');
+            if (imagePreview && currentImageData) {
+                imagePreview.src = currentImageData;
+                imagePreview.style.display = 'block';
+            }
+
+            // Hide cropper controls and show the preview controls
+            document.getElementById('editControls').style.display = 'none';
+            document.getElementById('previewControls').style.display = 'block';
+
+            // Destroy the cropper and reset
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+        }
 
         // Remove the image (reset everything)
         function removeImage() {
@@ -596,7 +631,15 @@
             imagePreview.src = '';  // Clear the preview image
             imagePreview.style.display = 'none';  // Hide the preview image
             document.getElementById('previewControls').style.display = 'none';  // Hide preview controls
-                    document.getElementById('imagePreviewContainer').style.display = 'none';
+            document.getElementById('imagePreviewContainer').style.display = 'none';
+
+            // Clear file input
+            document.getElementById('thePicture').value = '';
+
+            // Reset stored image data
+            originalImageData = null;
+            currentImageData = null;
+            imageWasCropped = false;
 
             // Show the drag-and-drop area again
             document.getElementById('drag-drop-area').style.display = 'block';
@@ -608,15 +651,17 @@
             inputFile.value = '';  // Reset the file input field
             document.getElementById('imagePreview').style.display = 'none';  // Hide the previous preview
             document.getElementById('previewControls').style.display = 'none';  // Hide preview controls
-                    document.getElementById('imagePreviewContainer').style.display = 'none';
+            document.getElementById('imagePreviewContainer').style.display = 'none';
+
+            // Reset stored image data
+            originalImageData = null;
+            currentImageData = null;
+            imageWasCropped = false;
 
             // Show the drag-and-drop area again and open the file explorer
             document.getElementById('drag-drop-area').style.display = 'block';
             inputFile.click();  // Open file explorer again
         }
-
-
-
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
