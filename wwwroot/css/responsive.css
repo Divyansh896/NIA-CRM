@@ -178,6 +178,10 @@ body {
     .btn-dark:hover {
         background-color: #2B2B2B !important;
     }
+
+#btnBackToTop{
+    border-radius: 5px;
+}
 .logout-btn {
     background-color: #434343;
     border-width: 2px;
@@ -201,10 +205,6 @@ body {
     .member-count-link:hover {
         color: #A61C1C !important; /* Change color to red on hover */
     }
-
-a:hover {
-    color: black !important;
-}
 
 a::after {
     color: black !important;
@@ -588,6 +588,9 @@ td, th {
     color: #f0f0f0;
 }
 
+.dark-mode .input-group-text{
+    background-color:#121212;
+}
 .dark-mode .logout-btn {
     background-color: #434343 !important;
     border-width: 2px !important;
@@ -598,10 +601,13 @@ td, th {
         background-color: #2B2B2B !important;
     }
 
-.dark-mode {
+.dark-mode, .dark-mode #btnBackToTop {
     background-color: #121212;
     color: #ffffff;
 }
+    .dark-mode .modal-content, .dark-mode .alert-info  {
+        background-color: #121212;
+    }
 
     .dark-mode #toggleSidebar {
         background-color: #434343 !important;
@@ -767,7 +773,7 @@ td, th {
     top: 10px;
     right: 10px;
     padding: 0px 7px;
-    background-color: rgba(85, 85, 85, 0.8);
+    background-color: rgba(85, 85, 85, 1.7);
     z-index: 10;
 }
 

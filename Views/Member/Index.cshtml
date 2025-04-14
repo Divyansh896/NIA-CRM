@@ -567,9 +567,9 @@
                                     {
                                         membershipList += memberships[i].MembershipType.TypeName + " <br />";
                                     }
-                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseMembership@(item.ID)" id="ExpandableList"
+                                    <a class="member-toggle"  data-bs-toggle="collapse" href="#collapseMembership@(item.ID)" id="ExpandableList"
                                        aria-expanded="false" aria-controls="collapseMembership@(item.ID)">
-                                        @firstMembershipType <span class="badge bg-info">@membershipCount</span>
+                                        @firstMembershipType <span class="participant-badge">@membershipCount</span>
                                     </a>
                                     <div class="collapse" id="collapseMembership@(item.ID)">
                                         @Html.Raw(membershipList)
@@ -632,9 +632,9 @@
                                     {
                                         naicsList += naicsCodes[i].NAICSCode.Code + " <br />";
                                     }
-                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseNAICS@(item.ID)"
+                                    <a class="member-toggle" data-bs-toggle="collapse" href="#collapseNAICS@(item.ID)"
                                        aria-expanded="false" aria-controls="collapseNAICS@(item.ID)">
-                                        @firstNaics <span class="badge bg-info">@naicsCount</span>
+                                        @firstNaics <span class="participant-badge">@naicsCount</span>
                                     </a>
                                     <div class="collapse" id="collapseNAICS@(item.ID)">
                                         @Html.Raw(naicsList)
@@ -667,10 +667,10 @@
                                             nameList += $"{contact.FirstName} {contact.LastName}<br />";
                                         }
                                     }
-                                    <a class="role='button'" data-bs-toggle="collapse" href="#collapseName@(item.ID)"
+                                    <a class="member-toggle" data-bs-toggle="collapse" href="#collapseName@(item.ID)"
                                        aria-expanded="false" aria-controls="collapseName@(item.ID)">
                                         @nameFirstContact.FirstName @nameFirstContact.LastName
-                                        <span class="badge bg-info">@nameContactCount</span>
+                                        <span class="participant-badge">@nameContactCount</span>
                                     </a>
                                     <div class="collapse" id="collapseName@(item.ID)">
                                         @Html.Raw(nameList)
@@ -709,9 +709,11 @@
                                             emailList += $"<a href='mailto:{contact.Email}'>{contact.Email}</a><br />";
                                         }
                                     }
-
-                                    <span>
+                                    <a class="member-toggle" data-bs-toggle="collapse" href="#collapseEmail@(item.ID)"
+                                       aria-expanded="false" aria-controls="collapseEmail@(item.ID)">
                                         <a href="mailto:@emailFirstContact.Email">@emailFirstContact.Email</a>
+                                        <span class="participant-badge">@emailContactCount</span>
+                                    </a>
                                         <a role="button"
                                            class="ms-1 text-decoration-none"
                                            data-bs-toggle="collapse"
@@ -720,7 +722,7 @@
                                            aria-controls="collapseEmail@(item.ID)">
                                             <span class="badge bg-info">@emailContactCount</span>
                                         </a>
-                                    </span>
+                                    
                                     <div class="collapse" id="collapseEmail@(item.ID)">
                                         @Html.Raw(emailList)
                                     </div>

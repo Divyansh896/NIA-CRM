@@ -52,11 +52,21 @@
                             </li>
                             <!-- Members Menu Item -->
                             <li class="nav-item" role="menuitem">
-                                <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Add a new member" title="Add Member">
-                                    <span class="icon" aria-hidden="true"><i class="fas fa-user-plus"></i></span>
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "Member")" aria-label="Go to members" title="Add Member">
+                                    <span class="icon" aria-hidden="true"><i class="fas fa-user-friends"></i></span>
                                     <span class="text-white ms-2">Members</span>
                                 </a>
                             </li>
+                            
+
+                            <!-- Contacts Menu Item -->
+                            <li class="nav-item" role="menuitem">
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
+                                    <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
+                                    <span class="text-white ms-2">Contacts</span>
+                                </a>
+                            </li>
+
                             @if (User.IsInRole("Admin"))
                             {
                                 <!-- Email Patterns Menu Item -->
@@ -67,14 +77,6 @@
                                     </a>
                                 </li>
                             }
-
-                            <!-- Contacts Menu Item -->
-                            <li class="nav-item" role="menuitem">
-                                <a class="nav-link text-dark" href="@Url.Action("Index", "Contact")" aria-label="View Contacts" title="Contacts">
-                                    <span class="icon" aria-hidden="true"><i class="fas fa-address-book"></i></span>
-                                    <span class="text-white ms-2">Contacts</span>
-                                </a>
-                            </li>
                             <!-- Collapsible Archived Menu Item -->
                             <li class="nav-item" role="menuitem">
                                 <a class="nav-link text-dark d-flex justify-content-between align-items-center"
@@ -169,28 +171,28 @@
                                         <i class="fas fa-chevron-down text-white" id="userArrow"></i>
                                     </a>
 
-                                    <div class="collapse" id="userRolesMenu">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link text-white" href="@Url.Action("Index", "UserRole")">
-                                                    <span class="icon" aria-hidden="true">
-                                                        <i class="fas fa-user-cog"></i> <!-- Icon for User Roles -->
-                                                    </span>
-                                                    <span class="ms-2">Manage User Roles</span>
-                                                </a>
-                                            </li>
+                                <div class="collapse" id="userRolesMenu">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link text-white" href="@Url.Action("Index", "UserRole")">
+                                                <span class="icon" aria-hidden="true">
+                                                    <i class="fas fa-user-cog"></i> <!-- Icon for User Roles -->
+                                                </span>
+                                                    <span class="text-white ms-2">Manage User Roles</span>
+                                            </a>
+                                        </li>
 
-                                            <li class="nav-item">
-                                                <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">
-                                                    <span class="icon" aria-hidden="true">
-                                                        <i class="fas fa-user-plus"></i> <!-- Icon for Register User -->
-                                                    </span>
-                                                    <span class="ms-2">Register User</span>
-                                                </a>
-                                            </li>
-                                            @* Add more items here if needed *@
-                                        </ul>
-                                    </div>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">
+                                                <span class="icon" aria-hidden="true">
+                                                    <i class="fas fa-user-plus"></i> <!-- Icon for Register User -->
+                                                </span>
+                                                    <span class="text-white ms-2">Register User</span>
+                                            </a>
+                                        </li>
+                                        @* Add more items here if needed *@
+                                    </ul>
+                                </div>
 
                                 </li>
 
@@ -213,9 +215,10 @@
                     </button>
                 </div>
 
-                <div class="mt-auto">
-                    <partial name="_LoginPartial" />
-                </div>
+            <div class="mt-auto position-sticky">
+                <partial name="_LoginPartial" />
+            </div>
+            </div>
         </nav>
 
         <!-- Main Content -->
@@ -227,9 +230,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="border-top footer text-muted text-center" id="footer-scroll">
+    <footer class="border-top footer text-center" id="footer-scroll">
         <div class="container mt-2">
-            &copy; 2025 - NIA CRM
+            <p>&copy; 2025 - NIA CRM</p>
             <p>
                 <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="19">
             </p>
