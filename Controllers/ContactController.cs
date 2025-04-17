@@ -557,6 +557,18 @@ namespace NIA_CRM.Controllers
         [HttpPost]
         public async Task<IActionResult> Notification(string selectedContactIds, string Subject, string emailContent)
         {
+
+            // Manually add model state errors if Subject or Body are null/empty
+            if (string.IsNullOrWhiteSpace(Subject))
+            {
+                ModelState.AddModelError("Subject", "Subject cannot be empty.");
+            }
+
+            if (string.IsNullOrWhiteSpace(emailContent))
+            {
+                ModelState.AddModelError("emailContent", "Email Body cannot be empty.");
+            }
+
             //Decide if we need to send the Validaiton Errors directly to the client
             if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {

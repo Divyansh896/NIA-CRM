@@ -6,6 +6,7 @@
 }
 
 
+<partial name="_NotificationModalPMail" />
 
 <div class="d-flex flex-row align-items-center justify-content-between mb-4">
     <h1 class="mb-0" id="Email-title">Email Patterns</h1>
@@ -165,6 +166,11 @@
                             {
                                 <a class="btn btn-light mb-2" asp-action="Edit" asp-route-id="@item.Id" aria-label="Edit email of type @item.EmailType with subject @item.Subject">Edit</a>
                                 <a class="btn btn-light mb-2" asp-action="Delete" asp-route-id="@item.Id" aria-label="Delete email of type @item.EmailType with subject @item.Subject">Delete</a>
+                                <button type="button" class="btn btn-light mb-2" data-bs-toggle="modal" data-bs-target="#addNotificationModal" id="openNotificationModal" data-subject="@item.Subject"
+                                        data-body="@item.Body">
+                                    Send Email
+                                </button>
+
                             }
                         </td>
                     </tr>
@@ -178,6 +184,7 @@
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
     <script>
 
@@ -202,4 +209,99 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Show modal and populate selected contact IDs, Subject, and Body
+            $('#addNotificationModal').on('show.bs.modal', function (event) {
+                console.log("Modal opened.");
+
+                // Get the button that triggered the modal
+                var button = $(event.relatedTarget);  // This refers to the button clicked
+                var subject = button.data('subject');  // Get the 'subject' data attribute
+                var body = button.data('body');  // Get the 'body' data attribute
+
+                
+                // Set the values for Subject and Body fields in the modal
+                document.getElementById("emailSubject").value = subject;
+                document.getElementById("emailBody").value = body;
+
+                console.log("Subject and Body populated.");
+            });
+
+            // Handle form submission with AJAX
+            $('#submitNotificationForm').click(function (event) {
+            event.preventDefault();  // Prevent default form submission
+            clearErrors();  // Clear previous error messages
+
+            var form = $('#createNotificationForm');
+            var Subject = document.getElementById("emailSubject").value;
+            var Body = document.getElementById("emailBody").value;
+            // Capture selected contact IDs when the modal opens
+                var selectedContactIds = [];
+                var contacts = document.getElementById("availContacts").selectedOptions;
+
+                for (var i = 0; i < contacts.length; i++) {
+                    selectedContactIds.push(contacts[i].value); // Add the selected contact IDs
+                }
+
+                // Store the selected contact IDs in the hidden input field
+                document.getElementById("selectedContactIds").value = selectedContactIds.join(",");
+
+                // Get the selected contact IDs from the hidden input field
+            var selectedContactIds = document.getElementById("selectedContactIds").value; // Get selected contacts
+
+            console.log("Submitting form with contact IDs:", selectedContactIds);
+
+            // Validate the form
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: '/Contact/Notification',  // Ensure this URL is correct
+                    data: {
+                        selectedContactIds: selectedContactIds,
+                        Subject: Subject,
+                        emailContent: Body
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            $('#addNotificationModal').modal('hide');
+                            location.reload(); // Refresh page to reflect changes
+                        } else {
+                            console.error("Error: " + response.message);
+                            showErrorMessage(response.message); // Show error messages
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error: ", xhr);
+                        showErrorMessage("An unexpected error occurred.");
+                    }
+                });
+            }
+        });
+
+
+            // Function to show error messages in the modal
+            function showErrorMessage(message) {
+                var ul = document.getElementById("ErrorList");
+                ul.innerHTML = "";  // Clear previous errors
+
+                // Split and display each error message
+                var errors = message.split("|");
+                errors.forEach(function (error) {
+                    var li = document.createElement("li");
+                    li.innerHTML = error;
+                    ul.appendChild(li);
+                });
+            }
+
+            // Function to clear previous error messages
+            function clearErrors() {
+                var ul = document.getElementById("ErrorList");
+                ul.innerHTML = "";  // Clear previous error messages
+            }
+        });
+    </script>
+
 }

@@ -31,7 +31,6 @@ namespace NIA_CRM.Controllers
             // Populate the dropdown list
             ViewData["EmailTypeID"] = ProductionEmailTypeSelectList(EmailTypeID);
             int numberFilters = 0;
-
             string[] sortOptions = new[] { "Template Name", "Email Type", "Subject" };
 
             // Declare the email list to be used in the view
@@ -90,6 +89,25 @@ namespace NIA_CRM.Controllers
                 //Keep the Bootstrap collapse open
                 @ViewData["ShowFilter"] = " show";
             }
+
+            // Get all non-cancelled contacts
+            var allContacts = _context.Contacts
+                .Include(c => c.ContactCancellations)
+                .Where(c => !c.ContactCancellations.Any(cc => cc.IsCancelled))
+                .ToList();
+
+            // Create ListOptionVM entries
+            var available = allContacts.Select(contact => new ListOptionVM
+            {
+                ID = contact.Id,
+                DisplayText = (contact.Summary ?? "") + " (" + (contact.Email ?? "") + ")"
+            })
+            .OrderBy(c => c.DisplayText)
+            .ToList();
+
+            // Assign to ViewData
+            ViewData["availContacts"] = new MultiSelectList(available, "ID", "DisplayText");
+
 
             // Handle paging
             int pageSize = PageSizeHelper.SetPageSize(HttpContext, pageSizeID, ControllerName());
@@ -281,65 +299,8 @@ namespace NIA_CRM.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET/POST: MedicalTrial/Notification/5
-        //public async Task<IActionResult> Notification(int? id, string Subject, string emailContent)
-        //{
-        //    if (id == null)
-        //        return NotFound();
+        
 
-        //    ProductionEmail? t = await _context.ProductionEmails.FindAsync(id);
-        //    ViewData["id"] = id;
-        //    ViewData["EmailType"] = t?.EmailType;
-
-        //    if (string.IsNullOrEmpty(Subject) || string.IsNullOrEmpty(emailContent))
-        //    {
-        //        ViewData["Message"] = "Enter both a Subject and Content before sending.";
-        //    }
-        //    else
-        //    {
-        //        int recipientCount = 0;
-        //        try
-        //        {
-        //            List<EmailAddress> recipients = _context.Members
-        //                .Include(m => m.Contacts)
-        //                .Include(m => m.Cancellations)
-        //                .Where(m => !m.Cancellations.Any(c => c.Canceled)) // Select members without active cancellations
-        //                .Select(m => new EmailAddress
-        //                {
-        //                    Name = m.MemberName,
-        //                    Address = m.Contacts.FirstOrDefault(c => !string.IsNullOrEmpty(c.Email))!.Email
-        //                })
-        //                .Where(e => !string.IsNullOrEmpty(e.Address)) // Only include valid emails
-        //                .ToList();
-
-        //            recipientCount = recipients.Count;
-
-        //            if (recipientCount > 0)
-        //            {
-        //                var emailTemplate = await _context.ProductionEmails
-        //                                                  .Where(e => e.EmailType == "Reminder")
-        //                                                  .Select(e => new { e.Subject, e.Body })
-        //                                                  .FirstOrDefaultAsync();
-
-        //                if (emailTemplate != null)
-        //                {
-        //                    await _emailSender.SendToManyAsync(new EmailMessage
-        //                    {
-        //                        ToAddresses = recipients,
-        //                        Subject = emailTemplate.Subject,
-        //                        Content = $"<p>{emailTemplate.Body}</p><p>Please visit the Niagara College website.</p>"
-        //                    });
-        //                    ViewData["Message"] = $"Message sent to {recipientCount} recipient(s).";
-        //                }
-        //            }
-        //        }
-        //        catch (Exception)
-        //        {
-        //            ViewData["Message"] = $"Error sending email.";
-        //        }
-        //    }
-        //    return View();
-        //}
         private bool ProductionEmailExists(int id)
         {
             return _context.ProductionEmails.Any(e => e.Id == id);
