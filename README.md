@@ -1,65 +1,206 @@
-# Niagara Industrial Association (NIA) CRM Development Project
+# CRM Web Application – Niagara Industrial Association
 
-## Project Overview
+A custom-built CRM web application designed for the Niagara Industrial Association (NIA) to manage members, contacts, opportunities, and reports efficiently.
 
-This project focuses on developing a Customer Relationship Management (CRM) system for the Niagara Industrial Association (NIA). The CRM will centralize and streamline NIA's member management, enhance operational efficiency, and provide robust reporting capabilities. It aims to replace the existing fragmented data management system with a scalable and user-friendly solution.
+---
 
-## About NIA
+## 👥 About Stellar Co.
 
-The Niagara Industrial Association (NIA) is a membership-based, not-for-profit organization representing over 250 businesses in Niagara’s industrial sector. NIA serves as a Network, Resource, and Advocate, supporting industries such as:
+**Stellar Co.** is a student-led development team formed at **Niagara College** in early 2025. The team was created to tackle real-world software challenges through academic-industry partnerships. Our capstone project focused on designing and building a feature-rich, secure, and scalable **CRM Web Application** for the **Niagara Industrial Association (NIA)**.
 
-- Marine and Aerospace
-- Steel Fabrication
-- Food Processing
-- Chemical Production
-- Warehousing and EV Supply Chain
+This was a **community-sponsored project**, developed in close collaboration with a **real-world client (NIA)**. We engaged with stakeholders to gather requirements, received feedback during sprints, and tailored the solution to their operational needs—bringing real value to a functioning organization.
 
-## Current Challenges
+Stellar Co. combines technical expertise in **ASP.NET Core**, **MVC architecture**, **SQLite**, and **Azure deployment** with agile development practices and effective team collaboration. Each team member contributed across the full software development lifecycle—from requirements gathering to design, development, testing, and deployment.
 
-- **Fragmented Data**: Member information is stored across Word documents and Excel sheets, leading to inefficiencies.
-- **Limited Automation**: Manual processes make tracking memberships and generating reports time-consuming.
-- **Scalability Issues**: Current tools like Airtable are limited in features and may not support future growth.
+> This repository reflects our shared commitment to clean code, intuitive UI/UX, and robust backend architecture. We are proud to showcase this project as a demonstration of our technical abilities and collaborative strength.
 
-## Goals
+## 🤝 Collaborators
 
-The project aims to develop a CRM that:
+- [Divyansh](https://github.com/Divyansh896)
+- [Elizaveta Lazareva](https://github.com/Eliza707707)
+- [Rohit Thakur](https://github.com/rohitthaku-rt)
+- [Khushi Vij](https://github.com/Khushivij08)  
+- [Tania](https://github.com/Tania2024-design)
 
-- Centralizes member information.
-- Automates membership tracking and reminders.
-- Offers robust reporting and analytics.
-- Provides a user-friendly interface.
-- Scales with NIA's growth.
+---
 
-## Features
+## 📌 Table of Contents
+1. [Introduction](#introduction)  
+2. [Project Overview](#project-overview)  
+   - Objective  
+   - Timeline  
+   - Team Members  
+3. [Key Features](#key-features)  
+4. [Technical Stack](#technical-stack)  
+5. [Functional Modules](#functional-modules)  
+6. [Security & Compliance](#security--compliance)  
+7. [Performance Requirements](#performance-requirements)  
+8. [Interface Requirements](#interface-requirements)  
+9. [Other Non-functional Attributes](#other-non-functional-attributes)  
+10. [Technology Stack](#technology-stack)  
+11. [Hosted Link & Login Info](#hosted-link--login-info)  
 
-### Core Features:
+---
 
-- Centralized member database with search and filter capabilities.
-- Automated membership renewal reminders and notifications.
-- Membership status tracking (active, expired, pending renewal).
-- Reporting and analytics tools.
+## 🧩 Introduction
 
-### Additional Features (Optional):
+The CRM Web Application is a custom-built software system designed to fulfill the unique customer relationship management needs of the Niagara Industrial Association (NIA). This web-based solution simplifies data entry, improves access to member and contact information, and supports the organization's goal of fostering industrial development through better communication and information sharing.
 
-- Integration with accounting software.
-- Custom workflows for events and communications.
-- Role-based access control for secure data management.
+The application includes role-based access, real-time reporting, dashboards, and email notifications to enhance productivity and effectiveness. Developed between January and April 2025.
 
-## Technology Stack
+---
 
-- **Frontend**: MVC (Model-View-Controller) architecture
-- **Database**: SQLite
-- **Hosting**: Azure
-- **Version Control**: GitHub
+## 📊 Project Overview
 
-## Installation Instructions
+### 🎯 Objective
+To develop a secure and responsive CRM system for NIA staff to manage members, contacts, opportunities, and strategic operations efficiently.
 
-### Prerequisites
+### ⏳ Timeline
+January 2025 – April 2025  
+(Requirement gathering → Design → Development → Testing → Deployment)
 
-- SQLite installed and configured
+### 👥 Team Members
+- Elizaveta Lazareva  
+- Divyansh  
+- Rohit Thakur  
+- Khushi Vij  
+- Tania  
 
-### Steps
+---
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Divyansh896/NIA-CRM.git
+## 🛠 Key Features
+
+| Feature                   | Description |
+|--------------------------|-------------|
+| User Roles & Access Control | Admins and Supervisors with specific permissions |
+| Authentication System | ASP.NET Identity for secure logins |
+| Data Dashboards | Role-specific visual metrics |
+| Module-based CRUD | Full CRUD support for Members, Contacts, Opportunities |
+| Dynamic Reporting | Export reports in PDF, CSV |
+| Automated Email Alerts | SMTP/Mailtrap integration |
+| Relational Database Design | SQLite with normalized schema and EF Core |
+
+---
+
+## ⚙️ Technical Stack
+
+### Frontend:
+- Razor Views  
+- HTML, CSS, JavaScript  
+
+### Backend:
+- C#  
+- ASP.NET Core MVC  
+
+### Database:
+- SQLite (Development)  
+- EF Core (ORM)  
+
+### Authentication:
+- ASP.NET Identity  
+
+### Third-party Services:
+- Mailtrap (Development Email Testing)  
+- SMTP (Email Sending)
+
+---
+
+## 🧩 Functional Modules
+
+### 1. User & Role Management  
+Admins can create/edit users, assign roles, and restrict access.
+
+### 2. Member Management  
+Manage member companies, their statuses, and strategic data.
+
+### 3. Contact Management  
+Track communication history and outreach records.
+
+### 4. Opportunity Tracking  
+Track initiatives, assign stages, and link them to members.
+
+### 5. Dashboard View  
+Chart-based and tabular summaries for quick insights.
+
+### 6. Reports & Exports  
+Filter data dynamically and export reports as PDF/CSV.
+
+### 7. Notification System  
+Receive automated alerts for updates, changes, and deadlines.
+
+---
+
+## 🔐 Security & Compliance
+
+- Role-based route protection  
+- Input sanitization  
+- Passwords stored using hashing  
+- Strong data validation rules  
+
+---
+
+## 🚀 Performance Requirements
+
+- **System Requirements**: ASP.NET Core, SQLite-compatible system  
+- **Response Time**: ≤ 2 seconds under normal load  
+- **Scalability**: Designed to support future growth  
+- **Availability**: 99.9% uptime (excluding maintenance)
+
+---
+
+## 💻 Interface Requirements
+
+### User Interfaces
+- Graphical: Razor Views + HTML/CSS/JS  
+- No CLI  
+- Potential API exposure for integrations  
+
+### Hardware Interfaces
+- Interacts with server hardware, file systems  
+
+### Communication Interfaces
+- HTTP/HTTPS for client-server communication  
+- SMTP for email  
+
+### Software Interfaces
+- EF Core for ORM  
+- Mailtrap and SMTP for emails
+
+---
+
+## 🔧 Other Non-functional Attributes
+
+- **Security**: Role-based access, hashing, sanitization  
+- **Binary Compatibility**: ASP.NET Core & SQLite compatible  
+- **Reliability**: Backups, testing, fault tolerance  
+- **Maintainability**: Well-documented and modular  
+- **Portability**: Platform-independent  
+- **Extensibility**: Easily expandable  
+- **Reusability**: Adaptable for other organizations  
+- **Application Compatibility**: Compatible with other systems  
+
+---
+
+## 🧱 Technology Stack
+
+- **Frontend**: MVC (Model-View-Controller)  
+- **Database**: SQLite  
+- **Hosting**: Azure  
+- **Version Control**: GitHub  
+
+---
+
+## 🌐 Hosted Link & Login Info
+
+**🔗 URL**: [https://nia-crm.azurewebsites.net](https://nia-crm.azurewebsites.net)
+
+### Test Users
+| Email              | Password   | Role     |
+|-------------------|------------|----------|
+| admin@outlook.com | Pa55w@rd   | Admin    |
+| super@outlook.com | Pa55w@rd   | Supervisor |
+
+---
+
+
+> Developed by **Stellar Co.** 🚀
