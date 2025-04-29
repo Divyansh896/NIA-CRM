@@ -201,6 +201,8 @@ Receive automated alerts for updates, changes, and deadlines.
 | super@outlook.com | Pa55w@rd   | Supervisor |
 
 ---
+📄 **Download the full user manual here:**  
+[📥 NIA CRM User Manual.pdf](docs/NIA%20CRM%20User%20Manual.pdf)
 
-
+---
 > Developed by **Stellar Co.** 🚀
