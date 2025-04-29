@@ -202,7 +202,7 @@ Receive automated alerts for updates, changes, and deadlines.
 
 ---
 📄 **Download the full user manual here:**  
-[📥 NIA CRM User Manual.pdf](docs/NIA%20CRM%20User%20Manual.pdf)
+[📥 NIA CRM User Manual.pdf](wwwroot/docs/NIA%CRM%User%Manual.pdf)
 
 ---
 > Developed by **Stellar Co.** 🚀
