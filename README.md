@@ -25,20 +25,20 @@ Stellar Co. combines technical expertise in **ASP.NET Core**, **MVC architecture
 ---
 
 ## 📌 Table of Contents
-1. [Introduction](#introduction)  
-2. [Project Overview](#project-overview)  
+1. [Introduction](#-introduction)  
+2. [Project Overview](#-project-overview)  
    - Objective  
    - Timeline  
    - Team Members  
-3. [Key Features](#key-features)  
-4. [Technical Stack](#technical-stack)  
-5. [Functional Modules](#functional-modules)  
-6. [Security & Compliance](#security--compliance)  
-7. [Performance Requirements](#performance-requirements)  
-8. [Interface Requirements](#interface-requirements)  
-9. [Other Non-functional Attributes](#other-non-functional-attributes)  
-10. [Technology Stack](#technology-stack)  
-11. [Hosted Link & Login Info](#hosted-link--login-info)  
+3. [Key Features](#-key-features)  
+4. [Technical Stack](#-technical-stack)  
+5. [Functional Modules](#-functional-modules)  
+6. [Security & Compliance](#-security--compliance)  
+7. [Performance Requirements](#-performance-requirements)  
+8. [Interface Requirements](#-interface-requirements)  
+9. [Other Non-functional Attributes](#-other-non-functional-attributes)  
+10. [Technology Stack](#-technology-stack)  
+11. [Hosted Link & Login Info](#-hosted-link--login-info)  
 
 ---
 
